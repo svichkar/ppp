@@ -13,6 +13,66 @@ public class CustomCollection<E> implements Collection<E> {
 		this.currentSize = inputArr.length;
 	}
 	
+	public boolean add(E e) {
+		try {
+			
+		} catch (Exception ex) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	public boolean remove(Object o) {
+		boolean result = false;
+		for (Iterator<E> iter = iterator(); iter.hasNext();) {
+			E curItem = iter.next();
+			if (o != null && o.equals(curItem)) {
+				curItem = null;
+				result = true;
+			}
+		}
+		return result;
+	}
+	
+	public boolean removeAll(Collection<?> c) {
+		boolean result = false;
+		for (Object item : c) {
+			result = result ||remove(item);
+		}
+		return result;
+	}
+	
+	public boolean containsAll(Collection<?> c) {
+		
+	}
+	
+	public int size() {
+		return currentSize;
+	}
+	
+	public boolean isEmpty() {
+		boolean result = true;
+		for (Iterator<E> iter = iterator(); iter.hasNext();) {
+			E curItem = iter.next();
+			result = result & curItem == null;
+		}
+		return result;
+	}
+	
+	public E[] toArray() {
+		return dataArr;
+	}
+	
+	public <T> T[] toArray(T[] a) {
+		
+	}
+	
+	public void clear() {
+		for (Iterator<E> iter = iterator(); iter.hasNext();) {
+			E curItem = iter.next();
+			curItem = null;
+		}
+	}
+	
 	public Iterator<E> iterator() {
 		return new CustomIterator();
 	}

@@ -56,6 +56,7 @@ public class DateProcessing {
 	private static void printMonthLengthByYear(int year) {
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.DAY_OF_MONTH, 1);
 		System.out.printf("Lengths of months for selected year. Year: %s.%n", year);
 		for (int i = 0; i < 12; i++) {
 			cal.set(Calendar.MONTH, i);

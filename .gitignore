@@ -5,8 +5,9 @@
 /*.iml
 /.gitignore
 /.idea/
-/lab1/*.iml
-/lab1/out/
-/lab1/.idea/
+/LabOne/*.iml
+/LabOne/out/
+/LabOne/.idea/
 /doc/*
 !/doc/com/
+/lab1/

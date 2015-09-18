@@ -4,6 +4,10 @@ import java.util.Random;
 
 public class Task1 {
 	public static void main(String[] args){
+		countSortingTime();
+	}
+	
+	public static void countSortingTime(){
 		long[][] sortingTime = new long[2][20];
 		Random randomNumber = new Random();
 		int min = -100;

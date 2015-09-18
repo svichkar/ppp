@@ -8,3 +8,5 @@
 /lab1/*.iml
 /lab1/out/
 /lab1/.idea/
+/doc/*
+!/doc/com/

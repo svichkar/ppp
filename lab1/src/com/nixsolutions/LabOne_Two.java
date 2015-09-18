@@ -6,8 +6,14 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/** LabOne_Two class is created to implement the second task for "Basic types" quiz
+ * @author	kulishov */
 public class LabOne_Two {
 
+	/** main method is an access point for launching first task
+	 * @author	kulishov
+	 * @param	args		defines parameters that are used 
+	 * @throws	IOException	if there is no console to write to*/
 	public static void main(String[] args) throws IOException {
 		final String scientificPattern = "^\\d\\.\\d+[eE][+\\-]?\\d{1,2}[df]?(\r\n)?$";
 		final String normalPattern = "^\\d+(\\.\\d+)?[df]?(\r\n)?$";

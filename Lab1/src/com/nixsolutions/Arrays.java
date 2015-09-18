@@ -2,17 +2,17 @@ package com.nixsolutions;
 
 public class Arrays {
 
-	public static int[] sort(int[] a){
-		int[] sortedA = a.clone();
-		for (int i = 0; i < a.length - 1; i++){
-			for(int j = 0; j < a.length - 1 - i; j++){
-				if (a[j]>a[j+1]){
-					int c = a[j];
-					a[j] = a[j+1];
-					a[j+1] = c;
+	/** Bubble sorting method. Sort order - ascending */
+	public static void sort(int[] a){
+		int[] sortedArray = a.clone();
+		for (int i = 0; i < sortedArray.length - 1; i++){
+			for(int j = 0; j < sortedArray.length - 1 - i; j++){
+				if (sortedArray[j]>sortedArray[j+1]){
+					int b = sortedArray[j];
+					sortedArray[j] = sortedArray[j+1];
+					sortedArray[j+1] = b;
 				}
 			}
 		}
-		return sortedA;
 	}
 }

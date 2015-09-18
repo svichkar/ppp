@@ -42,8 +42,9 @@ public class Arrays {
 		}
 		long avrerageTimeContainer[] = new long[2];
 		final int ARR_DEPTH = 2;
+		final int ARR_LENGTH = 2;
 		for (int i = 0; i < ARR_DEPTH; i++) {
-			for (int j = 0; j < 20; j++) {
+			for (int j = 0; j < ARR_LENGTH; j++) {
 				avrerageTimeContainer[i] += results[j][i];
 
 			}

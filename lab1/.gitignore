@@ -1,6 +1,7 @@
 /bin/
 /out/
-/.idea/
-/.project
 /.classpath
+/.project
 /*.iml
+/.gitignore
+/.idea/

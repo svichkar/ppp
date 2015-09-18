@@ -2,10 +2,8 @@ package com.nixsolutions;
 
 import java.util.Random;
 
-/**
- * Created by kulishov on 09/17/2015.
- */
 public class LabOne_One {
+	
     public static void main(String[] args){
         int[][] timeResults = new int[20][2];
         long sumCustom = 0L;

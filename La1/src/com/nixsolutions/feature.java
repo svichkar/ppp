@@ -5,22 +5,38 @@ import java.util.Random;
 public class feature {
 
 	public static void main(String[] args) throws InterruptedException {
+		long[][] timeToSort = new long[2][20];
 		// TODO Auto-generated method stub
-
-		String oldArr = "";
-		String sortArr = "";
-		int[] randomArray = new int[10];
-		for (int i = 0; i < 10; i++) {
-			Random r = new Random(System.nanoTime());
-			randomArray[i] = r.nextInt(201) - 100;
+		for (int y = 0; y < 20; y++) {
+			String oldArr = "";
+			String sortArr = "";
+			int[] randomArray = new int[10000];
+			for (int i = 0; i < 10000; i++) {
+				Random r = new Random(System.nanoTime());
+				randomArray[i] = r.nextInt(201) - 100;
+			}
+			long startTime = System.nanoTime();
+			int[] newArr = Arrays.sort(randomArray);
+			long finishTime = System.nanoTime();
+			timeToSort[0][y] = finishTime - startTime;
+			System.out.println("buble sort: " + (finishTime - startTime));
+			
+			startTime = System.nanoTime();
+			java.util.Arrays.sort(randomArray);
+			finishTime = System.nanoTime();
+			timeToSort[1][y] = finishTime - startTime;
+			System.out.println("system sort: " + (finishTime - startTime));
 		}
-		int[] newArr = Arrays.sort(randomArray);
-		for (int x : randomArray)
-			oldArr += x + "; ";
-		for (int x : newArr)
-			sortArr += x + "; ";
-		System.out.println("new array: " + sortArr);
-		System.out.println("old array:" + oldArr);
+		long halfTimeToBubleSort = 0;
+		long halfTimeToSystemSort = 0;
+		for (int i = 0; i < 20; i++)
+			halfTimeToBubleSort += timeToSort[0][i];
+		halfTimeToBubleSort /= 20;
+		for (int i = 0; i < 20; i++)
+			halfTimeToSystemSort += timeToSort[1][i];
+		halfTimeToSystemSort /= 20;
+		System.out.println("buble sort: " + halfTimeToBubleSort + " ns");
+		System.out.println("system sort: " + halfTimeToSystemSort+ " ns");
 
 	}
 

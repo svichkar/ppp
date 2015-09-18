@@ -8,6 +8,8 @@ public class Arrays {
 
 	public static void main(String[] args) {
 
+		Converter conv = new Converter();
+		conv.converter();
 		startApp();
 	}
 
@@ -68,5 +70,6 @@ public class Arrays {
 		}
 
 	}
+	
 
 }

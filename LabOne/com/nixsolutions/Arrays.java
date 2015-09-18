@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-/** Arrays class created for first task for "Basic types" quiz 
+/** Arrays class created for first task for "Basic types" quiz.
  * @author	kulishov */
 public class Arrays {
 	

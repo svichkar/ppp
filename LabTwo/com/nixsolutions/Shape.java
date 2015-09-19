@@ -4,13 +4,23 @@ public abstract class Shape {
 	
 	private int coordX;
 	private int coordY;
+	private float size;
 	
-	private void setCoordX(int value){
+	protected void setCoordX(int value){
 		coordX = value;
 	}
 	
-	private void setCoordY(int value){
+	protected void setCoordY(int value){
 		coordY = value;
+	}
+	
+	protected void setSize(float value){
+		if (value<0){
+			size = 0;
+			System.out.println("Size cannot be less than zero. Setting shape size to 0.");
+		} else {
+			size = value;
+		}
 	}
 	
 	public int getCoordX(){
@@ -21,11 +31,18 @@ public abstract class Shape {
 		return coordY;
 	}
 	
+	public float getSize(){
+		return size;
+	}
+	
+	public void changeSize(float modifier){
+		setSize(getSize()*modifier);
+	}
+	
 	public void move(int diffX, int diffY){
 		setCoordX(getCoordX()+diffX);
 		setCoordY(getCoordY()+diffY);
 	}
 	
-	public abstract int area();
-	public abstract int changeSize();
+	public abstract float area();
 }

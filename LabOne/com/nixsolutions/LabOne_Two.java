@@ -21,7 +21,7 @@ public class LabOne_Two {
 		Pattern normPattern = Pattern.compile(normalPattern);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Please input number with floating point.");
-		String input = br.readLine();
+		String input = br.readLine().replaceAll(",", ".");
 		Matcher sciMatcher = sciPattern.matcher(input);
 		Matcher normMatcher = normPattern.matcher(input);
 		if (sciMatcher.find()) {

@@ -6,7 +6,7 @@ public class Triangle extends Shape {
 
 	@Override
 	public float area() {
-		return (float) (Math.sqrt(3)*Math.pow(getSize(), 2)/4d);
+		return (float) (Math.sqrt(3) * Math.pow(getSize(), 2) / 4d);
 	}
 	
 	public Triangle(){

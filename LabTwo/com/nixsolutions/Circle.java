@@ -6,7 +6,7 @@ public class Circle extends Shape {
 
 	@Override
 	public float area() {
-		return (float) (Math.PI*Math.pow(getSize(), 2));
+		return (float) (Math.PI * Math.pow(getSize(), 2));
 	}
 	
 	public Circle(){

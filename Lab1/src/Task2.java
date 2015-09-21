@@ -11,9 +11,9 @@ public class Task2 {
 		String inputString = keyboard.readLine();
 		Double d = Double.parseDouble(inputString);
 		if (inputString.toLowerCase().contains("e")) {
-			System.out.printf("%1.1f",d);
+			System.out.printf("%f",d);
 		} else {
-			System.out.printf("%1.1E", d);
+			System.out.printf("%E", d);
 		}
 	}
 }

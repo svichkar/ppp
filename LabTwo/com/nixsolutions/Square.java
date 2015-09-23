@@ -81,14 +81,9 @@ public class Square extends Shape {
 	public void changeSize(float modifier){
 		if (modifier < 0){
 			System.out.println("Modifier cannot be less than zero. Setting modifier to 1.");
-		} else {
-			float [][] newCoords = getCoordinates();
-			for (int i = 0; i < newCoords.length; i++){
-				for (int j = 0; j < newCoords[i].length; j++){
-					newCoords[i][j] *= modifier;
-				}
-			}
-			setCoordinates(newCoords);
+		} else {			
+			setCoordinates(generateSquareCoords(getCoordinates()[0][0], getCoordinates()[0][1],
+					getSide() * modifier));
 			setSide(getSide() * modifier);
 		}
 	}

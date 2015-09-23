@@ -34,7 +34,7 @@ public class Triangle extends Shape {
 			System.out.println("Modifier cannot be less than zero. Setting modifier to 1.");
 		} else {
 			float [][] newCoords = getCoordinates();
-			for (int i = 0; i < newCoords.length; i++){
+			for (int i = 1; i < newCoords.length; i++){
 				for (int j = 0; j < newCoords[i].length; j++){
 					newCoords[i][j] *= modifier;
 				}

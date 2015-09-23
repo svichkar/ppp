@@ -36,8 +36,7 @@ public abstract class Shape {
 	/**area method is an abstract method that should return the area value for the Shape.
 	 * @author	kulishov
 	 * @return	Returns float value of the area of the Shape. */
-	public abstract float area();
-	
+	public abstract float area();	
 
 	/**changeSize method is used to change size field value.
 	 * @author	kulishov

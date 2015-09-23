@@ -9,7 +9,7 @@ public class Circle extends Shape {
 	/**getRadius method is used to get the value of radius field.
 	 * @author	kulishov 
 	 * @return	Returns float value of radius. */
-	public float getRadius(){
+	public float getRadius() {
 		return radius;
 	}
 	
@@ -19,8 +19,8 @@ public class Circle extends Shape {
 	 * will be set to zero and warning message will be displayed in the console.
 	 * @author	kulishov 
 	 * @param	value	Intended value of the size. */
-	private void setRadius(float value){
-		if (value < 0){
+	private void setRadius(float value) {
+		if (value < 0) {
 			radius = 0;
 			System.out.println("Radius cannot be less than zero. Setting Radius to 0.");
 		} else {
@@ -30,7 +30,7 @@ public class Circle extends Shape {
 	
 	/**Initializes new Circle object with random coordinates and size.
 	 * @author	kulishov */
-	public Circle(){
+	public Circle() {
 		Random rand = new Random();
 		setRadius(rand.nextFloat());
 		setCoordinates(new float[][]{{rand.nextFloat(), rand.nextFloat()}});
@@ -41,7 +41,7 @@ public class Circle extends Shape {
 	 * @param	coordX	Defines X coordinate.
 	 * @param	coordY	Defines Y coordinate,
 	 * @param	size	Defines size. */
-	public Circle(float coordX, float coordY, float radius){
+	public Circle(float coordX, float coordY, float radius) {
 		setRadius(radius);
 		setCoordinates(new float[][]{{coordX, coordY}});
 	}
@@ -50,7 +50,7 @@ public class Circle extends Shape {
 	 * @author	kulishov
 	 * @param	coordX	Defines X coordinate.
 	 * @param	coordY	Defines Y coordinate. */
-	public Circle(float coordX, float coordY){
+	public Circle(float coordX, float coordY) {
 		Random rand = new Random();
 		setRadius(rand.nextFloat());
 		setCoordinates(new float[][]{{coordX, coordY}});
@@ -59,7 +59,7 @@ public class Circle extends Shape {
 	/**Initializes new Circle object with defined size and random coordinates.
 	 * @author	kulishov
 	 * @param	size	Defines size. */
-	public Circle(float radius){
+	public Circle(float radius) {
 		Random rand = new Random();
 		setRadius(radius);
 		setCoordinates(new float[][]{{rand.nextFloat(), rand.nextFloat()}});
@@ -78,7 +78,7 @@ public class Circle extends Shape {
 	 * @author	kulishov
 	 * @param	modifier	Parameter of type 'float'. 
 	 * 						Defines value of modifier by which radius is multiplied. */
-	public void changeSize(float modifier){
+	public void changeSize(float modifier) {
 		setRadius(getRadius() * modifier);
 	}
 }

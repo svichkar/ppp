@@ -16,7 +16,7 @@ public class LabOne_Two {
 	 * @throws	IOException	throws {@link java.io.IOException} 
 	 * 						if there is no console to write to. */
 	public static void main(String[] args) throws IOException {
-		final String scientificPattern = "^\\d\\.\\d+[eE][+\\-]?\\d{1,2}[df]?(\r\n)?$";
+		final String scientificPattern = "^\\d(\\.\\d+)?[eE][+\\-]?\\d{1,2}[df]?(\r\n)?$";
 		final String normalPattern = "^\\d+(\\.\\d+)?[df]?(\r\n)?$";
 		Pattern sciPattern = Pattern.compile(scientificPattern);
 		Pattern normPattern = Pattern.compile(normalPattern);

@@ -9,7 +9,7 @@ public class Square extends Shape {
 	/**getSide method is used to get the value of side field.
 	 * @author	kulishov 
 	 * @return	Returns float value of side. */
-	public float getSide(){
+	public float getSide() {
 		return side;
 	}
 	
@@ -19,8 +19,8 @@ public class Square extends Shape {
 	 * will be set to zero and warning message will be displayed in the console.
 	 * @author	kulishov 
 	 * @param	value	Intended value of the size. */
-	private void setSide(float value){
-		if (value < 0){
+	private void setSide(float value) {
+		if (value < 0) {
 			side = 0;
 			System.out.println("Radius cannot be less than zero. Setting Radius to 0.");
 		} else {
@@ -30,7 +30,7 @@ public class Square extends Shape {
 	
 	/**Initializes new Square object with random coordinates and size.
 	 * @author	kulishov */
-	public Square(){
+	public Square() {
 		Random rand = new Random();
 		setSide(rand.nextFloat());
 		setCoordinates(generateSquareCoords(rand.nextFloat(), rand.nextFloat(), getSide()));
@@ -41,7 +41,7 @@ public class Square extends Shape {
 	 * @param	coordX	Defines X coordinate.
 	 * @param	coordY	Defines Y coordinate.
 	 * @param	size	Defines size. */
-	public Square(float coordX, float coordY, float side){
+	public Square(float coordX, float coordY, float side) {
 		setSide(side);
 		setCoordinates(generateSquareCoords(coordX, coordY, getSide()));
 	}
@@ -50,7 +50,7 @@ public class Square extends Shape {
 	 * @author	kulishov
 	 * @param	coordX	Defines X coordinate.
 	 * @param	coordY	Defines Y coordinate. */
-	public Square(float coordX, float coordY){
+	public Square(float coordX, float coordY) {
 		Random rand = new Random();
 		setSide(rand.nextFloat());
 		setCoordinates(generateSquareCoords(coordX, coordY, getSide()));
@@ -59,7 +59,7 @@ public class Square extends Shape {
 	/**Initializes new Square object with defined size and random coordinates.
 	 * @author	kulishov
 	 * @param	size	Defines size. */
-	public Square(float side){
+	public Square(float side) {
 		Random rand = new Random();
 		setSide(side);
 		setCoordinates(generateSquareCoords(rand.nextFloat(), rand.nextFloat(), getSide()));
@@ -78,8 +78,8 @@ public class Square extends Shape {
 	 * @author	kulishov
 	 * @param	modifier	Parameter of type 'float'. 
 	 * 						Defines value of modifier by which side is multiplied. */
-	public void changeSize(float modifier){
-		if (modifier < 0){
+	public void changeSize(float modifier) {
+		if (modifier < 0) {
 			System.out.println("Modifier cannot be less than zero. Setting modifier to 1.");
 		} else {			
 			setCoordinates(generateSquareCoords(getCoordinates()[0][0], getCoordinates()[0][1],
@@ -94,8 +94,8 @@ public class Square extends Shape {
 	 * @param	startY	Defines Y coordinate of the left bottom corner of the Square.
 	 * @param	side	Defines side of the Square.
 	 * @return			Returns generated coordinates. */
-	private float[][] generateSquareCoords(float startX, float startY, float side){
-		return new float[][]{
+	private float[][] generateSquareCoords(float startX, float startY, float side) {
+		return new float[][] {
 			{startX, startY},
 			{startX + side, startY},
 			{startX, startY + side},

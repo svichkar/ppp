@@ -11,14 +11,14 @@ public abstract class Shape {
 	/**setCoordinates method is used to set the value of coordinates field.
 	 * @author	kulishov 
 	 * @param	value	Intended value of the coordinates. */
-	protected void setCoordinates(float[][] value){
+	protected void setCoordinates(float[][] value) {
 		coordinates = value;
 	}
 	
 	/**getCoordX method is used to get the value of coordX field.
 	 * @author	kulishov 
 	 * @return	Returns integer value of coordX. */
-	public float[][] getCoordinates(){
+	public float[][] getCoordinates() {
 		return coordinates;
 	}
 	
@@ -26,8 +26,8 @@ public abstract class Shape {
 	 * @author	kulishov
 	 * @param	diffX	Defines the difference between current and desired positions by X axis.
 	 * @param	diffY	Defines the difference between current and desired positions by Y axis. */
-	public void move(float diffX, float diffY){
-		for (int i = 0; i < coordinates.length; i++){
+	public void move(float diffX, float diffY) {
+		for (int i = 0; i < coordinates.length; i++) {
 			coordinates[i][0] += diffX;
 			coordinates[i][1] += diffY;
 		}

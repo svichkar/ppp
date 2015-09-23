@@ -9,7 +9,7 @@ public class Main {
 	/**main method is used as an access point to run the program. 
 	 * @author	kulishov 
 	 * @param	args	defines parameters that are used. */
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Shape[] shapes = new Shape[10];
 		generateShapes(shapes);
 		modifySize(shapes);
@@ -20,10 +20,10 @@ public class Main {
 	 * with random Circle, Square, Triangle type objects.
 	 * @author	kulishov
 	 * @param	shapes	Array of Shape objects. */
-	private static void generateShapes(Shape[] shapes){
-		for (int i = 0; i < shapes.length; i++){
+	private static void generateShapes(Shape[] shapes) {
+		for (int i = 0; i < shapes.length; i++) {
 			Random rand = new Random();
-			switch (rand.nextInt(3)){
+			switch (rand.nextInt(3)) {
 			case 0:
 				shapes[i] = new Circle();
 				break;
@@ -44,8 +44,8 @@ public class Main {
 	 * for every Shape object in the incoming array.
 	 * @author	kulishov
 	 * @param	shapes	Array of Shape objects. */
-	private static void modifySize(Shape[] shapes){
-		for (int i = 0; i < shapes.length; i++){
+	private static void modifySize(Shape[] shapes) {
+		for (int i = 0; i < shapes.length; i++) {
 			Random rand = new Random();
 			shapes[i].changeSize(rand.nextFloat());
 		}
@@ -55,11 +55,11 @@ public class Main {
 	 * in the incoming Shape array by the area value.
 	 * @author	kulishov
 	 * @param	shapes	Array of Shape objects. */
-	private static void sortByArea(Shape[] shapes){
-		for (int i = 0; i < shapes.length; i++){
-			for (int j = i + 1; j < shapes.length; j++){
+	private static void sortByArea(Shape[] shapes) {
+		for (int i = 0; i < shapes.length; i++) {
+			for (int j = i + 1; j < shapes.length; j++) {
 				Shape temp;
-				if (shapes[i].area() < shapes[j].area()){
+				if (shapes[i].area() < shapes[j].area()) {
 					temp = shapes[i];
 					shapes[i] = shapes[j];
 					shapes[j] = temp;

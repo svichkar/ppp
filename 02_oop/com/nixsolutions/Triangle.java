@@ -6,9 +6,9 @@ public class Triangle extends Shape {
 	
 	/**Initializes new Triangle object with random coordinates and size.
 	 * @author	kulishov */
-	public Triangle(){
+	public Triangle() {
 		Random rand = new Random();
-		setCoordinates(new float[][]{
+		setCoordinates(new float[][] {
 			{rand.nextFloat(), rand.nextFloat()},
 			{rand.nextFloat(), rand.nextFloat()},
 			{rand.nextFloat(), rand.nextFloat()},
@@ -20,7 +20,7 @@ public class Triangle extends Shape {
 	 * @param	coordX	Defines X coordinate.
 	 * @param	coordY	Defines Y coordinate,
 	 * @param	size	Defines size. */
-	public Triangle(float[][] coordinates){
+	public Triangle(float[][] coordinates) {
 		setCoordinates(coordinates);
 	}
 	
@@ -29,13 +29,13 @@ public class Triangle extends Shape {
 	 * @author	kulishov
 	 * @param	modifier	Parameter of type 'float'. 
 	 * 						Defines value of modifier by which side is multiplied. */
-	public void changeSize(float modifier){
-		if (modifier < 0){
+	public void changeSize(float modifier) {
+		if (modifier < 0) {
 			System.out.println("Modifier cannot be less than zero. Setting modifier to 1.");
 		} else {
 			float [][] newCoords = getCoordinates();
-			for (int i = 1; i < newCoords.length; i++){
-				for (int j = 0; j < newCoords[i].length; j++){
+			for (int i = 1; i < newCoords.length; i++) {
+				for (int j = 0; j < newCoords[i].length; j++) {
 					newCoords[i][j] *= modifier;
 				}
 			}

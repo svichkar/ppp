@@ -17,7 +17,7 @@ public class Task2 {
 			System.out.format("%.10f", Double.valueOf(inputString));
 		}
 		else {
-			System.out.format("%.10E", Double.valueOf(inputString));
+			System.out.format("%.5E", Double.valueOf(inputString));
 		}
 	}
 }

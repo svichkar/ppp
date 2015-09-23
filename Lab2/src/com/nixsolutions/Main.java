@@ -27,9 +27,9 @@ public class Main {
 							transportArray[j].rightTurn();
 						}
 						break;
-				case 2: int stepsCount = rdm.nextInt(5)+1;
+				case 2: int stepsCount = rdm.nextInt(5);
 						for (int j = 0; j < transportArray.length; j++){
-							for (int sc = 0; sc < stepsCount; sc++){
+							for (int sc = 0; sc <= stepsCount; sc++){
 								transportArray[j].rightTurn();
 							}
 						}
@@ -37,6 +37,14 @@ public class Main {
 				default: break;
 			}
 		}
-		
+		for (int i = 0; i < transportArray.length - 1; i++){
+			for(int j = 0; j < transportArray.length - 1 - i; j++){
+				if (transportArray[j].getDistance()>transportArray[j+1].getDistance()){
+					Transport b = transportArray[j];
+					transportArray[j] = transportArray[j+1];
+					transportArray[j+1] = b;
+				}
+			}
+		}
 	}
 }

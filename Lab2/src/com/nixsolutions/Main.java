@@ -3,6 +3,12 @@ package com.nixsolutions;
 import java.util.Random;
 
 public class Main {
+	
+	/**
+	 * Creates array of 10 random vehicles.
+	 * Simulates move of vehicles.
+	 * Sorts array of vehicles by passed distance.
+	 */
 	public static void main(String[] args){
 		Transport[] transportArray = new Transport[10];
 		Random rdm = new Random();

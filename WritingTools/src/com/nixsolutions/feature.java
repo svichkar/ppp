@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * main class
+ */
 public class feature {
 
+	/**
+	 * main method
+	 */
 	public static void main(String[] args) throws Exception {
 		ArrayList<WritingObjects> objects = generateObjectsCollection();
 		System.out.print("Generated collection of the objects:\n");
@@ -36,14 +42,22 @@ public class feature {
 		}
 		System.out.print("\n\n\n\n\n\n\n\n\n\nObject before sorting by the rest of writing means:\n");
 		for (WritingObjects obj : objects)
-			System.out.print(obj.getClass().getSimpleName() + " with rest of writing means: "+obj.restOfWritingMeans+"\n");
+			System.out.print(
+					obj.getClass().getSimpleName() + " with rest of writing means: " + obj.restOfWritingMeans + "\n");
 		ArrayList<WritingObjects> objectsSort = sort(objects);
 		System.out.print("\n\n\n\n\n\n\n\n\n\nObject after sorting by the rest of writing means:\n");
 		for (WritingObjects obj : objectsSort)
-			System.out.print(obj.getClass().getSimpleName() + " with rest of writing means: "+obj.restOfWritingMeans+"\n");
+			System.out.print(
+					obj.getClass().getSimpleName() + " with rest of writing means: " + obj.restOfWritingMeans + "\n");
 
 	}
 
+	/**
+	 * create writing tool by user choice
+	 * 
+	 * @param userChoice
+	 *            user choice
+	 */
 	private static WritingObjects selectWritingTool(int userChoice) {
 		switch (userChoice) {
 		case 1:
@@ -58,6 +72,9 @@ public class feature {
 		}
 	}
 
+	/**
+	 * generate collection of the random Writing Objects
+	 */
 	private static ArrayList<WritingObjects> generateObjectsCollection() {
 		int[] randomArray = new int[10];
 		Random r = new Random(System.nanoTime());
@@ -71,6 +88,9 @@ public class feature {
 		return objects;
 	}
 
+	/**
+	 * bubble sort by rest of writing means
+	 * @param start collection before sorting*/
 	private static ArrayList<WritingObjects> sort(ArrayList<WritingObjects> start) {
 		ArrayList<WritingObjects> objArray = (ArrayList<WritingObjects>) start.clone();
 		for (int i = 0; i < objArray.size(); i++) {

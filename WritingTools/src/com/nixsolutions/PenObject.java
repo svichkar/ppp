@@ -6,8 +6,8 @@ package com.nixsolutions;
 import java.util.Random;
 
 /**
- * @author mixeyes
- *
+ * class for objects PEN
+ * 
  */
 public class PenObject extends WritingObjects implements WritingTools {
 	public PenObject() {
@@ -17,14 +17,15 @@ public class PenObject extends WritingObjects implements WritingTools {
 	@Override
 	public void preparationForWriting() {
 		System.out.print("rest of writing means before preparation: \"" + restOfWritingMeans + "\"%\n");
+		color = "black";
 		restOfWritingMeans = 100.00f;
 		System.out.print("rest of writing means after preparation: \"" + restOfWritingMeans + "\"%\n");
 	}
 
 	@Override
 	public char write() {
-		System.out.println("Actual state of the pen:\n actual color: \"" + color
-				+ "\"\n rest of writing means: \"" + restOfWritingMeans + "\"\n");
+		System.out.println("Actual state of the pen:\n actual color: \"" + color + "\"\n rest of writing means: \""
+				+ restOfWritingMeans + "\"\n");
 		Random r = new Random(System.nanoTime());
 
 		char randomChar = (char) (r.nextInt(26) + 'a');
@@ -37,7 +38,7 @@ public class PenObject extends WritingObjects implements WritingTools {
 
 	@Override
 	public StringBuilder erase(StringBuilder stringBuilder) {
-		stringBuilder.deleteCharAt(stringBuilder.length()-1);
+		stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 		return stringBuilder;
 	}
 

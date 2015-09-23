@@ -2,6 +2,9 @@ package com.nixsolutions;
 
 import java.util.Random;
 
+/**
+ * class for objects PENCIL
+ */
 public class PencilObject extends WritingObjects implements WritingTools {
 
 	public PencilObject() {
@@ -10,16 +13,16 @@ public class PencilObject extends WritingObjects implements WritingTools {
 
 	@Override
 
-		public void preparationForWriting() {
-			System.out.print("rest of writing means before preparation: \"" + restOfWritingMeans + "\"%\n");
-			restOfWritingMeans = 100.00f;
-			System.out.print("rest of writing means after preparation: \"" + restOfWritingMeans + "\"%\n");
-		}
+	public void preparationForWriting() {
+		System.out.print("rest of writing means before preparation: \"" + restOfWritingMeans + "\"%\n");
+		restOfWritingMeans = 100.00f;
+		System.out.print("rest of writing means after preparation: \"" + restOfWritingMeans + "\"%\n");
+	}
 
 	@Override
 	public char write() {
-		System.out.println("Actual state of the pencil:\n actual color: \"" + color
-				+ "\"\n rest of writing means: \"" + restOfWritingMeans + "\"\n");
+		System.out.println("Actual state of the pencil:\n actual color: \"" + color + "\"\n rest of writing means: \""
+				+ restOfWritingMeans + "\"\n");
 		Random r = new Random(System.nanoTime());
 
 		char randomChar = (char) (r.nextInt(26) + 'a');
@@ -32,7 +35,7 @@ public class PencilObject extends WritingObjects implements WritingTools {
 
 	@Override
 	public StringBuilder erase(StringBuilder stringBuilder) {
-		stringBuilder.deleteCharAt(stringBuilder.length()-1);
+		stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 		return stringBuilder;
 	}
 

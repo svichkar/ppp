@@ -6,27 +6,29 @@ public class feature {
 
 	public static void main(String[] args) throws InterruptedException {
 		long[][] timeToSort = new long[2][20];
-		// TODO Auto-generated method stub
+		// cycle of the 20 iterations
 		for (int y = 0; y < 20; y++) {
 			String oldArr = "";
 			String sortArr = "";
 			int[] randomArray = new int[10000];
+			//generate array[10000] of random values
 			for (int i = 0; i < 10000; i++) {
 				Random r = new Random(System.nanoTime());
 				randomArray[i] = r.nextInt(201) - 100;
 			}
+			//custom sorting
 			long startTime = System.nanoTime();
 			int[] newArr = Arrays.sort(randomArray);
 			long finishTime = System.nanoTime();
 			timeToSort[0][y] = finishTime - startTime;
-			System.out.println("buble sort: " + (finishTime - startTime));
-			
+
+			//system sorting
 			startTime = System.nanoTime();
 			java.util.Arrays.sort(randomArray);
 			finishTime = System.nanoTime();
 			timeToSort[1][y] = finishTime - startTime;
-			System.out.println("system sort: " + (finishTime - startTime));
 		}
+		//calculation of the arithmetic mean
 		long halfTimeToBubleSort = 0;
 		long halfTimeToSystemSort = 0;
 		for (int i = 0; i < 20; i++)
@@ -35,6 +37,7 @@ public class feature {
 		for (int i = 0; i < 20; i++)
 			halfTimeToSystemSort += timeToSort[1][i];
 		halfTimeToSystemSort /= 20;
+		//print of the results
 		System.out.println("buble sort: " + halfTimeToBubleSort + " ns");
 		System.out.println("system sort: " + halfTimeToSystemSort+ " ns");
 

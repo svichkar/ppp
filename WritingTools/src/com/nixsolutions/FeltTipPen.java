@@ -7,8 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * @author mixeyes
- *
+ * class for objects FELT-TIP PEN
  */
 public class FeltTipPen extends WritingObjects implements WritingTools {
 

@@ -16,7 +16,8 @@ public class Main {
 		Shape[] arrayFigure = new Shape[10];
 		generateFigure(arrayFigure);
 		resizeEachFigure(arrayFigure);
-				
+		relocateShapes(arrayFigure);
+
 		sortShapesByArea(arrayFigure);
 		System.out.printf("Min area of shape %1.5f \nMax area of shape %2.5f",
 				arrayFigure[0].area(), arrayFigure[9].area());
@@ -80,4 +81,16 @@ public class Main {
 		}
 	}
 
+	/**Ths method is implemented for relocating Shape objects in array at random coordinates 
+	 * @author maxb
+	 * @param shapes Array of Shape objects
+	 */
+	public static void relocateShapes(Shape[] shapes)
+	{
+		Random rnd = new Random();
+		for(int i=0; i<shapes.length; i++)
+		{
+			shapes[i].relocate(rnd.nextFloat(), rnd.nextFloat());
+		}
+	}
 }

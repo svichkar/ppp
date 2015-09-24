@@ -1,5 +1,8 @@
 package com.nixsolutions;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.Random;
 
 public class Arrays {
@@ -8,9 +11,9 @@ public class Arrays {
 
   public static void main(String[] args) {
 
-    Converter conv = new Converter();
-    conv.converter();
+    BigDecimal bigD = converter();
     startApp();
+
   }
 
   public static void startApp() {
@@ -36,7 +39,7 @@ public class Arrays {
 
       results[i][0] = timeForCurrentIteration;
       startTime = System.currentTimeMillis();
-      sort(arr.clone());
+      int[] sortedArrayByBubbleMethod =  sort(arr);
       timeForCurrentIteration = System.currentTimeMillis() - startTime;
       results[i][1] = timeForCurrentIteration;
     }
@@ -58,9 +61,15 @@ public class Arrays {
 
   }
 
-  /** Sorting method. Order - ascending */
-  public static void sort(int[] arr) {
+  /**
+   * Sorting method. Order - ascending
+   * 
+   * @return new sorted array
+   */
+  public static int[] sort(int[] input) {
 
+
+    int[] arr = input.clone();
     for (int i = 0; i < arr.length; i++) {
       for (int j = 0; j < arr.length - i - 1; j++) {
         if (arr[j] > arr[j + 1]) {
@@ -70,8 +79,32 @@ public class Arrays {
         }
       }
     }
-
+    return arr;
   }
 
+  /**
+   * Method converts double value form exponential view to general and conversely.
+   * 
+   * @return BigDecimal value
+   */
+  public static BigDecimal converter() {
+
+    System.out.println("Enter number to convertion here : ");
+    String inputString = null;
+    try {
+      BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+      inputString = bufferRead.readLine();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+
+    }
+
+    BigDecimal bd = new BigDecimal(inputString);
+    System.out.println(bd.doubleValue());
+
+
+    return bd;
+  }
 
 }

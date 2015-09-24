@@ -78,6 +78,6 @@ public class CheckOurSortMethod {
 		for (int i = 0; i < arrayValues.length; i++) {
 			sum = sum + arrayValues[i];
 		}
-		return Math.round(sum / arrayValues.length);
+		return (double) sum / (double) arrayValues.length;
 	}
 }

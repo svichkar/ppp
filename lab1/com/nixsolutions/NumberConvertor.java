@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.Console;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
+import java.util.regex.Pattern;
 import java.math.*;
 
 public class NumberConvertor {
@@ -11,8 +12,8 @@ public class NumberConvertor {
 	public static void main(String[] args) {
 
 		String userData = "";
-		while (!userData.contains("exit")) {
-			System.out.println("Enter a number:");
+		while (!userData.contains("q")) {
+			System.out.println("Enter a number('q' for exit):");
 
 			try {
 				BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -23,16 +24,20 @@ public class NumberConvertor {
 						ex.getMessage()));
 			}
 
-			if (isNum(userData)) {
-				if (userData.toLowerCase().contains("e")) {
-					System.out.println(String.format("Typed number is %.2f",
-							stringToNumber(userData)));
-				} else {
-					System.out.println(String.format("Typed number is %.2E",
-							stringToNumber(userData)));
-				}
+			String regexWithExponential = "^[-+]?[0-9]*[.,]?[0-9]*[eE]+[-+]?[0-9]{1,}?$";
+			String regexWithoutExponential = "^[-+]?[0-9]*[.,]?[0-9]*([0-9]+)?$";
+			Pattern patternWithExponential = Pattern
+					.compile(regexWithExponential);
+			Pattern patternWithoutExponential = Pattern
+					.compile(regexWithoutExponential);
 
-			} else if (userData.contains("exit")) {
+			if (patternWithExponential.matcher(userData).matches()) {
+				System.out.println(String.format("Typed number is %.2f",
+						Float.parseFloat(userData)));
+			} else if (patternWithoutExponential.matcher(userData).matches()) {
+				System.out.println(String.format("Typed number is %.2E",
+						Float.parseFloat(userData)));
+			} else if (userData.trim().equalsIgnoreCase("q")) {
 				System.out.println("Bye-bye!");
 			} else {
 				System.out.println(String.format("Wrong data was typed - %s",
@@ -41,20 +46,4 @@ public class NumberConvertor {
 		}
 
 	}
-
-	public static boolean isNum(String inputData) {
-
-		return inputData.matches("^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$");
-	}
-
-	public static double stringToNumber(String inputData) {
-		double result;
-		try {
-			result = Double.parseDouble(inputData);
-		} catch (Exception ex) {
-			result = 0;
-		}
-		return result;
-	}
-
 }

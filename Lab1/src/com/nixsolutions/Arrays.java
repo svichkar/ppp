@@ -1,7 +1,7 @@
 package com.nixsolutions;
 
 public class Arrays {
-	public static void sort(int[] mas) {
+	public static int[] sort(int[] mas) {
 		int[] sortedArr = mas.clone();
 		for (int i = 0; i < sortedArr.length - 1; i++) {
 			for (int j = i + 1; j < sortedArr.length; j++) {
@@ -12,5 +12,6 @@ public class Arrays {
 				}
 			}
 		}
+		return sortedArr;
 	}
 }

@@ -12,11 +12,12 @@ public class Task1 {
 		long[][] times = new long[2][countOfArrays];
 		for (int i = 0; i < countOfArrays; i++) {
 			int[] inputArrays = new int[sizeOfArray];
+			int[] sortedArray = new int[sizeOfArray];
 			for (int j = 0; j < inputArrays.length; j++) {
 				inputArrays[j] = ran.nextInt(201) - 100;
 			}
 			long start = System.nanoTime();
-			Arrays.sort(inputArrays);
+			sortedArray = Arrays.sort(inputArrays);
 			times[0][i] = System.nanoTime() - start;
 			start = System.nanoTime();
 			java.util.Arrays.sort(inputArrays);

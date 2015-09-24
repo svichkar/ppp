@@ -15,7 +15,7 @@ public class Triangle extends Figure {
 	/**
 	 * The coordinates of the corners of a triangle
 	 */
-	Point[] points = new Point[3];
+	private Point[] points = new Point[3];
 
 	@Override
 	public void moveOn(Point increment) {

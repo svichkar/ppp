@@ -17,7 +17,7 @@ public class Square extends Figure {
 	/**
 	 * The coordinates of the corners of a square
 	 */
-	Point[] points = new Point[4];
+	private Point[] points = new Point[4];
 
 	@Override
 	public void moveOn(Point increment) {

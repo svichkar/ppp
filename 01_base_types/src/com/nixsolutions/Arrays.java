@@ -2,17 +2,24 @@ package com.nixsolutions;
 
 public class Arrays {
 
-  /** Bubble sorting method. Sort order - ascending */
-  public static void sort(int[] a) {
-    int[] sortedArray = a.clone();
-    for (int i = 0; i < sortedArray.length - 1; i++) {
-      for (int j = 0; j < sortedArray.length - 1 - i; j++) {
-        if (sortedArray[j] > sortedArray[j + 1]) {
-          int b = sortedArray[j];
-          sortedArray[j] = sortedArray[j + 1];
-          sortedArray[j + 1] = b;
-        }
-      }
+    /**
+     * Bubble sorting method. Sort order - ascending
+     * 
+     * @param inputArray
+     *            is array for sorting
+     * @return sorted array
+     */
+    public static int[] sort(int[] inputArray) {
+	int[] sortArray = inputArray.clone();
+	for (int i = 0; i < sortArray.length - 1; i++) {
+	    for (int j = 0; j < sortArray.length - 1 - i; j++) {
+		if (sortArray[j] > sortArray[j + 1]) {
+		    int b = sortArray[j];
+		    sortArray[j] = sortArray[j + 1];
+		    sortArray[j + 1] = b;
+		}
+	    }
+	}
+	return sortArray;
     }
-  }
 }

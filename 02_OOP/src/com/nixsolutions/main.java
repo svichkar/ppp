@@ -43,7 +43,7 @@ public class main {
         default:
           break;
       }
-
+ 
     }
 
     sort(arrayOfFigures);

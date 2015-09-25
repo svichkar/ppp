@@ -14,15 +14,11 @@ public class Task2 {
 	    e.printStackTrace();
 	}
 	if (inputString.toLowerCase().contains("e")) {
-	    System.out.format("%.10f", Double.valueOf(inputString)); // print
-								     // value in
-								     // float
-								     // format
+	    // print value in float format
+	    System.out.format("%.10f", Double.valueOf(inputString));
 	} else {
-	    System.out.format("%.5E", Double.valueOf(inputString)); // print
-								    // value in
-								    // exponential
-								    // format
+	    // print value in exponential format
+	    System.out.format("%.5E", Double.valueOf(inputString));
 	}
     }
 }

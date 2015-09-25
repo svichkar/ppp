@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
 	Transport[] transportArray = new Transport[10];
 	Random rdm = new Random();
+	// creation of array of ten random vehicles
 	for (int i = 0; i < transportArray.length; i++) {
 	    switch (rdm.nextInt(3)) {
 	    case 0:
@@ -26,6 +27,7 @@ public class Main {
 		break;
 	    }
 	}
+	// moving of vehicles
 	for (int i = 0; i < 5; i++) {
 	    switch (rdm.nextInt(3)) {
 	    case 0:
@@ -50,6 +52,7 @@ public class Main {
 		break;
 	    }
 	}
+	// sorting array of vehicles by passed distance
 	for (int i = 0; i < transportArray.length - 1; i++) {
 	    for (int j = 0; j < transportArray.length - 1 - i; j++) {
 		if (transportArray[j].getDistance() > transportArray[j + 1].getDistance()) {

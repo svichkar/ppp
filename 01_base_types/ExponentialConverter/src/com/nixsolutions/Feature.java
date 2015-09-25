@@ -2,6 +2,10 @@ package com.nixsolutions;
 
 import java.util.Scanner;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
+
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
+
 public class Feature {
 
 	public static void main(String[] args) {
@@ -14,8 +18,8 @@ public class Feature {
 			// enter string
 			digitValue = in.nextLine();
 			//in.close();
-
-			if (digitValue.matches("-?\\d+([Ee.]-?\\d+)?")) {
+	
+			if (digitValue.matches("-?(\\d)+(\\.)(\\d)+[eE]?(\\d)+")) {
 				if (digitValue.contains("E") || digitValue.contains("e")) {
 					System.out.print("In double format: ");
 					System.out.print(ExponentialConverter.convertExpToDouble(digitValue + "d"));

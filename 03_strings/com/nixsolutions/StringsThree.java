@@ -1,14 +1,14 @@
 package com.nixsolutions;
 
-public class TaskThree {
+public class StringsThree {
 
 	public static void main(String[] args) {
-		String input = "testwordtocheck";
-		System.out.printf("Input string was: %1$s%nAfter deletion of 3 't' symbols: %2$s%n", 
+		String input = "TestwOrdtocheck";
+		System.out.printf("Input string was: %1$s%nAfter deduplicating and sorting: %2$s%n", 
 				input, splitAndSort(input));
 	}
 	
-	public static String splitAndSort(String inputStr) {
+	private static String splitAndSort(String inputStr) {
 		String[] charArr = inputStr.split("");
 		StringBuilder strBuilder = new StringBuilder();
 		for (int i = 0; i < charArr.length; i++) {
@@ -17,8 +17,8 @@ public class TaskThree {
 				strBuilder.append(charArr[i]);
 			}
 		}
-		//do sort
-		return strBuilder.toString();
+		String[] tempArr = strBuilder.toString().split("");
+		java.util.Arrays.sort(tempArr);
+		return String.join("", tempArr);
 	}
-
 }

@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-public class TaskTwo {
+public class StringsTwo {
 
 	public static void main(String[] args) {
 		String input = "test String to check all tasks";
@@ -10,7 +10,7 @@ public class TaskTwo {
 				removeNSymbols(input, 't', 3, false));
 	}
 	
-	public static String removeNSymbols(String inputStr,
+	private static String removeNSymbols(String inputStr,
 			char removeChar, int amount, Boolean fromStart) {
 		StringBuilder strBuilder = new StringBuilder();
 		StringBuilder tempStr = new StringBuilder(inputStr);

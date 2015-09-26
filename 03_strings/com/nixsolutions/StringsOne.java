@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-public class TaskOne {
+public class StringsOne {
 	
 	public static void main(String[] args) {
 		String input = "test String to check all tasks";
@@ -8,7 +8,7 @@ public class TaskOne {
 				input, customReverse(input));
 	}
 	
-	public static String customReverse(String inputStr) {
+	private static String customReverse(String inputStr) {
 		StringBuilder strBuilder = new StringBuilder();
 		for (int i = inputStr.length() - 1; i >= 0 ; i--) {
 			strBuilder.append(inputStr.charAt(i));

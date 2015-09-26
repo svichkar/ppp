@@ -1,5 +1,7 @@
 package com.nixsolutions;
 
+import java.util.Collections;
+
 public class StringsThree {
 
 	public static void main(String[] args) {
@@ -18,7 +20,7 @@ public class StringsThree {
 			}
 		}
 		String[] tempArr = strBuilder.toString().split("");
-		java.util.Arrays.sort(tempArr);
+		Collections.sort(java.util.Arrays.asList(tempArr), String.CASE_INSENSITIVE_ORDER);
 		return String.join("", tempArr);
 	}
 }

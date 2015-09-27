@@ -1,7 +1,5 @@
 package com.nixsolutions;
 
-import java.util.Collections;
-
 public class StringsThree {
 
 	public static void main(String[] args) {
@@ -19,8 +17,9 @@ public class StringsThree {
 				strBuilder.append(charArr[i]);
 			}
 		}
-		String[] tempArr = strBuilder.toString().split("");
-		Collections.sort(java.util.Arrays.asList(tempArr), String.CASE_INSENSITIVE_ORDER);
-		return String.join("", tempArr);
+		char[] tempArr = strBuilder.toString().toCharArray();
+		//do a bubble sort with Character.toLower() comparison
+		java.util.Arrays.sort(tempArr);
+		return new String(tempArr);
 	}
 }

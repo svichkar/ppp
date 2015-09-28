@@ -7,6 +7,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class DatesProcessor {
 
@@ -26,7 +31,7 @@ public class DatesProcessor {
 		int numDays = calendar.getActualMaximum(Calendar.DATE);
 		output[i] = numDays;
 		System.out.println(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
-			+ "'s length is " + numDays);
+			+ "'s length is " + numDays + " day(s).");
 		System.out.println("-----------------------------------");
 
 	    }
@@ -104,6 +109,39 @@ public class DatesProcessor {
 	}
 	return ((cal.get(Calendar.YEAR) - 1970) + " years, " + cal.get(Calendar.MONTH) + " monthes, "
 		+ cal.get(Calendar.DAY_OF_MONTH) + " days");
+    }
+
+    public void showDateInDifferenLocales() {
+	int style = DateFormat.FULL;
+
+	Date date = new Date();
+	DateFormat df;
+	df = DateFormat.getDateInstance(style, Locale.CANADA);
+	System.out.println("Canada : " + df.format(date));
+
+	df = DateFormat.getDateInstance(style, Locale.GERMANY);
+	System.out.println("Germany : " + df.format(date));
+
+	df = DateFormat.getDateInstance(style, Locale.PRC);
+	System.out.println("PRC : " + df.format(date));
+
+	df = DateFormat.getDateInstance(style, new Locale("vi", "VN"));
+	System.out.println("Vietnam : " + df.format(date));
+	System.out.println("-----------------------------------");
+
+	ZonedDateTime timeCanada = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Canada/Central"));
+	System.out.println("Canada : " + timeCanada);
+
+	ZonedDateTime timeGermany = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Europe/Berlin"));
+	System.out.println("Germany : " + timeGermany);
+
+	ZonedDateTime timePakistan = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Asia/Karachi"));
+	System.out.println("Pakistan : " + timePakistan);
+
+	ZonedDateTime timeVietnam = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("Asia/Ho_Chi_Minh"));
+	System.out.println("Pakistan : " + timeVietnam);
+	System.out.println("-----------------------------------");
+
     }
 
 }

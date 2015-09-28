@@ -276,6 +276,8 @@ public class DateProcessing {
 		Date d1 = sdf.parse(date);
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(d1);
+		Calendar remain = (Calendar) c1.clone();
+		////
 		Calendar c2 = Calendar.getInstance();
 
 		if (c1.before(c2)) {
@@ -283,7 +285,6 @@ public class DateProcessing {
 			int diffYears;
 			int diffMonths;
 			int diffDays;
-			double remain;
 
 			long diff = 0;
 			while (c1.before(c2)) {
@@ -297,7 +298,7 @@ public class DateProcessing {
 
 			System.out
 					.printf("Time has passed since date \"%1s\" is %2s year(s) %3s month(s) %4s day(s)%n",
-							sdf.format(c1.getTime()), diffYears, diffMonths,
+							sdf.format(remain.getTime()), diffYears, diffMonths,
 							diffDays);
 		} else {
 			System.out.printf("Date %1s is future date!",

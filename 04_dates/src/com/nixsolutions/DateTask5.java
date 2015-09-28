@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTask5 {
     public static void main(String[] args) {
-
 	// Java 7
 	Date currentDate = new Date();
 	DateFormat df = DateFormat.getDateInstance(DateFormat.FULL, Locale.CANADA);
@@ -21,19 +20,18 @@ public class DateTask5 {
 	locale = new Locale("vi", "VN");
 	df = DateFormat.getDateInstance(DateFormat.FULL, locale);
 	System.out.println(df.format(currentDate));
-	
 	// Java 8
-	DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
 	LocalDateTime curDate = LocalDateTime.now();
-	dtf.withLocale(Locale.CANADA);
+	dtf = dtf.withLocale(Locale.CANADA);
 	System.out.println(dtf.format(curDate));
-	dtf.withLocale(Locale.GERMANY);
+	dtf = dtf.withLocale(Locale.GERMANY);
 	System.out.println(dtf.format(curDate));
 	locale = new Locale("en", "PK");
-	dtf.withLocale(locale);
+	dtf = dtf.withLocale(locale);
 	System.out.println(dtf.format(curDate));
 	locale = new Locale("vi", "VN");
-	dtf.withLocale(locale);
+	dtf = dtf.withLocale(locale);
 	System.out.println(dtf.format(curDate));
     }
 }

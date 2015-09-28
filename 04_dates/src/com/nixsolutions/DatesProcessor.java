@@ -7,14 +7,26 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAdjusters;
 
 public class DatesProcessor {
 
+    final static String months[] =
+	    {
+		        null , "January" , "February" , "March" , "April", "May",
+		        "June", "July", "August", "September", "October",
+		        "November", "December"
+		    };
+    
     public int[] getLenghtOfEachMonthForParticularYear() {
 	System.out.println("-----------------------------------");
 	int year;
@@ -43,11 +55,7 @@ public class DatesProcessor {
 
     }
 
-    public int[] mondaysDetector() {
-	return null;
-
-    }
-
+  
     public boolean isDateFirdayThirteenth() {
 	System.out.println("-----------------------------------");
 	Scanner in = new Scanner(System.in);
@@ -111,6 +119,39 @@ public class DatesProcessor {
 		+ cal.get(Calendar.DAY_OF_MONTH) + " days");
     }
 
+    public void mondayFinder(){
+	System.out.println("-----------------------------------");
+	Scanner in = new Scanner(System.in);
+	String date = null;
+	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	Date dateOne;
+	System.out.println("-----------------------------------");
+	try {
+	    	    
+	    System.out.println("Please enter date in next format dd/MM/yyyy");
+	    date = in.nextLine();
+	    date = "01/" + date;
+	    dateOne = (Date) formatter.parse(date);
+	     
+	    Month month = Month.valueOf(months[dateOne.getMonth()+1].toUpperCase()); 
+	    LocalDate dateOf = Year.now().atMonth(month).atDay(1).
+	              with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
+	    Month mi = dateOf.getMonth();
+	    System.out.println("Here is the list of MONDAYS in " + months[dateOne.getMonth()+1]);
+	    while (mi == month) {
+	            System.out.printf("%s%n", dateOf);
+	            dateOf = dateOf.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+	            mi = dateOf.getMonth();
+	        }
+	    
+	    
+	    }catch(Exception e)
+	{}
+	System.out.println("-----------------------------------");
+	
+    }
+    
+    
     public void showDateInDifferenLocales() {
 	int style = DateFormat.FULL;
 

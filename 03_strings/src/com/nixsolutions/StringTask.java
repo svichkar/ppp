@@ -4,7 +4,7 @@ public class StringTask {
     public static void main(String[] args) {
 	System.out.println(reverseString("Java"));
 	System.out.println(removeChars("You know nothing Jon Snow", 'O', 3, false));
-	System.out.println(removeDuplicates("aaadddfhhSssrtTmmgffjjd"));
+	System.out.println(removeDuplicates("aBccbAdCa"));
     }
 
     /**

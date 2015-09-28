@@ -27,16 +27,17 @@ public class Mondays {
 		month = in.nextInt();
 		in.close();
 		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month-1);
-		calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		System.out.println(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()) + ":");
+		calendar.set(Calendar.MONTH, month - 1);
 
 		System.out.println("Dates of the all Mondays:\n");
-		for (int i = 1; i < 5; i++) {
-			calendar.set(Calendar.DAY_OF_MONTH, 7 * i);
-			System.out.println(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()) + ":");
-			System.out.println(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) + ":");
-			System.out.print(calendar.get(Calendar.DAY_OF_MONTH) + "\n");
+		for (int i = 1; i < calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
+			calendar.set(Calendar.DAY_OF_MONTH, i);
+			if (calendar.get(Calendar.DAY_OF_WEEK) == 2) {
+				System.out.println(
+						calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()) + ":");
+				System.out.println(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) + ":");
+				System.out.print(calendar.get(Calendar.DAY_OF_MONTH) + "\n");
+			}
 		}
 	}
 

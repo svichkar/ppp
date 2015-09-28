@@ -1,48 +1,193 @@
 package com.nixsolutions;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
+import java.util.regex.Pattern;
 
-/**Class was created for processing dates
+/**
+ * Class was created for processing dates
  * 
  * @author maxb
- *
+ * 
  */
 public class DateProcessing {
 
-	/**Entry point under which we execute all implemented methods
+	/**
+	 * Entry point under which we execute all implemented methods
 	 * 
-	 * @param args Arguments that required for main method
-	 * @throws ParseException Throwing exceptions in case parsing string that contains date
+	 * @param args
+	 *            Arguments that required for main method
+	 * @throws ParseException
+	 *             Throwing exceptions in case parsing string that contains date
+	 * @throws InterruptedException
 	 */
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException,
+			InterruptedException {
 
-		String userYear = "2015";
-		//duration for each month
-		showDurationOfEachMonth(userYear);
-		//all mondays
-		String userMonth = "9";
-		showAllMondaysOfMonth(userYear, userMonth);
-		//Friday 13
-		String dateOfLuckDay = "2015-03-13";
-		checkIsDateLuckyDay(dateOfLuckDay);
-		//time... is time
-		String dateInPast = "0001-02-12";
-		showHowMuchTimeHasPassed(dateInPast);
-		//show date for diff locales
-		showDateForDiffLocale();
+		String userData = "";
+
+		while (!userData.contains("q")) {
+
+			// //asking user for an action
+			System.out
+					.println("Select method that you want to run (type 'q' to exit):");
+			System.out
+					.println("1. Show amount of days for each month. You need to define a year");
+			System.out
+					.println("2. Show mondays for particular month and year. You need to define month and year");
+			System.out
+					.println("3. Check that a date is 13th Friday. You need to define a date");
+			System.out
+					.println("4. Show how much time has passed since a particular date. You need to define a date");
+			System.out
+					.println("5. Show the current date for locale Canada, Germany, Vietnam, Pakistan");
+
+			try {
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						System.in));
+				userData = br.readLine();
+			} catch (Exception ex) {
+				System.out.println(String.format("I/O exception. $s",
+						ex.getMessage()));
+			}
+
+			String patternForNumber = "^[1-5]+$";
+			Pattern ptrnNumber = Pattern.compile(patternForNumber);
+
+			if (ptrnNumber.matcher(userData).matches()) {
+				switch (Integer.valueOf(userData)) {
+				case 1:
+					System.out
+							.println("Please, define year in the following format '2000'");
+					String userYear = "";
+
+					try {
+						BufferedReader br = new BufferedReader(
+								new InputStreamReader(System.in));
+						userYear = br.readLine();
+
+						showDurationOfEachMonth(userYear);
+					} catch (Exception ex) {
+						System.out.printf(
+								"Cannot process user-defined data %1s%n",
+								ex.getMessage());
+					}
+					Thread.sleep(5000);
+					System.out.println();
+					break;
+				case 2:
+					System.out
+							.println("Please, define year and month in the following format '2000-01'");
+					String uYearMonth = "";
+					String uYear = "";
+					String uMonth = "";
+
+					try {
+						BufferedReader br = new BufferedReader(
+								new InputStreamReader(System.in));
+						uYearMonth = br.readLine();
+						String[] ym = uYearMonth.split("-");
+						uYear = ym[0];
+						uMonth = ym[1];
+
+						showAllMondaysOfMonth(uYear, uMonth);
+					} catch (Exception ex) {
+						System.out.printf(
+								"Cannot process user-defined data %1s%n",
+								ex.getMessage());
+					}
+					Thread.sleep(5000);
+					System.out.println();
+
+					break;
+				case 3:
+					System.out
+							.println("Please, define date in the following format '2000-01-01'");
+					String dateOfLuckDay = "";
+
+					try {
+						BufferedReader br = new BufferedReader(
+								new InputStreamReader(System.in));
+						dateOfLuckDay = br.readLine();
+						checkIsDateLuckyDay(dateOfLuckDay);
+					} catch (Exception ex) {
+						System.out.printf(
+								"Cannot process user-defined data %1s%n",
+								ex.getMessage());
+					}
+					Thread.sleep(5000);
+					System.out.println();
+
+					break;
+				case 4:
+					System.out
+							.println("Please, define date in the following format '2000-01-01'");
+					String dateInPast = "";
+
+					try {
+						BufferedReader br = new BufferedReader(
+								new InputStreamReader(System.in));
+						dateInPast = br.readLine();
+
+						showHowMuchTimeHasPassed(dateInPast);
+					} catch (Exception ex) {
+						System.out.printf(
+								"Cannot process user-defined data %1s%n",
+								ex.getMessage());
+					}
+					Thread.sleep(5000);
+					System.out.println();
+
+					break;
+				case 5:
+					try {
+						showDateForDiffLocale();
+					} catch (Exception e) {
+						System.out.printf(
+								"Cannot process user-defined data %1s%n",
+								e.getMessage());
+					}
+					Thread.sleep(3000);
+					System.out.println();
+					break;
+				default:
+					System.out.println("You just selected unexpected variant!");
+					Thread.sleep(3000);
+					System.out.println();
+
+					break;
+				}
+			} else if (userData.compareTo("q") == 0) {
+				System.out.println("Bye-bye. Exiting....");
+			} else {
+				System.out.println("Please define number in range 1-5");
+			}
+
+			// all mondays
+			/*
+			 * String userMonth = "9"; showAllMondaysOfMonth(userYear,
+			 * userMonth); // Friday 13 String dateOfLuckDay = "2015-03-13";
+			 * checkIsDateLuckyDay(dateOfLuckDay); // time... is time String
+			 * dateInPast = "0001-02-12"; showHowMuchTimeHasPassed(dateInPast);
+			 * // show date for diff locales
+			 */
+		}
 
 	}
 
-	/**Method for showing amount of days of each months
+	/**
+	 * Method for showing amount of days of each months
 	 * 
-	 * @param year User-defined year
-	 * @throws ParseException Throwing exceptions in case parsing string that contains date
+	 * @param year
+	 *            User-defined year
+	 * @throws ParseException
+	 *             Throwing exceptions in case parsing string that contains date
 	 */
 	public static void showDurationOfEachMonth(String year)
 			throws ParseException {
@@ -62,11 +207,15 @@ public class DateProcessing {
 
 	}
 
-	/**Method for showing all mondays for particular month
+	/**
+	 * Method for showing all mondays for particular month
 	 * 
-	 * @param year User-defined year 
-	 * @param month User-defined month
-	 * @throws ParseException Throwing exceptions in case parsing string that contains date
+	 * @param year
+	 *            User-defined year
+	 * @param month
+	 *            User-defined month
+	 * @throws ParseException
+	 *             Throwing exceptions in case parsing string that contains date
 	 */
 	public static void showAllMondaysOfMonth(String year, String month)
 			throws ParseException {
@@ -85,10 +234,13 @@ public class DateProcessing {
 
 	}
 
-	/**Method for validating date is Friday 13th
+	/**
+	 * Method for validating date is Friday 13th
 	 * 
-	 * @param userDate User-defined date
-	 * @throws ParseException Throwing exceptions in case parsing string that contains date
+	 * @param userDate
+	 *            User-defined date
+	 * @throws ParseException
+	 *             Throwing exceptions in case parsing string that contains date
 	 */
 	public static void checkIsDateLuckyDay(String userDate)
 			throws ParseException {
@@ -108,10 +260,14 @@ public class DateProcessing {
 		}
 	}
 
-	/**Method for showing how much time has passed since defined date in past.
+	/**
+	 * Method for showing how much time has passed since defined date in past.
 	 * 
-	 * @param userDate User-defined date in format yyyy-MM-dd.  Future date won't be processed
-	 * @throws ParseException Throwing exceptions in case parsing string that contains date
+	 * @param userDate
+	 *            User-defined date in format yyyy-MM-dd. Future date won't be
+	 *            processed
+	 * @throws ParseException
+	 *             Throwing exceptions in case parsing string that contains date
 	 */
 	public static void showHowMuchTimeHasPassed(String userDate)
 			throws ParseException {
@@ -124,13 +280,23 @@ public class DateProcessing {
 
 		if (c1.before(c2)) {
 
-			long diffYears = c2.get(Calendar.YEAR) - c1.get(Calendar.YEAR);
-			long diffMonths = c2.get(Calendar.MONTH) - c1.get(Calendar.MONTH);
-			long diffDays = c2.get(Calendar.DAY_OF_MONTH)
-					- c1.get(Calendar.DAY_OF_MONTH);
+			int diffYears;
+			int diffMonths;
+			int diffDays;
+			double remain;
+
+			long diff = 0;
+			while (c1.before(c2)) {
+				c1.add(Calendar.DAY_OF_MONTH, 1);
+				diff++;
+			}
+
+			diffYears = (int) Math.floor(diff / 365);
+			diffMonths = (int) Math.floor((diff - (diffYears * 365)) / 30);
+			diffDays = (int) diff - (diffMonths * 30) - (diffYears * 365);
 
 			System.out
-					.printf("Time has passed since date \"%1s\" is %2s year(s) %3s month(s) %4s day(s)",
+					.printf("Time has passed since date \"%1s\" is %2s year(s) %3s month(s) %4s day(s)%n",
 							sdf.format(c1.getTime()), diffYears, diffMonths,
 							diffDays);
 		} else {
@@ -139,22 +305,27 @@ public class DateProcessing {
 		}
 
 	}
-	
-	/**Method for showing the current date for different locales
+
+	/**
+	 * Method for showing the current date for different locales
 	 * 
 	 */
-	public static void showDateForDiffLocale()
-	{
-		Date today = new Date(); 
-		DateFormat formatCanada = DateFormat.getDateInstance(DateFormat.FULL, Locale.CANADA);
+	public static void showDateForDiffLocale() {
+		Date today = new Date();
+		DateFormat formatCanada = DateFormat.getDateInstance(DateFormat.FULL,
+				Locale.CANADA);
 		System.out.printf("Canada - %1s%n", formatCanada.format(today));
-		DateFormat formatGermany = DateFormat.getDateInstance(DateFormat.FULL, Locale.GERMAN);
+		DateFormat formatGermany = DateFormat.getDateInstance(DateFormat.FULL,
+				Locale.GERMAN);
 		System.out.printf("Germany - %1s%n", formatGermany.format(today));
-		DateFormat formatVietnam = DateFormat.getDateInstance(DateFormat.FULL, new Locale("vi", "VN"));
+		DateFormat formatVietnam = DateFormat.getDateInstance(DateFormat.FULL,
+				new Locale("vi", "VN"));
 		System.out.printf("Vietnam - %1s%n", formatVietnam.format(today));
-		///as Pakistan is very restricted contry we use Indian as locale for it (hi-IN or en-IN)
-		DateFormat formatPakistan = DateFormat.getDateInstance(DateFormat.FULL, new Locale("en", "IN"));
+		// /as Pakistan is very restricted contry we use Indian as locale for it
+		// (hi-IN or en-IN)
+		DateFormat formatPakistan = DateFormat.getDateInstance(DateFormat.FULL,
+				new Locale("en", "PK"));
 		System.out.printf("Pakistan - %1s%n", formatPakistan.format(today));
 	}
-	
+
 }

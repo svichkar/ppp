@@ -1,12 +1,10 @@
 package com.nixsolutions;
 
-import java.util.Arrays;
-
 public class StringTask {
     public static void main(String[] args) {
 	System.out.println(reverseString("Java"));
 	System.out.println(removeChars("You know nothing Jon Snow", 'O', 3, false));
-	System.out.println(removeDuplicates("aArFgfFfdfdgf"));
+	System.out.println(removeDuplicates("aaadddfhhSssrtTmmgffjjd"));
     }
 
     /**
@@ -97,20 +95,19 @@ public class StringTask {
 	    }
 	}
 
-	char[] uniqueChars = Arrays.copyOfRange(arrayOfInputChars, 0, border);
-	// sort array with unique chars
-	for (int i = 0; i < uniqueChars.length - 1; i++) {
-	    for (int j = 0; j < uniqueChars.length - 1 - i; j++) {
-		if (Character.toLowerCase(uniqueChars[j]) > Character.toLowerCase(uniqueChars[j + 1])) {
-		    char temp = uniqueChars[j];
-		    uniqueChars[j] = uniqueChars[j + 1];
-		    uniqueChars[j + 1] = temp;
+	// sort unique chars
+	for (int i = 0; i < border - 1; i++) {
+	    for (int j = 0; j < border - 1 - i; j++) {
+		if (Character.toLowerCase(arrayOfInputChars[j]) > Character.toLowerCase(arrayOfInputChars[j + 1])) {
+		    char temp = arrayOfInputChars[j];
+		    arrayOfInputChars[j] = arrayOfInputChars[j + 1];
+		    arrayOfInputChars[j + 1] = temp;
 		}
 	    }
 	}
 	// build result string
-	for (char ch : uniqueChars) {
-	    resultString += ch;
+	for (int i = 0; i < border; i++) {
+	    resultString += arrayOfInputChars[i];
 	}
 	return resultString;
     }

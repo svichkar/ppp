@@ -15,9 +15,12 @@ public class CustomCollection<E> implements Collection<E> {
 	
 	public boolean add(E e) {
 		try {
-			dataArr = (E[]) new Object[currentSize+1];
+			E[] tempArr = (E[]) new Object[currentSize];
+			System.arraycopy(dataArr, 0, tempArr, 0, currentSize);
+			dataArr = (E[]) new Object[currentSize + 1];
+			System.arraycopy(tempArr, 0, dataArr, 0, currentSize);
 			currentSize = dataArr.length;
-			dataArr[currentSize-1] = e;
+			dataArr[currentSize - 1] = e;
 			return true;
 		} catch (Exception ex) {
 			throw new IllegalArgumentException(ex);
@@ -25,7 +28,17 @@ public class CustomCollection<E> implements Collection<E> {
 	}
 	
 	public boolean addAll(Collection<? extends E> c) {
-		
+		try {
+			E[] tempArr = (E[]) new Object[currentSize];
+			System.arraycopy(dataArr, 0, tempArr, 0, currentSize);
+			dataArr = (E[]) new Object[currentSize + c.size()];
+			System.arraycopy(tempArr, 0, dataArr, 0, currentSize);
+			System.arraycopy(c, 0, dataArr, currentSize, c.size());
+			currentSize = dataArr.length;
+			return true;
+		} catch (Exception ex) {
+			throw new IllegalArgumentException(ex);
+		}
 	}
 	
 	public boolean remove(Object o) {

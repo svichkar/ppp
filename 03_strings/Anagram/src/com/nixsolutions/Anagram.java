@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * @author Михаил
+ * @author пїЅпїЅпїЅпїЅпїЅпїЅ
  *
  */
 public class Anagram {
@@ -26,13 +26,7 @@ public class Anagram {
 		System.out.print("Please enter another word:\n");
 		secondWord = in.nextLine();
 		in.close();
-		//Convert to char massive
-		char[] first= firstWord.toLowerCase().replace(" ","").replaceAll("[\\.,!?-]", "").toCharArray();
-		char[] second= secondWord.toLowerCase().replace(" ","").replaceAll("[\\.,!?-]", "").toCharArray();
-		Arrays.sort(first);
-		Arrays.sort(second);
-		//Check if equal
-		if (Arrays.equals(first,second)) {
+		if (isAnagram(firstWord, secondWord)) {
 			System.out.print("first and second word are anagram:\n");
 
 		} else {
@@ -40,6 +34,16 @@ public class Anagram {
 
 		}
 
+	}
+
+	private static boolean isAnagram(String firstStr, String secondStr) {
+		// Convert to char massive
+		char[] first = firstStr.toLowerCase().replace(" ", "").replaceAll("[\\.,!?-]", "").toCharArray();
+		char[] second = secondStr.toLowerCase().replace(" ", "").replaceAll("[\\.,!?-]", "").toCharArray();
+		Arrays.sort(first);
+		Arrays.sort(second);
+		// Check if equal
+		return Arrays.equals(first, second);
 	}
 
 }

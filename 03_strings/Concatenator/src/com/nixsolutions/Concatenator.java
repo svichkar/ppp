@@ -9,7 +9,7 @@ package com.nixsolutions;
  */
 public class Concatenator {
 	/**
-	 * @param args
+	 * main
 	 */
 	public static void main(String[] args) {
 		String resultString1 = "Java" + " " + "forever";
@@ -17,8 +17,9 @@ public class Concatenator {
 		String resultString2 = String.format("Java %s", "forever");
 		System.out.print("String.format(\"Java %s\", \"forever\") - "+String.format("Java %s", "forever\n"));
 		String resultString3 ="Java ".concat("forever");
-		System.out.print("\"Java \".concat(\"forever\") - "+"Java ".concat("forever"));
-		// TODO Auto-generated method stub
+		System.out.print("\"Java \".concat(\"forever\") - "+"Java ".concat("forever")+"\n");
+		System.out.print("String.join(\" \", \"Java\", \"forever\") - "+String.join(" ", "Java", "forever\n"));
+		
 
 	}
 

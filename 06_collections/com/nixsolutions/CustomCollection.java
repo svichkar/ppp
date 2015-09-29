@@ -15,10 +15,17 @@ public class CustomCollection<E> implements Collection<E> {
 	
 	public boolean add(E e) {
 		try {
-			
+			dataArr = (E[]) new Object[currentSize+1];
+			currentSize = dataArr.length;
+			dataArr[currentSize-1] = e;
+			return true;
 		} catch (Exception ex) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(ex);
 		}
+	}
+	
+	public boolean addAll(Collection<? extends E> c) {
+		
 	}
 	
 	public boolean remove(Object o) {
@@ -36,13 +43,29 @@ public class CustomCollection<E> implements Collection<E> {
 	public boolean removeAll(Collection<?> c) {
 		boolean result = false;
 		for (Object item : c) {
-			result = result ||remove(item);
+			result = result || remove(item);
+		}
+		return result;
+	}
+	
+	public boolean contains(Object o) {
+		boolean result = false;
+		for (Iterator<E> iter = iterator(); iter.hasNext();) {
+			E curItem = iter.next();
+			if (o != null && o.equals(curItem)) {
+				result = true;
+				break;
+			}
 		}
 		return result;
 	}
 	
 	public boolean containsAll(Collection<?> c) {
-		
+		boolean result = false;
+		for (Object item : c) {
+			result = result || contains(item);
+		}
+		return result;
 	}
 	
 	public int size() {
@@ -71,6 +94,10 @@ public class CustomCollection<E> implements Collection<E> {
 			E curItem = iter.next();
 			curItem = null;
 		}
+	}
+	
+	public boolean retainAll(Collection<?> c) {
+		
 	}
 	
 	public Iterator<E> iterator() {

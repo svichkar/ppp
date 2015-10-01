@@ -23,6 +23,7 @@ public class MonthsLength {
 		int year = in.nextInt();
 		in.close();
 		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
 
 		System.out.println("Numbers of the days by monthes:\n");
 		for (int i = 0; i < 12; i++) {

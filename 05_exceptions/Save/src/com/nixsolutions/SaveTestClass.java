@@ -16,12 +16,16 @@ public class SaveTestClass {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		SaveImplClass saveTest = new SaveImplClass();
-		saveTest.enterString();
-		saveTest.enterFilePath();
-		saveTest.save(saveTest.getStringToSave(), saveTest.getFilePath());
-		saveTest.checkIfFileExist();
-		saveTest.close();
+		try {
+			SaveImplClass saveTest = new SaveImplClass();
+			saveTest.enterString();
+			saveTest.enterFilePath();
+			saveTest.save(saveTest.getStringToSave(), saveTest.getFilePath());
+			saveTest.checkIfFileExist();
+			saveTest.close();
+		} catch (SaveException e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 

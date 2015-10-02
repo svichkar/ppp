@@ -73,8 +73,8 @@ public class SaveImplClass implements Save, Closeable {
 
 	public void checkIfFileExist() {
 		File file = new File(filePath);
-		boolean result= file.exists();
-		System.out.println(result?filePath+" is exist":filePath+" is not exist");
+		boolean result = file.exists();
+		System.out.println(result ? filePath + " is exist" : filePath + " is not exist");
 	}
-	
+
 }

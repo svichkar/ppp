@@ -9,12 +9,14 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.sql.rowset.spi.TransactionalWriter;
+
 /**
  * @author mixeyes
  *
  */
 public interface Save {
-	default void save(String stringToSave, String filePath) throws IOException {
+	default void save(String stringToSave, String filePath) throws IOException, SaveException {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
@@ -23,14 +25,13 @@ public interface Save {
 			bufferedWriter.write(stringToSave);
 
 		} catch (FileNotFoundException ex) {
-			System.out.println("Please Enter valid file name");
-			ex.printStackTrace();
+			throw new SaveException("Please Enter valid file name");
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		} finally {
-			bufferedWriter.close();
-			fileWriter.close();
+			if (fileWriter != null)
+				fileWriter.close();
 		}
 	}
 

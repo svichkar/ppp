@@ -16,6 +16,7 @@ public class SerializationProcessing {
 			acc2 = (Account) deserialize("D:\\AllTestGarbage\\Serialization.dat");
 			System.out.println(acc.hashCode());
 			System.out.println(acc2.hashCode());
+			
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

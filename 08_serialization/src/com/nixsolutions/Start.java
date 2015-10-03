@@ -23,14 +23,15 @@ public class Start {
 
 	try {
 	    byte[] serialized = acc.serialize(acc.toString());
-
+	    byte [] encodedBytes = Base64.getEncoder().encode(serialized);
 	    FileOutputStream fos = new FileOutputStream(FILE_PATH);
-	    fos.write(serialized);
+	    fos.write(encodedBytes);
 	    fos.close();
 	    System.out.println("Serialized and uploaded in dat file");
 	    byte[] a = Files.readAllBytes(Paths.get(FILE_PATH));
+	    byte[] decodedBytes = Base64.getDecoder().decode(a);
 	    System.out.println("Read bytes from file - Done");
-	    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(a));
+	    ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(decodedBytes));
 	    try {
 		String o = (String) ois.readObject();
 

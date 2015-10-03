@@ -1,14 +1,9 @@
 package com.nixsolutions;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -19,7 +14,7 @@ public class Start {
 
     public static void main(String[] args) {
 	// TODO Auto-generated method stub
-	Account acc = new Account(2568L, "Bob", "Admin");
+	Account acc = new Account(256123L, "Bob", "Admin");
 
 	try {
 	    byte[] serialized = acc.serialize(acc.toString());

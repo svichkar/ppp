@@ -12,6 +12,8 @@ public class WriteTextInFile implements Save {
 	File txtFile = new File(path);
 	if (!txtFile.exists()) { // Check if file exists
 	    try {
+		File dirPath = new File(path.substring(0, path.lastIndexOf("\\")));
+		dirPath.mkdirs();
 		txtFile.createNewFile(); // create new file
 		System.out.format("New file \"%s\" is created succesfully\n", path);
 	    } catch (FileWriteExeption e) {

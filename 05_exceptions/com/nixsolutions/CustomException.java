@@ -2,13 +2,23 @@ package com.nixsolutions;
 
 public class CustomException extends Exception {
 	
-	private static final long serialVersionUID = 123124215;
+	private static final long serialVersionUID = 123124215L;
 	
 	public CustomException() {
-		
+		super();
 	}
 	
-	public CustomException(Exception e) {
-		this.setStackTrace(e.getStackTrace());
+	public CustomException(String message) {
+		super(message);
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+	
+	@Override
+	public String getMessage() {
+		return super.getMessage();
 	}
 }

@@ -10,7 +10,7 @@ public class ExceptionProcessing {
 			try {
 				throw new Exception("test Exception");
 			} catch (Exception ex) {
-				throw new CustomException(ex);
+				throw new CustomException(ex.getMessage());
 			}
 		} catch (CustomException ex) {
 			ex.printStackTrace();

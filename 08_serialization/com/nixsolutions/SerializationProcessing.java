@@ -12,8 +12,8 @@ public class SerializationProcessing {
 		Account acc = new Account(12L, "Stew", "Assistant");
 		Account acc2;
 		try {
-			serialize(acc, "D:\\AllTestGarbage\\Serialization.dat");
-			acc2 = (Account) deserialize("D:\\AllTestGarbage\\Serialization.dat");
+			serialize(acc, "F:\\Serialization.dat");
+			acc2 = (Account) deserialize("F:\\Serialization.dat");
 			System.out.println(acc.hashCode());
 			System.out.println(acc2.hashCode());
 			
@@ -22,19 +22,19 @@ public class SerializationProcessing {
 		}
 	}
 
-	public static Account deserialize(String fileName) throws IOException, ClassNotFoundException {
+	public static Object deserialize(String fileName) throws IOException, ClassNotFoundException {
 		FileInputStream fio = new FileInputStream(fileName);
 		ObjectInputStream ois = new ObjectInputStream(fio);
-		String fields = (String) ois.readObject();
+		Object obj = ois.readObject();
 		ois.close();
-		String[] fieldsValues = fields.split(";");
-		return new Account(Long.parseLong(fieldsValues[0]), fieldsValues[1], fieldsValues[2]);
+		return obj;
 	}
 	
 	public static void serialize(Object obj, String fileName) throws IOException {
 		FileOutputStream fos = new FileOutputStream(fileName);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(obj.toString()); 
-        fos.close();
+        oos.writeObject(obj); 
+        oos.flush();
+        oos.close();
 	}
 }

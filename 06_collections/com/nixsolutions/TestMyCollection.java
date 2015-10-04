@@ -1,30 +1,32 @@
 package com.nixsolutions;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Random;
 
-/**Class implemented for validating my collection
+/**
+ * Class implemented for validating my collection
  * 
  * @author maxb
- *
+ * 
  */
 public class TestMyCollection {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		String[] testArray = new String[] { "a", "b", "c", "d", "e", "f", "g" };
-		Integer[] testArray1 = new Integer[] {1, 5};
+		Integer[] testArray1 = new Integer[] { 1, 5 };
 		Car[] testArray2 = new Car[2];
 		testArray2[0] = new Car("BMW");
 		testArray2[0].setPower(200);
 		testArray2[1] = new Car("VW");
 		testArray2[1].setPower(180);
-		///array for subtracting
+		// /array for subtracting
 		Car vw = new Car("VW");
 		vw.setPower(180);
 		Object[] subArray = new Object[] { "c", "d", 1, vw };
 		Object[] subArray1 = new Object[] { "c", "d", 1, "bla" };
 
-		//init collection
+		// init collection
 		MyCollection<Object> testC = new MyCollection<Object>();
 		testC.addAll(Arrays.asList(testArray));
 		testC.addAll(Arrays.asList(testArray1));
@@ -89,12 +91,26 @@ public class TestMyCollection {
 							testC.toString(";"));
 		}
 		System.out.println();
-		//check that collection contains all items from other collection
+		// check that collection contains all items from other collection
 		System.out.printf("Items from other collection - %1s;%2s;%3s;%4s %n",
 				subArray1[0], subArray1[1], subArray1[2], subArray1[3]);
 		System.out.printf("All items are present - %s%n",
 				testC.containsAll(Arrays.asList(subArray1)));
 		System.out.println();
+		// /check iterator
+		System.out
+				.printf("Cheking iterator by passing via all items of collection - %s%n",
+						testC.toString(" "));
+		Iterator<Object> myIterator = testC.iterator();
+		int counter = 0;
+		while (myIterator.hasNext()) {
+			Object one = myIterator.next();
+			System.out.printf("Item %1s has value %2s%n", counter,
+					one.toString());
+			counter++;
+		}
+		System.out.println();
+
 	}
 
 }

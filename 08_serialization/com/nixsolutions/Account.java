@@ -25,17 +25,11 @@ public class Account implements Serializable {
 	
 	private void writeObject(ObjectOutputStream stream)
 			throws IOException {
-/*		stream.writeLong(id);
-		stream.writeObject(name);
-		stream.writeObject(role);*/
 		stream.writeObject(this.toString());
 	}
 	
 	private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
-/*        id = stream.readLong();
-        name = (String) stream.readObject();
-        role = (String) stream.readObject();*/
 		String[] fields = ((String) stream.readObject()).split(";");
 		id = Long.parseLong(fields[0]);
 		name = fields[1];

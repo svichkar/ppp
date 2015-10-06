@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-public class CustomException extends Exception {
+public class CustomException extends RuntimeException {
 	
 	private static final long serialVersionUID = 123124215L;
 	
@@ -10,6 +10,10 @@ public class CustomException extends Exception {
 	
 	public CustomException(String message) {
 		super(message);
+	}
+	
+	public CustomException(Throwable t) {
+		super(t);
 	}
 	
 	@Override

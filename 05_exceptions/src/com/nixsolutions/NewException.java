@@ -40,14 +40,18 @@ public class NewException implements Save {
 							       // overwritten
 	    writer.write(inputText);
 	    System.out.println("Data: " + inputText + "\nWas successfully written into file.");
+	}
+	catch (IOException iOexept) {
 
-	} catch (FileNotFoundExp e) {
-
-	    e.printStackTrace();
-
-	} catch (IOException iOexept) {
-
-	    iOexept.printStackTrace();
+	    try {
+		
+		throw new FileNotFoundExp(iOexept.getMessage());
+		
+	    } catch (FileNotFoundExp e) {
+		
+		e.printStackTrace();
+	    }
+	    
 	} finally {
 	    try {
 		writer.close();

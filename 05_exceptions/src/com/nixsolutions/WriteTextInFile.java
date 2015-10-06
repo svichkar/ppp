@@ -17,9 +17,9 @@ public class WriteTextInFile implements Save {
 		txtFile.createNewFile(); // create new file
 		System.out.format("New file \"%s\" is created succesfully\n", path);
 	    } catch (FileWriteExeption e) {
-		e.printStackTrace();
+		throw new RuntimeException(e.getMessage());
 	    } catch (IOException e) {
-		e.printStackTrace();
+		throw new RuntimeException(e.getMessage());
 	    }
 	} else {
 	    System.out.format("File \"%s\" is already exist\n", path);
@@ -28,9 +28,9 @@ public class WriteTextInFile implements Save {
 	    fw.write(text); // write text into file
 	    System.out.format("Text \"%s\" is written into file succesfully", text);
 	} catch (FileWriteExeption e) {
-	    e.printStackTrace();
+	    throw new RuntimeException(e.getMessage());
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    throw new RuntimeException(e.getMessage());
 	}
     }
 }

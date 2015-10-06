@@ -1,21 +1,27 @@
 package com.nixsolutions;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SavingDataToFile {
 
 	public static void main(String[] args) {
 		MySave ms = new MySave();
-		String[] words = new String[] { "", "else", "switch", "for", "while", "",
-				"case", "catch", "throw", "finally", "if" };
+		String[] words = new String[] { "", "else", "switch", "for", "while",
+				"", "case", "catch", "throw", "finally", "if" };
 
 		int counter = 0;
-		String file = ".\\temp\\test.txt";
+		Path file = Paths.get(".\\temp\\test.txt");
 		while (counter < words.length) {
 			System.out.printf("Writing word \"%1s\" to file \"%2s\" ....%n",
-					words[counter], file);
-			ms.save(words[counter], file);
+					words[counter], file.toAbsolutePath());
+			try {
+				ms.save(words[counter], file.toAbsolutePath().toString());
+			} catch (Exception ex) {
+				System.out.printf("Cannot save text \"%1s\" to file.%n The reason is \"%2s\"%n",
+						words[counter], ex.getMessage());
+			}
 			counter++;
 		}
 	}
-
 }

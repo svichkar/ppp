@@ -16,16 +16,14 @@ public class MySave implements Save {
 		FileWriter fw = null;
 
 		try {
-
 			if (arg0.length() == 0) {
 				throw new MyException("Text has 0 length");
 			}
-			
-			if (arg1.length() == 0)
-			{	
+
+			if (arg1.length() == 0) {
 				throw new MyException("File is not defined");
 			}
-			
+
 			File fileForSavingString = new File(arg1);
 			if (!fileForSavingString.exists()) {
 				fileForSavingString.createNewFile();
@@ -36,14 +34,8 @@ public class MySave implements Save {
 			bufferW.newLine();
 			// push from buffer
 			bufferW.flush();
-		} catch (MyException ex) {
-			System.out.printf(
-					"Exception caught by own exception. Message is \"%s\"%n",
-					ex.getMessage());
 		} catch (IOException ioex) {
 			ioex.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			try {
 				if (bufferW != null) {

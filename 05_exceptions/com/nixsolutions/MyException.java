@@ -2,8 +2,7 @@ package com.nixsolutions;
 
 import java.io.IOException;
 
-
-public class MyException 	extends IllegalArgumentException {
+public class MyException extends RuntimeException {
 
 	/**
 	 * id required for serialization

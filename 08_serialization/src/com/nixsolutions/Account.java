@@ -1,8 +1,5 @@
 package com.nixsolutions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Account implements Serializable {
@@ -23,16 +20,6 @@ public class Account implements Serializable {
     @Override
     public String toString() {
 	return id + "\t" + name + "\t" + role;
-    }
-
-    public byte[] serialize(Serializable o) throws IOException {
-
-	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	ObjectOutputStream oos = new ObjectOutputStream(baos);
-	oos.writeObject(o);
-	oos.close();
-	return baos.toByteArray();
-
     }
 
 }

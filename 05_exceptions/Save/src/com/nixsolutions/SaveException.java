@@ -3,13 +3,12 @@
  */
 package com.nixsolutions;
 
-import java.io.IOException;
 
 /**
  * @author mixeyes
  *
  */
-public class SaveException extends IOException {
+public class SaveException extends RuntimeException {
 
 	/**
 	 * 

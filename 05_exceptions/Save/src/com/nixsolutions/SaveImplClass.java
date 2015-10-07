@@ -4,11 +4,16 @@
 package com.nixsolutions;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+
+import exception.Save;
 
 /**
  * @author mixeyes
@@ -76,5 +81,28 @@ public class SaveImplClass implements Save, Closeable {
 		boolean result = file.exists();
 		System.out.println(result ? filePath + " is exist" : filePath + " is not exist");
 	}
+
+	@Override
+	public void save(String arg0, String arg1) {
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		try {
+			fileWriter = new FileWriter(filePath);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			bufferedWriter.write(stringToSave);
+
+		} catch (FileNotFoundException ex) {
+				throw new SaveException("Please Enter valid file name");
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} finally {
+			if (fileWriter != null)
+				try {
+					fileWriter.close();
+				} catch (IOException e) {
+				}
+		}
+	} // TODO Auto-generated method stub
 
 }

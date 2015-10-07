@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GenericsProcessing {
+public class SummatorProcessing {
 
 	public static void main(String[] args) {
 		Map<String, List<Number>> inpMap = new HashMap<>();

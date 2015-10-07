@@ -8,25 +8,25 @@ import java.io.Serializable;
 public class PersonalAccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	public long id;
-	public String name;
-	public String role;
+	private long id;
+	private String name;
+	private String role;
 	
 	public PersonalAccount(long id, String name, String role){
 		this.id = id;
 	    this.name = name;
 	    this.role = role;		
 	}
+	
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		out.writeObject((id + ";;" + name + ";;" + role));
+	}
 
-	public void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		String[] fields = ((String) in.readObject()).split(";;");
 		id = Long.parseLong(fields[0]);
 		name = fields[1];
 		role = fields[2];
-	}
-
-	public void writeObject(ObjectOutputStream out) throws IOException {
-		out.writeObject((id + ";;" + name + ";;" + role).getBytes());
 	}
 	
 	@Override

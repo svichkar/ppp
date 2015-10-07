@@ -17,6 +17,7 @@ public class Lab8 {
 
 		File file = new File(System.getProperty("user.dir") + "\\PersonalAccount.dat");
 		System.out.println("File path: " + System.getProperty("user.dir") + "\\PersonalAccount.dat");
+		
 		ObjectOutputStream objectOutput = null;
 		try {
 			FileOutputStream fos = new FileOutputStream(file);
@@ -52,5 +53,4 @@ public class Lab8 {
 		}
 		System.out.println("Deserialized account: " + accountNew.toString());
 	}
-
 }

@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Consumer implements Runnable {
-    List<Integer> randomNumbersList;
-    boolean isEven;
+    private List<Integer> randomNumbersList;
+    private boolean isEven;
 
     public Consumer(List<Integer> rndnmbr, boolean isEven) {
 	this.randomNumbersList = rndnmbr;

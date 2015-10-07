@@ -3,8 +3,8 @@ package com.nixsolutions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThreadsTask {
-    public static void main(String[] args){
+public class ThreadsTask1 {
+    public static void main(String[] args) {
 	List<Integer> randomNumbersList = new ArrayList<Integer>();
 	Producer prod = new Producer(randomNumbersList);
 	Consumer consumerEven = new Consumer(randomNumbersList, true);

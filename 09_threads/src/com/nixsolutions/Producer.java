@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Producer implements Runnable {
-    List<Integer> randomNumbersList;
+    private List<Integer> randomNumbersList;
 
     public Producer(List<Integer> rndnmbrs) {
 	this.randomNumbersList = rndnmbrs;

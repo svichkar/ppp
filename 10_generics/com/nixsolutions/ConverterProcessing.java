@@ -3,10 +3,10 @@ package com.nixsolutions;
 public class ConverterProcessing {
 
 	public static void main(String[] args) {
-		FloatToDoubleConverter<Double, Float> ftdConv = new FloatToDoubleConverter<>();
+		FloatToDoubleConverter ftdConv = new FloatToDoubleConverter();
 		double d = ftdConv.get(3f);
-		IntegerArrayToStringConverter<String, Integer[]> itsConv = new IntegerArrayToStringConverter<>();
-		String temp = itsConv.get(new Integer[]{3, 4});
+		IntegerArrayToStringConverter itsConv = new IntegerArrayToStringConverter();
+		String temp = itsConv.get(new Integer[] {3, 4, 6, 18, 24});
 	}
 
 }

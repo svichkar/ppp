@@ -2,23 +2,21 @@ package com.nixsolutions;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Producer implements Runnable {
-	protected BlockingQueue queue;
+	protected ConcurrentLinkedQueue<Integer> queue;
 	
-	public Producer(BlockingQueue theQueue) {
+	public Producer(ConcurrentLinkedQueue<Integer> theQueue) {
 		this.queue = theQueue; 
 	}
 	 
 	@Override
 	public void run() {
 		Random rand = new Random();
-		try {
-			queue.put(rand.nextInt());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			System.out.println("Producer interrupted.");
-		}
+		int val = rand.nextInt();
+		queue.add(val);
+		System.out.println("Producer put following value into the queue. Value: " + val);
 	}
 
 }

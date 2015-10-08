@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-public class IntegerArrayToStringConverter<T, I> implements Converter<String, Integer[]> {
+public class IntegerArrayToStringConverter implements Converter<String, Integer[]> {
 	
 	public String get(Integer[] intArr) {
 		StringBuilder sb = new StringBuilder();

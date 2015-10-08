@@ -9,21 +9,21 @@ public class SummatorProcessing {
 
 	public static void main(String[] args) {
 		Map<String, List<Number>> inpMap = new HashMap<>();
-		inpMap.put("one", new ArrayList() {
+		inpMap.put("one", new ArrayList<Number>() {
 			{
 				add(3f);
 				add(4f);
 				add(5f);
 			}
 		});
-		inpMap.put("two", new ArrayList() {
+		inpMap.put("two", new ArrayList<Number>() {
 			{
 				add(2d);
 				add(6d);
 				add(8d);
 			}
 		});
-		inpMap.put("three", new ArrayList() {
+		inpMap.put("three", new ArrayList<Number>() {
 			{
 				add(3.4f);
 				add(6.1f);

@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-public interface Converter<T,I> {
+public interface Converter<T, I> {
 
-     public T get(I i) ;
+    public T get(I i);
 }

@@ -9,7 +9,7 @@ public class IntegerAttayToStringConverter implements Converter<String, Integer[
 	    temp += integer + " ";
 	}
 
-	return temp;
+	return temp.trim();
     }
 
 }

@@ -10,5 +10,5 @@ package com.nixsolutions;
  */
 public interface Converter<T, E> {
 
-	public <T> T  get(E element);
+	public T  get(E element);
 }

@@ -1,11 +1,11 @@
 package com.nixsolutions;
 
-public class FloatConverter<T, E> implements Converter<T, E> {
+public class FloatConverter implements Converter<Double, Float> {
 
 	@Override
-	public <T> T get(E element) {
-		
-		return (T) Double.valueOf(element.toString());
+	public Double get(Float element) {
+		// TODO Auto-generated method stub
+		return element.doubleValue();
 	}
 
 }

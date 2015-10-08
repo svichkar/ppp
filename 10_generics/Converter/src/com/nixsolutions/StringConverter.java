@@ -1,18 +1,15 @@
 package com.nixsolutions;
 
-public class StringConverter<E, T> implements Converter<T, E> {
-	private E[] intMass;
-
-	public StringConverter() {
-	}
+public class StringConverter implements Converter<String, Integer[]> {
 
 	@Override
-	public <T> T get(E element) {
-		T strElem =(T)"";
-		this.intMass = (E[]) element;
-		for (int i=0; i<intMass.length;i++)
-			strElem = (T)(strElem.toString() + (intMass[i] + " ").toString());
-		return (T) strElem;
+	public String get(Integer[] element) {
+		String strElem = "";
+
+		for (int i = 0; i < element.length; i++) {
+			strElem += element[i].toString() + " ";
+		}
+		return strElem;
 	}
 
 }

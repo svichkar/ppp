@@ -43,31 +43,16 @@ public class SerializationTest {
 			out = new ObjectOutputStream(gZipOut);
 			out.writeObject(testObject);
 			out.flush();
+			bos.flush();
 			return bos.toByteArray();
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (gZipOut != null) {
-					gZipOut.flush();
-					gZipOut.close();
+				if (bos != null) {
+					bos.close();
 				}
-			} catch (IOException ex) {
-				// ignore close exception
-			}
-			try {
-				if (out != null) {
-					out.flush();
-					out.close();
-				}
-			} catch (IOException ex) {
-				// ignore close exception
-			}
-			try {
-				bos.flush();
-				bos.close();
 			} catch (IOException ex) {
 				// ignore close exception
 			}

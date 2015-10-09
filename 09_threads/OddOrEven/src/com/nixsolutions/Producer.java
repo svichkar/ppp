@@ -6,7 +6,6 @@ package com.nixsolutions;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-
 /**
  * @author mixeyes
  *
@@ -20,10 +19,10 @@ public class Producer implements Runnable {
 
 	@Override
 	public void run() {
-		Random rand = new Random();
-		int val = rand.nextInt();
-		values.add(val);
-		System.out.println("Producer put rundom value" + val + " into the SynchronousQueue.");
-	}
+		Random rand = new Random(System.nanoTime());
+			int val = rand.nextInt();
+			values.add(val);
+			System.out.println("Producer put rundom value " + val + " into the SynchronousQueue.");
+		}
 
 }

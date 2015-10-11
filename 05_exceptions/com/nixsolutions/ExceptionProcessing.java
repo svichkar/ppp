@@ -1,5 +1,8 @@
 package com.nixsolutions;
 
+import com.nixsolutionslog.CustomException;
+import com.nixsolutionslog.CustomSave;
+
 public class ExceptionProcessing {
 
 	public static void main(String[] args) {

@@ -6,11 +6,11 @@
     </Console>
   </Appenders>
   <Loggers>
-  <Logger name="GlobalLogger" level="trace">
+  <Logger name="GlobalLogger" level="trace" additivity="false">
 	<AppenderRef ref="Console"/>
   </Logger>
   <Root level="error">
-    <AppenderRef ref="Console"  additivity="false"/>
+    <AppenderRef ref="Console"/>
   </Root>
   </Loggers>
 </Configuration>

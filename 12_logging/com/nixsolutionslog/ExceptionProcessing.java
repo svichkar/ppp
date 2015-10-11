@@ -12,11 +12,10 @@ public class ExceptionProcessing {
 		CustomSave cSave = new CustomSave();
 		try {
 			cSave.save("test", "F:\\test.txt");
+			LOGGER.debug("Coming to exception point.");
 			cSave.save("", "D:\\test.txt");
 			cSave.save("test3", "D:\\test.txt");
 		} catch (CustomException ex) {
-			// System.out.println("We catched our custom exception in 'main'
-			// method.");
 			LOGGER.error("We catched our custom exception in 'main' method.", ex);
 		}
 	}

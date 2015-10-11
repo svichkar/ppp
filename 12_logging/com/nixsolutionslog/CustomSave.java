@@ -14,18 +14,20 @@ public class CustomSave implements exception.Save {
 	
 	@Override
 	public void save(String text, String path) {
+		LOGGER.warn("Checking arguments.");
 		if (text.length()==0) {
-			throw new CustomException();
+			throw LOGGER.throwing(new CustomException());
 		}
 		if (path.length()==0) {
-			throw new CustomException();
+			throw LOGGER.throwing(new CustomException());
 		}
+		LOGGER.info("Working with files.");
 		File f = new File(path);
 		if (!f.exists()) {
 			try {
 				f.createNewFile();
 			} catch (IOException ex) {
-				LOGGER.warn("File is not created.", ex);
+				LOGGER.error("File is not created.", ex);
 			}
 		}
 		FileOutputStream fOut = null;
@@ -34,7 +36,7 @@ public class CustomSave implements exception.Save {
 			fOut.write(text.getBytes());
 			fOut.flush();
 		} catch (IOException ex) {
-			ex.printStackTrace();
+			LOGGER.error("Stream to file is not created.", ex);
 			throw new CustomException(ex);
 		} finally {
 			try {
@@ -42,7 +44,7 @@ public class CustomSave implements exception.Save {
 					fOut.close();
 				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
+				LOGGER.warn("Stream from file is not closed.", ex);
 			}
 		}
 	}

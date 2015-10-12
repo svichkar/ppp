@@ -17,7 +17,7 @@ public class NewException implements Save {
 	LOG.debug(newEx);
 	LOG.info("Instance newEx of NewException class was created successfully ");
 	newEx.save("This is data for input file ", "D:\\1\\1\\1\\1\\1.txt");
-	LOG.info("Data was loaded into file by path D:\\1\\1\\1\\1\\1.txt");
+	LOG.info("Data was loaded into file by path D:\\1\\1\\1\\1\\1.txt and application is finished.");
     }
 
     @Override

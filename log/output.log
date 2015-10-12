@@ -1,0 +1,12 @@
+10:52:52.678 [main] WARN  GlobalLogger - Checking arguments.
+10:52:52.679 [main] INFO  GlobalLogger - Working with files.
+10:52:52.680 [main] DEBUG GlobalLogger - Coming to exception point.
+10:52:52.680 [main] WARN  GlobalLogger - Checking arguments.
+10:52:52.681 [main] ERROR GlobalLogger - throwing
+com.nixsolutionslog.CustomException
+	at com.nixsolutionslog.CustomSave.save(CustomSave.java:19) [lab1/:?]
+	at com.nixsolutionslog.ExceptionProcessing.main(ExceptionProcessing.java:16) [lab1/:?]
+10:52:52.684 [main] ERROR GlobalLogger - We catched our custom exception in 'main' method.
+com.nixsolutionslog.CustomException
+	at com.nixsolutionslog.CustomSave.save(CustomSave.java:19) ~[lab1/:?]
+	at com.nixsolutionslog.ExceptionProcessing.main(ExceptionProcessing.java:16) [lab1/:?]

@@ -28,6 +28,7 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 
 	@Override
 	public Class<?> findClass(String name) throws ClassNotFoundException {
+		Class<?> debugClass = null;
 		if (path == null || path == "") {
 			return super.findSystemClass(name);
 		} else {
@@ -43,7 +44,7 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 						try {
 							in = new FileInputStream(f);
 							in.read(buffer);
-							Class<?> debugClass = defineClass(normalize(name),
+							debugClass = defineClass(normalize(name),
 									buffer, 0, buffer.length);
 							return debugClass;
 						} catch (IOException e) {
@@ -60,6 +61,9 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 			} else {
 				throw new ClassNotFoundException();
 			}
+		}
+		if (debugClass == null) {
+			throw new ClassNotFoundException();
 		}
 		return null;
 	}

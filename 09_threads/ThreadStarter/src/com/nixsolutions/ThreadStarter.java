@@ -28,17 +28,17 @@ public class ThreadStarter {
 					switch (counter.intValue()) {
 					case 100: {
 						System.out.println("mainThread is working. thread100 is starting");
-						thread100().start();
+						newThread("thread100").start();
 					}
 						break;
 					case 300: {
 						System.out.println("mainThread is working. thread300 is starting");
-						thread300().start();
+						newThread("thread300").start();
 					}
 						break;
 					case 500: {
 						System.out.println("mainThread is working. thread500 is starting");
-						thread500().start();
+						newThread("thread500").start();
 					}
 						break;
 					default:
@@ -57,7 +57,7 @@ public class ThreadStarter {
 		mainThread.start();
 	}
 
-	private static Thread thread100() {
+	private static Thread newThread(String threadName) {
 		Thread thread100 = new Thread(new Runnable() {
 
 			@Override
@@ -67,48 +67,11 @@ public class ThreadStarter {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
 					}
-					System.out.println("thread100 is working. counter = " + counter.intValue());
+					System.out.println(threadName+" is working. counter = " + counter.intValue());
 				}
 
 			}
 		});
 		return thread100;
 	}
-
-	private static Thread thread300() {
-		Thread thread300 = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (counter.intValue() <= MAX_COUNT) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-					}
-					System.out.println("thread300 is working. counter = " + counter.intValue());
-				}
-
-			}
-		});
-		return thread300;
-	}
-
-	private static Thread thread500() {
-		Thread thread500 = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (counter.intValue() <= MAX_COUNT) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-					}
-					System.out.println("thread500 is working. counter = " + counter.intValue());
-				}
-
-			}
-		});
-		return thread500;
-	}
-
 }

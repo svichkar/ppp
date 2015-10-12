@@ -47,7 +47,6 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 									buffer, 0, buffer.length);
 							return debugClass;
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} finally {
 							try {

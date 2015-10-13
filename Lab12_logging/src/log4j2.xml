@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+	<Appenders>
+		<File name="fileMain" fileName="logMain.log">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"></PatternLayout>
+		</File>
+		<File name="fileSave" fileName="logSAve.log">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"></PatternLayout>
+		</File>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"></PatternLayout>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="SaveMain" level="TRACE" additivity="false">
+			<AppenderRef ref="fileMain" level="ERROR" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="SaveAction" level="TRACE" additivity="false">
+			<AppenderRef ref="fileSave" level="WARN" />
+			<AppenderRef ref="Console" />
+		</Logger>
+	</Loggers>
+</Configuration>

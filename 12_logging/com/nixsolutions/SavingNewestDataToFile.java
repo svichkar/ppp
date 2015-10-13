@@ -7,13 +7,14 @@ public class SavingNewestDataToFile {
 
 	public static void main(String[] args) {
 		MyNewestSave ms = new MyNewestSave();
-		MyLogging.LOG.trace("Entering into application...");
-		MyLogging.LOG.trace("Define array of words...");
+		MyLogging.LOG.info("Entering into application...");
+		MyLogging.LOG.info("Define array of words...");
 		String[] words = new String[] { "", "else", "switch", "for", "while",
 				"", "case", "catch", "throw", "finally", "if" };
 
 		int counter = 0;
-		MyLogging.LOG.trace("Getting file for writing log...");
+		
+		MyLogging.LOG.info("Getting file for writing log...");
 		Path file = Paths.get(".\\temp\\test.txt");
 		while (counter < words.length) {
 			MyLogging.LOG.trace(String.format(
@@ -27,5 +28,6 @@ public class SavingNewestDataToFile {
 			}
 			counter++;
 		}
+		MyLogging.LOG.info("Exiting application...");
 	}
 }

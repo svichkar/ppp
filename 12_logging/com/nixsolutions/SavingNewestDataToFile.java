@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 public class SavingNewestDataToFile {
 
 	public static void main(String[] args) {
+		MyLogging myLog= new MyLogging();
 		MyNewestSave ms = new MyNewestSave();
 		MyLogging.LOG.info("Entering into application...");
 		MyLogging.LOG.info("Define array of words...");

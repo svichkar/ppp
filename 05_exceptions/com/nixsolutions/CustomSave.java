@@ -38,6 +38,7 @@ public class CustomSave implements exception.Save {
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
+				throw new CustomException(ex);
 			}
 		}
 	}

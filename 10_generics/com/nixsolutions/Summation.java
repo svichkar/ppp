@@ -20,7 +20,7 @@ public class Summation {
 	/**
 	 * @param args
 	 */
-	static final int LISTSIZE = 5;
+	private static final int LISTSIZE = 5;
 
 	public static void main(String[] args) {
 		// /generate input data
@@ -45,12 +45,12 @@ public class Summation {
 		List[] values = new List[] { intArray, longArray, floatArray,
 				doubleArray, numberArray };
 		// /prepare input data
-		Map<String, List<?>> inputData = new TreeMap<String, List<?>>();
+		Map<String, List<? extends Number>> inputData = new TreeMap<String, List<? extends Number>>();
 		for (int zz = 0; zz < values.length; zz++) {
 			inputData.put("key" + zz, values[zz]);
 		}
 		// //show result of using function
-		for (Entry<String, List<?>> pair : inputData.entrySet()) {
+		for (Entry<String, List<? extends Number>> pair : inputData.entrySet()) {
 			System.out.printf("Type %1s%n Key '%2s\' Values '%3s'%n", pair.getValue().get(0).getClass().getName(), pair.getKey(), 
 					joinStrings(" ", pair.getValue()));
 		}
@@ -64,10 +64,10 @@ public class Summation {
 
 	}
 
-	public static Map<String, Double> mySummator(Map<String, List<?>> sourceMap) {
+	public static Map<String, Double> mySummator(Map<String, List<? extends Number>> sourceMap) {
 		Map<String, Double> result = new TreeMap<String, Double>();
 		if (!sourceMap.isEmpty()) {
-			for (Entry<String, List<?>> pair : sourceMap.entrySet()) {
+			for (Entry<String, List<? extends Number>> pair : sourceMap.entrySet()) {
 				result.put(pair.getKey(), getSum(pair.getValue()));
 			}
 		}
@@ -75,9 +75,9 @@ public class Summation {
 		return result;
 	}
 
-	private static Double getSum(List<?> numbers) {
+	private static Double getSum(List<? extends Number> numbers) {
 		Double result = 0.0;
-		Iterator<?> iter = numbers.iterator();
+		Iterator<? extends Number> iter = numbers.iterator();
 		while (iter.hasNext()) {
 			Number numberValue = (Number) iter.next();
 			result = result + numberValue.doubleValue();

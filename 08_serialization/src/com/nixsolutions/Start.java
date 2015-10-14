@@ -2,6 +2,7 @@ package com.nixsolutions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -32,13 +33,17 @@ public class Start {
 
 	    System.out.println("ID = " + decodedString.split("\t")[0] + "\nName = " + decodedString.split("\t")[1]
 		    + "\nRole = " + decodedString.split("\t")[2]);
+	} catch (FileNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    throw new RuntimeException(e);
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    throw new RuntimeException(e);
+
 	} finally {
 	    try {
 		fos.close();
 	    } catch (IOException e) {
-		e.printStackTrace();
+		throw new RuntimeException(e);
 	    }
 	}
     }
@@ -62,8 +67,8 @@ public class Start {
 
 	} catch (ClassNotFoundException e) {
 
-	    e.printStackTrace();
-	    return null;
+	    throw new RuntimeException(e);
+
 	} finally {
 
 	    ois.close();

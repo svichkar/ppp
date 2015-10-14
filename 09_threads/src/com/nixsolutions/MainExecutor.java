@@ -1,11 +1,15 @@
 package com.nixsolutions;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+
 public class MainExecutor {
 
     public static void main(String[] args) {
-	Thread prod = new NewThreadProducer();
-	Thread consumerOne = new NewThreadConsumer(true);
-	Thread consumerTwo = new NewThreadConsumer(false);
+	BlockingQueue<Integer> quene = new ArrayBlockingQueue<>(100);
+	Thread prod = new NewThreadProducer(quene);
+	Thread consumerOne = new NewThreadConsumer(true, quene);
+	Thread consumerTwo = new NewThreadConsumer(false, quene);
 	prod.start();
 	try {
 	    Thread.sleep(1);

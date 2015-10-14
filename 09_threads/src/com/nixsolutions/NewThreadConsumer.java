@@ -1,33 +1,39 @@
 package com.nixsolutions;
 
+import java.util.concurrent.BlockingQueue;
+
 public class NewThreadConsumer extends Thread {
 
     private boolean isGerade = false;
 
-    public NewThreadConsumer(Boolean isGerade) {
+    private BlockingQueue<Integer> quene;
+
+    public NewThreadConsumer(Boolean isGerade, BlockingQueue<Integer> quene) {
 	this.isGerade = isGerade;
+	this.quene = quene;
     }
 
     public void run() {
-	if (isGerade) {
-	    if (NewThreadProducer.quene != null) {
-		for (Integer intt : NewThreadProducer.quene) {
-		    if (intt % 2 == 0) {
-			System.out.println("Consumer for gerade values reports - " + intt  );
+
+	while (!quene.isEmpty()) {
+
+	    if (quene.peek() != null) {
+
+		if (isGerade) {
+		    if (quene.peek() % 2 == 0) {
+			System.out.println("Consumer for gerade values reports - " + quene.poll());
+
 		    }
+
+		} else {
+		    if (quene.peek() % 2 != 0) {
+			System.out.println("Consumer for NON gerade values reports - " + quene.poll());
+		    }
+
 		}
 
-	    } else {
-		System.out.println("Consumer: List is empty!");
 	    }
-	} else {
-	    if (NewThreadProducer.quene != null) {
-		for (Integer intt : NewThreadProducer.quene) {
-		    if (intt % 2 != 0) {
-			System.out.println("Consumer for NON gerade values reports - " + intt);
-		    }
-		}
-	    }
+
 	}
 
     }

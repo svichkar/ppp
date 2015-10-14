@@ -21,6 +21,6 @@ public class ThreadClassForSecondTask extends Thread {
 		e.printStackTrace();
 	    }
 	}
-	System.out.println("Thread which was started in "+startedIn + " ms is ENDED." );
+	System.out.println("Thread which was started in " + startedIn + " ms is ENDED.");
     }
 }

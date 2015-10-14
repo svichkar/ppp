@@ -52,10 +52,6 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 		return bytes;
 	}
 	
-	private String normalize(String className) {
-		return className.replace('/', '.');
-	}
-	
 	private String stripName(String className) {
 		return className.substring(className.lastIndexOf('.') + 1);
 	}

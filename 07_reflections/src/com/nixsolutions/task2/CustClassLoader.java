@@ -15,24 +15,32 @@ public class CustClassLoader extends ClassLoader implements PathClassLoader {
 	super(ClassLoader.getSystemClassLoader());
     }
 
-    public Class loadCustClass(String className) throws IOException {
+    public Class loadCustClass(String className) throws IOException, ClassNotFoundException {
 	Class custClass = cashedClasses.get(className);
 	if (custClass != null) {
 	    return custClass;
 	} else {
-	    BufferedInputStream inStream = null;
 	    try {
-		String[] tempFileName = className.split("\\.");
-		String fileName = tempFileName[tempFileName.length - 1];
-		File classFile = new File(path + File.separator + fileName + ".class");
-		inStream = new BufferedInputStream(new FileInputStream(classFile));
-		byte[] classByte = new byte[inStream.available()];
-		inStream.read(classByte);
-		cashedClasses.put(className, defineClass(null, classByte, 0, classByte.length));
-		return cashedClasses.get(className);
-	    } finally {
-		if (inStream != null) {
-		    inStream.close();
+		custClass = findSystemClass(className);
+	    } catch (ClassNotFoundException ex) {
+	    }
+	    if (custClass != null) {
+		return custClass;
+	    } else {
+		BufferedInputStream inStream = null;
+		try {
+		    String[] tempFileName = className.split("\\.");
+		    String fileName = tempFileName[tempFileName.length - 1];
+		    File classFile = new File(path + File.separator + fileName + ".class");
+		    inStream = new BufferedInputStream(new FileInputStream(classFile));
+		    byte[] classByte = new byte[inStream.available()];
+		    inStream.read(classByte);
+		    cashedClasses.put(className, defineClass(null, classByte, 0, classByte.length));
+		    return cashedClasses.get(className);
+		} finally {
+		    if (inStream != null) {
+			inStream.close();
+		    }
 		}
 	    }
 	}

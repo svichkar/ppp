@@ -13,6 +13,7 @@ public class HashSetTest {
 
     @Before
     public void initializeVariableHashSet() {
+	//Given block for all tests in this class
 	hs = new HashSet<>();
 
     }
@@ -20,8 +21,9 @@ public class HashSetTest {
     @Test
     public void elementShouldBeAddedToHashSet() {
 
-	hs.add("FirstElement");
-	assertTrue(hs.contains("FirstElement"));
+	hs.add("FirstElement");  //When section 
+	
+	assertTrue(hs.contains("FirstElement")); // Than section 
 
     }
 

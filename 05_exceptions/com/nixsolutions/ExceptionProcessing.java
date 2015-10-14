@@ -1,7 +1,7 @@
 package com.nixsolutions;
 
-import com.nixsolutionslog.CustomException;
-import com.nixsolutionslog.CustomSave;
+import com.nixsolutions.CustomException;
+import com.nixsolutions.CustomSave;
 
 public class ExceptionProcessing {
 

@@ -28,6 +28,7 @@ public class CustomSave implements exception.Save {
 				f.createNewFile();
 			} catch (IOException ex) {
 				LOGGER.error("File is not created.", ex);
+				throw new CustomException(ex);
 			}
 		}
 		FileOutputStream fOut = null;
@@ -45,6 +46,7 @@ public class CustomSave implements exception.Save {
 				}
 			} catch (Exception ex) {
 				LOGGER.warn("Stream from file is not closed.", ex);
+				throw new CustomException(ex);
 			}
 		}
 	}

@@ -2,6 +2,7 @@ package com.nixsolutions;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -18,54 +19,37 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 		return path;
 	}
 
-	public CustomLoader() {
-
+	public CustomLoader(ClassLoader parent) {
+		super(parent);
 	}
 
-	public CustomLoader(String path) {
+	public CustomLoader(String path, ClassLoader parent) {
+		super(parent);
 		setPath(path);
 	}
 
 	@Override
-	public Class<?> findClass(String name) throws ClassNotFoundException {
-		Class<?> debugClass = null;
-		if (path == null || path == "") {
-			return super.findSystemClass(name);
-		} else {
-			File dir = new File(getPath());
-			if (dir.exists()) {
-				String[] files = dir.list();
-				for (String fileName : files) {
-					if (fileName.equals(stripName(name) + ".class")) {
-						File f = new File(dir, fileName);
-						long size = f.length();
-						byte[] buffer = new byte[(int) size];
-						InputStream in = null;
-						try {
-							in = new FileInputStream(f);
-							in.read(buffer);
-							debugClass = defineClass(normalize(name),
-									buffer, 0, buffer.length);
-							return debugClass;
-						} catch (IOException e) {
-							e.printStackTrace();
-						} finally {
-							try {
-								in.close();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			} else {
-				throw new ClassNotFoundException();
-			}
+	public Class<?> findClass(String className) throws ClassNotFoundException {
+		try {
+			byte[] b = getClassFromFile(new File(getPath(), stripName(className) + ".class"));
+			return defineClass(className, b, 0, b.length);
+		} catch (Exception ex) {
+			return super.loadClass(className);
 		}
-		if (debugClass == null) {
-			throw new ClassNotFoundException();
-		}
-		return null;
+	}
+	
+	private byte[] getClassFromFile(File f) throws IOException {
+		InputStream is = new FileInputStream(f);
+		long length = f.length();
+		byte[] bytes = new byte[(int) length];
+		int offset = 0;
+	    int numRead = 0;
+	    while (offset < bytes.length
+	        && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+	    	offset += numRead;
+	    }
+		is.close();
+		return bytes;
 	}
 	
 	private String normalize(String className) {

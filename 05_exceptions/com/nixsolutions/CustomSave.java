@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import com.nixsolutionslog.CustomException;
+import com.nixsolutions.CustomException;
 
 public class CustomSave implements exception.Save {
 	
@@ -20,7 +20,7 @@ public class CustomSave implements exception.Save {
 			try {
 				f.createNewFile();
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				throw new CustomException(ex);
 			}
 		}
 		FileOutputStream fOut = null;
@@ -29,7 +29,6 @@ public class CustomSave implements exception.Save {
 			fOut.write(text.getBytes());
 			fOut.flush();
 		} catch (IOException ex) {
-			ex.printStackTrace();
 			throw new CustomException(ex);
 		} finally {
 			try {
@@ -37,7 +36,6 @@ public class CustomSave implements exception.Save {
 					fOut.close();
 				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
 				throw new CustomException(ex);
 			}
 		}

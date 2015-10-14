@@ -1,6 +1,7 @@
 package com.nixsolutions;
 
 public class ReflectionTestingObject {
+	@Public
 	public String name;
 	private int num;
 	public long numT;

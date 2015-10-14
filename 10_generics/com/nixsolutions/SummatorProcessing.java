@@ -8,22 +8,22 @@ import java.util.Map;
 public class SummatorProcessing {
 
 	public static void main(String[] args) {
-		Map<String, List<Number>> inpMap = new HashMap<>();
-		inpMap.put("one", new ArrayList<Number>() {
+		Map<String, List<? extends Number>> inpMap = new HashMap<>();
+		inpMap.put("one", new ArrayList<Integer>() {
 			{
-				add(3f);
-				add(4f);
-				add(5f);
+				add(3);
+				add(4);
+				add(5);
 			}
 		});
-		inpMap.put("two", new ArrayList<Number>() {
+		inpMap.put("two", new ArrayList<Double>() {
 			{
 				add(2d);
 				add(6d);
 				add(8d);
 			}
 		});
-		inpMap.put("three", new ArrayList<Number>() {
+		inpMap.put("three", new ArrayList<Float>() {
 			{
 				add(3.4f);
 				add(6.1f);
@@ -33,9 +33,9 @@ public class SummatorProcessing {
 		Map<String, Double> res = sumByKey(inpMap);
 	}
 	
-	private static Map<String, Double> sumByKey(Map<String, List<Number>> m) {
+	private static Map<String, Double> sumByKey(Map<String, List<? extends Number>> m) {
 		Map<String, Double> resultMap = new HashMap<>();
-		for (Map.Entry<String, List<Number>> e : m.entrySet()) {
+		for (Map.Entry<String, List<? extends Number>> e : m.entrySet()) {
 			resultMap.put(e.getKey(), listSum(e.getValue()));
 		}
 		return resultMap;

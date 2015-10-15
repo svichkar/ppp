@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="ERROR">
   <Appenders>
-    <Console name="Console" target="SYSTEM_OUT">
+    <Console name="STDOUT" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
-	<File name="File-log" fileName="log/output.log" bufferedIO="false">
+	<File name="File-log" fileName="log/output.log">
 	  <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
 	</File>
   </Appenders>
   <Loggers>
-  <Logger name="GlobalLogger" level="trace">
-	<AppenderRef ref="File-log"/>
-  </Logger>
-  <Root level="error">
-    <AppenderRef ref="Console"/>
+  <Root level="INFO" additivity="false">
+    <AppenderRef ref="File-log"/>
   </Root>
+  <Logger name="GlobalLogger" level="TRACE">
+	<AppenderRef ref="STDOUT"/>
+  </Logger>
   </Loggers>
 </Configuration>

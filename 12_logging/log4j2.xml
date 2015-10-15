@@ -12,8 +12,8 @@
   <Root level="INFO" additivity="false">
     <AppenderRef ref="File-log"/>
   </Root>
-  <Logger name="GlobalLogger" level="TRACE">
-	<AppenderRef ref="STDOUT"/>
+  <Logger name="GlobalLogger" level="TRACE" additivity="false">
+	<AppenderRef ref="STDOUT"/><AppenderRef ref="File-log"></AppenderRef>
   </Logger>
   </Loggers>
 </Configuration>

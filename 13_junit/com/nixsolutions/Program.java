@@ -7,7 +7,7 @@ public class Program {
 	
 	public Program() {
 		//needs to be changed to reflect cross-platformness 
-		robot = new Robot("D:\\");
+		robot = new Robot("F:\\");
 	}
 	
 	public Program(String pathToDir) {

@@ -20,38 +20,38 @@ public class Robot {
 
 	public void stepForward() throws IOException {
 		switch (this.direction) {
-			case XP:
-				coordX += 1;
-				break;
-			case YP:
-				coordY += 1;
-				break;
-			case XN:
-				coordX -= 1;
-				break;
-			case YN:
-				coordY -= 1;
-				break;
+		case XP:
+			coordX += 1;
+			break;
+		case YP:
+			coordY += 1;
+			break;
+		case XN:
+			coordX -= 1;
+			break;
+		case YN:
+			coordY -= 1;
+			break;
 		}
 		writeToLog();
 	}
-	
+
 	public void turnLeft() {
-		direction.setInt(direction.getInt() + 1 % 4);
+		direction = Direction.getDirectionByInt(((direction.getInt() + 1) % 4));
 	}
-	
+
 	public void turnRight() {
-		direction.setInt(Math.abs(direction.getInt() - 1) % 4);
+		direction = Direction.getDirectionByInt(((direction.getInt() + 3) % 4));
 	}
-	
+
 	public int getCoordX() {
 		return coordX;
 	}
-	
+
 	public int getCoordY() {
 		return coordY;
 	}
-	
+
 	private void writeToLog() throws IOException {
 		if (!logLocation.exists()) {
 			logLocation.createNewFile();
@@ -67,7 +67,7 @@ public class Robot {
 
 		private int intCoord;
 
-		public void setInt(int value) {
+		private void setInt(int value) {
 			intCoord = value;
 		}
 
@@ -77,6 +77,21 @@ public class Robot {
 
 		private Direction(int coordVal) {
 			setInt(coordVal);
+		}
+
+		public static Direction getDirectionByInt(int value) {
+			switch (value) {
+				case 0:
+					return Direction.XP;
+				case 1:
+					return Direction.YP;
+				case 2:
+					return Direction.XN;
+				case 3:
+					return Direction.YN;
+				default:
+					return null;
+			}
 		}
 	}
 }

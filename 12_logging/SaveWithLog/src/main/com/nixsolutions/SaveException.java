@@ -1,9 +1,8 @@
 /**
  * 
  */
-package com.nixsolutions;
+package main.com.nixsolutions;
 
-import javax.sql.rowset.spi.TransactionalWriter;
 
 /**
  * @author mixeyes
@@ -20,7 +19,4 @@ public class SaveException extends RuntimeException {
 		super("SaveException: \""+message+"\"");
 	}
 
-	public SaveException(Throwable Ex) {
-		super(Ex);
-	}
 }

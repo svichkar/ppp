@@ -13,6 +13,7 @@ public class Consumer extends Thread {
 	protected ConcurrentLinkedQueue<Integer> nums;
 	protected boolean isOdd;
 	private String consumerName;
+	private boolean isRun=false;
 
 	public Consumer(ConcurrentLinkedQueue<Integer> values, boolean isOdd, String consumerName) {
 		this.nums = values;
@@ -22,11 +23,17 @@ public class Consumer extends Thread {
 
 	@Override
 	public void run() {
-		if (nums.peek() != null) {
-			if ((nums.peek() % 2 == 0 && isOdd) | (Math.abs(nums.peek() % 2) == 1 && !isOdd)) {
-				System.out.println(consumerName + " took following value from the queue. Value: " + nums.poll());
+		isRun=true;
+		while (isRun) {
+			if (nums.peek() != null) {
+				if ((nums.peek() % 2 == 0 && isOdd) | (Math.abs(nums.peek() % 2) == 1 && !isOdd)) {
+					System.out.println(consumerName + " took following value from the queue. Value: " + nums.poll());
+				}
 			}
 		}
 	}
 
+	public void stopThread() {
+		isRun=false;
+	}
 }

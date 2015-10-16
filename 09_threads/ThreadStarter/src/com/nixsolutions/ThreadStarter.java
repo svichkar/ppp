@@ -10,8 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 public class ThreadStarter {
-	private static Thread mainThread;
-	private static AtomicInteger counter;
 	private static final int MAX_COUNT = 1000;
 
 	/**
@@ -19,26 +17,28 @@ public class ThreadStarter {
 	 * @throws InterruptedException
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		Thread mainThread;
+		AtomicInteger counter;
 		counter = new AtomicInteger(0);
 		mainThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				while (counter.intValue() <= MAX_COUNT) {
+				while (counter.intValue() < MAX_COUNT) {
 					switch (counter.intValue()) {
 					case 100: {
 						System.out.println("mainThread is working. thread100 is starting");
-						newThread("thread100").start();
+						newThread("thread100",counter).start();
 					}
 						break;
 					case 300: {
 						System.out.println("mainThread is working. thread300 is starting");
-						newThread("thread300").start();
+						newThread("thread300",counter).start();
 					}
 						break;
 					case 500: {
 						System.out.println("mainThread is working. thread500 is starting");
-						newThread("thread500").start();
+						newThread("thread500",counter).start();
 					}
 						break;
 					default:
@@ -57,12 +57,12 @@ public class ThreadStarter {
 		mainThread.start();
 	}
 
-	private static Thread newThread(String threadName) {
+	private static Thread newThread(String threadName, AtomicInteger counter) {
 		Thread thread100 = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				while (counter.intValue() <= MAX_COUNT) {
+				while (counter.intValue() < MAX_COUNT) {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {

@@ -20,9 +20,11 @@ public class Producer implements Runnable {
 	@Override
 	public void run() {
 		Random rand = new Random(System.nanoTime());
+		for (int i = 10; i > 0; i--) {
 			int val = rand.nextInt();
 			values.add(val);
 			System.out.println("Producer put rundom value " + val + " into the SynchronousQueue.");
-		}
+}
+	}
 
 }

@@ -5,13 +5,8 @@ import java.io.IOException;
 public class Program {
 	private Robot robot;
 	
-	public Program() {
-		//needs to be changed to reflect cross-platformness 
-		robot = new Robot("F:\\");
-	}
-	
-	public Program(String pathToDir) {
-		robot = new Robot(pathToDir);
+	public Program(Robot robot) {
+		this.robot = robot;
 	}
 	
 	public void execute(String command) throws IOException {

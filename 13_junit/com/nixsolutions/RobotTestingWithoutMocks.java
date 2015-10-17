@@ -16,7 +16,7 @@ public class RobotTestingWithoutMocks {
 	
 	@Before
 	public void initialize() throws IOException {
-		program = new Program(folder.newFolder().getAbsolutePath());
+		program = new Program(new Robot(folder.newFolder().getAbsolutePath()));
 	}
 
 	@Test

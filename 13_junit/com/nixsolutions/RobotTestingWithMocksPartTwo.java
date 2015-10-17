@@ -18,9 +18,9 @@ public class RobotTestingWithMocksPartTwo {
 	private Robot robot;
 
 	@Before
-	public void initialize() {
+	public void initialize() throws IOException {
 		program = mock(Program.class);
-		robot = new Robot("F:\\");
+		robot = new Robot("");
 		when(program.getRobot()).thenReturn(robot);
 	}
 

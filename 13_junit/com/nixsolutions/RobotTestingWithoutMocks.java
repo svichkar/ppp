@@ -1,6 +1,8 @@
 package com.nixsolutions;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,13 +12,15 @@ import org.junit.rules.TemporaryFolder;
 
 public class RobotTestingWithoutMocks {
 	private Program program;
+	private String folderPath;
 
 	@Rule
 	public TemporaryFolder folder = new TemporaryFolder(); 
 	
 	@Before
 	public void initialize() throws IOException {
-		program = new Program(new Robot(folder.newFolder().getAbsolutePath()));
+		folderPath = folder.newFolder().getAbsolutePath();
+		program = new Program(new Robot(folderPath));
 	}
 
 	@Test
@@ -67,5 +71,16 @@ public class RobotTestingWithoutMocks {
 		program.execute(command);
 		// then
 		Assert.assertEquals(-1, program.getRobot().getCoordY());
+	}
+	
+	@Test
+	public void shouldWriteToFile() throws IOException {
+		// given
+		String command = "f";
+		String expectedText = "Coordinate X: 1. Coordinate Y: 0.";
+		// when
+		program.execute(command);
+		// then
+		Assert.assertEquals(expectedText, Files.readAllLines(Paths.get(folderPath, "robotLog.log")).get(0));
 	}
 }

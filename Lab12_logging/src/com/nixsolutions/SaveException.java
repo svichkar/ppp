@@ -35,7 +35,7 @@ public class SaveException implements Save {
 				try {
 					fw.close();
 				} catch (IOException e) {
-					LOG.catching(e);
+					LOG.error(e, e);
 				}
 			} else {
 				LOG.warn("FileWriter was null");
@@ -54,13 +54,13 @@ public class SaveException implements Save {
 				toReturn += line;
 			}
 		} catch (IOException ex) {
-			LOG.catching(ex);
+			LOG.error(ex, ex);
 		} finally {
 			if (br != null) {
 				try {
 					br.close();
 				} catch (IOException e) {
-					LOG.catching(e);
+					LOG.error(e, e);
 				}
 			} else {
 				LOG.warn("BufferedReader was null");

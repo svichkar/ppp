@@ -13,11 +13,11 @@ public class CallMyClassLoader {
 		MyClassLoader myClassLoader = new MyClassLoader(
 				"D:\\WorkPlace\\Java_lessons_maxb\\temp",
 				ClassLoader.getSystemClassLoader());
-		Class<?> anClass = myClassLoader.loadClass("com.nixsolutions.Car");
+		Class<?> anClass = myClassLoader.loadClass("com.nixsolutions.Processor");
 		Field ff = anClass.getDeclaredField("nameOfCar");
 		System.out.println(String.format("Found field is %s", ff.getName()));
 		System.out.println(String.format("Found class is %s", anClass.getName()));
-		Class<?> classString = myClassLoader.loadClass("org.apache.commons.io.FileUtils");
+		Class<?> classString = myClassLoader.loadClass("java.io.File");
 		System.out.println(String.format("Found native class is %s", classString.getName()));
 	}
 }

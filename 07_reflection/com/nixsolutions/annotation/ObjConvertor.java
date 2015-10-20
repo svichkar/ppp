@@ -17,9 +17,11 @@ public class ObjConvertor {
 	}
 
 	public String getNameOfObject() {
+		// /it will return the particular field of object that was defined (if toString was
+		// overloaded of course as it was done in my case)
 		return obj.getClass().cast(obj).toString();
 	}
-	
+
 	public String getClassOfObject() {
 		return obj.getClass().toString();
 	}

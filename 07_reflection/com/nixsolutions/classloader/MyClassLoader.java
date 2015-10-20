@@ -101,7 +101,7 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
 		List<File> lFiles = new ArrayList<File>();
 		File folder = new File(dir);
 		if (folder.exists()) {
-			lFiles = (List<File>) FileUtils.listFiles(folder, null, false);
+			lFiles = (List<File>) FileUtils.listFiles(folder, null, true);
 		} else {
 			throw new IOException(String.format(
 					"Folder %s with binary files doesn't exist", folder));

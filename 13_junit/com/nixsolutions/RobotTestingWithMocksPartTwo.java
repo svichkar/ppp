@@ -17,7 +17,7 @@ public class RobotTestingWithMocksPartTwo {
 	private Program program;
 	private Robot robot;
 
-	@Before
+	/*@Before
 	public void initialize() throws IOException {
 		program = mock(Program.class);
 		robot = new Robot("");
@@ -119,5 +119,7 @@ public class RobotTestingWithMocksPartTwo {
 		// then
 		verify(program).execute("rf");
 		Assert.assertEquals(-1, program.getRobot().getCoordY());
-	}
+	}*/
+	
+	
 }

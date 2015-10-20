@@ -1,12 +1,15 @@
 package com.nixsolutions;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 public class CustomLoader extends ClassLoader implements PathClassLoader {
 	private String path;
+	private ClassLoader fLoader;
 
 	@Override
 	public void setPath(String dir) {
@@ -18,37 +21,42 @@ public class CustomLoader extends ClassLoader implements PathClassLoader {
 		return path;
 	}
 
-	public CustomLoader(ClassLoader parent) {
-		super(parent);
+	public CustomLoader(ClassLoader fLoader) {
+		this.fLoader = fLoader;
 	}
 
-	public CustomLoader(String path, ClassLoader parent) {
-		super(parent);
+	public CustomLoader(String path, ClassLoader fLoader) {
+		this.fLoader = fLoader;
 		setPath(path);
 	}
 
 	@Override
 	public Class<?> findClass(String className) throws ClassNotFoundException {
+		Class<?> resClass = null;
 		try {
-			byte[] b = getClassFromFile(new File(getPath(), stripName(className) + ".class"));
-			return defineClass(className, b, 0, b.length);
+			for (File f : getFilesFromDir(getPath())) {
+				if (f.getName().equals(stripName(className) + ".class")) {
+					byte[] b = getClassFromFile(f);
+					resClass = defineClass(className, b, 0, b.length);
+					return resClass;
+				}
+			}
 		} catch (Exception ex) {
-			return super.loadClass(className);
+			ex.printStackTrace();
 		}
+		if (resClass == null) {
+			resClass = fLoader.loadClass(className);
+		}
+		return resClass;
 	}
 	
 	private byte[] getClassFromFile(File f) throws IOException {
-		InputStream is = new FileInputStream(f);
-		long length = f.length();
-		byte[] bytes = new byte[(int) length];
-		int offset = 0;
-	    int numRead = 0;
-	    while (offset < bytes.length
-	        && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
-	    	offset += numRead;
-	    }
-		is.close();
-		return bytes;
+		return Files.readAllBytes(f.toPath());
+	}
+	
+	private List<File> getFilesFromDir(String dir) {
+		File folder = new File(dir);
+		return (List<File>) FileUtils.listFiles(folder, null, true);
 	}
 	
 	private String stripName(String className) {

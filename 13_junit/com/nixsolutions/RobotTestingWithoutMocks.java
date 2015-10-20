@@ -1,8 +1,8 @@
 package com.nixsolutions;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,14 +12,14 @@ import org.junit.rules.TemporaryFolder;
 
 public class RobotTestingWithoutMocks {
 	private Program program;
-	private String folderPath;
+	private File folderPath;
 
 	@Rule
 	public TemporaryFolder folder = new TemporaryFolder(); 
 	
 	@Before
 	public void initialize() throws IOException {
-		folderPath = folder.newFolder().getAbsolutePath();
+		folderPath = folder.newFolder();
 		program = new Program(new Robot(folderPath));
 	}
 
@@ -81,6 +81,7 @@ public class RobotTestingWithoutMocks {
 		// when
 		program.execute(command);
 		// then
-		Assert.assertEquals(expectedText, Files.readAllLines(Paths.get(folderPath, "robotLog.log")).get(0));
+		Assert.assertEquals(expectedText, Files.readAllLines(
+				new File(folderPath, "robotLog.log").toPath()).get(0));
 	}
 }

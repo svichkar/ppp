@@ -11,11 +11,16 @@ public class Robot {
 	private int coordY;
 	private File logLocation;
 
-	public Robot(String pathToDir) {
+	public Robot(File logLocation) {
 		direction = Direction.XP;
 		coordX = 0;
 		coordY = 0;
-		logLocation = new File(pathToDir, "robotLog.log");
+		if (logLocation.isDirectory()) {
+			this.logLocation = new File(logLocation, "robotLog.log");
+		} else {
+			this.logLocation = logLocation;
+		}
+		
 	}
 
 	public void stepForward() throws IOException {

@@ -28,7 +28,7 @@ public class HashSetTest {
     }
 
     @Test
-    public void elementShouldBeDeketedFromHashSet() {
+    public void elementShouldBeDeletedFromHashSet() {
 
 	hs.add("ObjectToDelete");
 	assertTrue(hs.contains("ObjectToDelete"));
@@ -63,24 +63,14 @@ public class HashSetTest {
 	hs.add("3");
 	hs.add("4");
 	hs.add("5");
-	Iterator<String> iterator = hs.iterator();
-	Iterator<String> iteratorTwo = hs.iterator();
-	int counterI = 0;
-	int counterJ = 0;
-	while (iterator.hasNext()) {
-	    String levelOneVar = iterator.next();
-	    while (iteratorTwo.hasNext()) {
-		String levelTwoVar = iteratorTwo.next();
-		if (counterI != counterJ && levelOneVar.equals(levelTwoVar)) {
-		    assertFalse(true);
-		    break;
-		}
-
-		counterJ++;
-	    }
-	    counterI++;
-	}
-
+	assertTrue(hs.size()==5);
+	assertTrue(hs.contains("1"));
+	assertTrue(hs.contains("2"));
+	assertTrue(hs.contains("3"));
+	assertTrue(hs.contains("4"));
+	assertTrue(hs.contains("5"));
+	
+	
     }
 
     @Test
@@ -114,8 +104,8 @@ public class HashSetTest {
 	hs.add("3");
 	hs.add("4");
 	hs.add("5");
-	assertEquals(hs.size(), 5);
+    assertEquals(hs.size(), 5);
 
-    }
+  }
 
 }

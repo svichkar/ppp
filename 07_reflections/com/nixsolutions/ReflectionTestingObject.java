@@ -3,6 +3,7 @@ package com.nixsolutions;
 public class ReflectionTestingObject {
 	@Public
 	public String name;
+	@Public
 	private int num;
 	public long numT;
 

@@ -10,64 +10,50 @@ import org.junit.Test;
 
 public class HashSetTest {
 	private HashSet<String> hashSet;
+	private ArrayList<String> list = new ArrayList<>();
 
 	@Before
 	public void setUp() {
-		hashSet = new HashSet<>();
+		hashSet = new HashSet<>();		
+		list.add("Test Value 1");
+		list.add("Test Value 2");
+		list.add("Test Value 3");
 	}
 
 	@Test
 	public void shouldAddElementToHashSet() {
 		// given
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		// when
-		hashSet.add(val1);
-		hashSet.add(val2);
+		hashSet.add(list.get(0));
+		hashSet.add(list.get(1));
 		// then
-		Assert.assertArrayEquals(hashSet.toArray(), new String[] { val2, val1 });
+		Assert.assertTrue(hashSet.contains(list.get(0)));
+		Assert.assertTrue(hashSet.contains(list.get(1)));
 	}
 
 	@Test
 	public void shouldAddArrayOfElementsToHashSet() {
 		// given
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		String val3 = "Test Value 3";
-		ArrayList<String> list = new ArrayList<>();
-		list.add(val2);
-		list.add(val3);
-		// when
-		hashSet.add(val1);
 		hashSet.addAll(list);
 		// then
-		Assert.assertArrayEquals(hashSet.toArray(), new String[] { val2, val1, val3 });
+		Assert.assertTrue(hashSet.containsAll(list));
 	}
 
 	@Test
 	public void shouldRemoveElementFromHashSet() {
 		// given
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		String val3 = "Test Value 3";
-		hashSet.add(val1);
-		hashSet.add(val2);
-		hashSet.add(val3);
+		hashSet.addAll(list);
 		// when
-		hashSet.remove(val2);
+		hashSet.remove(list.get(1));
 		// then
-		Assert.assertArrayEquals(hashSet.toArray(), new String[] { val1, val3 });
+		Assert.assertTrue(hashSet.contains(list.get(0)));
+		Assert.assertFalse(hashSet.contains(list.get(1)));
+		Assert.assertTrue(hashSet.contains(list.get(2)));
 	}
 
 	@Test
 	public void shouldGetSizeOfHashSet() {
 		// given
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		String val3 = "Test Value 3";
-		hashSet.add(val1);
-		hashSet.add(val2);
-		hashSet.add(val3);
+		hashSet.addAll(list);
 		// when
 		int size = hashSet.size();
 		// then
@@ -77,14 +63,9 @@ public class HashSetTest {
 	@Test
 	public void shouldCheckOnContains() {
 		// given
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		String val3 = "Test Value 3";
-		hashSet.add(val1);
-		hashSet.add(val2);
-		hashSet.add(val3);
+		hashSet.addAll(list);
 		// when
-		boolean contains = hashSet.contains(val2);
+		boolean contains = hashSet.contains(list.get(1));
 		boolean notContains = hashSet.contains("Test Value 0");
 		// then
 		Assert.assertTrue(contains);
@@ -94,12 +75,7 @@ public class HashSetTest {
 	@Test
 	public void shouldCleanHashSet() {
 		// given
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		String val3 = "Test Value 3";
-		hashSet.add(val1);
-		hashSet.add(val2);
-		hashSet.add(val3);
+		hashSet.addAll(list);
 		// when
 		hashSet.clear();
 		// then
@@ -110,32 +86,21 @@ public class HashSetTest {
 	public void shouldCloneHashSet() {
 		// given
 		HashSet<String> hashSetCloned;
-		String val1 = "Test Value 1";
-		String val2 = "Test Value 2";
-		String val3 = "Test Value 3";
-		hashSet.add(val1);
-		hashSet.add(val2);
-		hashSet.add(val3);
+		hashSet.addAll(list);
 		// when
 		hashSetCloned = (HashSet<String>) hashSet.clone();
 		// then
 		Assert.assertEquals(hashSet, hashSetCloned);
 	}
-
+	
 	@Test
-	public void shouldBeIterable() {
+	public void shouldContainsOnlyUniqueElements() {
 		// given
-		String[] vales = { "Test Value 1", "Test Value 2", "Test Value 3" };
-		hashSet.add(vales[0]);
-		hashSet.add(vales[1]);
-		hashSet.add(vales[2]);
-		int i = 0;
+		hashSet.addAll(list);		
 		// when
-		Iterator<String> itr = hashSet.iterator();
+		hashSet.add(list.get(1));
 		// then
-		while (itr.hasNext()) {
-			Assert.assertArrayEquals(itr.next().toCharArray(), hashSet.toArray()[i].toString().toCharArray());
-			i++;
-		}
+		Assert.assertTrue(hashSet.size() == list.size());
+		Assert.assertTrue(hashSet.containsAll(list));
 	}
 }

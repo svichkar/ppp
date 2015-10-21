@@ -15,11 +15,12 @@ public class Robot {
 		direction = Direction.XP;
 		coordX = 0;
 		coordY = 0;
-		if (logLocation.isDirectory()) {
+		/*if (logLocation.isDirectory()) {
 			this.logLocation = new File(logLocation, "robotLog.log");
 		} else {
 			this.logLocation = logLocation;
-		}
+		}*/
+		this.logLocation = logLocation;
 		
 	}
 

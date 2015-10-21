@@ -1,0 +1,47 @@
+<project name="14_ant" default="dist" basedir=".">
+	<property file="ant.properties"/>
+	<property name="src" location="src"/>
+	<property name="test" location="test"/>
+	<property name="build" location="build"/>
+	<property name="dist" location="dist"/>
+	<path id="14_ant.classpath">
+		<pathelement location="./junit-4.12.jar"/>
+		<pathelement location="./hamcrest-core-1.3.jar"/>
+		<pathelement location="${build}"/>
+	</path>
+	<target name="init">
+		<echo message="init target started."/>
+		<mkdir dir="${build}"/>
+		<mkdir dir="${dist}"/>
+		<echo message="init target finished."/>
+	</target>
+	<target name="compile" depends="init">
+		<echo message="compile target started."/>
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+			<classpath refid="14_ant.classpath"/>
+		</javac>
+		<javac srcdir="${test}" destdir="${build}" includeantruntime="false">
+			<classpath refid="14_ant.classpath"/>
+		</javac>
+		<echo message="compile target finished."/>
+	</target>
+	<target name="test" depends="compile">
+		<echo message="test target started."/>
+		<junit printsummary="yes" haltonerror="yes" haltonfailure="yes">
+			<classpath refid="14_ant.classpath"/>
+			<test name="com.nixsolutions.RobotTestingWithoutMocks"/>
+		</junit>
+		<echo message="test target finished."/>
+	</target>
+	<target name="dist" depends="test">
+		<echo message="dist target started."/>
+		<jar destfile="${dist}/${ant.project.name}.jar" basedir="${build}"/>
+		<echo message="dist target finished."/>
+	</target>
+	<target name="clean">
+		<echo message="clean target started."/>
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+		<echo message="clean target finished."/>
+	</target>
+</project>

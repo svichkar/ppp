@@ -26,19 +26,23 @@ public class MyJunitTestsForStringBuilder {
 
 	@Test
 	public void checkConcatinatingThreeStrings() {
+		//given
 		String str1 = "bla1";
 		String str2 = "bla2";
 		String str3 = "+";
-
+		//when
 		targetStringBuilder.append(str1).append(str3).append(str2);
+		//then
 		assertEquals("bla1+bla2", targetStringBuilder.toString());
 	}
 
 	@Test
 	public void checkReturningLength() {
+		//given
 		String str1 = "bla1";
+		//when
 		targetStringBuilder.append(str1);
-
+		//then
 		assertEquals(str1.length(), targetStringBuilder.length());
 
 	}
@@ -51,30 +55,38 @@ public class MyJunitTestsForStringBuilder {
 
 	@Test
 	public void checkConcatinationStringAndNumber() {
+		//given
 		String str1 = "bla1";
 		Double double1 = 12.234;
+		//when
 		targetStringBuilder.append(str1).append(double1);
+		//then
 		assertEquals("bla112.234", targetStringBuilder.toString());
 	}
 
 	@Test
 	public void checkReturningSubString() {
+		//given
 		String str1 = "bla1";
 		String str2 = "bla2";
 		targetStringBuilder.append(str1).append(str2);
+		//when
 		String result = targetStringBuilder.substring(
 				targetStringBuilder.indexOf("1") + 1,
 				targetStringBuilder.indexOf("2"));
+		//then
 		assertEquals("bla", result);
 	}
 
 	@Test
 	public void checkReplacingByNewString() {
+		// given
 		String str1 = "bla1";
 		String str2 = "bla2";
 		targetStringBuilder.append(str1).append(str2);
+		// when
 		String result = targetStringBuilder.replace(0, 3, "aaa").toString();
-
+		// then
 		assertEquals("aaa1bla2", result);
 	}
 

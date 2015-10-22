@@ -2,6 +2,7 @@ package com.nixsolutions;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
@@ -10,16 +11,12 @@ public class Robot {
 	private int coordX;
 	private int coordY;
 	private File logLocation;
+	private FileWriter fw;
 
 	public Robot(File logLocation) {
 		direction = Direction.XP;
 		coordX = 0;
 		coordY = 0;
-		/*if (logLocation.isDirectory()) {
-			this.logLocation = new File(logLocation, "robotLog.log");
-		} else {
-			this.logLocation = logLocation;
-		}*/
 		this.logLocation = logLocation;
 		
 	}
@@ -57,15 +54,21 @@ public class Robot {
 	public int getCoordY() {
 		return coordY;
 	}
+	
+	public void setWriter(FileWriter fw) {
+		this.fw = fw;
+	}
 
 	private void writeToLog() throws IOException {
 		if (!logLocation.exists()) {
 			logLocation.createNewFile();
 		}
-		OutputStreamWriter fos = new OutputStreamWriter(new FileOutputStream(logLocation));
-		fos.write(String.format("Coordinate X: %1$s. Coordinate Y: %2$s.", coordX, coordY));
-		fos.flush();
-		fos.close();
+		if (fw == null) {
+			fw = new FileWriter(logLocation);
+		}
+		fw.write(String.format("Coordinate X: %1$s. Coordinate Y: %2$s.", coordX, coordY));
+		fw.flush();
+		fw.close();
 	}
 
 	public enum Direction {

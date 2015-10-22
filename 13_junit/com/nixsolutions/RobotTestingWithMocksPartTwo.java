@@ -3,6 +3,7 @@ package com.nixsolutions;
 import static org.mockito.BDDMockito.*;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.junit.Assert;
@@ -17,13 +18,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class RobotTestingWithMocksPartTwo {
 	@Mock
 	private File file;
+	@Mock
+	private FileWriter fw;
 	@InjectMocks
 	private Robot robot;
 
 	@Before
 	public void initialize() throws IOException {
 		when(file.exists()).thenReturn(true);
-		when(file.getPath()).thenReturn("C:\\temp\\");
+		//when(file.getPath()).thenReturn("C:\\temp\\");
+		robot.setWriter(fw);
 	}
 
 	@Test

@@ -3,15 +3,18 @@
 	<property name="src" location="src"/>
 	<property name="test" location="test"/>
 	<property name="build" location="build"/>
+	<property name="build_test" location="build_test"/>
 	<property name="dist" location="dist"/>
 	<path id="14_ant.classpath">
-		<pathelement location="./junit-4.12.jar"/>
-		<pathelement location="./hamcrest-core-1.3.jar"/>
+		<pathelement location="./lib/junit-4.12.jar"/>
+		<pathelement location="./lib/hamcrest-core-1.3.jar"/>
 		<pathelement location="${build}"/>
+		<pathelement location="${build_test}"/>
 	</path>
-	<target name="init">
+	<target name="init" depends="clean">
 		<echo message="init target started."/>
 		<mkdir dir="${build}"/>
+		<mkdir dir="${build_test}"/>
 		<mkdir dir="${dist}"/>
 		<echo message="init target finished."/>
 	</target>
@@ -20,7 +23,7 @@
 		<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
 			<classpath refid="14_ant.classpath"/>
 		</javac>
-		<javac srcdir="${test}" destdir="${build}" includeantruntime="false">
+		<javac srcdir="${test}" destdir="${build_test}" includeantruntime="false">
 			<classpath refid="14_ant.classpath"/>
 		</javac>
 		<echo message="compile target finished."/>
@@ -36,11 +39,21 @@
 	<target name="dist" depends="test">
 		<echo message="dist target started."/>
 		<jar destfile="${dist}/${ant.project.name}.jar" basedir="${build}"/>
+		<zip destfile="${dist}/${ant.project.name}.zip" basedir="${dist}"/>
+		<tar destfile="${dist}/${ant.project.name}.tar" basedir="${dist}">
+			<exclude name="*.zip"/>
+		</tar>
+		<gzip destfile="${dist}/${ant.project.name}.tar.gz" src="${dist}/${ant.project.name}.tar">
+		</gzip>
+		<delete file="${dist}/${ant.project.name}.tar"/>
+		<move file="${dist}/${ant.project.name}.zip" tofile="${dist}/proj_zip.zip"/>
+		<move file="${dist}/${ant.project.name}.tar.gz" tofile="${dist}/proj_zip.tar.gz"/>
 		<echo message="dist target finished."/>
 	</target>
 	<target name="clean">
 		<echo message="clean target started."/>
 		<delete dir="${build}"/>
+		<delete dir="${build_test}"/>
 		<delete dir="${dist}"/>
 		<echo message="clean target finished."/>
 	</target>

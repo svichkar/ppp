@@ -5,4 +5,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>mavenProject</name>
   <description>Created for learning purposes</description>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>threadsModule</module>
+  </modules>
 </project>

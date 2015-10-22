@@ -18,8 +18,7 @@ public class StartApp {
 
 		// Task 2
 		MyClassLoader cl = new MyClassLoader();
-		cl.setPath(
-				"D:/Java/JavaDepartment/Project/logovskoy/javappp/02_OOP/bin/src/");
+		cl.setPath("D:/Java/JavaDepartment/Project/logovskoy/javappp/02_OOP/bin/src/");
 		Class figureClassInstance = cl.getInstanceByName("com.nixsolutions.Figure");
 		Class circleClassInstance = cl.getInstanceByName("com.nixsolutions.Circle");
 

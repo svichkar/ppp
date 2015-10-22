@@ -29,14 +29,14 @@ public class CustClassLoader extends ClassLoader implements PathClassLoader {
 	    } else {
 		BufferedInputStream inStream = null;
 		try {
-		    String[] tempFileName = className.split("\\.");
-		    String fileName = tempFileName[tempFileName.length - 1];
+		    String fileName = className.replace("\\.", "/");
 		    File classFile = new File(path + File.separator + fileName + ".class");
 		    inStream = new BufferedInputStream(new FileInputStream(classFile));
 		    byte[] classByte = new byte[inStream.available()];
 		    inStream.read(classByte);
 		    cashedClasses.put(className, defineClass(null, classByte, 0, classByte.length));
-		    return cashedClasses.get(className);
+		    custClass = cashedClasses.get(className);
+		    return custClass;
 		} finally {
 		    if (inStream != null) {
 			inStream.close();

@@ -26,7 +26,6 @@ public class RobotTestingWithMocksPartTwo {
 	@Before
 	public void initialize() throws IOException {
 		when(file.exists()).thenReturn(true);
-		//when(file.getPath()).thenReturn("C:\\temp\\");
 		robot.setWriter(fw);
 	}
 

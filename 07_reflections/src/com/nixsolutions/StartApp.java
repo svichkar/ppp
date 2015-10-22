@@ -20,11 +20,11 @@ public class StartApp {
 		MyClassLoader cl = new MyClassLoader();
 		cl.setPath(
 				"D:/Java/JavaDepartment/Project/logovskoy/javappp/02_OOP/bin/src/");
-		Class c = cl.getInstanceByName("com.nixsolutions.Figure");
-		Class cd = cl.getInstanceByName("com.nixsolutions.Circle");
+		Class figureClassInstance = cl.getInstanceByName("com.nixsolutions.Figure");
+		Class circleClassInstance = cl.getInstanceByName("com.nixsolutions.Circle");
 
-		System.out.println(c);
-		System.out.println(cd);
+		System.out.println(figureClassInstance);
+		System.out.println(circleClassInstance);
 
 	}
 

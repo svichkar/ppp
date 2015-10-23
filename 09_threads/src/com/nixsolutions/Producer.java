@@ -1,12 +1,12 @@
 package com.nixsolutions;
 
-import java.util.List;
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
 
 public class Producer implements Runnable {
-    private List<Integer> randomNumbersList;
+    private BlockingQueue<Integer> randomNumbersList;
 
-    public Producer(List<Integer> rndnmbrs) {
+    public Producer(BlockingQueue<Integer> rndnmbrs) {
 	this.randomNumbersList = rndnmbrs;
     }
 

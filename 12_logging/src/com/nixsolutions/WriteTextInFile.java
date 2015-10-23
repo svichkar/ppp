@@ -26,9 +26,11 @@ public class WriteTextInFile implements Save {
 		txtFile.createNewFile(); // create new file
 		LOG.info("File " + txtFile.getPath() + " is created");
 	    } catch (FileWriteExeption e) {
-		LOG.throwing(LOG.getLevel().ERROR, new RuntimeException(e.getMessage()));
+		LOG.catching(e);
+		throw new RuntimeException(e.getMessage());
 	    } catch (IOException e) {
-		LOG.throwing(LOG.getLevel().ERROR, new RuntimeException(e.getMessage()));
+		LOG.catching(e);
+		throw new RuntimeException(e.getMessage());
 	    }
 	} else {
 	    LOG.info("File \"" + txtFile.getPath() + "\" is already exist");
@@ -37,9 +39,11 @@ public class WriteTextInFile implements Save {
 	    fw.write(text); // write text into file
 	    LOG.info("Text \"" + text + "\" is written into file succesfully");
 	} catch (FileWriteExeption e) {
-	    LOG.throwing(LOG.getLevel().ERROR, new RuntimeException(e.getMessage()));
+	    LOG.catching(e);
+	    throw new RuntimeException(e.getMessage());
 	} catch (IOException e) {
-	    LOG.throwing(LOG.getLevel().ERROR, new RuntimeException(e.getMessage()));
+	    LOG.catching(e);
+	    throw new RuntimeException(e.getMessage());
 	}
     }
 }

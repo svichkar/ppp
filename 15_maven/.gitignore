@@ -1,1 +1,11 @@
-/target/
+/bin/
+/out/
+/.classpath
+/.project
+/*.iml
+/.gitignore
+/.idea/
+/doc/
+/lab1/
+/log/
+/.settings/

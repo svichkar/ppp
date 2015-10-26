@@ -1,5 +1,6 @@
 package com.nixsolutions;
 
+import java.io.IOException;
 
 public class MyNewestException extends RuntimeException {
 

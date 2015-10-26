@@ -1,0 +1,82 @@
+<project name="MockTestProj" default="dist" basedir=".">
+	<description>
+    simple example build file
+  </description>
+	<!-- set global properties for this build 
+	<property name="src" location="${basedir}\src"  />
+	-->
+	<property file="mockTestProj.properties" />
+
+	<property name="build" location="${basedir}\bin" />
+	<property name="dist" location="${basedir}\dist" />
+	<property name="report.dir" location="${basedir}\reports" />
+	<property name="buildname">MockTestProj</property>
+	<property name="src" location="${basedir}\src" />
+
+	<path id="lib.classpath">
+		<pathelement location="${basedir}/lib" />
+		<fileset dir="${basedir}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="MockTestClassTest.classpath">
+		<pathelement location="bin" />
+		<pathelement location="lib/hamcrest-core-1.3.jar" />
+		<pathelement location="lib/junit-4.12.jar" />
+	</path>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<echo>"Start init target"</echo>
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${report.dir}" />
+		<echo>"End init target"</echo>
+	</target>
+
+	<target name="compile" depends="init" description="compile the source">
+		<echo>"Start compile target"</echo>
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+			<classpath refid="lib.classpath" />
+		</javac>
+		<echo>"End compile target"</echo>
+	</target>
+
+	<target name="dist" depends="test" description="generate the distribution">
+		<echo>"Start dist target"</echo>
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/MockTestProj-${DSTAMP}.jar" basedir="${build}" />
+		<echo>"End dist target"</echo>
+	</target>
+
+	<target name="clean" description="clean up">
+		<echo>"Start clean target"</echo>
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${report.dir}" />
+		<echo>"Start clean target"</echo>
+	</target>
+
+	<target name="test" depends="compile" description="run the tests ">
+		<echo>"End test target"</echo>
+		<junit printsummary="yes" fork="yes" haltonfailure="yes">
+			<classpath refid="lib.classpath" />
+			<formatter type="xml" />
+			<test name="com.nixsolutions.robot.tests.MockTestClassOne" todir="${report.dir}" />
+			<test name="com.nixsolutions.robot.tests.MockTestClassTwo" todir="${report.dir}" />
+			<classpath refid="MockTestClassTest.classpath" />
+		</junit>
+		<echo>"End test target"</echo>
+	</target>
+	<target name="testZIP" depends="test" description="run the tests and copy zip file with source code into the ${report.dir}">
+		<echo>"Start zip target"</echo>
+		<zip destfile="${report.dir}/${buildname}.zip" basedir="${src}" />
+		<echo>"Start zip target"</echo>
+	</target>
+
+</project>

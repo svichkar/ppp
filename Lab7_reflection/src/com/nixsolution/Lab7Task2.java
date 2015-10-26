@@ -8,11 +8,11 @@ public class Lab7Task2 {
 
 	public static void main(String[] args)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		String pathToClass = System.getProperty("user.dir");
+		String pathToClass = "E:\\NIX\\JavaEd\\javappp\\Lab7_reflection\\bin";
 		LOG.info(pathToClass);
 		CustomClassLoader customClassLoader = new CustomClassLoader(pathToClass, ClassLoader.getSystemClassLoader());
 		Class<?> myClass = customClassLoader.loadClass("com.nixsolution.TestClass");
-		TestClass testClass = (TestClass) myClass.newInstance();
+		Object testClass = myClass.newInstance();
 		LOG.info(testClass.toString());
 		Class<?> javaClass = customClassLoader.loadClass("java.lang.String");
 		String string = (String) javaClass.newInstance();

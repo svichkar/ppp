@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class RobotTest {
+	//Junit
 	private File file;
 	@Rule
 	public TemporaryFolder folder = new TemporaryFolder();

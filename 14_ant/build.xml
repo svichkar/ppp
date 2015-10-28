@@ -1,0 +1,74 @@
+<project name="antProject" default="clean" basedir=".">
+	<property file="build.properties" />
+	<property name="dir.build" location="build" />
+	<property name="dir.myjars" location="myJARs" />
+	<property name="dir.build.test" location="${dir.build}/test" />
+	<property name="dir.libs" location="libs" />
+	<property name="dir.src" location="src" />
+	<property name="dir.srctest" location="test" />
+	<property name="dir.reports" location="reports" />
+	<path id="classpath">
+		<pathelement location="${dir.build}" />
+		<fileset dir="${dir.libs}" includes="**/*.jar" />
+	</path>
+	<target name="init">
+		<echo>Start init</echo>
+		<mkdir dir="${dir.build}" />
+		<mkdir dir="${dir.myjars}" />
+		<mkdir dir="${dir.build.test}" />
+		<mkdir dir="${dir.reports}" />
+		<echo>Finish init</echo>
+	</target>
+	<target name="clean" depends="copyZip">
+		<echo>Start clean</echo>
+		<delete dir="${dir.build}" />
+		<echo>Finish clean</echo>
+	</target>
+	<target name="dist" depends="test">
+		<echo>Start dist</echo>
+		<mkdir dir="${dir.myjars}" />
+		<jar destfile="${dir.myjars}/antProject.jar" basedir="${dir.build}" />
+		<echo>Finish dist</echo>
+	</target>
+	<target name="compile" depends="init">
+		<echo>Start compile</echo>
+		<javac includeantruntime="false" srcdir="${dir.src}" destdir="${dir.build}" />
+		<echo>Finish compile</echo>
+		<echo>Start compile tests</echo>
+		<javac includeantruntime="false" srcdir="${dir.srctest}" destdir="${dir.build.test}" classpathref="classpath" />
+		<echo>Finish compile tests</echo>
+	</target>
+	<target name="test" depends="compile">
+		<echo>Start running unit tests</echo>
+		<junit printsummary="yes" haltonfailure="no">
+			<classpath>
+				<pathelement location="${dir.build}" />
+				<fileset dir="${dir.libs}" includes="**/*.jar" />
+				<pathelement location="${dir.build.test}" />
+			</classpath>
+			<formatter type="plain" />
+			<formatter type="xml" />
+			<batchtest fork="yes" todir="${dir.reports}">
+				<fileset dir="${dir.build.test}" />
+			</batchtest>
+		</junit>
+		<echo>Finish running unit tests</echo>
+	</target>
+	<target name="copyZip" depends="dist">
+		<echo>Copy created jar to libs dir</echo>
+		<copy todir="${dir.libs}">
+			<fileset dir="${dir.myjars}" />
+		</copy>
+		<echo>Created jar is copied to libs dir</echo>
+		<echo>Zip files from dir libs</echo>
+		<mkdir dir="archives" />
+		<zip destfile="archives/libs.zip" basedir="${dir.libs}">
+		</zip>
+		<echo>Files from dir libs are zipped to file 'archives/libs.zip'</echo>
+		<echo>Execute cmd command "dir"</echo>
+		<exec executable="cmd.exe">
+			<arg line="/c dir" />
+		</exec>
+		<echo>cmd command "dir" is executed</echo>
+	</target>
+</project>

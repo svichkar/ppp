@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.nixsolutions.saveWithLog</groupId>
+  <packaging>jar</packaging>
+  <artifactId>SaveWithLog</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<artifactId>log4j-api</artifactId>
+  		<groupId>org.apache.logging.log4j</groupId>
+  		<version>2.4.1</version></dependency>
+  	<dependency>
+  		<groupId>org.apache.logging.log4j</groupId>
+  		<artifactId>log4j-core</artifactId>
+  		<version>2.4.1</version></dependency></dependencies>
+  <name>SaveWithLog</name>
+  
+  
+      <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.17</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <defaultGoal>install</defaultGoal>
+      </build>
+
+      <parent>
+      	<relativePath>../testMaven</relativePath>
+      	<version>1.0-SNAPSHOT</version>
+      	<artifactId>testMaven</artifactId>
+      	<groupId>com.nixsolutions.testMaven</groupId>
+      </parent>
+</project>

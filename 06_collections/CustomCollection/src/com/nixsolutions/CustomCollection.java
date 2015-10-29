@@ -239,13 +239,13 @@ public class CustomCollection<E> implements Collection<E> {
 
 		@Override
 		public boolean hasNext() {
-			return this.actualIndex < customCollection.length;
+			return this.actualIndex < CustomCollection.this.customCollection.length;
 		}
 
 		@Override
 		public E next() {
 			if (this.hasNext()) {
-				E current = (E) customCollection[actualIndex];
+				E current = (E) CustomCollection.this.customCollection[actualIndex];
 				actualIndex++;
 				return current;
 			} else {

@@ -22,7 +22,7 @@ public class StringBuilderTester {
 		// When
 		testObject.append('a');
 		// Then
-		Assert.assertEquals(testObject.toString(), "a");
+		Assert.assertEquals("a",testObject.toString());
 	}
 
 	@Test
@@ -34,9 +34,15 @@ public class StringBuilderTester {
 	}
 
 	@Test
-	public void isLengthReturneIntegerLength() {
+	public void isMultipleStringConcatenated() {
 		// Then
-		Assert.assertThat(testObject.length(), IsInstanceOf.instanceOf(Integer.class));
+		Assert.assertEquals("New test string", testObject.append("New ").append("test ").append("string").toString());
+	}
+
+	@Test
+	public void isNumberAndStringConcatenated() {
+		// Then
+		Assert.assertEquals("String 1 2.24 3.14", testObject.append("String ").append(1).append(" ").append(2.24f).append(" ").append(3.14d).toString());
 	}
 
 	@Test
@@ -49,16 +55,18 @@ public class StringBuilderTester {
 
 	@Test
 	public void isReturnedCharByIndex() {
+		// when
 		testObject.append('a');
-
+		// then
 		Assert.assertTrue(testObject.charAt(0) == 'a');
 	}
-	
+
 	@Test
-	public void isStringDeleted(){
+	public void isStringDeleted() {
+		// when
 		testObject.append("New test string");
-		Assert.assertTrue(testObject.toString().equals("New test string"));
 		testObject.delete(3, 8);
+		// then
 		Assert.assertTrue(testObject.toString().equals("New string"));
 
 	}

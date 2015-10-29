@@ -13,7 +13,7 @@ public class TestCollection {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Enter some Symbols");
+		//System.out.println("Enter some Symbols");
 		CustomCollection<String> exampleColl = new CustomCollection<>();
 		exampleColl.add("dfhdhg");
 		exampleColl.add("dfhdhg");

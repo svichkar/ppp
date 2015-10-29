@@ -49,13 +49,13 @@ public class SaveImplClass implements Save, Closeable {
 	}
 
 	public void enterString() throws IOException {
-		System.out.println("Enter some string:\n");
+		logger.trace("Enter some string:\n");
 		setStringToSave(readFromConsole());
 		logger.trace("String was entered");
 	}
 
 	public void enterFilePath() throws IOException {
-		System.out.println("Enter full file path:\n");
+		logger.trace("Enter full file path:\n");
 		setFilePath(readFromConsole());
 		logger.trace("file path was entered");
 	}

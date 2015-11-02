@@ -17,6 +17,11 @@
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
 
+	<taskdef name="junit"
+		classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
+		<classpath refid="junit.class.path" />
+	</taskdef>
+
 	<target name="overloading" description="Check overloading properties by values from file">
 		<tstamp>
 			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"

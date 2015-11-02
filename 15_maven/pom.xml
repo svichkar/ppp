@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.nixsolutions</groupId>
+	<artifactId>pomproject</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<description>pom project for multimodule project</description>
+	<modules>
+		<module>ModuleOne</module>
+		<module>ModuleTwo</module>
+		<module>ModuleThree</module>
+	</modules>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-pdf-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>pdf</id>
+						<phase>install</phase>
+						<goals>
+							<goal>pdf</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.4</version>
+				<executions>
+					<execution>
+						<id>default-site</id>
+						<phase>site</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+
+
+</project>

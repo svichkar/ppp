@@ -29,7 +29,7 @@ public class CustClassLoader extends ClassLoader implements PathClassLoader {
 	    } else {
 		BufferedInputStream inStream = null;
 		try {
-		    String fileName = className.replace("\\.", "/");
+		    String fileName = className.replace(".", File.separator);
 		    File classFile = new File(path + File.separator + fileName + ".class");
 		    inStream = new BufferedInputStream(new FileInputStream(classFile));
 		    byte[] classByte = new byte[inStream.available()];

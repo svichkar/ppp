@@ -9,8 +9,8 @@ public class ReflectionTask2 {
 	    NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException,
 	    NoSuchFieldException, ClassNotFoundException {
 	CustClassLoader loader = new CustClassLoader();
-	loader.setPath("E:/JavaProjects/paryshev.a/javappp/07_reflections/bin");
-	Class customClass = loader.loadCustClass("com.nixsolutions.task1.Human");
+	loader.setPath("E:/JavaProjects/paryshev.a/javappp/04_dates/bin");
+	Class customClass = loader.loadCustClass("com.nixsolutions.DateTask1");
 	String nameOfCustClass = customClass.getName();
 	System.out.println(nameOfCustClass);
 	Object obj = customClass.getDeclaredConstructor(new Class[] { String.class, String.class }).newInstance("John",

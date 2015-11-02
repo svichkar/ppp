@@ -1,4 +1,4 @@
-<project name="AntTestProject" basedir=".">
+<project name="AntTestProject" basedir="." default="all">
 
 	<!-- Loading property file -->
 	<property file="project.properties" />
@@ -39,19 +39,29 @@
 		<mkdir dir="${build.test.dir}" />
 		<mkdir dir="${test.report.dir}" />
 	</target>
+
 	<target name="clean" description="Removing folders...">
+		<tstamp>
+			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"
+				unit="hour" />
+		</tstamp>
 		<echo message="${time_start} Start to remove temporary data" />
 		<delete dir="${build.dir}" />
 		<delete dir="${test.report.dir}" />
-		<echo message="${time_start} All temporary data was removed" />
+		<tstamp>
+			<format property="time_stop" pattern="MM/dd/yyyy hh:mm:ss aa"
+				unit="hour" />
+		</tstamp>
+		<echo message="${time_stop} All temporary data was removed" />
 	</target>
+
 	<target name="compile" depends="clean, init"
 		description="Compile source and test files...">
 		<tstamp>
 			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"
 				unit="hour" />
 		</tstamp>
-		<echo message="${time_start} Compile source and test files..." />
+		<echo message="${time_start} Compile source  files..." />
 		<mkdir dir="${build.dir}/classes" />
 		<mkdir dir="${build.test.dir}/classes" />
 		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}/classes" />
@@ -65,6 +75,7 @@
 		</tstamp>
 		<echo message="${time_stop} File compilation is done." />
 	</target>
+
 	<target name="dist" depends="compile" description="Creating jar files...">
 		<tstamp>
 			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"
@@ -81,7 +92,41 @@
 		</tstamp>
 		<echo message="${time_stop} All .jar files were created..." />
 	</target>
-	<target name="test" depends="dist" description="Execution tests...">
+
+	<target name="all" depends="dist, test" description="Perform all tasks...">
+		<tstamp>
+			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"
+				unit="hour" />
+		</tstamp>
+		<echo message="${time_start} Perform all tasks related to project..." />
+
+		<tstamp>
+			<format property="time_stop" pattern="MM/dd/yyyy hh:mm:ss aa"
+				unit="hour" />
+		</tstamp>
+		<echo message="${time_stop} All tasks related to project were executed..." />
+	</target>
+
+	<target name="compiletest" depends="init" description="Compile test files...">
+		<tstamp>
+			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"
+				unit="hour" />
+		</tstamp>
+		<echo message="${time_start} Compile test files..." />
+		<mkdir dir="${build.test.dir}/classes" />
+		<javac includeantruntime="false" srcdir="${test.dir}"
+			destdir="${build.test.dir}/classes">
+			<classpath refid="junit.class.path" />
+		</javac>
+
+		<tstamp>
+			<format property="time_stop" pattern="MM/dd/yyyy hh:mm:ss aa"
+				unit="hour" />
+		</tstamp>
+		<echo message="${time_stop} File compilation is done." />
+	</target>
+
+	<target name="test" depends="compiletest" description="Execution tests...">
 		<tstamp>
 			<format property="time_start" pattern="MM/dd/yyyy hh:mm:ss aa"
 				unit="hour" />

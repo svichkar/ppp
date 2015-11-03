@@ -1,20 +1,29 @@
 package com.nixsolutions;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Program {
 
 	public static void main(String[] args) {
-		
-	File file = new File("D:/robotLog.txt");	
-	Robot robot = new Robot(file);
-	Program pr = new Program();
+
+		File file = new File("D:/robotLog.txt");
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(file, true);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		Robot robot = new Robot(fw);
+		Program pr = new Program();
 		pr.runCommand(robot, "lffrflfrrfff");
+		pr.disposeFW(robot);
 
 	}
-	
-	
-	public  void runCommand(Robot robot , String command) {
+
+	public void runCommand(Robot robot, String command) {
 
 		char[] commands = command.toLowerCase().toCharArray();
 
@@ -35,5 +44,8 @@ public class Program {
 			}
 
 		}
+	}
+	public void disposeFW(Robot robot) {
+		robot.stop();
 	}
 }

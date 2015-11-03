@@ -1,6 +1,5 @@
 package com.nixsolutions;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -13,30 +12,21 @@ public class Robot {
 		return direction;
 	}
 
-	private FileWriter fw = null; 
-	
-	File file;
-	public Robot(File file) {
-	   this.file = file;
-		
-		file.delete();
-		
+	private FileWriter fw = null;
+
+	public Robot(FileWriter fw) {
+		this.fw = fw;
 		x = 0;
 		y = 0;
 		direction = 2;
-		System.out.println("Now robot is on x - " + x + ", y - " + y
-				+ " and looks at " + direction);
 		robotMovementLoger();
-		 
+
 	}
-	
+
 	public FileWriter getFw() {
 		return fw;
 	}
-	public void setFw(FileWriter fw) {
-		this.fw = fw;
-	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -64,8 +54,6 @@ public class Robot {
 				break;
 		}
 
-		System.out.println("Now robot is on x - " + x + ", y - " + y
-				+ " and looks at " + direction);
 		robotMovementLoger();
 	}
 	public void changeDirection(String direction) {
@@ -83,24 +71,28 @@ public class Robot {
 			default :
 				break;
 		}
-		System.out.println("Now robot is on x - " + x + ", y - " + y
-				+ " and looks at " + this.direction);
+
 		robotMovementLoger();
 	}
 
-	private void robotMovementLoger(){
-		
+	private void robotMovementLoger() {
+
 		try {
-			fw = new FileWriter(file, true);
-			fw.write("Now robot is on x - " + x + ", y - " + y + " and looks at " + this.direction+"\r\n");
+			fw.write("Now robot is on x - " + x + ", y - " + y
+					+ " and looks at " + this.direction + "\r\n");
 		} catch (IOException e) {
+			e.printStackTrace();
+			stop();
 			throw new RuntimeException();
-		}finally {
-			try {
-				fw.close();
-			} catch (IOException e) {
-				throw new RuntimeException();
-			}
+
+		}
+	}
+	public void stop() {
+		try {
+			fw.close();
+		} catch (IOException e) {
+
+			e.printStackTrace();
 		}
 	}
 }

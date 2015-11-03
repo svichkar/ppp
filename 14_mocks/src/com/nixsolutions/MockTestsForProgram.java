@@ -18,7 +18,14 @@ public class MockTestsForProgram {
 
 	@Test
 	public void shouldMoveAccoringInputCommandlffr() {
-		program.runCommand(robot, "lffr");
+		try {
+			program.runCommand(robot, "lffr");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		} finally {
+			program.disposeFW(robot);
+		}
 		verify(robot, times(1)).changeDirection("l");
 		verify(robot, times(2)).moveOneStepFowdard();
 		verify(robot, times(1)).changeDirection("r");

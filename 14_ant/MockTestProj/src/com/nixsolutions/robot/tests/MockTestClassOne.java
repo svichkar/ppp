@@ -1,27 +1,34 @@
+/**
+ * 
+ */
 package com.nixsolutions.robot.tests;
-
-import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.nixsolutions.robot.main.Program;
-import com.nixsolutions.robot.main.RobotClass;;
+import com.nixsolutions.robot.main.Programm;
+import com.nixsolutions.robot.main.RobotClass;
 
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
+import static org.mockito.Mockito.verify;
+
+/**
+ * @author mixeyes
+ *
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class MockTestClassOne {
 	@Mock
 	private RobotClass robot;
 
 	@InjectMocks
-	private Program program;
+	private Programm program;
 
 	@Test
 	public void isTurnedRight() throws IOException {

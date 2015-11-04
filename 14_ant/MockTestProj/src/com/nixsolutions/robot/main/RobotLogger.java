@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package com.nixsolutions.robot.main;
 
 import java.io.BufferedWriter;
@@ -6,6 +9,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * @author mixeyes
+ *
+ */
 public class RobotLogger {
 	private File logFile;
 
@@ -46,4 +53,5 @@ public class RobotLogger {
 		bw.flush();
 		bw.close();
 	}
+
 }

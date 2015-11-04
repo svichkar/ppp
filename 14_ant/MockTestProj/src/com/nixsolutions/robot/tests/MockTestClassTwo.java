@@ -1,5 +1,4 @@
 package com.nixsolutions.robot.tests;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
@@ -17,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.nixsolutions.robot.main.Program;
+import com.nixsolutions.robot.main.Programm;
 import com.nixsolutions.robot.main.RobotClass;
 import com.nixsolutions.robot.main.RobotLogger;
 
@@ -28,14 +27,14 @@ public class MockTestClassTwo {
 	public TemporaryFolder folder = new TemporaryFolder();
 
 	private String robotfilePath;
-	private Program program;
+	private Programm program;
 	
 	
 	@Before
 	public void initializeRobot() throws IOException {
 		robotfilePath =folder.newFile().getAbsolutePath();
 		RobotLogger robotLogger = new RobotLogger(robotfilePath);
-		program = new Program();
+		program = new Programm();
 		program.setRobot(new RobotClass(robotLogger));
 	}
 

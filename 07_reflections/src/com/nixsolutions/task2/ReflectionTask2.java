@@ -13,10 +13,11 @@ public class ReflectionTask2 {
 	Class customClass = loader.loadCustClass("com.nixsolutions.DateTask1");
 	String nameOfCustClass = customClass.getName();
 	System.out.println(nameOfCustClass);
-	Object obj = customClass.getDeclaredConstructor(new Class[] { String.class, String.class }).newInstance("John",
-		"Smith");
-	Field fld = obj.getClass().getDeclaredField("firstName");
-	fld.setAccessible(true);
-	System.out.println(fld.get(obj));
+	// Object obj = customClass.getDeclaredConstructor(new Class[] {
+	// String.class, String.class }).newInstance("John",
+	// "Smith");
+	// Field fld = obj.getClass().getDeclaredField("firstName");
+	// fld.setAccessible(true);
+	// System.out.println(fld.get(obj));
     }
 }

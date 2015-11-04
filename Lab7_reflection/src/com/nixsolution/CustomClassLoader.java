@@ -1,7 +1,6 @@
 package com.nixsolution;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,9 +8,10 @@ import java.nio.file.Paths;
 
 public class CustomClassLoader extends ClassLoader implements PathClassLoader {
 	private String pathtobin;
+	private ClassLoader parentClassLoader;
 
 	public CustomClassLoader(String dir, ClassLoader parent) {
-		super(parent);
+		parentClassLoader = parent;
 		setPath(dir);
 	}
 
@@ -26,16 +26,21 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
 	}
 
 	@Override
-	public Class<?> findClass(String className) throws ClassNotFoundException {
-		try {
-			byte b[] = fetchClassFromFS(pathtobin + File.separator + className + ".class");
-			return defineClass(className, b, 0, b.length);
-		} catch (FileNotFoundException ex) {
-			return super.findClass(className);
-		} catch (IOException ex) {
-			return super.findClass(className);
+	public Class<?> loadClass(String className) throws ClassNotFoundException {
+		Class<?> classToReturn = null;
+		byte b[];
+		if (new File(getAbsolutePath(className)).exists()) {
+			try {
+				b = fetchClassFromFS(getAbsolutePath(className));
+				classToReturn = defineClass(null, b, 0, b.length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-
+		if (classToReturn == null) {
+			classToReturn = parentClassLoader.loadClass(className);
+		}
+		return classToReturn;
 	}
 
 	private byte[] fetchClassFromFS(String pathToClassFile) throws IOException {
@@ -44,4 +49,9 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
 		bytes = Files.readAllBytes(path);
 		return bytes;
 	}
+	
+	private String getAbsolutePath(String className){
+		return pathtobin + File.separator + className.replace(".", File.separator) + ".class";
+	}
+	
 }

@@ -17,7 +17,7 @@
 		<fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
 
-	<taskdef name="junit"
+	<taskdef name="junit_my"
 		classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
 		<classpath refid="junit.class.path" />
 	</taskdef>
@@ -137,19 +137,19 @@
 				unit="hour" />
 		</tstamp>
 		<echo message="${time_start} Execution tests started" />
-		<junit printsummary="on" fork="true" haltonfailure="yes">
+		<junit_my printsummary="on" fork="true" haltonfailure="yes" showoutput="yes">
 			<classpath refid="junit.class.path" />
 			<classpath>
 				<pathelement location="${build.test.dir}/classes" />
 			</classpath>
 			<formatter type="xml" />
 			<formatter type="plain" />
-			<batchtest todir="${test.report.dir}">
+			<batchtest skipNonTests="true" todir="${test.report.dir}">
 				<fileset dir="${test.dir}">
 					<include name="**/*Test*" />
 				</fileset>
 			</batchtest>
-		</junit>
+		</junit_my>
 		<tstamp>
 			<format property="time_stop" pattern="MM/dd/yyyy hh:mm:ss aa"
 				unit="hour" />

@@ -144,7 +144,7 @@
 			</classpath>
 			<formatter type="xml" />
 			<formatter type="plain" />
-			<batchtest skipNonTests="true" todir="${test.report.dir}">
+			<batchtest todir="${test.report.dir}">
 				<fileset dir="${test.dir}">
 					<include name="**/*Test*" />
 				</fileset>

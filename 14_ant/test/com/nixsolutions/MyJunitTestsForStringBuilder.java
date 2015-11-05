@@ -3,8 +3,6 @@ package com.nixsolutions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import junit.framework.JUnit4TestAdapter;
-import junit.framework.TestCase;
 
 import org.junit.After;
 import org.junit.Before;

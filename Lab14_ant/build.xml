@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Lab14" default="compile" basedir=".">
+<project name="Lab14" default="dist" basedir="."> 
 
 	<property file="build.properties" />
 	<property name="build.srs.dir" location="buildSrc" />
@@ -64,7 +64,7 @@
 		<echo>End testing</echo>
 	</target>
 
-	<target name="dist" depends="compile">
+	<target name="dist" depends="test">
 		<echo>Start packing to jar</echo>
 		<jar jarfile="${build.srs.jar}/lab14.jar" basedir="${build.srs.dir}" />
 		<echo>End packing to jar</echo>
@@ -84,9 +84,9 @@
 	</target>
 
 	<target name="zipjunitreport" depends="createjunitreport">
-		<echo>Start create ZIP archive with JUnit report</echo>
+		<echo>Start create ZIP archive with JUnit reports</echo>
 		<zip destfile="${build.test.report.dir}/HTMLreport.zip" basedir="${build.test.report.html.dir}" />
-		<echo>End create ZIP archive with JUnit report</echo>
+		<echo>End create ZIP archive with JUnit reports</echo>
 	</target>
 	
 	<target name="copyziptohome" depends="zipjunitreport">

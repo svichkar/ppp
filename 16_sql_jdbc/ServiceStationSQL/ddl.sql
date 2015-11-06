@@ -94,11 +94,8 @@ ADD COLUMN customer_id INT NOT NULL;
 ALTER TABLE car 
    ADD FOREIGN KEY(customer_id ) REFERENCES car (customer_id );
    
-CREATE INDEX worker_idx ON worker(worker_id);
-
 CREATE INDEX order_idx ON order_in_work(order_id);
 
-CREATE INDEX part_namex ON part(part_name);
 CREATE INDEX vendorx ON part(vendor);
 
 CREATE INDEX vin_numberx ON car(vin_number);

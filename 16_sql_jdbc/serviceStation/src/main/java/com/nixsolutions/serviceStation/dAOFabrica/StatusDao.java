@@ -2,7 +2,7 @@ package com.nixsolutions.serviceStation.dAOFabrica;
 
 import java.util.List;
 
-import com.nixsolutions.serviceStation.DBTables;
+import com.nixsolutions.serviceStation.dbCommon.DBTables;
 import com.nixsolutions.serviceStation.dbObjects.Status;
 
 public interface StatusDao extends DBTables{

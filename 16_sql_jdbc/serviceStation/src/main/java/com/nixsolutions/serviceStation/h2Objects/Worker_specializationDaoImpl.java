@@ -9,8 +9,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.serviceStation.DbConnector;
 import com.nixsolutions.serviceStation.dAOFabrica.Worker_specializationDao;
+import com.nixsolutions.serviceStation.dbCommon.DbConnector;
 import com.nixsolutions.serviceStation.dbObjects.Status;
 import com.nixsolutions.serviceStation.dbObjects.Worker_specialization;
 

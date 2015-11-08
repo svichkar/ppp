@@ -1,4 +1,4 @@
-package com.nixsolutions.serviceStation;
+package com.nixsolutions.serviceStation.dbCommon;
 
 public interface DBTables {
 	

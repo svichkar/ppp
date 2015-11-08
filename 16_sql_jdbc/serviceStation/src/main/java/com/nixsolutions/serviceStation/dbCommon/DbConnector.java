@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nixsolutions.serviceStation;
+package com.nixsolutions.serviceStation.dbCommon;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -101,13 +101,5 @@ public class Dates {
         Locale vietnam=new Locale("vi","VN");
         df=DateFormat.getDateInstance(DateFormat.FULL,vietnam);
         System.out.println("Vietnam\t"+current.format(dtf.withLocale(vietnam))+"\t"+df.format(new Date()));
-
-        /*TreeSet< String > m = new TreeSet< String >();
-        for ( Locale l : Locale.getAvailableLocales() ) {
-            m.add( l.getDisplayCountry(Locale.US)+"\t"+l.getLanguage()+"\t"+l.getCountry());
-        }
-        for ( String s : m ) {
-            System.out.println( s );
-        }*/
     }
 }

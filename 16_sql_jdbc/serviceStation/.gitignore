@@ -1,0 +1,21 @@
+/_classpath
+/_gitignore
+/_project
+/target/
+/bin/
+*.metadata
+/RemoteSystemsTempFiles/
+/Servers
+/target/
+/_classpath
+/_gitignore
+/_project
+/.recommenders/
+# Eclipse
+.classpath
+.project
+.settings/
+/serviceStation/
+# Maven
+log/
+target/

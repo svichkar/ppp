@@ -11,10 +11,12 @@ public class SortComparing {
         Random rand = new Random();
         int[] array = new int[10000];
         int[] sortedArray;
-        double[][] traceTime = new double[20][2];
+        int howMachArrays=20;
+        double[][] traceTime = new double[howMachArrays][2];
         long start, duration;
 
-        for (int i = 0; i < 20; i++) {
+
+        for (int i = 0; i < howMachArrays; i++) {
             for (int j = 0; j < array.length; j++) {
                 array[j] = rand.nextInt(201) - 100;
             }
@@ -36,7 +38,7 @@ public class SortComparing {
             sumForNix += traceTime[i][0];
             sumForJava += traceTime[i][1];
         }
-        System.out.println("sorted time for nix " + sumForNix / 20);
-        System.out.println("sorted time for java " + sumForJava / 20);
+        System.out.println("sorted time for nix " + sumForNix / howMachArrays);
+        System.out.println("sorted time for java " + sumForJava / howMachArrays);
     }
 }

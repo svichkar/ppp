@@ -1,0 +1,39 @@
+CREATE TABLE category (
+id NUMBER(1,0) PRIMARY KEY,
+name VARCHAR(30) UNIQUE
+);
+DROP TABLE category;
+CREATE TABLE category (
+id NUMBER(3,0) PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(30) UNIQUE
+);
+CREATE TABLE book (
+id NUMBER(10,0) PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(100), 
+author VARCHAR(30),
+publisher VARCHAR(50),
+category_id NUMBER(3,0) NOT NULL ,
+FOREIGN KEY (category_id) REFERENCES category (id)
+);
+ALTER TABLE book ALTER COLUMN author VARCHAR(50);
+
+CREATE TABLE book_instance (
+id NUMBER(10,0) PRIMARY KEY AUTO_INCREMENT,
+book_id NUMBER(10,0),
+inventory_number NUMBER (10,0),
+FOREIGN KEY (book_id) REFERENCES book  (id)
+);
+CREATE TABLE journal (
+id NUMBER(100,0) PRIMARY KEY AUTO_INCREMENT,
+book_id NUMBER(10,0) NOT NULL,
+reader_id NUMBER (10,0) NOT NULL,
+start_date DATE NOT NULL,
+end_date DATE NOT NULL,
+FOREIGN KEY (book_id) REFERENCES book_instance  (id)
+);
+CREATE TABLE reader (
+id NUMBER(10,0) PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(50),
+adress VARCHAR(50),
+FOREIGN KEY (id) REFERENCES journal  (reader_id)
+);

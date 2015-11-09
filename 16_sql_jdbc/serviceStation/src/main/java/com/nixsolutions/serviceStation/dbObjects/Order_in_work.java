@@ -10,11 +10,13 @@ public class Order_in_work {
 	private String order_status;
 	private Car car;
 
-	public Order_in_work(Integer order_id, String description, Date datetime_start, Date datetime_finish) {
+	public Order_in_work(Integer order_id, String description, Date datetime_start, Date datetime_finish, String order_status,Car car) {
 		this.order_id = order_id;
 		this.description = description;
 		this.datetime_start = datetime_start;
 		this.datetime_finish = datetime_finish;
+		this.order_status = order_status;
+		this.car=car;
 	}
 
 	public Integer getOrder_id() {

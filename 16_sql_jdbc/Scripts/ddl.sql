@@ -28,7 +28,7 @@ CREATE TABLE car (
 car_id INT IDENTITY,
 model VARCHAR (100) NOT NULL,
 vin VARCHAR (17) NOT NULL,
-description VARCHAR (200) NOT NULL,
+description VARCHAR (200),
 customer_id INT REFERENCES customer(customer_id));
 
 CREATE TABLE worker (

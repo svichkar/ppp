@@ -40,12 +40,12 @@ public class Dates {
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
-        state = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY & day == 13);
+        state = (day == 13 && calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY);
         return state;
     }
 
     static String HowLongAgo(int year, int month, int day) {
-        String temp="";
+        String temp = "";
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
@@ -65,9 +65,8 @@ public class Dates {
                 deltaYear -= 1;
             }
             temp = deltaYear + " years, " + deltaMonth + " month, " + deltaDay + " days";
-        }
-        else {
-            temp="Your date isn't in pass";
+        } else {
+            temp = "Your date isn't in pass";
         }
         return temp;
     }

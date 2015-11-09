@@ -6,6 +6,7 @@ import java.util.Random;
  * Created by rybkin on 11/6/2015.
  */
 public class Arrays {
+    final static int quantityOfArrays = 20;
     static int[] sort(int[] initialArray) {
         int[] cloneArray = initialArray.clone();
         int arrLength = cloneArray.length; // I'm not sure about this one, but I suppose it would be quicker than call every time cloneArray.length inside loop
@@ -23,10 +24,10 @@ public class Arrays {
 
     public static void main(String[] args) {
         Random generator = new Random();
-        long[][] arrayTimeToSort = new long[20][2];
+        long[][] arrayTimeToSort = new long[quantityOfArrays][2];
         long sumBubbleSort = 0;
         long sumDefaultSort = 0;
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < quantityOfArrays; i++) {
             int[] arrayNotSorted = new int[10000];
             for (int z = 0; z < arrayNotSorted.length; z++) {
                 arrayNotSorted[z] = generator.nextInt(201) - 100;
@@ -41,8 +42,8 @@ public class Arrays {
             sumDefaultSort += arrayTimeToSort[i][1];
 
         }
-        System.out.println("Average time of Bubble sort method in nanoseconds = " + sumBubbleSort / 20);
-        System.out.println("Average time of java.util.Arrays.sort method in nanoseconds = " + sumDefaultSort / 20);
+        System.out.println("Average time of Bubble sort method in nanoseconds = " + sumBubbleSort / quantityOfArrays);
+        System.out.println("Average time of java.util.Arrays.sort method in nanoseconds = " + sumDefaultSort / quantityOfArrays);
 
     }
 }

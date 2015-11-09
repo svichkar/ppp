@@ -10,12 +10,12 @@ public class ExponentFormat {
         Scanner scanIn = new Scanner(System.in);
         String ourNumber = scanIn.nextLine();
         try {
+            value = Double.parseDouble(ourNumber);
             if (ourNumber.toLowerCase().contains("e")) {
 
-                value = Double.parseDouble(ourNumber);
+
                 System.out.printf(String.format("Your number in casual format is: %.20f", value).replaceAll("\\.?0*$", ""));
             } else {
-                value = Double.parseDouble(ourNumber);
                 System.out.println(String.format("Your number in exponential format is %e: ", value));
             }
         } catch (Exception e) {

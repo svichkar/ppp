@@ -19,7 +19,6 @@ import entities.PersistenceException;
 import entities.Status;
 import entities.Worker;
 import entities.WorkerSpecialization;
-import entities.WorkerStatus;
 import h2.CarDAOImpl;
 import h2.CustomerDAOImpl;
 import h2.H2DAOFactoryImpl;
@@ -31,7 +30,6 @@ import h2.PartDAOImpl;
 import h2.StatusDAOImpl;
 import h2.WorkerDAOImpl;
 import h2.WorkerSpecializationDAOImpl;
-import h2.WorkerStatusDAOImpl;
 
 public class DAOApp {
 
@@ -104,21 +102,9 @@ public class DAOApp {
 			tWorker.setFirstName("Test First Name");
 			tWorker.setLastName("Test Last Name");
 			tWorker.setSpecializationId(tSpec.getId());
+			tWorker.setStatusId(tStatus.getId());
 			workerDAO.update(tWorker);
 			workerList = workerDAO.getAll();
-			//WorkerStatus
-			WorkerStatusDAOImpl workerStatusDAO = (WorkerStatusDAOImpl) daoFactory.getDao(conn, WorkerStatus.class);
-			List<WorkerStatus> workerStatusList = workerStatusDAO.getAll();
-			WorkerStatus tWorkerStatus = new WorkerStatus(tWorker.getId(), tStatus.getId());
-			tWorkerStatus = workerStatusDAO.createFrom(tWorkerStatus);
-			List<WorkerStatus> workerStatusListPost = workerStatusDAO.getAll();
-			//Create second status to update relationship
-			Status sStatus = new Status("Second Status");
-			sStatus = statusDAO.createFrom(sStatus);
-			//
-			tWorkerStatus.setStatusId(sStatus.getId());
-			workerStatusDAO.update(tWorkerStatus);
-			workerStatusList = workerStatusDAO.getAll();
 			//OrderInWork
 			OrderInWorkDAOImpl orderDAO = (OrderInWorkDAOImpl) daoFactory.getDao(conn, OrderInWork.class);
 			List<OrderInWork> orderList = orderDAO.getAll();
@@ -157,15 +143,12 @@ public class DAOApp {
 			orderPartList = orderPartDAO.getAll();
 			orderDAO.delete(tOrder);
 			orderList = orderDAO.getAll();
-			workerStatusDAO.delete(tWorkerStatus);
-			workerStatusList = workerStatusDAO.getAll();
 			workerDAO.delete(tWorker);
 			workerList = workerDAO.getAll();
 			carDAO.delete(tCar);
 			carList = carDAO.getAll();
 			orderStatusDAO.delete(tOrderStatus);
 			orderStatusList = orderStatusDAO.getAll();
-			statusDAO.delete(sStatus);
 			statusDAO.delete(tStatus);
 			statusList = statusDAO.getAll();
 			workerSpecDAO.delete(tSpec);

@@ -6,6 +6,7 @@ public class Worker extends AbstractEntity {
 	private String first_name;
 	private String last_name;
 	private int specialization_id;
+	private int status_id;
 	
 	@Override
 	public int getId() {
@@ -14,7 +15,9 @@ public class Worker extends AbstractEntity {
 
 	@Override
 	public String getValuesCommaSeparated() {
-		return "'" + first_name + "', '" + last_name + "', " + (specialization_id == 0 ? "null" : specialization_id);
+		return "'" + first_name + "', '" + last_name + "', " + 
+				(specialization_id == 0 ? "null" : specialization_id) + ", " + 
+				(status_id == 0 ? "null" : status_id);
 	}
 	
 	public String getFirstName() {
@@ -27,6 +30,10 @@ public class Worker extends AbstractEntity {
 	
 	public int getSpecId() {
 		return specialization_id;
+	}
+	
+	public int getStatusId() {
+		return status_id;
 	}
 	
 	protected void setId(int value) {
@@ -45,21 +52,27 @@ public class Worker extends AbstractEntity {
 		specialization_id = value;
 	}
 	
+	public void setStatusId(int value) {
+		status_id = value;
+	}
+	
 	@Override
 	public String toString() {
 		String res = "first_name = '" + first_name + "', last_name = '" + 
 				last_name + "', specialization_id = " + 
-				(specialization_id == 0 ? "null" : specialization_id);
+				(specialization_id == 0 ? "null" : specialization_id) + 
+				", status_id = " + (status_id == 0 ? "null" : status_id);
 		return res;
 	}
 	
-	public Worker(String first_name, String last_name, int specialization_id) {
+	public Worker(String first_name, String last_name, int specialization_id, int status_id) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.specialization_id = specialization_id;
+		this.status_id = status_id;
 	}
 	
 	public Worker() {
-		this("", "", 0);
+		this("", "", 0, 0);
 	}
 }

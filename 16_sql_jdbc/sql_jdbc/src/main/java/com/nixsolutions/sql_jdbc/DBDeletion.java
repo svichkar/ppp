@@ -39,7 +39,6 @@ public class DBDeletion {
 			stmt.addBatch("DROP TABLE order_status;");
 			stmt.addBatch("DROP TABLE car;");
 			stmt.addBatch("DROP TABLE customer;");
-			stmt.addBatch("DROP TABLE worker_status;");
 			stmt.addBatch("DROP TABLE worker;");
 			stmt.addBatch("DROP TABLE status;");
 			stmt.addBatch("DROP TABLE part;");

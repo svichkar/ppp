@@ -26,7 +26,6 @@ import entities.PersistenceException;
 import entities.Status;
 import entities.Worker;
 import entities.WorkerSpecialization;
-import entities.WorkerStatus;
 
 public class H2DAOFactoryImpl implements DAOFactory<Connection> {
 	
@@ -137,17 +136,6 @@ public class H2DAOFactoryImpl implements DAOFactory<Connection> {
             @Override
             public GenericDAO<WorkerSpecialization> create(Connection connection) {
                 return new WorkerSpecializationDAOImpl(connection);
-            }
-        });
-        creators.put(WorkerStatus.class, new DAOCreator<Connection>() {
-            @Override
-            public GenericDAO<WorkerStatus> create(Connection connection) {
-                try {
-					return new WorkerStatusDAOImpl(connection);
-				} catch (PersistenceException e) {					
-					LOG.error(e.getMessage());
-					return null;
-				}
             }
         });
     }

@@ -49,7 +49,7 @@ public class WorkerDAOImpl extends AbstractH2DAO<Worker>{
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO sqllab.worker (first_name, last_name, specialization_id) VALUES (%1$s);";
+		return "INSERT INTO sqllab.worker (first_name, last_name, specialization_id, status_id) VALUES (%1$s);";
 	}
 
 	@Override
@@ -62,6 +62,7 @@ public class WorkerDAOImpl extends AbstractH2DAO<Worker>{
 				worker.setFirstName(rs.getString("first_name"));
 				worker.setLastName(rs.getString("last_name"));
 				worker.setSpecializationId(rs.getInt("specialization_id"));
+				worker.setStatusId(rs.getInt("status_id"));
 				resultList.add(worker);
 			}
 		} catch (Exception ex) {

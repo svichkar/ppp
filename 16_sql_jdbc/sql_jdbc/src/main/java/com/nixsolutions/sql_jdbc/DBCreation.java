@@ -62,9 +62,7 @@ public class DBCreation {
 						"worker_id INT IDENTITY," +
 						"first_name VARCHAR (25) NOT NULL," +
 						"last_name VARCHAR (25) NOT NULL," +
-						"specialization_id INT REFERENCES worker_specialization(specialization_id));");
-			stmt.addBatch("CREATE TABLE worker_status (" +
-						"worker_id INT REFERENCES worker(worker_id)," +
+						"specialization_id INT REFERENCES worker_specialization(specialization_id)," +
 						"status_id INT REFERENCES status(status_id));");
 			stmt.addBatch("CREATE TABLE order_in_work (" +
 						"order_id BIGINT IDENTITY," +
@@ -87,8 +85,6 @@ public class DBCreation {
 			stmt.addBatch("ALTER TABLE order_part " +
 						"ADD FOREIGN KEY (part_id)" +
 						"REFERENCES part(part_id);");
-			stmt.addBatch("ALTER TABLE worker_status " +
-						"ADD CONSTRAINT worker_unique UNIQUE (worker_id);");
 			stmt.addBatch("ALTER TABLE order_worker " +
 						"ADD CONSTRAINT order_worker_unique UNIQUE (order_id, worker_id);");
 			stmt.addBatch("ALTER TABLE order_part " +

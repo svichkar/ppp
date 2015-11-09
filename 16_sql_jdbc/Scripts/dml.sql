@@ -33,17 +33,11 @@ INSERT INTO car (model, vin, description, customer_id) VALUES ('Audi A6', 'Y5098
 INSERT INTO car (model, vin, description, customer_id) VALUES ('Dodge Charger', 'X0423NJFG2015GWE4', 'Red', 2);
 INSERT INTO car (model, vin, description, customer_id) VALUES ('VAZ 2110', 'W24HJTR2556BMS1P6', 'White', 5);
 --worker
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('John', 'Johnes', 1);
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('Sam', 'Rockwell', 3);
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('Stan', 'Sikorsky', 2);
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('Kenny', 'Smiles', 4);
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('Jackson', 'Teller', 4);
---worker_status
-INSERT INTO worker_status VALUES (1, 1);
-INSERT INTO worker_status VALUES (2, 1);
-INSERT INTO worker_status VALUES (3, 1);
-INSERT INTO worker_status VALUES (4, 1);
-INSERT INTO worker_status VALUES (5, 1);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('John', 'Johnes', 1, 1);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('Sam', 'Rockwell', 3, 1);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('Stan', 'Sikorsky', 2, 1);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('Kenny', 'Smiles', 4, 1);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('Jackson', 'Teller', 4, 1);
 --order
 INSERT INTO order_in_work (order_status_id, description, car_id, timestamp_start, timestamp_finish) VALUES (1, 'Busted engine', 1, CURRENT_TIMESTAMP(), null);
 INSERT INTO order_in_work (order_status_id, description, car_id, timestamp_start, timestamp_finish) VALUES (1, 'Busted tires', 2, CURRENT_TIMESTAMP(), null);
@@ -67,19 +61,17 @@ INSERT INTO order_part VALUES (3, 1, 6);
 INSERT INTO order_part VALUES (4, 1, 4);
 INSERT INTO order_part VALUES (5, 2, 5);
 
-UPDATE worker_status SET status_id = 2 WHERE worker_id = 1;
-UPDATE worker_status SET status_id = 2 WHERE worker_id = 2;
-UPDATE worker_status SET status_id = 4 WHERE worker_id = 3;
-UPDATE worker_status SET status_id = 3 WHERE worker_id = 4;
-UPDATE worker_status SET status_id = 2 WHERE worker_id = 5;
+UPDATE worker SET status_id = 2 WHERE worker_id = 1;
+UPDATE worker SET status_id = 2 WHERE worker_id = 2;
+UPDATE worker SET status_id = 4 WHERE worker_id = 3;
+UPDATE worker SET status_id = 3 WHERE worker_id = 4;
+UPDATE worker SET status_id = 2 WHERE worker_id = 5;
 
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('Smiley', 'Face', 4);
-INSERT INTO worker (first_name, last_name, specialization_id) VALUES ('Kevin', 'Gross', 4);
-INSERT INTO worker_status VALUES (6, 2);
-INSERT INTO worker_status VALUES (7, 2);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('Smiley', 'Face', 4, 1);
+INSERT INTO worker (first_name, last_name, specialization_id, status_id) VALUES ('Kevin', 'Gross', 4, 1);
+UPDATE worker SET status_id = 2 WHERE worker_id = 6;
+UPDATE worker SET status_id = 2 WHERE worker_id = 7;
 UPDATE order_worker SET worker_id = 6 where worker_id = 4;
 UPDATE order_worker SET worker_id = 7 where worker_id = 5;
-DELETE FROM worker_status WHERE worker_id = 4;
-DELETE FROM worker_status WHERE worker_id = 5;
 DELETE FROM worker WHERE worker_id = 4;
 DELETE FROM worker WHERE worker_id = 5;

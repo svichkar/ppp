@@ -39,13 +39,10 @@ CREATE TABLE worker (
 worker_id INT IDENTITY,
 first_name VARCHAR (25) NOT NULL,
 last_name VARCHAR (25) NOT NULL,
-specialization_id INT REFERENCES worker_specialization(specialization_id));
-
--- 3rd stage
-CREATE TABLE worker_status (
-worker_id INT REFERENCES worker(worker_id),
+specialization_id INT REFERENCES worker_specialization(specialization_id),
 status_id INT REFERENCES status(status_id));
 
+-- 3rd stage
 CREATE TABLE order_in_work (
 order_id BIGINT IDENTITY,
 order_status_id INT REFERENCES order_status(order_status_id),
@@ -72,9 +69,6 @@ used_amount BIGINT NOT NULL);
 ALTER TABLE order_part
 ADD FOREIGN KEY (part_id)
 REFERENCES part(part_id);
-
-ALTER TABLE worker_status
-ADD CONSTRAINT worker_unique UNIQUE (worker_id);
 
 ALTER TABLE order_worker
 ADD CONSTRAINT order_worker_unique UNIQUE (order_id, worker_id);

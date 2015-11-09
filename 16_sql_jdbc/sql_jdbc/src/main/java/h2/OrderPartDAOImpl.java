@@ -9,80 +9,75 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.GenericDAO;
-import entities.OrderWorker;
+import entities.OrderPart;
 import entities.PersistenceException;
 
-public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
-	
+public class OrderPartDAOImpl implements GenericDAO<OrderPart> {
+
 	private Connection conn;
 
-	public OrderWorkerDAO(Connection conn) throws PersistenceException {
+	public OrderPartDAOImpl(Connection conn) {
 		this.conn = conn;
-		try {
-			this.conn.setAutoCommit(false);
-		} catch (SQLException ex) {
-			throw new PersistenceException(ex);
-		}
 	}
-
-	private class ChOrderWorker extends OrderWorker {
+	
+	private class ChOrderPart extends OrderPart {
 		@Override
 		public void setId(int value) {
 			super.setId(value);
 		}
 		
 		@Override
-		public void setWorkerId(int value) {
-			super.setWorkerId(value);
+		public void setPartId(int value) {
+			super.setPartId(value);
 		}
 	}
 
-	@Override
-	public OrderWorker create() throws PersistenceException {
-/*		OrderWorker ow = new OrderWorker();
-		return createFrom(ow);*/
-		throw new UnsupportedOperationException();
-	}
-
 	public String getSelectByID() {
-		return "SELECT * FROM order_worker WHERE order_id = ? AND worker_id = ?;";
+		return "SELECT * FROM sqllab.order_part WHERE order_id = ? AND part_id = ?;";
 	}
 
 	public String getSelectAll() {
-		return "SELECT * FROM order_worker;";
+		return "SELECT * FROM sqllab.order_part;";
 	}
 
 	public String getUpdate() {
-		return "UPDATE order_worker SET %1$s WHERE order_id = %2$s AND worker_id = %3$s;";
+		return "UPDATE sqllab.order_part SET %1$s WHERE order_id = %2$s AND part_id = %3$s;";
 	}
 
 	public String getDelete() {
-		return "DELETE FROM order_worker WHERE order_id = ? AND worker_id = ?;";
+		return "DELETE FROM sqllab.order_part WHERE order_id = ? AND part_id = ?;";
 	}
 
 	public String getCreate() {
-		return "INSERT INTO order_worker VALUES (%1$s);";
+		return "INSERT INTO sqllab.order_part VALUES (%1$s);";
 	}
-
-	public List<OrderWorker> parseResults(ResultSet rs) throws PersistenceException {
-		List<OrderWorker> resultList = new ArrayList<>();
+	
+	public List<OrderPart> parseResults(ResultSet rs) throws PersistenceException {
+		List<OrderPart> resultList = new ArrayList<>();
 		try {
 			while (rs.next()) {
-				ChOrderWorker ow = new ChOrderWorker();
-				ow.setId(rs.getInt("order_id"));
-				ow.setWorkerId(rs.getInt("worker_id"));
-				ow.setIsCompleted(rs.getString("is_completed"));
-				resultList.add(ow);
+				ChOrderPart op = new ChOrderPart();
+				op.setId(rs.getInt("order_id"));
+				op.setPartId(rs.getInt("part_id"));
+				op.setUsedAmount(rs.getInt("used_amount"));
+				resultList.add(op);
 			}
 		} catch (Exception ex) {
 			throw new PersistenceException(ex);
 		}
 		return resultList;
 	}
+	
+	@Override
+	public OrderPart create() throws PersistenceException {
+/*		OrderPart op = new OrderPart();
+		return createFrom(op);*/
+		throw new UnsupportedOperationException();
+	}
 
 	@Override
-	public OrderWorker createFrom(OrderWorker entity) throws PersistenceException {
-		OrderWorker entInstance = null;
+	public OrderPart createFrom(OrderPart entity) throws PersistenceException {
+		OrderPart entInstance = null;
 		String sql = getCreate();
 /*		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, entity.getValuesCommaSeparated());
@@ -106,12 +101,12 @@ public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
 		sql = getSelectByID();
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, entity.getId());
-			stmt.setInt(2, entity.getWorkerId());
+			stmt.setInt(2, entity.getPartId());
 			ResultSet rs = stmt.executeQuery();
-			List<OrderWorker> resultList = parseResults(rs);
+			List<OrderPart> resultList = parseResults(rs);
 			if (resultList == null || resultList.size() != 1) {
 				throw new PersistenceException("No records found by id. Order_ID: " + 
-						entity.getId() + ". Worker_ID: " + entity.getWorkerId());
+						entity.getId() + ". Par_ID: " + entity.getPartId());
 			}
 			entInstance = resultList.get(0);
 		} catch (SQLException ex) {
@@ -121,17 +116,17 @@ public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
 	}
 
 	@Override
-	public void update(OrderWorker entity) throws PersistenceException {
+	public void update(OrderPart entity) throws PersistenceException {
 		String sql = getUpdate();
-/*		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+		/*try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, entity.toString());
 			stmt.setInt(2, entity.getId());
-			stmt.setInt(3, entity.getWorkerId());
+			stmt.setInt(3, entity.getPartId());
 			int updCount = stmt.executeUpdate();*/
 		try {
 			Statement stmt = conn.createStatement();
 			int updCount = stmt.executeUpdate(String.format(sql, 
-					entity.toString(), entity.getId(), entity.getWorkerId()));
+					entity.toString(), entity.getId(), entity.getPartId()));
 			if (updCount != 1) {
 				conn.rollback();
 				throw new PersistenceException("On update either multiple or no records were affected. Count: " + updCount);
@@ -148,11 +143,11 @@ public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
 	}
 
 	@Override
-	public void delete(OrderWorker entity) throws PersistenceException {
+	public void delete(OrderPart entity) throws PersistenceException {
 		String sql = getDelete();
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, entity.getId());
-			stmt.setInt(2, entity.getWorkerId());
+			stmt.setInt(2, entity.getPartId());
 			int updCount = stmt.executeUpdate();
 			if (updCount != 1) {
 				conn.rollback();
@@ -168,13 +163,13 @@ public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
 			throw new PersistenceException(ex);
 		}
 	}
-
-	public OrderWorker getByPK(int orderId, int workerId) throws PersistenceException {
-		List<OrderWorker> resultList = null;
+	
+	public OrderPart getByPK(int orderId, int partId) throws PersistenceException {
+		List<OrderPart> resultList = null;
 		String sql = getSelectByID();
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setInt(1, orderId);
-			stmt.setInt(2, workerId);
+			stmt.setInt(2, partId);
 			ResultSet rs = stmt.executeQuery();
 			resultList = parseResults(rs);
 		} catch (SQLException ex) {
@@ -184,14 +179,19 @@ public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
 			return null;
 		} else if (resultList.size() > 1) {
 			throw new PersistenceException("More than one result by presumably unique id. Order_id: " + 
-					orderId + ". Worker_id: " + workerId);
+					orderId + ". Part_id: " + partId);
 		}
 		return resultList.get(0);
 	}
 
 	@Override
-	public List<OrderWorker> getAll() throws PersistenceException {
-		List<OrderWorker> resultList = null;
+	public OrderPart getByPK(int id) throws PersistenceException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<OrderPart> getAll() throws PersistenceException {
+		List<OrderPart> resultList = null;
 		String sql = getSelectAll();
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			ResultSet rs = stmt.executeQuery();
@@ -200,10 +200,5 @@ public class OrderWorkerDAO implements GenericDAO<OrderWorker> {
 			throw new PersistenceException(ex);
 		}
 		return resultList;
-	}
-
-	@Override
-	public OrderWorker getByPK(int id) throws PersistenceException {
-		throw new UnsupportedOperationException();
 	}
 }

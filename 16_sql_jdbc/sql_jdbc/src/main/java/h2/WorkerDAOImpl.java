@@ -5,13 +5,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.PersistenceException;
 import entities.Worker;
 
-public class WorkerDAO extends AbstractDAO<Worker>{
+public class WorkerDAOImpl extends AbstractH2DAO<Worker>{
 	
-	public WorkerDAO(Connection conn) {
+	public WorkerDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class WorkerDAO extends AbstractDAO<Worker>{
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM worker WHERE worker_id = ?;";
+		return "SELECT * FROM sqllab.worker WHERE worker_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM worker;";
+		return "SELECT * FROM sqllab.worker;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE worker SET %1$s WHERE worker_id = %2$s;";
+		return "UPDATE sqllab.worker SET %1$s WHERE worker_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM worker WHERE worker_id = ?;";
+		return "DELETE FROM sqllab.worker WHERE worker_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO worker (first_name, last_name, specialization_id) VALUES (%1$s);";
+		return "INSERT INTO sqllab.worker (first_name, last_name, specialization_id) VALUES (%1$s);";
 	}
 
 	@Override

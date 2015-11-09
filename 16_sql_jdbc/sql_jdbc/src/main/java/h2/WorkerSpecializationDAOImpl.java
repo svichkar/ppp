@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.PersistenceException;
 import entities.WorkerSpecialization;
 
-public class WorkerSpecializationDAO extends AbstractDAO<WorkerSpecialization> {
+public class WorkerSpecializationDAOImpl extends AbstractH2DAO<WorkerSpecialization> {
 	
 	private class ChWorkerSpecialization extends WorkerSpecialization {
 		@Override
@@ -18,7 +17,7 @@ public class WorkerSpecializationDAO extends AbstractDAO<WorkerSpecialization> {
 		}
 	}
 	
-	public WorkerSpecializationDAO(Connection conn) {
+	public WorkerSpecializationDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class WorkerSpecializationDAO extends AbstractDAO<WorkerSpecialization> {
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM worker_specialization WHERE specialization_id = ?;";
+		return "SELECT * FROM sqllab.worker_specialization WHERE specialization_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM worker_specialization;";
+		return "SELECT * FROM sqllab.worker_specialization;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE worker_specialization SET %1$s WHERE specialization_id = %2$s;";
+		return "UPDATE sqllab.worker_specialization SET %1$s WHERE specialization_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM worker_specialization WHERE specialization_id = ?;";
+		return "DELETE FROM sqllab.worker_specialization WHERE specialization_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO worker_specialization (specialization_name) VALUES (%1$s);";
+		return "INSERT INTO sqllab.worker_specialization (specialization_name) VALUES (%1$s);";
 	}
 
 	@Override

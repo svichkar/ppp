@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.PersistenceException;
 import entities.Status;
 
-public class StatusDAO extends AbstractDAO<Status> {
+public class StatusDAOImpl extends AbstractH2DAO<Status> {
 
 	private class ChStatus extends Status {
 		@Override
@@ -18,7 +17,7 @@ public class StatusDAO extends AbstractDAO<Status> {
 		}
 	}
 	
-	public StatusDAO(Connection conn) {
+	public StatusDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class StatusDAO extends AbstractDAO<Status> {
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM status WHERE status_id = ?;";
+		return "SELECT * FROM sqllab.status WHERE status_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM status;";
+		return "SELECT * FROM sqllab.status;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE status SET %1$s WHERE status_id = %2$s;";
+		return "UPDATE sqllab.status SET %1$s WHERE status_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM status WHERE status_id = ?;";
+		return "DELETE FROM sqllab.status WHERE status_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO status (status_name) VALUES (%1$s);";
+		return "INSERT INTO sqllab.status (status_name) VALUES (%1$s);";
 	}
 
 	@Override

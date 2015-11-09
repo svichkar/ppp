@@ -28,9 +28,9 @@ import entities.Worker;
 import entities.WorkerSpecialization;
 import entities.WorkerStatus;
 
-public class H2DAOFactory implements DAOFactory<Connection> {
+public class H2DAOFactoryImpl implements DAOFactory<Connection> {
 	
-	public static Logger LOG = LogManager.getLogger(H2DAOFactory.class.getName());
+	public static Logger LOG = LogManager.getLogger(H2DAOFactoryImpl.class.getName());
 	private String user;
     private String password;
     private String url;
@@ -45,7 +45,7 @@ public class H2DAOFactory implements DAOFactory<Connection> {
         } catch (SQLException e) {
             throw new PersistenceException(e);
         }
-        return  connection;
+        return connection;
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class H2DAOFactory implements DAOFactory<Connection> {
         return creator.create(connection);
 	}
 	
-	public H2DAOFactory() throws ClassNotFoundException {
+	public H2DAOFactoryImpl() throws ClassNotFoundException {
 		Class.forName(driver);
 		Properties props = new Properties();
 		String projDir = System.getProperty("user.dir");
@@ -77,38 +77,38 @@ public class H2DAOFactory implements DAOFactory<Connection> {
         creators.put(Car.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<Car> create(Connection connection) {
-                return new CarDAO(connection);
+                return new CarDAOImpl(connection);
             }
         });
         creators.put(Customer.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<Customer> create(Connection connection) {
-                return new CustomerDAO(connection);
+                return new CustomerDAOImpl(connection);
             }
         });
         creators.put(OrderInWork.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<OrderInWork> create(Connection connection) {
-                return new OrderInWorkDAO(connection);
+                return new OrderInWorkDAOImpl(connection);
             }
         });
         creators.put(OrderPart.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<OrderPart> create(Connection connection) {
-                return new OrderPartDAO(connection);
+                return new OrderPartDAOImpl(connection);
             }
         });
         creators.put(OrderStatus.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<OrderStatus> create(Connection connection) {
-                return new OrderStatusDAO(connection);
+                return new OrderStatusDAOImpl(connection);
             }
         });
         creators.put(OrderWorker.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<OrderWorker> create(Connection connection) {
                 try {
-					return new OrderWorkerDAO(connection);
+					return new OrderWorkerDAOImpl(connection);
 				} catch (PersistenceException e) {					
 					LOG.error(e.getMessage());
 					return null;
@@ -118,32 +118,32 @@ public class H2DAOFactory implements DAOFactory<Connection> {
         creators.put(Part.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<Part> create(Connection connection) {
-                return new PartDAO(connection);
+                return new PartDAOImpl(connection);
             }
         });
         creators.put(Status.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<Status> create(Connection connection) {
-                return new StatusDAO(connection);
+                return new StatusDAOImpl(connection);
             }
         });
         creators.put(Worker.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<Worker> create(Connection connection) {
-                return new WorkerDAO(connection);
+                return new WorkerDAOImpl(connection);
             }
         });
         creators.put(WorkerSpecialization.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<WorkerSpecialization> create(Connection connection) {
-                return new WorkerSpecializationDAO(connection);
+                return new WorkerSpecializationDAOImpl(connection);
             }
         });
         creators.put(WorkerStatus.class, new DAOCreator<Connection>() {
             @Override
             public GenericDAO<WorkerStatus> create(Connection connection) {
                 try {
-					return new WorkerStatusDAO(connection);
+					return new WorkerStatusDAOImpl(connection);
 				} catch (PersistenceException e) {					
 					LOG.error(e.getMessage());
 					return null;

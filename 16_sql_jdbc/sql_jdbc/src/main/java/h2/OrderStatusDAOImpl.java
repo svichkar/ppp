@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.OrderStatus;
 import entities.PersistenceException;
 
-public class OrderStatusDAO extends AbstractDAO<OrderStatus>{
+public class OrderStatusDAOImpl extends AbstractH2DAO<OrderStatus>{
 	
 	private class ChOrderStatus extends OrderStatus {
 		@Override
@@ -18,7 +17,7 @@ public class OrderStatusDAO extends AbstractDAO<OrderStatus>{
 		}
 	}
 	
-	public OrderStatusDAO(Connection conn) {
+	public OrderStatusDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class OrderStatusDAO extends AbstractDAO<OrderStatus>{
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM order_status WHERE order_status_id = ?;";
+		return "SELECT * FROM sqllab.order_status WHERE order_status_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM order_status;";
+		return "SELECT * FROM sqllab.order_status;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE order_status SET %1$s WHERE order_status_id = %2$s;";
+		return "UPDATE sqllab.order_status SET %1$s WHERE order_status_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM order_status WHERE order_status_id = ?;";
+		return "DELETE FROM sqllab.order_status WHERE order_status_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO order_status (order_status_name) VALUES (%1$s);";
+		return "INSERT INTO sqllab.order_status (order_status_name) VALUES (%1$s);";
 	}
 
 	@Override

@@ -5,13 +5,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.Car;
 import entities.PersistenceException;
 
-public class CarDAO extends AbstractDAO<Car>{
+public class CarDAOImpl extends AbstractH2DAO<Car> {
 	
-	public CarDAO(Connection conn) {
+	public CarDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class CarDAO extends AbstractDAO<Car>{
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM car WHERE car_id = ?;";
+		return "SELECT * FROM sqllab.car WHERE car_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM car;";
+		return "SELECT * FROM sqllab.car;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE car SET %1$s WHERE car_id = %2$s;";
+		return "UPDATE sqllab.car SET %1$s WHERE car_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM car WHERE car_id = ?;";
+		return "DELETE FROM sqllab.car WHERE car_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO car (model, vin, description, customer_id) VALUES (%1$s);";
+		return "INSERT INTO sqllab.car (model, vin, description, customer_id) VALUES (%1$s);";
 	}
 
 	@Override

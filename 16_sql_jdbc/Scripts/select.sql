@@ -7,7 +7,7 @@ SELECT part_id, amount FROM part;
 SELECT first_name, last_name FROM customer;
 SELECT DISTINCT worker_id FROM order_worker;
 SELECT DISTINCT part_id FROM order_part;
-SELECT DISTINCT status_id FROM worker_status;
+SELECT DISTINCT status_id FROM worker;
 --6
 SELECT * FROM worker WHERE first_name like ('Jo%');
 SELECT * FROM part WHERE part_name like ('%gear%');
@@ -22,7 +22,7 @@ SELECT * FROM car WHERE description IS NOT NULL;
 --7
 SELECT * FROM part WHERE part_id IN (SELECT part_id FROM order_part);
 SELECT * FROM worker WHERE specialization_id IN (SELECT specialization_id FROM worker_specialization WHERE specialization_name = 'Worker');
-SELECT * FROM worker_status WHERE worker_id IN (SELECT worker_id FROM worker WHERE specialization_id IN (SELECT specialization_id FROM worker_specialization WHERE specialization_name = 'Trainee'));
+SELECT * FROM order_worker WHERE worker_id IN (SELECT worker_id FROM worker WHERE specialization_id IN (SELECT specialization_id FROM worker_specialization WHERE specialization_name = 'Trainee'));
 --8
 SELECT * FROM car ORDER BY model ASC;
 SELECT * FROM part ORDER BY amount DESC;
@@ -32,8 +32,7 @@ UNION
 SELECT * FROM worker WHERE last_name = 'Face';
 --10
 SELECT w.*, s.status_name FROM worker w
-INNER JOIN worker_status ws ON w.worker_id = ws.worker_id
-INNER JOIN status s ON ws.status_id = s.status_id;
+INNER JOIN status s ON w.status_id = s.status_id;
 SELECT o.*, p.part_name, op.used_amount FROM order_in_work o
 INNER JOIN order_part op ON o.order_id = op.order_id
 INNER JOIN part p ON op.part_id = p.part_id;

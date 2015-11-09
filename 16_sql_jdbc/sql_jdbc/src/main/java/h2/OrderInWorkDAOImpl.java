@@ -5,13 +5,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.OrderInWork;
 import entities.PersistenceException;
 
-public class OrderInWorkDAO extends AbstractDAO<OrderInWork>{
+public class OrderInWorkDAOImpl extends AbstractH2DAO<OrderInWork>{
 	
-	public OrderInWorkDAO(Connection conn) {
+	public OrderInWorkDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class OrderInWorkDAO extends AbstractDAO<OrderInWork>{
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM order_in_work WHERE order_id = ?;";
+		return "SELECT * FROM sqllab.order_in_work WHERE order_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM order_in_work;";
+		return "SELECT * FROM sqllab.order_in_work;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE order_in_work SET %1$s WHERE order_id = %2$s;";
+		return "UPDATE sqllab.order_in_work SET %1$s WHERE order_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM order_in_work WHERE order_id = ?;";
+		return "DELETE FROM sqllab.order_in_work WHERE order_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO order_in_work (order_status_id, description, car_id, timestamp_start, timestamp_finish) VALUES (%1$s);";
+		return "INSERT INTO sqllab.order_in_work (order_status_id, description, car_id, timestamp_start, timestamp_finish) VALUES (%1$s);";
 	}
 
 	@Override

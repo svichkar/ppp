@@ -16,8 +16,7 @@ public class CustomConnectionManager {
 	public static Logger LOG = LogManager.getLogger(DBCreation.class.getName());
 	private static JdbcConnectionPool h2ConnPool;
 	
-	public static Connection getConnection() 
-			throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		if (h2ConnPool == null) {
 			Properties props = new Properties();
 			String projDir = System.getProperty("user.dir");

@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.Customer;
 import entities.PersistenceException;
 
-public class CustomerDAO extends AbstractDAO<Customer> {
+public class CustomerDAOImpl extends AbstractH2DAO<Customer> {
 
 	private class ChCustomer extends Customer {
 		@Override
@@ -18,34 +17,33 @@ public class CustomerDAO extends AbstractDAO<Customer> {
 		}
 	}
 	
-	public CustomerDAO(Connection conn) {
+	public CustomerDAOImpl(Connection conn) {
 		super(conn);
 	}
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM customer WHERE customer_id = ?;";
+		return "SELECT * FROM sqllab.customer WHERE customer_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM customer;";
+		return "SELECT * FROM sqllab.customer;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE customer SET %1$s WHERE customer_id = %2$s;";
+		return "UPDATE sqllab.customer SET %1$s WHERE customer_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM customer WHERE customer_id = ?;";
+		return "DELETE FROM sqllab.customer WHERE customer_id = ?;";
 	}
 	
 	@Override
 	public String getCreate() {
-		//return "INSERT INTO customer (first_name, last_name, phone) VALUES (?);";
-		return "INSERT INTO customer (first_name, last_name, phone) VALUES (%s);";
+		return "INSERT INTO sqllab.customer (first_name, last_name, phone) VALUES (%s);";
 	}
 
 	@Override

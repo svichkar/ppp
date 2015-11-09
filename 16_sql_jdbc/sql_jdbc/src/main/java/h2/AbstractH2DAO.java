@@ -1,4 +1,4 @@
-package dao;
+package h2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import dao.GenericDAO;
 import entities.AbstractEntity;
 import entities.PersistenceException;
 
-public abstract class AbstractDAO<T extends AbstractEntity> implements GenericDAO<T> {
+public abstract class AbstractH2DAO<T extends AbstractEntity> implements GenericDAO<T> {
 	
 	private Connection conn;
 	
@@ -125,7 +126,7 @@ public abstract class AbstractDAO<T extends AbstractEntity> implements GenericDA
 		return entInstance;
 	}
 	
-	public AbstractDAO(Connection conn) {
+	public AbstractH2DAO(Connection conn) {
 		this.conn = conn;
 	}
 }

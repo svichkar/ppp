@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.AbstractDAO;
 import entities.Part;
 import entities.PersistenceException;
 
-public class PartDAO extends AbstractDAO<Part> {
+public class PartDAOImpl extends AbstractH2DAO<Part> {
 
 	private class ChPart extends Part {
 		@Override
@@ -18,7 +17,7 @@ public class PartDAO extends AbstractDAO<Part> {
 		}
 	}
 	
-	public PartDAO(Connection conn) {
+	public PartDAOImpl(Connection conn) {
 		super(conn);
 	}
 
@@ -30,27 +29,27 @@ public class PartDAO extends AbstractDAO<Part> {
 
 	@Override
 	public String getSelectByID() {
-		return "SELECT * FROM part WHERE part_id = ?;";
+		return "SELECT * FROM sqllab.part WHERE part_id = ?;";
 	}
 
 	@Override
 	public String getSelectAll() {
-		return "SELECT * FROM part;";
+		return "SELECT * FROM sqllab.part;";
 	}
 
 	@Override
 	public String getUpdate() {
-		return "UPDATE part SET %1$s WHERE part_id = %2$s;";
+		return "UPDATE sqllab.part SET %1$s WHERE part_id = %2$s;";
 	}
 
 	@Override
 	public String getDelete() {
-		return "DELETE FROM part WHERE part_id = ?;";
+		return "DELETE FROM sqllab.part WHERE part_id = ?;";
 	}
 
 	@Override
 	public String getCreate() {
-		return "INSERT INTO part (part_name, vendor, amount) VALUES (%1$s);";
+		return "INSERT INTO sqllab.part (part_name, vendor, amount) VALUES (%1$s);";
 	}
 
 	@Override

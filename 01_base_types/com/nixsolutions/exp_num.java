@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * Created by Sergey on 06.11.2015.
  */
-public class Exp_num {
+public class exp_num {
     public static void main(String[] args) throws NumberFormatException {
         Scanner in=new Scanner(System.in);
         System.out.println("Please enter the number");

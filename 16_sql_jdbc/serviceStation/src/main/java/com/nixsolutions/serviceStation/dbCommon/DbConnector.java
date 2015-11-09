@@ -73,32 +73,20 @@ public class DbConnector {
 	public void createAllTables() {
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.addBatch("SET SCHEMA sqllab;");
-			// create car table
-			stmt.addBatch("CREATE TABLE car( "
-					+ "car_id INT IDENTITY, "
-					+ "car_model VARCHAR(128) NOT NULL, "
-					+ "vin_number VARCHAR(17) NOT NULL UNIQUE, "
-					+ "car_description VARCHAR(256));");
-			stmt.addBatch("CREATE TABLE customer( "
-					+ "customer_id INT IDENTITY, "
-					+ "first_name VARCHAR(128) NOT NULL, "
-					+ "last_name VARCHAR(128) NOT NULL, "
-					+ "phone VARCHAR(32));");
+			//stmt.addBatch("SET SCHEMA sqllab;");
+			stmt.addBatch("CREATE TABLE worker_specialization( "
+					+ "specialization_id INT IDENTITY,"
+					+ "specialization_name VARCHAR(256) NOT NULL);");
 			stmt.addBatch("CREATE TABLE worker_status( "
 					+ "worker_status_id INT IDENTITY, "
 					+ "worker_status_name VARCHAR(128) NOT NULL); ");
 			stmt.addBatch("CREATE TABLE worker( "
 					+ "worker_id INT IDENTITY, "
-					+ "specialization_id INT NOT NULL, "
-					+ "FOREIGN KEY (specialization_id) REFERENCES worker_specialization(specialization_id), "
-					+ "first_name VARCHAR(128) NOT NULL, "
-					+ "last_name VARCHAR(128) NOT NULL)"
-					+ "worker_status_id INT NOT NULL, "
-					+ "FOREIGN KEY (worker_status_id) REFERENCES worker_status(worker_status_id));");
-			stmt.addBatch("CREATE TABLE worker_specialization( "
-					+ "specialization_id INT IDENTITY,"
-					+ "specialization_name VARCHAR(256) NOT NULL);");
+					+ "specialization_id INT NOT NULL,"
+					+ "FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),"
+					+ "first_name VARCHAR(128) NOT NULL,"
+					+ "last_name VARCHAR(128) NOT NULL, "
+					+ "worker_status_id INT NOT NULL,FOREIGN KEY (worker_status_id) REFERENCES  worker_status(worker_status_id),);");
 			stmt.addBatch("CREATE TABLE order_in_work( "
 					+ "order_id INT IDENTITY, "
 					+ "order_description VARCHAR(512) NOT NULL, "
@@ -117,6 +105,17 @@ public class DbConnector {
 					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), "
 					+ "part_id INT NOT NULL,"
 					+ "FOREIGN KEY (part_id) REFERENCES  part(part_id), amount TINYINT);");
+					// create car table
+			stmt.addBatch("CREATE TABLE car( "
+					+ "car_id INT IDENTITY, "
+					+ "car_model VARCHAR(128) NOT NULL, "
+					+ "vin_number VARCHAR(17) NOT NULL UNIQUE, "
+					+ "car_description VARCHAR(256));");
+			stmt.addBatch("CREATE TABLE customer( "
+					+ "customer_id INT IDENTITY, "
+					+ "first_name VARCHAR(128) NOT NULL, "
+					+ "last_name VARCHAR(128) NOT NULL, "
+					+ "phone VARCHAR(32));");
 			stmt.addBatch("CREATE TABLE order_worker( "
 					+ "order_id INT NOT NULL,"
 					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), "
@@ -144,6 +143,7 @@ public class DbConnector {
 			stmt.addBatch("CREATE INDEX phonex ON customer(phone);");
 			stmt.executeBatch();
 			stmt.close();
+			logger.trace("db was created");
 		} catch (SQLException ex) {
 			logger.error("SQL Error code: " + ex.getErrorCode() + ". Details: " + ex.getMessage());
 		}

@@ -1,3 +1,4 @@
+SET SCHEMA sqllab;
 CREATE SEQUENCE test_seq_one;
 CREATE SEQUENCE test_seq_two START WITH 10;
 CREATE TABLE test_table (
@@ -35,9 +36,8 @@ CREATE VIEW test_view AS SELECT * FROM test_table WHERE test_int_ind > 10;
 
 SELECT * FROM test_view;
 
---Dont forget to cleanup after yourself
---DROP VIEW test_view;
---DROP TABLE test_table;
---DROP SEQUENCE test_seq_one;
---DROP SEQUENCE test_seq_two;
---DROP ALIAS GET_BIGGER_THAN_THIRTY;
+DROP VIEW test_view;
+DROP TABLE test_table;
+DROP SEQUENCE test_seq_one;
+DROP SEQUENCE test_seq_two;
+DROP ALIAS GET_BIGGER_THAN_THIRTY;

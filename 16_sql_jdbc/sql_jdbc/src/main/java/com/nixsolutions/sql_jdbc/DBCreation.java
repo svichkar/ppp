@@ -32,6 +32,7 @@ public class DBCreation {
 			Connection conn = DriverManager.getConnection(props.getProperty("DB_DRIVER"), 
 					props.getProperty("DB_USER"), props.getProperty("DB_PASSWORD"));
 			Statement stmt = conn.createStatement();
+			stmt.addBatch("SET SCHEMA sqllab;");
 			stmt.addBatch("CREATE TABLE customer (" +
 						"customer_id INT IDENTITY," +
 						"first_name VARCHAR (25) NOT NULL," +

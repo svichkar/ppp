@@ -32,6 +32,7 @@ public class DBDeletion {
 			Connection conn = DriverManager.getConnection(props.getProperty("DB_DRIVER"), 
 					props.getProperty("DB_USER"), props.getProperty("DB_PASSWORD"));
 			Statement stmt = conn.createStatement();
+			stmt.addBatch("SET SCHEMA sqllab;");
 			stmt.addBatch("DROP TABLE order_part;");
 			stmt.addBatch("DROP TABLE order_worker;");
 			stmt.addBatch("DROP TABLE order_in_work;");

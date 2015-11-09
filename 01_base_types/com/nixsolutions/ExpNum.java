@@ -12,7 +12,8 @@ public class ExpNum {
         System.out.println("Please enter the number");
         String temp = in.nextLine();
         double input = Double.parseDouble(temp);
-        if (temp.contains("e") || temp.contains("E")) {
+        temp=temp.toLowerCase();
+        if (temp.contains("e")) {
             DecimalFormat myFormatter = new DecimalFormat("#");
             System.out.println(myFormatter.format(input));
         } else {

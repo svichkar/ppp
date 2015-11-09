@@ -4,6 +4,12 @@ CREATE TABLE worker_specialization
 specialization_name VARCHAR(256) NOT NULL
 );
 
+CREATE TABLE worker_status
+(
+ worker_status_id INT IDENTITY,
+ worker_status_name VARCHAR(128) NOT NULL
+);
+
 CREATE TABLE worker
 (
  worker_id INT IDENTITY,
@@ -11,26 +17,14 @@ CREATE TABLE worker
 FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),
 first_name VARCHAR(128) NOT NULL,
 last_name VARCHAR(128) NOT NULL,
-);
+ worker_status_id INT NOT NULL,
+FOREIGN KEY (worker_status_id) REFERENCES  worker_status(worker_status_id),);
 
-CREATE TABLE status
-(
- status_id INT IDENTITY,
- status_name VARCHAR(128) NOT NULL
-);
-
-CREATE TABLE worker_status
-(
- worker_id INT NOT NULL,
-FOREIGN KEY (worker_id) REFERENCES  worker(worker_id),
- status_id INT NOT NULL,
-FOREIGN KEY (status_id) REFERENCES  status(status_id),
-);
 
 CREATE TABLE order_in_work
 (
  order_id INT IDENTITY,
- description VARCHAR(512) NOT NULL,
+ order_description VARCHAR(512) NOT NULL,
  datetime_start TIMESTAMP NOT NULL,
  datetime_finish TIMESTAMP,
 );
@@ -61,9 +55,9 @@ FOREIGN KEY (part_id) REFERENCES  part(part_id),
 CREATE TABLE car
 (
  car_id INT IDENTITY,
- model VARCHAR(128) NOT NULL,
+ car_model VARCHAR(128) NOT NULL,
  vin_number VARCHAR(17) NOT NULL UNIQUE,
- description VARCHAR(256),
+ car_description VARCHAR(256),
 );
 
 CREATE TABLE customer
@@ -73,6 +67,16 @@ first_name VARCHAR(128) NOT NULL,
 last_name VARCHAR(128) NOT NULL,
 phone VARCHAR(32),
 );
+
+CREATE TABLE order_worker
+(
+ order_id INT NOT NULL,
+FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id),
+ worker_id INT IDENTITY,
+FOREIGN KEY (worker_id) REFERENCES  worker(worker_id),
+ isCompleted BOOLEAN NOT NULL DEFAULT false
+);
+
 
 ALTER TABLE order_in_work
 ADD COLUMN order_status_id INT NOT NULL;
@@ -103,4 +107,4 @@ CREATE INDEX vin_numberx ON car(vin_number);
 CREATE INDEX last_namex ON customer(last_name);
 CREATE INDEX phonex ON customer(phone);
 
-/*DROP TABLE car ,customer ,order_in_work ,order_in_work ,part ,part_order ,status ,worker ,worker_specialization ,worker_status ,order_status */
+/*DROP TABLE car ,customer ,order_in_work,order_status ,order_worker ,part ,part_order ,worker ,worker_specialization ,worker_status */

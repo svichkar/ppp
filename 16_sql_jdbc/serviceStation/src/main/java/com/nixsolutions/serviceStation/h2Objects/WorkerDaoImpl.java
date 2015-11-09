@@ -67,9 +67,12 @@ public class WorkerDaoImpl implements WorkerDao {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
 			logger.trace(
-					"Send query \"SELECT * FROM worker WHERE specialization_id = (SELECT specialization_id FROM worker_specialization  WHERE specialization_name ='mechanik high');\"");
+					"Send query \"SELECT * FROM worker WHERE specialization_id = ("
+					+ "SELECT specialization_id FROM worker_specialization  WHERE specialization_name ='mechanik high');\"");
 			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"SELECT * FROM worker WHERE specialization_id = (SELECT specialization_id FROM worker_specialization  WHERE specialization_name ='?');");
+					"SELECT * FROM worker WHERE specialization_id = ("
+					+ "SELECT specialization_id FROM worker_specialization "
+					+ "WHERE specialization_name ='?');");
 			stmt.setString(1, specialization);
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
@@ -99,9 +102,12 @@ public class WorkerDaoImpl implements WorkerDao {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
 			logger.trace(
-					"Send query \"SELECT * FROM worker w INNER JOIN worker_specialization ws WHERE w.specialization_id =ws.specialization_id AND w.last_name='Ivanov' AND w.first_name='?'\"");
+					"Send query \"SELECT * FROM worker w INNER JOIN worker_specialization ws WHERE w.specialization_id =ws.specialization_id "
+					+ "AND w.last_name='Ivanov' AND w.first_name='?'\"");
 			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"SELECT * FROM worker w INNER JOIN worker_specialization ws WHERE w.specialization_id =ws.specialization_id AND w.last_name='?' AND w.first_name='?';");
+					"SELECT * FROM worker w "
+					+ "INNER JOIN worker_specialization ws"
+					+ "WHERE w.specialization_id =ws.specialization_id AND w.last_name='?' AND w.first_name='?';");
 			stmt.setString(1, last_name);
 			stmt.setString(2, first_name);
 			ResultSet set = stmt.executeQuery();

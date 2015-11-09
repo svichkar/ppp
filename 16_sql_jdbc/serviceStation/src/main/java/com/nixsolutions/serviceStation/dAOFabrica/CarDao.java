@@ -56,14 +56,4 @@ public Car getCarByVINNumber(String vinNumber);
 	 */
 	public void deleteCarByVINNumber(String vinNumber);
 
-	/*
-	 * create table
-	 * 
-	 * @see
-	 * com.nixsolutions.serviceStation.dAOFabrica.CarDao#deleteCarByVINNumber(
-	 * java.lang.String, java.lang.String)
-	 */
-	
-	public void createTableCar();
-
 }

@@ -12,5 +12,11 @@
 .project
 .settings/
 # Maven
-log/
-target/
+/log/
+/target/
+/RemoteSystemsTempFiles/
+/Servers/
+*.project
+*.prefs
+*.policy
+../.recommenders/

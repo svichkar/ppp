@@ -67,17 +67,9 @@ public class WorkWithDate {
         WorkWithDate.quantityOfDaysByYear(2016);
         try {
             WorkWithDate.dateOnMonday(2015, "November");
-        } catch (ParseException e){
-            System.out.println("Try to type month properly in English");
-        }
-        try {
             WorkWithDate.isThirteenthFriday(2015, "November",13);
+            WorkWithDate.dateDifference(2013, "September", 9);
         } catch (ParseException e){
-            System.out.println("Try to type month properly in English");
-        }
-        try {
-            WorkWithDate.dateDifference(2066, "September", 9);
-        } catch (ParseException e) {
             System.out.println("Try to type month properly in English");
         }
         Date date = new Date();

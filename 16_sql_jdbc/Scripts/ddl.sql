@@ -1,3 +1,7 @@
+CREATE SCHEMA IF NOT EXISTS sqllab;
+
+SET SCHEMA sqllab;
+
 -- 1st stage
 CREATE TABLE customer (
 customer_id INT IDENTITY,

@@ -36,8 +36,9 @@ CREATE VIEW test_view AS SELECT * FROM test_table WHERE test_int_ind > 10;
 
 SELECT * FROM test_view;
 
-DROP VIEW test_view;
-DROP TABLE test_table;
-DROP SEQUENCE test_seq_one;
-DROP SEQUENCE test_seq_two;
-DROP ALIAS GET_BIGGER_THAN_THIRTY;
+--uncomment to clean
+--DROP VIEW test_view;
+--DROP TABLE test_table;
+--DROP SEQUENCE test_seq_one;
+--DROP SEQUENCE test_seq_two;
+--DROP ALIAS GET_BIGGER_THAN_THIRTY;

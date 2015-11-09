@@ -45,26 +45,30 @@ public class Dates {
     }
 
     static String HowLongAgo(int year, int month, int day) {
-        String temp;
+        String temp="";
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
         Calendar currentcalendar = Calendar.getInstance();
-
-        int deltaYear = currentcalendar.get(Calendar.YEAR) - calendar.get(Calendar.YEAR);
-        int deltaMonth = currentcalendar.get(Calendar.MONTH) - calendar.get(Calendar.MONTH);
-        int deltaDay = currentcalendar.get(Calendar.DAY_OF_MONTH) - calendar.get(Calendar.DAY_OF_MONTH);
-        if (deltaDay < 0) {
-            deltaDay += calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            deltaMonth -= 1;
+        if (calendar.before(currentcalendar)) {
+            int deltaYear = currentcalendar.get(Calendar.YEAR) - calendar.get(Calendar.YEAR);
+            int deltaMonth = currentcalendar.get(Calendar.MONTH) - calendar.get(Calendar.MONTH);
+            int deltaDay = currentcalendar.get(Calendar.DAY_OF_MONTH) - calendar.get(Calendar.DAY_OF_MONTH);
+            if (deltaDay < 0) {
+                deltaDay += calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                deltaMonth -= 1;
+            }
+            if (deltaMonth < 0) {
+                deltaMonth += 12;
+                deltaYear -= 1;
+            }
+            temp = deltaYear + " years, " + deltaMonth + " month, " + deltaDay + " days";
         }
-        if (deltaMonth < 0) {
-            deltaMonth += 12;
-            deltaYear -= 1;
+        else {
+            temp="Your date isn't in pass";
         }
-        temp = deltaYear + " years, " + deltaMonth + " month, " + deltaDay + " days";
         return temp;
     }
 

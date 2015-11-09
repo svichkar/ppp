@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * Created by rybkin on 11/6/2015.
  */
-class ExponentFormat {
+public class ExponentFormat {
     public static void main(String[] args) {
         double value;
         System.out.println("Enter number casual or exponential format: ");

@@ -5,21 +5,18 @@ package com.nixsolutions;
  */
 public class Arrays {
 
-    static long sort (int[]input) {
-        int[]output=(input.clone());
-        long start=System.currentTimeMillis();
-        long duration;
+    static int[] sort(int[] input) {
+        int[] output = (input.clone());
 
-        for (int i = 0; i <output.length ; i++) {
-            for (int j = 0; j <output.length ; j++) {
-                if (output[i]<output[j]){
-                    output[i]=output[i]+output[j];
-                    output[j]=output[i]-output[j];
-                    output[i]=output[i]-output[j];
+        for (int i = 0; i < output.length; i++) {
+            for (int j = 0; j < output.length; j++) {
+                if (output[i] < output[j]) {
+                    output[i] = output[i] + output[j];
+                    output[j] = output[i] - output[j];
+                    output[i] = output[i] - output[j];
                 }
             }
         }
-        duration=System.currentTimeMillis()-start;
-    return duration;
+        return output;
     }
 }

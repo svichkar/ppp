@@ -28,7 +28,7 @@ public class StatusDaoImpl implements StatusDao {
 					.prepareStatement("INSERT INTO status (status_name)VALUES('?');");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
-			if (set == 1)
+			if (set == 0)
 				logger.trace("New status was created");
 			else
 				logger.debug("New status was not created");

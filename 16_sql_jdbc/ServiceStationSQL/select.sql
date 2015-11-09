@@ -20,10 +20,10 @@ SELECT part_name,amount   FROM part WHERE amount IN(5,10);
 
 SELECT * FROM part ORDER BY part_name ASC;
 
-SELECT olw.order_status_id  AS osi, olw.description AS desc FROM order_in_work as olw;
+SELECT olw.order_status_id  AS osi, olw.order_description AS desc FROM order_in_work as olw;
 
 -- select all orders in work
-SELECT olw.order_id , olw.description, olw.order_status_id   FROM order_in_work  olw
+SELECT olw.order_id , olw.order_description, olw.order_status_id   FROM order_in_work  olw
 INNER JOIN order_status  os
 ON olw.order_status_id   = os.order_status_id AND order_status_name ='in work';
 

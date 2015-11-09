@@ -25,7 +25,6 @@ public class CarDaoImpl implements CarDao {
 	private final static Logger logger = LogManager.getLogger(CarDaoImpl.class);
 	private DbConnector dbConnector;
 
-	
 	/*
 	 * get All Car from db
 	 * 
@@ -237,29 +236,6 @@ public class CarDaoImpl implements CarDao {
 		}
 	}
 
-	public void createTableCar() {
-		try {
-			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
-			logger.trace("Send query \"CREATE TABLE car( car_id INT IDENTITY, model VARCHAR(128) NOT NULL, vin_number VARCHAR(17) NOT NULL UNIQUE, description VARCHAR(256));\"");
-			// SELECT * FROM car WHERE customer_id =(SELECT customer_id FROM
-			// customer WHERE first_name ='Alex' AND last_name ='Alkov');
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("Send query \"CREATE TABLE car( car_id INT IDENTITY, model VARCHAR(128) NOT NULL, vin_number VARCHAR(17) NOT NULL UNIQUE, description VARCHAR(256));");
-			int set = stmt.executeUpdate();
-			if (set == 1)
-				logger.trace("Table car was created");
-			else
-				logger.debug("Table car was not created");
-			dbConnector.closeConnection();
-			logger.trace("Generate list of the car objects");
-			stmt.close();
-		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		}	
-	}
-
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
@@ -289,8 +265,7 @@ public class CarDaoImpl implements CarDao {
 			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE car ;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("DROP TABLE car ;");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DROP TABLE car ;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table car was deleted");
@@ -302,6 +277,7 @@ public class CarDaoImpl implements CarDao {
 			logger.error(e.getMessage(), e);
 		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
-		}	}
+		}
+	}
 
 }

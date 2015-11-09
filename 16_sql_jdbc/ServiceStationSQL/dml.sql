@@ -12,19 +12,19 @@ INSERT INTO customer (first_name ,last_name , phone  )
 VALUES('Alex','Alkov','827382755-5435');
 
 /*car*/
-INSERT INTO car (model  ,vin_number, customer_id )
+INSERT INTO car (car_model  ,vin_number, customer_id )
 VALUES('AUDI','1234567890qwertyu',1);
 
-INSERT INTO car (model  ,vin_number, customer_id )
+INSERT INTO car (car_model  ,vin_number, customer_id )
 VALUES('BMW','6712345890qwertyu',2);
 
-INSERT INTO car (model  ,vin_number, customer_id )
+INSERT INTO car (car_model  ,vin_number, customer_id )
 VALUES('OPEL','5890qw671234ertyu',2);
 
-INSERT INTO car (model  ,vin_number, customer_id )
+INSERT INTO car (car_model  ,vin_number, customer_id )
 VALUES('ВАЗ-2102','5w671890q234ertyu',3);
 
-INSERT INTO car (model  ,vin_number, customer_id )
+INSERT INTO car (car_model  ,vin_number, customer_id )
 VALUES('DODGE CHARGER','5w67184ert90q23yu',4);
 
 /*worker_specialization */
@@ -43,24 +43,37 @@ VALUES('diagnostician');
 INSERT INTO worker_specialization  (specialization_name   )
 VALUES('engine');
 
+/*worker_status*/
+INSERT INTO worker_status (worker_status_name  )
+VALUES('busy');
+
+INSERT INTO worker_status (worker_status_name  )
+VALUES('free');
+
+INSERT INTO worker_status (worker_status_name  )
+VALUES('ill');
+
+INSERT INTO worker_status (worker_status_name  )
+VALUES('vacation');
+
 /*worker*/
-INSERT INTO worker  (specialization_id,first_name ,last_name     )
-VALUES(1, 'Ivan', 'Ivanov');
+INSERT INTO worker  (specialization_id,first_name ,last_name, worker_status_id)
+VALUES(1, 'Ivan', 'Ivanov',1);
 
-INSERT INTO worker  (specialization_id,first_name ,last_name     )
-VALUES(1, 'Petr', 'Ivanov');
+INSERT INTO worker  (specialization_id,first_name ,last_name, worker_status_id)
+VALUES(1, 'Petr', 'Ivanov',2);
 
-INSERT INTO worker  (specialization_id,first_name ,last_name     )
-VALUES(2, 'Fedya', 'Ivanov');
+INSERT INTO worker  (specialization_id,first_name ,last_name, worker_status_id)
+VALUES(2, 'Fedya', 'Ivanov',3);
 
-INSERT INTO worker  (specialization_id,first_name ,last_name     )
-VALUES(3, 'Anton', 'Ivanov');
+INSERT INTO worker  (specialization_id,first_name ,last_name, worker_status_id)
+VALUES(3, 'Anton', 'Ivanov',2);
 
-INSERT INTO worker  (specialization_id,first_name ,last_name     )
-VALUES(4, 'Aleksey', 'Ivanov');
+INSERT INTO worker  (specialization_id,first_name ,last_name, worker_status_id)
+VALUES(4, 'Aleksey', 'Ivanov',4);
 
-INSERT INTO worker  (specialization_id,first_name ,last_name     )
-VALUES(5, 'Evgeniy', 'Ivanov');
+INSERT INTO worker  (specialization_id,first_name ,last_name, worker_status_id)
+VALUES(5, 'Evgeniy', 'Ivanov',1);
 
 /*part*/
 INSERT INTO part (part_name  ,vendor ,amount     )
@@ -93,35 +106,6 @@ VALUES('brake pads OPEL', '5634-fafa815', '12');
 INSERT INTO part (part_name  ,vendor ,amount     )
 VALUES('tyaga ВАЗ', '81-56fa354fa', '6');
 
-/*status*/
-INSERT INTO status (status_name  )
-VALUES('busy');
-
-INSERT INTO status (status_name  )
-VALUES('free');
-
-INSERT INTO status (status_name  )
-VALUES('ill');
-
-INSERT INTO status (status_name  )
-VALUES('vacation');
-
-/*worker_status*/
-INSERT INTO worker_status (worker_id,status_id  )
-VALUES('1','1');
-
-INSERT INTO worker_status (worker_id,status_id  )
-VALUES('2','2');
-
-INSERT INTO worker_status (worker_id,status_id  )
-VALUES('3','3');
-
-INSERT INTO worker_status (worker_id,status_id  )
-VALUES('4','2');
-
-INSERT INTO worker_status (worker_id,status_id  )
-VALUES('5','4');
-
 /*order_status*/
 INSERT INTO order_status (order_status_name )
 VALUES('waiting');
@@ -133,16 +117,16 @@ INSERT INTO order_status (order_status_name )
 VALUES('ready');
 
 /*order_in_work*/
-INSERT INTO order_in_work (description,datetime_start ,order_status_id ,car_ID  )
+INSERT INTO order_in_work (order_description,datetime_start ,order_status_id ,car_ID  )
 VALUES('change lamp',CURRENT_TIMESTAMP(),'1','1');
 
-INSERT INTO order_in_work (description,datetime_start ,order_status_id ,car_ID  )
+INSERT INTO order_in_work (order_description,datetime_start ,order_status_id ,car_ID  )
 VALUES('change brake pads',CURRENT_TIMESTAMP(),'2','2');
 
-INSERT INTO order_in_work (description,datetime_start,datetime_finish  ,order_status_id ,car_ID  )
+INSERT INTO order_in_work (order_description,datetime_start,datetime_finish  ,order_status_id ,car_ID  )
 VALUES('change brake pads','2015-11-05 09:49:49.71',CURRENT_TIMESTAMP(),'3','3');
 
-INSERT INTO order_in_work (description,datetime_start,datetime_finish  ,order_status_id ,car_ID  )
+INSERT INTO order_in_work (order_description,datetime_start,datetime_finish  ,order_status_id ,car_ID  )
 VALUES('change tyaga','2015-11-05 09:49:49.71',CURRENT_TIMESTAMP(),'3','4');
 
 

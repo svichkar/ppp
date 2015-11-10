@@ -12,7 +12,12 @@ public class ExpNum {
         System.out.println("Please enter the number");
         String temp = in.nextLine();
         double input = Double.parseDouble(temp);
+<<<<<<< HEAD:01_base_types/com/nixsolutions/ExpNum.java
         if (temp.contains("e") || temp.contains("E")) {
+=======
+        temp=temp.toLowerCase();
+        if (temp.contains("e")) {
+>>>>>>> a78926afbaf90b9dd0857c49a71d9d11c73eb9e5:01_base_types/com/nixsolutions/ExpNum.java
             DecimalFormat myFormatter = new DecimalFormat("#");
             System.out.println(myFormatter.format(input));
         } else {
@@ -20,4 +25,8 @@ public class ExpNum {
             System.out.println(myFormatter.format(input));
         }
     }
+<<<<<<< HEAD:01_base_types/com/nixsolutions/ExpNum.java
 }
+=======
+}
+>>>>>>> a78926afbaf90b9dd0857c49a71d9d11c73eb9e5:01_base_types/com/nixsolutions/ExpNum.java

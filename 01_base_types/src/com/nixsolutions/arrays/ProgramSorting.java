@@ -1,4 +1,4 @@
-package com.nixsolutions.Arrays;
+package com.nixsolutions.arrays;
 
 import java.util.Random;
 

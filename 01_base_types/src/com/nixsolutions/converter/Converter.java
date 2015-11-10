@@ -1,4 +1,4 @@
-package com.nixsolutions.Converter;
+package com.nixsolutions.converter;
 
 import java.text.*;
 import java.util.Scanner;
@@ -9,6 +9,7 @@ public class Converter {
 		// TODO Auto-generated method stub
 		new Converter().converter();
 	}
+
 	public void converter() {
 		boolean isRun = true; // Flag of running program
 		Scanner input = new Scanner(System.in);

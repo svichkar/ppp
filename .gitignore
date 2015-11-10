@@ -23,7 +23,7 @@
 
 .settings/
 
-/bin/
+bin/
 
 # Maven
 

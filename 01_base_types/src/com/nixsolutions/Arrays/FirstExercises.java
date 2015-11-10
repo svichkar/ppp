@@ -8,10 +8,6 @@ public class FirstExercises {
 
 	private static int[] sort(int[] massForSort) {
 		massAfterSort = (int[]) massForSort.clone();
-
-		// System.arraycopy(MassForSort, 0 ,MassAfterSort, 0,
-		// MassForSort.length);
-
 		for (int i = 0; i < massAfterSort.length; i++) {
 			for (int j = 0; j < massAfterSort.length - i - 1; j++) {
 				if (massAfterSort[j] > massAfterSort[j + 1]) {

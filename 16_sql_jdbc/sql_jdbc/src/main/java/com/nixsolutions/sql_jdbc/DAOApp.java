@@ -1,6 +1,5 @@
 package com.nixsolutions.sql_jdbc;
 
-import java.sql.Connection;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -38,9 +37,8 @@ public class DAOApp {
 	public static void main(String[] args) throws ClassNotFoundException {
 		H2DAOFactoryImpl daoFactory = new H2DAOFactoryImpl();
 		try {
-			Connection conn = daoFactory.getContext();
 			//Customer
-			CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn, Customer.class);
+			CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(daoFactory.getContext(), Customer.class);
 			List<Customer> customerList = customerDAO.getAll();
 			Customer tCustomer = customerDAO.create();
 			List<Customer> customerListPost = customerDAO.getAll();
@@ -50,7 +48,7 @@ public class DAOApp {
 			customerDAO.update(tCustomer);
 			customerList = customerDAO.getAll();
 			//Part
-			PartDAOImpl partDAO = (PartDAOImpl) daoFactory.getDao(conn, Part.class);
+			PartDAOImpl partDAO = (PartDAOImpl) daoFactory.getDao(daoFactory.getContext(), Part.class);
 			List<Part> partList = partDAO.getAll();
 			Part tPart = partDAO.create();
 			List<Part> partListPost = partDAO.getAll();
@@ -60,7 +58,8 @@ public class DAOApp {
 			partDAO.update(tPart);
 			partList = partDAO.getAll();
 			//WorkerSpecialization
-			WorkerSpecializationDAOImpl workerSpecDAO = (WorkerSpecializationDAOImpl) daoFactory.getDao(conn, WorkerSpecialization.class);
+			WorkerSpecializationDAOImpl workerSpecDAO = (WorkerSpecializationDAOImpl) daoFactory
+					.getDao(daoFactory.getContext(), WorkerSpecialization.class);
 			List<WorkerSpecialization> workerSpecList = workerSpecDAO.getAll();
 			WorkerSpecialization tSpec = workerSpecDAO.create();
 			List<WorkerSpecialization> workerSpecListPost = workerSpecDAO.getAll();
@@ -68,7 +67,7 @@ public class DAOApp {
 			workerSpecDAO.update(tSpec);
 			workerSpecList = workerSpecDAO.getAll();
 			//Status
-			StatusDAOImpl statusDAO = (StatusDAOImpl) daoFactory.getDao(conn, Status.class);
+			StatusDAOImpl statusDAO = (StatusDAOImpl) daoFactory.getDao(daoFactory.getContext(), Status.class);
 			List<Status> statusList = statusDAO.getAll();
 			Status tStatus = statusDAO.create();
 			List<Status> statusListPost = statusDAO.getAll();
@@ -76,7 +75,8 @@ public class DAOApp {
 			statusDAO.update(tStatus);
 			statusList = statusDAO.getAll();
 			//OrderStatus
-			OrderStatusDAOImpl orderStatusDAO = (OrderStatusDAOImpl) daoFactory.getDao(conn, OrderStatus.class);
+			OrderStatusDAOImpl orderStatusDAO = (OrderStatusDAOImpl) daoFactory
+					.getDao(daoFactory.getContext(), OrderStatus.class);
 			List<OrderStatus> orderStatusList = orderStatusDAO.getAll();
 			OrderStatus tOrderStatus = orderStatusDAO.create();
 			List<OrderStatus> orderStatusListPost = orderStatusDAO.getAll();
@@ -84,7 +84,7 @@ public class DAOApp {
 			orderStatusDAO.update(tOrderStatus);
 			orderStatusList = orderStatusDAO.getAll();
 			//Car
-			CarDAOImpl carDAO = (CarDAOImpl) daoFactory.getDao(conn, Car.class);
+			CarDAOImpl carDAO = (CarDAOImpl) daoFactory.getDao(daoFactory.getContext(), Car.class);
 			List<Car> carList = carDAO.getAll();
 			Car tCar = carDAO.create();
 			List<Car> carListPost = carDAO.getAll();
@@ -95,7 +95,7 @@ public class DAOApp {
 			carDAO.update(tCar);
 			carList = carDAO.getAll();
 			//Worker
-			WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(conn, Worker.class);
+			WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(daoFactory.getContext(), Worker.class);
 			List<Worker> workerList = workerDAO.getAll();
 			Worker tWorker = workerDAO.create();
 			List<Worker> workerListPost = workerDAO.getAll();
@@ -106,7 +106,8 @@ public class DAOApp {
 			workerDAO.update(tWorker);
 			workerList = workerDAO.getAll();
 			//OrderInWork
-			OrderInWorkDAOImpl orderDAO = (OrderInWorkDAOImpl) daoFactory.getDao(conn, OrderInWork.class);
+			OrderInWorkDAOImpl orderDAO = (OrderInWorkDAOImpl) daoFactory
+					.getDao(daoFactory.getContext(), OrderInWork.class);
 			List<OrderInWork> orderList = orderDAO.getAll();
 			OrderInWork tOrder = orderDAO.create();
 			List<OrderInWork> orderListPost = orderDAO.getAll();
@@ -118,7 +119,8 @@ public class DAOApp {
 			orderDAO.update(tOrder);
 			orderList = orderDAO.getAll();
 			//OrderPart
-			OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn, OrderPart.class);
+			OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory
+					.getDao(daoFactory.getContext(), OrderPart.class);
 			List<OrderPart> orderPartList = orderPartDAO.getAll();
 			OrderPart tOrderPart = new OrderPart(tOrder.getId(), tPart.getId(), 20);
 			tOrderPart = orderPartDAO.createFrom(tOrderPart);
@@ -127,7 +129,8 @@ public class DAOApp {
 			orderPartDAO.update(tOrderPart);
 			orderPartList = orderPartDAO.getAll();
 			//OrderWorker
-			OrderWorkerDAOImpl orderWorkerDAO = (OrderWorkerDAOImpl) daoFactory.getDao(conn, OrderWorker.class);
+			OrderWorkerDAOImpl orderWorkerDAO = (OrderWorkerDAOImpl) daoFactory
+					.getDao(daoFactory.getContext(), OrderWorker.class);
 			List<OrderWorker> orderWorkerList = orderWorkerDAO.getAll();
 			OrderWorker tOrderWorker = new OrderWorker(tOrder.getId(), tWorker.getId(), "N");
 			tOrderWorker = orderWorkerDAO.createFrom(tOrderWorker);

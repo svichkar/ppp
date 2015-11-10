@@ -1,10 +1,10 @@
 package com.nixsolutions.serviceStation.dbObjects;
 
-public class Status {
+public class Order_status {
 	private Integer status_id;
 	 private String status_name;
 	 
-	public Status(Integer status_id, String status_name) {
+	public Order_status(Integer status_id, String status_name) {
 		super();
 		this.status_id = status_id;
 		this.status_name = status_name;

@@ -9,13 +9,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.serviceStation.dAOFabrica.StatusDao;
+import com.nixsolutions.serviceStation.dAOFabrica.Order_statusDao;
 import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Status;
+import com.nixsolutions.serviceStation.dbObjects.Order_status;
 
-public class StatusDaoImpl implements StatusDao {
+public class Order_statusDaoImpl implements Order_statusDao {
 
-	private final static Logger logger = LogManager.getLogger(StatusDaoImpl.class);
+	private final static Logger logger = LogManager.getLogger(Order_statusDaoImpl.class);
 	private DbConnector dbConnector;
 
 	public void createNewStatus(String status) {
@@ -41,8 +41,8 @@ public class StatusDaoImpl implements StatusDao {
 		}
 	}
 
-	public List<Status> getAllStatus() {
-		List<Status> statuses = new ArrayList<Status>();
+	public List<Order_status> getAllStatus() {
+		List<Order_status> statuses = new ArrayList<Order_status>();
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
@@ -52,7 +52,7 @@ public class StatusDaoImpl implements StatusDao {
 			dbConnector.closeConnection();
 			logger.trace("Generate list of the status objects");
 			while (set.next()) {
-				statuses.add(new Status(set.getInt("status_id"), set.getString("status_name")));
+				statuses.add(new Order_status(set.getInt("status_id"), set.getString("status_name")));
 			}
 			stmt.close();
 		} catch (SQLException e) {

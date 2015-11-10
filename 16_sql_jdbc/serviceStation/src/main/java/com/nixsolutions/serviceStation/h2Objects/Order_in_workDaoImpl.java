@@ -42,9 +42,9 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 					+ "first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL);\"");
 
 			Statement stmt = dbConnector.getConnection().createStatement();
-			stmt.addBatch(
-					"CREATE TABLE order_in_work( " + "order_id INT IDENTITY, " + "description VARCHAR(512) NOT NULL, "
-							+ "datetime_start TIMESTAMP NOT NULL, " + "datetime_finish TIMESTAMP);");
+			stmt.addBatch("CREATE TABLE order_in_work( " + "order_id INT IDENTITY, "
+					+ "order_description VARCHAR(512) NOT NULL, " + "datetime_start TIMESTAMP NOT NULL, "
+					+ "datetime_finish TIMESTAMP);");
 			stmt.addBatch("ALTER TABLE order_in_work " + "ADD COLUMN car_id INT NOT NULL;");
 			stmt.addBatch("ALTER TABLE order_in_work " + "ADD FOREIGN KEY(car_id ) REFERENCES car (car_id );");
 			stmt.executeBatch();
@@ -111,10 +111,8 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
 				order_in_works.add(new Order_in_work(set.getInt("order_id"), set.getString("order_description"),
-						set.getDate("datetime_start"), set.getDate("datetime_finish"),
-						set.getString("order_status_name"),
-						new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
-								set.getString("car_description"), set.getInt("customer_id"))));
+						set.getDate("datetime_start"), set.getDate("datetime_finish"), set.getInt("order_status_id"),
+						set.getInt("car_id")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -137,26 +135,21 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace(
-					"Send query \"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
-							+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
-							+ "AND oiw.car_id = car.car_id;\"");
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
-							+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
-							+ "AND oiw.car_id = car.car_id "
-							+ "AND car.vin_number='?' "
-							+ "AND oiw.order_status_id=2;");
+			logger.trace("Send query \"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
+					+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
+					+ "AND oiw.car_id = car.car_id;\"");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+					"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os " + "INNER JOIN car car "
+							+ "WHERE oiw.order_status_id = os.order_status_id " + "AND oiw.car_id = car.car_id "
+							+ "AND car.vin_number='?' " + "AND oiw.order_status_id=2;");
 			stmt.setString(1, vin_number);
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
 			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
 				return new Order_in_work(set.getInt("order_id"), set.getString("order_description"),
-						set.getDate("datetime_start"), set.getDate("datetime_finish"),
-						set.getString("order_status_name"),
-						new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
-								set.getString("car_description"), set.getInt("customer_id")));
+						set.getDate("datetime_start"), set.getDate("datetime_finish"), set.getInt("order_status_id"),
+						set.getInt("car_id"));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -178,19 +171,14 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace(
-					"Send query \"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
-							+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
-							+ "AND oiw.car_id = car.car_id;\"");
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
-							+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
-							+ "AND oiw.car_id = car.car_id "
-							+ "AND car.customer_id=("
-							+ "SELECT customer_id "
-							+ "FROM customer "
-							+ "WHERE last_name ='?' AND first_name ='?') "
-							+ "AND oiw.ORDER_STATUS_ID =2;");
+			logger.trace("Send query \"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
+					+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
+					+ "AND oiw.car_id = car.car_id;\"");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+					"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os " + "INNER JOIN car car "
+							+ "WHERE oiw.order_status_id = os.order_status_id " + "AND oiw.car_id = car.car_id "
+							+ "AND car.customer_id=(" + "SELECT customer_id " + "FROM customer "
+							+ "WHERE last_name ='?' AND first_name ='?') " + "AND oiw.ORDER_STATUS_ID =2;");
 			stmt.setString(1, last_name);
 			stmt.setString(2, first_name);
 			ResultSet set = stmt.executeQuery();
@@ -198,10 +186,8 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
 				return new Order_in_work(set.getInt("order_id"), set.getString("order_description"),
-						set.getDate("datetime_start"), set.getDate("datetime_finish"),
-						set.getString("order_status_name"),
-						new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
-								set.getString("car_description"), set.getInt("customer_id")));
+						set.getDate("datetime_start"), set.getDate("datetime_finish"), set.getInt("order_status_id"),
+						set.getInt("car_id"));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -224,25 +210,21 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace(
-					"Send query \"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
-							+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
-							+ "AND oiw.car_id = car.car_id;\"");
+			logger.trace("Send query \"SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
+					+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
+					+ "AND oiw.car_id = car.car_id;\"");
 			PreparedStatement stmt = dbConnector.getConnection()
 					.prepareStatement("SELECT * FROM order_in_work oiw" + "INNER JOIN order_status os "
 							+ "INNER JOIN car car " + "WHERE oiw.order_status_id = os.order_status_id "
-							+ "AND oiw.car_id = car.car_id "
-							+ "AND oiw.order_id=?;");
+							+ "AND oiw.car_id = car.car_id " + "AND oiw.order_id=?;");
 			stmt.setInt(1, order_id);
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
 			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
 				return new Order_in_work(set.getInt("order_id"), set.getString("order_description"),
-						set.getDate("datetime_start"), set.getDate("datetime_finish"),
-						set.getString("order_status_name"),
-						new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
-								set.getString("car_description"), set.getInt("customer_id")));
+						set.getDate("datetime_start"), set.getDate("datetime_finish"), set.getInt("order_status_id"),
+						set.getInt("car_id"));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -253,30 +235,58 @@ public class Order_in_workDaoImpl implements Order_in_workDao {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dAOFabrica.Order_in_workDao#
-	 * createNewOrder(com.nixsolutions.serviceStation.dbObjects.Car,
-	 * java.lang.String)
-	 */
 	@Override
-	public void createNewOrder(Car car, String description) {
-		// TODO Auto-generated method stub
+	public void createNewOrder(Integer car_id, String description) {
+		try {
+			logger.debug("Create DB connector");
+			dbConnector = new DbConnector();
+			logger.trace(
+					"Send query \"INSERT INTO order_in_work (order_description,datetime_start ,order_status_id ,car_ID  )"
+							+ "VALUES('?',CURRENT_TIMESTAMP(),'1',?);\"");
 
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+					"INSERT INTO order_in_work (order_description,datetime_start ,order_status_id ,car_ID)"
+							+ "VALUES('?',CURRENT_TIMESTAMP(),'1',?);");
+			stmt.setString(1, description);
+			stmt.setInt(2, car_id);
+			int set = stmt.executeUpdate();
+			if (set == 1)
+				logger.trace("New order_in_work was created");
+			else
+				logger.debug("New order_in_work was not created");
+			dbConnector.closeConnection();
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} catch (ClassNotFoundException e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dAOFabrica.Order_in_workDao#
-	 * setOrderStatus(java.lang.String,
-	 * com.nixsolutions.serviceStation.dbObjects.Order_in_work)
-	 */
 	@Override
-	public void setOrderStatus(String status, Order_in_work order_in_work) {
-		// TODO Auto-generated method stub
-
+	public void changeOrderStatusByOrderID(Integer order_id, Integer order_status_id) {
+		try {
+			logger.debug("Create DB connector");
+			dbConnector = new DbConnector();
+			logger.trace(
+					"Send query \"UPDATE car SET order_status_id=? WHERE order_id=?;\"");
+			PreparedStatement stmt = dbConnector.getConnection()
+					.prepareStatement("UPDATE car SET order_status_id=? WHERE order_id=?;");
+			stmt.setInt(1, order_status_id);
+			stmt.setInt(2, order_id);
+			int set = stmt.executeUpdate();
+			if (set == 1)
+				logger.trace("status was changed");
+			else
+				logger.debug("status was not changed");
+			dbConnector.closeConnection();
+			logger.trace("Generate list of the car objects");
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} catch (ClassNotFoundException e) {
+			logger.error(e.getMessage(), e);
+		}
 	}
 
 }

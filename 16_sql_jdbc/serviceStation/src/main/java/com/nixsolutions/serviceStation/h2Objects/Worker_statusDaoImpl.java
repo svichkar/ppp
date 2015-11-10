@@ -6,20 +6,24 @@ package com.nixsolutions.serviceStation.h2Objects;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.serviceStation.dAOFabrica.Worker_statusDao;
 import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Status;
+import com.nixsolutions.serviceStation.dbObjects.Order_status;
+import com.nixsolutions.serviceStation.dbObjects.Worker;
+import com.nixsolutions.serviceStation.dbObjects.Worker_status;
 
 /**
  * @author mixeyes
  *
  */
 public class Worker_statusDaoImpl implements Worker_statusDao {
-	private final static Logger logger = LogManager.getLogger(StatusDaoImpl.class);
+	private final static Logger logger = LogManager.getLogger(Order_statusDaoImpl.class);
 	private DbConnector dbConnector;
 
 	/*
@@ -31,11 +35,14 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace(
-					"Send query \"CREATE TABLE worker_status( worker_id INT NOT NULL,FOREIGN KEY (worker_id) REFERENCES  worker(worker_id), status_id INT NOT NULL,FOREIGN KEY (status_id) REFERENCES  status(status_id));\"");
+			logger.trace("Send query \"CREATE TABLE worker_status( "
+					+ "worker_status_id INT IDENTITY, "
+					+ "worker_status_name VARCHAR(128) NOT NULL);\"");
 
 			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"CREATE TABLE worker_status( worker_id INT NOT NULL,FOREIGN KEY (worker_id) REFERENCES  worker(worker_id), status_id INT NOT NULL,FOREIGN KEY (status_id) REFERENCES  status(status_id));");
+					"CREATE TABLE worker_status( "
+							+ "worker_status_id INT IDENTITY, "
+							+ "worker_status_name VARCHAR(128) NOT NULL); ");
 			int set = stmt.executeUpdate();
 			if (set == 0)
 				logger.trace("Table worker_status was created");
@@ -78,27 +85,21 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dAOFabrica.Worker_statusDao#
-	 * getWorkerStatus(java.lang.String, java.lang.String)
-	 */
-	public String getWorkerStatus(String last_name, String first_name) {
+	@Override
+	public List<Worker_status> getAllWorker_statuses() {
+		List<Worker_status> worker_status = new ArrayList<Worker_status>();
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
 			logger.trace(
-					"Send query \"SELECT status_name FROM status WHERE status_id =(SELECT status_id FROM worker_status WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name ='?' AND first_name ='?'));\"");
+					"Send query \"SELECT * FROM worker_status;\"");
 			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"SELECT status_name FROM status WHERE status_id =(SELECT status_id FROM worker_status WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name ='?' AND first_name ='?'));");
-			stmt.setString(1, last_name);
-			stmt.setString(2, first_name);
+					"SELECT * FROM worker_status;");
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
-			logger.trace("Generate list of the status objects");
+			logger.trace("Generate list of the worker_status objects");
 			while (set.next()) {
-				return set.getString("status_name");
+				worker_status.add(new Worker_status(set.getInt("worker_status_id"),set.getString("worker_status_name")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -106,31 +107,25 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
-		return null;
-
+		return worker_status;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dAOFabrica.Worker_statusDao#
-	 * setStatusToWorker(java.lang.String, java.lang.String)
-	 */
-	public void setStatusToWorker(String last_name, String first_name, String status) {
+	@Override
+	public void createNewStatus(String statusName) {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
 			logger.trace(
-					"Send query \"UPDATE worker_status SET status_id =(SELECT status_id FROM status WHERE status_name ='?') WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name ='?' AND first_name ='?');\"");
+					"Send query \"INSERT INTO worker_status (worker_status_name)VALUES('?');\"");
+
 			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"UPDATE worker_status SET status_id =(SELECT status_id FROM status WHERE status_name ='?') WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name ='?' AND first_name ='?');");
-			stmt.setString(1, last_name);
-			stmt.setString(2, first_name);
+					"INSERT INTO worker_status (worker_status_name)VALUES('?');");
+			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace(" table worker_status was updated");
+				logger.trace("New worker_status was created");
 			else
-				logger.debug("table worker_status was not updated");
+				logger.debug("New worker_status was not created");
 			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
@@ -139,5 +134,30 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 			logger.error(e.getMessage(), e);
 		}
 	}
+
+	@Override
+	public void deleteStatusByName(String statusName) {
+		try {
+			logger.debug("Create DB connector");
+			dbConnector = new DbConnector();
+			logger.trace("Send query \"DELETE FROM worker_status WHERE worker_status_name='?';\"");
+
+			PreparedStatement stmt = dbConnector.getConnection()
+					.prepareStatement("DELETE FROM worker_status WHERE worker_status_name='?'");
+			stmt.setString(1, statusName);
+			int set = stmt.executeUpdate();
+			if (set == 1)
+				logger.trace("worker_status was deleted");
+			else
+				logger.debug("worker_status was not deleted");
+			dbConnector.closeConnection();
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} catch (ClassNotFoundException e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
+
 
 }

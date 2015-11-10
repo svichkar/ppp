@@ -43,8 +43,8 @@ public class WorkerDaoImpl implements WorkerDao {
 			dbConnector.closeConnection();
 			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
-				workers.add(new Worker(set.getString("specialization_id"), set.getString("last_name"),
-						set.getString("first_name")));
+				workers.add(new Worker(set.getInt("worker_id"), set.getInt("specialization_id"),
+						set.getString("last_name"), set.getString("first_name"), set.getInt("worker_status_id")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -66,20 +66,19 @@ public class WorkerDaoImpl implements WorkerDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace(
-					"Send query \"SELECT * FROM worker WHERE specialization_id = ("
+			logger.trace("Send query \"SELECT * FROM worker WHERE specialization_id = ("
 					+ "SELECT specialization_id FROM worker_specialization  WHERE specialization_name ='mechanik high');\"");
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"SELECT * FROM worker WHERE specialization_id = ("
-					+ "SELECT specialization_id FROM worker_specialization "
-					+ "WHERE specialization_name ='?');");
+			PreparedStatement stmt = dbConnector.getConnection()
+					.prepareStatement("SELECT * FROM worker WHERE specialization_id = ("
+							+ "SELECT specialization_id FROM worker_specialization "
+							+ "WHERE specialization_name ='?');");
 			stmt.setString(1, specialization);
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
 			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
-				workers.add(new Worker(specialization, set.getString("last_name"),
-						set.getString("first_name")));
+				workers.add(new Worker(set.getInt("worker_id"), set.getInt("specialization_id"),
+						set.getString("last_name"), set.getString("first_name"), set.getInt("worker_status_id")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -98,24 +97,22 @@ public class WorkerDaoImpl implements WorkerDao {
 	 * java.lang.String)
 	 */
 	public Worker getWorker(String last_name, String first_name) {
-			try {
+		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"SELECT * FROM worker w INNER JOIN worker_specialization ws WHERE w.specialization_id =ws.specialization_id "
-					+ "AND w.last_name='Ivanov' AND w.first_name='?'\"");
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"SELECT * FROM worker w "
-					+ "INNER JOIN worker_specialization ws"
-					+ "WHERE w.specialization_id =ws.specialization_id AND w.last_name='?' AND w.first_name='?';");
+							+ "AND w.last_name='Ivanov' AND w.first_name='?'\"");
+			PreparedStatement stmt = dbConnector.getConnection()
+					.prepareStatement("SELECT * FROM worker " + "WHERE last_name='?' AND first_name='?';");
 			stmt.setString(1, last_name);
 			stmt.setString(2, first_name);
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
-			logger.trace("Generate list of the worker objects");
 			while (set.next()) {
-				return new Worker(set.getString("specialization_id"), set.getString("last_name"),
-						set.getString("first_name"));
+				return new Worker(set.getInt("worker_id"), set.getInt("specialization_id"), set.getString("last_name"),
+						set.getString("first_name"), set.getInt("worker_status_id"));
+
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -134,27 +131,27 @@ public class WorkerDaoImpl implements WorkerDao {
 	 */
 	public String getWorkerStatus(String last_name, String first_name) {
 		try {
-		logger.debug("Create DB connector");
-		dbConnector = new DbConnector();
-		logger.trace(
-				"Send query \"SELECT status_name FROM status WHERE status_id =(SELECT status_id FROM worker_status WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name =',' AND first_name =','));\"");
-		PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-				"SELECT status_name FROM status WHERE status_id =(SELECT status_id FROM worker_status WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name =',' AND first_name =','));");
-		stmt.setString(1, last_name);
-		stmt.setString(2, first_name);
-		ResultSet set = stmt.executeQuery();
-		dbConnector.closeConnection();
-		logger.trace("Generate list of the worker objects");
-		while (set.next()) {
-			return set.getString("status_name");
+			logger.debug("Create DB connector");
+			dbConnector = new DbConnector();
+			logger.trace(
+					"Send query \"SELECT status_name FROM status WHERE status_id =(SELECT status_id FROM worker_status WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name =',' AND first_name =','));\"");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+					"SELECT status_name FROM status WHERE status_id =(SELECT status_id FROM worker_status WHERE worker_id =(SELECT worker_id FROM worker WHERE last_name =',' AND first_name =','));");
+			stmt.setString(1, last_name);
+			stmt.setString(2, first_name);
+			ResultSet set = stmt.executeQuery();
+			dbConnector.closeConnection();
+			logger.trace("Generate list of the worker objects");
+			while (set.next()) {
+				return set.getString("status_name");
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		} catch (ClassNotFoundException e) {
+			logger.error(e.getMessage(), e);
 		}
-		stmt.close();
-	} catch (SQLException e) {
-		logger.error(e.getMessage(), e);
-	} catch (ClassNotFoundException e) {
-		logger.error(e.getMessage(), e);
-	}
-	return null;
+		return null;
 	}
 
 	/*
@@ -164,17 +161,18 @@ public class WorkerDaoImpl implements WorkerDao {
 	 * com.nixsolutions.serviceStation.dAOFabrica.WorkerDao#createWorker(java.
 	 * lang.String, java.lang.String, java.lang.String)
 	 */
-	public void createWorker(String specialization, String last_name, String first_name) {
+	public void createWorker(Worker worker) {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace("Send query \"INSERT INTO worker (last_name ,first_name ,specialization_id )VALUES('Petrov','Petr',(SELECT specialization_id FROM worker_specialization WHERE specialization_name ='electric'));\"");
+			logger.trace(
+					"Send query \"INSERT INTO worker (last_name ,first_name ,specialization_id )VALUES('Petrov','Petr',(SELECT specialization_id FROM worker_specialization WHERE specialization_name ='electric'));\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("INSERT INTO worker (last_name ,first_name ,specialization_id )VALUES('?','?',(SELECT specialization_id FROM worker_specialization WHERE specialization_name ='?'));");
-			stmt.setString(1, last_name);
-			stmt.setString(2, first_name);
-			stmt.setString(3, specialization);
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+					"INSERT INTO worker (last_name ,first_name ,specialization_id )" + "VALUES('?','?',?);");
+			stmt.setString(1, worker.getLast_name());
+			stmt.setString(2, worker.getFirst_name());
+			stmt.setInt(3, worker.getSpecialization_id());
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("New worker was created");
@@ -225,11 +223,18 @@ public class WorkerDaoImpl implements WorkerDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace(
-					"Send query \"CREATE TABLE worker( worker_id INT IDENTITY, specialization_id INT NOT NULL,FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL);\"");
+			logger.trace("Send query \"CREATE TABLE worker( worker_id INT IDENTITY, specialization_id INT NOT NULL,"
+					+ "FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),first_name VARCHAR(128) NOT NULL,"
+					+ "last_name VARCHAR(128) NOT NULL);\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"CREATE TABLE worker( worker_id INT IDENTITY, specialization_id INT NOT NULL,FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL);");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("CREATE TABLE worker( "
+					+ "worker_id INT IDENTITY, "
+					+ "specialization_id INT NOT NULL,"
+					+ "FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),"
+					+ "first_name VARCHAR(128) NOT NULL,"
+					+ "last_name VARCHAR(128) NOT NULL, "
+					+ "worker_status_id INT NOT NULL, "
+					+ "FOREIGN KEY (worker_status_id) REFERENCES  worker_status(worker_status_id),);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("Table worker was created");
@@ -250,8 +255,7 @@ public class WorkerDaoImpl implements WorkerDao {
 			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE worker ;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("DROP TABLE worker ;");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DROP TABLE worker ;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table worker was deleted");
@@ -263,6 +267,7 @@ public class WorkerDaoImpl implements WorkerDao {
 			logger.error(e.getMessage(), e);
 		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
-		}	}
+		}
+	}
 
 }

@@ -7,17 +7,17 @@ import com.nixsolutions.serviceStation.dbObjects.Worker_specialization;
 
 public interface Worker_specializationDao extends DBTables {
 	/**
-	 * \ createNewStatus
+	 * \ create New Specialization
 	 */
 	public void createNewSpecialization(String specialization);
 
 	/**
-	 * getAllStatus
+	 * get All Specialization
 	 */
 	public List<Worker_specialization> getAllSpecialization();
 
 	/**
-	 * deleteStatusByName
+	 * delete Specialization By Name
 	 */
 	public void deleteSpecializationByName(String specialization);
 

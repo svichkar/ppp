@@ -4,14 +4,14 @@ public class Car {
 	private Integer car_id;
 	private String model;
 	private String vin_number;
-	private String description;
+	private String car_description;
 	private Integer customer_id;
 	
-	public Car(Integer car_id, String model, String vin_number, String description,Integer customer_id) {
+	public Car(Integer car_id, String model, String vin_number, String car_description,Integer customer_id) {
 		this.car_id = car_id;
 		this.model = model;
 		this.vin_number = vin_number;
-		this.description = description;
+		this.car_description = car_description;
 		this.customer_id=customer_id;
 	}
 
@@ -34,10 +34,10 @@ public class Car {
 		this.vin_number = vin_number;
 	}
 	public String getDescription() {
-		return description;
+		return car_description;
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		this.car_description = description;
 	}
 	public Integer getCustomer_id() {
 		return customer_id;
@@ -49,8 +49,8 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [car_id=" + car_id + ", model=" + model + ", vin_number=" + vin_number + ", description="
-				+ description + ", customer_id=" + customer_id + "]";
+		return "Car [car_id=" + car_id + ", model=" + model + ", vin_number=" + vin_number + ", car_description="
+				+ car_description + ", customer_id=" + customer_id + "]";
 	}
 
 }

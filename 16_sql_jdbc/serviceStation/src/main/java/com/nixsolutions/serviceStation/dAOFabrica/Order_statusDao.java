@@ -3,9 +3,9 @@ package com.nixsolutions.serviceStation.dAOFabrica;
 import java.util.List;
 
 import com.nixsolutions.serviceStation.dbCommon.DBTables;
-import com.nixsolutions.serviceStation.dbObjects.Status;
+import com.nixsolutions.serviceStation.dbObjects.Order_status;
 
-public interface StatusDao extends DBTables{
+public interface Order_statusDao extends DBTables{
 	/**
 	 * \ createNewStatus
 	 */
@@ -14,7 +14,7 @@ public interface StatusDao extends DBTables{
 	/**
 	 * getAllStatus
 	 */
-	public List<Status> getAllStatus();
+	public List<Order_status> getAllStatus();
 
 	/**
 	 * deleteStatusByName

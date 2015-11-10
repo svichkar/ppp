@@ -81,7 +81,6 @@ public class Task {
 
 	private static void checkDateDifference(Date startDate) {
 		Date currentDate = new Date();
-		long different = startDate.getTime() - startDate.getTime();
 		Calendar difference = Calendar.getInstance();
 		difference.setTime(new Date(currentDate.getTime() - startDate.getTime()));
 		System.out.printf("Period passed: %d year(s), %d month(s), %d day(s)%n", (difference.get(Calendar.YEAR) - 1970),

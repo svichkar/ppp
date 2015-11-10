@@ -1,6 +1,5 @@
 package com.nixsolutions;
 
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,7 +66,15 @@ public class WorkWithDate {
         WorkWithDate.quantityOfDaysByYear(2016);
         try {
             WorkWithDate.dateOnMonday(2015, "November");
+        } catch (ParseException e){
+            System.out.println("Try to type month properly in English");
+        }
+        try {
             WorkWithDate.isThirteenthFriday(2015, "November",13);
+        } catch (ParseException e){
+            System.out.println("Try to type month properly in English");
+        }
+        try {
             WorkWithDate.dateDifference(2013, "September", 9);
         } catch (ParseException e){
             System.out.println("Try to type month properly in English");

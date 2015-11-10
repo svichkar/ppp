@@ -64,10 +64,10 @@ public class CarDaoImpl implements CarDao {
 		try {
 			logger.debug("Create DB connector");
 			dbConnector = new DbConnector();
-			logger.trace("Send query \"SELECT * FROM car WHERE vin_number=?\"");
+			logger.trace("Send query \"SELECT * FROM car WHERE vin_number='?'\"");
 
 			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("SELECT * FROM car WHERE vin_number=?");
+					.prepareStatement("SELECT * FROM car WHERE vin_number='?';");
 			stmt.setString(1, vinNumber);
 			ResultSet set = stmt.executeQuery();
 			dbConnector.closeConnection();
@@ -142,7 +142,8 @@ public class CarDaoImpl implements CarDao {
 			query = "INSERT INTO car (model  ,vin_number, description, customer_id )VALUES('?','?', '?',("
 					+ "SELECT customer_id FROM customer WHERE  last_name ='?' AND first_name='?'));";
 		else
-			query = "INSERT INTO car (model  ,vin_number, description, customer_id )VALUES('?','?', '?',("
+			query = "INSERT INTO car (model  ,vin_number, description, customer_id )"
+					+ "VALUES('?','?', '?',("
 					+ "SELECT customer_id FROM customer WHERE  last_name ='?'));";
 		try {
 			logger.debug("Create DB connector");
@@ -184,7 +185,7 @@ public class CarDaoImpl implements CarDao {
 			dbConnector = new DbConnector();
 			logger.trace("Send query \"DELETE FROM car WHERE vin_number=?\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DELETE FROM car WHERE vin_number=?");
+			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DELETE FROM car WHERE vin_number='?';");
 			stmt.setString(1, vinNumber);
 			int set = stmt.executeUpdate();
 			if (set == 1)

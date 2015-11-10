@@ -1,5 +1,12 @@
 package com.nixsolutions.serviceStation;
 
+import java.sql.SQLException;
+
+import org.junit.Before;
+
+import com.nixsolutions.serviceStation.dbCommon.DbConnector;
+import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -7,7 +14,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class CarDaoImplTest 
     extends TestCase
 {
     /**
@@ -15,7 +22,8 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+	
+    public CarDaoImplTest( String testName )
     {
         super( testName );
     }
@@ -25,7 +33,7 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( CarDaoImplTest.class );
     }
 
     /**
@@ -33,6 +41,6 @@ public class AppTest
      */
     public void testApp()
     {
-        assertTrue( true );
+         assertTrue( true );
     }
 }

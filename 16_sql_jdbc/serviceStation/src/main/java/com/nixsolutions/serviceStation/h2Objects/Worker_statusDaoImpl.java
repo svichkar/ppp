@@ -3,6 +3,7 @@
  */
 package com.nixsolutions.serviceStation.h2Objects;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,12 @@ import com.nixsolutions.serviceStation.dbObjects.Worker_status;
  */
 public class Worker_statusDaoImpl implements Worker_statusDao {
 	private final static Logger logger = LogManager.getLogger(Order_statusDaoImpl.class);
-	private DbConnector dbConnector;
+	private Connection dbConnector;
+
+	public Worker_statusDaoImpl(Connection dbConnector) {
+		super();
+		this.dbConnector = dbConnector;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -34,12 +40,11 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"CREATE TABLE worker_status( "
 					+ "worker_status_id INT IDENTITY, "
 					+ "worker_status_name VARCHAR(128) NOT NULL);\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+			PreparedStatement stmt = dbConnector.prepareStatement(
 					"CREATE TABLE worker_status( "
 							+ "worker_status_id INT IDENTITY, "
 							+ "worker_status_name VARCHAR(128) NOT NULL); ");
@@ -48,11 +53,8 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 				logger.trace("Table worker_status was created");
 			else
 				logger.debug("Table worker_status was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -67,20 +69,16 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE worker_status ;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DROP TABLE worker_status ;");
+			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE worker_status ;");
 			int set = stmt.executeUpdate();
 			if (set == 0)
 				logger.trace(" table worker_status was deleted");
 			else
 				logger.debug("table worker_status was not deleted");
-			dbConnector.closeConnection();
-			stmt.close();
+				stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -90,21 +88,17 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 		List<Worker_status> worker_status = new ArrayList<Worker_status>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"SELECT * FROM worker_status;\"");
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+			PreparedStatement stmt = dbConnector.prepareStatement(
 					"SELECT * FROM worker_status;");
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the worker_status objects");
 			while (set.next()) {
 				worker_status.add(new Worker_status(set.getInt("worker_status_id"),set.getString("worker_status_name")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return worker_status;
@@ -114,11 +108,10 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	public void createNewStatus(String statusName) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"INSERT INTO worker_status (worker_status_name)VALUES('?');\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+			PreparedStatement stmt = dbConnector.prepareStatement(
 					"INSERT INTO worker_status (worker_status_name)VALUES('?');");
 			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
@@ -126,11 +119,8 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 				logger.trace("New worker_status was created");
 			else
 				logger.debug("New worker_status was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -139,10 +129,9 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	public void deleteStatusByName(String statusName) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
-			logger.trace("Send query \"DELETE FROM worker_status WHERE worker_status_name='?';\"");
+				logger.trace("Send query \"DELETE FROM worker_status WHERE worker_status_name='?';\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConnector
 					.prepareStatement("DELETE FROM worker_status WHERE worker_status_name='?'");
 			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
@@ -150,11 +139,8 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 				logger.trace("worker_status was deleted");
 			else
 				logger.debug("worker_status was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}

@@ -2,14 +2,14 @@ package com.nixsolutions.serviceStation.dbObjects;
 
 public class Car {
 	private Integer car_id;
-	private String model;
+	private String car_model;
 	private String vin_number;
 	private String car_description;
 	private Integer customer_id;
 	
-	public Car(Integer car_id, String model, String vin_number, String car_description,Integer customer_id) {
+	public Car(Integer car_id, String car_model, String vin_number, String car_description,Integer customer_id) {
 		this.car_id = car_id;
-		this.model = model;
+		this.car_model = car_model;
 		this.vin_number = vin_number;
 		this.car_description = car_description;
 		this.customer_id=customer_id;
@@ -22,10 +22,10 @@ public class Car {
 		this.car_id = car_id;
 	}
 	public String getModel() {
-		return model;
+		return car_model;
 	}
 	public void setModel(String model) {
-		this.model = model;
+		this.car_model = model;
 	}
 	public String getVin_number() {
 		return vin_number;
@@ -49,7 +49,7 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [car_id=" + car_id + ", model=" + model + ", vin_number=" + vin_number + ", car_description="
+		return "Car [car_id=" + car_id + ", car_model=" + car_model + ", vin_number=" + vin_number + ", car_description="
 				+ car_description + ", customer_id=" + customer_id + "]";
 	}
 

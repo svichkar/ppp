@@ -3,6 +3,7 @@
  */
 package com.nixsolutions.serviceStation.h2Objects;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +24,13 @@ import com.nixsolutions.serviceStation.dbObjects.Car;
 public class CarDaoImpl implements CarDao {
 
 	private final static Logger logger = LogManager.getLogger(CarDaoImpl.class);
-	private DbConnector dbConnector;
+	private Connection dbConn;
+	
+	public CarDaoImpl(Connection connection) {
+		this.dbConn = connection;
+	}
 
+	
 	/*
 	 * get All Car from db
 	 * 
@@ -34,20 +40,16 @@ public class CarDaoImpl implements CarDao {
 		List<Car> cars = new ArrayList<Car>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT * FROM car\"");
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("SELECT * FROM car");
+			PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM car");
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the car objects");
 			while (set.next()) {
-				cars.add(new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
-						set.getString("description"), set.getInt("customer_id")));
+				cars.add(new Car(set.getInt("car_id"), set.getString("car_model"), set.getString("vin_number"),
+						set.getString("car_description"), set.getInt("customer_id")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return cars;
@@ -63,14 +65,12 @@ public class CarDaoImpl implements CarDao {
 	public Car getCarByVINNumber(String vinNumber) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT * FROM car WHERE vin_number='?'\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConn
 					.prepareStatement("SELECT * FROM car WHERE vin_number='?';");
 			stmt.setString(1, vinNumber);
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the car objects");
 			while (set.next()) {
 				return new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
@@ -78,8 +78,6 @@ public class CarDaoImpl implements CarDao {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return null;
@@ -102,17 +100,15 @@ public class CarDaoImpl implements CarDao {
 		List<Car> cars = new ArrayList<Car>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"SELECT * FROM car WHERE customer_id =(SELECT customer_id FROM customer WHERE first_name ='Alex' AND last_name ='Alkov');\"");
 			// SELECT * FROM car WHERE customer_id =(SELECT customer_id FROM
 			// customer WHERE first_name ='Alex' AND last_name ='Alkov');
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(query);
+			PreparedStatement stmt = dbConn.prepareStatement(query);
 			stmt.setString(1, name[0]);
 			if (name.length == 2)
 				stmt.setString(2, name[1]);
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the car objects");
 			while (set.next()) {
 				cars.add(new Car(set.getInt("car_id"), set.getString("model"), set.getString("vin_number"),
@@ -121,8 +117,6 @@ public class CarDaoImpl implements CarDao {
 			stmt.close();
 			return cars;
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return null;
@@ -147,11 +141,10 @@ public class CarDaoImpl implements CarDao {
 					+ "SELECT customer_id FROM customer WHERE  last_name ='?'));";
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"INSERT INTO car (model  ,vin_number, customer_id )VALUES('AUDI','1234567890qwertyu',1);\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(query);
+			PreparedStatement stmt = dbConn.prepareStatement(query);
 			stmt.setString(1, model);
 			stmt.setString(2, vin_number);
 			stmt.setString(3, description);
@@ -163,11 +156,8 @@ public class CarDaoImpl implements CarDao {
 				logger.trace("New car was created");
 			else
 				logger.debug("New car was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -182,21 +172,17 @@ public class CarDaoImpl implements CarDao {
 	public void deleteCarByVINNumber(String vinNumber) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DELETE FROM car WHERE vin_number=?\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DELETE FROM car WHERE vin_number='?';");
+			PreparedStatement stmt = dbConn.prepareStatement("DELETE FROM car WHERE vin_number='?';");
 			stmt.setString(1, vinNumber);
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("car was deleted");
 			else
 				logger.debug("car was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -210,12 +196,11 @@ public class CarDaoImpl implements CarDao {
 			query = "UPDATE car SET model=?  ,vin_number=?, description =? WHERE CUSTOMER_ID =(SELECT customer_id FROM customer WHERE last_name ='?');";
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"SELECT * FROM car WHERE customer_id =(SELECT customer_id FROM customer WHERE first_name ='Alex' AND last_name ='Alkov');\"");
 			// SELECT * FROM car WHERE customer_id =(SELECT customer_id FROM
 			// customer WHERE first_name ='Alex' AND last_name ='Alkov');
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(query);
+			PreparedStatement stmt = dbConn.prepareStatement(query);
 			stmt.setString(1, model);
 			stmt.setString(2, vinNumber);
 			stmt.setString(3, description);
@@ -227,12 +212,9 @@ public class CarDaoImpl implements CarDao {
 				logger.trace("New car was created");
 			else
 				logger.debug("New car was not created");
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the car objects");
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -240,22 +222,18 @@ public class CarDaoImpl implements CarDao {
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"CREATE TABLE car( car_id INT IDENTITY, model VARCHAR(128) NOT NULL, vin_number VARCHAR(17) NOT NULL UNIQUE, description VARCHAR(256));\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+			PreparedStatement stmt = dbConn.prepareStatement(
 					"CREATE TABLE car( car_id INT IDENTITY, model VARCHAR(128) NOT NULL, vin_number VARCHAR(17) NOT NULL UNIQUE, description VARCHAR(256));");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("Table car was created");
 			else
 				logger.debug("Table car was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -263,20 +241,16 @@ public class CarDaoImpl implements CarDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE car ;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DROP TABLE car ;");
+			PreparedStatement stmt = dbConn.prepareStatement("DROP TABLE car ;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table car was deleted");
 			else
 				logger.debug("table car was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}

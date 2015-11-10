@@ -3,6 +3,7 @@
  */
 package com.nixsolutions.serviceStation.h2Objects;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,11 @@ import com.nixsolutions.serviceStation.dbObjects.Part_order;
 public class Part_orderDaoImpl implements Part_orderDao {
 
 	private final static Logger logger = LogManager.getLogger(CarDaoImpl.class);
-	private DbConnector dbConnector;
+	private Connection dbConnector;
+
+	public Part_orderDaoImpl(Connection dbConnector) {
+		this.dbConnector = dbConnector;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -35,25 +40,20 @@ public class Part_orderDaoImpl implements Part_orderDao {
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"CREATE TABLE part_order( " + "order_id INT NOT NULL,"
 					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), " + "part_id INT NOT NULL,"
 					+ "FOREIGN KEY (part_id) REFERENCES  part(part_id), " + "amount TINYINT);\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("CREATE TABLE part_order( " + "order_id INT NOT NULL,"
-							+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), " + "part_id INT NOT NULL,"
-							+ "FOREIGN KEY (part_id) REFERENCES  part(part_id), " + "amount TINYINT);");
+			PreparedStatement stmt = dbConnector.prepareStatement("CREATE TABLE part_order( " + "order_id INT NOT NULL,"
+					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), " + "part_id INT NOT NULL,"
+					+ "FOREIGN KEY (part_id) REFERENCES  part(part_id), " + "amount TINYINT);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("Table part_order was created");
 			else
 				logger.debug("Table part_order was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -69,20 +69,16 @@ public class Part_orderDaoImpl implements Part_orderDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE part_order;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DROP TABLE part_order;");
+			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE part_order;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table part_order was deleted");
 			else
 				logger.debug("table part_order was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -98,22 +94,17 @@ public class Part_orderDaoImpl implements Part_orderDao {
 		List<Part_order> part_orders = new ArrayList<Part_order>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT * FROM part_order WHERE order_id=?\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("SELECT * FROM part_order WHERE order_id=?");
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM part_order WHERE order_id=?");
 			stmt.setInt(1, order_id);
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the part_order objects");
 			while (set.next()) {
 				part_orders.add(new Part_order(set.getInt("order_id"), set.getInt("part_id"), set.getInt("amount")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return part_orders;
@@ -130,13 +121,11 @@ public class Part_orderDaoImpl implements Part_orderDao {
 	public void setPartToOrder(Integer order_id, Integer part_id, Integer amount) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"INSERT INTO car (model  ,vin_number, customer_id )VALUES('AUDI','1234567890qwertyu',1);\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
-					"INSERT INTO part_order (order_id ,part_id,amount)"
-					+ "VALUES(?,?,?)");
+			PreparedStatement stmt = dbConnector
+					.prepareStatement("INSERT INTO part_order (order_id ,part_id,amount)" + "VALUES(?,?,?)");
 			stmt.setInt(1, order_id);
 			stmt.setInt(2, part_id);
 			stmt.setInt(3, amount);
@@ -145,11 +134,8 @@ public class Part_orderDaoImpl implements Part_orderDao {
 				logger.trace("New part_id was added to order");
 			else
 				logger.trace("New part_id was not added to order");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -164,10 +150,10 @@ public class Part_orderDaoImpl implements Part_orderDao {
 	public void deletePartFromOrder(Integer order_id, Integer part_id) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DELETE FROM part_order WHERE order_id=?,part_id='?';\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("DELETE FROM part_order WHERE order_id=?,part_id='?';");
+			PreparedStatement stmt = dbConnector
+					.prepareStatement("DELETE FROM part_order WHERE order_id=?,part_id='?';");
 			stmt.setInt(1, order_id);
 			stmt.setInt(2, part_id);
 			int set = stmt.executeUpdate();
@@ -175,11 +161,8 @@ public class Part_orderDaoImpl implements Part_orderDao {
 				logger.trace("car was deleted");
 			else
 				logger.debug("car was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}

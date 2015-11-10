@@ -1,5 +1,6 @@
 package com.nixsolutions.serviceStation.h2Objects;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,17 +17,19 @@ import com.nixsolutions.serviceStation.dbObjects.Customer;
 public class CustomerDaoImpl implements CustomerDao {
 
 	private final static Logger logger = LogManager.getLogger(CustomerDaoImpl.class);
-	private DbConnector dbConnector;
+	private Connection dbConn;
+
+	public CustomerDaoImpl(Connection connection) {
+		this.dbConn = connection;
+	}
 
 	public List<Customer> getAllCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT * FROM customer\"");
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("SELECT * FROM customer");
+			PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM customer;");
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the customer objects");
 			while (set.next()) {
 				customers.add(new Customer(set.getInt("customer_id"), set.getString("first_name"),
@@ -34,8 +37,6 @@ public class CustomerDaoImpl implements CustomerDao {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return customers;
@@ -45,21 +46,16 @@ public class CustomerDaoImpl implements CustomerDao {
 		List<String> phones = new ArrayList<String>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT phone FROM customer WHERE last_name='?'\"");
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("SELECT phone FROM customer WHERE last_name='?'");
+			PreparedStatement stmt = dbConn.prepareStatement("SELECT phone FROM customer WHERE last_name='?';");
 			stmt.setString(1, lastName);
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the phone objects");
 			while (set.next()) {
 				phones.add(set.getString("phone"));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return null;
@@ -68,13 +64,10 @@ public class CustomerDaoImpl implements CustomerDao {
 	public Customer getCustomerByPhoneNumber(String phone) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT * FROM customer WHERE phone='?'\"");
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("SELECT * FROM customer WHERE phone='?'");
+			PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM customer WHERE phone='?'");
 			stmt.setString(1, phone);
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the customers objects");
 			logger.trace("Generate list of the customer objects");
 			while (set.next()) {
@@ -84,8 +77,6 @@ public class CustomerDaoImpl implements CustomerDao {
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
 		}
 		return null;
 	}
@@ -93,10 +84,9 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void createNewCustomer(String lastName, String firstName, String phoneNumber) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"INSERT INTO customer (first_name ,last_name ,phone)VALUES('?','?','?');\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConn
 					.prepareStatement("INSERT INTO customer (last_name, first_name ,phone)VALUES('?','?','?');");
 			stmt.setString(1, lastName);
 			stmt.setString(2, firstName);
@@ -106,11 +96,8 @@ public class CustomerDaoImpl implements CustomerDao {
 				logger.trace("New customer was created");
 			else
 				logger.debug("New customer was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 
@@ -119,10 +106,9 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void deleteCustomer(String lastName, String firstName) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DELETE FROM customer WHERE last_name='?' AND first_name='?';\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConn
 					.prepareStatement("DELETE FROM customer WHERE last_name='?' AND first_name='?';");
 			stmt.setString(1, lastName);
 			stmt.setString(2, firstName);
@@ -131,11 +117,8 @@ public class CustomerDaoImpl implements CustomerDao {
 				logger.trace("customer was deleted");
 			else
 				logger.debug("customer was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -143,22 +126,18 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"CREATE TABLE customer( customer_id INT IDENTITY,first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL,phone VARCHAR(32));\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+			PreparedStatement stmt = dbConn.prepareStatement(
 					"CREATE TABLE customer( customer_id INT IDENTITY,first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL,phone VARCHAR(32));");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("Table customer was created");
 			else
 				logger.debug("Table customer was not created");
-			dbConnector.closeConnection();
-			stmt.close();
+				stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -166,23 +145,18 @@ public class CustomerDaoImpl implements CustomerDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE customer ;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
-					.prepareStatement("DROP TABLE customer ;");
+			PreparedStatement stmt = dbConn.prepareStatement("DROP TABLE customer ;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table customer was deleted");
 			else
 				logger.debug("table customer was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		}	}
+		}
+	}
 
-	
 }

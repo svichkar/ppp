@@ -1,5 +1,6 @@
 package com.nixsolutions.serviceStation.h2Objects;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,15 +17,18 @@ import com.nixsolutions.serviceStation.dbObjects.Order_status;
 public class Order_statusDaoImpl implements Order_statusDao {
 
 	private final static Logger logger = LogManager.getLogger(Order_statusDaoImpl.class);
-	private DbConnector dbConnector;
+	private Connection dbConnector;
+	
+	public Order_statusDaoImpl(Connection connection) {
+		this.dbConnector=connection;
+	}
 
 	public void createNewStatus(String status) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"INSERT INTO status (status_name)VALUES('?');\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConnector
 					.prepareStatement("INSERT INTO status (status_name)VALUES('?');");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
@@ -32,11 +36,8 @@ public class Order_statusDaoImpl implements Order_statusDao {
 				logger.trace("New status was created");
 			else
 				logger.debug("New status was not created");
-			dbConnector.closeConnection();
-			stmt.close();
+				stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -45,19 +46,15 @@ public class Order_statusDaoImpl implements Order_statusDao {
 		List<Order_status> statuses = new ArrayList<Order_status>();
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"SELECT * FROM status\"");
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement("SELECT * FROM status");
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM status");
 			ResultSet set = stmt.executeQuery();
-			dbConnector.closeConnection();
 			logger.trace("Generate list of the status objects");
 			while (set.next()) {
 				statuses.add(new Order_status(set.getInt("status_id"), set.getString("status_name")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 		return statuses;
@@ -66,10 +63,9 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void deleteStatusByName(String status) {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DELETE FROM status WHERE status_name='?';\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConnector
 					.prepareStatement("DELETE FROM status WHERE status_name='?';");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
@@ -77,11 +73,8 @@ public class Order_statusDaoImpl implements Order_statusDao {
 				logger.trace("status was deleted");
 			else
 				logger.debug("status was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -89,22 +82,18 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace(
 					"Send query \"CREATE TABLE status( status_id INT IDENTITY, status_name VARCHAR(128) NOT NULL);\"");
 
-			PreparedStatement stmt = dbConnector.getConnection().prepareStatement(
+			PreparedStatement stmt = dbConnector.prepareStatement(
 					"CREATE TABLE status( status_id INT IDENTITY, status_name VARCHAR(128) NOT NULL);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("Table status was created");
 			else
 				logger.debug("Table status was not created");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}
 	}
@@ -112,21 +101,17 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			dbConnector = new DbConnector();
 			logger.trace("Send query \"DROP TABLE status ;\"");
 
-			PreparedStatement stmt = dbConnector.getConnection()
+			PreparedStatement stmt = dbConnector
 					.prepareStatement("DROP TABLE status ;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table status was deleted");
 			else
 				logger.debug("table status was not deleted");
-			dbConnector.closeConnection();
 			stmt.close();
 		} catch (SQLException e) {
-			logger.error(e.getMessage(), e);
-		} catch (ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
 		}	}
 

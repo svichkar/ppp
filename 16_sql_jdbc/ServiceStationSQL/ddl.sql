@@ -96,7 +96,7 @@ ALTER TABLE car
 ADD COLUMN customer_id INT NOT NULL;
 
 ALTER TABLE car 
-   ADD FOREIGN KEY(customer_id ) REFERENCES car (customer_id );
+   ADD FOREIGN KEY(customer_id ) REFERENCES customer (customer_id );
    
 CREATE INDEX order_idx ON order_in_work(order_id);
 

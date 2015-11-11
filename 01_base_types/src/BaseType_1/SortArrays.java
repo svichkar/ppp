@@ -34,8 +34,8 @@ public class SortArrays {
                 System.out.println("In " + iter + " iteration arrays were sorted different ways!");
         }
 
-            System.out.println("Avarage time of sorting using Arrays.sort methos is: " + sortingTimeCustom/iterations);
-            System.out.println("Avarage time of sorting using java.util.Arrays.sort methos is: " + sortingTimeJava/iterations);
+            System.out.println("Average time of sorting using Arrays.sort method is: " + sortingTimeCustom/iterations);
+            System.out.println("Average time of sorting using java.util.Arrays.sort method is: " + sortingTimeJava/iterations);
 
     }
 

@@ -1,3 +1,4 @@
+SET SCHEMA sqllab;
 --customer
 INSERT INTO customer (first_name, last_name, phone) VALUES ('John', 'Hughes', '380663241432');
 INSERT INTO customer (first_name, last_name, phone) VALUES ('Kenny', 'Smith', '380663325132');

@@ -1,3 +1,4 @@
+SET SCHEMA sqllab;
 --5
 SELECT * FROM worker;
 SELECT * FROM part;

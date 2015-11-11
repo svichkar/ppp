@@ -1,4 +1,4 @@
-package sql_jdbc;
+package com.nixsolutions.sql_jdbc;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,11 +10,13 @@ import java.util.List;
 import org.dbunit.DBTestCase;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -84,7 +86,7 @@ public class TestDAO extends DBTestCase {
         Connection jdbcConnection = DriverManager.getConnection(
                 "jdbc:h2:tcp://localhost/~/sqllab", "sa", "");
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
-
+        connection.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());
         IDataSet fullDataSet = connection.createDataSet();
         FlatXmlDataSet.write(fullDataSet, new FileOutputStream("full.xml"));
 	}

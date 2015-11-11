@@ -29,11 +29,11 @@ book_id NUMBER(10,0) NOT NULL,
 reader_id NUMBER (10,0) NOT NULL,
 start_date DATE NOT NULL,
 end_date DATE NOT NULL,
-FOREIGN KEY (book_id) REFERENCES book_instance  (id)
+FOREIGN KEY (book_id) REFERENCES book_instance  (id),
+FOREIGN KEY (reader_id) REFERENCES reader  (id)
 );
 CREATE TABLE reader (
 id NUMBER(10,0) PRIMARY KEY AUTO_INCREMENT,
 name VARCHAR(50),
-adress VARCHAR(50),
-FOREIGN KEY (id) REFERENCES journal  (reader_id)
+adress VARCHAR(50)
 );

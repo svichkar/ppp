@@ -1,13 +1,10 @@
-package com.nixsolutions.Arrays;
+package com.nixsolutions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.Math;
-import java.util.Formatter;
 
-public class SecondExercise {
-
+public class Exponent {
 	public static void main(String[] args) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String inputNumber;
@@ -25,20 +22,9 @@ public class SecondExercise {
 				}
 			}
 			if (inputNumber.contains("E") || inputNumber.contains("e")) {
-				String inputNumberUp = inputNumber.toUpperCase();
-				String[] breakForMantissaAndexponent = inputNumberUp.split("E");
-				int exponent = Integer.parseInt(breakForMantissaAndexponent[1]);
-				double mantissa = Double.parseDouble(breakForMantissaAndexponent[0]);
-				double resultNumber = (double) (mantissa * (Math.pow(10, exponent)));
-				System.out.println("Result number (double): " + resultNumber);
+				System.out.printf("Result number (double): %f\n", Double.valueOf(inputNumber));
 			} else {
-				String[] breakForMantissaAndexponent = inputNumber.split("\\.");
-				int digit = breakForMantissaAndexponent[0].length();
-				int quantity = breakForMantissaAndexponent[0].length() + breakForMantissaAndexponent[1].length();
-				double mantissa = Double.parseDouble(inputNumber) / (Math.pow(10, digit - 1));
-				Formatter formatter = new Formatter();
-				System.out.println(
-						"Result number (exp): " + formatter.format("%" + quantity + "e" + (digit - 1), mantissa));
+				System.out.printf("Result number (exp): %E\n", Double.valueOf(inputNumber));
 			}
 			System.out.print("Would you like continue to enter numbers? Y/N ");
 			String yesNo = "";

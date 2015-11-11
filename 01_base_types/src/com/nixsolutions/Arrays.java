@@ -1,9 +1,6 @@
-package com.nixsolutions.Arrays;
+package com.nixsolutions;
 
-import java.util.Arrays;
-
-public class FirstExercises {
-
+public class Arrays {
 	private static int[] massAfterSort;
 
 	private static int[] sort(int[] massForSort) {
@@ -38,7 +35,7 @@ public class FirstExercises {
 				mainMass[j] = (int) ((Math.random() * (201) - 100));
 			}
 			startTime = System.nanoTime();
-			mySortMass = FirstExercises.sort(mainMass);
+			mySortMass = Arrays.sort(mainMass);
 			finishTime = System.nanoTime();
 			timeForSort[0][i] = finishTime - startTime;
 

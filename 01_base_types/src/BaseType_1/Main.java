@@ -17,7 +17,7 @@ public class Main {
             int[] arrayToSort = randomIntArray(10000, -100, 100);
             //custom sorting method
             long startTime = System.nanoTime();
-            Arrays.sort(arrayToSort);
+            int[] firstArrSorted = Arrays.sort(arrayToSort);
             long finishTimet = System.nanoTime();
             sotringTime [0][iter] = finishTimet - startTime;
             sortingTimeCustom =+ sotringTime [0][iter];
@@ -27,6 +27,11 @@ public class Main {
             finishTimet = System.nanoTime();
             sotringTime [1][iter] = finishTimet - startTime;
             sortingTimeJava =+ sotringTime [1][iter];
+
+            //check that both methods sort arrays with the same way
+            boolean arrEquals = java.util.Arrays.equals(firstArrSorted, arrayToSort);
+            if(!arrEquals)
+                System.out.println("In " + iter + " iteration arrays were sorted different ways!");
         }
 
             System.out.println("Avarage time of sorting using Arrays.sort methos is: " + sortingTimeCustom/iterations);

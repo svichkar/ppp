@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <STATUS STATUS_ID="1" STATUS_NAME="Idle"/>
+  <STATUS STATUS_ID="2" STATUS_NAME="Busy"/>
+  <STATUS STATUS_ID="3" STATUS_NAME="Vacation"/>
+  <STATUS STATUS_ID="4" STATUS_NAME="No Status Name"/>
+  <STATUS STATUS_ID="6" STATUS_NAME="No Status Name"/>
+</dataset>

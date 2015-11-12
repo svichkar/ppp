@@ -23,24 +23,22 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.AfterClass;
 import org.junit.Assert;
 
-
-import entities.Customer;
-import h2.CustomerDAOImpl;
+import entities.Worker;
 import h2.H2DAOFactoryImpl;
+import h2.WorkerDAOImpl;
 
-public class TestCustomerDAO extends DBTestCase {
+public class TestWorkerDAO extends DBTestCase {
 	
 	private IDatabaseConnection conn;
 	private IDataSet dataSet;
 	private H2DAOFactoryImpl daoFactory;
 	private static final String CURRENT_SEPARATOR = File.separator;
 	private static final String XML_PATH = System.getProperty("user.dir") + CURRENT_SEPARATOR + "src" + CURRENT_SEPARATOR + 
-			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "customer.xml";
+			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "worker.xml";
 	
-	public TestCustomerDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
+	public TestWorkerDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
 		super(name);
 		Class.forName("org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
@@ -54,7 +52,7 @@ public class TestCustomerDAO extends DBTestCase {
         conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());
         daoFactory = new H2DAOFactoryImpl();
 		QueryDataSet partialDataSet = new QueryDataSet(conn);
-        partialDataSet.addTable("CUSTOMER", "SELECT * FROM sqllab.customer");
+        partialDataSet.addTable("WORKER", "SELECT * FROM sqllab.worker");
         dataSet = partialDataSet;
 	}
 	
@@ -77,36 +75,39 @@ public class TestCustomerDAO extends DBTestCase {
 		return ds;
 	}
 	
-	public void testCustomerDAOAddsEntity() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		Customer tCustomer = customerDAO.create();
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
-		Assert.assertEquals(tCustomer.getFirstName(), dbTable.getValue(dbTable.getRowCount() - 1, "first_name"));
-		Assert.assertEquals(tCustomer.getLastName(), dbTable.getValue(dbTable.getRowCount() - 1, "last_name"));
-		Assert.assertEquals(tCustomer.getPhone(), dbTable.getValue(dbTable.getRowCount() - 1, "phone"));
+	public void testWorkerDAOAddsEntity() throws DataSetException, Exception {
+		WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(conn.getConnection(), Worker.class);
+		Worker tWorker = workerDAO.create();
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"WORKER"});
+		ITable dbTable = dbSet.getTable("WORKER");
+		Assert.assertEquals(tWorker.getFirstName(), dbTable.getValue(dbTable.getRowCount() - 1, "first_name"));
+		Assert.assertEquals(tWorker.getLastName(), dbTable.getValue(dbTable.getRowCount() - 1, "last_name"));
+		Assert.assertEquals(tWorker.getStatusId() == 0 ? null : tWorker.getStatusId(),
+				dbTable.getValue(dbTable.getRowCount() - 1, "status_id"));
+		Assert.assertEquals(tWorker.getSpecId() == 0 ? null : tWorker.getSpecId(), 
+				dbTable.getValue(dbTable.getRowCount() - 1, "specialization_id"));
 	}
 	
-	public void testCustomerDAODeletesEntity() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		Customer tCustomer = customerDAO.create();
-		customerDAO.delete(tCustomer);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
+	public void testWorkerDAODeletesEntity() throws DataSetException, Exception {
+		WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(conn.getConnection(), Worker.class);
+		Worker tWorker = workerDAO.create();
+		workerDAO.delete(tWorker);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"WORKER"});
+		ITable dbTable = dbSet.getTable("WORKER");
 		IDataSet xmlSet = getDataSet();
-		ITable xmlTable = xmlSet.getTable("CUSTOMER");
+		ITable xmlTable = xmlSet.getTable("WORKER");
 		Assertion.assertEquals(xmlTable, dbTable);
 	}
 	
-	public void testCustomerDAOUpdatesEntity() throws Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		List<Customer> customerList = customerDAO.getAll();
-		Customer tCustomer = customerList.get(customerList.size() - 1);
-		tCustomer.setPhone("No Phone");
-		customerDAO.update(tCustomer);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
-		Assert.assertEquals(tCustomer.getPhone(), dbTable.getValue(dbTable.getRowCount() - 1, "phone"));
+	public void testWorkerDAOUpdatesEntity() throws Exception {
+		WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(conn.getConnection(), Worker.class);
+		List<Worker> workerList = workerDAO.getAll();
+		Worker tWorker = workerList.get(workerList.size() - 1);
+		tWorker.setLastName("No Last Name");
+		workerDAO.update(tWorker);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"WORKER"});
+		ITable dbTable = dbSet.getTable("WORKER");
+		Assert.assertEquals(tWorker.getLastName(), dbTable.getValue(dbTable.getRowCount() - 1, "last_name"));
 	}
 	
 	protected DatabaseOperation getTearDownOperation() throws Exception {
@@ -116,13 +117,4 @@ public class TestCustomerDAO extends DBTestCase {
 	protected DatabaseOperation getSetUpOperation() throws Exception {
 		return DatabaseOperation.REFRESH;
 	}
-	
-	@AfterClass
-    public static void tearDownClass() {
-		File f = new File(XML_PATH);
-		if (f.exists()) {
-			boolean temp = f.delete();
-			boolean temp2 = f.canRead();
-		}
-    }
 }

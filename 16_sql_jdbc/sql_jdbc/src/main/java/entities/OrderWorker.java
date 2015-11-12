@@ -34,12 +34,12 @@ public class OrderWorker extends AbstractEntity {
 	}
 	
 	public void setIsCompleted(String value) {
-		is_completed = (value == "Y" ? value : "N");
+		//is_completed = (value == "Y" ? value : "N");
+		is_completed = value;
 	}
 	
 	@Override
 	public String toString() {
-		//String res = "worker_id " + (worker_id == 0 ? "is null" : "= " + worker_id) + " AND is_completed = '" + is_completed + "'";
 		String res = "is_completed = '" + is_completed + "'";
 		return res;
 	}

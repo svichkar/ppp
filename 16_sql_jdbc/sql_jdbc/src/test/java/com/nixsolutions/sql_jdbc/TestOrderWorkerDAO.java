@@ -27,23 +27,23 @@ import org.dbunit.operation.DatabaseOperation;
 import org.junit.Assert;
 
 import entities.OrderInWork;
-import entities.OrderPart;
-import entities.Part;
+import entities.OrderWorker;
+import entities.Worker;
 import h2.H2DAOFactoryImpl;
 import h2.OrderInWorkDAOImpl;
-import h2.OrderPartDAOImpl;
-import h2.PartDAOImpl;
+import h2.OrderWorkerDAOImpl;
+import h2.WorkerDAOImpl;
 
-public class TestOrderPartDAO extends DBTestCase {
+public class TestOrderWorkerDAO extends DBTestCase {
 	
 	private IDatabaseConnection conn;
 	private IDataSet dataSet;
 	private H2DAOFactoryImpl daoFactory;
 	private static final String CURRENT_SEPARATOR = File.separator;
 	private static final String XML_PATH = System.getProperty("user.dir") + CURRENT_SEPARATOR + "src" + CURRENT_SEPARATOR + 
-			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "order_part.xml";
+			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "order_worker.xml";
 	
-	public TestOrderPartDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
+	public TestOrderWorkerDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
 		super(name);
 		Class.forName("org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
@@ -57,7 +57,7 @@ public class TestOrderPartDAO extends DBTestCase {
         conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());
         daoFactory = new H2DAOFactoryImpl();
 		QueryDataSet partialDataSet = new QueryDataSet(conn);
-		partialDataSet.addTable("ORDER_PART", "SELECT * FROM sqllab.order_part");
+		partialDataSet.addTable("ORDER_WORKER", "SELECT * FROM sqllab.order_worker");
         dataSet = partialDataSet;
 	}
 	
@@ -80,50 +80,50 @@ public class TestOrderPartDAO extends DBTestCase {
 		return ds;
 	}
 	
-	public void testOrderPartDAOAddsEntity() throws DataSetException, Exception {
+	public void testOrderWorkerDAOAddsEntity() throws DataSetException, Exception {
 		OrderInWorkDAOImpl orderDAO = (OrderInWorkDAOImpl) daoFactory.getDao(conn.getConnection(), OrderInWork.class);
 		OrderInWork tOrder = orderDAO.create();
-		PartDAOImpl partDAO = (PartDAOImpl) daoFactory.getDao(conn.getConnection(), Part.class);
-		Part tPart = partDAO.create();
-		OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn.getConnection(), OrderPart.class);
-		OrderPart tOrderPart = new OrderPart(tOrder.getId(), tPart.getId(), 0);
-		tOrderPart = orderPartDAO.createFrom(tOrderPart);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_PART"});
-		ITable dbTable = dbSet.getTable("ORDER_PART");
-		Assert.assertEquals(BigInteger.valueOf((long) tOrderPart.getId()), 
+		WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(conn.getConnection(), Worker.class);
+		Worker tWorker = workerDAO.create();
+		OrderWorkerDAOImpl orderWorkerDAO = (OrderWorkerDAOImpl) daoFactory.getDao(conn.getConnection(), OrderWorker.class);
+		OrderWorker tOrderWorker = new OrderWorker(tOrder.getId(), tWorker.getId(), "Y");
+		tOrderWorker = orderWorkerDAO.createFrom(tOrderWorker);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_WORKER"});
+		ITable dbTable = dbSet.getTable("ORDER_WORKER");
+		Assert.assertEquals(BigInteger.valueOf((long) tOrderWorker.getId()), 
 				dbTable.getValue(dbTable.getRowCount() - 1, "order_id"));
-		Assert.assertEquals(BigInteger.valueOf((long) tOrderPart.getPartId()), 
-				dbTable.getValue(dbTable.getRowCount() - 1, "part_id"));
-		Assert.assertEquals(BigInteger.valueOf((long) tOrderPart.getUsedAmount()), 
-				dbTable.getValue(dbTable.getRowCount() - 1, "used_amount"));
+		Assert.assertEquals(tOrderWorker.getWorkerId(), 
+				dbTable.getValue(dbTable.getRowCount() - 1, "worker_id"));
+		Assert.assertEquals(tOrderWorker.getIsCompleted(), 
+				dbTable.getValue(dbTable.getRowCount() - 1, "is_completed"));
 	}
 	
-	public void testOrderPartDAODeletesEntity() throws DataSetException, Exception {
+	public void testOrderWorkerDAODeletesEntity() throws DataSetException, Exception {
 		OrderInWorkDAOImpl orderDAO = (OrderInWorkDAOImpl) daoFactory.getDao(conn.getConnection(), OrderInWork.class);
 		OrderInWork tOrder = orderDAO.create();
-		PartDAOImpl partDAO = (PartDAOImpl) daoFactory.getDao(conn.getConnection(), Part.class);
-		Part tPart = partDAO.create();
-		OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn.getConnection(), OrderPart.class);
-		OrderPart tOrderPart = new OrderPart(tOrder.getId(), tPart.getId(), 0);
-		tOrderPart = orderPartDAO.createFrom(tOrderPart);
-		orderPartDAO.delete(tOrderPart);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_PART"});
-		ITable dbTable = dbSet.getTable("ORDER_PART");
+		WorkerDAOImpl workerDAO = (WorkerDAOImpl) daoFactory.getDao(conn.getConnection(), Worker.class);
+		Worker tWorker = workerDAO.create();
+		OrderWorkerDAOImpl orderWorkerDAO = (OrderWorkerDAOImpl) daoFactory.getDao(conn.getConnection(), OrderWorker.class);
+		OrderWorker tOrderWorker = new OrderWorker(tOrder.getId(), tWorker.getId(), "Y");
+		tOrderWorker = orderWorkerDAO.createFrom(tOrderWorker);
+		orderWorkerDAO.delete(tOrderWorker);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_WORKER"});
+		ITable dbTable = dbSet.getTable("ORDER_WORKER");
 		IDataSet xmlSet = getDataSet();
-		ITable xmlTable = xmlSet.getTable("ORDER_PART");
+		ITable xmlTable = xmlSet.getTable("ORDER_WORKER");
 		Assertion.assertEquals(xmlTable, dbTable);
 	}
 	
-	public void testOrderPartDAOUpdatesEntity() throws Exception {
-		OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn.getConnection(), OrderPart.class);
-		List<OrderPart> orderPartList = orderPartDAO.getAll();
-		OrderPart tOrderPart = orderPartList.get(orderPartList.size() - 1);
-		tOrderPart.setUsedAmount(30);
-		orderPartDAO.update(tOrderPart);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_PART"});
-		ITable dbTable = dbSet.getTable("ORDER_PART");
-		Assert.assertEquals(BigInteger.valueOf((long) tOrderPart.getUsedAmount()), 
-				dbTable.getValue(dbTable.getRowCount() - 1, "used_amount"));
+	public void testOrderWorkerDAOUpdatesEntity() throws Exception {
+		OrderWorkerDAOImpl orderWorkerDAO = (OrderWorkerDAOImpl) daoFactory.getDao(conn.getConnection(), OrderWorker.class);
+		List<OrderWorker> orderWorkerList = orderWorkerDAO.getAll();
+		OrderWorker tOrderWorker = orderWorkerList.get(orderWorkerList.size() - 1);
+		tOrderWorker.setIsCompleted("N");
+		orderWorkerDAO.update(tOrderWorker);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_WORKER"});
+		ITable dbTable = dbSet.getTable("ORDER_WORKER");
+		Assert.assertEquals(tOrderWorker.getIsCompleted(), 
+				dbTable.getValue(dbTable.getRowCount() - 1, "is_completed"));
 	}
 	
 	protected DatabaseOperation getTearDownOperation() throws Exception {

@@ -23,24 +23,22 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.AfterClass;
 import org.junit.Assert;
 
-
-import entities.Customer;
-import h2.CustomerDAOImpl;
+import entities.WorkerSpecialization;
 import h2.H2DAOFactoryImpl;
+import h2.WorkerSpecializationDAOImpl;
 
-public class TestCustomerDAO extends DBTestCase {
+public class TestWorkerSpecializationDAO extends DBTestCase {
 	
 	private IDatabaseConnection conn;
 	private IDataSet dataSet;
 	private H2DAOFactoryImpl daoFactory;
 	private static final String CURRENT_SEPARATOR = File.separator;
 	private static final String XML_PATH = System.getProperty("user.dir") + CURRENT_SEPARATOR + "src" + CURRENT_SEPARATOR + 
-			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "customer.xml";
+			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "worker_spec.xml";
 	
-	public TestCustomerDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
+	public TestWorkerSpecializationDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
 		super(name);
 		Class.forName("org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
@@ -54,7 +52,7 @@ public class TestCustomerDAO extends DBTestCase {
         conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());
         daoFactory = new H2DAOFactoryImpl();
 		QueryDataSet partialDataSet = new QueryDataSet(conn);
-        partialDataSet.addTable("CUSTOMER", "SELECT * FROM sqllab.customer");
+		partialDataSet.addTable("WORKER_SPECIALIZATION", "SELECT * FROM sqllab.worker_specialization");
         dataSet = partialDataSet;
 	}
 	
@@ -77,36 +75,35 @@ public class TestCustomerDAO extends DBTestCase {
 		return ds;
 	}
 	
-	public void testCustomerDAOAddsEntity() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		Customer tCustomer = customerDAO.create();
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
-		Assert.assertEquals(tCustomer.getFirstName(), dbTable.getValue(dbTable.getRowCount() - 1, "first_name"));
-		Assert.assertEquals(tCustomer.getLastName(), dbTable.getValue(dbTable.getRowCount() - 1, "last_name"));
-		Assert.assertEquals(tCustomer.getPhone(), dbTable.getValue(dbTable.getRowCount() - 1, "phone"));
+	public void testWorkerSpecDAOAddsEntity() throws DataSetException, Exception {
+		WorkerSpecializationDAOImpl workerSpecDAO = (WorkerSpecializationDAOImpl) daoFactory.getDao(conn.getConnection(), WorkerSpecialization.class);
+		WorkerSpecialization tWorkerSpec = workerSpecDAO.create();
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"WORKER_SPECIALIZATION"});
+		ITable dbTable = dbSet.getTable("WORKER_SPECIALIZATION");
+		Assert.assertEquals(tWorkerSpec.getId(), dbTable.getValue(dbTable.getRowCount() - 1, "specialization_id"));
+		Assert.assertEquals(tWorkerSpec.getSpecName(), dbTable.getValue(dbTable.getRowCount() - 1, "specialization_name"));
 	}
 	
-	public void testCustomerDAODeletesEntity() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		Customer tCustomer = customerDAO.create();
-		customerDAO.delete(tCustomer);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
+	public void testWorkerSpecDAODeletesEntity() throws DataSetException, Exception {
+		WorkerSpecializationDAOImpl workerSpecDAO = (WorkerSpecializationDAOImpl) daoFactory.getDao(conn.getConnection(), WorkerSpecialization.class);
+		WorkerSpecialization tWorkerSpec = workerSpecDAO.create();
+		workerSpecDAO.delete(tWorkerSpec);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"WORKER_SPECIALIZATION"});
+		ITable dbTable = dbSet.getTable("WORKER_SPECIALIZATION");
 		IDataSet xmlSet = getDataSet();
-		ITable xmlTable = xmlSet.getTable("CUSTOMER");
+		ITable xmlTable = xmlSet.getTable("WORKER_SPECIALIZATION");
 		Assertion.assertEquals(xmlTable, dbTable);
 	}
 	
-	public void testCustomerDAOUpdatesEntity() throws Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		List<Customer> customerList = customerDAO.getAll();
-		Customer tCustomer = customerList.get(customerList.size() - 1);
-		tCustomer.setPhone("No Phone");
-		customerDAO.update(tCustomer);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
-		Assert.assertEquals(tCustomer.getPhone(), dbTable.getValue(dbTable.getRowCount() - 1, "phone"));
+	public void testWorkerSpecDAOUpdatesEntity() throws Exception {
+		WorkerSpecializationDAOImpl workerSpecDAO = (WorkerSpecializationDAOImpl) daoFactory.getDao(conn.getConnection(), WorkerSpecialization.class);
+		List<WorkerSpecialization> workerSpecList = workerSpecDAO.getAll();
+		WorkerSpecialization tWorkerSpec = workerSpecList.get(workerSpecList.size() - 1);
+		tWorkerSpec.setSpecName("No Spec Name");
+		workerSpecDAO.update(tWorkerSpec);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"WORKER_SPECIALIZATION"});
+		ITable dbTable = dbSet.getTable("WORKER_SPECIALIZATION");
+		Assert.assertEquals(tWorkerSpec.getSpecName(), dbTable.getValue(dbTable.getRowCount() - 1, "specialization_name"));
 	}
 	
 	protected DatabaseOperation getTearDownOperation() throws Exception {
@@ -116,13 +113,4 @@ public class TestCustomerDAO extends DBTestCase {
 	protected DatabaseOperation getSetUpOperation() throws Exception {
 		return DatabaseOperation.REFRESH;
 	}
-	
-	@AfterClass
-    public static void tearDownClass() {
-		File f = new File(XML_PATH);
-		if (f.exists()) {
-			boolean temp = f.delete();
-			boolean temp2 = f.canRead();
-		}
-    }
 }

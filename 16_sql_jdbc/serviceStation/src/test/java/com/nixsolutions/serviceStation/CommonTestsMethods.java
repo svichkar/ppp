@@ -68,10 +68,10 @@ public class CommonTestsMethods {
 			filePath = "src/test/resources/dataset.xml";
 		} else {
 			partialDataSet.addTable(tableName, "select * from sqllab." + tableName);
-			filePath = "src/test/resources/" + tableName + ".xml";
+			filePath = "src/test/resources/car/" + tableName + ".xml";
 		}
 		FlatXmlDataSet.write(partialDataSet, new FileOutputStream(filePath));
-		logger.info("all tables were migrated to  src/test/resources/dataset.xml");
+		logger.info("all tables were migrated to  src/test/resources/car/dataset.xml");
 
 	}
 

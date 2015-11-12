@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <customer CUSTOMER_ID="1" FIRST_NAME="IVAN" LAST_NAME="IVANOV" PHONE="1-23-3455-5435"/>
+  <customer CUSTOMER_ID="2" FIRST_NAME="Petr" LAST_NAME="Petrov" PHONE="23-3455-5435"/>
+  <customer CUSTOMER_ID="3" FIRST_NAME="Fedor" LAST_NAME="Fedorov" PHONE="1-23-3454735863"/>
+  <customer CUSTOMER_ID="4" FIRST_NAME="Alex" LAST_NAME="Alkov" PHONE="827382755-5435"/>
+</dataset>

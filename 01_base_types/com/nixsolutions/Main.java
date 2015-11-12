@@ -51,11 +51,14 @@ public class Main {
 		System.out.println();
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
 		String value = "";
 		System.out.print("Please enter a float number: ");
 		value = br.readLine();
-		NumberConverter.numberConverter(value);
+		if (value.contains("e") || value.contains("E")) {
+			System.out.printf("Without exponent: %f\n", Double.valueOf(value));
+		} else {
+			System.out.printf("With exponent: %E\n", Double.valueOf(value));
+		}
 
 	}
 }

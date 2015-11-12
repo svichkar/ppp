@@ -3,6 +3,7 @@ package com.nixsolutions.sql_jdbc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,9 +26,9 @@ import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Assert;
 
-import entities.Customer;
-import h2.CustomerDAOImpl;
+import entities.OrderPart;
 import h2.H2DAOFactoryImpl;
+import h2.OrderPartDAOImpl;
 
 public class TestOrderPartDAO extends DBTestCase {
 	
@@ -75,36 +76,38 @@ public class TestOrderPartDAO extends DBTestCase {
 		return ds;
 	}
 	
-	public void testCustomerDAOAddsEntity() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		Customer tCustomer = customerDAO.create();
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
-		Assert.assertEquals(tCustomer.getFirstName(), dbTable.getValue(dbTable.getRowCount() - 1, "first_name"));
-		Assert.assertEquals(tCustomer.getLastName(), dbTable.getValue(dbTable.getRowCount() - 1, "last_name"));
-		Assert.assertEquals(tCustomer.getPhone(), dbTable.getValue(dbTable.getRowCount() - 1, "phone"));
+	public void testOrderPartDAOAddsEntity() throws DataSetException, Exception {
+		OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn.getConnection(), OrderPart.class);
+		OrderPart tOrderPart = new OrderPart(1, 1, 0);
+		tOrderPart = orderPartDAO.createFrom(tOrderPart);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_PART"});
+		ITable dbTable = dbSet.getTable("ORDER_PART");
+		Assert.assertEquals(tOrderPart.getId(), dbTable.getValue(dbTable.getRowCount() - 1, "order_id"));
+		Assert.assertEquals(tOrderPart.getPartId(), dbTable.getValue(dbTable.getRowCount() - 1, "part_id"));
+		Assert.assertEquals(BigInteger.valueOf((long) tOrderPart.getUsedAmount()), dbTable.getValue(dbTable.getRowCount() - 1, "used_amount"));
 	}
 	
 	public void testCustomerDAODeletesEntity() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		Customer tCustomer = customerDAO.create();
-		customerDAO.delete(tCustomer);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
+		OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn.getConnection(), OrderPart.class);
+		OrderPart tOrderPart = new OrderPart(1, 1, 10);
+		tOrderPart = orderPartDAO.createFrom(tOrderPart);
+		orderPartDAO.delete(tOrderPart);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_PART"});
+		ITable dbTable = dbSet.getTable("ORDER_PART");
 		IDataSet xmlSet = getDataSet();
-		ITable xmlTable = xmlSet.getTable("CUSTOMER");
+		ITable xmlTable = xmlSet.getTable("ORDER_PART");
 		Assertion.assertEquals(xmlTable, dbTable);
 	}
 	
 	public void testCustomerDAOUpdatesEntity() throws Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) daoFactory.getDao(conn.getConnection(), Customer.class);
-		List<Customer> customerList = customerDAO.getAll();
-		Customer tCustomer = customerList.get(customerList.size() - 1);
-		tCustomer.setPhone("No Phone");
-		customerDAO.update(tCustomer);
-		IDataSet dbSet = getConnection().createDataSet(new String[] {"CUSTOMER"});
-		ITable dbTable = dbSet.getTable("CUSTOMER");
-		Assert.assertEquals(tCustomer.getPhone(), dbTable.getValue(dbTable.getRowCount() - 1, "phone"));
+		OrderPartDAOImpl orderPartDAO = (OrderPartDAOImpl) daoFactory.getDao(conn.getConnection(), OrderPart.class);
+		List<OrderPart> orderPartList = orderPartDAO.getAll();
+		OrderPart tOrderPart = orderPartList.get(orderPartList.size() - 1);
+		tOrderPart.setUsedAmount(30);
+		orderPartDAO.update(tOrderPart);
+		IDataSet dbSet = getConnection().createDataSet(new String[] {"ORDER_PART"});
+		ITable dbTable = dbSet.getTable("ORDER_PART");
+		Assert.assertEquals(BigInteger.valueOf((long) tOrderPart.getUsedAmount()), dbTable.getValue(dbTable.getRowCount() - 1, "used_amount"));
 	}
 	
 	protected DatabaseOperation getTearDownOperation() throws Exception {

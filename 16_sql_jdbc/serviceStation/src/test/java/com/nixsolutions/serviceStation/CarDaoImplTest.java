@@ -25,6 +25,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.dataset.xml.FlatXmlProducer;
 import org.dbunit.dataset.xml.FlatXmlWriter;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,6 +66,11 @@ public class CarDaoImplTest {
 		tester.setDataSet(beforeData);
 		// tester.onSetup();
 		factory = new ServiceFactory();
+	}
+
+	@After
+	public void deleteCarFile() {
+		new File("src/test/resources/car.xml").delete();
 	}
 
 	@Test
@@ -117,8 +123,8 @@ public class CarDaoImplTest {
 		ITable actualTable = databaseDataSet.getTable("car");
 
 		// Load expected data from an XML dataset
-		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder().setMetaDataSet(beforeData);
-//		flatXmlProducer.setColumnSensing(false);
+		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder();
+		flatXmlProducer.setColumnSensing(false);
 		IDataSet expectedDataSet = flatXmlProducer.build(new File("src/test/resources/car_newCar.xml"));
 		ITable expectedTable = expectedDataSet.getTable("car");
 

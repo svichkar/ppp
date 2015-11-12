@@ -47,8 +47,8 @@ fillingDB();
 			stmt.addBatch("INSERT INTO sqllab.customer (first_name, last_name, phone) "
 					+ "VALUES('Alex','Alkov','827382755-5435');");
 			/* sqllab.car */
-			stmt.addBatch("INSERT INTO sqllab.car (car_model, vin_number, customer_id ) "			
-			+ "VALUES('AUDI','1234567890qwertyu',1);");
+			stmt.addBatch("INSERT INTO sqllab.car (car_model, vin_number, car_description, customer_id ) "			
+			+ "VALUES('AUDI','1234567890qwertyu', 'forever first auto for tests',1);");
 			stmt.addBatch("INSERT INTO sqllab.car (car_model, vin_number, customer_id ) " 
 			+ "VALUES('BMW','67123rtyu45890qwe',2);");
 			stmt.addBatch(

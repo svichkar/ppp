@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <car CAR_ID="1" CAR_MODEL="createCarTable" VIN_NUMBER="12345678901234567" CAR_DESCRIPTION="createCarTable" CUSTOMER_ID="1"/>
+</dataset>

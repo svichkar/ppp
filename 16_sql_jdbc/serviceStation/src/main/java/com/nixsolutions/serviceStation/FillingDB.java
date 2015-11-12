@@ -26,6 +26,10 @@ public class FillingDB {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
+fillingDB();
+}
+
+	public static void fillingDB() throws SQLException {
 		Properties properties = DbConnector.getProperties();
 
 		Connection conn = null;
@@ -43,10 +47,12 @@ public class FillingDB {
 			stmt.addBatch("INSERT INTO sqllab.customer (first_name, last_name, phone) "
 					+ "VALUES('Alex','Alkov','827382755-5435');");
 			/* sqllab.car */
+			stmt.addBatch("INSERT INTO sqllab.car (car_model, vin_number, customer_id ) "			
+			+ "VALUES('AUDI','1234567890qwertyu',1);");
+			stmt.addBatch("INSERT INTO sqllab.car (car_model, vin_number, customer_id ) " 
+			+ "VALUES('BMW','67123rtyu45890qwe',2);");
 			stmt.addBatch(
-					"INSERT INTO sqllab.car (car_model, vin_number, customer_id ) " + "VALUES('AUDI','1234567890qwertyu',1);");
-			stmt.addBatch(
-					"INSERT INTO sqllab.car (car_model, vin_number, customer_id ) " + "VALUES('BMW','6712345890qwertyu',2);");
+					"INSERT INTO sqllab.car (car_model, vin_number, car_description, customer_id ) " + "VALUES('BMW','6712345890qwertyu', 'Some description',2);");
 			stmt.addBatch(
 					"INSERT INTO sqllab.car (car_model, vin_number, customer_id ) " + "VALUES('OPEL','5890qw671234ertyu',2);");
 			stmt.addBatch("INSERT INTO sqllab.car (car_model, vin_number, customer_id ) "
@@ -109,14 +115,14 @@ public class FillingDB {
 					+ "VALUES('change brake pads',CURRENT_TIMESTAMP(),'2','2');");
 			stmt.addBatch(
 					"INSERT INTO sqllab.order_in_work (order_description,datetime_start,datetime_finish  ,order_status_id ,car_ID  ) "
-							+ "VALUES('change brake pads','2015-11-05 09:49:49.71',CURRENT_TIMESTAMP(),'3','3');");
+							+ "VALUES('change brake pads','2015-11-05 09:49:49.71',CURRENT_TIMESTAMP(),'3','5');");
 			stmt.addBatch(
 					"INSERT INTO sqllab.order_in_work (order_description,datetime_start,datetime_finish  ,order_status_id ,car_ID  ) "
 							+ "VALUES('change tyaga','2015-11-05 09:49:49.71',CURRENT_TIMESTAMP(),'3','4');");
 
-			stmt.addBatch("INSERT INTO sqllab.part_order (order_id ,part_id,amount  ) VALUES(1,3,2);");
+			stmt.addBatch("INSERT INTO sqllab.part_order (order_id ,part_id,amount  ) VALUES('1','3','2');");
 			stmt.addBatch("INSERT INTO sqllab.part_order (order_id ,part_id,amount  ) VALUES('2','8','4');");
-			stmt.addBatch("INSERT INTO sqllab.part_order (order_id ,part_id,amount  ) VALUES('3','9','4');");
+			stmt.addBatch("INSERT INTO sqllab.part_order (order_id ,part_id,amount  ) VALUES('2','3','2');");
 			stmt.addBatch("INSERT INTO sqllab.part_order (order_id ,part_id,amount  ) VALUES('4','10','1');");
 
 			stmt.executeBatch();
@@ -127,6 +133,6 @@ public class FillingDB {
 		}finally {
 			conn.close();
 		}
-	}
 
+	}
 }

@@ -47,7 +47,7 @@ public class DbConnector {
 		InputStream input = null;
 		try {
 			logger.debug("Try to read \"h2db.properties\" file");
-			input = new FileInputStream("h2db.properties");
+			input = new FileInputStream("src/main/resources/h2db.properties");
 
 			// load a properties file
 			prop.load(input);

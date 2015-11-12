@@ -15,6 +15,14 @@ public class Car {
 		this.customer_id = customer_id;
 	}
 
+	public Car(String car_model, String vin_number, String car_description, Integer customer_id) {
+		this.car_id = car_id;
+		this.car_model = car_model;
+		this.vin_number = vin_number;
+		this.car_description = car_description;
+		this.customer_id = customer_id;
+	}
+
 	public Integer getCar_id() {
 		return car_id;
 	}

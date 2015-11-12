@@ -32,7 +32,7 @@ public class DaoInWork {
 		}
 		CarDaoImpl carDaoImpl = new CarDaoImpl(connector.getConnection());
 		List<Car> cars = carDaoImpl.getAllCar();
-		carDaoImpl.createNewCar("aasdasd", "21341234sdafas", null, "IVANOV","IVAN");
+		carDaoImpl.createNewCar("aasdasd", "21341234sdafas", null, 1);
 		Car car = carDaoImpl.getCarByVINNumber("21341234sdafas");
 		cars = carDaoImpl.getAllCar();
 	}

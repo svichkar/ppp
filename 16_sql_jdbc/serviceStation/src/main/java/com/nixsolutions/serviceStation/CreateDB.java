@@ -23,9 +23,13 @@ public class CreateDB {
 
 	/**
 	 * @param args
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws SQLException {
+		createDB();
+	}
+
+	public static void createDB() throws SQLException {
 		Properties properties = DbConnector.getProperties();
 
 		Connection conn = null;
@@ -38,7 +42,8 @@ public class CreateDB {
 					+ "specialization_name VARCHAR(256) NOT NULL);");
 			stmt.addBatch("CREATE TABLE sqllab.worker_status( " + "worker_status_id INT IDENTITY, "
 					+ "worker_status_name VARCHAR(128) NOT NULL); ");
-			stmt.addBatch("CREATE TABLE sqllab.worker( " + "worker_id INT IDENTITY, " + "specialization_id INT NOT NULL,"
+			stmt.addBatch("CREATE TABLE sqllab.worker( " + "worker_id INT IDENTITY, "
+					+ "specialization_id INT NOT NULL,"
 					+ "FOREIGN KEY (specialization_id) REFERENCES  worker_specialization(specialization_id),"
 					+ "first_name VARCHAR(128) NOT NULL," + "last_name VARCHAR(128) NOT NULL, "
 					+ "worker_status_id INT NOT NULL,FOREIGN KEY (worker_status_id) REFERENCES  worker_status(worker_status_id),);");
@@ -49,15 +54,18 @@ public class CreateDB {
 					+ "order_status_name VARCHAR(128) NOT NULL);");
 			stmt.addBatch("CREATE TABLE sqllab.part( " + "part_id INT IDENTITY, " + "part_name VARCHAR(128) NOT NULL, "
 					+ "vendor VARCHAR(128) NOT NULL, " + "amount TINYINT);");
-			stmt.addBatch("CREATE TABLE sqllab.part_order( " + "order_id INT NOT NULL,"
-					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), " + "part_id INT NOT NULL,"
-					+ "FOREIGN KEY (part_id) REFERENCES  part(part_id), amount TINYINT);");
+			stmt.addBatch("CREATE TABLE sqllab.part_order( " 
+					+ "order_id INT NOT NULL,"
+					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), " 
+					+ "part_id INT NOT NULL,"
+					+ "FOREIGN KEY (part_id) REFERENCES  part(part_id), "
+					+ "amount TINYINT);");
 			// create sqllab.car table
 			stmt.addBatch("CREATE TABLE sqllab.car( " + "car_id INT IDENTITY, " + "car_model VARCHAR(128) NOT NULL, "
 					+ "vin_number VARCHAR(17) NOT NULL UNIQUE, " + "car_description VARCHAR(256));");
-			stmt.addBatch(
-					"CREATE TABLE sqllab.customer( " + "customer_id INT IDENTITY, " + "first_name VARCHAR(128) NOT NULL, "
-							+ "last_name VARCHAR(128) NOT NULL, " + "phone VARCHAR(32));");
+			stmt.addBatch("CREATE TABLE sqllab.customer( " + "customer_id INT IDENTITY, "
+					+ "first_name VARCHAR(128) NOT NULL, " + "last_name VARCHAR(128) NOT NULL, "
+					+ "phone VARCHAR(32));");
 			stmt.addBatch("CREATE TABLE sqllab.order_worker ( " + "order_id INT NOT NULL,"
 					+ "FOREIGN KEY (order_id) REFERENCES  order_in_work(order_id), " + "worker_id INT IDENTITY, "
 					+ "FOREIGN KEY (worker_id) REFERENCES  sqllab.worker (worker_id), "
@@ -67,9 +75,11 @@ public class CreateDB {
 			stmt.addBatch("ALTER TABLE sqllab.order_in_work "
 					+ "ADD FOREIGN KEY(order_status_id ) REFERENCES sqllab.order_status (order_status_id );");
 			stmt.addBatch("ALTER TABLE sqllab.order_in_work " + "ADD COLUMN  car_id INT NOT NULL;");
-			stmt.addBatch("ALTER TABLE sqllab.order_in_work " + "ADD FOREIGN KEY(car_id ) REFERENCES sqllab.car (car_id );");
+			stmt.addBatch(
+					"ALTER TABLE sqllab.order_in_work " + "ADD FOREIGN KEY(car_id ) REFERENCES sqllab.car (car_id );");
 			stmt.addBatch("ALTER TABLE sqllab.car " + "ADD COLUMN customer_id INT NOT NULL;");
-			stmt.addBatch("ALTER TABLE sqllab.car " + "ADD FOREIGN KEY(customer_id ) REFERENCES sqllab.customer (customer_id );");
+			stmt.addBatch("ALTER TABLE sqllab.car "
+					+ "ADD FOREIGN KEY(customer_id ) REFERENCES sqllab.customer (customer_id );");
 
 			stmt.addBatch("CREATE INDEX order_idx ON sqllab.order_in_work(order_id);");
 			stmt.addBatch("CREATE INDEX vendorx ON sqllab.part(vendor);");
@@ -87,5 +97,4 @@ public class CreateDB {
 		}
 
 	}
-
 }

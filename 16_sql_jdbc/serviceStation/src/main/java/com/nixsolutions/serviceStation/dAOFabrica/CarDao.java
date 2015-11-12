@@ -12,7 +12,7 @@ import com.nixsolutions.serviceStation.dbObjects.Car;
  * @author mixeyes
  *
  */
-public interface CarDao extends DBTables{
+public interface CarDao extends DBTables {
 	public List<Car> getAllCar();
 
 	/*
@@ -22,7 +22,7 @@ public interface CarDao extends DBTables{
 	 * com.nixsolutions.serviceStation.dAOFabrica.CarDao#getCarByVINNumber(java.
 	 * lang.String)
 	 */
-public Car getCarByVINNumber(String vinNumber);
+	public Car getCarByVINNumber(String vinNumber);
 
 	/*
 	 * get sqllab.car by sqllab.customer full name or sqllab.customer last name
@@ -34,9 +34,9 @@ public Car getCarByVINNumber(String vinNumber);
 	public List<Car> getCarsByCustomerName(String customerName);
 
 	/**
-	 * for user who have one sqllab.car 
+	 * for user who have one sqllab.car
 	 */
-	public void updateCarByCustomerName(String model, String car_description, Integer customer_id);
+	public void updateCarByVinNumber(String model, String car_description, String vin_number, Integer customer_id);
 
 	/*
 	 * create new sqllab.car for existing customer
@@ -45,7 +45,7 @@ public Car getCarByVINNumber(String vinNumber);
 	 * com.nixsolutions.serviceStation.dAOFabrica.CarDao#createNewCar(java.lang.
 	 * String, java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public void createNewCar(String model, String vin_number, String description, String last_name, String first_name);
+	public void createNewCar(String model, String vin_number, String description, Integer customer_id);
 
 	/*
 	 * delete Car By VIN-Number

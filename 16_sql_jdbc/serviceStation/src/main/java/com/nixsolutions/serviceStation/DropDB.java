@@ -23,9 +23,14 @@ public class DropDB {
 
 	/**
 	 * @param args
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws SQLException {
+		dropDB();
+
+	}
+
+	public static void dropDB() throws SQLException {
 		Properties properties = DbConnector.getProperties();
 
 		Connection conn = null;
@@ -33,10 +38,16 @@ public class DropDB {
 			conn = DriverManager.getConnection(properties.getProperty("h2URL"), properties.getProperty("h2Login"),
 					properties.getProperty("h2Password"));
 			logger.trace(
-					//"Send query \"DROP TABLE sqllab.car ,customer ,order_in_work ,part ,part_order ,status ,worker ,worker_specialization ,worker_status ,order_status ,order_worker;\"");
-"Send query \"DROP SCHEMA sqllab\"");
+					// "Send query \"DROP TABLE sqllab.car ,customer
+					// ,order_in_work ,part ,part_order ,status ,worker
+					// ,worker_specialization ,worker_status ,order_status
+					// ,order_worker;\"");
+					"Send query \"DROP SCHEMA sqllab\"");
 			PreparedStatement stmt = conn.prepareStatement(
-					//"DROP TABLE worker_specialization, worker_status, sqllab.worker , order_in_work, order_status, part, part_order, sqllab.car , customer, sqllab.order_worker ;");
+					// "DROP TABLE worker_specialization, worker_status,
+					// sqllab.worker , order_in_work, order_status, part,
+					// part_order, sqllab.car , customer, sqllab.order_worker
+					// ;");
 					"DROP SCHEMA sqllab");
 			int set = stmt.executeUpdate();
 			if (set == 0)
@@ -47,10 +58,9 @@ public class DropDB {
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
-		}finally {
+		} finally {
 			conn.close();
 		}
-		
 	}
 
 }

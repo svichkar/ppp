@@ -13,6 +13,7 @@ import com.nixsolutions.serviceStation.dbObjects.Worker;
  * @author Михаил
  *
  */
+@SuppressWarnings("unused")
 public interface WorkerDao extends DBTables {
 	/*
 	 * get All Workers
@@ -26,45 +27,45 @@ public interface WorkerDao extends DBTables {
 	 * 
 	 * @param specialization
 	 *            specialization name
-	 * @return list of the workers with specialization
+	 * @return list of the sqllab.worker s with specialization
 	 */
 	public List<Worker> getAllWorkersBySpecialization(String specialization);
 
 	/**
-	 * get worker
+	 * get sqllab.worker 
 	 * 
 	 * @param last_name
-	 *            worker last name
+	 *            sqllab.worker  last name
 	 * @param first_name
-	 *            worker first name
-	 * @return worker object
+	 *            sqllab.worker  first name
+	 * @return sqllab.worker  object
 	 */
 	public Worker getWorker(String last_name, String first_name);
 
 	/**
-	 * get worker status
+	 * get sqllab.worker  status
 	 * 
 	 * @param last_name
-	 *            worker last name
+	 *            sqllab.worker  last name
 	 * @param first_name
-	 *            worker first name
+	 *            sqllab.worker  first name
 	 * @return status name
 	 */
 	public String getWorkerStatus(String lastName, String first_name);
 
 	/**
-	 * create new worker in db
+	 * create new sqllab.worker  in db
 	 */
-	public void createWorker(Worker worker);
+	public void createWorker(Worker worker );
 
 	/**
-	 * delete worker
+	 * delete sqllab.worker 
 	 * 
 	 * @param last_name
-	 *            worker last name
+	 *            sqllab.worker  last name
 	 * 
 	 * @param first_name
-	 *            worker first name
+	 *            sqllab.worker  first name
 	 */
 	public void deleteWorker(String last_name, String first_name);
 

@@ -10,11 +10,11 @@
 		</File>
 	</Appenders>
 	<Loggers>
-		<Logger name="serviceStation" level="trace">
-			<AppenderRef ref="Console" />
-		</Logger>
-		<Root level="error" additivity="false">
+		<Logger name="Only_errors" level="warn">
 			<AppenderRef ref="File-log" />
+		</Logger>
+		<Root level="All" additivity="false">
+			<AppenderRef ref="Console" />
 		</Root>
 	</Loggers>
 </Configuration>

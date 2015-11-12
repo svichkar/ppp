@@ -11,12 +11,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.serviceStation.dAOFabrica.Order_statusDao;
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
 import com.nixsolutions.serviceStation.dbObjects.Order_status;
 
 public class Order_statusDaoImpl implements Order_statusDao {
 
-	private final static Logger logger = LogManager.getLogger(Order_statusDaoImpl.class);
+	private final static Logger logger = LogManager.getLogger();
 	private Connection dbConnector;
 	
 	public Order_statusDaoImpl(Connection connection) {
@@ -26,10 +25,10 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void createNewStatus(String status) {
 		try {
 			logger.debug("Create DB connector");
-			logger.trace("Send query \"INSERT INTO status (status_name)VALUES('?');\"");
+			logger.trace("Send query \"INSERT INTO status (status_name)VALUES(?);\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("INSERT INTO status (status_name)VALUES('?');");
+					.prepareStatement("INSERT INTO status (status_name)VALUES(?);");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
 			if (set == 0)
@@ -63,10 +62,10 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void deleteStatusByName(String status) {
 		try {
 			logger.debug("Create DB connector");
-			logger.trace("Send query \"DELETE FROM status WHERE status_name='?';\"");
+			logger.trace("Send query \"DELETE FROM status WHERE status_name=?;\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("DELETE FROM status WHERE status_name='?';");
+					.prepareStatement("DELETE FROM status WHERE status_name=?;");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
 			if (set == 1)

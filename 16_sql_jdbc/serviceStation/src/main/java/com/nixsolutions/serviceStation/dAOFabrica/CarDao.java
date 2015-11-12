@@ -25,7 +25,7 @@ public interface CarDao extends DBTables{
 public Car getCarByVINNumber(String vinNumber);
 
 	/*
-	 * get car by customer full name or customer last name
+	 * get sqllab.car by sqllab.customer full name or sqllab.customer last name
 	 * 
 	 * @see
 	 * com.nixsolutions.serviceStation.dAOFabrica.CarDao#getCarsByCustomerName(
@@ -34,18 +34,18 @@ public Car getCarByVINNumber(String vinNumber);
 	public List<Car> getCarsByCustomerName(String customerName);
 
 	/**
-	 * for user who have one car
+	 * for user who have one sqllab.car 
 	 */
-	public void updateCarByCustomerName(String model, String vinNumber, String description, String customerName);
+	public void updateCarByCustomerName(String model, String car_description, Integer customer_id);
 
 	/*
-	 * create new car for existing customer
+	 * create new sqllab.car for existing customer
 	 * 
 	 * @see
 	 * com.nixsolutions.serviceStation.dAOFabrica.CarDao#createNewCar(java.lang.
 	 * String, java.lang.String, java.lang.String, java.lang.String)
 	 */
-	public void createNewCar(String model, String vin_number, String description, String proprietor);
+	public void createNewCar(String model, String vin_number, String description, String last_name, String first_name);
 
 	/*
 	 * delete Car By VIN-Number

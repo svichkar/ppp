@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <sqllab.car CAR_ID="1" CAR_MODEL="AUDI" VIN_NUMBER="1234567890qwertyu" CAR_DESCRIPTION="qwerty" CUSTOMER_ID="1"/>
+  <sqllab.car CAR_ID="2" CAR_MODEL="BMW" VIN_NUMBER="6712345890qwertyu" CUSTOMER_ID="2"/>
+  <sqllab.car CAR_ID="3" CAR_MODEL="OPEL" VIN_NUMBER="5890qw671234ertyu" CUSTOMER_ID="2"/>
+  <sqllab.car CAR_ID="4" CAR_MODEL="&#1042;&#1040;&#1047;-2102" VIN_NUMBER="5w671890q234ertyu" CUSTOMER_ID="3"/>
+  <sqllab.car CAR_ID="5" CAR_MODEL="DODGE CHARGER" VIN_NUMBER="5w67184ert90q23yu" CUSTOMER_ID="4"/>
+  <sqllab.car CAR_ID="6" CAR_MODEL="aasdasd" VIN_NUMBER="21341234sdafas" CUSTOMER_ID="1"/>
+  <sqllab.customer CUSTOMER_ID="1" FIRST_NAME="IVAN" LAST_NAME="IVANOV" PHONE="1-23-3455-5435"/>
+  <sqllab.customer CUSTOMER_ID="2" FIRST_NAME="Petr" LAST_NAME="Petrov" PHONE="23-3455-5435"/>
+  <sqllab.customer CUSTOMER_ID="3" FIRST_NAME="Fedor" LAST_NAME="Fedorov" PHONE="1-23-3454735863"/>
+  <sqllab.customer CUSTOMER_ID="4" FIRST_NAME="Alex" LAST_NAME="Alkov" PHONE="827382755-5435"/>
+  <sqllab.worker_specialization SPECIALIZATION_ID="1" SPECIALIZATION_NAME="mechanik low"/>
+  <sqllab.worker_specialization SPECIALIZATION_ID="2" SPECIALIZATION_NAME="mechanik high"/>
+  <sqllab.worker_specialization SPECIALIZATION_ID="3" SPECIALIZATION_NAME="electric"/>
+  <sqllab.worker_specialization SPECIALIZATION_ID="4" SPECIALIZATION_NAME="diagnostician"/>
+  <sqllab.worker_specialization SPECIALIZATION_ID="5" SPECIALIZATION_NAME="engine"/>
+  <sqllab.worker_status WORKER_STATUS_ID="1" WORKER_STATUS_NAME="busy"/>
+  <sqllab.worker_status WORKER_STATUS_ID="2" WORKER_STATUS_NAME="free"/>
+  <sqllab.worker_status WORKER_STATUS_ID="3" WORKER_STATUS_NAME="ill"/>
+  <sqllab.worker_status WORKER_STATUS_ID="4" WORKER_STATUS_NAME="vacation"/>
+  <sqllab.worker WORKER_ID="1" SPECIALIZATION_ID="1" FIRST_NAME="Ivan" LAST_NAME="Ivanov" WORKER_STATUS_ID="1"/>
+  <sqllab.worker WORKER_ID="2" SPECIALIZATION_ID="1" FIRST_NAME="Petr" LAST_NAME="Ivanov" WORKER_STATUS_ID="2"/>
+  <sqllab.worker WORKER_ID="3" SPECIALIZATION_ID="2" FIRST_NAME="Fedya" LAST_NAME="Ivanov" WORKER_STATUS_ID="3"/>
+  <sqllab.worker WORKER_ID="4" SPECIALIZATION_ID="3" FIRST_NAME="Anton" LAST_NAME="Ivanov" WORKER_STATUS_ID="2"/>
+  <sqllab.worker WORKER_ID="5" SPECIALIZATION_ID="4" FIRST_NAME="Aleksey" LAST_NAME="Ivanov" WORKER_STATUS_ID="4"/>
+  <sqllab.worker WORKER_ID="6" SPECIALIZATION_ID="5" FIRST_NAME="Evgeniy" LAST_NAME="Ivanov" WORKER_STATUS_ID="1"/>
+  <sqllab.order_in_work ORDER_ID="1" ORDER_DESCRIPTION="change lamp" DATETIME_START="2015-11-11 12:25:26.546" ORDER_STATUS_ID="1" CAR_ID="1"/>
+  <sqllab.order_in_work ORDER_ID="2" ORDER_DESCRIPTION="change brake pads" DATETIME_START="2015-11-11 12:25:26.547" ORDER_STATUS_ID="2" CAR_ID="2"/>
+  <sqllab.order_in_work ORDER_ID="3" ORDER_DESCRIPTION="change brake pads" DATETIME_START="2015-11-05 09:49:49.71" DATETIME_FINISH="2015-11-11 12:25:26.548" ORDER_STATUS_ID="3" CAR_ID="3"/>
+  <sqllab.order_in_work ORDER_ID="4" ORDER_DESCRIPTION="change tyaga" DATETIME_START="2015-11-05 09:49:49.71" DATETIME_FINISH="2015-11-11 12:25:26.548" ORDER_STATUS_ID="3" CAR_ID="4"/>
+  <sqllab.order_status ORDER_STATUS_ID="1" ORDER_STATUS_NAME="waiting"/>
+  <sqllab.order_status ORDER_STATUS_ID="2" ORDER_STATUS_NAME="in work"/>
+  <sqllab.order_status ORDER_STATUS_ID="3" ORDER_STATUS_NAME="ready"/>
+  <sqllab.part PART_ID="1" PART_NAME="tyaga &#1042;&#1040;&#1047;" VENDOR="81-56fa354fa" AMOUNT="6"/>
+  <sqllab.part PART_ID="2" PART_NAME="brake pads OPEL" VENDOR="5634-fafa815" AMOUNT="12"/>
+  <sqllab.part PART_ID="3" PART_NAME="brake pads BMW" VENDOR="54-fafa81563" AMOUNT="12"/>
+  <sqllab.part PART_ID="4" PART_NAME="tyaga BMW" VENDOR="8156fa354-fa" AMOUNT="6"/>
+  <sqllab.part PART_ID="5" PART_NAME="shrovaya BMW" VENDOR="8156354-fafa" AMOUNT="5"/>
+  <sqllab.part PART_ID="6" PART_NAME="brake pads AUDI" VENDOR="54-fafa81563" AMOUNT="12"/>
+  <sqllab.part PART_ID="7" PART_NAME="tyaga AUDI" VENDOR="8156fa354-fa" AMOUNT="6"/>
+  <sqllab.part PART_ID="8" PART_NAME="lamp H4 PHILIPS" VENDOR="6354-f815afa" AMOUNT="10"/>
+  <sqllab.part PART_ID="9" PART_NAME="lamp H4 OSRAM" VENDOR="81a56354-faf" AMOUNT="10"/>
+  <sqllab.part PART_ID="10" PART_NAME="shrovaya AUDI" VENDOR="8156354-fafa" AMOUNT="5"/>
+  <sqllab.part_order ORDER_ID="1" PART_ID="3" AMOUNT="2"/>
+  <sqllab.part_order ORDER_ID="2" PART_ID="8" AMOUNT="4"/>
+  <sqllab.part_order ORDER_ID="3" PART_ID="9" AMOUNT="4"/>
+  <sqllab.part_order ORDER_ID="4" PART_ID="10" AMOUNT="1"/>
+  <sqllab.order_worker ORDER_ID="1" WORKER_ID="2" ISCOMPLETED="false"/>
+</dataset>

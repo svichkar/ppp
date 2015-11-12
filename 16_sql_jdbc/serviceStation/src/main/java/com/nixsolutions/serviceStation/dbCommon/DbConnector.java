@@ -7,10 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +19,7 @@ import org.h2.jdbcx.JdbcConnectionPool;
  *
  */
 public class DbConnector {
-	private final static Logger logger = LogManager.getLogger(DbConnector.class);
+	private final static Logger logger = LogManager.getLogger();
 	private JdbcConnectionPool connPool;
 	private Properties properties;
 

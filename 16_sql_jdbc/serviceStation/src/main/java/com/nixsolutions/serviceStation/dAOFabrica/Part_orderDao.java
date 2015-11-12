@@ -22,7 +22,7 @@ public interface Part_orderDao extends DBTables {
 	public List<Part_order> getPartsByOrderId(Integer order_id);
 
 	/**
-	 * set part to order
+	 * set sqllab.part to order
 	 * 
 	 * @param order_id
 	 * @param part_id

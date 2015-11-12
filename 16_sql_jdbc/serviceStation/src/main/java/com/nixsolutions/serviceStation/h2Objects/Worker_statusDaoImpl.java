@@ -14,9 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.serviceStation.dAOFabrica.Worker_statusDao;
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Order_status;
-import com.nixsolutions.serviceStation.dbObjects.Worker;
 import com.nixsolutions.serviceStation.dbObjects.Worker_status;
 
 /**
@@ -24,7 +21,7 @@ import com.nixsolutions.serviceStation.dbObjects.Worker_status;
  *
  */
 public class Worker_statusDaoImpl implements Worker_statusDao {
-	private final static Logger logger = LogManager.getLogger(Order_statusDaoImpl.class);
+	private final static Logger logger = LogManager.getLogger();
 	private Connection dbConnector;
 
 	public Worker_statusDaoImpl(Connection dbConnector) {
@@ -50,9 +47,9 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 							+ "worker_status_name VARCHAR(128) NOT NULL); ");
 			int set = stmt.executeUpdate();
 			if (set == 0)
-				logger.trace("Table worker_status was created");
+				logger.trace("Table sqllab.worker_status was created");
 			else
-				logger.debug("Table worker_status was not created");
+				logger.debug("Table sqllab.worker_status was not created");
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -69,14 +66,14 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			logger.trace("Send query \"DROP TABLE worker_status ;\"");
+			logger.trace("Send query \"DROP TABLE sqllab.worker_status ;\"");
 
-			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE worker_status ;");
+			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE sqllab.worker_status ;");
 			int set = stmt.executeUpdate();
 			if (set == 0)
-				logger.trace(" table worker_status was deleted");
+				logger.trace(" table sqllab.worker_status was deleted");
 			else
-				logger.debug("table worker_status was not deleted");
+				logger.debug("table sqllab.worker_status was not deleted");
 				stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -93,7 +90,7 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 			PreparedStatement stmt = dbConnector.prepareStatement(
 					"SELECT * FROM worker_status;");
 			ResultSet set = stmt.executeQuery();
-			logger.trace("Generate list of the worker_status objects");
+			logger.trace("Generate list of the sqllab.worker_status objects");
 			while (set.next()) {
 				worker_status.add(new Worker_status(set.getInt("worker_status_id"),set.getString("worker_status_name")));
 			}
@@ -109,16 +106,16 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace(
-					"Send query \"INSERT INTO worker_status (worker_status_name)VALUES('?');\"");
+					"Send query \"INSERT INTO sqllab.worker_status (worker_status_name)VALUES(?);\"");
 
 			PreparedStatement stmt = dbConnector.prepareStatement(
-					"INSERT INTO worker_status (worker_status_name)VALUES('?');");
+					"INSERT INTO sqllab.worker_status (worker_status_name)VALUES(?);");
 			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("New worker_status was created");
+				logger.trace("New sqllab.worker_status was created");
 			else
-				logger.debug("New worker_status was not created");
+				logger.debug("New sqllab.worker_status was not created");
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -129,10 +126,10 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	public void deleteStatusByName(String statusName) {
 		try {
 			logger.debug("Create DB connector");
-				logger.trace("Send query \"DELETE FROM worker_status WHERE worker_status_name='?';\"");
+				logger.trace("Send query \"DELETE FROM sqllab.worker_status WHERE worker_status_name=?;\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("DELETE FROM worker_status WHERE worker_status_name='?'");
+					.prepareStatement("DELETE FROM sqllab.worker_status WHERE worker_status_name=?");
 			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
 			if (set == 1)

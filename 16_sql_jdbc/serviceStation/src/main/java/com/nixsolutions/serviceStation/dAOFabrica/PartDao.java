@@ -25,11 +25,11 @@ public interface PartDao extends DBTables {
 	 * get part
 	 * 
 	 * @param partName
-	 *            part name
+	 *            sqllab.part name
 	 * @param vendor
 	 *            vendor
 	 * 
-	 * @return part object
+	 * @return sqllab.part object
 	 */
 	public Part getPart(String partName, String vendor);
 

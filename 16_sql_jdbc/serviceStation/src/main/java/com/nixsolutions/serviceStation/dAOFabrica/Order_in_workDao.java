@@ -3,7 +3,6 @@ package com.nixsolutions.serviceStation.dAOFabrica;
 import java.util.List;
 
 import com.nixsolutions.serviceStation.dbCommon.DBTables;
-import com.nixsolutions.serviceStation.dbObjects.Car;
 import com.nixsolutions.serviceStation.dbObjects.Order_in_work;
 
 public interface Order_in_workDao extends DBTables {
@@ -14,7 +13,7 @@ public interface Order_in_workDao extends DBTables {
 	public List<Order_in_work> getAllOrders();
 
 	/**
-	 * get order by car
+	 * get order by sqllab.car 
 	 * 
 	 * @param vin_number
 	 *            vin_number
@@ -26,9 +25,9 @@ public interface Order_in_workDao extends DBTables {
 	 * get order by customer
 	 * 
 	 * @param last_name
-	 *            customer last_name
+	 *            sqllab.customer last_name
 	 * @param first_name
-	 *            customer first_name *
+	 *            sqllab.customer first_name *
 	 * @return Order_in_work object
 	 */
 	public Order_in_work getOrderInWorkByCustomer(String last_name, String first_name);
@@ -44,12 +43,12 @@ public interface Order_in_workDao extends DBTables {
 	/**
 	 * create new order
 	 * 
-	 * @param car_id
-	 *            car_id
+	 * @param  car_id
+	 *             car_id
 	 * @param description
 	 *            order description
 	 */
-	public void createNewOrder(Integer car_id, String description);
+	public void createNewOrder(Integer  car_id, String description);
 
 	/**
 	 * change order status

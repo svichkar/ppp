@@ -19,7 +19,7 @@ public interface CustomerDao extends DBTables{
 	public List<Customer> getAllCustomers();
 
 	/**
-	 * get phone by customer lastName
+	 * get phone by sqllab.customer lastName
 	 */
 	public List<String> getPhoneNumberByLastName(String lastName);
 

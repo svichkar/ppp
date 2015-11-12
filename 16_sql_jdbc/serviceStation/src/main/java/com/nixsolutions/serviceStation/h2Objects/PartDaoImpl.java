@@ -14,9 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.serviceStation.dAOFabrica.PartDao;
-import com.nixsolutions.serviceStation.dbCommon.DBTables;
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
 import com.nixsolutions.serviceStation.dbObjects.Part;
 
 /**
@@ -25,7 +22,7 @@ import com.nixsolutions.serviceStation.dbObjects.Part;
  */
 public class PartDaoImpl implements PartDao {
 
-	private final static Logger logger = LogManager.getLogger(PartDaoImpl.class);
+	private final static Logger logger = LogManager.getLogger();
 	private Connection dbConnector;
 
 	
@@ -50,9 +47,9 @@ public class PartDaoImpl implements PartDao {
 							+ "vendor VARCHAR(128) NOT NULL, " + "amount TINYINT);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("Table part was created");
+				logger.trace("Table sqllab.part was created");
 			else
-				logger.debug("Table part was not created");
+				logger.debug("Table sqllab.part was not created");
 				stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -75,9 +72,9 @@ public class PartDaoImpl implements PartDao {
 			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE part;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace(" table part was deleted");
+				logger.trace(" table sqllab.part was deleted");
 			else
-				logger.debug("table part was not deleted");
+				logger.debug("table sqllab.part was not deleted");
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -97,7 +94,7 @@ public class PartDaoImpl implements PartDao {
 			logger.trace("Send query \"SELECT * FROM part\"");
 			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM part");
 			ResultSet set = stmt.executeQuery();
-			logger.trace("Generate list of the part objects");
+			logger.trace("Generate list of the sqllab.part objects");
 			while (set.next()) {
 				parts.add(new Part(set.getInt("part_id"), set.getString("part_name"), set.getString("vendor"),
 						set.getInt("amount")));
@@ -120,10 +117,10 @@ public class PartDaoImpl implements PartDao {
 	public Part getPart(String partName, String vendor) {
 		try {
 			logger.debug("Create DB connector");
-				logger.trace("Send query \"SELECT * FROM part WHERE part_name='?' AND vendor='?';\"");
+				logger.trace("Send query \"SELECT * FROM sqllab.part WHERE part_name=? AND vendor=?;\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("SELECT * FROM part WHERE part_name='?' AND vendor='?';");
+					.prepareStatement("SELECT * FROM sqllab.part WHERE part_name=? AND vendor=?;");
 			stmt.setString(1, partName);
 			stmt.setString(2, vendor);
 			ResultSet set = stmt.executeQuery();
@@ -150,20 +147,20 @@ public class PartDaoImpl implements PartDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace(
-					"Send query \"INSERT INTO part (part_name  ,vendor ,amount)"
-					+ "VALUES('?','?',?);\"");
+					"Send query \"INSERT INTO sqllab.part (part_name  ,vendor ,amount)"
+					+ "VALUES(?,?,?);\"");
 
 			PreparedStatement stmt = dbConnector.prepareStatement(""
-					+ "INSERT INTO part (part_name  ,vendor ,amount)"
-					+ "VALUES('?','?',?);");
+					+ "INSERT INTO sqllab.part (part_name  ,vendor ,amount)"
+					+ "VALUES(?,?,?);");
 			stmt.setString(1, partName);
 			stmt.setString(2, vendor);
 			stmt.setInt(3, amount);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("New part was created");
+				logger.trace("New sqllab.part was created");
 			else
-				logger.debug("New part was not created");
+				logger.debug("New sqllab.part was not created");
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -182,9 +179,9 @@ public class PartDaoImpl implements PartDao {
 	public void deletePartByID(Integer part_id) {
 		try {
 			logger.debug("Create DB connector");
-				logger.trace("Send query \"DELETE FROM part WHERE part_id=?\"");
+				logger.trace("Send query \"DELETE FROM sqllab.part WHERE part_id=?\"");
 
-			PreparedStatement stmt = dbConnector.prepareStatement("DELETE FROM part WHERE part_id=?");
+			PreparedStatement stmt = dbConnector.prepareStatement("DELETE FROM sqllab.part WHERE part_id=?");
 			stmt.setInt(1, part_id);
 			int set = stmt.executeUpdate();
 			if (set == 1)

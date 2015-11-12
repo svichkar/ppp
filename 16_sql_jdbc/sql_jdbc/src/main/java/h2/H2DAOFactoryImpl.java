@@ -1,6 +1,5 @@
 package h2;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -59,10 +58,7 @@ public class H2DAOFactoryImpl implements DAOFactory<Connection> {
 	public H2DAOFactoryImpl() throws ClassNotFoundException {
 		Class.forName(driver);
 		Properties props = new Properties();
-		String projDir = System.getProperty("user.dir");
-		String curSeparator = File.separator;
-		String propsLocation = projDir + curSeparator + "src" + curSeparator + "main" + 
-		curSeparator + "resources" + curSeparator + "jdbc.properties";
+		String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile();
 		try (FileInputStream fis = new FileInputStream(propsLocation)) {
 			props.load(fis);
 			user = props.getProperty("DB_USER");

@@ -1,6 +1,5 @@
 package com.nixsolutions.sql_jdbc;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.math.BigInteger;
@@ -39,9 +38,7 @@ public class TestOrderWorkerDAO extends DBTestCase {
 	private IDatabaseConnection conn;
 	private IDataSet dataSet;
 	private H2DAOFactoryImpl daoFactory;
-	private static final String CURRENT_SEPARATOR = File.separator;
-	private static final String XML_PATH = System.getProperty("user.dir") + CURRENT_SEPARATOR + "src" + CURRENT_SEPARATOR + 
-			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "order_worker.xml";
+	private String xmlPath; 
 	
 	public TestOrderWorkerDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
 		super(name);
@@ -59,6 +56,7 @@ public class TestOrderWorkerDAO extends DBTestCase {
 		QueryDataSet partialDataSet = new QueryDataSet(conn);
 		partialDataSet.addTable("ORDER_WORKER", "SELECT * FROM sqllab.order_worker");
         dataSet = partialDataSet;
+        xmlPath = this.getClass().getClassLoader().getResource("order_worker.xml").getFile();
 	}
 	
 	protected void setUpDatabaseConfig(DatabaseConfig config) {
@@ -66,7 +64,7 @@ public class TestOrderWorkerDAO extends DBTestCase {
     }
 	
 	protected void setUp() throws Exception {
-		FileOutputStream fos = new FileOutputStream(XML_PATH);
+		FileOutputStream fos = new FileOutputStream(xmlPath);
 		FlatXmlDataSet.write(dataSet, fos);
 		fos.flush();
 		fos.close();
@@ -75,7 +73,7 @@ public class TestOrderWorkerDAO extends DBTestCase {
 	@Override
 	protected IDataSet getDataSet() throws Exception {
 		FlatXmlDataSetBuilder f = new FlatXmlDataSetBuilder().setMetaDataSet(dataSet);
-		FlatXmlDataSet ds = f.build(new FileInputStream(XML_PATH));
+		FlatXmlDataSet ds = f.build(new FileInputStream(xmlPath));
 		ds.endDataSet();
 		return ds;
 	}

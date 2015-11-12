@@ -1,6 +1,5 @@
 package com.nixsolutions.sql_jdbc;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,10 +18,7 @@ public class DBDeletion {
 	public static void main(String[] args) throws ClassNotFoundException {
 		Class.forName("org.h2.Driver");
 		Properties props = new Properties();
-		String projDir = System.getProperty("user.dir");
-		String curSeparator = File.separator;
-		String propsLocation = projDir + curSeparator + "src" + curSeparator + "main" + 
-		curSeparator + "resources" + curSeparator + "jdbc.properties";
+		String propsLocation = DBDeletion.class.getClassLoader().getResource("jdbc.properties").getFile();
 		try (FileInputStream fis = new FileInputStream(propsLocation)) {
 			props.load(fis);
 		} catch (IOException ex) {

@@ -1,6 +1,5 @@
 package com.nixsolutions.sql_jdbc;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.math.BigInteger;
@@ -35,9 +34,7 @@ public class TestPartDAO extends DBTestCase {
 	private IDatabaseConnection conn;
 	private IDataSet dataSet;
 	private H2DAOFactoryImpl daoFactory;
-	private static final String CURRENT_SEPARATOR = File.separator;
-	private static final String XML_PATH = System.getProperty("user.dir") + CURRENT_SEPARATOR + "src" + CURRENT_SEPARATOR + 
-			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "part.xml";
+	private String xmlPath; 
 	
 	public TestPartDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
 		super(name);
@@ -55,6 +52,7 @@ public class TestPartDAO extends DBTestCase {
 		QueryDataSet partialDataSet = new QueryDataSet(conn);
 		partialDataSet.addTable("PART", "SELECT * FROM sqllab.part");
         dataSet = partialDataSet;
+        xmlPath = this.getClass().getClassLoader().getResource("part.xml").getFile();
 	}
 	
 	protected void setUpDatabaseConfig(DatabaseConfig config) {
@@ -62,7 +60,7 @@ public class TestPartDAO extends DBTestCase {
     }
 	
 	protected void setUp() throws Exception {
-		FileOutputStream fos = new FileOutputStream(XML_PATH);
+		FileOutputStream fos = new FileOutputStream(xmlPath);
 		FlatXmlDataSet.write(dataSet, fos);
 		fos.flush();
 		fos.close();
@@ -71,7 +69,7 @@ public class TestPartDAO extends DBTestCase {
 	@Override
 	protected IDataSet getDataSet() throws Exception {
 		FlatXmlDataSetBuilder f = new FlatXmlDataSetBuilder().setMetaDataSet(dataSet);
-		FlatXmlDataSet ds = f.build(new FileInputStream(XML_PATH));
+		FlatXmlDataSet ds = f.build(new FileInputStream(xmlPath));
 		ds.endDataSet();
 		return ds;
 	}

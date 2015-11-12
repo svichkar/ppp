@@ -1,6 +1,5 @@
 package com.nixsolutions.sql_jdbc;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.sql.Connection;
@@ -23,7 +22,6 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
-import org.junit.AfterClass;
 import org.junit.Assert;
 
 
@@ -36,9 +34,7 @@ public class TestCustomerDAO extends DBTestCase {
 	private IDatabaseConnection conn;
 	private IDataSet dataSet;
 	private H2DAOFactoryImpl daoFactory;
-	private static final String CURRENT_SEPARATOR = File.separator;
-	private static final String XML_PATH = System.getProperty("user.dir") + CURRENT_SEPARATOR + "src" + CURRENT_SEPARATOR + 
-			"test" + CURRENT_SEPARATOR + "resources" + CURRENT_SEPARATOR + "customer.xml";
+	private String xmlPath;
 	
 	public TestCustomerDAO(String name) throws SQLException, DatabaseUnitException, ClassNotFoundException {
 		super(name);
@@ -56,6 +52,7 @@ public class TestCustomerDAO extends DBTestCase {
 		QueryDataSet partialDataSet = new QueryDataSet(conn);
         partialDataSet.addTable("CUSTOMER", "SELECT * FROM sqllab.customer");
         dataSet = partialDataSet;
+        xmlPath = this.getClass().getClassLoader().getResource("customer.xml").getFile();
 	}
 	
 	protected void setUpDatabaseConfig(DatabaseConfig config) {
@@ -63,7 +60,7 @@ public class TestCustomerDAO extends DBTestCase {
     }
 	
 	protected void setUp() throws Exception {
-		FileOutputStream fos = new FileOutputStream(XML_PATH);
+		FileOutputStream fos = new FileOutputStream(xmlPath);
 		FlatXmlDataSet.write(dataSet, fos);
 		fos.flush();
 		fos.close();
@@ -72,7 +69,7 @@ public class TestCustomerDAO extends DBTestCase {
 	@Override
 	protected IDataSet getDataSet() throws Exception {
 		FlatXmlDataSetBuilder f = new FlatXmlDataSetBuilder().setMetaDataSet(dataSet);
-		FlatXmlDataSet ds = f.build(new FileInputStream(XML_PATH));
+		FlatXmlDataSet ds = f.build(new FileInputStream(xmlPath));
 		ds.endDataSet();
 		return ds;
 	}
@@ -116,13 +113,4 @@ public class TestCustomerDAO extends DBTestCase {
 	protected DatabaseOperation getSetUpOperation() throws Exception {
 		return DatabaseOperation.REFRESH;
 	}
-	
-	@AfterClass
-    public static void tearDownClass() {
-		File f = new File(XML_PATH);
-		if (f.exists()) {
-			boolean temp = f.delete();
-			boolean temp2 = f.canRead();
-		}
-    }
 }

@@ -51,7 +51,7 @@ public abstract class Figures {
      *Method for creating Array for coordinates for all object points
      * @param coordinate new Array for coordinates for all object points
      */
-    protected void createCoordinate(double[][] coordinate) {
+    public void createCoordinate(double[][] coordinate) {
         this.coordinate=coordinate;
     }
 
@@ -60,7 +60,7 @@ public abstract class Figures {
      * @param x shift by x axe
      * @param y shift by y axe
      */
-    protected void move(double x, double y) {
+    public void move(double x, double y) {
         for (int i = 0; i < this.getCoordinate().length; i++) {
             this.setCoordinate(getCoordinate()[i][0] + x, i, 0);
             this.setCoordinate(getCoordinate()[i][1] + y, i, 1);

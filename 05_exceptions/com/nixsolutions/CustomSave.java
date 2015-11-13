@@ -7,7 +7,7 @@ import java.io.*;
  */
 public class CustomSave implements exception.Save {
     @Override
-    public void save(String text, String path) throws MyException {
+    public void save(String text, String path) throws RuntimeException {
 
         File file = new File(path);
 
@@ -15,7 +15,7 @@ public class CustomSave implements exception.Save {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                throw new MyException(e);
+                throw new RuntimeException(e);
             }
         }
 
@@ -25,14 +25,14 @@ public class CustomSave implements exception.Save {
             outputStream.write(text.getBytes());
             outputStream.flush();
         } catch (IOException e) {
-            throw new MyException(e);
+            throw new RuntimeException(e);
         } finally {
             try {
                 if (outputStream != null) {
                     outputStream.close();
                 }
             }  catch (IOException e) {
-                throw new MyException(e);
+                throw new RuntimeException(e);
             }
         }
     }

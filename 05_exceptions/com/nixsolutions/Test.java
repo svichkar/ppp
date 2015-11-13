@@ -12,8 +12,9 @@ public class Test {
             test.save("test", "D:\\test.txt");
             test.save("test1", "");
             test.save("test2", "D:\\test.txt");
-        } catch (MyException e) {
+        } catch (RuntimeException e) {
             System.out.printf("We caught exception: %s%n", e.toString());
         }
+        test.save("test2", "D:\\test.txt");
     }
 }

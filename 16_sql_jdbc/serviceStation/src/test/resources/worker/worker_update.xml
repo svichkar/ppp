@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <worker WORKER_ID="1" SPECIALIZATION_ID="1" FIRST_NAME="Ivan" LAST_NAME="updateWorkerTableTest" WORKER_STATUS_ID="1"/>
+  <worker WORKER_ID="2" SPECIALIZATION_ID="1" FIRST_NAME="Petr" LAST_NAME="Ivanov" WORKER_STATUS_ID="2"/>
+  <worker WORKER_ID="3" SPECIALIZATION_ID="2" FIRST_NAME="Fedya" LAST_NAME="Ivanov" WORKER_STATUS_ID="3"/>
+  <worker WORKER_ID="4" SPECIALIZATION_ID="3" FIRST_NAME="Anton" LAST_NAME="Ivanov" WORKER_STATUS_ID="2"/>
+  <worker WORKER_ID="5" SPECIALIZATION_ID="4" FIRST_NAME="Aleksey" LAST_NAME="Ivanov" WORKER_STATUS_ID="4"/>
+  <worker WORKER_ID="6" SPECIALIZATION_ID="5" FIRST_NAME="Evgeniy" LAST_NAME="Ivanov" WORKER_STATUS_ID="1"/>
+</dataset>

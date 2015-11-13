@@ -4,8 +4,6 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 public class Mondays {
 
 	public static void main(String[] args) {
@@ -18,15 +16,25 @@ public class Mondays {
 		String inYear = in.nextLine();
 		System.out.println("Please enter the number of month");
 		String inMonth = in.nextLine();
-		try{
+		try {
 			year = Integer.parseInt(inYear);
 			month = Integer.parseInt(inMonth);
-			mondays.datesOfMondays(year, month-1);
-			
-		}catch(Exception ex){System.out.println("You wrote incorrect month or year. Please rerun program and be attentive");}
+			mondays.datesOfMondays(year, month - 1);
+
+		} catch (Exception ex) {
+			System.out.println("You wrote incorrect month or year. Please rerun program and be attentive");
+		} finally {
+			in.close();
+
+		}
 
 	}
 
+	/**
+	 * @param integer
+	 *            values of year and month number
+	 * @return the list of Mondays' dates in current year in current months
+	 */
 	private void datesOfMondays(int year, int month) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month, 1);

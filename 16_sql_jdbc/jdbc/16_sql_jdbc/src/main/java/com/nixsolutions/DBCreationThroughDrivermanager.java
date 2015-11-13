@@ -25,7 +25,8 @@ public class DBCreationThroughDrivermanager {
 			Class.forName("org.h2.Driver").newInstance();
 
 			// create conection
-			conn = DriverManager.getConnection("jdbc:h2:~/sqllab", "sa", "");
+			conn = ConnectionManager.getInstance().getConnection();
+					//DriverManager.getConnection("jdbc:h2:~/sqllab", "sa", "");
 			// declare statement
 
 			// initialize statement

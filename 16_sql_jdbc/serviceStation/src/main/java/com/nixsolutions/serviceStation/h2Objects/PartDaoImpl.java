@@ -43,7 +43,7 @@ public class PartDaoImpl implements PartDao {
 					+ "part_name VARCHAR(128) NOT NULL, " + "vendor VARCHAR(128) NOT NULL, " + "amount TINYINT);\"");
 
 			PreparedStatement stmt = dbConnector.prepareStatement(
-					"CREATE TABLE part( " + "part_id INT IDENTITY, " + "part_name VARCHAR(128) NOT NULL, "
+					"CREATE TABLE sqllab.part( " + "part_id INT IDENTITY, " + "part_name VARCHAR(128) NOT NULL, "
 							+ "vendor VARCHAR(128) NOT NULL, " + "amount TINYINT);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
@@ -69,7 +69,7 @@ public class PartDaoImpl implements PartDao {
 			logger.debug("Create DB connector");
 			logger.trace("Send query \"DROP TABLE part;\"");
 
-			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE part;");
+			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE sqllab.part;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table sqllab.part was deleted");
@@ -92,7 +92,7 @@ public class PartDaoImpl implements PartDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace("Send query \"SELECT * FROM part\"");
-			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM part");
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM sqllab.part");
 			ResultSet set = stmt.executeQuery();
 			logger.trace("Generate list of the sqllab.part objects");
 			while (set.next()) {
@@ -194,4 +194,28 @@ public class PartDaoImpl implements PartDao {
 		}
 	}
 
+	public void updateExistingPart(Part part) {
+		try {
+			logger.debug("Create DB connector");
+			logger.trace(
+					"Send query \"INSERT INTO sqllab.part (part_name  ,vendor ,amount)"
+					+ "VALUES(?,?,?);\"");
+
+			PreparedStatement stmt = dbConnector.prepareStatement("UPDATE sqllab.part "
+					+ "SET part_name=?, vendor =?, amount =? where part_id =?;");
+			stmt.setString(1, part.getPart_name());
+			stmt.setString(2, part.getVendor());
+			stmt.setInt(3, part.getAmount());
+			stmt.setInt(4, part.getPart_id());
+			int set = stmt.executeUpdate();
+			if (set == 1)
+				logger.trace("New sqllab.part was created");
+			else
+				logger.debug("New sqllab.part was not created");
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+
+	}
 }

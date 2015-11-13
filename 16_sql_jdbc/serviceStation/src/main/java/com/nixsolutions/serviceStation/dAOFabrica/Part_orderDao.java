@@ -13,6 +13,14 @@ import com.nixsolutions.serviceStation.dbObjects.Part_order;
  *
  */
 public interface Part_orderDao extends DBTables {
+
+	/**
+	 * getAllParts
+	 * 
+	 * @return list of the all parts
+	 */
+	public List<Part_order> getAllParts();
+
 	/**
 	 * get Parts By Order Id
 	 * 

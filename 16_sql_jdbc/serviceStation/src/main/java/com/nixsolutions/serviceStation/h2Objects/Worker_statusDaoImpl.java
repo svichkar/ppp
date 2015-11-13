@@ -41,10 +41,9 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 					+ "worker_status_id INT IDENTITY, "
 					+ "worker_status_name VARCHAR(128) NOT NULL);\"");
 
-			PreparedStatement stmt = dbConnector.prepareStatement(
-					"CREATE TABLE worker_status( "
-							+ "worker_status_id INT IDENTITY, "
-							+ "worker_status_name VARCHAR(128) NOT NULL); ");
+			PreparedStatement stmt = dbConnector.prepareStatement("CREATE TABLE sqllab.worker_status( "
+			+ "worker_status_id INT IDENTITY, "
+					+ "worker_status_name VARCHAR(128) NOT NULL); ");
 			int set = stmt.executeUpdate();
 			if (set == 0)
 				logger.trace("Table sqllab.worker_status was created");
@@ -88,7 +87,7 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 			logger.trace(
 					"Send query \"SELECT * FROM worker_status;\"");
 			PreparedStatement stmt = dbConnector.prepareStatement(
-					"SELECT * FROM worker_status;");
+					"SELECT * FROM sqllab.worker_status;");
 			ResultSet set = stmt.executeQuery();
 			logger.trace("Generate list of the sqllab.worker_status objects");
 			while (set.next()) {

@@ -5,12 +5,17 @@ package com.nixsolutions.serviceStation.h2Objects;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.serviceStation.dAOFabrica.Order_workerDao;
+import com.nixsolutions.serviceStation.dbObjects.Customer;
+import com.nixsolutions.serviceStation.dbObjects.Order_worker;
 
 /**
  * @author mixeyes
@@ -26,6 +31,28 @@ public class Order_workerDaoImpl implements Order_workerDao {
 		this.dbConnector = dbConnector;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.Order_workerDao#getAll()
+	 */
+	public List<Order_worker> getAll(){
+		List<Order_worker> order_workers = new ArrayList<>();
+		try {
+			logger.debug("Create DB connector");
+			logger.trace("Send query \"SELECT * FROM sqllab.order_worker\"");
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM sqllab.order_worker;");
+			ResultSet set = stmt.executeQuery();
+			logger.trace("Generate list of the sqllab.order_worker objects");
+			while (set.next()) {
+				order_workers.add(new Order_worker(set.getInt("order_id"), set.getInt("worker_id"),
+						set.getBoolean("isCompleted")));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return order_workers;
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.nixsolutions.serviceStation.dbCommon.DBTables#createNewTable()
 	 */
@@ -49,7 +76,7 @@ public class Order_workerDaoImpl implements Order_workerDao {
 							+ "FOREIGN KEY (worker_id) REFERENCES  sqllab.worker (worker_id), "
 							+ "isCompleted BOOLEAN NOT NULL DEFAULT false);");
 			int set = stmt.executeUpdate();
-			if (set == 1)
+			if (set == 0)
 				logger.trace("Table sqllab.order_worker  was created");
 			else
 				logger.debug("Table sqllab.order_worker  was not created");
@@ -70,7 +97,7 @@ public class Order_workerDaoImpl implements Order_workerDao {
 
 			PreparedStatement stmt = dbConnector.prepareStatement("DROP TABLE sqllab.order_worker ;");
 			int set = stmt.executeUpdate();
-			if (set == 1)
+			if (set == 0)
 				logger.trace(" table sqllab.order_worker  was deleted");
 			else
 				logger.debug("table sqllab.order_worker  was not deleted");

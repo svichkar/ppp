@@ -14,6 +14,11 @@ import com.nixsolutions.serviceStation.dAOFabrica.CustomerDao;
 
 import com.nixsolutions.serviceStation.dbObjects.Customer;
 
+/**
+ * @author mixeyes
+ *
+ */
+
 public class CustomerDaoImpl implements CustomerDao {
 
 	private final static Logger logger = LogManager.getLogger();
@@ -23,12 +28,15 @@ public class CustomerDaoImpl implements CustomerDao {
 		this.dbConn = connection;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.CustomerDao#getAllCustomers()
+	 */
 	public List<Customer> getAllCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
 		try {
 			logger.debug("Create DB connector");
 			logger.trace("Send query \"SELECT * FROM customer\"");
-			PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM customer;");
+			PreparedStatement stmt = dbConn.prepareStatement("SELECT * FROM sqllab.customer;");
 			ResultSet set = stmt.executeQuery();
 			logger.trace("Generate list of the sqllab.customer objects");
 			while (set.next()) {
@@ -42,6 +50,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customers;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.CustomerDao#getPhoneNumberByLastName(java.lang.String)
+	 */
 	public List<String> getPhoneNumberByLastName(String lastName) {
 		List<String> phones = new ArrayList<String>();
 		try {
@@ -61,6 +72,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.CustomerDao#getCustomerByPhoneNumber(java.lang.String)
+	 */
 	public Customer getCustomerByPhoneNumber(String phone) {
 		try {
 			logger.debug("Create DB connector");
@@ -81,6 +95,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.CustomerDao#createNewCustomer(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	public void createNewCustomer(String lastName, String firstName, String phoneNumber) {
 		try {
 			logger.debug("Create DB connector");
@@ -103,6 +120,42 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.CustomerDao#updateCustomer(com.nixsolutions.serviceStation.dbObjects.Customer)
+	 */
+	public void updateCustomer(Customer customer) {
+		String query = // "UPDATE sqllab.car SET model=? ,vin_number=?,
+						// description =? WHERE CUSTOMER_ID =(SELECT customer_id
+						// FROM sqllab.customer WHERE last_name =? AND
+						// first_name =?);";
+		"UPDATE sqllab.customer SET first_name=?, last_name =?, phone =? WHERE customer_id =?;";
+		try {
+			logger.debug("Create DB connector");
+			logger.trace("Send query \"" + query + ";\"");
+			// SELECT * FROM sqllab.car WHERE customer_id =(SELECT customer_id
+			// FROM
+			// sqllab.customer WHERE first_name ='Alex' AND last_name ='Alkov');
+			PreparedStatement stmt = dbConn.prepareStatement(query);
+			stmt.setString(1, customer.getFirst_name());
+			stmt.setString(2, customer.getLast_name());
+			stmt.setString(3, customer.getPhone());
+			stmt.setInt(4, customer.getCustomer_id());
+
+			int set = stmt.executeUpdate();
+			if (set == 1)
+				logger.trace("sqllab.customer was updated");
+			else
+				logger.debug("sqllab.customer was not created");
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.CustomerDao#deleteCustomer(java.lang.String, java.lang.String)
+	 */
 	public void deleteCustomer(String lastName, String firstName) {
 		try {
 			logger.debug("Create DB connector");
@@ -123,6 +176,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dbCommon.DBTables#createNewTable()
+	 */
 	public void createNewTable() {
 		try {
 			logger.debug("Create DB connector");
@@ -130,9 +186,11 @@ public class CustomerDaoImpl implements CustomerDao {
 					"Send query \"CREATE TABLE customer( customer_id INT IDENTITY,first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL,phone VARCHAR(32));\"");
 
 			PreparedStatement stmt = dbConn.prepareStatement(
-					"CREATE TABLE customer( customer_id INT IDENTITY,first_name VARCHAR(128) NOT NULL,last_name VARCHAR(128) NOT NULL,phone VARCHAR(32));");
+					"CREATE TABLE sqllab.customer( " + "customer_id INT IDENTITY, "
+							+ "first_name VARCHAR(128) NOT NULL, " + "last_name VARCHAR(128) NOT NULL, "
+							+ "phone VARCHAR(32));");
 			int set = stmt.executeUpdate();
-			if (set == 1)
+			if (set == 0)
 				logger.trace("Table sqllab.customer was created");
 			else
 				logger.debug("Table sqllab.customer was not created");
@@ -142,6 +200,9 @@ public class CustomerDaoImpl implements CustomerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dbCommon.DBTables#deleteTableWithAllData()
+	 */
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
@@ -149,7 +210,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
 			PreparedStatement stmt = dbConn.prepareStatement("DROP TABLE sqllab.customer ;");
 			int set = stmt.executeUpdate();
-			if (set == 1)
+			if (set == 0)
 				logger.trace(" table sqllab.customer was deleted");
 			else
 				logger.debug("table sqllab.customer was not deleted");

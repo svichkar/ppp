@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <worker_specialization SPECIALIZATION_ID="1" SPECIALIZATION_NAME="mechanik low"/>
+  <worker_specialization SPECIALIZATION_ID="2" SPECIALIZATION_NAME="mechanik high"/>
+  <worker_specialization SPECIALIZATION_ID="3" SPECIALIZATION_NAME="electric"/>
+  <worker_specialization SPECIALIZATION_ID="4" SPECIALIZATION_NAME="diagnostician"/>
+  <worker_specialization SPECIALIZATION_ID="5" SPECIALIZATION_NAME="engine"/>
+  <worker_specialization SPECIALIZATION_ID="6" SPECIALIZATION_NAME="addingNewWorker_specialization"/>
+</dataset>

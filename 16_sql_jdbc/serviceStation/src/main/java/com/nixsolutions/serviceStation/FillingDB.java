@@ -109,8 +109,8 @@ fillingDB();
 			stmt.addBatch("INSERT INTO sqllab.order_status (order_status_name )VALUES('in work');");
 			stmt.addBatch("INSERT INTO sqllab.order_status (order_status_name )VALUES('ready');");
 			/* sqllab.order_in_work */
-			stmt.addBatch("INSERT INTO sqllab.order_in_work (order_description,datetime_start ,order_status_id ,car_ID  ) "
-					+ "VALUES('change lamp',CURRENT_TIMESTAMP(),'1','1');");
+			stmt.addBatch("INSERT INTO sqllab.order_in_work (order_description,datetime_start, datetime_finish, order_status_id ,car_ID  ) "
+					+ "VALUES('change lamp',CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(),'1','1');");
 			stmt.addBatch("INSERT INTO sqllab.order_in_work (order_description,datetime_start ,order_status_id ,car_ID  ) "
 					+ "VALUES('change brake pads',CURRENT_TIMESTAMP(),'2','2');");
 			stmt.addBatch(

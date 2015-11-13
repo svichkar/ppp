@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <part PART_ID="1" PART_NAME="tyaga &#1042;&#1040;&#1047;" VENDOR="81-56fa354fa" AMOUNT="22"/>
+  <part PART_ID="2" PART_NAME="brake pads OPEL" VENDOR="5634-fafa815" AMOUNT="12"/>
+  <part PART_ID="3" PART_NAME="brake pads BMW" VENDOR="54-fafa81563" AMOUNT="12"/>
+  <part PART_ID="4" PART_NAME="tyaga BMW" VENDOR="8156fa354-fa" AMOUNT="6"/>
+  <part PART_ID="5" PART_NAME="shrovaya BMW" VENDOR="8156354-fafa" AMOUNT="5"/>
+  <part PART_ID="6" PART_NAME="brake pads AUDI" VENDOR="54-fafa81563" AMOUNT="12"/>
+  <part PART_ID="7" PART_NAME="tyaga AUDI" VENDOR="8156fa354-fa" AMOUNT="6"/>
+  <part PART_ID="8" PART_NAME="lamp H4 PHILIPS" VENDOR="6354-f815afa" AMOUNT="10"/>
+  <part PART_ID="9" PART_NAME="lamp H4 OSRAM" VENDOR="81a56354-faf" AMOUNT="10"/>
+  <part PART_ID="10" PART_NAME="shrovaya AUDI" VENDOR="8156354-fafa" AMOUNT="5"/>
+</dataset>

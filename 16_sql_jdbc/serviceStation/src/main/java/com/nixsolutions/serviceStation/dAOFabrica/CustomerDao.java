@@ -33,4 +33,7 @@ public interface CustomerDao extends DBTables{
 
 	/** delete Customer by lastName and firstName */
 	public void deleteCustomer(String lastName, String firstName);
-}
+/**
+ * update customer*/
+	public void updateCustomer(Customer customer);
+	}

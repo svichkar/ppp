@@ -68,10 +68,10 @@ public class CommonTestsMethods {
 			filePath = "src/test/resources/dataset.xml";
 		} else {
 			partialDataSet.addTable(tableName, "select * from sqllab." + tableName);
-			filePath = "src/test/resources/car/" + tableName + ".xml";
+			filePath = "src/test/resources/" + tableName + "/" + tableName + ".xml";
 		}
 		FlatXmlDataSet.write(partialDataSet, new FileOutputStream(filePath));
-		logger.info("all tables were migrated to  src/test/resources/car/dataset.xml");
+		logger.info("all tables were migrated to " + filePath);
 
 	}
 
@@ -82,11 +82,11 @@ public class CommonTestsMethods {
 	public static void createDB() throws SQLException {
 		CreateDB.createDB();
 	}
-	
+
 	public static void fillingDB() throws SQLException {
 		FillingDB.main(null);
 	}
-	
+
 	public static void updateDB() throws SQLException {
 		deleteDB();
 		createDB();

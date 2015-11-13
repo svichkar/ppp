@@ -81,6 +81,28 @@ public class Part_orderDaoImpl implements Part_orderDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.Part_orderDao#getAllParts()
+	 */
+	public List<Part_order> getAllParts() {
+		List<Part_order> part_orders = new ArrayList<Part_order>();
+		try {
+			logger.debug("Create DB connector");
+			logger.trace("Send query \"SELECT * FROM sqllab.part_order;\"");
+
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM sqllab.part_order;");
+			ResultSet set = stmt.executeQuery();
+			logger.trace("Generate list of the sqllab.part_order objects");
+			while (set.next()) {
+				part_orders.add(new Part_order(set.getInt("order_id"), set.getInt("part_id"), set.getInt("amount")));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return part_orders;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -151,14 +173,14 @@ public class Part_orderDaoImpl implements Part_orderDao {
 			logger.trace("Send query \"DELETE FROM sqllab.part_order WHERE order_id=?,part_id=?;\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("DELETE FROM sqllab.part_order WHERE order_id=?,part_id=?;");
+					.prepareStatement("DELETE FROM sqllab.part_order WHERE order_id=? AND part_id=?;");
 			stmt.setInt(1, order_id);
 			stmt.setInt(2, part_id);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("car was deleted");
+				logger.trace("part was deleted");
 			else
-				logger.debug("car was not deleted");
+				logger.debug("part was not deleted");
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);

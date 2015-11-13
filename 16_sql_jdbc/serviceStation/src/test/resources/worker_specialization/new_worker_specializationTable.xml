@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <worker_specialization SPECIALIZATION_ID="1" SPECIALIZATION_NAME="createWorker_specializationTable"/>
+</dataset>

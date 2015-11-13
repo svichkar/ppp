@@ -20,6 +20,15 @@ public class Customer {
 		this.last_name = last_name;
 		this.phone = phone;
 	}
+
+	public Customer(String first_name, String last_name, String phone) {
+		super();
+		this.customer_id = customer_id;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.phone = phone;
+	}
+
 	public Integer getCustomer_id() {
 		return customer_id;
 	}

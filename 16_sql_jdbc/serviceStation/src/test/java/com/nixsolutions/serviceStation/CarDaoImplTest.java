@@ -132,4 +132,23 @@ public class CarDaoImplTest {
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
 
+	@Test
+	public void deleteCarToCarTable() throws SQLException, Exception {
+		CarDaoImpl carDao = factory.getCarDao();
+		Car car = carDao.getAllCar().get(2);
+		carDao.deleteCarByVINNumber(car.getVin_number());
+
+		// Fetch database data after executing your code
+		IDataSet databaseDataSet = tester.getConnection().createDataSet();
+		ITable actualTable = databaseDataSet.getTable("car");
+
+		// Load expected data from an XML dataset
+		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder();
+		flatXmlProducer.setColumnSensing(false);
+		IDataSet expectedDataSet = flatXmlProducer.build(new File("src/test/resources/car/car_deleteCar.xml"));
+		ITable expectedTable = expectedDataSet.getTable("car");
+
+		// Assert actual database table match expected table
+		Assertion.assertEquals(expectedTable, actualTable);
+	}
 }

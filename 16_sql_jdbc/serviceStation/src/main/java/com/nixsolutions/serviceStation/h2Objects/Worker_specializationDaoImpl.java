@@ -26,10 +26,10 @@ public class Worker_specializationDaoImpl implements Worker_specializationDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace(
-					"Send query \"CREATE TABLE worker_specialization( specialization_id INT IDENTITY,specialization_name VARCHAR(256) NOT NULL);\"");
+					"Send query \"CREATE TABLE sqllab.worker_specialization( specialization_id INT IDENTITY,specialization_name VARCHAR(256) NOT NULL);\"");
 
 			PreparedStatement stmt = dbConnector.prepareStatement(
-					"CREATE TABLE worker_specialization( specialization_id INT IDENTITY,specialization_name VARCHAR(256) NOT NULL);");
+					"CREATE TABLE sqllab.worker_specialization( specialization_id INT IDENTITY,specialization_name VARCHAR(256) NOT NULL);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("Table sqllab.worker_specialization was created");
@@ -82,7 +82,7 @@ public class Worker_specializationDaoImpl implements Worker_specializationDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace("Send query \"SELECT * FROM worker_specialization\"");
-			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM worker_specialization");
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM sqllab.worker_specialization");
 			ResultSet set = stmt.executeQuery();
 			logger.trace("Generate list of the sqllab.worker_specialization objects");
 			while (set.next()) {

@@ -25,13 +25,13 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void createNewStatus(String status) {
 		try {
 			logger.debug("Create DB connector");
-			logger.trace("Send query \"INSERT INTO status (status_name)VALUES(?);\"");
+			logger.trace("Send query \"INSERT INTO sqllab.order_status (order_status_name)VALUES(?);\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("INSERT INTO status (status_name)VALUES(?);");
+					.prepareStatement("INSERT INTO sqllab.order_status (order_status_name)VALUES(?);");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
-			if (set == 0)
+			if (set == 1)
 				logger.trace("New status was created");
 			else
 				logger.debug("New status was not created");
@@ -46,11 +46,11 @@ public class Order_statusDaoImpl implements Order_statusDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace("Send query \"SELECT * FROM status\"");
-			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM status");
+			PreparedStatement stmt = dbConnector.prepareStatement("SELECT * FROM sqllab.order_status");
 			ResultSet set = stmt.executeQuery();
 			logger.trace("Generate list of the status objects");
 			while (set.next()) {
-				statuses.add(new Order_status(set.getInt("status_id"), set.getString("status_name")));
+				statuses.add(new Order_status(set.getInt("order_status_id"), set.getString("order_status_name")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -62,10 +62,10 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void deleteStatusByName(String status) {
 		try {
 			logger.debug("Create DB connector");
-			logger.trace("Send query \"DELETE FROM status WHERE status_name=?;\"");
+			logger.trace("Send query \"DELETE FROM status WHERE order_status_name=?;\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("DELETE FROM status WHERE status_name=?;");
+					.prepareStatement("DELETE FROM sqllab.order_status WHERE order_status_name=?;");
 			stmt.setString(1, status);
 			int set = stmt.executeUpdate();
 			if (set == 1)
@@ -82,15 +82,15 @@ public class Order_statusDaoImpl implements Order_statusDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace(
-					"Send query \"CREATE TABLE status( status_id INT IDENTITY, status_name VARCHAR(128) NOT NULL);\"");
+					"Send query \"CREATE TABLE sqllab.order_status( status_id INT IDENTITY, status_name VARCHAR(128) NOT NULL);\"");
 
-			PreparedStatement stmt = dbConnector.prepareStatement(
-					"CREATE TABLE status( status_id INT IDENTITY, status_name VARCHAR(128) NOT NULL);");
+			PreparedStatement stmt = dbConnector.prepareStatement("CREATE TABLE sqllab.order_status( " + "order_status_id INT IDENTITY, "
+							+ "order_status_name VARCHAR(128) NOT NULL);");
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("Table status was created");
+				logger.trace("Table sqllab.order_status was created");
 			else
-				logger.debug("Table status was not created");
+				logger.debug("Table sqllab.order_status was not created");
 			stmt.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
@@ -100,10 +100,10 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	public void deleteTableWithAllData() {
 		try {
 			logger.debug("Create DB connector");
-			logger.trace("Send query \"DROP TABLE status ;\"");
+			logger.trace("Send query \"DROP TABLE sqllab.order_status ;\"");
 
 			PreparedStatement stmt = dbConnector
-					.prepareStatement("DROP TABLE status ;");
+					.prepareStatement("DROP TABLE sqllab.order_status ;");
 			int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace(" table status was deleted");

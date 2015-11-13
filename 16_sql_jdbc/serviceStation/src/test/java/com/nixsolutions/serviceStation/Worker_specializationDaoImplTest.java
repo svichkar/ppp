@@ -24,17 +24,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.dbObjects.Customer;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.CustomerDaoImpl;
+import com.nixsolutions.serviceStation.dbObjects.Part;
+import com.nixsolutions.serviceStation.dbObjects.Worker_specialization;
+import com.nixsolutions.serviceStation.h2Objects.PartDaoImpl;
 import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.serviceStation.h2Objects.Worker_specializationDaoImpl;
 
 /**
  * @author mixeyes
  *
  */
-public class CustomerDaoImplTest {
+public class Worker_specializationDaoImplTest {
 	private final static Logger logger = LogManager.getLogger();
 
 	protected DataSource dataSource;
@@ -52,110 +52,97 @@ public class CustomerDaoImplTest {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "sqllab");
 		// insert data into db
 		CommonTestsMethods.updateDB();
-		CommonTestsMethods.getTables("customer");
+		CommonTestsMethods.getTables("worker_specialization");
 		tester = new JdbcDatabaseTester("org.h2.Driver", properties.getProperty("h2URL"),
 				properties.getProperty("h2Login"), properties.getProperty("h2Password"), "sqllab");
 		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder();
 		flatXmlProducer.setColumnSensing(false);
-		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/customer/customer.xml"));
+		beforeData = flatXmlProducer
+				.build(new FileInputStream("src/test/resources/worker_specialization/worker_specialization.xml"));
 		tester.setDataSet(beforeData);
 		// tester.onSetup();
 		factory = new ServiceFactory();
 	}
 
 	@After
-	public void deleteCustomerFile() {
-		new File("src/test/resources/customer/customer.xml").delete();
+	public void deleteWorker_specializationFile() {
+		new File("src/test/resources/worker_specialization/worker_specialization.xml").delete();
 	}
 
 	@Test
-	public void createCustomerTable() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
-		customerDao.deleteTableWithAllData();
-		customerDao.createNewTable();
-		customerDao.createNewCustomer("last Name", "First name", "+380675678912");
+	public void createWorker_specializationTable() throws SQLException, Exception {
+		Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+		worker_specializationDao.deleteTableWithAllData();
+		worker_specializationDao.createNewTable();
+		worker_specializationDao.createNewSpecialization("createWorker_specializationTable");
 
 		// Fetch database data after executing your code
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
-		ITable actualTable = databaseDataSet.getTable("customer");
+		ITable actualTable = databaseDataSet.getTable("worker_specialization");
 
 		// Load expected data from an XML dataset
 		IDataSet expectedDataSet = new FlatXmlDataSetBuilder()
-				.build(new File("src/test/resources/customer/customer_newcustomerTable.xml"));
-		ITable expectedTable = expectedDataSet.getTable("customer");
+				.build(new File("src/test/resources/worker_specialization/new_worker_specializationTable.xml"));
+		ITable expectedTable = expectedDataSet.getTable("worker_specialization");
 
 		// Assert actual database table match expected table
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
 
 	@Test
-	public void updateCustomerTableTest() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
-		Customer customer = customerDao.getAllCustomers().get(0);
-		customer.setFirst_name("updateCustomerTableTest");
-		customerDao.updateCustomer(customer);
-		// CarDaoImplTest.getTables();
-		IDataSet expectedData = new FlatXmlDataSetBuilder()
-				.build(new FileInputStream("src/test/resources/customer/customer_update.xml"));
-		IDataSet actualData = tester.getConnection().createDataSet();
-		String[] ignoredColumn = { "customer_id" };
-		Assertion.assertEqualsIgnoreCols(expectedData, actualData, "customer", ignoredColumn);
-	}
-
-	@Test
-	public void addingNewCustomerToCustomerTable() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
-		Customer customer = new Customer("NewCustomer first_name", "NewCustomer last_name", "1234567893245");
-		customerDao.createNewCustomer(customer.getLast_name(), customer.getFirst_name(), customer.getPhone());
-		;
+	public void addingNewWorker_specialization() throws SQLException, Exception {
+		Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+		worker_specializationDao.createNewSpecialization("addingNewWorker_specialization");
 
 		// Fetch database data after executing your code
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
-		ITable actualTable = databaseDataSet.getTable("customer");
+		ITable actualTable = databaseDataSet.getTable("worker_specialization");
 
 		// Load expected data from an XML dataset
 		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder();
 		flatXmlProducer.setColumnSensing(false);
 		IDataSet expectedDataSet = flatXmlProducer
-				.build(new File("src/test/resources/customer/customer_newCustomer.xml"));
-		ITable expectedTable = expectedDataSet.getTable("customer");
+				.build(new File("src/test/resources/worker_specialization/newworker_specialization.xml"));
+		ITable expectedTable = expectedDataSet.getTable("worker_specialization");
 
 		// Assert actual database table match expected table
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
 
 	@Test
-	public void deleteCustomer() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
-		Customer customer = new Customer("NewCustomer first_name", "NewCustomer last_name", "1234567893245");
-		customerDao.createNewCustomer(customer.getLast_name(), customer.getFirst_name(), customer.getPhone());
+	public void deleteWorker_specialization() throws SQLException, Exception {
+		Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+		worker_specializationDao.createNewSpecialization("addingNewWorker_specialization");
+
+		// Fetch database data after executing your code
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
-		ITable actualTable = databaseDataSet.getTable("customer");
+		ITable actualTable = databaseDataSet.getTable("worker_specialization");
 
 		// Load expected data from an XML dataset
 		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder();
 		flatXmlProducer.setColumnSensing(false);
 		IDataSet expectedDataSet = flatXmlProducer
-				.build(new File("src/test/resources/customer/customer_newCustomer.xml"));
-		ITable expectedTable = expectedDataSet.getTable("customer");
+				.build(new File("src/test/resources/worker_specialization/newworker_specialization.xml"));
+		ITable expectedTable = expectedDataSet.getTable("worker_specialization");
 
 		// Assert actual database table match expected table
 		Assertion.assertEquals(expectedTable, actualTable);
-		
-		customerDao.deleteCustomer(customer.getLast_name(), customer.getFirst_name());
+	
+		worker_specializationDao.deleteSpecializationByName("addingNewWorker_specialization");
 
 		// Fetch database data after executing your code
-		IDataSet databaseDataSetD = tester.getConnection().createDataSet();
-		ITable actualTableD = databaseDataSetD.getTable("customer");
+		IDataSet databaseDataSetd = tester.getConnection().createDataSet();
+		ITable actualTabled = databaseDataSetd.getTable("worker_specialization");
 
 		// Load expected data from an XML dataset
-		FlatXmlDataSetBuilder flatXmlProducerD = new FlatXmlDataSetBuilder();
-		flatXmlProducerD.setColumnSensing(false);
-		IDataSet expectedDataSetD = flatXmlProducer
-				.build(new File("src/test/resources/customer/customer_deleteCustomer.xml"));
-		ITable expectedTableD = expectedDataSetD.getTable("customer");
+		FlatXmlDataSetBuilder flatXmlProducerd = new FlatXmlDataSetBuilder();
+		flatXmlProducerd.setColumnSensing(false);
+		IDataSet expectedDataSetd = flatXmlProducerd
+				.build(new File("src/test/resources/worker_specialization/deleteworker_specialization.xml"));
+		ITable expectedTabled = expectedDataSetd.getTable("worker_specialization");
 
 		// Assert actual database table match expected table
-		Assertion.assertEquals(expectedTableD, actualTableD);
+		Assertion.assertEquals(expectedTabled, actualTabled);
 	}
+
 }

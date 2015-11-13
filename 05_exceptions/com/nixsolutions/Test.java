@@ -15,6 +15,5 @@ public class Test {
         } catch (RuntimeException e) {
             System.out.printf("We caught exception: %s%n", e.toString());
         }
-        test.save("test2", "D:\\test.txt");
     }
 }

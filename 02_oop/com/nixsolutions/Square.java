@@ -33,9 +33,9 @@ public class Square extends Figures {
      */
     public Square() {
         this.setName("Square");
-        double xPoint = maxA * Math.random();
-        double yPoint = maxA * Math.random();
-        double side = maxA * Math.random();
+        double xPoint = MAXALLOWED * Math.random();
+        double yPoint = MAXALLOWED * Math.random();
+        double side = MAXALLOWED * Math.random();
         createCoordinate(new double[4][2]);
         setCoordinate(xPoint, 0, 0);
         setCoordinate(yPoint, 0, 1);

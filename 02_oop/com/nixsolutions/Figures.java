@@ -22,9 +22,9 @@ public abstract class Figures {
     private double square;
 
     /**
-     * Constant field, using for create objects without parameters. Parameters for new objects will be set maxA*Math.random();
+     * Constant field, using for create objects without parameters. Parameters for new objects will be set MAXALLOWED*Math.random();
      */
-    public final int maxA = 100;
+    public final int MAXALLOWED = 100;
 
     /**
      * Method shows object name and object square in string

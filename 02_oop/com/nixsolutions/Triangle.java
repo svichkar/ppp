@@ -29,10 +29,10 @@ public class Triangle extends Figures {
      */
     public Triangle() {
         this.setName("Triangle");
-        double xPoint = maxA * Math.random();
-        double yPoint = maxA * Math.random();
-        double sideA = maxA * Math.random();
-        double sideB = maxA * Math.random();
+        double xPoint = MAXALLOWED * Math.random();
+        double yPoint = MAXALLOWED * Math.random();
+        double sideA = MAXALLOWED * Math.random();
+        double sideB = MAXALLOWED * Math.random();
         createCoordinate(new double[3][2]);
         setCoordinate(xPoint, 0, 0);
         setCoordinate(yPoint, 0, 1);

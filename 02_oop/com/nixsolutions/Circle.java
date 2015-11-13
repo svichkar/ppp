@@ -30,9 +30,9 @@ public class Circle extends Figures {
     public Circle() {
         this.setName("Circle");
         createCoordinate(new double[2][2]);
-        double xPoint = maxA * Math.random();
-        double yPoint = maxA * Math.random();
-        double radius = maxA * Math.random();
+        double xPoint = MAXALLOWED * Math.random();
+        double yPoint = MAXALLOWED * Math.random();
+        double radius = MAXALLOWED * Math.random();
         setCoordinate(xPoint, 0, 0);
         setCoordinate(yPoint, 0, 1);
         setCoordinate(xPoint, 1, 0);

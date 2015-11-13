@@ -25,7 +25,7 @@ public abstract class Figure {
      *
      * @param coordinates float array of X and Y coordinates of points of a figure
      */
-    public void setCoordinates(float[][] coordinates) {
+    protected void setCoordinates(float[][] coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -57,4 +57,5 @@ public abstract class Figure {
             coordinates[i][1] += deltaY;
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.nixsolutions;
 
+import java.util.Arrays;
 /**
  * Created by Rybkinrolla on 12.11.2015.
  */
@@ -31,10 +32,8 @@ public class WorkWithString {
     public static boolean isAnagram(String phrase, String anagram){
         char[] startPhrase = phrase.replaceAll("\\W","").toLowerCase().toCharArray();
         char[] anagramPhrase = anagram.replaceAll("\\W","").toLowerCase().toCharArray();
-        java.util.Arrays.sort(startPhrase);
-        java.util.Arrays.sort(anagramPhrase);
-        String a = String.valueOf(startPhrase);
-        String b = String.valueOf(anagramPhrase);
-        return a.equals(b);
+        Arrays.sort(startPhrase);
+        Arrays.sort(anagramPhrase);
+        return String.valueOf(startPhrase).equals(String.valueOf(anagramPhrase));
     }
 }

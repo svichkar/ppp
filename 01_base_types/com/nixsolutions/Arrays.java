@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class Arrays {
     final static int quantityOfArrays = 20;
-    static int[] sort(int[] initialArray) {
+    private static int[] sort(int[] initialArray) {
         int[] cloneArray = initialArray.clone();
         int arrLength = cloneArray.length; // I'm not sure about this one, but I suppose it would be quicker than call every time cloneArray.length inside loop
         for (int i = 0; i < arrLength; i++) {

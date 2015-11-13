@@ -70,9 +70,8 @@ public class OrderPartDAOImpl implements GenericDAO<OrderPart> {
 	
 	@Override
 	public OrderPart create() throws PersistenceException {
-/*		OrderPart op = new OrderPart();
-		return createFrom(op);*/
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
@@ -186,7 +185,8 @@ public class OrderPartDAOImpl implements GenericDAO<OrderPart> {
 
 	@Override
 	public OrderPart getByPK(int id) throws PersistenceException {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override

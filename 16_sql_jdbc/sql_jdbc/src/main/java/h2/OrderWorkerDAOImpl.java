@@ -39,9 +39,8 @@ public class OrderWorkerDAOImpl implements GenericDAO<OrderWorker> {
 
 	@Override
 	public OrderWorker create() throws PersistenceException {
-/*		OrderWorker ow = new OrderWorker();
-		return createFrom(ow);*/
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		return null;
 	}
 
 	public String getSelectByID() {
@@ -204,6 +203,7 @@ public class OrderWorkerDAOImpl implements GenericDAO<OrderWorker> {
 
 	@Override
 	public OrderWorker getByPK(int id) throws PersistenceException {
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
+		return null;
 	}
 }

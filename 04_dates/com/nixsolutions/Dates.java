@@ -80,6 +80,7 @@ public class Dates {
         int month = in.nextInt();
         System.out.println("Please enter the day:");
         int day = in.nextInt();
+        in.close();
 
         Dates.LengthOfMonth(year);
         Dates.DatesForMondays(year, month);

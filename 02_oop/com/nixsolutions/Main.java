@@ -6,7 +6,7 @@ package com.nixsolutions;
  * Created by kozlovskij on 11/11/2015.
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NullPointerException {
         Figures figures[] = new Figures[10];
         Random random = new Random();
         int type;
@@ -24,7 +24,6 @@ public class Main {
                     break;
                 default:
                     System.err.println("Error in switch");
-                    i--;
                     break;
             }
             figures[i].reSize(Math.random());

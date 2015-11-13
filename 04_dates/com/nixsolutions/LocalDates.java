@@ -30,11 +30,11 @@ public class LocalDates {
 
 	}
 
-	private static void localDates() {
+	private void localDates() {
 
 		Date java7CurrentDate = new Date();
 		LocalDate java8CurrentDate = LocalDate.now();
-		DateFormat jSevenFormat;
+		
 		DateTimeFormatter jEightFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
 		Locale PAKISTAN = new Locale("ur", "PK");
 		Locale VIETNAM = new Locale("vi", "VN");

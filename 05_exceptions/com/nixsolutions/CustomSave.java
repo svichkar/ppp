@@ -18,20 +18,19 @@ public class CustomSave implements exception.Save {
                 throw new RuntimeException(e);
             }
         }
-
-        OutputStream outputStream = null;
+        Writer writer = null;
         try {
-            outputStream = new FileOutputStream(file, false);
-            outputStream.write(text.getBytes());
-            outputStream.flush();
+            writer = new FileWriter(file, false);
+            writer.write(text);
+            writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
             try {
-                if (outputStream != null) {
-                    outputStream.close();
+                if (writer != null) {
+                    writer.close();
                 }
-            }  catch (IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }

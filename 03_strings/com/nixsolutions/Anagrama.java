@@ -1,16 +1,14 @@
 package com.nixsolutions;
 
 import java.util.Arrays;
-//import java.util.regex.*;
 import java.util.Scanner;
 
 public class Anagrama {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {	
 		Scanner in = new Scanner(System.in);
-		String userInput1;
-		String userInput2 = "";
+		String userInput1, userInput2 = "";
+		
 		System.out.println("Please put the fist value and press Enter.");
 		userInput1 = in.nextLine();
 
@@ -26,6 +24,5 @@ public class Anagrama {
 				: "These strings are not anagrams of each other");
 
 		in.close();
-
 	}
 }

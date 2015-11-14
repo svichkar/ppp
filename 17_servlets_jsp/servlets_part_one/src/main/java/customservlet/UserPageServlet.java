@@ -35,7 +35,7 @@ public class UserPageServlet extends HttpServlet {
 	}
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String login = request.getParameter("login");
 		try {
 			User user = userDao.getUserByLogin(login);

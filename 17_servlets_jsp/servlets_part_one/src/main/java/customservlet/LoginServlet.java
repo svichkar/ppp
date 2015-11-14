@@ -42,17 +42,18 @@ public class LoginServlet extends HttpServlet {
 			if (password.equals(user.getUserPassword())) {
 				Role role = roleDao.getByPK(user.getRoleId());
 				if (role.getRoleName().equals("Administrator")) {
-					response.sendRedirect("adminLoginSucess.do");
+					//response.sendRedirect("adminLoginSucess.do");
+					request.getRequestDispatcher("adminLoginSucess.do").forward(request, response);
 				} else {
-					//request.getRequestDispatcher("userLoginSucess.do").include(request, response);
+					request.getRequestDispatcher("userLoginSucess.do").forward(request, response);
 					//response.sendRedirect("userLoginSucess.do");
 					//response.addHeader("", arg1);
-					response.sendRedirect("userLoginSucess.do?login=" + login);
+					//response.sendRedirect("userLoginSucess.do?login=" + login);
 				}
 			} else {
 				response.sendRedirect("");
 			}
-		} catch (PersistenceException e) {
+		} catch (PersistenceException | NullPointerException e) {
 			response.sendRedirect("");
 		}
 	}

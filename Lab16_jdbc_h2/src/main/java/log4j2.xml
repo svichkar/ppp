@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+	<Appenders>
+		<File name="File" fileName="log.log">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"></PatternLayout>
+		</File>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"></PatternLayout>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="GlobalLogger" level="TRACE" additivity="false">
+			<AppenderRef ref="File" level="ERROR" />
+			<AppenderRef ref="Console" level="TRACE"/>
+		</Logger>
+	</Loggers>
+</Configuration>

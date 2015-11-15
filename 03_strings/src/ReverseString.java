@@ -5,18 +5,14 @@ public class ReverseString {
 
     public static void main(String args[]) {
 
-        String string = "Argentinamanitnegra";
-        char[] signs = string.toCharArray();
-        int N = signs.length;
+        String string = "My test string.";
+        int N = string.length();
+        String reverseString = "";
 
-        char temp;
-        for (int i = 0; i < N/2; i++) {
-                temp = signs[i];
-                signs[i] = signs[N - 1 - i];
-                signs[N - 1 - i] = temp;
+        for (int i = N - 1; i >= 0; i--) {
+            reverseString += string.charAt(i);
         }
 
-        String reverseString = String.copyValueOf(signs);
         System.out.println(String.format("Initial string: \"%s\". %nString after reversing: \"%s\". ", string, reverseString));
     }
 }

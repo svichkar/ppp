@@ -53,6 +53,6 @@ public class EditServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		response.sendRedirect("adminLoginSucess.do");
+		response.sendRedirect("login.do");
 	}
 }

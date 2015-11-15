@@ -23,8 +23,8 @@ public class PreEditServlet extends HttpServlet {
 		sb.append("Password: <input type=\"text\" name=\"password\"><br>");
 		sb.append("Role: <select name=\"role\">");
 		sb.append("<option disabled>Select role</option>");
-		sb.append("<option value=\"2\">Administrator</option>");
-		sb.append("<option value=\"1\">User</option>");
+		sb.append("<option value=\"1\">Administrator</option>");
+		sb.append("<option value=\"2\">User</option>");
 		sb.append("</select><br>");
 		sb.append("<input type=\"submit\" value=\"Submit\">");
 		sb.append("</form>");

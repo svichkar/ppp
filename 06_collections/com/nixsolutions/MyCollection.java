@@ -189,7 +189,7 @@ public class MyCollection implements Collection {
         }
         return flag;
     }
-//__________________**************
+//__________________**************What the fuck?
     @Override
     public Object[] toArray(Object[] a) {
         if (!this.isEmpty()) {

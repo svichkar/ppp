@@ -11,7 +11,8 @@ public class MyCollection implements Collection {
     private Object[] array = null;
     private Object[] temporaryArray = null;
     private boolean flag = false;
-    private MyIterator iterator = null;
+    private Iterator iterator;
+    private int counter;
     @Override
     public int size() throws NullPointerException {
         if (!this.isEmpty()) {
@@ -23,52 +24,43 @@ public class MyCollection implements Collection {
 
     @Override
     public boolean isEmpty() {
-        if (array == null) {
-            return true;
-        } else {
-            return false;
-        }
+        return (array == null);
     }
 
     @Override
     public boolean contains(Object o) throws ClassCastException, NullPointerException {
         flag = false;
-        if (!this.isEmpty()) {
-            try {
-                iterator = null;
-                while (flag == false || this.iterator().hasNext()) {
-                    if (o.equals(this.iterator().next())) {
-                        flag = true;
-                    }
+        try {
+            iterator = this.iterator();
+            while (iterator.hasNext()) {
+                if (iterator.next().equals(o)) {
+                    flag = true;
                 }
-            } catch (ClassCastException e) {
-                throw e;
             }
-        } else {
-            throw new NullPointerException("Collection is empty");
+        } catch (ClassCastException e) {
+            throw e;
         }
         return flag;
     }
 
     @Override
-    public Iterator iterator() {
-        if (iterator == null) {
-                iterator = new MyIterator();
-        }
-        return iterator;
+    public MyIterator iterator() {
+        return new MyIterator();
     }
 
     @Override
-    public Object[] toArray() {
+    public Object[] toArray() throws NoSuchElementException {
         if (!this.isEmpty()) {
             Object[] temp = new Object[this.size()];
-            int i = 0;
-            iterator = null;
-            while (this.iterator().hasNext()) {
-                temp[i] = this.iterator().next();
-                i++;
+            iterator = this.iterator();
+            try {
+                for (int i = 0; i <array.length ; i++) {
+                    temp[i] = iterator.next();
+                }
+                return temp;
+            } catch (NoSuchElementException e) {
+                throw e;
             }
-            return temp;
         } else {
             throw new NullPointerException("Collection is empty");
         }
@@ -90,21 +82,17 @@ public class MyCollection implements Collection {
     @Override
     public boolean remove(Object o) {
         if (!this.isEmpty()) {
-            if (this.contains(o)) {
-                int position = 0;
-                for (int i = 0; i <array.length ; i++) {
-                    if (o.equals(array[i])) {
-                        position = i;
-                    }
+            int position = 0;
+            for (int i = 0; i < this.size(); i++) {
+                if (this.getElementAt(i).equals(o)) {
+                    position = i;
                 }
-                temporaryArray = new Object[array.length - 1];
-                System.arraycopy(array, 0, temporaryArray, 0, position);
-                System.arraycopy(array, position + 1, temporaryArray, position, array.length - 1);
-                array = temporaryArray;
-                return true;
-            } else {
-                return false;
             }
+            temporaryArray = new Object[array.length - 1];
+            System.arraycopy(array, 0, temporaryArray, 0, position);
+            System.arraycopy(array, position + 1, temporaryArray, position, array.length - position - 1);
+            array = temporaryArray;
+            return true;
         } else {
             throw new NullPointerException("Collection is empty");
         }
@@ -113,8 +101,9 @@ public class MyCollection implements Collection {
     @Override
     public boolean addAll(Collection c) {
         if (!c.isEmpty()) {
+            iterator = c.iterator();
             for (int i = 0; i <c.size() ; i++) {
-                this.add(c.iterator().next());
+                this.add(iterator.next());
             }
         } else {
             throw new NullPointerException("Input collection is empty");
@@ -133,54 +122,33 @@ public class MyCollection implements Collection {
 
     @Override
     public boolean retainAll(Collection c) {
-        flag = false;
-        while (c.iterator().hasNext() && !flag) {
-            if (this.contains(c.iterator().next())) {
-                flag = true;
+        iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (!c.contains(iterator.next())) {
+                iterator.remove();
             }
-        }
-        if (flag) {
-            for (int i = 0; i <this.size() ; i++) {
-                while (c.iterator().hasNext()) {
-                    if (!array[i].equals(c.iterator().next())) {
-                        this.remove(array[i]);
-                    }
-                }
-            }
-        } else {
-            this.clear();
         }
         return true;
     }
 
     @Override
     public boolean removeAll(Collection c) {
-        flag = false;
-        while (c.iterator().hasNext() && !flag) {
-            if (this.contains(c.iterator().next())) {
-                flag = true;
+        iterator = this.iterator();
+        while (iterator.hasNext()) {
+            if (c.contains(iterator.next())) {
+                iterator.remove();
             }
         }
-        if (flag) {
-            for (int i = 0; i <this.size() ; i++) {
-                while (c.iterator().hasNext()) {
-                    if (array[i].equals(c.iterator().next())) {
-                        this.remove(array[i]);
-                    }
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
 
     @Override
     public boolean containsAll(Collection c) {
         flag = true;
         if (!c.isEmpty()) {
-            while (c.iterator().hasNext()) {
-                if (!this.contains(c.iterator().next())) {
+            iterator = c.iterator();
+            while (iterator.hasNext()) {
+                if (!this.contains(iterator.next())) {
                     flag = false;
                 }
             }
@@ -189,25 +157,24 @@ public class MyCollection implements Collection {
         }
         return flag;
     }
-//__________________**************What the fuck?
     @Override
     public Object[] toArray(Object[] a) {
         if (!this.isEmpty()) {
+            int i = 0;
+            iterator = this.iterator();
             if (a.length < this.size()) {
                 a = new Object[this.size()];
-                int i = 0;
-                iterator = null;
-                while (this.iterator().hasNext()) {
-                    a[i] = this.iterator().next();
+                while (iterator.hasNext()) {
+                    a[i] = iterator.next();
                     i++;
                 }
             } else {
-                for (int i = 0; i <a.length ; i++) {
-                    if (this.iterator().hasNext()) {
-                        a[i] = this.iterator().next();
-                    } else {
-                        a[i] = null;
-                    }
+                while (iterator.hasNext()) {
+                    a[i] = iterator.next();
+                    i++;
+                }
+                for (int j = this.size(); j <a.length ; j++) {
+                    a[j] = null;
                 }
             }
             return a;
@@ -225,10 +192,7 @@ public class MyCollection implements Collection {
     }
 
     private class MyIterator implements  Iterator {
-        private int counter;
-        public MyIterator() {
-            counter = 0;
-        }
+        int counter = 0;
 
         @Override
         public boolean hasNext() {
@@ -238,9 +202,7 @@ public class MyCollection implements Collection {
         @Override
         public Object next() throws NoSuchElementException {
             if (this.hasNext()) {
-                Object temp = MyCollection.this.getElementAt(counter);
-                counter++;
-                return temp;
+                return MyCollection.this.getElementAt(counter++);
             } else {
                 throw new NoSuchElementException("No such element in collection");
             }
@@ -248,7 +210,7 @@ public class MyCollection implements Collection {
 
         @Override
         public void remove() throws UnsupportedOperationException, IllegalStateException {
-            MyCollection.this.remove(MyCollection.this.getElementAt(counter));
+            MyCollection.this.remove(MyCollection.this.getElementAt(--counter));
         }
     }
 }

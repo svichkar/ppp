@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class Collections {
     public static void main(String[] args) {
-        Collection<Object> collection = new MyCollection();
+        MyCollection collection = new MyCollection();
         Random random = new Random();
         int type;
         for (int i = 0; i < 10; i++) {
@@ -29,16 +29,26 @@ public class Collections {
                     break;
             }
         }
-        System.out.println(collection.size());
-        collection.iterator().remove();
-        System.out.println(collection.size());
-        collection.iterator().remove();
-        System.out.println(collection.size());
-        System.out.println(collection.add(new Circle()));
-        System.out.println(collection.size());
-        while (collection.iterator().hasNext()) {
-            System.out.println(collection.iterator().next().toString());
+
+        MyCollection secondCollection = new MyCollection();
+        for (int i = 0; i <3 ; i++) {
+            secondCollection.add(collection.getElementAt(i));
         }
+
+        System.out.println(collection.size());
+
+        for (int i = 0; i <collection.size() ; i++) {
+            System.out.println(collection.getElementAt(i).toString());
+        }
+
+        collection.retainAll(secondCollection);
+
+        System.out.println(collection.size());
+
+        for (int i = 0; i <collection.size() ; i++) {
+            System.out.println(collection.getElementAt(i).toString());
+        }
+
     }
 }
 

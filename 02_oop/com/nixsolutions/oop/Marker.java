@@ -17,7 +17,7 @@ public class Marker extends Writer {
 	
 	@Override
 	public StringBuilder write(StringBuilder stringBuilder) {
-		percentage = percentage - (stringBuilder.length() * 0.85f);
+		percentage = percentage - ((float)stringBuilder.length() * 0.85f);
 		System.out.println("Marker writes " + stringBuilder.toString() + " remaining ink is: " + percentage + "%");
 		return stringBuilder;
 	}

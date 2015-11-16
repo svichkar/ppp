@@ -113,8 +113,9 @@ public class DatesWorkshop {
         if (lastDate.compareTo(firstDate) >= 0) {
             lastDate.setTimeInMillis(lastDate.getTimeInMillis() - firstDate.getTimeInMillis());
             return "\nElapsed time: " + new Integer(lastDate.get(Calendar.YEAR) - 1970).toString()
-                    + " years, " + new Integer(lastDate.get(Calendar.MONTH)).toString() + " months, "
-                    + new Integer(lastDate.get(Calendar.DAY_OF_MONTH) - 1).toString() + " days.\n";
+                    + " years, " + new Integer(lastDate.get(Calendar.MONTH)).toString()
+                    + " months, " + new Integer(lastDate.get(Calendar.DAY_OF_MONTH) - 1).toString()
+                    + " days.\n";
         } else {
             return "\nThe date you have entered do not exist yet. "
                     + "Please pick some date in the past\n";
@@ -155,7 +156,8 @@ public class DatesWorkshop {
         System.out.print("\nCurrent dates:\n");
         for (Locale locale : locales) {
             System.out.printf("%s: %s\n", locale.getCountry(),
-                    currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale)));
+                    currentDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                            .withLocale(locale)));
         }
 
     }

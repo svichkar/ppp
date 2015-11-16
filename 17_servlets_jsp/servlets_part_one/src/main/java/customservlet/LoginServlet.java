@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				generateOutput(user, out);
 			} catch (PersistenceException e) {
-				e.printStackTrace();
+				response.sendRedirect("");
 			}
 		} else {
 			response.sendRedirect("");

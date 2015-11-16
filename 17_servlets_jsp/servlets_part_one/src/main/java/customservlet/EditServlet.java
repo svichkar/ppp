@@ -50,7 +50,7 @@ public class EditServlet extends HttpServlet {
 				user.setRoleId(role);
 				userDao.update(user);
 			} catch (PersistenceException e) {
-				e.printStackTrace();
+				response.sendRedirect("");
 			}
 		}
 		response.sendRedirect("login.do");

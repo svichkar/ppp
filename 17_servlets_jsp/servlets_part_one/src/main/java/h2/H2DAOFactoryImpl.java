@@ -51,11 +51,9 @@ public class H2DAOFactoryImpl implements DAOFactory<Connection> {
 		props.load(fis);
 		user = props.getProperty("DB_USER");
 		password = props.getProperty("DB_PASSWORD");
-		url = props.getProperty("DB_DRIVER");
-/*		String dbLocation = this.getClass().getClassLoader().getResource("sqllab.mv.db").getFile();
-		user = "sa";
-		password = "";
-		url = "jdbc:h2:file:"+dbLocation;*/
+		fis.close();
+		String dbLocation = this.getClass().getClassLoader().getResource("sqllab.mv.db").getFile();
+		url = "jdbc:h2:file:" + dbLocation.replaceAll(".mv.db", "").replaceAll("/(\\w:)", "$1");
 
 		creators = new HashMap<Class<?>, DAOCreator<Connection>>();
 		creators.put(User.class, new DAOCreator<Connection>() {

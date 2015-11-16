@@ -11,14 +11,14 @@ public class Circle extends Figure {
     /**
      * Field contains radius size
      */
-    private int radius;
+    private double radius;
 
     /**
      * Constructor setup coordinates  of circle center, radius and type name
      * @param centerCoorinates
      * @param radius
      */
-    public Circle(double[] centerCoorinates, int radius){
+    public Circle(double[] centerCoorinates, double radius){
         this.radius = radius;
         setTypeName("circle");
         setupCoordinates(centerCoorinates);

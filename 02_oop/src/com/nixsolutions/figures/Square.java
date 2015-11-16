@@ -9,17 +9,16 @@ public class Square extends Figure {
     /**
      * Field store size of square side
      */
-    private int size;
+    private double size;
 
     /**
      * Constructor for square
      * @param leftBottomPointCoordinates
      * @param size
      */
-    public Square(double[] leftBottomPointCoordinates, int size)
+    public Square(double[] leftBottomPointCoordinates, double size)
     {
         this.size = size;
-        //[0] -x  [1] -y
         setTypeName("triangle");
         setupCoordinates(leftBottomPointCoordinates);
     }

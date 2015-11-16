@@ -26,8 +26,10 @@ public class CustomCollectionTest {
         CustomCollection<String> cc3 = new CustomCollection();
         cc3.add("Tree2");
         cc.removeAll(cc3);
-        for (int i = 0; i < cc.size(); i++) {
-            System.out.println(cc.get(i));
+        String[] sss = new String[cc.size()];
+        cc.toArray(sss);
+        for (int i = 0; i < sss.length; i++) {
+            System.out.println(sss[i]);
         }
     }
 }

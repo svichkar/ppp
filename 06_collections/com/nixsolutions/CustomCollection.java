@@ -96,7 +96,6 @@ public class CustomCollection<E> implements Collection<E> {
             if (!c.contains(obj)) {
                 it.remove();
                 it.prev();
-                //result = true;
             }
             result = true;
         }
@@ -134,9 +133,9 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <E> E[] toArray(E[] a) {
         if (a.length < size) {
-            a = (T[]) Array.newInstance(a.getClass().getComponentType(), size);
+            a = (E[]) Array.newInstance(a.getClass().getComponentType(), size);
         } else if (a.length > size) {
             a[size] = null;
         }

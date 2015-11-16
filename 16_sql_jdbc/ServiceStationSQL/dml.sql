@@ -131,7 +131,7 @@ VALUES('change tyaga','2015-11-05 09:49:49.71',CURRENT_TIMESTAMP(),'3','4');
 
 
 INSERT INTO part_order (order_id ,part_id,amount  )
-VALUES('1','3','2');
+VALUES(1,3,2);
 
 INSERT INTO part_order (order_id ,part_id,amount  )
 VALUES('2','8','4');

@@ -39,8 +39,9 @@ public class EditServlet extends HttpServlet {
 			user = new User(login, password, role);
 			try {
 				userDao.createFrom(user);
+				response.sendRedirect("login.do");
 			} catch (PersistenceException e) {
-				e.printStackTrace();
+				response.sendRedirect("");
 			}
 		} else {
 			try {
@@ -49,10 +50,10 @@ public class EditServlet extends HttpServlet {
 				user.setUserPassword(password);
 				user.setRoleId(role);
 				userDao.update(user);
+				response.sendRedirect("login.do");
 			} catch (PersistenceException e) {
 				response.sendRedirect("");
 			}
 		}
-		response.sendRedirect("login.do");
 	}
 }

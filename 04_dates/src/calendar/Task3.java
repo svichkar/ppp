@@ -16,29 +16,70 @@ import java.util.concurrent.TimeUnit;
 public class Task3 {
 
 	static Scanner scan = new Scanner(System.in);
+	static Calendar calendar = GregorianCalendar.getInstance();
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-		LengthOfMonth();
-		CheckMonday();
-		CheckFridayThirteen();
-		CheckMonday();
+		//LengthOfMonth();
+		// CheckMonday();
+		 //CheckFridayThirteen();
+		DifferenceInDates();
+		// AllLocalDates();
+
+	}
+
+	public static int getYearFromKeyBoard() {
+
+		int year = 0;
+		System.out.println("Provide year: ");
+		try {
+			year = Integer.parseInt(scan.nextLine());
+
+		} catch (NumberFormatException e) {
+
+			System.out.println("It is incorrect year. Year =1999");
+			year = 1999;
+		}
+		return year;
+
+	}
+
+	public static int getMonthFromKeyBoard() {
+
+		int month = 0;
+		System.out.print("Provide month: ");
+		try {
+			month = Integer.parseInt(scan.nextLine());
+		} catch (NumberFormatException e) {
+
+			System.out.println("It is incorrect month. Month = 4");
+			month = 4;
+		}
+		return month;
+
+	}
+
+	public static int getDayFromKeyBoard() {
+
+		int day = 0;
+		System.out.print("Provide day: ");
+		try {
+			day = Integer.parseInt(scan.nextLine());
+		} catch (NumberFormatException e) {
+
+			System.out.println("It is incorrect Day. Day = 15");
+			day = 15;
+		}
+		return day;
 
 	}
 
 	//// Написать метод который для указанного года выводит длину каждого месяца
 	public static void LengthOfMonth() {
-		int year;
 
-		System.out.print("метод который для указанного года выводит длину каждого месяца");
+		System.out.println("метод который для указанного года выводит длину каждого месяца");
 
-		System.out.print("Provide year: ");
-		year = Integer.parseInt(scan.nextLine());
-
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.clear();
-		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.YEAR, getYearFromKeyBoard());
 
 		for (int i = 0; i < 12; i++) {
 
@@ -56,26 +97,16 @@ public class Task3 {
 
 	public static void CheckMonday() {
 
-		int year;
-		int month;
+		System.out.println(
+				"Написать метод который для указанного месяца и года выводит список дат которые выпадают на понедельник.");
+
 		int countDays;
 		int dayOfWeek;
 
-		SimpleDateFormat df = new SimpleDateFormat();
-		df.applyPattern("dd/MM/yyyy");
-
-		System.out.println(
-				"метод который для указанного месяца и года выводит список дат которые выпадают на понедельник");
-		System.out.print("Provide year: ");
-		year = Integer.parseInt(scan.nextLine());
-
-		System.out.print("Provide month: ");
-		month = Integer.parseInt(scan.nextLine());
-
-		Calendar calendar = GregorianCalendar.getInstance();
-
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+								
 		calendar.clear();
-		calendar.set(year, month, 1);
+		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard()-1, 1);
 
 		countDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
@@ -87,9 +118,7 @@ public class Task3 {
 
 				System.out.println(df.format(calendar.getTime()));
 			}
-
 			calendar.add(Calendar.DATE, 1);
-
 		}
 	}
 
@@ -99,36 +128,16 @@ public class Task3 {
 
 		System.out.println("Написать метод который проверяет является ли указанная дата пятницей тринадцатого");
 
-		int year;
-		int month;
-		int day;
-
-		Calendar calendar = GregorianCalendar.getInstance();
-		SimpleDateFormat df = new SimpleDateFormat();
-		df.applyPattern("dd/MM/yyyy");
-
-		System.out.print("Provide year: ");
-		year = Integer.parseInt(scan.nextLine());
-
-		System.out.print("Provide month: ");
-		month = Integer.parseInt(scan.nextLine());
-
-		System.out.print("Provide day: ");
-		day = Integer.parseInt(scan.nextLine());
-
+		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+				
 		calendar.clear();
-
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month - 1);
-		calendar.set(Calendar.DAY_OF_MONTH, day);
-
+		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard()-1, getDayFromKeyBoard());
+		
 		if (((calendar.get(Calendar.DAY_OF_WEEK)) == 6) && ((calendar.get(Calendar.DAY_OF_MONTH)) == 13)) { // 6=FRIDAY
 
 			System.out.println("Friday 13");
 			System.out.println(df.format(calendar.getTime()));
-
 		}
-
 		else {
 
 			System.out.println("!=Friday 13");
@@ -144,11 +153,8 @@ public class Task3 {
 		System.out.println(
 				"Написать метод который для указанной даты возвращает строку в которой написано сколько лет, месяцев, дней прошло с этой даты.");
 
-		int year;
-		int month;
-		int day;
-		long Diff;
-		long CurrentMillis;
+		long diff;
+		long currentMillis;
 		long alldays;
 		int Years = 0;
 		int Months = 0;
@@ -157,28 +163,14 @@ public class Task3 {
 		int DaysInMonth = 30;
 		int leftDays = 0;
 
-		Calendar calendar = GregorianCalendar.getInstance();
-
-		CurrentMillis = calendar.getTimeInMillis();
-
-		System.out.print("Provide year: ");
-		year = Integer.parseInt(scan.nextLine());
-
-		System.out.print("Provide month: ");
-		month = Integer.parseInt(scan.nextLine());
-
-		System.out.print("Provide day: ");
-		day = Integer.parseInt(scan.nextLine());
-
+		currentMillis = calendar.getTimeInMillis();
+								
 		calendar.clear();
+		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard()-1, getDayFromKeyBoard());
 
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month - 1);
-		calendar.set(Calendar.DAY_OF_MONTH, day);
+		diff = currentMillis - calendar.getTimeInMillis();
 
-		Diff = CurrentMillis - calendar.getTimeInMillis();
-
-		alldays = TimeUnit.MILLISECONDS.toDays(Diff);
+		alldays = TimeUnit.MILLISECONDS.toDays(diff);
 
 		leftDays = (int) (alldays % DaysInYear);
 		Years = (int) ((alldays - leftDays) / DaysInYear);

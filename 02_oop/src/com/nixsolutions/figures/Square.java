@@ -25,7 +25,8 @@ public class Square extends Figure {
     }
 
     /**
-    * Method that set up coordinates. Uses in constructor and in changeSize method
+    * Method that set up coordinates by leftBottomPointCoordinates and current size
+    * It is use in constructor and in changeSize method
     * @param leftBottomPointCoordinates
     */
     private void setupCoordinates(double[] leftBottomPointCoordinates){
@@ -52,22 +53,13 @@ public class Square extends Figure {
     }
 
     /**
-    * Mathod that change size of circle using increment/decrement to size of square.
-    * Size can't be less than or equals 0. In such case decrement won't be executed.
-    * Coordinates will be changed
-    * @param increment
+    * Mathod that change size of square by changing square' side size. Then new coordinates wil be calculated.
+    * Coordinates will be changed except leftBottomPointCoordinates
+    * @param coefficient leftBottomPointCoordinates
     */
     @Override
-    public void changeSize(boolean increment){
-        if(increment){
-            size +=1;
-        }
-        else {
-            if((size - 1) <= 0){
-                System.out.println("We can't decrement size because it equals 1 or less than 1!");
-            }
-            else size -=1;
-        }
+    public void changeSize(double coefficient){
+        size = coefficient * size;
         setupCoordinates(getCoordinates()[0]);
     }
 }

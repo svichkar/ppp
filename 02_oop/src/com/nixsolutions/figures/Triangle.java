@@ -32,7 +32,7 @@ public class Triangle extends Figure {
     }
 
     /**
-    * @return double that represent triangle area size. Heron's formula is uses.
+    * @return double that represent triangle area size. Heron's formula is use.
     */
     @Override
     public double calculateArea() {
@@ -59,19 +59,18 @@ public class Triangle extends Figure {
     }
 
     /**
-     * Default ratio is 2
+     * Method changes triangle size by recalculating point position using input coefficient
      * Coordinates will be changed
-     * @param increase boolean type.It sets if figure's size  will be increased or decreased
+     * @param coefficient
      */
     @Override
-    public void changeSize(boolean increase)
+    public void changeSize(double coefficient)
     {
-        int ratio = 2;
         double[][] curCoord = getCoordinates();
         double[][] newCoord = new double[3][2];
         for(int i=0; i<3;i++) {
-            newCoord[i][0] = curCoord[i][0] * ratio;
-            newCoord[i][1] = curCoord[i][1] * ratio;
+            newCoord[i][0] = curCoord[i][0] * coefficient;
+            newCoord[i][1] = curCoord[i][1] * coefficient;
         }
         setupCoordinates(newCoord[0], newCoord[1], newCoord[2]);
     }

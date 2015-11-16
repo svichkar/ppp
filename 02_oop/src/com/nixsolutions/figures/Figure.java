@@ -49,9 +49,9 @@ public abstract class Figure {
 
     /**
      * Abstract method for change size of figure
-      * @param increase
+      * @param coefficient
      */
-    public abstract void changeSize(boolean increase);
+    public abstract void changeSize(double coefficient);
 
     /**
      * Move method. Coordinates will be changed

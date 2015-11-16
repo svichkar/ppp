@@ -46,21 +46,12 @@ public class Circle extends Figure {
     }
 
     /**
-    * Mathod that change size of circle using increment/decrement to radius
-    * Radius can't be less than or equals 0. In such case decrement won't be executed.
-    * @param increment sets if size will be increased/decreased
+    * Mathod that change size of circle by changing radius
+    * @param coefficient for change size
      */
     @Override
-    public void changeSize(boolean increment){
-        if(increment){
-            radius +=1;
-        }
-        else {
-            if((radius - 1) < 0){
-                System.out.println("We can't decrement raduis because it less than 1!");
-            }
-            else radius -=1;
-        }
+    public void changeSize(double coefficient){
+        radius = radius * coefficient;
         setupCoordinates(getCoordinates()[0]);
     }
 }

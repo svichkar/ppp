@@ -115,15 +115,11 @@ public class MyCollection<T> implements Collection<T> {
 
     @Override
     public boolean retainAll(Collection c) {
-        boolean result = true;
-        for (Object element : c) {
-            for (int i = 0; i < item.length; i++) {
-                if (item[i] != null) {
-                    if (!item[i].equals(element)) {
-                        this.remove(element);
-                        result = true;
-                    }
-                }
+        boolean result = false;
+        for (Object obj : item) {
+            if (!c.contains(obj)) {
+                remove(obj);
+                result = true;
             }
         }
         return result;

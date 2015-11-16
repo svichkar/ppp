@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <worker WORKER_ID="1" SPECIALIZATION_ID="1" FIRST_NAME="createWorkerTable" LAST_NAME="createWorkerTable" WORKER_STATUS_ID="1"/>
+</dataset>

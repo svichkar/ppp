@@ -58,6 +58,12 @@ public interface WorkerDao extends DBTables {
 	 */
 	public void createWorker(Worker worker );
 
+	
+	/**
+	 * updateWorker
+	 * @param worker
+	 */
+	public void updateWorker(Worker worker);
 	/**
 	 * delete sqllab.worker 
 	 * 

@@ -153,14 +153,42 @@ public class WorkerDaoImpl implements WorkerDao {
 		try {
 			logger.debug("Create DB connector");
 			logger.trace(
-					"Send query \"INSERT INTO sqllab.worker  (last_name ,first_name ,specialization_id )VALUES('Petrov','Petr',(SELECT specialization_id FROM sqllab.worker_specialization WHERE specialization_name ='electric'));\"");
+					"Send query \"INSERT INTO sqllab.worker  (last_name ,first_name ,specialization_id, )VALUES('Petrov','Petr',(SELECT specialization_id FROM sqllab.worker_specialization WHERE specialization_name ='electric'));\"");
 
 			PreparedStatement stmt = dbConnector.prepareStatement(
-					"INSERT INTO sqllab.worker  (last_name ,first_name ,specialization_id )" + "VALUES(?,?,?);");
+					"INSERT INTO sqllab.worker  (last_name ,first_name ,specialization_id,worker_status_id )" 
+			+ "VALUES(?,?,?,?);");
 			stmt.setString(1, worker.getLast_name());
 			stmt.setString(2, worker.getFirst_name());
 			stmt.setInt(3, worker.getSpecialization_id());
+			stmt.setInt(4, worker.getWorker_status_id());
 			int set = stmt.executeUpdate();
+			if (set == 1)
+				logger.trace("New sqllab.worker  was created");
+			else
+				logger.debug("New sqllab.worker  was not created");
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+
+	}
+
+	public void updateWorker(Worker worker) {
+		try {
+			logger.debug("Create DB connector");
+			logger.trace(
+					"Send query \"INSERT INTO sqllab.worker  (last_name ,first_name ,specialization_id, )VALUES('Petrov','Petr',(SELECT specialization_id FROM sqllab.worker_specialization WHERE specialization_name ='electric'));\"");
+
+			PreparedStatement stmt = dbConnector.prepareStatement("UPDATE sqllab.worker "
+					+ "SET last_name =?,first_name =?,specialization_id=?,worker_status_id =? "
+					+ "WHERE worker_id=?");
+			stmt.setString(1, worker.getLast_name());
+			stmt.setString(2, worker.getFirst_name());
+			stmt.setInt(3, worker.getSpecialization_id());
+			stmt.setInt(4, worker.getWorker_status_id());
+			stmt.setInt(5, worker.getWorker_id());
+					int set = stmt.executeUpdate();
 			if (set == 1)
 				logger.trace("New sqllab.worker  was created");
 			else

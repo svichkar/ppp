@@ -67,14 +67,8 @@ public class Main {
         System.out.println(strResult.toString());
 
         //сортировка устройств по остатку пишущего средства в %.
-        Arrays.sort(writingTools, new Comparator<AbstractWriter>() {
-            @Override
-            public int compare(AbstractWriter o1, AbstractWriter o2) {
-
-                return (o2.getRemainingResource().compareTo(o1.getRemainingResource()));
-            }
-        }
-        );
+        Arrays.sort(writingTools, (AbstractWriter o1, AbstractWriter o2) -> 
+                (o2.getRemainingResource().compareTo(o1.getRemainingResource())));
 
         for (AbstractWriter particularTool : writingTools) {
             System.out.printf("%.1f%%\n", particularTool.getRemainingResourcePercentage());

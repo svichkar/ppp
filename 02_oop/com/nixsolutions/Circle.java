@@ -6,25 +6,6 @@ package com.nixsolutions;
 public class Circle extends Figures {
 
     /**
-     * Implementation of the Figures method. Calculating by Pi * radius * radius
-     */
-    @Override
-    public void squareCalculating() {
-        double square = (Math.pow((getCoordinate()[1][1] - getCoordinate()[0][1]),2) * Math.PI);
-        this.setSquare(square);
-    }
-
-    /**
-     * Implementation of the Figure method. Change radius length
-     * @param delta resize radius object (radius * delta)
-     */
-    @Override
-    public void reSize(double delta) {
-        setCoordinate(getCoordinate()[1][1] * delta, 1, 1);
-        this.squareCalculating();
-    }
-
-    /**
      * Constructor for create new Circle without parameters. Set center point in random position on the grid. Set random radius
      */
     public Circle() {
@@ -55,4 +36,25 @@ public class Circle extends Figures {
         setCoordinate(yPoint + radius, 1, 1);
         this.squareCalculating();
     }
+
+    /**
+     * Implementation of the Figures method. Calculating by Pi * radius * radius
+     */
+    @Override
+    public void squareCalculating() {
+        double square = (Math.pow((getCoordinate()[1][1] - getCoordinate()[0][1]),2) * Math.PI);
+        this.setSquare(square);
+    }
+
+    /**
+     * Implementation of the Figure method. Change radius length
+     * @param delta resize radius object (radius * delta)
+     */
+    @Override
+    public void reSize(double delta) {
+        setCoordinate(getCoordinate()[1][1] * delta, 1, 1);
+        this.squareCalculating();
+    }
+
+
 }

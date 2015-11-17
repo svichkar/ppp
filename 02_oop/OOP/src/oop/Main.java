@@ -21,7 +21,13 @@ import java.util.Random;
 public class Main {
 
     /**
+     * Endpoint for the OOP task
      * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.NoSuchMethodException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
      */
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException,
             InstantiationException, IllegalAccessException, IllegalArgumentException,

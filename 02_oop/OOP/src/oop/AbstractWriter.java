@@ -105,7 +105,8 @@ public abstract class AbstractWriter {
      */
     public StringBuilder write(StringBuilder inputText) {
         char[] text = new char[inputText.length()];
-        StringBuilder output = new StringBuilder("|" + this.getClass().getSimpleName() + ":" + this.getColor() + "::");
+        StringBuilder output = new StringBuilder("|" + this.getClass().getSimpleName() + ":" 
+                + this.getColor() + "::");
         inputText.getChars(0, inputText.length(), text, 0);
         for (char symbol : text) {
             this.setRemainingResource(this.getRemainingResource() - this.getResourceUsage());

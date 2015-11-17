@@ -18,7 +18,7 @@ public class Pen extends Writer {
 
 	@Override
 	public StringBuilder write(StringBuilder stringBuilder) {
-		percentage = percentage - ((float)stringBuilder.length() *  0.80f);
+		percentage = percentage - (stringBuilder.length() *  0.80f);
 		System.out.println("Pen writes: " + stringBuilder.toString() + ". remaining ink is: " + percentage + "% of ink");
 		return stringBuilder;
 	}

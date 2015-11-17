@@ -26,7 +26,7 @@ public abstract class Writer implements Comparable<Writer> {
 	@Override
 	public int compareTo(Writer o) {
 		// TODO Auto-generated method stub
-		return ((int) this.percentage - (int) o.percentage);
+		return (int)(this.percentage*100 - o.percentage*100);
 		
 	}
 }

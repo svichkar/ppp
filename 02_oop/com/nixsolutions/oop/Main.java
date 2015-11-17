@@ -1,7 +1,6 @@
 package com.nixsolutions.oop;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Collections;
 
@@ -40,9 +39,10 @@ public class Main {
 		}
 		return stringBuilder;
 	}
+	
 
 	/**
-	 * Random writers collection generator
+	 * Generates random collection of writers
 	 * 
 	 * @return random list of writers (10 items)
 	 */
@@ -54,6 +54,7 @@ public class Main {
 		}
 		return arrWriters;
 	}
+	
 
 	/**
 	 * Selects type of writer by number

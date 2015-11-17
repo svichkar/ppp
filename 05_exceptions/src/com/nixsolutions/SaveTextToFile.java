@@ -13,31 +13,33 @@ import java.io.FileWriter;
 public class SaveTextToFile implements Save {
 
     /**
-     * Implements method 'save'
-     * @param textToSave
-     * @param absolutPathToFile
+     * Override method 'save'. Write textToSave to file and save it to next path: 'absolutePathToFile'
+     * Rewrite file if it already exist
+     * @param textToSave - text for saving
+     * @param absolutePathToFile
      */
     @Override
-    public void save(String textToSave, String absolutPathToFile){
-
-        File fileToWrite = new File(absolutPathToFile);
+    public void save(String textToSave, String absolutePathToFile){
+        if(textToSave == null)
+            throw new CustomRTException("Input text String is null!");
+        if(absolutePathToFile == null)
+            throw new CustomRTException("Path input object is null!");
+        File fileToWrite = new File(absolutePathToFile);
         if(!fileToWrite.exists()){
             try{
                 fileToWrite.createNewFile();
             } catch (IOException ex){
-                System.out.println("Can't create file by path '" + absolutPathToFile + "'!. Exception message: "
+                throw new CustomRTException("Can't create file by path '" + absolutePathToFile + "'!. Exception message: "
                         + ex.getMessage());
-                throw new RuntimeException(ex);
             }
         }
-        try(FileWriter writer = new FileWriter(absolutPathToFile, false))
+        try(FileWriter writer = new FileWriter(absolutePathToFile, false))
         {
             writer.write(textToSave);
         }
         catch(IOException ex){
-            System.out.println("Can't write text to file by path '" + absolutPathToFile + ". Exception message: "
+            throw new CustomRTException("Can't write text to file by path '" + absolutePathToFile + ". Exception message: "
                     + ex.getMessage());
-            throw  new RuntimeException(ex);
         }
     }
 

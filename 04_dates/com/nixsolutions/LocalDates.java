@@ -3,16 +3,15 @@
  */
 package com.nixsolutions;
 
-import java.util.GregorianCalendar;
+
 import java.util.Locale;
-import java.util.Scanner;
+
 import java.time.*;
 import java.time.format.*;
-import java.util.Calendar;
+
 import java.util.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 
 /**
  * @author Evgeniy Fomin

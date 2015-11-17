@@ -6,23 +6,40 @@
 package oop;
 
 /**
+ * A pencil class
  *
  * @author mednorcom
  */
-public class Pencil extends AbstractWriter {
+public class Pencil extends AbstractErasableWriter {
 
+    /**
+     * Sharpen status. if Sharpen status is true pencil is able to write
+     */
     private boolean sharpen;
 
+    /**
+     * Constructs Pencil with specified color
+     *
+     * @param color - text color
+     */
     public Pencil(String color) {
         super(color);
         this.sharpen = true;
         this.setResourceUsage(0.009);
     }
 
+    /**
+     * Returns sharpen status
+     * @return sharpen status, if true pencil is harp and able to write
+     */
     public boolean isSharpen() {
         return sharpen;
     }
 
+    /**
+     * Sets sharpen status. if Sharpen status is true pencil is able to write
+     * @param sharpen if true pencil is able to write
+     */
     public void setSharpen(boolean sharpen) {
         this.sharpen = sharpen;
     }
@@ -32,6 +49,7 @@ public class Pencil extends AbstractWriter {
         if (!this.isSharpen()) {
             this.setSharpen(sharpen);
         }
+        System.out.println("Pencil is ready!");
     }
 
     @Override
@@ -45,15 +63,4 @@ public class Pencil extends AbstractWriter {
         }
     }
 
-    public StringBuilder erase(StringBuilder inputText) {
-        char[] text = null;
-        if (inputText.length() > 0) {
-            inputText.getChars(0, 2 - inputText.length(), text, 0);
-            return new StringBuilder(text.toString());
-
-        } else {
-            System.out.println("Nothing to erase");
-            return new StringBuilder(inputText);
-        }
-    }
 }

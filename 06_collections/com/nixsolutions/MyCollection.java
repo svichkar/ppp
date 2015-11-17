@@ -12,7 +12,7 @@ public class MyCollection implements Collection {
     private Object[] temporaryArray = null;
     private boolean flag = false;
     private Iterator iterator;
-    private int counter;
+    
     @Override
     public int size() throws NullPointerException {
         if (!this.isEmpty()) {
@@ -209,7 +209,7 @@ public class MyCollection implements Collection {
         }
 
         @Override
-        public void remove() throws UnsupportedOperationException, IllegalStateException {
+        public void remove() throws IllegalStateException {
             MyCollection.this.remove(MyCollection.this.getElementAt(--counter));
         }
     }

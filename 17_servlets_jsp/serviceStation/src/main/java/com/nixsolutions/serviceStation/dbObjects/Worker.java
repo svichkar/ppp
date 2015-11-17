@@ -13,25 +13,36 @@ public class Worker {
 	private String first_name;
 	private String last_name;
 	private Integer worker_status_id;
+	private Integer user_id;
 	
 	public Worker(Integer worker_id, Integer specialization_id, String last_name, String first_name,
-			Integer worker_status_id) {
+			Integer worker_status_id, Integer user_id) {
 		super();
 		this.worker_id = worker_id;
 		this.specialization_id = specialization_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.worker_status_id = worker_status_id;
+		this.user_id=user_id;
 	}
 	
+	public Integer getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
+	}
+
 	public Worker(Integer specialization_id, String last_name, String first_name,
-			Integer worker_status_id) {
+			Integer worker_status_id, Integer user_id) {
 		super();
 		this.specialization_id = specialization_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.worker_status_id = worker_status_id;
-	}
+		this.user_id=user_id;
+}
 	public Integer getWorker_id() {
 		return worker_id;
 	}

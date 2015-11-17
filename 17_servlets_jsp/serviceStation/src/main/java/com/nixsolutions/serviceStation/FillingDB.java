@@ -67,6 +67,12 @@ public class FillingDB {
 					+ "VALUES('worker','worker','3');");
 			stmt.addBatch("INSERT INTO sqllab.user (user_login, user_password, user_role_id) "
 					+ "VALUES('storekeeper','storekeeper','4');");
+			stmt.addBatch("INSERT INTO sqllab.user (user_login, user_password, user_role_id) "
+					+ "VALUES('worker1','worker','3');");
+			stmt.addBatch("INSERT INTO sqllab.user (user_login, user_password, user_role_id) "
+					+ "VALUES('worker2','worker','3');");
+			stmt.addBatch("INSERT INTO sqllab.user (user_login, user_password, user_role_id) "
+					+ "VALUES('worker3','worker','3');");
 
 			stmt.addBatch("INSERT INTO sqllab.customer (first_name, last_name, phone ,user_id) "
 					+ "VALUES('IVAN','IVANOV','1-23-3455-5435',2);");
@@ -104,18 +110,18 @@ public class FillingDB {
 			stmt.addBatch("INSERT INTO sqllab.worker_status (worker_status_name) " + "VALUES('ill');");
 			stmt.addBatch("INSERT INTO sqllab.worker_status (worker_status_name) " + "VALUES('vacation');");
 			/* sqllab.worker */
-			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id) "
-					+ "VALUES(1, 'Ivan', 'Ivanov',1);");
-			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id) "
-					+ "VALUES(1, 'Petr', 'Ivanov',2);");
-			stmt.addBatch("INSERT INTO sqllab.worker  (specialization_id, first_name, last_name, worker_status_id) "
-					+ "VALUES(2, 'Fedya', 'Ivanov',3);");
-			stmt.addBatch("INSERT INTO sqllab.worker  (specialization_id, first_name, last_name, worker_status_id) "
-					+ "VALUES(3, 'Anton', 'Ivanov',2);");
-			stmt.addBatch("INSERT INTO sqllab.worker  (specialization_id, first_name, last_name, worker_status_id) "
-					+ "VALUES(4, 'Aleksey', 'Ivanov',4);");
-			stmt.addBatch("INSERT INTO sqllab.worker  (specialization_id, first_name, last_name, worker_status_id) "
-					+ "VALUES(5, 'Evgeniy', 'Ivanov',1);");
+			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id, user_id) "
+					+ "VALUES(1, 'Ivan', 'Ivanov',1,1);");
+			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id, user_id) "
+					+ "VALUES(1, 'Petr', 'Ivanov',2,6);");
+			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id, user_id) "
+					+ "VALUES(2, 'Fedya', 'Ivanov',3,7);");
+			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id, user_id) "
+					+ "VALUES(3, 'Anton', 'Ivanov',2,8);");
+			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id, user_id) "
+					+ "VALUES(4, 'Aleksey', 'Ivanov',4,9);");
+			stmt.addBatch("INSERT INTO sqllab.worker (specialization_id, first_name, last_name, worker_status_id, user_id) "
+					+ "VALUES(5, 'Evgeniy', 'Ivanov',1,10);");
 			/* sqllab.part */
 			stmt.addBatch("INSERT INTO sqllab.part (part_name, vendor, amount) "
 					+ "VALUES('tyaga ВАЗ', '81-56fa354fa', '6');");

@@ -101,6 +101,26 @@ public class Worker_statusDaoImpl implements Worker_statusDao {
 	}
 
 	@Override
+	public Worker_status getWorkerStatus(Integer worker_status_id) {
+		try {
+			logger.trace(
+					"Send query \"SELECT * FROM worker_status WHERE worker_status_id=?;\"");
+			PreparedStatement stmt = dbConnector.prepareStatement(
+					"SELECT * FROM sqllab.worker_status WHERE worker_status_id=?;");
+			stmt.setInt(1, worker_status_id);
+			ResultSet set = stmt.executeQuery();
+			logger.trace("Generate list of the sqllab.worker_status objects");
+			while (set.next()) {
+				return new Worker_status(set.getInt("worker_status_id"),set.getString("worker_status_name"));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
+
+	@Override
 	public void createNewStatus(String statusName) {
 		try {
 			logger.debug("Create DB connector");

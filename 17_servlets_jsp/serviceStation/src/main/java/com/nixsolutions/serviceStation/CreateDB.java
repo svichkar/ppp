@@ -47,6 +47,9 @@ public class CreateDB {
 					+ "user_role_name VARCHAR(128) NOT NULL UNIQUE);");
 			stmt.addBatch("CREATE TABLE sqllab.worker_specialization( " + "specialization_id INT IDENTITY,"
 					+ "specialization_name VARCHAR(256) NOT NULL);");
+			stmt.addBatch("CREATE TABLE sqllab.user ( user_id INT IDENTITY, user_login VARCHAR(128) NOT NULL UNIQUE, "
+					+ "user_password VARCHAR(17) NOT NULL, " + "user_role_id INT NOT NULL,"
+					+ "FOREIGN KEY(user_role_id) REFERENCES sqllab.user_role (user_role_id));");
 			stmt.addBatch("CREATE TABLE sqllab.worker_status( " + "worker_status_id INT IDENTITY, "
 					+ "worker_status_name VARCHAR(128) NOT NULL); ");
 			stmt.addBatch(
@@ -54,7 +57,8 @@ public class CreateDB {
 							+ "FOREIGN KEY (specialization_id) REFERENCES  sqllab.worker_specialization(specialization_id),"
 							+ "first_name VARCHAR(128) NOT NULL," + "last_name VARCHAR(128) NOT NULL, "
 							+ "worker_status_id INT NOT NULL, "
-							+ "FOREIGN KEY (worker_status_id) REFERENCES sqllab.worker_status(worker_status_id),);");
+							+ "FOREIGN KEY (worker_status_id) REFERENCES sqllab.worker_status(worker_status_id),"
+							+ "user_id INT NOT NULL, " + "FOREIGN KEY (user_id) REFERENCES sqllab.user(user_id),);");
 			stmt.addBatch("CREATE TABLE sqllab.order_in_work( " + "order_id INT IDENTITY, "
 					+ "order_description VARCHAR(512) NOT NULL, " + "datetime_start TIMESTAMP NOT NULL, "
 					+ "datetime_finish TIMESTAMP);");
@@ -66,9 +70,6 @@ public class CreateDB {
 					+ "FOREIGN KEY (order_id) REFERENCES  sqllab.order_in_work(order_id), " + "part_id INT NOT NULL,"
 					+ "FOREIGN KEY (part_id) REFERENCES  sqllab.part(part_id), " + "amount TINYINT);");
 			// create sqllab.car table
-			stmt.addBatch("CREATE TABLE sqllab.user ( user_id INT IDENTITY, user_login VARCHAR(128) NOT NULL UNIQUE, "
-					+ "user_password VARCHAR(17) NOT NULL, " + "user_role_id INT NOT NULL,"
-					+ "FOREIGN KEY(user_role_id) REFERENCES sqllab.user_role (user_role_id));");
 			stmt.addBatch("CREATE TABLE sqllab.car( " + "car_id INT IDENTITY, " + "car_model VARCHAR(128) NOT NULL, "
 					+ "vin_number VARCHAR(17) NOT NULL UNIQUE, " + "car_description VARCHAR(256));");
 			stmt.addBatch("CREATE TABLE sqllab.customer( " + "customer_id INT IDENTITY, "

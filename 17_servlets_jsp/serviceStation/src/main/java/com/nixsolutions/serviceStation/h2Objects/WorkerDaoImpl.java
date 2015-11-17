@@ -46,7 +46,7 @@ public class WorkerDaoImpl implements WorkerDao {
 			logger.trace("Generate list of the sqllab.worker  objects");
 			while (set.next()) {
 				workers.add(new Worker(set.getInt("worker_id"), set.getInt("specialization_id"),
-						set.getString("last_name"), set.getString("first_name"), set.getInt("worker_status_id")));
+						set.getString("last_name"), set.getString("first_name"), set.getInt("worker_status_id"),set.getInt("user_id")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -76,7 +76,7 @@ public class WorkerDaoImpl implements WorkerDao {
 			logger.trace("Generate list of the sqllab.worker  objects");
 			while (set.next()) {
 				workers.add(new Worker(set.getInt("worker_id"), set.getInt("specialization_id"),
-						set.getString("last_name"), set.getString("first_name"), set.getInt("worker_status_id")));
+						set.getString("last_name"), set.getString("first_name"), set.getInt("worker_status_id"),set.getInt("user_id")));
 			}
 			stmt.close();
 		} catch (SQLException e) {
@@ -105,7 +105,30 @@ public class WorkerDaoImpl implements WorkerDao {
 			ResultSet set = stmt.executeQuery();
 			while (set.next()) {
 				return new Worker(set.getInt("worker_id"), set.getInt("specialization_id"), set.getString("last_name"),
-						set.getString("first_name"), set.getInt("worker_status_id"));
+						set.getString("first_name"), set.getInt("worker_status_id"),set.getInt("user_id"));
+
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.WorkerDao#getWorker(java.lang.Integer)
+	 */
+	public Worker getWorker(Integer user_id) {
+		try {
+			logger.trace(
+					"Send query \"SELECT * FROM sqllab.worker  " + "WHERE user_id=?;\"");
+			PreparedStatement stmt = dbConnector
+					.prepareStatement("SELECT * FROM sqllab.worker  " + "WHERE user_id=?;");
+			stmt.setInt(1, user_id);
+			ResultSet set = stmt.executeQuery();
+			while (set.next()) {
+				return new Worker(set.getInt("worker_id"), set.getInt("specialization_id"), set.getString("last_name"),
+						set.getString("first_name"), set.getInt("worker_status_id"),set.getInt("user_id"));
 
 			}
 			stmt.close();

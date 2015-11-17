@@ -77,6 +77,9 @@ public class Worker_specializationDaoImpl implements Worker_specializationDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.Worker_specializationDao#getAllSpecialization()
+	 */
 	public List<Worker_specialization> getAllSpecialization() {
 		List<Worker_specialization> specializations = new ArrayList<Worker_specialization>();
 		try {
@@ -94,6 +97,28 @@ public class Worker_specializationDaoImpl implements Worker_specializationDao {
 			logger.error(e.getMessage(), e);
 		}
 		return specializations;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.Worker_specializationDao#getSpecialization(java.lang.Integer)
+	 */
+	public Worker_specialization getSpecialization(Integer specialization_id) {
+		try {
+			logger.debug("Create DB connector");
+			logger.trace("Send query \"SELECT * FROM worker_specialization\"");
+			PreparedStatement stmt = dbConnector
+					.prepareStatement("SELECT * FROM sqllab.worker_specialization WHERE specialization_id=?");
+			stmt.setInt(1, specialization_id);
+			ResultSet set = stmt.executeQuery();
+			logger.trace("Generate list of the sqllab.worker_specialization objects");
+			while (set.next()) {
+				return new Worker_specialization(set.getInt("specialization_id"), set.getString("specialization_name"));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return null;
 	}
 
 	public void deleteSpecializationByName(String specialization) {

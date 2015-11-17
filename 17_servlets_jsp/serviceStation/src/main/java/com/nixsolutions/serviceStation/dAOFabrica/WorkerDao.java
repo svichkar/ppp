@@ -74,5 +74,12 @@ public interface WorkerDao extends DBTables {
 	 *            sqllab.worker  first name
 	 */
 	public void deleteWorker(String last_name, String first_name);
+	
+	/**
+	 * get Worker
+	 * @param user_id
+	 * @return
+	 */
+	public Worker getWorker(Integer user_id);
 
 }

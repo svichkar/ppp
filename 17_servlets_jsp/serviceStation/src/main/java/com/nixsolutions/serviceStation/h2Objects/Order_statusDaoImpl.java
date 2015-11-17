@@ -60,7 +60,6 @@ public class Order_statusDaoImpl implements Order_statusDao {
 	}
 
 	public Order_status getStatusByID(Integer status_id) {
-		List<Order_status> statuses = new ArrayList<Order_status>();
 		try {
 			logger.debug("Create DB connector");
 			logger.trace("Send query \"SELECT * FROM status\"");

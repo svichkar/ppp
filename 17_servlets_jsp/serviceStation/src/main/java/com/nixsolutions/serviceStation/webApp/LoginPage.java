@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,12 +24,18 @@ import com.nixsolutions.serviceStation.FillingDB;
 import com.nixsolutions.serviceStation.dbObjects.Car;
 import com.nixsolutions.serviceStation.dbObjects.Customer;
 import com.nixsolutions.serviceStation.dbObjects.Order_in_work;
+import com.nixsolutions.serviceStation.dbObjects.User;
+import com.nixsolutions.serviceStation.dbObjects.Worker;
 import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
 import com.nixsolutions.serviceStation.h2Objects.CustomerDaoImpl;
 import com.nixsolutions.serviceStation.h2Objects.Order_in_workDaoImpl;
 import com.nixsolutions.serviceStation.h2Objects.Order_statusDaoImpl;
 import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
 import com.nixsolutions.serviceStation.h2Objects.UserDaoImpl;
+import com.nixsolutions.serviceStation.h2Objects.UserRoleDaoImpl;
+import com.nixsolutions.serviceStation.h2Objects.WorkerDaoImpl;
+import com.nixsolutions.serviceStation.h2Objects.Worker_specializationDaoImpl;
+import com.nixsolutions.serviceStation.h2Objects.Worker_statusDaoImpl;
 
 /**
  * @author Михаил
@@ -45,20 +52,13 @@ public class LoginPage extends HttpServlet {
 
 	@Override
 	public void init() {
-	/*	try {
-			new CreateDB();
-		} catch (ClassNotFoundException e) {
-			
-		} catch (SQLException e) {
-			new DropDB();
-		} finally {
-			try {
-				new CreateDB();
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			}
-			new FillingDB();
-		}*/
+		/*
+		 * try { new CreateDB(); } catch (ClassNotFoundException e) {
+		 * 
+		 * } catch (SQLException e) { new DropDB(); } finally { try { new
+		 * CreateDB(); } catch (ClassNotFoundException | SQLException e) {
+		 * e.printStackTrace(); } new FillingDB(); }
+		 */
 		factory = new ServiceFactory();
 	}
 
@@ -98,15 +98,21 @@ public class LoginPage extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		out.write("<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
-				+ "<header><div align=\"center\"><h1> CREATE NEW ORDER </h1></div></header><body>" + createPage() + "</body>"
-				+ "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
+		// BufferedReader reader = request.getReader();
+		String login = request.getParameter("login");
+		String password = request.getParameter("password");
+		UserDaoImpl userDao = factory.getUserDaoImpl();
+		try {
+			request.getAttributeNames();
+		} catch (NullPointerException e) {
+			response.sendRedirect("");
+		}
 	}
 
 	private String createPage(UserDaoImpl userDao) {
 		StringBuilder page = new StringBuilder();
 		if (userDao.getUser().getUser_role_id().equals(1)) {
+			page.append("<div align=\"center\"><h1> ORDERS </h1></div>");
 			page.append("<table align=\"center\" width=40% border=1 cellpadding=8\">");
 			page.append("<tr>");
 			page.append("<td>Order ID</td>");
@@ -131,20 +137,90 @@ public class LoginPage extends HttpServlet {
 
 			}
 			page.append("</table>");
+			page.append("<div align=\"center\"><h1> CUSTOMERS </h1>");
+			page.append("</div>");
+			page.append("<table align=\"center\" width=40% border=1 cellpadding=8\">");
+			page.append("<tr>");
+			page.append("<td>User ID</td>");
+			page.append("<td>User Login</td>");
+			page.append("<td>User Role</td>");
+			page.append("<td>Customer</td>");
+			page.append("<td>Action</td>");
+			page.append("</tr>");
+			List<User> users = userDao.getAllCustomers();
+			UserRoleDaoImpl userRoleDao = factory.getUserRoleDaoImpl();
+			CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
+			for (User user : users) {
+				page.append("<tr>");
+				page.append("<form action=\"editUser\"  align=\"center\" method=\"GET\">");
+				page.append("<td name=\"user_id\">" + user.getUser_id() + "</td>");
+				page.append("<input name=\"user_id\" type=\"hidden\" value=\"" + user.getUser_id() + "\">");
+				page.append("<td>" + user.getUser_login() + "</td>");
+				page.append("<td>" + userRoleDao.getUserRole(user.getUser_role_id()).getUser_role_name() + "</td>");
+				page.append("<td>" + customerDao.getCustomerByUserID(user.getUser_id()).toString() + "</td>");
+				page.append("<td>");
+				page.append("<input type=\"submit\" value=\"Edit\"/>");
+				page.append("</td>");
+				page.append("</form>");
+				page.append("</tr>");
+
+			}
+			page.append("</table>");
+			page.append("<div align=\"center\"><h1> WORKERS </h1>");
+			page.append("</div>");
+			page.append("<table align=\"center\" width=40% border=1 cellpadding=8\">");
+			page.append("<tr>");
+			page.append("<td>User ID</td>");
+			page.append("<td>User Login</td>");
+			page.append("<td>User Role</td>");
+			page.append("<td>Worker</td>");
+			page.append("<td>Specialization</td>");
+			page.append("<td>Status</td>");
+			page.append("<td>Action</td>");
+			page.append("</tr>");
+			users = userDao.getAllWorkers();
+			userRoleDao = factory.getUserRoleDaoImpl();
+			WorkerDaoImpl workerDao = factory.getWorkerDaoImpl();
+			Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+			Worker_statusDaoImpl worker_statusDao = factory.getWorker_statusDaoImpl();
+			for (User user : users) {
+				page.append("<tr>");
+				page.append("<form action=\"editUser\" name=\"editUser\" align=\"center\" method=\"GET\">");
+				page.append("<td name=\"user_id\">" + user.getUser_id() + "</td>");
+				page.append("<input name=\"user_id\" type=\"hidden\" value=\"" + user.getUser_id() + "\">");
+				page.append("<td>" + user.getUser_login() + "</td>");
+				page.append("<td>" + userRoleDao.getUserRole(user.getUser_role_id()).getUser_role_name() + "</td>");
+				Worker worker = workerDao.getWorker(user.getUser_id());
+				page.append(
+						"<td>" + worker.getLast_name().toString() + " " + worker.getFirst_name().toString() + "</td>");
+				page.append("<td>" + worker_specializationDao.getSpecialization(worker.getSpecialization_id())
+						.getSpecialization_name() + "</td>");
+				page.append(
+						"<td>" + worker_statusDao.getWorkerStatus(worker.getWorker_status_id()).getWorker_status_name()
+								+ "</td>");
+				page.append("<td>");
+				page.append("<input type=\"submit\" value=\"Edit\"/>");
+				page.append("</td>");
+				page.append("</form>");
+				page.append("</tr>");
+
+			}
+			page.append("</table>");
 			page.append("<form align=\"center\" method=\"GET\">");
 			page.append("<button name=\"newOrder\" action=\"createNewOrder\">Create new order</button>");
 			page.append("<button name=\"newCar\" action=\"addNewCar\">Add new car</button>");
 			page.append("<button name=\"newCustomer\" action=\"addNewCustomer\">Add new customer</button>");
 			page.append("</form>");
+		} else if (userDao.getUser().getUser_role_id().equals(2))
 
-		} else if (userDao.getUser().getUser_role_id().equals(2)) {
+		{
 			CustomerDaoImpl customerDaoImpl = factory.getCustomerDaoImpl();
 			CarDaoImpl carDaoImpl = factory.getCarDaoImpl();
 			Customer customer = customerDaoImpl.getCustomerByUserID(userDao.getUser().getUser_id());
 			java.util.List<Car> cars = carDaoImpl.getCarsByCustomerName(customer.getLast_name(),
 					customer.getFirst_name());
 			Order_in_workDaoImpl workDaoImpl = factory.getOrder_in_workDaoImpl();
-			java.util.List<Order_in_work> work = new ArrayList();
+			java.util.List<Order_in_work> work = new ArrayList<Order_in_work>();
 			for (Car car : cars) {
 				Order_in_work e = workDaoImpl.getOrderInWorkByCar(car.getVin_number());
 				if (e != null)
@@ -199,30 +275,8 @@ public class LoginPage extends HttpServlet {
 		return page.toString();
 
 	}
-	
-	private String createPage() {
-		StringBuilder page = new StringBuilder();
-		Order_in_workDaoImpl order_in_workDaoImpl = factory.getOrder_in_workDaoImpl();
-		page.append("<form action=\"createNewOrder\" align=\"center\" method=\"POST\">");
-		page.append("<b>Select car :</b>");
-		CarDaoImpl carDao = factory.getCarDaoImpl();
-		java.util.List<Car> cars = carDao.getAllCar();
-		page.append("<select name=\"vin_number\">");
-		page.append("<option disabled>Select car</option>");
-		for (Car car : cars) {
-			page.append("<option>" + car.getVin_number() + "</option>");
-		}
-		page.append("</select><Br/>");
-		page.append("<b>Please enter car problem:</b>");
-		page.append("<input type=\"text\" name=\"carDescription\" placeholder=\"Please enter car problem\" />");
 
-		page.append("<Br/>");
-		page.append("<button class=\"btn\" name=\"newOrder\" >Create new order</button>");
-		page.append("</form>");
-		return page.toString();
-	}
-	
-private final String BODY_STYLE = "body {	width: 100%;	height: 100%;	font-family: 'Open Sans', sans-serif;	background: #092756;	"
+	private final String BODY_STYLE = "body {	width: 100%;	height: 100%;	font-family: 'Open Sans', sans-serif;	background: #092756;	"
 			+ "background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)		10%, rgba(138, 114, 76, 0) 40%),"
 			+ "-moz-linear-gradient(top, rgba(57, 173, 219, .25) 0%,		rgba(42, 60, 87, .4) 100%),		"
 			+ "-moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)		"
@@ -233,7 +287,7 @@ private final String BODY_STYLE = "body {	width: 100%;	height: 100%;	font-family
 			+ "rgba(42, 60, 87, .4) 100%), -ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)		10%, rgba(138, 114, 76, 0) 40%),		"
 			+ "linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%,rgba(42, 60, 87, .4) 100%),		linear-gradient(135deg, #670d10 0%, #092756 100%);	filter: "
 			+ "progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);}"
-			
+
 			+ "p, h1, h3, td {	color: #fff;	text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);	letter-spacing: 1px;	text-align: center;}"
 
 			+ ".btn {	display: inline-block;	*display: inline;	*zoom: 1;	padding: 4px 10px 4px;	margin-bottom: 0;	font-size: 13px;"

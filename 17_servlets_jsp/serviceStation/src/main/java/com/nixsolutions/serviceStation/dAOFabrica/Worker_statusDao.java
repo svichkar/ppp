@@ -35,4 +35,11 @@ public interface Worker_statusDao extends DBTables {
 	 *            status Name
 	 */
 	public void deleteStatusByName(String statusName);
+
+	/**
+	 * getWorkerStatus
+	 * @param worker_status_id
+	 * @return
+	 */
+	public Worker_status getWorkerStatus(Integer worker_status_id);
 }

@@ -28,6 +28,7 @@ public class DbConnector {
 		Class.forName("org.h2.Driver");
 		connPool = JdbcConnectionPool.create(properties.getProperty("h2URL"), properties.getProperty("h2Login"),
 				properties.getProperty("h2Password"));
+		connPool.setMaxConnections(50);
 		// DriverManager.getConnection(properties.getProperty("h2URL"),
 		// properties.getProperty("h2Login"),
 		// properties.getProperty("h2Password"));

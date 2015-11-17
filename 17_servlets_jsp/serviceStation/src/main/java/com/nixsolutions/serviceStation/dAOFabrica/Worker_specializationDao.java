@@ -21,5 +21,10 @@ public interface Worker_specializationDao extends DBTables {
 	 */
 	public void deleteSpecializationByName(String specialization);
 
-
+	/**
+	 * getSpecialization
+	 * @param specialization_id
+	 * @return
+	 */
+	public Worker_specialization getSpecialization(Integer specialization_id);
 }

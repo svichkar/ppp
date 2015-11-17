@@ -3,13 +3,9 @@
  */
 package com.nixsolutions.serviceStation.webApp;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,75 +15,100 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.serviceStation.CreateDB;
-import com.nixsolutions.serviceStation.DropDB;
-import com.nixsolutions.serviceStation.FillingDB;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.dbObjects.Order_in_work;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.Order_in_workDaoImpl;
+import com.nixsolutions.serviceStation.dbObjects.User;
+import com.nixsolutions.serviceStation.h2Objects.CustomerDaoImpl;
 import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.serviceStation.h2Objects.UserDaoImpl;
 
-@WebServlet("/createNewOrder")
-public class CreateNewOrderServlet extends HttpServlet {
+/**
+ * @author mixeyes
+ *
+ */
+@WebServlet("/editUser")
+public class EditUserServlet extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2737409962787439071L;
+	private static final long serialVersionUID = -3337700405693703447L;
 	private final static Logger logger = LogManager.getLogger();
 	private ServiceFactory factory;
 
 	@Override
 	public void init() {
-
+		/*
+		 * try { new CreateDB(); } catch (ClassNotFoundException e) {
+		 * 
+		 * } catch (SQLException e) { new DropDB(); } finally { try { new
+		 * CreateDB(); } catch (ClassNotFoundException | SQLException e) {
+		 * e.printStackTrace(); } new FillingDB(); }
+		 */
 		factory = new ServiceFactory();
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String vin = request.getParameter("vin_number");
-		String issueDescription = request.getParameter("carDescription");
-		PrintWriter out = response.getWriter();
-		Order_in_workDaoImpl orderDao = factory.getOrder_in_workDaoImpl();
-		CarDaoImpl carDao = factory.getCarDaoImpl();
-		orderDao.createNewOrder(carDao.getCarByVINNumber(vin).getCar_id(), issueDescription);
-		out.write("<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
-				+ "<header><div align=\"center\"><h1> Your order #"+orderDao.getOrderInWorkByCar(vin).getOrder_id()+" was added successfully</h1></div></header><body>" + createPage()
-				+ "</body>" + "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
-
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		out.write("<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
-				+ "<header><div align=\"center\"><h1> CREATE NEW ORDER </h1></div></header><body>" + createPage()
-				+ "</body>" + "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
-	}
-	
-	private String createPage() {
-		StringBuilder page = new StringBuilder();
-		Order_in_workDaoImpl order_in_workDaoImpl = factory.getOrder_in_workDaoImpl();
-		page.append("<form align=\"center\" method=\"post\">");
-		page.append("<b>Select car :</b>");
-		CarDaoImpl carDao = factory.getCarDaoImpl();
-		List<Car> cars = carDao.getAllCar();
-		page.append("<select name=\"vin_number\">");
-		page.append("<option disabled>Select car</option>");
-		for (Car car : cars) {
-			page.append("<option>" + car.getVin_number() + "</option>");
+		// BufferedReader reader = request.getReader();
+		String user_id = request.getParameter("user_id");
+		UserDaoImpl userDao = factory.getUserDaoImpl();
+		User user = userDao.getUserByID(Integer.decode(user_id));
+		try {
+			PrintWriter out = response.getWriter();
+			out.write("<html><head><title>Edit Worker</title></head><style>" + BODY_STYLE + "</style>"
+					+ "<header><div align=\"center\"><h1> Edit " + user.getUser_login() + "</h1></div></header><body>"
+					+ editUser(userDao) + "</body>" + "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
+		} catch (NullPointerException e) {
+			response.sendRedirect("");
 		}
-		page.append("</select><Br/>");
-		page.append("<b>Please enter car problem:</b>");
-		page.append("<input type=\"text\" name=\"carDescription\" placeholder=\"Please enter car problem\" />");
+	}
 
-		page.append("</form><Br/>");
-		page.append("<form align=\"center\" method=\"get\">");
-		page.append("<button class=\"btn\" name=\"newOrder\" action=\"createNewOrder\">Create new order</button>");
-		page.append("</form>");
-		return page.toString();
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// BufferedReader reader = request.getReader();
+		String user_id = request.getParameter("user_id");
+		String user_login = request.getParameter("user_login");
+		String user_password = request.getParameter("user_password");
+		String user_role_id = request.getParameter("user_role_id");
+		UserDaoImpl userDao = factory.getUserDaoImpl();
+		User user = userDao.getUserByID(Integer.decode(user_id));
+		user.setUser_login(user_login);
+		user.setUser_password(user_password);
+		user.setUser_role_id(Integer.decode(user_role_id));
+		userDao.updateUser(user);
+		try {
+			PrintWriter out = response.getWriter();
+			out.write("<html><head><title>Edit Worker</title></head><style>" + BODY_STYLE + "</style>"
+					+ "<header><div align=\"center\"><h1> " + user.getUser_login()
+					+ " edited successfully</h1></div></header><body>" + "<form action=\"login\"  align=\"center\" method=\"POST\">"
+					+ "<input name=\"login\" type=\"hidden\" value=\"" + user.getUser_login() + "\">"
+					+ "<input name=\"password\" type=\"hidden\" value=\"" + user.getUser_password() + "\">" + "</form>"
+					+ "</body>" + "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
+			
+		} catch (NullPointerException e) {
+			response.sendRedirect("");
+		}
+	}
+
+	private String editUser(UserDaoImpl userDao) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<div align=\"center\">");
+		builder.append("<form action=\"editUser\"  align=\"center\" method=\"POST\">");
+		builder.append("<p>user_id</p>");
+		builder.append(
+				"<input name=\"user_id\" readonly=\"readonly\"  value=\"" + userDao.getUser().getUser_id() + "\">");
+		builder.append("<p>user_login</p>");
+		builder.append("<input name=\"user_login\" value=\"" + userDao.getUser().getUser_login() + "\">");
+		builder.append("<p>user_password</p>");
+		builder.append("<input name=\"user_password\" value=\"" + userDao.getUser().getUser_password() + "\">");
+		builder.append("<p>user_role_id</p>");
+		builder.append("<input name=\"user_role_id\" value=\"" + userDao.getUser().getUser_role_id() + "\">");
+		builder.append("<p></p>");
+		builder.append("<input type=\"submit\" value=\"Save\"/>");
+		builder.append("</form>");
+		builder.append("</div>");
+
+		return builder.toString();
 	}
 
 	private final String BODY_STYLE = "body {	width: 100%;	height: 100%;	font-family: 'Open Sans', sans-serif;	background: #092756;	"
@@ -102,7 +123,7 @@ public class CreateNewOrderServlet extends HttpServlet {
 			+ "linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%,rgba(42, 60, 87, .4) 100%),		linear-gradient(135deg, #670d10 0%, #092756 100%);	filter: "
 			+ "progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);}"
 
-			+ "h1, h3, td {	color: #fff;	text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);	letter-spacing: 1px;	text-align: center;}"
+			+ "p, h1, h3, td {	color: #fff;	text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);	letter-spacing: 1px;	text-align: center;}"
 
 			+ ".btn {	display: inline-block;	*display: inline;	*zoom: 1;	padding: 4px 10px 4px;	margin-bottom: 0;	font-size: 13px;"
 			+ "line-height: 18px;	color: #333333;	text-align: center;	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);	vertical-align: middle;"

@@ -1,5 +1,7 @@
 package com.nixsolutions;
 
+import java.io.Serializable;
+
 /**
  * Created by kozlovskij on 11/11/2015.
  */

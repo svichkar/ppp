@@ -26,9 +26,11 @@ public class CollectionImplementation<E> implements Collection<E> {
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		size = size + c.size();
-
-		return false;
+		boolean res = false;
+		for (E o : c) {
+			res = add(o);
+		}
+		return res;
 	}
 
 	@Override

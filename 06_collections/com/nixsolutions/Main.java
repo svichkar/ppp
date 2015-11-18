@@ -34,6 +34,8 @@ public class Main {
 
 		res = collection.containsAll(list);
 		res = collection.removeAll(list);
+		
+		collection.addAll(list);
 
 		list.add("qwerty1234");
 		list.add("z");

@@ -1,0 +1,76 @@
+package com.nixsolutions.exceptions;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.management.RuntimeErrorException;
+
+public class SaveFile implements exception.Save {
+
+	public void save(String text, String path) {
+		
+			if (new String(text).isEmpty()) {
+				throw new CustomException();
+			}
+			if (path.length() == 0) {
+				throw new CustomException();
+			}
+			File f = new File(path);
+			if (!f.exists()) {
+				try {
+					f.createNewFile();
+				} catch (IOException ex) {
+					throw new CustomException(ex);
+				}
+			}
+			FileOutputStream fOut = null;
+			try {
+				fOut = new FileOutputStream(f);
+				fOut.write(text.getBytes());
+				fOut.flush();
+			} catch (IOException ex) {
+				throw new CustomException(ex);
+			} finally {
+				try {
+					if (fOut != null) {
+						fOut.close();
+					}
+				} catch (CustomException ex) {
+throw new RuntimeException(e);
+					// throw new CustomException(ex);
+
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+			}
+
+			}
+}
+
+/*
+ * public class SaveFile implements exception.Save {
+ * 
+ * @Override public void save(String strTextForSaving, String strPath) {
+ * FileWriter writeFile = null; Path path = Paths.get(strPath);
+ * if(strTextForSaving==null || strTextForSaving==""){ throw new
+ * CustomException(); } try { if (strTextForSaving != null) { if
+ * (!path.isAbsolute()) { if (new File(strPath).exists()) { File fileToSave =
+ * new File(strPath + "\\str.txt"); if (fileToSave.exists()) { writeFile = new
+ * FileWriter(fileToSave); writeFile.write("");
+ * writeFile.write(strTextForSaving); writeFile.flush(); } else {
+ * fileToSave.createNewFile(); writeFile = new FileWriter(fileToSave);
+ * writeFile.write(strTextForSaving); writeFile.flush(); } } else { throw new
+ * CustomException(
+ * "Directory where you are trying to write the file doesn't exist"); } } else {
+ * throw new CustomException("The path is not pointing on the directory"); } }
+ * else throw new CustomException();
+ * 
+ * } catch (CustomException e) { throw new RuntimeException(e); } catch
+ * (IOException e) { e.printStackTrace(); } finally { if (writeFile != null) {
+ * try { writeFile.close(); } catch (IOException e) { e.printStackTrace(); } } }
+ * } }
+ */

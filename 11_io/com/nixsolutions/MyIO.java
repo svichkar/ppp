@@ -1,20 +1,19 @@
 package com.nixsolutions;
 
 import java.io.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by kozlovskij on 11/18/2015.
  */
 public class MyIO {
-    public static void isDir(File source, File dest) throws IOException {
+    public static void MyCopy (File source, File dest) throws IOException {
        if (source.isDirectory()) {
            if (!dest.exists()) {
                dest.mkdir();
            }
            File[] files = source.listFiles();
            for (File f:files) {
-               isDir(f, new File(dest, f.getName()));
+               MyCopy(f, new File(dest, f.getName()));
            }
        } else {
            BufferedInputStream in = new BufferedInputStream(new FileInputStream(source));
@@ -36,7 +35,7 @@ public class MyIO {
         File out = new File(outputDir);
 
         try {
-            isDir(in,out);
+            MyCopy(in,out);
         } catch (IOException e) {
             e.printStackTrace();
         }

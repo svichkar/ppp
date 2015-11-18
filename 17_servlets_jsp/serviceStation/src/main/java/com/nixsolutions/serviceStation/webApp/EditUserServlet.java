@@ -84,7 +84,7 @@ public class EditUserServlet extends HttpServlet {
 					+ "<input name=\"login\" type=\"hidden\" value=\"" + user.getUser_login() + "\">"
 					+ "<input name=\"password\" type=\"hidden\" value=\"" + user.getUser_password() + "\">" + "</form>"
 					+ "</body>" + "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
-			
+			response.sendRedirect("login");
 		} catch (NullPointerException e) {
 			response.sendRedirect("");
 		}

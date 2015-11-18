@@ -65,48 +65,72 @@ public class LoginPage extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// BufferedReader reader = request.getReader();
-		String login = request.getParameter("login");
-		String password = request.getParameter("password");
 		UserDaoImpl userDao = factory.getUserDaoImpl();
+		PrintWriter out = response.getWriter();
 		try {
-			if (userDao.validate(login, password)) {
-				PrintWriter out = response.getWriter();
-				Integer role_id = userDao.getUser().getUser_role_id();
-				if (role_id.equals(1)) {
-					out.write("<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
-							+ "<header><div align=\"center\"><h1> MANGER </h1></div></header><body>"
-							+ createPage(userDao) + "</body>" + "<footer>Created by Lelyakov M.A.</footer>"
-							+ "</html>");
-				} else if (role_id.equals(2)) {
-					CustomerDaoImpl customerDaoImpl = factory.getCustomerDaoImpl();
-					out.write("<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
-							+ "<header><div align=\"center\"><h1>Hello "
-							+ customerDaoImpl.getCustomerByUserID(userDao.getUser().getUser_id()).toString()
-							+ "</h1></div></header><body>" + createPage(userDao) + "</body>"
-							+ "<footer>Created by Lelyakov M.A.</footer>" + "</html>");
-
+			String login = request.getParameter("login");
+			String password = request.getParameter("password");
+			if (request.getSession().getAttribute("login") != null) {
+				if (!request.getSession().getAttribute("login").equals(login)) {
+					out.write(generateHtml(userDao));
+				} else {
+					if (userDao.validate(login, password)) {
+						request.getSession().setAttribute("login", login);
+						request.getSession().setAttribute("user_id", userDao.getUser().getUser_id());
+						request.getSession().setAttribute("role", userDao.getUser().getUser_role_id());
+						out.write(generateHtml(userDao));
+					} else {
+						response.sendRedirect("");
+					}
 				}
 			} else {
-				response.sendRedirect("");
+				if (userDao.validate(login, password)) {
+					request.getSession().setAttribute("login", login);
+					request.getSession().setAttribute("user_id", userDao.getUser().getUser_id());
+					request.getSession().setAttribute("role", userDao.getUser().getUser_role_id());
+					out.write(generateHtml(userDao));
+				} else {
+					response.sendRedirect("");
+				}
 			}
 		} catch (NullPointerException e) {
 			response.sendRedirect("");
 		}
+
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// BufferedReader reader = request.getReader();
-		String login = request.getParameter("login");
+		Integer user_id = Integer.decode(request.getSession().getAttribute("user_id").toString());
 		String password = request.getParameter("password");
+		PrintWriter out = response.getWriter();
 		UserDaoImpl userDao = factory.getUserDaoImpl();
+		userDao.getUserByID(user_id);
 		try {
-			request.getAttributeNames();
+			out.write(generateHtml(userDao));
 		} catch (NullPointerException e) {
 			response.sendRedirect("");
 		}
+	}
+
+	private String generateHtml(UserDaoImpl userDao) {
+		String html = "";
+		if (userDao.getUser().getUser_role_id().equals(1)) {
+			html = "<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
+					+ "<header><div align=\"center\"><h1> MANGER </h1></div></header><body>" + createPage(userDao)
+					+ "</body>" + "<footer>Created by Lelyakov M.A.</footer>" + "</html>";
+		} else if (userDao.getUser().getUser_role_id().equals(2)) {
+			CustomerDaoImpl customerDaoImpl = factory.getCustomerDaoImpl();
+			html = "<html><head><title>Admin Page</title></head><style>" + BODY_STYLE + "</style>"
+					+ "<header><div align=\"center\"><h1>Hello "
+					+ customerDaoImpl.getCustomerByUserID(userDao.getUser().getUser_id()).toString()
+					+ "</h1></div></header><body>" + createPage(userDao) + "</body>"
+					+ "<footer>Created by Lelyakov M.A.</footer>" + "</html>";
+
+		}
+		return html;
 	}
 
 	private String createPage(UserDaoImpl userDao) {

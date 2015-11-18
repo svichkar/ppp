@@ -6,29 +6,6 @@ package com.nixsolutions;
 public class Square extends Figures {
 
     /**
-     * Implementation of the Figures method. Calculating by side * side
-     */
-    @Override
-    public void squareCalculating() {
-        double square = Math.pow(getCoordinate()[1][1] - getCoordinate()[0][1], 2);
-        this.setSquare(square);
-
-    }
-
-    /**
-     * Implementation of the Figures method. Shift left top point, right top point, right bottom point of object
-     * @param delta resize sides object (side * delta)
-     */
-    @Override
-    public void reSize(double delta) {
-        setCoordinate(getCoordinate()[1][1] * delta, 1, 1);
-        setCoordinate(getCoordinate()[2][0] * delta, 2, 0);
-        setCoordinate(getCoordinate()[2][1] * delta, 2, 1);
-        setCoordinate(getCoordinate()[3][0] * delta, 3, 0);
-        this.squareCalculating();
-    }
-
-    /**
      * Constructor for create new Square without parameters. Set left bottom point in random position on the grid. Set random side
      */
     public Square() {
@@ -67,4 +44,29 @@ public class Square extends Figures {
         setCoordinate(yPoint, 3, 1);
         this.squareCalculating();
     }
+
+    /**
+     * Implementation of the Figures method. Calculating by side * side
+     */
+    @Override
+    public void squareCalculating() {
+        double square = Math.pow(getCoordinate()[1][1] - getCoordinate()[0][1], 2);
+        this.setSquare(square);
+
+    }
+
+    /**
+     * Implementation of the Figures method. Shift left top point, right top point, right bottom point of object
+     * @param delta resize sides object (side * delta)
+     */
+    @Override
+    public void reSize(double delta) {
+        setCoordinate(getCoordinate()[1][1] * delta, 1, 1);
+        setCoordinate(getCoordinate()[2][0] * delta, 2, 0);
+        setCoordinate(getCoordinate()[2][1] * delta, 2, 1);
+        setCoordinate(getCoordinate()[3][0] * delta, 3, 0);
+        this.squareCalculating();
+    }
+
+
 }

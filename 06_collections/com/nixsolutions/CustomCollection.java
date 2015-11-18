@@ -150,7 +150,7 @@ public class CustomCollection<E> implements Collection<E> {
     private class CustomIterator implements Iterator {
         private int cursor;
 
-        public CustomIterator() {
+        private CustomIterator() {
             cursor = 0;
         }
 

@@ -7,7 +7,7 @@ package com.nixsolutions;
 public class CustomCollectionTest {
     public static void main(String[] args) {
         CustomCollection<String> cc = new CustomCollection<>();
-        CustomCollection<String> cc2 = new CustomCollection();
+        CustomCollection<String> cc2 = new CustomCollection<>();
         cc.add("Tree");
         cc.add("Tree1");
         cc.add("Tree2");

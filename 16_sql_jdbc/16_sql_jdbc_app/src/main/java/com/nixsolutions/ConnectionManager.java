@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.h2.jdbcx.JdbcConnectionPool;
 
 public class ConnectionManager {
-    private final static Logger LOG = LogManager.getLogger(CreationTables.class.getName());
+    private final static Logger LOG = LogManager.getLogger(ConnectionManager.class.getName());
     private static JdbcConnectionPool cpool;
 
     public static Connection getConnection() throws IOException, ClassNotFoundException, SQLException {

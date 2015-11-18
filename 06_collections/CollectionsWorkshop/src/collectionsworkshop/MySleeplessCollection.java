@@ -5,6 +5,7 @@
  */
 package collectionsworkshop;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -14,29 +15,27 @@ import java.util.Iterator;
  */
 public class MySleeplessCollection implements Collection {
 
-    private Object[] collcetionHandler;
+    private Object[] collcetionHolder;
 
-    private Object[] getCollcetionHandler() {
-        return collcetionHandler;
+    private Object[] getCollcetionHolder() {
+        return collcetionHolder;
     }
 
-    private void setCollcetionHandler(Object[] collcetionHandler) {
-        this.collcetionHandler = collcetionHandler;
+    private void setCollcetionHolder(Object[] collcetionHandler) {
+        this.collcetionHolder = collcetionHandler;
     }
-    
+
     @Override
     public int size() {
-        return this.getCollcetionHandler().length;
+        return this.getCollcetionHolder().length;
 
     }
 
     @Override
     public boolean isEmpty() {
-        if (this.getCollcetionHandler().length > 0) {
+        if (this.getCollcetionHolder().length > 0) {
             return false;
-        }
-        else
-        {
+        } else {
             return true;
         }
 
@@ -44,70 +43,138 @@ public class MySleeplessCollection implements Collection {
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Object collectionItem : collcetionHolder) {
+            if (collectionItem.equals(o)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public Iterator iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new InterationWorker();
     }
 
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getCollcetionHolder().clone();
     }
 
     @Override
     public Object[] toArray(Object[] a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //if (a.length < this.size()) {
+        return a = a.getClass().cast(this.getCollcetionHolder().clone());
+        // }
+        //else
+        //{
+        //    return a.getClass().cast(this.getCollcetionHolder().clone());
+        //}
     }
 
     @Override
     public boolean add(Object e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Object[] updated = new Object[this.size() + 1];
+        System.arraycopy(this.getCollcetionHolder(), 0, updated, 0, this.size());
+        updated[updated.length - 1] = e;
+        this.setCollcetionHolder(updated);
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < this.size(); i++) {
+            if (this.getCollcetionHolder()[i].equals(o)) {
+                Object[] updated = new Object[this.size() - 1];
+                updated = Arrays.copyOf(this.getCollcetionHolder(), i - 1);
+                System.arraycopy(this.getCollcetionHolder(), i + 1, updated, i, this.size() - i);
+                this.setCollcetionHolder(updated);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int matches = 0;
+        for (Object inputItem : c) {
+            if (this.contains(inputItem)) {
+                matches++;
+            }
+        }
+        return matches == c.size();
+
     }
 
     @Override
     public boolean addAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean isChanged = false;
+        for (Object inputItem : c) {
+            this.add(inputItem);
+            isChanged = true;
+        }
+        return isChanged;
     }
 
     @Override
     public boolean removeAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        boolean arrayChanged = false;
+        for (Object inputItem : c) {
+            boolean elementChanged = this.remove(inputItem);
+            if (!arrayChanged) {
+                arrayChanged = elementChanged;
+            }
+        }
+        return arrayChanged;
     }
 
     @Override
     public boolean retainAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean arrayChanged = false;
+        for (Object collectionItem : getCollcetionHolder()) {
+
+            if (!c.contains(collectionItem)) {
+                boolean elementChanged = this.remove(collectionItem);
+                if (!arrayChanged) {
+                    arrayChanged = elementChanged;
+                }
+            }
+        }
+        return arrayChanged;
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setCollcetionHolder(null);
     }
 
-    public class InterationWorker implements Iterator<Object>
-    {
+    public class InterationWorker implements Iterator<Object> {
+
         int current;
+
+        public int getCurrent() {
+            return current;
+        }
+
+        public void setCurrent(int current) {
+            this.current = current;
+        }
+
+        public InterationWorker() {
+            this.current = 0;
+        }
+
         @Override
         public boolean hasNext() {
-            return size()==1;
+            return size() < getCurrent();
         }
 
         @Override
         public Object next() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            this.setCurrent(this.getCurrent() + 1);
+            return getCollcetionHolder()[this.getCurrent()];
         }
     }
 }

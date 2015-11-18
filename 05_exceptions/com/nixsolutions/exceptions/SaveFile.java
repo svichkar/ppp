@@ -13,30 +13,29 @@ public class SaveFile implements exception.Save {
 			if (strTextForSaving.isEmpty() || strPath.isEmpty()) {
 				throw new CustomException();
 			}
-			if (new File(strPath).exists()) {
-				File fileToSave = new File(strPath);
-				try {
-					if (fileToSave.exists()) {
-						
-						System.out.println("File was rewritten");
-						writeFile = new FileWriter(fileToSave);
-						writeFile.write("");
+			File fileToSave = new File(strPath);
+			try {
+				if (fileToSave.exists()) {
 
-					} else {
+					System.out.println("File was rewritten");
+					writeFile = new FileWriter(fileToSave);
+					writeFile.write("");
 
-						System.out.println("File was created");
-						fileToSave.createNewFile();
-						writeFile = new FileWriter(fileToSave);
+				} else {
 
-					}
+					System.out.println("File was created");
+					fileToSave.createNewFile();
+					writeFile = new FileWriter(fileToSave);
 
-					writeFile.write(strTextForSaving);
-					writeFile.flush();
-
-				} catch (IOException e) {
-					throw new CustomException(e);
 				}
+
+				writeFile.write(strTextForSaving);
+				writeFile.flush();
+
+			} catch (IOException e) {
+				throw new CustomException(e);
 			}
+
 		} catch (CustomException ex) {
 			throw new RuntimeException(ex);
 		}

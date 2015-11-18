@@ -12,7 +12,7 @@ public class MyCollection implements Collection {
     private Object[] temporaryArray = null;
     private boolean flag = false;
     private Iterator iterator;
-    
+
     @Override
     public int size() throws NullPointerException {
         if (!this.isEmpty()) {

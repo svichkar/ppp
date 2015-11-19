@@ -5,7 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class SaveFile implements exception.Save {
-
+/**
+ * Implementation of exception.Save
+ */
 	@Override
 	public void save(String strTextForSaving, String strPath) {
 		FileWriter writeFile = null;
@@ -38,6 +40,14 @@ public class SaveFile implements exception.Save {
 
 		} catch (CustomException ex) {
 			throw new RuntimeException(ex);
+		} finally {
+			try {
+				if (writeFile != null)
+					writeFile.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+
 	}
 }

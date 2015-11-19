@@ -8,6 +8,7 @@ package collectionsworkshop;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -23,6 +24,10 @@ public class MySleeplessCollection implements Collection {
 
     private void setCollcetionHolder(Object[] collcetionHandler) {
         this.collcetionHolder = collcetionHandler;
+    }
+
+    public MySleeplessCollection() {
+        collcetionHolder = new Object[0];
     }
 
     @Override
@@ -63,13 +68,12 @@ public class MySleeplessCollection implements Collection {
 
     @Override
     public Object[] toArray(Object[] a) {
-        //if (a.length < this.size()) {
-        return a = a.getClass().cast(this.getCollcetionHolder().clone());
-        // }
-        //else
-        //{
-        //    return a.getClass().cast(this.getCollcetionHolder().clone());
-        //}
+        if (a.length < this.size()) {
+            return a = a.getClass().cast(this.getCollcetionHolder().clone());
+        } else {
+            return a.getClass().cast(this.getCollcetionHolder().clone());
+        }
+
     }
 
     @Override
@@ -122,9 +126,11 @@ public class MySleeplessCollection implements Collection {
 
         boolean arrayChanged = false;
         for (Object inputItem : c) {
-            boolean elementChanged = this.remove(inputItem);
-            if (!arrayChanged) {
-                arrayChanged = elementChanged;
+            while (this.contains(inputItem)) {
+                boolean elementChanged = this.remove(inputItem);
+                if (!arrayChanged) {
+                    arrayChanged = elementChanged;
+                }
             }
         }
         return arrayChanged;
@@ -150,6 +156,20 @@ public class MySleeplessCollection implements Collection {
         this.setCollcetionHolder(null);
     }
 
+    public int indexOf(Object arrayElement)
+    {
+        Iterator i = this.iterator();
+        while (i.hasNext())
+        {
+            
+            if(i.next().equals(arrayElement))
+            {
+                
+            }
+        }
+    }
+
+
     public class InterationWorker implements Iterator<Object> {
 
         int current;
@@ -168,13 +188,16 @@ public class MySleeplessCollection implements Collection {
 
         @Override
         public boolean hasNext() {
-            return size() < getCurrent();
+            return size() > getCurrent();
         }
 
         @Override
         public Object next() {
+            if (current >= size()) {
+                throw new NoSuchElementException();
+            }
             this.setCurrent(this.getCurrent() + 1);
-            return getCollcetionHolder()[this.getCurrent()];
+            return getCollcetionHolder()[this.getCurrent() - 1];
         }
     }
 }

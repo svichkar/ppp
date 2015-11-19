@@ -6,7 +6,6 @@
 package stringworkshop;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  *
@@ -25,11 +24,6 @@ public class StringWorkshop {
 
     }
 
-    /**
-     * Есть два литерала “Java”, “forever”, напишите несколько способов соединить эти строки так
-     * чтобы получилось “Java forever”.
-     *
-     */
     public void javaForever() {
         String java = "Java";
         String forever = "forever";
@@ -41,9 +35,6 @@ public class StringWorkshop {
     }
 
     /**
-     * Написать программу которая вычисляет инициалы, на основе полных Фамилии Имени Отчества,
-     * пример Мирон Богданович Маркевич = МБМ.
-     *
      * @param fullName - Full name with spaces
      * @return string of short name
      */
@@ -57,11 +48,6 @@ public class StringWorkshop {
     }
 
     /**
-     * Анагра́мма - литературный прием, состоящий в перестановке букв так, что в результате дает
-     * другое слово. Пример, полковник - клоповник, покраснение - пенсионерка. Написать программу
-     * которая будет определять являются ли две заданные строки (строка может быть словосочетанием)
-     * анаграммами друг-друга. Программа может игнорировать пробелы и знаки пунктуации.
-     *
      * @param firstWord - first string to compare
      * @param secondWord - second string to compare
      * @return true if the words are anagrama

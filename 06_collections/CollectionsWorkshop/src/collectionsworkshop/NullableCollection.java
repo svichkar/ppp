@@ -11,10 +11,11 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
+ * Collection implementation with nullable elements
  *
  * @author mednorcom
  */
-public class MySleeplessCollection implements Collection {
+public class NullableCollection implements Collection {
 
     private Object[] collcetionHolder;
 
@@ -26,7 +27,7 @@ public class MySleeplessCollection implements Collection {
         this.collcetionHolder = collcetionHandler;
     }
 
-    public MySleeplessCollection() {
+    public NullableCollection() {
         collcetionHolder = new Object[0];
     }
 
@@ -48,12 +49,17 @@ public class MySleeplessCollection implements Collection {
 
     @Override
     public boolean contains(Object o) {
-        for (Object collectionItem : collcetionHolder) {
-            if (collectionItem.equals(o)) {
+        for (Object collectionItem : this.getCollcetionHolder()) {
+            if (collectionItem != null) {
+                if (collectionItem.equals(o)) {
+                    return true;
+                }
+            } else if (o == null) {
                 return true;
             }
         }
         return false;
+
     }
 
     @Override
@@ -68,12 +74,7 @@ public class MySleeplessCollection implements Collection {
 
     @Override
     public Object[] toArray(Object[] a) {
-        if (a.length < this.size()) {
-            return a = a.getClass().cast(this.getCollcetionHolder().clone());
-        } else {
-            return a.getClass().cast(this.getCollcetionHolder().clone());
-        }
-
+        return this.getCollcetionHolder().clone();
     }
 
     @Override
@@ -87,16 +88,68 @@ public class MySleeplessCollection implements Collection {
 
     @Override
     public boolean remove(Object o) {
-        for (int i = 0; i < this.size(); i++) {
-            if (this.getCollcetionHolder()[i].equals(o)) {
-                Object[] updated = new Object[this.size() - 1];
-                updated = Arrays.copyOf(this.getCollcetionHolder(), i - 1);
-                System.arraycopy(this.getCollcetionHolder(), i + 1, updated, i, this.size() - i);
-                this.setCollcetionHolder(updated);
-                return true;
+        Iterator iter = this.iterator();
+        Object[] updated = new Object[this.size() - 1];
+        int i = 0;
+        boolean changed = false;
+        while (iter.hasNext()) {
+            Object current = iter.next();
+            if (current == null || o == null) {
+                if (current != o) {
+                    updated[i] = current;
+                    i++;
+                    continue;
+                }
+
+            } else if (!current.equals(o)) {
+                updated[i] = current;
+                i++;
+                continue;
+            }
+            changed = true;
+
+        }
+        if (changed) {
+            this.setCollcetionHolder(updated);
+            return true;
+        } else {
+            updated = null;
+            return false;
+        }
+
+    }
+
+    /**
+     * Removes all given object instances for this collection
+     *
+     * @param o object to remove from this collection
+     * @return true if one or more elements were removed
+     */
+    public boolean removeAll(Object o) {
+        Iterator iter = this.iterator();
+        Object[] updated = new Object[this.size() - 1];
+        int i = 0;
+        while (iter.hasNext()) {
+            Object current = iter.next();
+            if (current == null || o == null) {
+                if (current != o) {
+                    updated[i] = current;
+                    i++;
+                }
+
+            } else if (!current.equals(o)) {
+                updated[i] = current;
+                i++;
             }
         }
-        return false;
+        if (i == this.size()) {
+            updated = null;
+            return false;
+        } else {
+            this.setCollcetionHolder(updated);
+            return true;
+        }
+
     }
 
     @Override
@@ -124,6 +177,9 @@ public class MySleeplessCollection implements Collection {
     @Override
     public boolean removeAll(Collection c) {
 
+        if (c == null) {
+            return this.removeAll((Object) c);
+        }
         boolean arrayChanged = false;
         for (Object inputItem : c) {
             while (this.contains(inputItem)) {
@@ -139,10 +195,10 @@ public class MySleeplessCollection implements Collection {
     @Override
     public boolean retainAll(Collection c) {
         boolean arrayChanged = false;
-        for (Object collectionItem : getCollcetionHolder()) {
+        for (Object collectionItem : this.getCollcetionHolder()) {
 
             if (!c.contains(collectionItem)) {
-                boolean elementChanged = this.remove(collectionItem);
+                boolean elementChanged = this.removeAll(collectionItem);
                 if (!arrayChanged) {
                     arrayChanged = elementChanged;
                 }
@@ -153,22 +209,8 @@ public class MySleeplessCollection implements Collection {
 
     @Override
     public void clear() {
-        this.setCollcetionHolder(null);
+        this.setCollcetionHolder(new Object[0]);
     }
-
-    public int indexOf(Object arrayElement)
-    {
-        Iterator i = this.iterator();
-        while (i.hasNext())
-        {
-            
-            if(i.next().equals(arrayElement))
-            {
-                
-            }
-        }
-    }
-
 
     public class InterationWorker implements Iterator<Object> {
 
@@ -178,11 +220,11 @@ public class MySleeplessCollection implements Collection {
             return current;
         }
 
-        public void setCurrent(int current) {
+        private void setCurrent(int current) {
             this.current = current;
         }
 
-        public InterationWorker() {
+        private InterationWorker() {
             this.current = 0;
         }
 

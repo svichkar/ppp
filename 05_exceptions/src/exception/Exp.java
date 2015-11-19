@@ -1,4 +1,3 @@
-
 package exception;
 
 import java.io.File;
@@ -18,7 +17,7 @@ public abstract class Exp implements Save {
 
 			if (stringForSaving.isEmpty()) {
 				throw new MyOwnExeption(
-						"String for saving is empty! Please enter correct data to string for saving in the file.");
+						"String for saving is empty! Please enter data to string for saving in the file.");
 			} else {
 				if (file.exists()) {
 					System.out.println("Rewriting input string to file.");

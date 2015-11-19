@@ -22,6 +22,7 @@ public class Main {
 
     /**
      * Endpoint for the OOP task
+     *
      * @param args the command line arguments
      * @throws java.lang.ClassNotFoundException
      * @throws java.lang.NoSuchMethodException
@@ -33,8 +34,6 @@ public class Main {
             InstantiationException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
 
-        //создания массива рандомных пишущих средств размером в 10 элементов 
-        //и подготовка их к работе.
         int amountOfTools = 10;
         AbstractWriter[] writingTools = new AbstractWriter[amountOfTools];
         Class[] availableTools = new Class[]{Marker.class, Pen.class, Pencil.class};
@@ -48,8 +47,6 @@ public class Main {
             writingTools[i].prepare();
         }
 
-        //трехкратное написание в StringBuilder 3-5 символов каждым из устройств, 
-        //если устройство умеет стирать то стираем последний символ в каждой итерации.
         SecureRandom secureRandom = new SecureRandom();
         StringBuilder strResult = new StringBuilder();
         for (AbstractWriter particularTool : writingTools) {
@@ -66,9 +63,8 @@ public class Main {
         }
         System.out.println(strResult.toString());
 
-        //сортировка устройств по остатку пишущего средства в %.
-        Arrays.sort(writingTools, (AbstractWriter o1, AbstractWriter o2) -> 
-                (o2.getRemainingResource().compareTo(o1.getRemainingResource())));
+        Arrays.sort(writingTools, (AbstractWriter o1, AbstractWriter o2)
+                -> (o2.getRemainingResource().compareTo(o1.getRemainingResource())));
 
         for (AbstractWriter particularTool : writingTools) {
             System.out.printf("%.1f%%\n", particularTool.getRemainingResourcePercentage());

@@ -34,8 +34,6 @@ public class DatesWorkshop {
     }
 
     /**
-     * Task1: Написать метод который для указанного года выводит длину каждого месяца.
-     *
      * @param year Year, AD
      */
     public void getMonthsLength(int year) {
@@ -52,9 +50,6 @@ public class DatesWorkshop {
     }
 
     /**
-     * Task2: Написать метод который для указанного месяца и года выводит список дат которые
-     * выпадают на понедельник.
-     *
      * @param year Year, AD
      * @param month Month number 0 to 11
      */
@@ -76,8 +71,6 @@ public class DatesWorkshop {
     }
 
     /**
-     * Task3: Написать метод который проверяет является ли указанная дата пятницей тринадцатого.
-     *
      * @param year Year, AD
      * @param month Month number 0 to 11
      * @param day Day number 1 to 31
@@ -96,9 +89,6 @@ public class DatesWorkshop {
     }
 
     /**
-     * Task4: Написать метод который для указанной даты возвращает строку в которой написано сколько
-     * лет, месяцев, дней прошло с этой даты. Например “2 года, 1 месяц и 23 дня”
-     *
      * @param year Year, AD. Date must be current date or the past one.
      * @param month Month number 0 to 11. Date must be current date or the past one.
      * @param day Day number 1 to 31. Date must be current date or the past one.
@@ -122,13 +112,9 @@ public class DatesWorkshop {
         }
     }
 
-    /**
-     * Task5.a: Используя локаль для Канады, Германии, Пакистана и Вьетнама вывести текущую дату в
-     * полном формате используя Date-Time API Java 8 и возможности Java 7. Java 7 version.
-     */
     public void getCurrentDateJVM7() {
         Calendar currentDate = Calendar.getInstance();
-        ArrayList<Locale> locales = new ArrayList<Locale>();
+        ArrayList<Locale> locales = new ArrayList<>();
         locales.add(Locale.CANADA);
         locales.add(Locale.GERMANY);
         locales.add(new Locale("en", "PK"));//pakistan locale
@@ -142,10 +128,6 @@ public class DatesWorkshop {
 
     }
 
-    /**
-     * Task5.b Используя локаль для Канады, Германии, Пакистана и Вьетнама вывести текущую дату в
-     * полном формате используя Date-Time API Java 8 и возможности Java 7. Java 8 version.
-     */
     public void getCurrentDateJVM8() {
         LocalDate currentDate = LocalDate.now();
         ArrayList<Locale> locales = new ArrayList<>();

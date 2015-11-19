@@ -30,11 +30,10 @@ FOREIGN KEY (book_id) REFERENCES book  (id)
 );
 CREATE TABLE journal (
 id INT PRIMARY KEY AUTO_INCREMENT,
-book_id INT NOT NULL,
-reader_id INT NOT NULL,
+book_instance_id INT NOT NULL,
+reader_id INT NOT NULL, 
 start_date DATE NOT NULL,
 end_date DATE NOT NULL,
-FOREIGN KEY (book_id) REFERENCES book_instance  (id),
+FOREIGN KEY (book_instance_id) REFERENCES book_instance  (id),
 FOREIGN KEY (reader_id) REFERENCES reader  (id)
 );
-

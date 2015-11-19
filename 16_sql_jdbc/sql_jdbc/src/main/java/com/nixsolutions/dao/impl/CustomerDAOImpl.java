@@ -8,12 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.nixsolutions.dao.CustomerDAO;
 import com.nixsolutions.entity.Customer;
 import com.nixsolutions.util.CustomConnectionManager;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
+	public static Logger LOG = LogManager.getLogger(CustomerDAOImpl.class.getName());
+	
 	public CustomerDAOImpl() {
 		
 	}
@@ -38,7 +43,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return "INSERT INTO sqllab.customer (first_name, last_name, phone) VALUES (%s);";
 	}
 
-	public List<Customer> parseResults(ResultSet rs) throws SQLException {
+	public List<Customer> parseResults(ResultSet rs) {
 		List<Customer> resultList = new ArrayList<>();
 		try {
 			while (rs.next()) {
@@ -50,110 +55,114 @@ public class CustomerDAOImpl implements CustomerDAO {
 				resultList.add(customer);
 			}
 		} catch (Exception ex) {
-			throw new SQLException(ex);
+			LOG.error(ex.getMessage());
 		}
 		return resultList;
 	}
 
 	@Override
-	public Customer create() throws SQLException {
+	public Customer create() {
 		Customer customer = new Customer();
 		return createFrom(customer);
 	}
 
 	@Override
-	public Customer createFrom(Customer entity) throws SQLException {
+	public Customer createFrom(Customer entity) {
 		Customer entInstance = null;
-		Connection conn = CustomConnectionManager.getConnection();
-		String sql = getCreate();
-		int pk = 0;
-		try (Statement stmt = conn.createStatement()) {
-			int insertCount = stmt.executeUpdate(String.format(sql, entity.getValuesCommaSeparated()), 1);
-			if (insertCount != 1) {
-				throw new SQLException("On creation either multiple or no records were affected. Count: " + insertCount);
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			String sql = getCreate();
+			int pk = 0;
+			try (Statement stmt = conn.createStatement()) {
+				int insertCount = stmt.executeUpdate(String.format(sql, entity.getValuesCommaSeparated()), 1);
+				if (insertCount != 1) {
+					throw new SQLException(
+							"On creation either multiple or no records were affected. Count: " + insertCount);
+				}
+				ResultSet keySet = stmt.getGeneratedKeys();
+				while (keySet.next()) {
+					pk = keySet.getInt(1);
+				}
 			}
-			ResultSet keySet = stmt.getGeneratedKeys();
-			while (keySet.next()) {
-				pk = keySet.getInt(1);
+			sql = getSelectByID();
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, pk);
+				ResultSet rs = stmt.executeQuery();
+				List<Customer> resultList = parseResults(rs);
+				if (resultList == null || resultList.size() != 1) {
+					throw new SQLException("No or multiple records found by id. ID: " + pk);
+				}
+				entInstance = resultList.get(0);
 			}
 		} catch (SQLException ex) {
-			conn.close();
-			throw new SQLException(ex);
-		}
-		sql = getSelectByID();
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setInt(1, pk);
-			ResultSet rs = stmt.executeQuery();
-			List<Customer> resultList = parseResults(rs);
-			if (resultList == null || resultList.size() != 1) {
-				throw new SQLException("No records found by id. ID: " + pk);
-			}
-			entInstance = resultList.get(0);
-		} finally {
-			conn.close();
+			LOG.error(ex.getMessage());
 		}
 		return entInstance;
 	}
 
 	@Override
-	public void update(Customer entity) throws SQLException {
+	public void update(Customer entity) {
 		String sql = getUpdate();
-		Connection conn = CustomConnectionManager.getConnection();
-		try (Statement stmt = conn.createStatement()) {
-			int updCount = stmt.executeUpdate(String.format(sql, entity.toString(), entity.getId()));
-			if (updCount != 1) {
-				throw new SQLException("On update either multiple or no records were affected. Count: " + updCount);
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (Statement stmt = conn.createStatement()) {
+				int updCount = stmt.executeUpdate(String.format(sql, entity.toString(), entity.getId()));
+				if (updCount != 1) {
+					throw new SQLException("On update either multiple or no records were affected. Count: " + updCount);
+				}
 			}
-		} finally {
-			conn.close();
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
 		}
 	}
 
 	@Override
-	public void delete(Customer entity) throws SQLException {
+	public void delete(Customer entity) {
 		String sql = getDelete();
-		Connection conn = CustomConnectionManager.getConnection();
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setInt(1, entity.getId());
-			int updCount = stmt.executeUpdate();
-			if (updCount != 1) {
-				throw new SQLException("On deletion either multiple or no records were affected. Count: " + updCount);
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, entity.getId());
+				int updCount = stmt.executeUpdate();
+				if (updCount != 1) {
+					throw new SQLException(
+							"On deletion either multiple or no records were affected. Count: " + updCount);
+				}
 			}
-		} finally {
-			conn.close();
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
 		}
 	}
 
 	@Override
-	public Customer getByPK(int id) throws SQLException {
+	public Customer getByPK(int id) {
 		List<Customer> resultList = null;
-		Connection conn = CustomConnectionManager.getConnection();
-		String sql = getSelectByID();
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setInt(1, id);
-			ResultSet rs = stmt.executeQuery();
-			resultList = parseResults(rs);
-		} finally {
-			conn.close();
-		}
-		if (resultList == null || resultList.size() == 0) {
-			return null;
-		} else if (resultList.size() > 1) {
-			throw new SQLException("More than one result by presumably unique id. ID: " + id);
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			String sql = getSelectByID();
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, id);
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+			if (resultList == null || resultList.size() == 0) {
+				return null;
+			} else if (resultList.size() > 1) {
+				throw new SQLException("More than one result by presumably unique id. ID: " + id);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
 		}
 		return resultList.get(0);
 	}
 
 	@Override
-	public List<Customer> getAll() throws SQLException {
+	public List<Customer> getAll() {
 		List<Customer> resultList = null;
 		String sql = getSelectAll();
-		Connection conn = CustomConnectionManager.getConnection();
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			ResultSet rs = stmt.executeQuery();
-			resultList = parseResults(rs);
-		} finally {
-			conn.close();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
 		}
 		return resultList;
 	}

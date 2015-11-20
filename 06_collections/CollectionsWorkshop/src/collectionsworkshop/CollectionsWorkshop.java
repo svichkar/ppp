@@ -5,9 +5,6 @@
  */
 package collectionsworkshop;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /**
  *
  * @author mednorcom

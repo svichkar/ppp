@@ -82,7 +82,7 @@ public class MyPainfullCollection<E> implements Collection<E> {
         if (a.length > this.size()) {
             a[this.size()] = null;
         }
-        return (T[])a;
+        return (T[]) a;
     }
 
     @Override

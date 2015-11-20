@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Customer;
-import com.nixsolutions.serviceStation.dbObjects.Order_in_work;
-import com.nixsolutions.serviceStation.h2Objects.CustomerDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.Order_in_workDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.CustomerDaoImpl;
+import com.nixsolutions.dao.impl.OrderInWorkDaoImpl;
+import com.nixsolutions.entity.Customer;
+import com.nixsolutions.entity.OrderInWork;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -40,11 +40,10 @@ public class Order_in_workDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -60,7 +59,6 @@ public class Order_in_workDaoImplTest {
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/order_in_work/order_in_work.xml"));
 		tester.setDataSet(beforeData);
 		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -70,7 +68,7 @@ public class Order_in_workDaoImplTest {
 
 	@Test
 	public void createOrder_in_workTable() throws SQLException, Exception {
-		Order_in_workDaoImpl order_in_workDao = factory.getOrder_in_workDaoImpl();
+		OrderInWorkDaoImpl order_in_workDao = DaoFactory.getOrderInWorkDaoImpl();
 		order_in_workDao.deleteTableWithAllData();
 		order_in_workDao.createNewTable();
 		order_in_workDao.createNewOrder(1, "createOrder_in_workTable");
@@ -92,8 +90,8 @@ public class Order_in_workDaoImplTest {
 
 	@Test
 	public void updateOrder_in_workTableTest() throws SQLException, Exception {
-		Order_in_workDaoImpl order_in_workDao = factory.getOrder_in_workDaoImpl();
-		Order_in_work order = order_in_workDao.getAllOrders().get(0);
+		OrderInWorkDaoImpl order_in_workDao = DaoFactory.getOrderInWorkDaoImpl();
+		OrderInWork order = order_in_workDao.getAllOrders().get(0);
 		order.setOrder_status_id(2);
 		order_in_workDao.changeOrderStatusByOrderID(order.getOrder_id(), order.getOrder_status_id());
 		// CarDaoImplTest.getTables();
@@ -106,7 +104,7 @@ public class Order_in_workDaoImplTest {
 
 	@Test
 	public void addingNewOrder_in_workToOrder_in_workTable() throws SQLException, Exception {
-		Order_in_workDaoImpl order_in_workDao = factory.getOrder_in_workDaoImpl();
+		OrderInWorkDaoImpl order_in_workDao = DaoFactory.getOrderInWorkDaoImpl();
 		order_in_workDao.createNewOrder(1, "addingNewOrder_in_workToOrder_in_workTable");
 
 		// Fetch database data after executing your code
@@ -124,5 +122,4 @@ public class Order_in_workDaoImplTest {
 		String[] ignoredColumn = { "order_in_work_id", "datetime_start", "datetime_finish" };
 		Assertion.assertEqualsIgnoreCols(expectedTable, actualTable, ignoredColumn);
 	}
-
 }

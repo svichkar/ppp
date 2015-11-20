@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.dbObjects.Customer;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.CustomerDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.CarDaoImpl;
+import com.nixsolutions.dao.impl.CustomerDaoImpl;
+import com.nixsolutions.entity.Car;
+import com.nixsolutions.entity.Customer;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -40,11 +40,10 @@ public class CustomerDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -60,7 +59,6 @@ public class CustomerDaoImplTest {
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/customer/customer.xml"));
 		tester.setDataSet(beforeData);
 		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -70,10 +68,10 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void createCustomerTable() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
+		CustomerDaoImpl customerDao = DaoFactory.getCustomerDaoImpl();
 		customerDao.deleteTableWithAllData();
 		customerDao.createNewTable();
-		customerDao.createNewCustomer("last Name", "First name", "+380675678912");
+		customerDao.createNewCustomer("last Name", "First name", "+380675678912", 2);
 
 		// Fetch database data after executing your code
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
@@ -90,7 +88,7 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void updateCustomerTableTest() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
+		CustomerDaoImpl customerDao = DaoFactory.getCustomerDaoImpl();
 		Customer customer = customerDao.getAllCustomers().get(0);
 		customer.setFirst_name("updateCustomerTableTest");
 		customerDao.updateCustomer(customer);
@@ -104,9 +102,9 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void addingNewCustomerToCustomerTable() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
-		Customer customer = new Customer("NewCustomer first_name", "NewCustomer last_name", "1234567893245");
-		customerDao.createNewCustomer(customer.getLast_name(), customer.getFirst_name(), customer.getPhone());
+		CustomerDaoImpl customerDao = DaoFactory.getCustomerDaoImpl();
+		Customer customer = new Customer("NewCustomer first_name", "NewCustomer last_name", "1234567893245", 3);
+		customerDao.createNewCustomer(customer.getLast_name(), customer.getFirst_name(), customer.getPhone(), customer.getUser_id());
 		;
 
 		// Fetch database data after executing your code
@@ -126,9 +124,9 @@ public class CustomerDaoImplTest {
 
 	@Test
 	public void deleteCustomer() throws SQLException, Exception {
-		CustomerDaoImpl customerDao = factory.getCustomerDaoImpl();
-		Customer customer = new Customer("NewCustomer first_name", "NewCustomer last_name", "1234567893245");
-		customerDao.createNewCustomer(customer.getLast_name(), customer.getFirst_name(), customer.getPhone());
+		CustomerDaoImpl customerDao = DaoFactory.getCustomerDaoImpl();
+		Customer customer = new Customer("NewCustomer first_name", "NewCustomer last_name", "1234567893245", 3);
+		customerDao.createNewCustomer(customer.getLast_name(), customer.getFirst_name(), customer.getPhone(), customer.getUser_id());
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
 		ITable actualTable = databaseDataSet.getTable("customer");
 

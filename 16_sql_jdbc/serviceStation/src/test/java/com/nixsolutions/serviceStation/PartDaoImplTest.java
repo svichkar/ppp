@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.dbObjects.Part;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.PartDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.CarDaoImpl;
+import com.nixsolutions.dao.impl.PartDaoImpl;
+import com.nixsolutions.entity.Car;
+import com.nixsolutions.entity.Part;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -40,11 +40,10 @@ public class PartDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -59,8 +58,6 @@ public class PartDaoImplTest {
 		flatXmlProducer.setColumnSensing(false);
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/part/part.xml"));
 		tester.setDataSet(beforeData);
-		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -70,7 +67,7 @@ public class PartDaoImplTest {
 
 	@Test
 	public void createPartTable() throws SQLException, Exception {
-		PartDaoImpl partDao = factory.getPartDaoImpl();
+		PartDaoImpl partDao = DaoFactory.getPartDaoImpl();
 		partDao.deleteTableWithAllData();
 		partDao.createNewTable();
 		partDao.addNewPart("createPartTable", "createPartTable", 10);
@@ -90,7 +87,7 @@ public class PartDaoImplTest {
 
 	@Test
 	public void updatePartTableTest() throws SQLException, Exception {
-		PartDaoImpl partDao = factory.getPartDaoImpl();
+		PartDaoImpl partDao = DaoFactory.getPartDaoImpl();
 		Part part = partDao.getAllParts().get(0);
 		part.setAmount(22);
 		partDao.updateExistingPart(part);
@@ -100,14 +97,12 @@ public class PartDaoImplTest {
 		IDataSet actualData = tester.getConnection().createDataSet();
 		String[] ignoredColumn = { "part_id" };
 		Assertion.assertEqualsIgnoreCols(expectedData, actualData, "part", ignoredColumn);
-		/*
-		 * } catch (Exception e) { logger.error(e); }
-		 */
+
 	}
 
 	@Test
 	public void addingNewPart() throws SQLException, Exception {
-		PartDaoImpl partDao = factory.getPartDaoImpl();
+		PartDaoImpl partDao = DaoFactory.getPartDaoImpl();
 		partDao.addNewPart("createPartTable", "createPartTable", 10);
 
 		// Fetch database data after executing your code
@@ -126,7 +121,7 @@ public class PartDaoImplTest {
 
 	@Test
 	public void deletePart() throws SQLException, Exception {
-		PartDaoImpl partDao = factory.getPartDaoImpl();
+		PartDaoImpl partDao = DaoFactory.getPartDaoImpl();
 		partDao.deletePartByID(partDao.getAllParts().size() - 1);
 
 		// Fetch database data after executing your code
@@ -142,5 +137,4 @@ public class PartDaoImplTest {
 		// Assert actual database table match expected table
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
-
 }

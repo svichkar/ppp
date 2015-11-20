@@ -5,5 +5,7 @@
   <worker_specialization SPECIALIZATION_ID="3" SPECIALIZATION_NAME="electric"/>
   <worker_specialization SPECIALIZATION_ID="4" SPECIALIZATION_NAME="diagnostician"/>
   <worker_specialization SPECIALIZATION_ID="5" SPECIALIZATION_NAME="engine"/>
-  <worker_specialization SPECIALIZATION_ID="6" SPECIALIZATION_NAME="addingNewWorker_specialization"/>
+  <worker_specialization SPECIALIZATION_ID="6" SPECIALIZATION_NAME="manager"/>
+  <worker_specialization SPECIALIZATION_ID="7" SPECIALIZATION_NAME="storekeeper"/>
+  <worker_specialization SPECIALIZATION_ID="8" SPECIALIZATION_NAME="addingNewWorker_specialization"/>
 </dataset>

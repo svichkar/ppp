@@ -29,10 +29,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.CarDaoImpl;
+import com.nixsolutions.entity.Car;
+import com.nixsolutions.util.ConnectionManager;
 
 import junit.framework.TestCase;
 
@@ -45,11 +45,10 @@ public class CarDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -65,7 +64,6 @@ public class CarDaoImplTest {
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/car/car.xml"));
 		tester.setDataSet(beforeData);
 		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -75,10 +73,10 @@ public class CarDaoImplTest {
 
 	@Test
 	public void createCarTable() throws SQLException, Exception {
-		CarDaoImpl carDao = factory.getCarDao();
+		CarDaoImpl carDao = DaoFactory.getCarDao();
 		carDao.deleteTableWithAllData();
 		carDao.createNewTable();
-		carDao.createNewCar("createCarTable", "12345678901234567", "createCarTable", 1);
+		carDao.createNewCar("createCarTable", "12345678901234567", "createCarTable", "qw4573os", 1);
 
 		// Fetch database data after executing your code
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
@@ -96,27 +94,31 @@ public class CarDaoImplTest {
 	@Test
 	public void updateCarTableTest() throws SQLException, Exception {
 
-		/* try { */
-		CarDaoImpl carDao = factory.getCarDao();
-		Car car = carDao.getAllCar().get(0);
-		car.setDescription("AX73-99DE have no engine");
-		carDao.updateCarByVinNumber(car.getModel(), car.getDescription(), car.getVin_number(), car.getCustomer_id());
-		// CarDaoImplTest.getTables();
-		IDataSet expectedData = new FlatXmlDataSetBuilder()
-				.build(new FileInputStream("src/test/resources/car/car_update.xml"));
-		IDataSet actualData = tester.getConnection().createDataSet();
-		String[] ignoredColumn = { "car_id" };
-		Assertion.assertEqualsIgnoreCols(expectedData, actualData, "car", ignoredColumn);
-		/*
-		 * } catch (Exception e) { logger.error(e); }
-		 */
+		try {
+			CarDaoImpl carDao = DaoFactory.getCarDao();
+			Car car = carDao.getAllCar().get(0);
+			car.setCar_description("have no engine");
+			carDao.updateCarByVinNumber(car.getCar_model(), car.getCar_description(), car.getVin_number(),
+					car.getReg_number(), car.getCustomer_id());
+			// CarDaoImplTest.getTables();
+			IDataSet expectedData = new FlatXmlDataSetBuilder()
+					.build(new FileInputStream("src/test/resources/car/car_update.xml"));
+			IDataSet actualData = tester.getConnection().createDataSet();
+			String[] ignoredColumn = { "car_id" };
+			Assertion.assertEqualsIgnoreCols(expectedData, actualData, "car", ignoredColumn);
+
+		} catch (Exception e) {
+			logger.error(e);
+		}
+
 	}
 
 	@Test
 	public void addingNewCarToCarTable() throws SQLException, Exception {
-		CarDaoImpl carDao = factory.getCarDao();
-		Car car = new Car("car_model", "12345678901234567", "car_description", 1);
-		carDao.createNewCar(car.getModel(), car.getVin_number(), car.getDescription(), car.getCustomer_id());
+		CarDaoImpl carDao = DaoFactory.getCarDao();
+		Car car = new Car("car_model", "12345678901234567", "car_description", "qw4573os", 1);
+		carDao.createNewCar(car.getCar_model(), car.getVin_number(), car.getCar_description(), car.getReg_number(),
+				car.getCustomer_id());
 
 		// Fetch database data after executing your code
 		IDataSet databaseDataSet = tester.getConnection().createDataSet();
@@ -134,7 +136,7 @@ public class CarDaoImplTest {
 
 	@Test
 	public void deleteCarToCarTable() throws SQLException, Exception {
-		CarDaoImpl carDao = factory.getCarDao();
+		CarDaoImpl carDao = DaoFactory.getCarDao();
 		Car car = carDao.getAllCar().get(2);
 		carDao.deleteCarByVINNumber(car.getVin_number());
 

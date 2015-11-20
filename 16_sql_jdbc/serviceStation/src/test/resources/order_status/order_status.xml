@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <order_status ORDER_STATUS_ID="1" ORDER_STATUS_NAME="waiting"/>
+  <order_status ORDER_STATUS_ID="2" ORDER_STATUS_NAME="in work"/>
+  <order_status ORDER_STATUS_ID="3" ORDER_STATUS_NAME="ready"/>
+</dataset>

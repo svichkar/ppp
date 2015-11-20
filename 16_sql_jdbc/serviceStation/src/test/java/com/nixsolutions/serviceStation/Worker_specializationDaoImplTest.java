@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Part;
-import com.nixsolutions.serviceStation.dbObjects.Worker_specialization;
-import com.nixsolutions.serviceStation.h2Objects.PartDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
-import com.nixsolutions.serviceStation.h2Objects.Worker_specializationDaoImpl;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.PartDaoImpl;
+import com.nixsolutions.dao.impl.WorkerSpecializationDaoImpl;
+import com.nixsolutions.entity.Part;
+import com.nixsolutions.entity.WorkerSpecialization;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -40,11 +40,10 @@ public class Worker_specializationDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
-
+ 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -60,8 +59,6 @@ public class Worker_specializationDaoImplTest {
 		beforeData = flatXmlProducer
 				.build(new FileInputStream("src/test/resources/worker_specialization/worker_specialization.xml"));
 		tester.setDataSet(beforeData);
-		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -71,7 +68,7 @@ public class Worker_specializationDaoImplTest {
 
 	@Test
 	public void createWorker_specializationTable() throws SQLException, Exception {
-		Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+		WorkerSpecializationDaoImpl worker_specializationDao = DaoFactory.getWorkerSpecializationDaoImpl();
 		worker_specializationDao.deleteTableWithAllData();
 		worker_specializationDao.createNewTable();
 		worker_specializationDao.createNewSpecialization("createWorker_specializationTable");
@@ -91,7 +88,7 @@ public class Worker_specializationDaoImplTest {
 
 	@Test
 	public void addingNewWorker_specialization() throws SQLException, Exception {
-		Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+		WorkerSpecializationDaoImpl worker_specializationDao = DaoFactory.getWorkerSpecializationDaoImpl();
 		worker_specializationDao.createNewSpecialization("addingNewWorker_specialization");
 
 		// Fetch database data after executing your code
@@ -111,7 +108,7 @@ public class Worker_specializationDaoImplTest {
 
 	@Test
 	public void deleteWorker_specialization() throws SQLException, Exception {
-		Worker_specializationDaoImpl worker_specializationDao = factory.getWorker_specializationDaoImpl();
+		WorkerSpecializationDaoImpl worker_specializationDao = DaoFactory.getWorkerSpecializationDaoImpl();
 		worker_specializationDao.createNewSpecialization("addingNewWorker_specialization");
 
 		// Fetch database data after executing your code

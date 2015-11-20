@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Order_in_work;
-import com.nixsolutions.serviceStation.dbObjects.Order_worker;
-import com.nixsolutions.serviceStation.h2Objects.Order_in_workDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.Order_workerDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.OrderInWorkDaoImpl;
+import com.nixsolutions.dao.impl.OrderWorkerDaoImpl;
+import com.nixsolutions.entity.OrderInWork;
+import com.nixsolutions.entity.OrderWorker;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -40,11 +40,10 @@ public class Order_workerDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -59,8 +58,6 @@ public class Order_workerDaoImplTest {
 		flatXmlProducer.setColumnSensing(false);
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/order_worker/order_worker.xml"));
 		tester.setDataSet(beforeData);
-		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -70,7 +67,7 @@ public class Order_workerDaoImplTest {
 
 	@Test
 	public void createOrder_workerTable() throws SQLException, Exception {
-		Order_workerDaoImpl order_workerDao = factory.getOrder_workerDaoImpl();
+		OrderWorkerDaoImpl order_workerDao = DaoFactory.getOrderWorkerDaoImpl();
 		order_workerDao.deleteTableWithAllData();
 		order_workerDao.createNewTable();
 		order_workerDao.assignWorkerToOrder(1, 2);
@@ -90,11 +87,11 @@ public class Order_workerDaoImplTest {
 
 	@Test
 	public void updateOrder_workerTableTest() throws SQLException, Exception {
-		Order_workerDaoImpl order_workerDao = factory.getOrder_workerDaoImpl();
+		OrderWorkerDaoImpl order_workerDao = DaoFactory.getOrderWorkerDaoImpl();
 		order_workerDao.assignWorkerToOrder(1, 2);
-		Order_worker order_worker = order_workerDao.getAll().get(0);
-		order_worker.setCompleted(true);
-		order_workerDao.changeStatus(order_worker.getOrder_id(), order_worker.getWorker_id(), true);
+		OrderWorker orderWorker = order_workerDao.getAll().get(0);
+		orderWorker.setCompleted(true);
+		order_workerDao.changeStatus(orderWorker.getOrder_id(), orderWorker.getWorker_id(), true);
 		// CarDaoImplTest.getTables();
 		IDataSet expectedData = new FlatXmlDataSetBuilder()
 				.build(new FileInputStream("src/test/resources/order_worker/order_worker_update.xml"));
@@ -105,7 +102,7 @@ public class Order_workerDaoImplTest {
 
 	@Test
 	public void addingNewOrder_worker() throws SQLException, Exception {
-		Order_workerDaoImpl order_workerDao = factory.getOrder_workerDaoImpl();
+		OrderWorkerDaoImpl order_workerDao = DaoFactory.getOrderWorkerDaoImpl();
 		order_workerDao.assignWorkerToOrder(1, 2);
 
 		// Fetch database data after executing your code
@@ -122,5 +119,4 @@ public class Order_workerDaoImplTest {
 		// Assert actual database table match expected table
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
-
 }

@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Order_worker;
-import com.nixsolutions.serviceStation.dbObjects.Part_order;
-import com.nixsolutions.serviceStation.h2Objects.Order_workerDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.Part_orderDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.OrderWorkerDaoImpl;
+import com.nixsolutions.dao.impl.PartOrderDaoImpl;
+import com.nixsolutions.entity.OrderWorker;
+import com.nixsolutions.entity.PartOrder;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -40,11 +40,10 @@ public class Part_orderDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -59,8 +58,6 @@ public class Part_orderDaoImplTest {
 		flatXmlProducer.setColumnSensing(false);
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/part_order/part_order.xml"));
 		tester.setDataSet(beforeData);
-		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -70,7 +67,7 @@ public class Part_orderDaoImplTest {
 
 	@Test
 	public void createPart_orderTable() throws SQLException, Exception {
-		Part_orderDaoImpl part_orderDao = factory.getPart_orderDaoImpl();
+		PartOrderDaoImpl part_orderDao = DaoFactory.getPartOrderDaoImpl();
 		part_orderDao.deleteTableWithAllData();
 		part_orderDao.createNewTable();
 		part_orderDao.setPartToOrder(1, 2, 3);
@@ -90,8 +87,8 @@ public class Part_orderDaoImplTest {
 
 	@Test
 	public void updatePart_orderTableTest() throws SQLException, Exception {
-		Part_orderDaoImpl part_orderDao = factory.getPart_orderDaoImpl();
-		Part_order part_order = part_orderDao.getAllParts().get(0);
+		PartOrderDaoImpl part_orderDao = DaoFactory.getPartOrderDaoImpl();
+		PartOrder partOrder = part_orderDao.getAllParts().get(0);
 		part_orderDao.deletePartFromOrder(2, 3);
 		// CarDaoImplTest.getTables();
 		IDataSet expectedData = new FlatXmlDataSetBuilder()
@@ -103,7 +100,7 @@ public class Part_orderDaoImplTest {
 
 	@Test
 	public void addingNewPart_order() throws SQLException, Exception {
-		Part_orderDaoImpl part_orderDao = factory.getPart_orderDaoImpl();
+		PartOrderDaoImpl part_orderDao = DaoFactory.getPartOrderDaoImpl();
 		part_orderDao.setPartToOrder(1, 2, 3);
 
 		// Fetch database data after executing your code
@@ -120,5 +117,4 @@ public class Part_orderDaoImplTest {
 		// Assert actual database table match expected table
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
-
 }

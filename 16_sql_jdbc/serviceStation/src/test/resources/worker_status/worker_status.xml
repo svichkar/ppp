@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <worker_status WORKER_STATUS_ID="1" WORKER_STATUS_NAME="busy"/>
+  <worker_status WORKER_STATUS_ID="2" WORKER_STATUS_NAME="free"/>
+  <worker_status WORKER_STATUS_ID="3" WORKER_STATUS_NAME="ill"/>
+  <worker_status WORKER_STATUS_ID="4" WORKER_STATUS_NAME="vacation"/>
+</dataset>

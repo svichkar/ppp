@@ -1,8 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <part_order ORDER_ID="1" PART_ID="3" AMOUNT="2"/>
-  <part_order ORDER_ID="2" PART_ID="8" AMOUNT="4"/>
-  <part_order ORDER_ID="2" PART_ID="3" AMOUNT="2"/>
-  <part_order ORDER_ID="4" PART_ID="10" AMOUNT="1"/>
   <part_order ORDER_ID="1" PART_ID="2" AMOUNT="3"/>
 </dataset>

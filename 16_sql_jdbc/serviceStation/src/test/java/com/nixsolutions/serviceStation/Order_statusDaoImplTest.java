@@ -20,12 +20,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Order_in_work;
-import com.nixsolutions.serviceStation.dbObjects.Order_status;
-import com.nixsolutions.serviceStation.h2Objects.Order_in_workDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.Order_statusDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.OrderInWorkDaoImpl;
+import com.nixsolutions.dao.impl.OrderStatusDaoImpl;
+import com.nixsolutions.entity.OrderInWork;
+import com.nixsolutions.entity.OrderStatus;
+import com.nixsolutions.util.ConnectionManager;
 
 public class Order_statusDaoImplTest {
 	private final static Logger logger = LogManager.getLogger();
@@ -33,11 +33,10 @@ public class Order_statusDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -52,8 +51,6 @@ public class Order_statusDaoImplTest {
 		flatXmlProducer.setColumnSensing(false);
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/order_status/order_status.xml"));
 		tester.setDataSet(beforeData);
-		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -63,7 +60,7 @@ public class Order_statusDaoImplTest {
 
 	@Test
 	public void createOrder_statusTable() throws SQLException, Exception {
-		Order_statusDaoImpl order_statusDao = factory.getOrder_statusDaoImpl();
+		OrderStatusDaoImpl order_statusDao = DaoFactory.getOrderStatusDaoImpl();
 		order_statusDao.deleteTableWithAllData();
 		order_statusDao.createNewTable();
 		order_statusDao.createNewStatus("createOrder_statusTable");
@@ -85,7 +82,7 @@ public class Order_statusDaoImplTest {
 
 	@Test
 	public void addingNewOrder_status() throws SQLException, Exception {
-		Order_statusDaoImpl order_statusDao = factory.getOrder_statusDaoImpl();
+		OrderStatusDaoImpl order_statusDao = DaoFactory.getOrderStatusDaoImpl();
 		order_statusDao.createNewStatus("addingNewOrder_status");
 
 		// Fetch database data after executing your code

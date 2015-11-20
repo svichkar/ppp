@@ -3,38 +3,23 @@
  */
 package com.nixsolutions.serviceStation;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import javax.sql.DataSource;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.dbunit.Assertion;
-import org.dbunit.IDatabaseTester;
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
-import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Before;
-import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
+import com.nixsolutions.app.CreateDB;
+import com.nixsolutions.app.DropDB;
+import com.nixsolutions.app.FillingDB;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -44,7 +29,7 @@ public class CommonTestsMethods {
 	private final static Logger logger = LogManager.getLogger();
 
 	public static void getTables(String tableName) throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		// database connection
 		Class.forName("org.h2.Driver");
 		Connection jdbcConnection = DriverManager.getConnection(properties.getProperty("h2URL"),
@@ -75,19 +60,19 @@ public class CommonTestsMethods {
 
 	}
 
-	public static void deleteDB() throws SQLException {
+	public static void deleteDB() throws SQLException, ClassNotFoundException {
 		DropDB.dropDB();
 	}
 
-	public static void createDB() throws SQLException {
+	public static void createDB() throws SQLException, ClassNotFoundException {
 		CreateDB.createDB();
 	}
 
-	public static void fillingDB() throws SQLException {
-		FillingDB.main(null);
+	public static void fillingDB() throws SQLException, ClassNotFoundException {
+		FillingDB.fillingDB();
 	}
 
-	public static void updateDB() throws SQLException {
+	public static void updateDB() throws SQLException, ClassNotFoundException {
 		deleteDB();
 		createDB();
 		fillingDB();

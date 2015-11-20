@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <order_in_work ORDER_ID="1" ORDER_DESCRIPTION="change lamp" DATETIME_START="2015-11-20 18:14:26.318" ORDER_STATUS_ID="1" CAR_ID="1"/>
+  <order_in_work ORDER_ID="2" ORDER_DESCRIPTION="change brake pads" DATETIME_START="2015-11-20 18:14:26.319" ORDER_STATUS_ID="2" CAR_ID="2"/>
+  <order_in_work ORDER_ID="3" ORDER_DESCRIPTION="change brake pads" DATETIME_START="2015-11-20 18:14:26.321" ORDER_STATUS_ID="3" CAR_ID="5"/>
+  <order_in_work ORDER_ID="4" ORDER_DESCRIPTION="change tyaga" DATETIME_START="2015-11-20 18:14:26.323" ORDER_STATUS_ID="3" CAR_ID="4"/>
+</dataset>

@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <customer CUSTOMER_ID="1" FIRST_NAME="First name" LAST_NAME="last Name" PHONE="+380675678912"/>
+  <customer CUSTOMER_ID="1" FIRST_NAME="First name" LAST_NAME="last Name" PHONE="+380675678912" USER_ID="2"/>
 </dataset>

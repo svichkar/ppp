@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.dbObjects.Car;
-import com.nixsolutions.serviceStation.dbObjects.Worker;
-import com.nixsolutions.serviceStation.h2Objects.CarDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
-import com.nixsolutions.serviceStation.h2Objects.WorkerDaoImpl;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.CarDaoImpl;
+import com.nixsolutions.dao.impl.WorkerDaoImpl;
+import com.nixsolutions.entity.Car;
+import com.nixsolutions.entity.Worker;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author Михаил
@@ -40,11 +40,10 @@ public class WorkerDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -59,8 +58,6 @@ public class WorkerDaoImplTest {
 		flatXmlProducer.setColumnSensing(false);
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/worker/worker.xml"));
 		tester.setDataSet(beforeData);
-		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -70,10 +67,10 @@ public class WorkerDaoImplTest {
 
 	@Test
 	public void createWorkerTable() throws SQLException, Exception {
-		WorkerDaoImpl workerDao = factory.getWorkerDaoImpl();
+		WorkerDaoImpl workerDao = DaoFactory.getWorkerDaoImpl();
 		workerDao.deleteTableWithAllData();
 		workerDao.createNewTable();
-		Worker worker = new Worker(1, "createWorkerTable", "createWorkerTable", 1);
+		Worker worker = new Worker(1, "createWorkerTable", "createWorkerTable", 1, 1);
 		workerDao.createWorker(worker);
 
 		// Fetch database data after executing your code
@@ -91,7 +88,7 @@ public class WorkerDaoImplTest {
 
 	@Test
 	public void updateWorkerTableTest() throws SQLException, Exception {
-		WorkerDaoImpl workerDao = factory.getWorkerDaoImpl();
+		WorkerDaoImpl workerDao = DaoFactory.getWorkerDaoImpl();
 		Worker worker = workerDao.getAllWorkers().get(0);
 		worker.setLast_name("updateWorkerTableTest");
 		workerDao.updateWorker(worker);
@@ -101,15 +98,13 @@ public class WorkerDaoImplTest {
 		IDataSet actualData = tester.getConnection().createDataSet();
 		String[] ignoredColumn = { "worker_id" };
 		Assertion.assertEqualsIgnoreCols(expectedData, actualData, "worker", ignoredColumn);
-		/*
-		 * } catch (Exception e) { logger.error(e); }
-		 */
+		 
 	}
 
 	@Test
 	public void addingWorker() throws SQLException, Exception {
-		WorkerDaoImpl workerDao = factory.getWorkerDaoImpl();
-		Worker worker = new Worker(1, "createWorkerTable", "createWorkerTable", 1);
+		WorkerDaoImpl workerDao = DaoFactory.getWorkerDaoImpl();
+		Worker worker = new Worker(1, "createWorkerTable", "createWorkerTable", 1, 2);
 		workerDao.createWorker(worker);
 
 		// Fetch database data after executing your code
@@ -128,8 +123,8 @@ public class WorkerDaoImplTest {
 
 	@Test
 	public void deleteWorker() throws SQLException, Exception {
-		WorkerDaoImpl workerDao = factory.getWorkerDaoImpl();
-		Worker worker = new Worker(1, "createWorkerTable", "createWorkerTable", 1);
+		WorkerDaoImpl workerDao = DaoFactory.getWorkerDaoImpl();
+		Worker worker = new Worker(1, "createWorkerTable", "createWorkerTable", 1, 2);
 		workerDao.createWorker(worker);
 
 		// Fetch database data after executing your code

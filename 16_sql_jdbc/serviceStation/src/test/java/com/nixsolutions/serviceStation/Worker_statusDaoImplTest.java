@@ -23,10 +23,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nixsolutions.serviceStation.dbCommon.DbConnector;
-import com.nixsolutions.serviceStation.h2Objects.ServiceFactory;
-import com.nixsolutions.serviceStation.h2Objects.Worker_specializationDaoImpl;
-import com.nixsolutions.serviceStation.h2Objects.Worker_statusDaoImpl;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.WorkerSpecializationDaoImpl;
+import com.nixsolutions.dao.impl.WorkerStatusDaoImpl;
+import com.nixsolutions.util.ConnectionManager;
 
 /**
  * @author mixeyes
@@ -38,11 +38,10 @@ public class Worker_statusDaoImplTest {
 	protected DataSource dataSource;
 	private IDatabaseTester tester;
 	private IDataSet beforeData;
-	private ServiceFactory factory;
 
 	@Before
 	public void init() throws Exception {
-		Properties properties = DbConnector.getProperties();
+		Properties properties = ConnectionManager.getProperties();
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, properties.getProperty("h2URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, properties.getProperty("h2Login"));
@@ -59,7 +58,6 @@ public class Worker_statusDaoImplTest {
 				.build(new FileInputStream("src/test/resources/worker_status/worker_status.xml"));
 		tester.setDataSet(beforeData);
 		// tester.onSetup();
-		factory = new ServiceFactory();
 	}
 
 	@After
@@ -69,7 +67,7 @@ public class Worker_statusDaoImplTest {
 
 	@Test
 	public void createWorker_statusTable() throws SQLException, Exception {
-		Worker_statusDaoImpl statusDaoImpl =factory.getWorker_statusDaoImpl();
+		WorkerStatusDaoImpl statusDaoImpl =DaoFactory.getWorkerStatusDaoImpl();
 		statusDaoImpl.deleteTableWithAllData();
 		statusDaoImpl.createNewTable();
 		statusDaoImpl.createNewStatus("createWorker_statusTable");
@@ -89,7 +87,7 @@ public class Worker_statusDaoImplTest {
 
 	@Test
 	public void addingNewWorker_status() throws SQLException, Exception {
-		Worker_statusDaoImpl statusDaoImpl =factory.getWorker_statusDaoImpl();
+		WorkerStatusDaoImpl statusDaoImpl =DaoFactory.getWorkerStatusDaoImpl();
 		statusDaoImpl.createNewStatus("addingNewWorker_status");
 
 		// Fetch database data after executing your code
@@ -109,7 +107,7 @@ public class Worker_statusDaoImplTest {
 
 	@Test
 	public void deleteWorker_status() throws SQLException, Exception {
-		Worker_statusDaoImpl statusDaoImpl =factory.getWorker_statusDaoImpl();
+		WorkerStatusDaoImpl statusDaoImpl =DaoFactory.getWorkerStatusDaoImpl();
 		statusDaoImpl.createNewStatus("addingNewWorker_status");
 
 		// Fetch database data after executing your code

@@ -11,24 +11,22 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Collection implementation with nullable elements
- *
  * @author mednorcom
  */
 public class MyPainfullCollection<E> implements Collection<E> {
 
-    private Object[] collcetionHolder;
+    private E[] collcetionHolder;
 
-    private Object[] getCollcetionHolder() {
+    private E[] getCollcetionHolder() {
         return collcetionHolder;
     }
 
-    private void setCollcetionHolder(Object[] collcetionHandler) {
+    private void setCollcetionHolder(E[] collcetionHandler) {
         this.collcetionHolder = collcetionHandler;
     }
 
     public MyPainfullCollection() {
-        collcetionHolder = new Object[0];
+        collcetionHolder = (E[]) (new Object[0]);
     }
 
     @Override
@@ -63,7 +61,7 @@ public class MyPainfullCollection<E> implements Collection<E> {
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<E> iterator() {
         return new InterationWorker();
     }
 
@@ -87,7 +85,7 @@ public class MyPainfullCollection<E> implements Collection<E> {
 
     @Override
     public boolean add(E e) {
-        Object[] updated = new Object[this.size() + 1];
+        E[] updated = (E[]) new Object[this.size() + 1];
         System.arraycopy(this.getCollcetionHolder(), 0, updated, 0, this.size());
         updated[updated.length - 1] = e;
         this.setCollcetionHolder(updated);
@@ -97,11 +95,11 @@ public class MyPainfullCollection<E> implements Collection<E> {
     @Override
     public boolean remove(Object o) {
         Iterator iter = this.iterator();
-        Object[] updated = new Object[this.size() - 1];
+        E[] updated = (E[]) new Object[this.size() - 1];
         int i = 0;
         boolean changed = false;
         while (iter.hasNext()) {
-            Object current = iter.next();
+            E current = (E) iter.next();
             if (current == null || o == null) {
                 if (current != o) {
                     updated[i] = current;
@@ -133,12 +131,12 @@ public class MyPainfullCollection<E> implements Collection<E> {
      * @param o object to remove from this collection
      * @return true if one or more elements were removed
      */
-    public boolean removeAll(Object o) {
+    public boolean removeAll(E o) {
         Iterator iter = this.iterator();
-        Object[] updated = new Object[this.size() - 1];
+        E[] updated = (E[]) new Object[this.size() - 1];
         int i = 0;
         while (iter.hasNext()) {
-            Object current = iter.next();
+            E current = (E) iter.next();
             if (current == null || o == null) {
                 if (current != o) {
                     updated[i] = current;
@@ -186,7 +184,7 @@ public class MyPainfullCollection<E> implements Collection<E> {
     public boolean removeAll(Collection<?> c) {
 
         if (c == null) {
-            return this.removeAll((Object) c);
+            return this.removeAll((E) c);
         }
         boolean arrayChanged = false;
         for (Object inputItem : c) {
@@ -203,7 +201,7 @@ public class MyPainfullCollection<E> implements Collection<E> {
     @Override
     public boolean retainAll(Collection<?> c) {
         boolean arrayChanged = false;
-        for (Object collectionItem : this.getCollcetionHolder()) {
+        for (E collectionItem : this.getCollcetionHolder()) {
 
             if (!c.contains(collectionItem)) {
                 boolean elementChanged = this.removeAll(collectionItem);
@@ -217,10 +215,10 @@ public class MyPainfullCollection<E> implements Collection<E> {
 
     @Override
     public void clear() {
-        this.setCollcetionHolder(new Object[0]);
+        this.setCollcetionHolder((E[]) new Object[0]);
     }
 
-    public class InterationWorker implements Iterator<Object> {
+    public class InterationWorker implements Iterator<E> {
 
         int current;
 
@@ -242,12 +240,13 @@ public class MyPainfullCollection<E> implements Collection<E> {
         }
 
         @Override
-        public Object next() {
+        public E next() {
             if (current >= size()) {
                 throw new NoSuchElementException();
             }
             this.setCurrent(this.getCurrent() + 1);
-            return getCollcetionHolder()[this.getCurrent() - 1];
+            return collcetionHolder[this.getCurrent() - 1];
         }
+
     }
 }

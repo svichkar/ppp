@@ -18,7 +18,8 @@ public class CollectionsWorkshop {
      */
     public static void main(String[] args) {
 
-        MyPainfullCollection<String> myCollection = new MyPainfullCollection<>();
+        MyPainfullCollection<Integer> myCollection = new MyPainfullCollection<>();
+
         //Try methods here
     }
 

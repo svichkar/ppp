@@ -1,4 +1,4 @@
-package h2;
+package com.nixsolutions.h2;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import dao.DAOFactory;
-import dao.GenericDAO;
-import entities.PersistenceException;
-import entities.Role;
-import entities.User;
+import com.nixsolutions.dao.DAOFactory;
+import com.nixsolutions.dao.GenericDAO;
+import com.nixsolutions.entities.PersistenceException;
+import com.nixsolutions.entities.Role;
+import com.nixsolutions.entities.User;
 
 public class H2DAOFactoryImpl implements DAOFactory<Connection> {
 

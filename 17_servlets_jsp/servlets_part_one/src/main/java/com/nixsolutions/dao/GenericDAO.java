@@ -1,8 +1,8 @@
-package dao;
+package com.nixsolutions.dao;
 
 import java.util.List;
 
-import entities.PersistenceException;
+import com.nixsolutions.entities.PersistenceException;
 
 public interface GenericDAO<T> {
 	

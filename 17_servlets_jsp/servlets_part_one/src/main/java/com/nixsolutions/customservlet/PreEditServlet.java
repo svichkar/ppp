@@ -1,4 +1,4 @@
-package customservlet;
+package com.nixsolutions.customservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package entities;
+package com.nixsolutions.entities;
 
 public class User extends AbstractEntity {
 

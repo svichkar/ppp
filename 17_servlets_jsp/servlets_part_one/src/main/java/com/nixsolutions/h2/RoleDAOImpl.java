@@ -1,12 +1,12 @@
-package h2;
+package com.nixsolutions.h2;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.PersistenceException;
-import entities.Role;
+import com.nixsolutions.entities.PersistenceException;
+import com.nixsolutions.entities.Role;
 
 public class RoleDAOImpl extends AbstractH2DAO<Role> {
 

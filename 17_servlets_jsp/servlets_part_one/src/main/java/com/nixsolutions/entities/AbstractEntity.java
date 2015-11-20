@@ -1,4 +1,4 @@
-package entities;
+package com.nixsolutions.entities;
 
 public abstract class AbstractEntity {
 	

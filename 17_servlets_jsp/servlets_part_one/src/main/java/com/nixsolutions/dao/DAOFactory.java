@@ -1,6 +1,6 @@
-package dao;
+package com.nixsolutions.dao;
 
-import entities.PersistenceException;
+import com.nixsolutions.entities.PersistenceException;
 
 public interface DAOFactory<Context> {
 	

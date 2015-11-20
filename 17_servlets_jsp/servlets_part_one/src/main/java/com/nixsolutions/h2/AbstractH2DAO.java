@@ -1,4 +1,4 @@
-package h2;
+package com.nixsolutions.h2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import dao.GenericDAO;
-import entities.AbstractEntity;
-import entities.PersistenceException;
+import com.nixsolutions.dao.GenericDAO;
+import com.nixsolutions.entities.AbstractEntity;
+import com.nixsolutions.entities.PersistenceException;
 
 public abstract class AbstractH2DAO<T extends AbstractEntity> implements GenericDAO<T> {
 	

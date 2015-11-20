@@ -1,4 +1,4 @@
-package customservlet;
+package com.nixsolutions.customservlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.PersistenceException;
-import entities.Role;
-import entities.User;
-import h2.H2DAOFactoryImpl;
-import h2.RoleDAOImpl;
-import h2.UserDAOImpl;
+import com.nixsolutions.entities.PersistenceException;
+import com.nixsolutions.entities.Role;
+import com.nixsolutions.entities.User;
+import com.nixsolutions.h2.H2DAOFactoryImpl;
+import com.nixsolutions.h2.RoleDAOImpl;
+import com.nixsolutions.h2.UserDAOImpl;
 
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {

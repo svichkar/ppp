@@ -2,7 +2,7 @@ package com.nixsolutions.dao;
 
 import java.util.List;
 
-import com.nixsolutions.entities.Status;
+import com.nixsolutions.entity.Status;
 
 public interface StatusDao {
 	public void create(String statusName);

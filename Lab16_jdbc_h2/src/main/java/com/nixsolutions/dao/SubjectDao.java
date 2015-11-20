@@ -2,7 +2,7 @@ package com.nixsolutions.dao;
 
 import java.util.List;
 
-import com.nixsolutions.entities.Subject;
+import com.nixsolutions.entity.Subject;
 
 
 public interface SubjectDao {

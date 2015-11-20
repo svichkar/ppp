@@ -2,7 +2,7 @@ package com.nixsolutions.dao;
 
 import java.util.List;
 
-import com.nixsolutions.entities.Term;
+import com.nixsolutions.entity.Term;
 
 public interface TermDao {
 	public void create(String alias);

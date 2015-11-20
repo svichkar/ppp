@@ -1,5 +1,7 @@
 /.settings/
+/.idea/
 /target/
 /.classpath
 /.project
-/log.txt
+/log.log
+/Lab16_jdbc.iml

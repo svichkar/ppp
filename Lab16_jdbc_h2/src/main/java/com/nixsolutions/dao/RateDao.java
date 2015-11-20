@@ -2,7 +2,7 @@ package com.nixsolutions.dao;
 
 import java.util.List;
 
-import com.nixsolutions.entities.Rate;
+import com.nixsolutions.entity.Rate;
 
 public interface RateDao {
 	

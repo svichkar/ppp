@@ -2,7 +2,7 @@ package com.nixsolutions.dao;
 
 import java.util.List;
 
-import com.nixsolutions.entities.Journal;
+import com.nixsolutions.entity.Journal;
 
 public interface JournalDao {
 

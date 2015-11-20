@@ -3,7 +3,7 @@ package com.nixsolutions.dao;
 import java.sql.Date;
 import java.util.List;
 
-import com.nixsolutions.entities.Student;
+import com.nixsolutions.entity.Student;
 
 public interface StudentDao {
 

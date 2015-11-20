@@ -2,7 +2,7 @@ package com.nixsolutions.dao;
 
 import java.util.List;
 
-import com.nixsolutions.entities.StudentGroup;
+import com.nixsolutions.entity.StudentGroup;
 
 public interface StudentGroupDao {
 

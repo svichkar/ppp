@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
  *
  * @author mednorcom
  */
-public class NullableCollection implements Collection {
+public class MyPainfullCollection<E> implements Collection<E> {
 
     private Object[] collcetionHolder;
 
@@ -27,7 +27,7 @@ public class NullableCollection implements Collection {
         this.collcetionHolder = collcetionHandler;
     }
 
-    public NullableCollection() {
+    public MyPainfullCollection() {
         collcetionHolder = new Object[0];
     }
 
@@ -68,17 +68,25 @@ public class NullableCollection implements Collection {
     }
 
     @Override
-    public Object[] toArray() {
-        return this.getCollcetionHolder().clone();
+    public E[] toArray() {
+        return (E[]) this.getCollcetionHolder().clone();
     }
 
     @Override
-    public Object[] toArray(Object[] a) {
-        return this.getCollcetionHolder().clone();
+    public <T> T[] toArray(T[] a) {
+        if (a.length < this.size()) // Make a new array of a's runtime type, but my contents:
+        {
+            return (T[]) Arrays.copyOf(this.getCollcetionHolder(), this.size(), a.getClass());
+        }
+        System.arraycopy(this.getCollcetionHolder(), 0, a, 0, this.size());
+        if (a.length > this.size()) {
+            a[this.size()] = null;
+        }
+        return (T[])a;
     }
 
     @Override
-    public boolean add(Object e) {
+    public boolean add(E e) {
         Object[] updated = new Object[this.size() + 1];
         System.arraycopy(this.getCollcetionHolder(), 0, updated, 0, this.size());
         updated[updated.length - 1] = e;
@@ -153,10 +161,10 @@ public class NullableCollection implements Collection {
     }
 
     @Override
-    public boolean containsAll(Collection c) {
+    public boolean containsAll(Collection<?> c) {
         int matches = 0;
         for (Object inputItem : c) {
-            if (this.contains(inputItem)) {
+            if (this.contains((E) inputItem)) {
                 matches++;
             }
         }
@@ -165,25 +173,25 @@ public class NullableCollection implements Collection {
     }
 
     @Override
-    public boolean addAll(Collection c) {
+    public boolean addAll(Collection<? extends E> c) {
         boolean isChanged = false;
         for (Object inputItem : c) {
-            this.add(inputItem);
+            this.add((E) inputItem);
             isChanged = true;
         }
         return isChanged;
     }
 
     @Override
-    public boolean removeAll(Collection c) {
+    public boolean removeAll(Collection<?> c) {
 
         if (c == null) {
             return this.removeAll((Object) c);
         }
         boolean arrayChanged = false;
         for (Object inputItem : c) {
-            while (this.contains(inputItem)) {
-                boolean elementChanged = this.remove(inputItem);
+            while (this.contains((E) inputItem)) {
+                boolean elementChanged = this.remove((E) inputItem);
                 if (!arrayChanged) {
                     arrayChanged = elementChanged;
                 }
@@ -193,7 +201,7 @@ public class NullableCollection implements Collection {
     }
 
     @Override
-    public boolean retainAll(Collection c) {
+    public boolean retainAll(Collection<?> c) {
         boolean arrayChanged = false;
         for (Object collectionItem : this.getCollcetionHolder()) {
 

@@ -5,6 +5,7 @@
  */
 package collectionsworkshop;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -19,17 +20,8 @@ public class CollectionsWorkshop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        NullableCollection myCollection = new NullableCollection();
-        myCollection.add("test");
-        for (int i = 0; i < 10; i++) {
-            myCollection.add(String.valueOf(new Random().nextInt()));
-        }
-        myCollection.add(null);
-        myCollection.contains(null);
-        myCollection.removeAll(null);
-        myCollection.contains(null);
 
+        MyPainfullCollection<String> myCollection = new MyPainfullCollection<>();
         //Try methods here
     }
 

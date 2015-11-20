@@ -24,7 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DaoFactory;
-import com.nixsolutions.dao.impl.WorkerSpecializationDaoImpl;
 import com.nixsolutions.dao.impl.WorkerStatusDaoImpl;
 import com.nixsolutions.util.ConnectionManager;
 

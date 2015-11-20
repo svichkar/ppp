@@ -24,9 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DaoFactory;
-import com.nixsolutions.dao.impl.OrderInWorkDaoImpl;
 import com.nixsolutions.dao.impl.OrderWorkerDaoImpl;
-import com.nixsolutions.entity.OrderInWork;
 import com.nixsolutions.entity.OrderWorker;
 import com.nixsolutions.util.ConnectionManager;
 

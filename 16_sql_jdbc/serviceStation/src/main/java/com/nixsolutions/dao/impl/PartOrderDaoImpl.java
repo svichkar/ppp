@@ -161,7 +161,6 @@ public class PartOrderDaoImpl implements PartOrderDao {
 	 */
 	@Override
 	public void setPartToOrder(Integer order_id, Integer part_id, Integer amount) throws SQLException {
-		List<PartOrder> part_orders = new ArrayList<PartOrder>();
 		Connection connection = null;
 		try {
 			logger.debug("Create DB connector");

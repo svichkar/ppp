@@ -24,9 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DaoFactory;
-import com.nixsolutions.dao.impl.CarDaoImpl;
 import com.nixsolutions.dao.impl.PartDaoImpl;
-import com.nixsolutions.entity.Car;
 import com.nixsolutions.entity.Part;
 import com.nixsolutions.util.ConnectionManager;
 

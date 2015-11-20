@@ -14,8 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.OrderWorkerDao;
-import com.nixsolutions.entity.Customer;
-import com.nixsolutions.entity.OrderStatus;
 import com.nixsolutions.entity.OrderWorker;
 import com.nixsolutions.util.ConnectionManager;
 

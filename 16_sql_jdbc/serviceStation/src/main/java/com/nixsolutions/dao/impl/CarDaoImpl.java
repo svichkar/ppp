@@ -36,11 +36,11 @@ public class CarDaoImpl implements CarDao {
 	 */
 	@Override
 	public List<Car> getAllCar() throws SQLException {
-		Connection connection = null;
+		//Connection connection = null;
 		List<Car> cars = new ArrayList<Car>();
-		try {
+		try (Connection connection = ConnectionManager.getConnection()){
 			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+			//connection = ConnectionManager.getConnection();
 			logger.trace("Send query \"SELECT * FROM sqllab.car \"");
 			PreparedStatement stmt = connection.prepareStatement("SELECT * FROM sqllab.car;");
 			ResultSet set = stmt.executeQuery();
@@ -52,10 +52,7 @@ public class CarDaoImpl implements CarDao {
 			stmt.close();
 		} catch (SQLException | ClassNotFoundException e) {
 			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
-		}
+		} 
 		return cars;
 	}
 

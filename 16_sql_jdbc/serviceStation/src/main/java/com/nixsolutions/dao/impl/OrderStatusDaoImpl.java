@@ -26,7 +26,6 @@ public class OrderStatusDaoImpl implements OrderStatusDao {
 	 */
 	@Override
 	public void createNewStatus(String status) throws SQLException {
-		List<OrderStatus> statuses = new ArrayList<OrderStatus>();
 		Connection connection = null;
 		try {
 			logger.debug("Create DB connector");

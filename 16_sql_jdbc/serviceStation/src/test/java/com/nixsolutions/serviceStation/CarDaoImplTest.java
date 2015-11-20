@@ -2,9 +2,6 @@ package com.nixsolutions.serviceStation;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -16,15 +13,9 @@ import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
-import org.dbunit.database.DatabaseConnection;
-import org.dbunit.database.IDatabaseConnection;
-import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.dataset.xml.FlatXmlProducer;
-import org.dbunit.dataset.xml.FlatXmlWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,8 +24,6 @@ import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.impl.CarDaoImpl;
 import com.nixsolutions.entity.Car;
 import com.nixsolutions.util.ConnectionManager;
-
-import junit.framework.TestCase;
 
 /**
  * Unit test for simple App.

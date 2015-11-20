@@ -21,10 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DaoFactory;
-import com.nixsolutions.dao.impl.OrderInWorkDaoImpl;
 import com.nixsolutions.dao.impl.OrderStatusDaoImpl;
-import com.nixsolutions.entity.OrderInWork;
-import com.nixsolutions.entity.OrderStatus;
 import com.nixsolutions.util.ConnectionManager;
 
 public class Order_statusDaoImplTest {

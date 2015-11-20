@@ -7,9 +7,9 @@ import java.util.NoSuchElementException;
 /**
  * Created by Sergey on 13.11.2015.
  */
-public class MyCollection implements Collection {
-    private Object[] array = null;
-    private Object[] temporaryArray = null;
+public class MyCollection<E> implements Collection<E> {
+    private E[] array = null;
+    private E[] temporaryArray = null;
     private boolean flag = false;
     private Iterator iterator;
 
@@ -54,7 +54,7 @@ public class MyCollection implements Collection {
             Object[] temp = new Object[this.size()];
             iterator = this.iterator();
             try {
-                for (int i = 0; i <array.length ; i++) {
+                for (int i = 0; i < array.length; i++) {
                     temp[i] = iterator.next();
                 }
                 return temp;
@@ -67,14 +67,14 @@ public class MyCollection implements Collection {
     }
 
     @Override
-    public boolean add(Object o) {
+    public boolean add(E o) {
         if (!this.isEmpty()) {
-            temporaryArray = new Object[array.length + 1];
+            temporaryArray = (E[]) new Object[array.length + 1];
             System.arraycopy(array, 0, temporaryArray, 0, array.length);
             temporaryArray[array.length] = o;
             array = temporaryArray;
         } else {
-            array = new Object[]{o};
+            array = (E[]) new Object[]{o};
         }
         return true;
     }
@@ -88,7 +88,7 @@ public class MyCollection implements Collection {
                     position = i;
                 }
             }
-            temporaryArray = new Object[array.length - 1];
+            temporaryArray = (E[]) new Object[array.length - 1];
             System.arraycopy(array, 0, temporaryArray, 0, position);
             System.arraycopy(array, position + 1, temporaryArray, position, array.length - position - 1);
             array = temporaryArray;
@@ -102,8 +102,8 @@ public class MyCollection implements Collection {
     public boolean addAll(Collection c) {
         if (!c.isEmpty()) {
             iterator = c.iterator();
-            for (int i = 0; i <c.size() ; i++) {
-                this.add(iterator.next());
+            for (int i = 0; i < c.size(); i++) {
+                this.add((E) iterator.next());
             }
         } else {
             throw new NullPointerException("Input collection is empty");
@@ -157,23 +157,24 @@ public class MyCollection implements Collection {
         }
         return flag;
     }
+
     @Override
-    public Object[] toArray(Object[] a) {
+    public <T> T[] toArray(T[] a) {
         if (!this.isEmpty()) {
             int i = 0;
             iterator = this.iterator();
             if (a.length < this.size()) {
-                a = new Object[this.size()];
+                a = (T[]) new Object[this.size()];
                 while (iterator.hasNext()) {
-                    a[i] = iterator.next();
+                    a[i] = (T) iterator.next();
                     i++;
                 }
             } else {
                 while (iterator.hasNext()) {
-                    a[i] = iterator.next();
+                    a[i] = (T) iterator.next();
                     i++;
                 }
-                for (int j = this.size(); j <a.length ; j++) {
+                for (int j = this.size(); j < a.length; j++) {
                     a[j] = null;
                 }
             }
@@ -183,7 +184,7 @@ public class MyCollection implements Collection {
         }
     }
 
-    public Object getElementAt (int position) {
+    public E getElementAt(int position) {
         if (position < this.size()) {
             return array[position];
         } else {
@@ -191,7 +192,7 @@ public class MyCollection implements Collection {
         }
     }
 
-    private class MyIterator implements  Iterator {
+    private class MyIterator<E> implements Iterator<E> {
         int counter = 0;
 
         @Override
@@ -200,9 +201,9 @@ public class MyCollection implements Collection {
         }
 
         @Override
-        public Object next() throws NoSuchElementException {
+        public E next() throws NoSuchElementException {
             if (this.hasNext()) {
-                return MyCollection.this.getElementAt(counter++);
+                return (E) MyCollection.this.getElementAt(counter++);
             } else {
                 throw new NoSuchElementException("No such element in collection");
             }

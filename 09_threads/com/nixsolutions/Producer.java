@@ -22,9 +22,14 @@ class Producer implements Runnable {
 
     public void run() {
         for (int i = 0; i < 100; i++) {
-            lock.lock();
-            queue.add(random.nextInt(500));
-            lock.unlock();
+            try {
+                lock.lock();
+                queue.add(random.nextInt(500));
+            } catch (IllegalStateException | ClassCastException | NullPointerException | IllegalArgumentException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
         }
         flag.set(true);
     }

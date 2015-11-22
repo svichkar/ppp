@@ -24,22 +24,28 @@ class Consumer implements Runnable {
 
     public void run() {
         while (!aBoolean) {
-            lock.lock();
-            if (!queue.isEmpty()) {
-                if (even) {
-                    if (queue.peek() % 2 == 0) {
-                        System.out.println("Even: " + queue.poll());
-                    }
-                } else {
-                    if (queue.peek() % 2 == 1) {
-                        System.out.println("UnEven: " + queue.poll());
+            try {
+                lock.lock();
+                if (!queue.isEmpty()) {
+                    if (even) {
+                        if (queue.peek() % 2 == 0) {
+                            System.out.println("Even: " + queue.poll());
+                        }
+                    } else {
+                        if (queue.peek() % 2 == 1) {
+                            System.out.println("UnEven: " + queue.poll());
+                        }
                     }
                 }
+                if (flag.get()) {
+                    aBoolean = queue.isEmpty();
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
-            if (flag.get()) {
-                aBoolean = queue.isEmpty();
-            }
-            lock.unlock();
+
         }
     }
 }

@@ -12,15 +12,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.OrderInWorkDAO;
+import com.nixsolutions.entity.Car;
 import com.nixsolutions.entity.OrderInWork;
+import com.nixsolutions.entity.Part;
+import com.nixsolutions.entity.User;
+import com.nixsolutions.entity.Worker;
 import com.nixsolutions.util.CustomConnectionManager;
 
-public class OrderInWorkDAOImpl implements OrderInWorkDAO{
-	
+public class OrderInWorkDAOImpl implements OrderInWorkDAO {
+
 	public static Logger LOG = LogManager.getLogger(OrderInWorkDAOImpl.class.getName());
-	
+
 	public OrderInWorkDAOImpl() {
-		
+
 	}
 
 	@Override
@@ -165,6 +169,93 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO{
 			}
 		} catch (SQLException ex) {
 			LOG.error(ex.getMessage());
+		}
+		return resultList;
+	}
+
+	public String getSelectByCustomer() {
+		return "SELECT oiw.* FROM sqllab.order_in_work oiw " +
+				"INNER JOIN sqllab.car car ON oiw.car_id = car.car_id " +
+				"INNER JOIN sqllab.customer c ON car.customer_id = c.customer_id " +
+				"WHERE c.user_id = ?";
+	}
+
+	@Override
+	public List<OrderInWork> getOrdersByUser(User user) {
+		List<OrderInWork> resultList = null;
+		String sql = getSelectByCustomer();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, user.getId());
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException e) {
+			LOG.error(e.getMessage());
+		}
+		return resultList;
+	}
+
+	public String getSelectByCar() {
+		return "SELECT * FROM sqllab.order_in_work WHERE car_id = ?;";
+	}
+	
+	@Override
+	public List<OrderInWork> getOrdersByCar(Car car) {
+		List<OrderInWork> resultList = null;
+		String sql = getSelectByCar();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, car.getId());
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException e) {
+			LOG.error(e.getMessage());
+		}
+		return resultList;
+	}
+	
+	public String getSelectByPart() {
+		return "SELECT * FROM sqllab.order_in_work oiw " +
+				"INNER JOIN sqllab.order_part op ON oiw.order_id = op.order_id " +
+				"WHERE op.part_id = ?;";
+	}
+
+	@Override
+	public List<OrderInWork> getOrdersByPart(Part part) {
+		List<OrderInWork> resultList = null;
+		String sql = getSelectByPart();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, part.getId());
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException e) {
+			LOG.error(e.getMessage());
+		}
+		return resultList;
+	}
+
+	public String getSelectByWorker() {
+		return "SELECT * FROM sqllab.order_in_work oiw " +
+				"INNER JOIN sqllab.order_worker ow ON oiw.order_id = ow.order_id " +
+				"WHERE ow.worker_id = ?;";
+	}
+	
+	@Override
+	public List<OrderInWork> getOrdersByWorker(Worker worker) {
+		List<OrderInWork> resultList = null;
+		String sql = getSelectByWorker();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, worker.getId());
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException e) {
+			LOG.error(e.getMessage());
 		}
 		return resultList;
 	}

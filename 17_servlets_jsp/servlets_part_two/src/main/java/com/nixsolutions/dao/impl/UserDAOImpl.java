@@ -70,6 +70,7 @@ public class UserDAOImpl implements UserDAO {
 		return "SELECT * FROM sqllab.user WHERE user_login = ?;";
 	}
 
+	@Override
 	public User getUserByLogin(String login) {
 		List<User> resultList = null;
 		try (Connection conn = CustomConnectionManager.getConnection()) {

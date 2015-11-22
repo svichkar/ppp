@@ -59,6 +59,7 @@ public class WorkerDAOImpl implements WorkerDAO{
 				worker.setLastName(rs.getString("last_name"));
 				worker.setSpecializationId(rs.getInt("specialization_id"));
 				worker.setStatusId(rs.getInt("status_id"));
+				worker.setUserId(rs.getInt("user_id"));
 				resultList.add(worker);
 			}
 		} catch (Exception ex) {

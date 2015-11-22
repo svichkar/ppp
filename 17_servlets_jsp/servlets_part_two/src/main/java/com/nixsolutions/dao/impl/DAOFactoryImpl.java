@@ -11,7 +11,9 @@ import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.dao.OrderStatusDAO;
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.dao.PartDAO;
+import com.nixsolutions.dao.RoleDAO;
 import com.nixsolutions.dao.StatusDAO;
+import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.dao.WorkerSpecializationDAO;
 
@@ -67,6 +69,16 @@ public class DAOFactoryImpl implements DAOFactory {
 	@Override
 	public WorkerSpecializationDAO getWorkerSpecializationDAO() {
 		return new WorkerSpecializationDAOImpl();
+	}
+
+	@Override
+	public RoleDAO getRoleDAO() {
+		return new RoleDAOImpl();
+	}
+
+	@Override
+	public UserDAO getUserDAO() {
+		return new UserDAOImpl();
 	}
 
 }

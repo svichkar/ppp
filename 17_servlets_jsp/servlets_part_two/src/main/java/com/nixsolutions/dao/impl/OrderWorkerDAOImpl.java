@@ -186,4 +186,24 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 		//throw new UnsupportedOperationException();
 		return null;
 	}
+
+	public String getSelectByOrderId() {
+		return "SELECT * FROM sqllab.order_worker WHERE order_id = ?;";
+	}
+	
+	@Override
+	public List<OrderWorker> getByOrderId(int orderId) {
+		List<OrderWorker> resultList = null;
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			String sql = getSelectByOrderId();
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, orderId);
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
+		}
+		return resultList;
+	}
 }

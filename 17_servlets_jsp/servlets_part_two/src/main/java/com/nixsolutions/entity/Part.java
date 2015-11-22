@@ -2,21 +2,21 @@ package com.nixsolutions.entity;
 
 public class Part {
 
-	private int part_id;
-	private String part_name;
+	private int partId;
+	private String partName;
 	private String vendor;
 	private long amount;
 	
 	public int getId() {
-		return part_id;
+		return partId;
 	}
 	
 	public String getValuesCommaSeparated() {
-		return "'" + part_name + "', '" + vendor + "', " + amount;
+		return "'" + partName + "', '" + vendor + "', " + amount;
 	}
 	
 	public String getPartName() {
-		return part_name;
+		return partName;
 	}
 	
 	public String getVendor() {
@@ -28,11 +28,11 @@ public class Part {
 	}
 	
 	public void setId(int value) {
-		part_id = value;
+		partId = value;
 	}
 	
 	public void setPartName(String value) {
-		part_name = value;
+		partName = value;
 	}
 	
 	public void setVendor(String value) {
@@ -45,13 +45,13 @@ public class Part {
 	
 	@Override
 	public String toString() {
-		String res = "part_name = '" + part_name + "', vendor = '" + 
+		String res = "part_name = '" + partName + "', vendor = '" + 
 				vendor + "', amount = " + amount;
 		return res;
 	}
 	
 	public Part(String part_name, String vendor, long amount) {
-		this.part_name = part_name;
+		this.partName = part_name;
 		this.vendor = vendor;
 		this.amount = amount;
 	}

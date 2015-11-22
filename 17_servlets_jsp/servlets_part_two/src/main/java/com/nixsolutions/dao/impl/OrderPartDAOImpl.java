@@ -186,4 +186,24 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		}
 		return resultList;
 	}
+
+	public String getSelectByOrderId() {
+		return "SELECT * FROM sqllab.order_part WHERE order_id = ?;";
+	}
+	
+	@Override
+	public List<OrderPart> getByOrderId(int orderId) {
+		List<OrderPart> resultList = null;
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			String sql = getSelectByOrderId();
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, orderId);
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
+		}
+		return resultList;
+	}
 }

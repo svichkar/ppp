@@ -52,6 +52,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				customer.setFirstName(rs.getString("first_name"));
 				customer.setLastName(rs.getString("last_name"));
 				customer.setPhone(rs.getString("phone"));
+				customer.setUserId(rs.getInt("user_id"));
 				resultList.add(customer);
 			}
 		} catch (Exception ex) {

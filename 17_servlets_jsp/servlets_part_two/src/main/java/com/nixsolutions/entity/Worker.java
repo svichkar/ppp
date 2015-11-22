@@ -7,6 +7,7 @@ public class Worker {
 	private String last_name;
 	private int specialization_id;
 	private int status_id;
+	private int user_id;
 	
 	public int getId() {
 		return worker_id;
@@ -63,14 +64,23 @@ public class Worker {
 		return res;
 	}
 	
-	public Worker(String first_name, String last_name, int specialization_id, int status_id) {
+	public Worker(String first_name, String last_name, int specialization_id, int status_id, int user_id) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.specialization_id = specialization_id;
 		this.status_id = status_id;
+		this.user_id = user_id;
 	}
 	
 	public Worker() {
-		this("", "", 0, 0);
+		this("", "", 0, 0, 0);
+	}
+
+	public int getUserId() {
+		return user_id;
+	}
+
+	public void setUserId(int user_id) {
+		this.user_id = user_id;
 	}
 }

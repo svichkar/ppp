@@ -24,7 +24,9 @@ public class CustomConnectionManager {
 			} catch (IOException ex) {
 				LOG.error(ex.getMessage());
 			}
-			h2ConnPool = JdbcConnectionPool.create(props.getProperty("DB_DRIVER"),
+			String dbLocation = CustomConnectionManager.class.getClassLoader().getResource("sqllab.mv.db").getFile();
+			String url = "jdbc:h2:file:" + dbLocation.replaceAll(".mv.db", "").replaceAll("/(\\w:)", "$1");
+			h2ConnPool = JdbcConnectionPool.create(url,
 					props.getProperty("DB_USER"), props.getProperty("DB_PASSWORD"));
 			h2ConnPool.setMaxConnections(20);
 			h2ConnPool.setLoginTimeout(90);

@@ -21,4 +21,8 @@ public interface DAOFactory {
 	public WorkerDAO getWorkerDAO();
 	
 	public WorkerSpecializationDAO getWorkerSpecializationDAO();
+	
+	public RoleDAO getRoleDAO();
+	
+	public UserDAO getUserDAO();
 }

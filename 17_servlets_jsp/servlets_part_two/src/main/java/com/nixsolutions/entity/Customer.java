@@ -6,6 +6,7 @@ public class Customer {
 	private String first_name;
 	private String last_name;
 	private String phone;
+	private int user_id;
 	
 	public int getId() {
 		return customer_id;
@@ -50,13 +51,22 @@ public class Customer {
 		return res;
 	}
 	
-	public Customer(String first_name, String last_name, String phone) {
+	public Customer(String first_name, String last_name, String phone, int user_id) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.phone = phone;
+		this.user_id = user_id;
 	}
 	
 	public Customer() {
-		this("", "", "null");
+		this("", "", "null", 0);
+	}
+
+	public int getUserId() {
+		return user_id;
+	}
+
+	public void setUserId(int user_id) {
+		this.user_id = user_id;
 	}
 }

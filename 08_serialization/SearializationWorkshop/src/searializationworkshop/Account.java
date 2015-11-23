@@ -25,6 +25,13 @@ public class Account implements Externalizable {
     public Account() {
     }
 
+    /**
+     *Creates Account instance
+     * @param id - account id
+     * @param name - account name, without |
+     * @param role - account role, without |
+     * @throws InvalidAttributeValueException
+     */
     public Account(long id, String name, String role) throws InvalidAttributeValueException {
         this.setId(id);
         this.setName(name);

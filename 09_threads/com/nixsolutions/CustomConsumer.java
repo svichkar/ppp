@@ -1,7 +1,6 @@
 package com.nixsolutions;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Rybkinrolla on 20.11.2015.
@@ -9,47 +8,40 @@ import java.util.concurrent.locks.ReentrantLock;
 public class CustomConsumer implements Runnable {
     private BlockingQueue<Integer> arrOfIntegers;
     private boolean isEven;
-    private ReentrantLock lock;
-    private volatile boolean threadIsUp = true;
+    private static boolean threadIsUp = true;
 
-    public CustomConsumer(BlockingQueue<Integer> queue, ReentrantLock lock, boolean isEven) {
+    public CustomConsumer(BlockingQueue<Integer> queue, boolean isEven) {
         this.arrOfIntegers = queue;
         this.isEven = isEven;
-        this.lock = lock;
     }
 
-    public void stopConsume() {
+    public static void stopAllConsumers() {
         threadIsUp = false;
     }
 
     @Override
     public void run() {
         while (threadIsUp) {
-            lock.lock();
             try {
-                if (!arrOfIntegers.isEmpty()) {
+                Integer num = arrOfIntegers.peek();
+                if (num != null) {
                     if (isEven) {
-                        if (arrOfIntegers.peek() % 2 == 0) {
-                            this.consume();
+                        if (num % 2 == 0) {
+                            consume();
                         }
                     } else {
-                        if (arrOfIntegers.peek() % 2 != 0) {
-                            this.consume();
+                        if (num % 2 != 0) {
+                            consume();
                         }
                     }
                 }
             } catch (InterruptedException e) {
-                this.stopConsume();
-            } finally {
-                lock.unlock();
+                stopAllConsumers();
             }
-
         }
     }
-
     private void consume() throws InterruptedException {
         System.out.println("Consumer took:" + arrOfIntegers.take() + " with "
                 + Thread.currentThread().getName());
     }
 }
-

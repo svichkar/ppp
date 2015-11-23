@@ -2,7 +2,6 @@ package com.nixsolutions;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by Rybkinrolla on 20.11.2015.

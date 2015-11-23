@@ -16,8 +16,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.Subject;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.entity.Subject;
+import com.nixsolutions.dao.impl.SubjectDaoImpl;
+import com.nixsolutions.util.ConnectionManager;
 
 public class SubjectTest {
     private static Connection conn;
@@ -35,8 +37,8 @@ public class SubjectTest {
     @Test
     public void tableSizesThrougDAOAndDBUnitShouldBeEqual()
 	    throws ClassNotFoundException, IOException, SQLException, DatabaseUnitException {
-	Subject s = DAOFactory.getSubject();
-	List<Subject> subjectList = s.select(new String[] { "*" }, null);
+	SubjectDaoImpl s = DaoFactory.getSubject();
+	List<Subject> subjectList = s.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("subject", "SELECT * FROM subject");
@@ -48,8 +50,8 @@ public class SubjectTest {
     @Test
     public void bothTablesShouldHaveTheSameContent()
 	    throws DatabaseUnitException, ClassNotFoundException, IOException, SQLException {
-	Subject s = DAOFactory.getSubject();
-	List<Subject> subjectList = s.select(new String[] { "*" }, null);
+	SubjectDaoImpl s = DaoFactory.getSubject();
+	List<Subject> subjectList = s.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("subject", "SELECT * FROM subject");

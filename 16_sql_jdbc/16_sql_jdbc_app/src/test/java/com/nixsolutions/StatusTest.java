@@ -16,8 +16,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.Status;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.entity.Status;
+import com.nixsolutions.dao.impl.StatusDaoImpl;
+import com.nixsolutions.util.ConnectionManager;
 
 public class StatusTest {
     private static Connection conn;
@@ -35,8 +37,8 @@ public class StatusTest {
     @Test
     public void tableSizesThrougDAOAndDBUnitShouldBeEqual()
 	    throws ClassNotFoundException, IOException, SQLException, DatabaseUnitException {
-	Status s = DAOFactory.getStatus();
-	List<Status> statusList = s.select(new String[] { "*" }, null);
+	StatusDaoImpl s = DaoFactory.getStatus();
+	List<Status> statusList = s.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("status", "SELECT * FROM status");
@@ -48,8 +50,8 @@ public class StatusTest {
     @Test
     public void bothTablesShouldHaveTheSameContent()
 	    throws DatabaseUnitException, ClassNotFoundException, IOException, SQLException {
-	Status s = DAOFactory.getStatus();
-	List<Status> statusList = s.select(new String[] { "*" }, null);
+	StatusDaoImpl s = DaoFactory.getStatus();
+	List<Status> statusList = s.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("status", "SELECT * FROM status");

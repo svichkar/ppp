@@ -16,8 +16,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.Journal;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.impl.JournalDaoImpl;
+import com.nixsolutions.entity.Journal;
+import com.nixsolutions.util.ConnectionManager;
 
 public class JournalTest {
     private static Connection conn;
@@ -35,8 +37,8 @@ public class JournalTest {
     @Test
     public void tableSizesThrougDAOAndDBUnitShouldBeEqual()
 	    throws ClassNotFoundException, IOException, SQLException, DatabaseUnitException {
-	Journal j = DAOFactory.getJournal();
-	List<Journal> journalList = j.select(new String[] { "*" }, null);
+	JournalDaoImpl j = DaoFactory.getJournal();
+	List<Journal> journalList = j.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("journal", "SELECT * FROM journal");
@@ -48,8 +50,8 @@ public class JournalTest {
     @Test
     public void bothTablesShouldHaveTheSameContent()
 	    throws DatabaseUnitException, ClassNotFoundException, IOException, SQLException {
-	Journal j = DAOFactory.getJournal();
-	List<Journal> journalList = j.select(new String[] { "*" }, null);
+	JournalDaoImpl j = DaoFactory.getJournal();
+	List<Journal> journalList = j.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("journal", "SELECT * FROM journal");

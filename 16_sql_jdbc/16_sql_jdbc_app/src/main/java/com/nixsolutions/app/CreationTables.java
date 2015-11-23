@@ -1,19 +1,17 @@
-package com.nixsolutions;
+package com.nixsolutions.app;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CreationTables {
     private final static Logger LOG = LogManager.getLogger(CreationTables.class.getName());
 
     public static void main(String[] args) {
-	BasicConfigurator.configure();
 	try {
 	    Class.forName("org.h2.Driver");
 	} catch (ClassNotFoundException e) {

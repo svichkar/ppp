@@ -16,8 +16,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.Term;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.entity.Term;
+import com.nixsolutions.dao.impl.TermDaoImpl;
+import com.nixsolutions.util.ConnectionManager;
 
 public class TermTest {
     private static Connection conn;
@@ -35,8 +37,8 @@ public class TermTest {
     @Test
     public void tableSizesThrougDAOAndDBUnitShouldBeEqual()
 	    throws ClassNotFoundException, IOException, SQLException, DatabaseUnitException {
-	Term t = DAOFactory.getTerm();
-	List<Term> termList = t.select(new String[] { "*" }, null);
+	TermDaoImpl t = DaoFactory.getTerm();
+	List<Term> termList = t.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("term", "SELECT * FROM term");
@@ -48,8 +50,8 @@ public class TermTest {
     @Test
     public void bothTablesShouldHaveTheSameContent()
 	    throws DatabaseUnitException, ClassNotFoundException, IOException, SQLException {
-	Term t = DAOFactory.getTerm();
-	List<Term> termList = t.select(new String[] { "*" }, null);
+	TermDaoImpl t = DaoFactory.getTerm();
+	List<Term> termList = t.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("term", "SELECT * FROM term");

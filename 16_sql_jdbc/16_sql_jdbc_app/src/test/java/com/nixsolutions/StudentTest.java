@@ -16,8 +16,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.Student;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.entity.Student;
+import com.nixsolutions.dao.impl.StudentDaoImpl;
+import com.nixsolutions.util.ConnectionManager;
 
 public class StudentTest {
     private static Connection conn;
@@ -35,8 +37,8 @@ public class StudentTest {
     @Test
     public void tableSizesThrougDAOAndDBUnitShouldBeEqual()
 	    throws ClassNotFoundException, IOException, SQLException, DatabaseUnitException {
-	Student s = DAOFactory.getStudent();
-	List<Student> studentList = s.select(new String[] { "*" }, null);
+	StudentDaoImpl s = DaoFactory.getStudent();
+	List<Student> studentList = s.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("student", "SELECT * FROM student");
@@ -48,8 +50,8 @@ public class StudentTest {
     @Test
     public void bothTablesShouldHaveTheSameContent()
 	    throws DatabaseUnitException, ClassNotFoundException, IOException, SQLException {
-	Student s = DAOFactory.getStudent();
-	List<Student> studentList = s.select(new String[] { "*" }, null);
+	StudentDaoImpl s = DaoFactory.getStudent();
+	List<Student> studentList = s.getAll();
 	IDatabaseConnection iconn = new DatabaseConnection(conn);
 	QueryDataSet qDataSet = new QueryDataSet(iconn);
 	qDataSet.addTable("student", "SELECT * FROM student");

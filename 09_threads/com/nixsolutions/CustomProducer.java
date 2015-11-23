@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Rybkinrolla on 20.11.2015.
  */
 public class CustomProducer implements Runnable {
-    private BlockingQueue<Integer> arrOfIntegers = new LinkedBlockingQueue<>();
+    private BlockingQueue<Integer> arrOfIntegers;
 
     public CustomProducer(BlockingQueue<Integer> queue) {
         this.arrOfIntegers = queue;

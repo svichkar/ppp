@@ -1,14 +1,13 @@
 package com.nixsolutions;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by Rybkinrolla on 20.11.2015.
  */
 public class CustomConsumer implements Runnable {
-    private BlockingQueue<Integer> arrOfIntegers = new LinkedBlockingQueue<>();
+    private BlockingQueue<Integer> arrOfIntegers;
     private boolean isEven;
     private ReentrantLock lock;
     private volatile boolean threadIsUp = true;
@@ -48,7 +47,7 @@ public class CustomConsumer implements Runnable {
         }
     }
 
-    private void consume() throws InterruptedException{
+    private void consume() throws InterruptedException {
         System.out.println("Consumer took:" + arrOfIntegers.take() + " with "
                 + Thread.currentThread().getName());
     }

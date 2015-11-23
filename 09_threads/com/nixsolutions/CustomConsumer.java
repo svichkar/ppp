@@ -9,13 +9,14 @@ public class CustomConsumer implements Runnable {
     private BlockingQueue<Integer> arrOfIntegers;
     private boolean isEven;
     private static boolean threadIsUp = true;
+    private static int iteration = 0;
 
     public CustomConsumer(BlockingQueue<Integer> queue, boolean isEven) {
         this.arrOfIntegers = queue;
         this.isEven = isEven;
     }
 
-    public static void stopAllConsumers() {
+    private void stopConsume() {
         threadIsUp = false;
     }
 
@@ -36,12 +37,17 @@ public class CustomConsumer implements Runnable {
                     }
                 }
             } catch (InterruptedException e) {
-                stopAllConsumers();
+                this.stopConsume();
+            }
+            if (iteration == 100) {
+                this.stopConsume();
             }
         }
     }
+
     private void consume() throws InterruptedException {
         System.out.println("Consumer took:" + arrOfIntegers.take() + " with "
                 + Thread.currentThread().getName());
+        iteration++;
     }
 }

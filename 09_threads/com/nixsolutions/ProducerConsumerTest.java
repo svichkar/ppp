@@ -15,8 +15,5 @@ public class ProducerConsumerTest {
         consEven.start();
         consOdd.start();
         prod.start();
-        prod.join();
-        while(arrOfInt.size()!= 0){}
-        CustomConsumer.stopAllConsumers();
     }
 }

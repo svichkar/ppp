@@ -1,12 +1,13 @@
 package com.nixsolutions.collections;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class CustomCollection<E> implements Collection<E> {
 	private int realSize = 0;
-	private static final int DEFAULT_SIZE = 10;
+	private static final int DEFAULT_SIZE = 1;
 	private E[] arrInternal;
 
 	@SuppressWarnings("unchecked")
@@ -23,7 +24,13 @@ public class CustomCollection<E> implements Collection<E> {
 		arrInternal = (E[]) new Object[collectionSize];
 	}
 
-	// DONE
+	/**
+	 * Adding a new element to the current collection
+	 * 
+	 * @param e
+	 *            - object supposed to be added
+	 * @return true if the element was successfully added
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean add(E e) {
@@ -39,13 +46,17 @@ public class CustomCollection<E> implements Collection<E> {
 			realSize++;
 			return true;
 		} catch (Exception ex) {
-
 			return false;
-
 		}
 	}
 
-	// DONE
+	/**
+	 * Adding a collection of objects to current one
+	 * 
+	 * @param collection
+	 *            of objects
+	 * @return true if all of the elements were added to current collection
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
@@ -59,10 +70,12 @@ public class CustomCollection<E> implements Collection<E> {
 		} catch (Exception ex) {
 			return false;
 		}
-
 	}
 
-	// DONE
+	/**
+	 * Clears the current collection
+	 * 
+	 */
 	@Override
 	public void clear() {
 		if (realSize > 0) {
@@ -71,21 +84,33 @@ public class CustomCollection<E> implements Collection<E> {
 		realSize = 0;
 	}
 
-	// DONE
+	/**
+	 * Determines if the current collection contains object
+	 * 
+	 * @param o
+	 *            - object to verify if it is in current collection
+	 * @return true if the current collection contains the object at least once
+	 */
 	@Override
 	public boolean contains(Object o) {
-
 		if (o != null) {
 			for (int i = 0; i < realSize; i++) {
 				if (arrInternal[i].equals(o))
 					return true;
 			}
 		}
-
 		return false;
 	}
 
-	// DONE
+	/**
+	 * Determines if the current collection contains each of object from
+	 * incoming collection
+	 * 
+	 * @param collection
+	 *            of objects to verify on containing
+	 * @return true if current collection contains ALL of the elements from
+	 *         incoming collection
+	 */
 	@Override
 	public boolean containsAll(Collection<?> c) {
 		boolean contains = true;
@@ -98,95 +123,138 @@ public class CustomCollection<E> implements Collection<E> {
 		return contains;
 	}
 
-	// DONE
+	/**
+	 * Verifies if the current collection is empty
+	 * 
+	 * @return true if the current collection is empty
+	 */
 	@Override
 	public boolean isEmpty() {
-
 		return realSize == 0;
 	}
 
-	// DONE
+	/**
+	 * Returns iterator of current collection
+	 * 
+	 * @return Iterator
+	 */
 	@Override
 	public Iterator<E> iterator() {
-
 		return (Iterator<E>) new CustomIterator();
 	}
 
-	// DONE
+	/**
+	 * Removes all of the objects equals to incoming on from current collection
+	 * 
+	 * @param object
+	 *            that must be removed
+	 * @return true if at least one object has been removed from current
+	 *         collection
+	 */
 	@Override
 	public boolean remove(Object o) {
-		/*
-		 * int sizeBefore = realSize; arrInternal = (E[])
-		 * Arrays.stream(this.arrInternal).filter(p -> !p.equals(o)).toArray();
-		 * realSize--; return !(realSize == sizeBefore);
-		 */
-
 		boolean isRemoved = false;
 		for (int i = 0; i < realSize; i++) {
 			if (arrInternal[i].equals(o)) {
 				System.arraycopy(arrInternal, i + 1, arrInternal, i, realSize - 1 - i);
 				arrInternal = Arrays.copyOfRange(arrInternal, 0, realSize - 1);
-				realSize--; //
-				this.arrInternal = arrInternal;
-
+				realSize--;
 				isRemoved = true;
 			}
 		}
-
 		return isRemoved;
 	}
 
-	// DONE
+	/**
+	 * Removes all of the objects of incoming collection from the current one
+	 * 
+	 * @param collections
+	 *            that supposed to be removed
+	 * @return true if all of the objects have been removed from current
+	 *         collection
+	 */
 	@Override
 	public boolean removeAll(Collection<?> c) {
 		int numberRemovedItems = 0;
-
 		for (Object obj : c) {
 			if (this.remove(obj)) {
 				numberRemovedItems++;
 			}
 		}
-
 		return numberRemovedItems == c.size();
 	}
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Retains in the current collection the elements from incoming collection
+	 * the rest removes
+	 * 
+	 * @param collection
+	 *            to be retained in current collection
+	 * @return true if all of the objects from incoming collection have been
+	 *         retained in current collection
+	 * @author Evgeniy
+	 */
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		boolean result = false;
 		int retainedNumber = 0;
-		for (Object obj : arrInternal) {
+		Object[] tempArr = new Object[realSize];
+		System.arraycopy(arrInternal, 0, tempArr, 0, realSize);
+		for (Object obj : tempArr) {
 			if (!c.contains(obj)) {
 				this.remove(obj);
 				retainedNumber++;
 			}
 		}
-
-		return retainedNumber==c.size();
-
+		return retainedNumber == c.size();
 	}
 
-	// DONE
+	/**
+	 * Returns the int size of current collection
+	 * 
+	 * @return size of current collection
+	 */
 	@Override
 	public int size() {
 		return realSize;
 	}
 
-	// DONE
+	/**
+	 * Returns an array containing the elements of the current collection
+	 * 
+	 * @return array of the elements of the current collection
+	 */
 	@Override
 	public Object[] toArray() {
-		return arrInternal;
+		return Arrays.copyOf(arrInternal, realSize);
 	}
 
-	// DONE
+	/**
+	 * Returns an array containing the objects of the current collection
+	 * 
+	 * @param collection
+	 *            to be transformed to array
+	 * @return array of the objects of the current collection
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T[] toArray(T[] a) {
-		return (T[]) arrInternal;
+
+		if (a.length < realSize) {
+			a = (T[]) Array.newInstance(a.getClass().getComponentType(), realSize);
+		} else if (a.length > realSize) {
+			a[realSize] = null;
+		}
+		System.arraycopy(arrInternal, 0, a, 0, realSize);
+		return a;
 
 	}
 
-	// DONE
+	/**
+	 * Implementation of the Iterator interface
+	 * 
+	 * @author Evgeniy
+	 * @param Iterator
+	 */
 	@SuppressWarnings("hiding")
 	private class CustomIterator<E> implements Iterator<E> {
 		private int currentIndex;
@@ -204,7 +272,6 @@ public class CustomCollection<E> implements Collection<E> {
 		@Override
 		public E next() {
 			if (this.hasNext()) {
-				System.out.println(currentIndex);
 				return (E) arrInternal[currentIndex++];
 			} else {
 				return null;

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Journal {
 
 	private int id;
-	private int book_id;
+	private int book_instance_id;
 	private int reader_id;
 	private Date start_date;
 	private Date end_date;
@@ -16,11 +16,11 @@ public class Journal {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getBook_id() {
-		return book_id;
+	public int getBook_instance_id() {
+		return book_instance_id;
 	}
-	public void setBook_id(int book_id) {
-		this.book_id = book_id;
+	public void setBook_instance_id(int book_instance_id) {
+		this.book_instance_id = book_instance_id;
 	}
 	public int getReader_id() {
 		return reader_id;

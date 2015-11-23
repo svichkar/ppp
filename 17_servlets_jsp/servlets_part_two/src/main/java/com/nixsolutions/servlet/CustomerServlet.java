@@ -25,8 +25,8 @@ import com.nixsolutions.entity.OrderWorker;
 import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 
-@WebServlet(urlPatterns = { "/addCar.do", "/editCar.do", "/deleteCar.do" })
-public class CarServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/addCustomer.do", "/editCustomer.do", "/deleteCustomer.do" })
+public class CustomerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static RoleDAO roleDao;
@@ -57,9 +57,9 @@ public class CarServlet extends HttpServlet {
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				request.setAttribute("action", "add");
-				List<Customer> customerList = customerDao.getAll();
-				request.setAttribute("customers", customerList);
-				request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
+				List<User> userList = userDao.getUsers();
+				request.setAttribute("users", userList);
+				request.getRequestDispatcher("/WEB-INF/jsp/customer.jsp").forward(request, response);
 			} else {
 				//
 				response.sendRedirect("");
@@ -74,21 +74,21 @@ public class CarServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = (String) request.getSession().getAttribute("login");
 		String action = (String) request.getParameter("action");
-		String car_id = (String) request.getParameter("car_id");
+		String customer_id = (String) request.getParameter("customer_id");
 		if (login != null) {
 			User user = userDao.getUserByLogin(login);
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				if (action.equals("Edit")) {
-					Car car = carDao.getByPK(Integer.parseInt(car_id));
-					request.setAttribute("car", car);
+					Customer customer = customerDao.getByPK(Integer.parseInt(customer_id));
+					request.setAttribute("customer", customer);
 					request.setAttribute("action", "edit");
-					List<Customer> customerList = customerDao.getAll();
-					request.setAttribute("customers", customerList);
-					request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
+					List<User> userList = userDao.getUsers();
+					request.setAttribute("users", userList);
+					request.getRequestDispatcher("/WEB-INF/jsp/customer.jsp").forward(request, response);
 				} else {
-					Car car = carDao.getByPK(Integer.parseInt(car_id));
-					List<OrderInWork> orderList = orderDao.getOrdersByCar(car);
+					Customer customer = customerDao.getByPK(Integer.parseInt(customer_id));
+					List<OrderInWork> orderList = orderDao.getOrdersByCustomer(customer);
 					for (OrderInWork order : orderList) {
 						List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getId());
 						for (OrderWorker ow : owList) {
@@ -100,8 +100,14 @@ public class CarServlet extends HttpServlet {
 						}
 						orderDao.delete(order);
 					}
-					carDao.delete(car);
-					request.setAttribute("target", "Cars");
+					List<Car> carList = carDao.getCarsByCustomer(customer);
+					for(Car c : carList) {
+						carDao.delete(c);
+					}
+					customerDao.delete(customer);
+					User customerUser = userDao.getByPK(customer.getUserId());
+					userDao.delete(customerUser);
+					request.setAttribute("target", "Customers");
 					request.getRequestDispatcher("/nav.do").forward(request, response);
 				}
 			} else {
@@ -113,5 +119,4 @@ public class CarServlet extends HttpServlet {
 			response.sendRedirect("");
 		}
 	}
-
 }

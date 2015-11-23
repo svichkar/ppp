@@ -61,6 +61,7 @@ public class WorkerServlet extends HttpServlet {
 				request.setAttribute("action", "add");
 				request.setAttribute("statuses", statusDao.getAll());
 				request.setAttribute("specs", workerSpecDao.getAll());
+				request.setAttribute("users", userDao.getWorkers());
 				request.getRequestDispatcher("/WEB-INF/jsp/worker.jsp").forward(request, response);
 			} else {
 				//
@@ -87,6 +88,7 @@ public class WorkerServlet extends HttpServlet {
 					request.setAttribute("action", "edit");
 					request.setAttribute("statuses", statusDao.getAll());
 					request.setAttribute("specs", workerSpecDao.getAll());
+					request.setAttribute("users", userDao.getWorkers());
 					request.getRequestDispatcher("/WEB-INF/jsp/worker.jsp").forward(request, response);
 				} else {
 					Worker worker = workerDao.getByPK(Integer.parseInt(worker_id));
@@ -100,11 +102,10 @@ public class WorkerServlet extends HttpServlet {
 						for (OrderPart op : opList) {
 							orderPartDao.delete(op);
 						}
-						orderDao.delete(order);
 					}
 					workerDao.delete(worker);
 					User workerUser = userDao.getByPK(worker.getUserId());
-					userDao.delete(workerUser);					
+					userDao.delete(workerUser);
 					request.setAttribute("target", "Workers");
 					request.getRequestDispatcher("/nav.do").forward(request, response);
 				}

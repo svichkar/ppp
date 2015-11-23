@@ -22,7 +22,12 @@
 			<div class="buffer"></div>
 			<p>Car VIN: </p><input type="text" name="vin" value="${car.vin == null ? '' : car.vin}" /><br>
 			<div class="buffer"></div>
-			<p>Customer ID: </p><input type="text" name="customer_id" value="${car.customerId == null ? '' : car.customerId}" /><br>
+			<p>Customer: </p>
+			<select name="customer_id">
+			<c:forEach var="item" items="${customers}">
+			<option value="${item.id}"<c:if test="${car.customerId eq item.id}"> selected</c:if>><c:out value="${item.firstName}" /> <c:out value="${item.lastName}" /></option>
+			</c:forEach>
+			</select><br>
 			<div class="buffer"></div>
 			<input type="hidden" name="target" value="Cars" />
 			<input type="submit" value="Submit" class="input_add"/>

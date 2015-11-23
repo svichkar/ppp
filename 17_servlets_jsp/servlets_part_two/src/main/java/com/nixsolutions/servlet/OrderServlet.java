@@ -10,23 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nixsolutions.dao.CarDAO;
-import com.nixsolutions.dao.CustomerDAO;
 import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.dao.OrderWorkerDAO;
+import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.dao.RoleDAO;
 import com.nixsolutions.dao.UserDAO;
+import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.dao.impl.DAOFactoryImpl;
 import com.nixsolutions.entity.Car;
-import com.nixsolutions.entity.Customer;
 import com.nixsolutions.entity.OrderInWork;
 import com.nixsolutions.entity.OrderPart;
 import com.nixsolutions.entity.OrderWorker;
+import com.nixsolutions.entity.Part;
 import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
+import com.nixsolutions.entity.Worker;
 
-@WebServlet(urlPatterns = { "/addCar.do", "/editCar.do", "/deleteCar.do" })
-public class CarServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/addOrder.do", "/editOrder.do", "/deleteOrder.do" })
+public class OrderServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static RoleDAO roleDao;
@@ -35,7 +37,8 @@ public class CarServlet extends HttpServlet {
 	private static CarDAO carDao;
 	private static OrderWorkerDAO orderWorkerDao;
 	private static OrderPartDAO orderPartDao;
-	private static CustomerDAO customerDao;
+	private static PartDAO partDao;
+	private static WorkerDAO workerDao;
 
 	@Override
 	public void init() {
@@ -46,7 +49,8 @@ public class CarServlet extends HttpServlet {
 		carDao = daoFactory.getCarDAO();
 		orderWorkerDao = daoFactory.getOrderWorkerDAO();
 		orderPartDao = daoFactory.getOrderPartDAO();
-		customerDao = daoFactory.getCustomerDAO();
+		partDao = daoFactory.getPartDAO();
+		workerDao = daoFactory.getWorkerDAO();
 	}
 
 	@Override
@@ -57,9 +61,13 @@ public class CarServlet extends HttpServlet {
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				request.setAttribute("action", "add");
-				List<Customer> customerList = customerDao.getAll();
-				request.setAttribute("customers", customerList);
-				request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
+				List<Car> carList = carDao.getAll();
+				request.setAttribute("cars", carList);
+				List<Part> partList = partDao.getAll();
+				request.setAttribute("parts", partList);
+				List<Worker> workerList = workerDao.getAll();
+				request.setAttribute("workers", workerList);
+				request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
 			} else {
 				//
 				response.sendRedirect("");
@@ -74,34 +82,34 @@ public class CarServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = (String) request.getSession().getAttribute("login");
 		String action = (String) request.getParameter("action");
-		String car_id = (String) request.getParameter("car_id");
+		String order_id = (String) request.getParameter("order_id");
 		if (login != null) {
 			User user = userDao.getUserByLogin(login);
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				if (action.equals("Edit")) {
-					Car car = carDao.getByPK(Integer.parseInt(car_id));
-					request.setAttribute("car", car);
+					OrderInWork order = orderDao.getByPK(Integer.parseInt(order_id));
+					request.setAttribute("order", order);
 					request.setAttribute("action", "edit");
-					List<Customer> customerList = customerDao.getAll();
-					request.setAttribute("customers", customerList);
-					request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
+					List<Car> carList = carDao.getAll();
+					request.setAttribute("cars", carList);
+					List<Part> partList = partDao.getAll();
+					request.setAttribute("parts", partList);
+					List<Worker> workerList = workerDao.getAll();
+					request.setAttribute("workers", workerList);
+					request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
 				} else {
-					Car car = carDao.getByPK(Integer.parseInt(car_id));
-					List<OrderInWork> orderList = orderDao.getOrdersByCar(car);
-					for (OrderInWork order : orderList) {
-						List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getId());
-						for (OrderWorker ow : owList) {
-							orderWorkerDao.delete(ow);
-						}
-						List<OrderPart> opList = orderPartDao.getByOrderId(order.getId());
-						for (OrderPart op : opList) {
-							orderPartDao.delete(op);
-						}
-						orderDao.delete(order);
+					OrderInWork order = orderDao.getByPK(Integer.parseInt(order_id));
+					List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getId());
+					for (OrderWorker ow : owList) {
+						orderWorkerDao.delete(ow);
 					}
-					carDao.delete(car);
-					request.setAttribute("target", "Cars");
+					List<OrderPart> opList = orderPartDao.getByOrderId(order.getId());
+					for (OrderPart op : opList) {
+						orderPartDao.delete(op);
+					}
+					orderDao.delete(order);
+					request.setAttribute("target", "Orders");
 					request.getRequestDispatcher("/nav.do").forward(request, response);
 				}
 			} else {
@@ -113,5 +121,4 @@ public class CarServlet extends HttpServlet {
 			response.sendRedirect("");
 		}
 	}
-
 }

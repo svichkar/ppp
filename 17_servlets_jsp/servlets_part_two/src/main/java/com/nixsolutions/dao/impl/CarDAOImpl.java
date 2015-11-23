@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.entity.Car;
+import com.nixsolutions.entity.Customer;
 import com.nixsolutions.util.CustomConnectionManager;
 import com.nixsolutions.dao.CarDAO;
 
@@ -164,6 +165,26 @@ public class CarDAOImpl implements CarDAO {
 			}
 		} catch (SQLException ex) {
 			LOG.error(ex.getMessage());
+		}
+		return resultList;
+	}
+
+	public String getSelectByCustomer() {
+		return "SELECT * FROM sqllab.car WHERE customer_id = ?;";
+	}
+	
+	@Override
+	public List<Car> getCarsByCustomer(Customer customer) {
+		List<Car> resultList = null;
+		String sql = getSelectByCustomer();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, customer.getId());
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException e) {
+			LOG.error(e.getMessage());
 		}
 		return resultList;
 	}

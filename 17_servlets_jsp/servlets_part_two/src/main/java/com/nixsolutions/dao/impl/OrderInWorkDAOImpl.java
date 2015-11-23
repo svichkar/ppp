@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.entity.Car;
+import com.nixsolutions.entity.Customer;
 import com.nixsolutions.entity.OrderInWork;
 import com.nixsolutions.entity.Part;
 import com.nixsolutions.entity.User;
@@ -217,7 +218,7 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 	}
 	
 	public String getSelectByPart() {
-		return "SELECT * FROM sqllab.order_in_work oiw " +
+		return "SELECT oiw.* FROM sqllab.order_in_work oiw " +
 				"INNER JOIN sqllab.order_part op ON oiw.order_id = op.order_id " +
 				"WHERE op.part_id = ?;";
 	}
@@ -239,7 +240,7 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 	}
 
 	public String getSelectByWorker() {
-		return "SELECT * FROM sqllab.order_in_work oiw " +
+		return "SELECT oiw.* FROM sqllab.order_in_work oiw " +
 				"INNER JOIN sqllab.order_worker ow ON oiw.order_id = ow.order_id " +
 				"WHERE ow.worker_id = ?;";
 	}
@@ -251,6 +252,28 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 		try (Connection conn = CustomConnectionManager.getConnection()) {
 			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 				stmt.setInt(1, worker.getId());
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException e) {
+			LOG.error(e.getMessage());
+		}
+		return resultList;
+	}
+
+	public String getSelectOrdersByCustomer() {
+		return "SELECT oiw.* FROM sqllab.order_in_work oiw " +
+				"INNER JOIN sqllab.car ca ON oiw.car_id = ca.car_id " +
+				"WHERE ca.customer_id = ?;";
+	}
+	
+	@Override
+	public List<OrderInWork> getOrdersByCustomer(Customer customer) {
+		List<OrderInWork> resultList = null;
+		String sql = getSelectOrdersByCustomer();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				stmt.setInt(1, customer.getId());
 				ResultSet rs = stmt.executeQuery();
 				resultList = parseResults(rs);
 			}

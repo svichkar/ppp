@@ -191,4 +191,42 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return resultList;
 	}
+
+	public String getSelectUsers() {
+		return "SELECT * FROM sqllab.user WHERE role_id = 2;";
+	}
+	
+	@Override
+	public List<User> getUsers() {
+		List<User> resultList = null;
+		String sql = getSelectUsers();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
+		}
+		return resultList;
+	}
+
+	public String getSelectWorkers() {
+		return "SELECT * FROM sqllab.user WHERE role_id != 2;";
+	}
+	
+	@Override
+	public List<User> getWorkers() {
+		List<User> resultList = null;
+		String sql = getSelectWorkers();
+		try (Connection conn = CustomConnectionManager.getConnection()) {
+			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+				ResultSet rs = stmt.executeQuery();
+				resultList = parseResults(rs);
+			}
+		} catch (SQLException ex) {
+			LOG.error(ex.getMessage());
+		}
+		return resultList;
+	}
 }

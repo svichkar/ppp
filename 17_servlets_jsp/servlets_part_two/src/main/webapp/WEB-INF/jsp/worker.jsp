@@ -34,7 +34,12 @@
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>
-			<p>User ID: </p><input type="text" name="user_id" value="${worker.userId == null ? '' : worker.userId}" /><br>
+			<p>User: </p>
+			<select name="user_id">
+			<c:forEach var="item" items="${users}">
+			<option value="${item.id}"<c:if test="${worker.userId eq item.id}"> selected</c:if>><c:out value="${item.userLogin}" /></option>
+			</c:forEach>
+			</select><br>
 			<div class="buffer"></div>
 			<input type="hidden" name="target" value="Workers" />
 			<input type="submit" value="Submit" class="input_add"/>

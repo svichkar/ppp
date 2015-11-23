@@ -1,0 +1,60 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>AuthorizationServlet</servlet-name>
+		<servlet-class>servlets.AuthorizationCheck</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>logout</servlet-name>
+		<servlet-class>servlets.Logout</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>userslist</servlet-name>
+		<servlet-class>servlets.UsersList</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>updateUser</servlet-name>
+		<servlet-class>servlets.UpdateUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>addUser</servlet-name>
+		<servlet-class>servlets.AddNewUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>getBooks</servlet-name>
+		<servlet-class>servlets.BookList</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>AuthorizationServlet</servlet-name>
+		<url-pattern>/j_security_check</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>userslist</servlet-name>
+		<url-pattern>/admin_tool</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>updateUser</servlet-name>
+		<url-pattern>/updateUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>addUser</servlet-name>
+		<url-pattern>/addUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>getBooks</servlet-name>
+		<url-pattern>/getBooks</url-pattern>
+	</servlet-mapping>
+
+</web-app>

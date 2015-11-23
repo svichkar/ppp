@@ -166,10 +166,11 @@ public class MyCollection<E> implements Collection<E> {
     @Override
     public boolean removeAll(Collection<?> c) {
         int startSize = collectSize;
-        for(Object elem : c) {
+        Object[] toRemove = c.toArray();
+        for(int i =0; i < toRemove.length; i++) {
             boolean ready = false;
             while(!ready){
-                ready = !this.remove(elem);
+                ready = !this.remove(toRemove[i]);
             }
         }
         return startSize != collectSize;
@@ -183,12 +184,13 @@ public class MyCollection<E> implements Collection<E> {
     @Override
     public boolean retainAll(Collection<?> c) {
         int startSize = collectSize;
-        MyIterator iter = new MyIterator();
-        while(iter.hasNext()){
-            if(!c.contains(iter.next())){
-                iter.remove();
+        MyCollection<Object> tempArray = new MyCollection<Object>();
+        for(int i = 0; i < collectSize; i++){
+            if(!c.contains(myCollection[i])) {
+                tempArray.add(myCollection[i]);
             }
         }
+        this.removeAll(tempArray);
         return startSize != collectSize;
     }
 
@@ -210,28 +212,19 @@ public class MyCollection<E> implements Collection<E> {
      */
     private class MyIterator<E> implements Iterator<E>{
         /**
-         * Field with locator of curent element
+         * Field with locator of current element
          */
         private int currentElement;
         private boolean nextMethodHasBeenCalled;
 
         /**
          * Constructor of MyIterator class.
-         * Set currentElement value to position -1 - previous position before first element with index 0
+         * Set currentElement value to start position 0
          */
         public MyIterator(){
-            currentElement = -1;
+            currentElement = 0;
             nextMethodHasBeenCalled = false;
         }
-        /*
-        public MyIterator(int startindex){
-            if(startindex < 0)
-                throw new IndexOutOfBoundsException("Start index can't be less than 0!");
-            if(startindex > collectSize-1)
-                throw new IndexOutOfBoundsException("Start index can't be more than collection size!");
-            currentElement = startindex - 1;
-            nextMethodHasBeenCalled = false;
-        }*/
 
         /**
          * Method removes current element from collection

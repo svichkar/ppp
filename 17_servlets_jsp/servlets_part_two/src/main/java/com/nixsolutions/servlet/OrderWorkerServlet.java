@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nixsolutions.bean.OrderPartBean;
 import com.nixsolutions.bean.OrderWorkerBean;
 import com.nixsolutions.dao.CarDAO;
 import com.nixsolutions.dao.OrderInWorkDAO;
@@ -27,13 +26,12 @@ import com.nixsolutions.entity.OrderInWork;
 import com.nixsolutions.entity.OrderPart;
 import com.nixsolutions.entity.OrderStatus;
 import com.nixsolutions.entity.OrderWorker;
-import com.nixsolutions.entity.Part;
 import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.entity.Worker;
 
-@WebServlet(urlPatterns = { "/addOrder.do", "/editOrder.do", "/deleteOrder.do" })
-public class OrderServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/addOrderWorker.do", "/editOrderWorker.do", "/deleteOrderWorker.do" })
+public class OrderWorkerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static RoleDAO roleDao;
@@ -44,7 +42,7 @@ public class OrderServlet extends HttpServlet {
 	private static OrderPartDAO orderPartDao;
 	private static PartDAO partDao;
 	private static WorkerDAO workerDao;
-	private static OrderStatusDAO orderStatusDao; 
+	private static OrderStatusDAO orderStatusDao;
 
 	@Override
 	public void init() {
@@ -63,16 +61,23 @@ public class OrderServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = (String) request.getSession().getAttribute("login");
+		String order_id = (String) request.getParameter("order_id");
+		String worker_id = (String) request.getParameter("worker_id");
 		if (login != null) {
 			User user = userDao.getUserByLogin(login);
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				request.setAttribute("action", "add");
-				List<Car> carList = carDao.getAll();
-				request.setAttribute("cars", carList);
-				List<OrderStatus> orderStatusList = orderStatusDao.getAll();
-				request.setAttribute("order_statuses", orderStatusList);
-				request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
+				List<Worker> workerList = workerDao.getAll();
+				request.setAttribute("workers", workerList);
+				List<OrderWorker> orderWorkerList = new ArrayList<OrderWorker>() {
+					{
+						add(orderWorkerDao.getByPK(Integer.parseInt(order_id), Integer.parseInt(worker_id)));
+					}
+				};
+				request.setAttribute("worker", getOrderWorkerAsBean(orderWorkerList).get(0));
+
+				request.getRequestDispatcher("/WEB-INF/jsp/orderWorker.jsp").forward(request, response);
 			} else {
 				//
 				response.sendRedirect("");
@@ -88,36 +93,28 @@ public class OrderServlet extends HttpServlet {
 		String login = (String) request.getSession().getAttribute("login");
 		String action = (String) request.getParameter("action");
 		String order_id = (String) request.getParameter("order_id");
+		String worker_id = (String) request.getParameter("worker_id");
 		if (login != null) {
 			User user = userDao.getUserByLogin(login);
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				if (action.equals("Edit")) {
-					OrderInWork order = orderDao.getByPK(Integer.parseInt(order_id));
-					request.setAttribute("order", order);
 					request.setAttribute("action", "edit");
-					List<Car> carList = carDao.getAll();
-					request.setAttribute("cars", carList);
-					List<OrderPart> orderPartList = orderPartDao.getByOrderId(Integer.parseInt(order_id));
-					request.setAttribute("parts", getOrderPartAsBean(orderPartList));
-					List<OrderWorker> orderWorkerList = orderWorkerDao.getByOrderId(Integer.parseInt(order_id));
-					request.setAttribute("workers", getOrderWorkerAsBean(orderWorkerList));
-					List<OrderStatus> orderStatusList = orderStatusDao.getAll();
-					request.setAttribute("order_statuses", orderStatusList);
-					request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
+					List<Worker> workerList = workerDao.getAll();
+					request.setAttribute("workers", workerList);
+					List<OrderWorker> orderWorkerList = new ArrayList<OrderWorker>() {
+						{
+							add(orderWorkerDao.getByPK(Integer.parseInt(order_id), Integer.parseInt(worker_id)));
+						}
+					};
+					request.setAttribute("worker", getOrderWorkerAsBean(orderWorkerList).get(0));
+					request.getRequestDispatcher("/WEB-INF/jsp/orderWorker.jsp").forward(request, response);
 				} else {
-					OrderInWork order = orderDao.getByPK(Integer.parseInt(order_id));
-					List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getId());
-					for (OrderWorker ow : owList) {
-						orderWorkerDao.delete(ow);
-					}
-					List<OrderPart> opList = orderPartDao.getByOrderId(order.getId());
-					for (OrderPart op : opList) {
-						orderPartDao.delete(op);
-					}
-					orderDao.delete(order);
-					request.setAttribute("target", "Orders");
-					request.getRequestDispatcher("/nav.do").forward(request, response);
+					OrderWorker orderWorker = orderWorkerDao.getByPK(Integer.parseInt(order_id),
+							Integer.parseInt(worker_id));
+					orderWorkerDao.delete(orderWorker);
+					//
+					request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
 				}
 			} else {
 				//
@@ -128,21 +125,7 @@ public class OrderServlet extends HttpServlet {
 			response.sendRedirect("");
 		}
 	}
-	
-	private List<OrderPartBean> getOrderPartAsBean(List<OrderPart> orderPartList) {
-		List<OrderPartBean> resultList = new ArrayList<>();
-		for (OrderPart item : orderPartList) {
-			OrderPartBean opb = new OrderPartBean();
-			opb.setOrderId(item.getId());
-			opb.setPartId(item.getPartId());
-			Part p = partDao.getByPK(item.getPartId());
-			opb.setPartName(p.getPartName());
-			opb.setUsedAmount(item.getUsedAmount());
-			resultList.add(opb);
-		}
-		return resultList;
-	}
-	
+
 	private List<OrderWorkerBean> getOrderWorkerAsBean(List<OrderWorker> orderWorkerList) {
 		List<OrderWorkerBean> resultList = new ArrayList<>();
 		for (OrderWorker item : orderWorkerList) {

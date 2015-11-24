@@ -2,6 +2,7 @@ package com.nixsolutions.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,21 +47,22 @@ public class OrderPostServlet extends HttpServlet {
 				String car_id = request.getParameter("car_id");
 				String timestamp_started = request.getParameter("timestamp_started");
 				String timestamp_finished = request.getParameter("timestamp_finished");
-				// add order_part and order_worker
 				if (order_id == null || order_id.equals("")) {
 					OrderInWork order = new OrderInWork(Integer.parseInt(order_status_id), order_description, 
-							Integer.parseInt(car_id), Timestamp.valueOf(timestamp_started), Timestamp.valueOf(timestamp_finished));
+							Integer.parseInt(car_id), new Timestamp(new Date().getTime()), null);
 					orderDao.createFrom(order);
-					// add order_part and order_worker
 				} else {
 					OrderInWork order = orderDao.getByPK(Integer.parseInt(order_id));
 					order.setOrderStatusId(Integer.parseInt(order_status_id));
 					order.setDescription(order_description);
 					order.setCarId(Integer.parseInt(car_id));
 					order.setTimestampStart(Timestamp.valueOf(timestamp_started));
-					order.setTimestampFinish(Timestamp.valueOf(timestamp_finished));
+					if (timestamp_finished != null && timestamp_finished != "") {
+						order.setTimestampFinish(Timestamp.valueOf(timestamp_finished));
+					} else {
+						order.setTimestampFinish(null);
+					}
 					orderDao.update(order);
-					// add order_part and order_worker
 				}
 				request.setAttribute("target", "Orders");
 				request.getRequestDispatcher("/nav.do").forward(request, response);

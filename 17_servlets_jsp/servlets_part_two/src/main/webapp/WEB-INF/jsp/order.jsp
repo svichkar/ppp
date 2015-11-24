@@ -13,8 +13,44 @@
 		<p>
 			<c:out value="${title}" />
 		</p>
-		<div class="head1"></div>
-		<div class="third" id="left"></div>
+		<div class="head2"></div>
+		<div class="third" id="left">
+			<c:if test="${action == 'edit'}">
+				<p>Used parts in order</p>
+				<form>
+					<table>
+						<tr>
+							<td><b>Part Name</b></td>
+							<td><b>Used Amount</b></td>
+							<td><b>Action</b></td>
+						</tr>
+						<c:forEach var="partItem" items="${parts}">
+							<tr>
+								<td><input type="text" value="${partItem.partName}"
+									readonly /></td>
+								<td><input type="text" value="${partItem.usedAmount}"
+									readonly /></td>
+								<td><input type="hidden" name="order_id" value="${partItem.orderId}" /> <input
+									type="hidden" name="part_id" value="${partItem.partId}" /> <input
+									type="submit" formaction="editPartOrder.do" formmethod="POST"
+									value="Edit" /> <input type="submit"
+									formaction="deletePartOrder.do" formmethod="POST"
+									value="Delete" /></td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan=3 height="40">
+								<div align="center">
+									<input type="submit" formaction="addPartOrder.do"
+										formmethod="GET" value="Add new part to order"
+										class="input_add" />
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</c:if>
+		</div>
 		<div class="third" id="center">
 			<form action="orderPost.do" method="POST">
 				<c:if test="${action=='edit'}">
@@ -23,33 +59,87 @@
 					<br>
 					<div class="buffer"></div>
 				</c:if>
-				<p>Car Description:</p>
-				<input type="text" name="description"
-					value="${car.description == null ? '' : car.description}" /><br>
+				<p>Order Description:</p>
+				<textarea rows="" cols="" name="order_description" class="large_text">
+					<c:out
+						value="${order.description == null ? '' : order.description}" />
+				</textarea>
+				<br>
 				<div class="buffer"></div>
-				<p>Car Model:</p>
-				<input type="text" name="model"
-					value="${car.model == null ? '' : car.model}" /><br>
-				<div class="buffer"></div>
-				<p>Car VIN:</p>
-				<input type="text" name="vin"
-					value="${car.vin == null ? '' : car.vin}" /><br>
-				<div class="buffer"></div>
-				<p>Customer:</p>
-				<select name="customer_id">
-					<c:forEach var="item" items="${customers}">
+				<p>Order Status:</p>
+				<select name="order_status_id">
+					<c:forEach var="item" items="${order_statuses}">
 						<option value="${item.id}"
-							<c:if test="${car.customerId eq item.id}"> selected</c:if>><c:out
-								value="${item.firstName}" />
-							<c:out value="${item.lastName}" /></option>
+							<c:if test="${order.orderStatusId eq item.id}"> selected</c:if>>
+							<c:out value="${item.orderStatusName}" />
+						</option>
 					</c:forEach>
 				</select><br>
 				<div class="buffer"></div>
-				<input type="hidden" name="target" value="Cars" /> <input
+				<p>Car:</p>
+				<select name="car_id">
+					<c:forEach var="item" items="${cars}">
+						<option value="${item.id}"
+							<c:if test="${order.carId eq item.id}"> selected</c:if>><c:out
+								value="${item.model}" />
+							<c:out value="${item.vin}" /></option>
+					</c:forEach>
+				</select><br>
+				<div class="buffer"></div>
+				<c:if test="${action == 'edit'}">
+					<p>Time Started:</p>
+					<input type="text" name="timestamp_started"
+						value="${order.timestampStart}" />
+					<br>
+					<div class="buffer"></div>
+					<p>Time Finished:</p>
+					<input type="text" name="timestamp_finished"
+						value="${order.timestampFinish}" />
+					<br>
+					<div class="buffer"></div>
+				</c:if>
+				<input type="hidden" name="target" value="Orders" /> <input
 					type="submit" value="Submit" class="input_add" />
 			</form>
 		</div>
-		<div class="third" id="right"></div>
+		<div class="third" id="right">
+			<c:if test="${action == 'edit'}">
+				<p>Used workers in order</p>
+				<form>
+					<table>
+						<tr>
+							<td><b>Worker Name</b></td>
+							<td><b>Is completed</b></td>
+							<td><b>Action</b></td>
+						</tr>
+						<c:forEach var="workerItem" items="${workers}">
+							<tr>
+								<td>
+									<input type="text" value="${workerItem.workerName}"	readonly />
+								</td>
+								<td><input type="text" value="${workerItem.isCompleted}"
+									readonly /></td>
+								<td>
+									<input type="hidden" name="order_id" value="${workerItem.orderId}" />
+									<input type="hidden" name="worker_id" value="${workerItem.workerId}" />
+									<input type="submit" formaction="editOrderWorker.do" formmethod="POST" name="action" value="Edit" />
+									<input type="submit" formaction="deleteOrderWorker.do" formmethod="POST" name="action" value="Delete" />
+								</td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan=3 height="40">
+								<div align="center">
+									<input type="submit" formaction="addOrderWorker.do"
+										formmethod="GET" value="Add new worker to order"
+										class="input_add" />
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</c:if>
+		</div>
 	</div>
 </body>
 </html>

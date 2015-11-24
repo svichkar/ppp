@@ -11,7 +11,7 @@ import java.util.Iterator;
 public class CustomCollection<E> implements Collection<E> {
     private int size;
     private E[] initialArray;
-    private CustomIterator it;
+    private CustomIterator<E> it;
 
     public CustomCollection() {
         initialArray = (E[]) new Object[]{};
@@ -38,12 +38,12 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public CustomIterator iterator() {
-        return new CustomIterator();
+    public CustomIterator<E> iterator() {
+        return new CustomIterator<>();
     }
 
     @Override
-    public Object[] toArray() {
+    public E[] toArray() {
         return Arrays.copyOf(initialArray, size);
     }
 
@@ -70,7 +70,7 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean addAll(Collection c) {
+    public boolean addAll(Collection<? extends E> c) {
         E[] tempArray = (E[]) c.toArray();
         int tempArrayLength = tempArray.length;
         initialArray = Arrays.copyOf(initialArray, size + tempArrayLength);
@@ -88,7 +88,7 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean retainAll(Collection c) {
+    public boolean retainAll(Collection<?> c) {
         it = this.iterator();
         boolean result = false;
         while (it.hasNext()) {
@@ -104,7 +104,7 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean removeAll(Collection c) {
+    public boolean removeAll(Collection<?> c) {
         it = this.iterator();
         boolean result = false;
         while (it.hasNext()) {
@@ -122,7 +122,7 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean containsAll(Collection c) {
+    public boolean containsAll(Collection<?> c) {
         boolean result = true;
         for (Object o : c) {
             if (!this.contains(o))
@@ -143,11 +143,11 @@ public class CustomCollection<E> implements Collection<E> {
         return a;
     }
 
-    public Object get(int index) {
+    public E get(int index) {
         return initialArray[index];
     }
 
-    private class CustomIterator implements Iterator {
+    private class CustomIterator<E> implements Iterator<E> {
         private int cursor;
 
         private CustomIterator() {
@@ -160,9 +160,9 @@ public class CustomCollection<E> implements Collection<E> {
         }
 
         @Override
-        public Object next() {
+        public E next() {
             if (this.hasNext()) {
-                return CustomCollection.this.get(cursor++);
+                return (E) CustomCollection.this.get(cursor++);
             } else {
                 return null;
             }
@@ -176,9 +176,9 @@ public class CustomCollection<E> implements Collection<E> {
             initialArray[--size] = null;
         }
 
-        private Object prev() {
+        private E prev() {
             if (cursor > 0) {
-                return CustomCollection.this.get(cursor--);
+                return (E) CustomCollection.this.get(cursor--);
             } else {
                 return null;
             }

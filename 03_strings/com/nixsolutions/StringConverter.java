@@ -11,8 +11,7 @@ public class StringConverter {
 		str = str.replaceAll("[,.!?]{1,}", " ");
 		str = str.replaceAll("[\\s]{2,}", " ");
 		String[] arrStr = str.split(" ");
-		System.out.println(
-				"Инициалы: " + arrStr[0].substring(0, 1) + arrStr[1].substring(0, 1) + arrStr[2].substring(0, 1));
+		System.out.println("FIO: " + arrStr[0].substring(0, 1) + arrStr[1].substring(0, 1) + arrStr[2].substring(0, 1));
 	}
 
 	public static void checkIfAnagramma(String str1, String str2) {
@@ -30,24 +29,23 @@ public class StringConverter {
 				for (int j = 0; j < charArrayStr1.length; j++) {
 					res = str1Modified.contains(Character.toString(charArrayStr2[j]));
 					if (!res) {
-						System.out.println("Введенный текст '" + str2WithoutGarbage
-								+ "' не является анаграммой тексту '" + str1WithoutGarbage + "'");
+						System.out.println("Text: '" + str1WithoutGarbage + "' is NOT anagramma for text: '"
+								+ str2WithoutGarbage + "'");
 						break;
 					}
 
 				}
 				if (res)
-					System.out.println("Введенный текст '" + str2WithoutGarbage + "' является анаграммой тексту '"
-							+ str1WithoutGarbage + "'");
+					System.out.println(
+							"Text: '" + str1WithoutGarbage + "' is anagramma for text: '" + str2WithoutGarbage + "'");
 			} else {
-				System.out.println("Введенный текст '" + str2WithoutGarbage + "' не является анаграммой тексту '"
-						+ str1WithoutGarbage + "'");
+				System.out.println(
+						"Text: '" + str1WithoutGarbage + "' is NOT anagramma for text: '" + str2WithoutGarbage + "'");
 			}
 
-			// }
 		} else {
-			System.out.println("Введенный текст '" + str1WithoutGarbage + "' и '" + str2WithoutGarbage
-					+ "' содержит разное количество слов");
+			System.out.println(
+					"Text: '" + str1WithoutGarbage + "' is NOT anagramma for text: '" + str2WithoutGarbage + "'");
 		}
 
 	}
@@ -68,15 +66,15 @@ public class StringConverter {
 		sBuff.append(str1).append(" ").append(str2);
 		String resStr4 = sBuff.toString();
 
-		System.out.print("Введите Фамилию Имя Отчество: ");
+		System.out.print("Please enter your First Name, Last Name and Otchestvo:) : ");
 		String fio = br.readLine();
 		getInitials(fio);
 
 		System.out.println();
-		
-		System.out.print("Введите текст: ");
+
+		System.out.print("Please enter a text: ");
 		String text = br.readLine();
-		System.out.print("Введите анаграмму к вышеуказанному тексту: ");
+		System.out.print("Please enter another text to check if anagramma: ");
 		checkIfAnagramma(text, br.readLine());
 
 	}

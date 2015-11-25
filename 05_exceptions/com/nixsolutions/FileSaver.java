@@ -1,5 +1,6 @@
 package com.nixsolutions;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,34 +38,24 @@ public class FileSaver implements Save {
 			// 1) check if we have a correct (absolute) patch. Custom exception
 			// can be thrown
 			if (!path.isAbsolute()) {
-				throw new MyException("the path is not an absolute path, please correct and try again");
+				throw new MyException(
+						"the path is not an absolute path, please correct and try again");
 			}
-			// 2) create the file
-			Files.createFile(path);
-			// 3) write the text in to the file
-			Files.write(path, textSave.getBytes());
-		} catch (java.nio.file.NoSuchFileException e) {
-			System.out.println("specified path does not exist, the file and the folders structure will be created");
-			try {
+
+			// 2) create the file if it does not exist
+			if (!Files.exists(path)) {
 				Files.createDirectories(path.getParent());
 				Files.createFile(path);
-				Files.write(path, textSave.getBytes());
-			} catch (IOException e1) {
-				e1.printStackTrace();
 			}
-		} catch (java.nio.file.FileAlreadyExistsException e) {
-			System.out.println("the file is already exists, its content will be ovewritten");
-			try {
-				Files.write(path, textSave.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+
+			// 3) write the text in to the file
+			Files.write(path, textSave.getBytes(),
+					StandardOpenOption.TRUNCATE_EXISTING);
+
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		} catch (MyException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
-
 }

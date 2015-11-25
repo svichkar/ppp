@@ -1,5 +1,9 @@
 package com.nixsolutions;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -7,10 +11,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ThreadsSecondTask {
     public static void main(String[] args) {
-        AtomicBoolean flag = new AtomicBoolean(false);
-        ThreadsForSecondTask thread1 = new ThreadsForSecondTask("first", flag);
-        ThreadsForSecondTask thread2 = new ThreadsForSecondTask("second", flag);
-        ThreadsForSecondTask thread3 = new ThreadsForSecondTask("third", flag);
+        ThreadsForSecondTask thread1 = new ThreadsForSecondTask("first");
+        ThreadsForSecondTask thread2 = new ThreadsForSecondTask("second");
+        ThreadsForSecondTask thread3 = new ThreadsForSecondTask("third");
+
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+
 
         for (int i = 1; i <= 1000; i++) {
             try {
@@ -19,15 +25,15 @@ public class ThreadsSecondTask {
                 e.printStackTrace();
             }
             if (i == 100) {
-                new Thread(thread1).start();
+                service.scheduleAtFixedRate(thread1, 0, 1, TimeUnit.SECONDS);
             }
             if (i == 300) {
-                new Thread(thread2).start();
+                service.scheduleAtFixedRate(thread2, 0, 1, TimeUnit.SECONDS);
             }
             if (i == 500) {
-                new Thread(thread3).start();
+                service.scheduleAtFixedRate(thread3, 0, 1, TimeUnit.SECONDS);
             }
         }
-        flag.set(true);
+        service.shutdownNow();
     }
 }

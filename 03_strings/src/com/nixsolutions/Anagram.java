@@ -13,8 +13,8 @@ public class Anagram {
 		String secondSentenceAfterDeleteSymbols = secondSentence.trim().replace(" ", "");
 		char[] firstSentenceToArray = new char[firstSentenceAfterDeleteSymbols.length()];
 		char[] secondSentenceToArray = new char[secondSentenceAfterDeleteSymbols.length()];
-		firstSentenceToArray = firstSentenceAfterDeleteSymbols.toCharArray();
-		secondSentenceToArray = secondSentenceAfterDeleteSymbols.toCharArray();
+		firstSentenceToArray = firstSentenceAfterDeleteSymbols.toUpperCase().toCharArray();
+		secondSentenceToArray = secondSentenceAfterDeleteSymbols.toUpperCase().toCharArray();
 		Arrays.sort(firstSentenceToArray);
 		Arrays.sort(secondSentenceToArray);
 

@@ -40,7 +40,7 @@ public class DatesWorkshop {
 
         Calendar currentDate = Calendar.getInstance();
         currentDate.set(Calendar.YEAR, year);
-        currentDate.set(Calendar.DAY_OF_MONTH, 1);
+        currentDate.set(Calendar.DAY_OF_MONTH, 1); 
         System.out.printf("\nThe year %d days/month stats:\n", year);
         for (int i = 0; i < 12; i++) {
             currentDate.set(Calendar.MONTH, i);

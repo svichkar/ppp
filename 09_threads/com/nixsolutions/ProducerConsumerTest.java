@@ -9,7 +9,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ProducerConsumerTest {
     public static void main(String[] args) throws InterruptedException{
         BlockingQueue<Integer> arrOfInt = new LinkedBlockingQueue<>();
-
         Thread prod = new Thread(new CustomProducer(arrOfInt));
         Thread consEven = new Thread(new CustomConsumer(arrOfInt,true));
         Thread consOdd = new Thread(new CustomConsumer(arrOfInt,false));
@@ -17,7 +16,9 @@ public class ProducerConsumerTest {
         consOdd.start();
         prod.start();
         prod.join();
-        while (arrOfInt.size()!=0){}
+        while (arrOfInt.size()!=0){
+            System.out.println("Consumers still working");
+        }
         consEven.interrupt();
         consOdd.interrupt();
     }

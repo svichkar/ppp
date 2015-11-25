@@ -12,8 +12,9 @@ public class CopyAll {
 
 	public static void main(String[] args) {
 
-		File original = new File("d:\\lab11_io");
-		File copyTo = new File("d:\\Lab11_io_copy");
+		File original = new File("D:\\tduty\\lab11_io\\folder_4");
+		File copyTo = new File("d:\\all\\Lab11_io_copy\\rtest");
+		
 		getAndCopy(original, copyTo);
 	}
 
@@ -28,12 +29,12 @@ public class CopyAll {
 	 *            copied
 	 */
 	public static void getAndCopy(File orig, File copy) {
-		if (!orig.isDirectory() || !orig.exists()) {
+		if (!orig.exists()) {
 			System.out.println(
 					"please check the original directory, it is not correct");
 		} else if (orig.isDirectory()) {
 			if (!copy.exists()) {
-				copy.mkdir();
+				copy.mkdirs();
 				File[] files = orig.listFiles();
 				for (File fil : files) {
 					getAndCopy(new File(orig, fil.getName()),

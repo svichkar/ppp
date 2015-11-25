@@ -68,3 +68,7 @@ body p {
 table {
 	
 }
+
+form {
+	margin-bottom: 0;
+}

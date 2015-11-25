@@ -2,6 +2,7 @@ package com.nixsolutions.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class OrderPostServlet extends HttpServlet {
 			if (role.getRoleName().equals("Administrator")) {
 				String order_id = request.getParameter("id");
 				String order_status_id = request.getParameter("order_status_id");
-				String order_description = request.getParameter("order_description");
+				String order_description = request.getParameter("order_description").replace("\t", "");
 				String car_id = request.getParameter("car_id");
 				String timestamp_started = request.getParameter("timestamp_started");
 				String timestamp_finished = request.getParameter("timestamp_finished");
@@ -56,7 +57,9 @@ public class OrderPostServlet extends HttpServlet {
 					order.setOrderStatusId(Integer.parseInt(order_status_id));
 					order.setDescription(order_description);
 					order.setCarId(Integer.parseInt(car_id));
-					order.setTimestampStart(Timestamp.valueOf(timestamp_started));
+					//order.setTimestampStart(Timestamp.valueOf(timestamp_started));
+					
+					//
 					if (timestamp_finished != null && timestamp_finished != "") {
 						order.setTimestampFinish(Timestamp.valueOf(timestamp_finished));
 					} else {

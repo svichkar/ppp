@@ -17,38 +17,40 @@
 		<div class="third" id="left">
 			<c:if test="${action == 'edit'}">
 				<p>Used parts in order</p>
-				<form>
-					<table>
+				<table>
+					<tr>
+						<td><b>Part Name</b></td>
+						<td><b>Used Amount</b></td>
+						<td><b>Action</b></td>
+					</tr>
+					<c:forEach var="partItem" items="${parts}">
 						<tr>
-							<td><b>Part Name</b></td>
-							<td><b>Used Amount</b></td>
-							<td><b>Action</b></td>
-						</tr>
-						<c:forEach var="partItem" items="${parts}">
-							<tr>
-								<td><input type="text" value="${partItem.partName}"
-									readonly /></td>
-								<td><input type="text" value="${partItem.usedAmount}"
-									readonly /></td>
-								<td><input type="hidden" name="order_id" value="${partItem.orderId}" /> <input
-									type="hidden" name="part_id" value="${partItem.partId}" /> <input
-									type="submit" formaction="editPartOrder.do" formmethod="POST"
-									value="Edit" /> <input type="submit"
-									formaction="deletePartOrder.do" formmethod="POST"
-									value="Delete" /></td>
-							</tr>
-						</c:forEach>
-						<tr>
-							<td colspan=3 height="40">
-								<div align="center">
-									<input type="submit" formaction="addPartOrder.do"
-										formmethod="GET" value="Add new part to order"
-										class="input_add" />
-								</div>
+							<td><input type="text" value="${partItem.partName}" readonly /></td>
+							<td><input type="text" value="${partItem.usedAmount}"
+								readonly /></td>
+							<td>
+								<form method="POST">
+									<input type="hidden" name="order_id"
+										value="${partItem.orderId}" /> <input type="hidden"
+										name="part_id" value="${partItem.partId}" /> <input
+										type="submit" name="action" formaction="editOrderPart.do" value="Edit" /> <input
+										type="submit" name="action" formaction="deleteOrderPart.do" value="Delete" />
+								</form>
 							</td>
 						</tr>
-					</table>
-				</form>
+					</c:forEach>
+					<tr>
+						<td colspan=3 height="40">
+							<div align="center">
+								<form>
+									<input type="hidden" name="order_id" value="${order.id}" /> <input
+										type="submit" formaction="addOrderPart.do" formmethod="GET"
+										value="Add new part to order" class="input_add" />
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</c:if>
 		</div>
 		<div class="third" id="center">
@@ -60,7 +62,8 @@
 					<div class="buffer"></div>
 				</c:if>
 				<p>Order Description:</p>
-				<textarea rows="" cols="" name="order_description" class="large_text">
+				<textarea rows="" cols="" name="order_description"
+					class="large_text">
 					<c:out
 						value="${order.description == null ? '' : order.description}" />
 				</textarea>
@@ -105,39 +108,42 @@
 		<div class="third" id="right">
 			<c:if test="${action == 'edit'}">
 				<p>Used workers in order</p>
-				<form>
-					<table>
+				<table>
+					<tr>
+						<td><b>Worker Name</b></td>
+						<td><b>Is completed</b></td>
+						<td><b>Action</b></td>
+					</tr>
+					<c:forEach var="workerItem" items="${workers}">
 						<tr>
-							<td><b>Worker Name</b></td>
-							<td><b>Is completed</b></td>
-							<td><b>Action</b></td>
-						</tr>
-						<c:forEach var="workerItem" items="${workers}">
-							<tr>
-								<td>
-									<input type="text" value="${workerItem.workerName}"	readonly />
-								</td>
-								<td><input type="text" value="${workerItem.isCompleted}"
-									readonly /></td>
-								<td>
-									<input type="hidden" name="order_id" value="${workerItem.orderId}" />
-									<input type="hidden" name="worker_id" value="${workerItem.workerId}" />
-									<input type="submit" formaction="editOrderWorker.do" formmethod="POST" name="action" value="Edit" />
-									<input type="submit" formaction="deleteOrderWorker.do" formmethod="POST" name="action" value="Delete" />
-								</td>
-							</tr>
-						</c:forEach>
-						<tr>
-							<td colspan=3 height="40">
-								<div align="center">
-									<input type="submit" formaction="addOrderWorker.do"
-										formmethod="GET" value="Add new worker to order"
-										class="input_add" />
-								</div>
+							<td><input type="text" value="${workerItem.workerName}"
+								readonly /></td>
+							<td><input type="text" value="${workerItem.isCompleted}"
+								readonly /></td>
+							<td>
+								<form method="POST">
+									<input type="hidden" name="order_id"
+										value="${workerItem.orderId}" /> <input type="hidden"
+										name="worker_id" value="${workerItem.workerId}" /> <input
+										type="submit" formaction="editOrderWorker.do" name="action"
+										value="Edit" /> <input type="submit"
+										formaction="deleteOrderWorker.do" name="action" value="Delete" />
+								</form>
 							</td>
 						</tr>
-					</table>
-				</form>
+					</c:forEach>
+					<tr>
+						<td colspan=3 height="40">
+							<div align="center">
+								<form>
+									<input type="hidden" name="order_id" value="${order.id}" /> <input
+										type="submit" formaction="addOrderWorker.do" formmethod="GET"
+										value="Add new worker to order" class="input_add" />
+								</form>
+							</div>
+						</td>
+					</tr>
+				</table>
 			</c:if>
 		</div>
 	</div>

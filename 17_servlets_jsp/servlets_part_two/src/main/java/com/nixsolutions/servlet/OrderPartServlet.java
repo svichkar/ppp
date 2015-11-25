@@ -32,8 +32,8 @@ import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.entity.Worker;
 
-@WebServlet(urlPatterns = { "/addOrderWorker.do", "/editOrderWorker.do", "/deleteOrderWorker.do" })
-public class OrderWorkerServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/addOrderPart.do", "/editOrderPart.do", "/deleteOrderPart.do" })
+public class OrderPartServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static RoleDAO roleDao;
@@ -69,16 +69,16 @@ public class OrderWorkerServlet extends HttpServlet {
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				request.setAttribute("action", "add");
-				List<Worker> workerList = workerDao.getAll();
-				request.setAttribute("workers", workerList);
-				OrderWorkerBean owb = new OrderWorkerBean();
-				owb.setOrderId(Integer.parseInt(order_id));
-				owb.setWorkerId(1);
-				owb.setIsCompleted("N");
-				Worker w = workerDao.getByPK(1);
-				owb.setWorkerName(w.getFirstName() + " " + w.getLastName());
-				request.setAttribute("worker", owb);
-				request.getRequestDispatcher("/WEB-INF/jsp/orderWorker.jsp").forward(request, response);
+				List<Part> partList = partDao.getAll();
+				request.setAttribute("parts", partList);
+				OrderPartBean opb = new OrderPartBean();
+				opb.setOrderId(Integer.parseInt(order_id));
+				opb.setPartId(1);
+				opb.setUsedAmount(0);
+				Part p = partDao.getByPK(1);
+				opb.setPartName(p.getPartName());
+				request.setAttribute("part", opb);
+				request.getRequestDispatcher("/WEB-INF/jsp/orderPart.jsp").forward(request, response);
 			} else {
 				//
 				response.sendRedirect("");
@@ -94,27 +94,27 @@ public class OrderWorkerServlet extends HttpServlet {
 		String login = (String) request.getSession().getAttribute("login");
 		String action = (String) request.getParameter("action");
 		String order_id = (String) request.getParameter("order_id");
-		String worker_id = (String) request.getParameter("worker_id");
+		String part_id = (String) request.getParameter("part_id");
 		if (login != null) {
 			User user = userDao.getUserByLogin(login);
 			Role role = roleDao.getByPK(user.getRoleId());
 			if (role.getRoleName().equals("Administrator")) {
 				if (action.equals("Edit")) {
 					request.setAttribute("action", "edit");
-					List<Worker> workerList = workerDao.getAll();
-					request.setAttribute("workers", workerList);
-					List<OrderWorker> orderWorkerList = new ArrayList<OrderWorker>() {
+					List<Part> partList = partDao.getAll();
+					request.setAttribute("parts", partList);
+					List<OrderPart> orderPartList = new ArrayList<OrderPart>() {
 						private static final long serialVersionUID = 1L;
 						{
-							add(orderWorkerDao.getByPK(Integer.parseInt(order_id), Integer.parseInt(worker_id)));
+							add(orderPartDao.getByPK(Integer.parseInt(order_id), Integer.parseInt(part_id)));
 						}
 					};
-					request.setAttribute("worker", getOrderWorkerAsBean(orderWorkerList).get(0));
-					request.getRequestDispatcher("/WEB-INF/jsp/orderWorker.jsp").forward(request, response);
+					request.setAttribute("part", getOrderPartAsBean(orderPartList).get(0));
+					request.getRequestDispatcher("/WEB-INF/jsp/orderPart.jsp").forward(request, response);
 				} else {
-					OrderWorker orderWorker = orderWorkerDao.getByPK(Integer.parseInt(order_id),
-							Integer.parseInt(worker_id));
-					orderWorkerDao.delete(orderWorker);
+					OrderPart orderPart = orderPartDao.getByPK(Integer.parseInt(order_id),
+							Integer.parseInt(part_id));
+					orderPartDao.delete(orderPart);
 					OrderInWork order = orderDao.getByPK(Integer.parseInt(order_id));
 					request.setAttribute("order", order);
 					request.setAttribute("action", "edit");

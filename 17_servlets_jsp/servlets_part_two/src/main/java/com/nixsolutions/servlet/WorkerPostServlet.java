@@ -3,6 +3,7 @@ package com.nixsolutions.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.entity.Worker;
 
+@WebServlet("/workerPost.do")
 public class WorkerPostServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

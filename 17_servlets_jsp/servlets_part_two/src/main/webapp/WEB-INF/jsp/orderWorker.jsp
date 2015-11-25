@@ -14,7 +14,7 @@
 		<form action="orderWorkerPost.do" method="POST">
 			<input type="hidden" name="order_id" value="${worker.orderId}" />
 			<p>Worker Name: </p>
-			<select name="worker_name">
+			<select name="worker_id">
 			<c:forEach var="item" items="${workers}">
 			<option value="${item.id}"<c:if test="${worker.workerId eq item.id}"> selected</c:if>><c:out value="${item.firstName}" /> <c:out value="${item.lastName}" /></option>
 			</c:forEach>

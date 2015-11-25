@@ -6,32 +6,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Random;
 
 /**
  * Created by svichkar on 11/18/2015.
  */
 
-public class CopyFilesStructure
-{
-    public static void main(String[] args)
-    {
-        createFileStructure(1,1);
+public class CopyFilesStructure {
+    public static final int DEPTH = 3;
+    public static final int FOLDER_COUNT = 10;
+    public static final String ROOT = "testFolder";
 
-        File srcFolder = new File("c:\\123");
-        File destFolder = new File("c:\\321");
+    public static void main(String[] args) {
+
+        createFileStructure(ROOT, DEPTH, FOLDER_COUNT);
+
+        File srcFolder = new File(ROOT);
+        File destFolder = new File("destinationFolder");
 
         //make sure source exists
-        if(!srcFolder.exists()){
+        if (!srcFolder.exists()) {
 
             System.out.println("Directory does not exist.");
             //just exit
             System.exit(0);
 
-        }else{
+        } else {
 
-            try{
-                copyFolder(srcFolder,destFolder);
-            }catch(IOException e){
+            try {
+                copyFolder(srcFolder, destFolder);
+            } catch (IOException e) {
                 e.printStackTrace();
                 //error, just exit
                 System.exit(0);
@@ -41,28 +45,65 @@ public class CopyFilesStructure
         System.out.println("Done");
     }
 
-    private static void createFileStructure(int depth, int count) {
+    private static void createFileStructure(String rootName, int depth, int count) {
 
-        File root = new File("test");
+        int folderCount = 0;
+
+        File root = new File(rootName);
         root.mkdir();
 
-        File file = new File(root.getPath() + "/file");
-        try {
-            //file.mkdir();
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (folderCount != count) {
+
+            Random random = new Random();
+
+            int index = random.nextInt(2);
+
+            File file;
+            String fileName = String.valueOf(random.nextInt(1000000000));
+
+            switch (index) {
+
+                case 0: {
+                    file = new File(root.getPath() + "/file_" + fileName);
+                    try {
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+
+                case 1: {
+                    file = new File(root.getPath() + "/directory_" + fileName);
+                    file.mkdir();
+                    folderCount++;
+                    break;
+                }
+            }
+        }
+
+        if (root.getName().equals(ROOT)) {
+
+            for (File f : root.listFiles()) {
+                folderCount = 0;
+                if (f.isDirectory()) {
+                    while (folderCount != count) {
+                        createFileStructure(f.getPath(), DEPTH, FOLDER_COUNT);
+                        root = new File(ROOT);
+                    }
+                }
+            }
         }
 
     }
 
     public static void copyFolder(File src, File dest)
-            throws IOException{
+            throws IOException {
 
-        if(src.isDirectory()){
+        if (src.isDirectory()) {
 
             //if directory not exists, create it
-            if(!dest.exists()){
+            if (!dest.exists()) {
                 dest.mkdir();
                 System.out.println("Directory copied from "
                         + src + "  to " + dest);
@@ -76,10 +117,10 @@ public class CopyFilesStructure
                 File srcFile = new File(src, file);
                 File destFile = new File(dest, file);
                 //recursive copy
-                copyFolder(srcFile,destFile);
+                copyFolder(srcFile, destFile);
             }
 
-        }else{
+        } else {
             //if file, then copy it
             //Use bytes stream to support all file types
             InputStream in = new FileInputStream(src);
@@ -89,7 +130,7 @@ public class CopyFilesStructure
 
             int length;
             //copy the file content in bytes
-            while ((length = in.read(buffer)) > 0){
+            while ((length = in.read(buffer)) > 0) {
                 out.write(buffer, 0, length);
             }
 

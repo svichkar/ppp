@@ -14,7 +14,6 @@ public abstract class Exp implements Save {
 	public void save(String stringForSaving, String absolutPathToFile) {
 		File file = new File(absolutPathToFile);
 		try {
-
 			if (stringForSaving.isEmpty()) {
 				throw new MyOwnExeption(
 						"String for saving is empty! Please enter data to string for saving in the file.");
@@ -37,9 +36,10 @@ public abstract class Exp implements Save {
 				}
 			}
 
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new MyOwnExeption();
 		}
-	}
 
+	}
 }

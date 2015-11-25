@@ -11,6 +11,7 @@ public class MyOwnExeption extends RuntimeException {
 	 * Instantiates a new my own exception.
 	 */
 	public MyOwnExeption() {
+		System.out.println("Problems related to creating file or writing in the file!");
 	}
 
 	/**
@@ -21,6 +22,10 @@ public class MyOwnExeption extends RuntimeException {
 	 */
 	public MyOwnExeption(String message) throws IOException{
 		super(message);
-		System.out.println("String for saving is empty! Please enter data to string for saving in the file.");
+		System.out.println(message);
+	}
+	public MyOwnExeption(String message, Throwable t) throws IOException {
+		super(message,t);
+		System.out.println(message);
 	}
 }

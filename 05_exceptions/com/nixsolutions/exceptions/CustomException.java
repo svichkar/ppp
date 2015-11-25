@@ -2,7 +2,7 @@ package com.nixsolutions.exceptions;
 
 import java.io.IOException;
 
-public class CustomException extends Exception {
+public class CustomException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

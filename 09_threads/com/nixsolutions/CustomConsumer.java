@@ -8,21 +8,16 @@ import java.util.concurrent.BlockingQueue;
 public class CustomConsumer implements Runnable {
     private BlockingQueue<Integer> arrOfIntegers;
     private boolean isEven;
-    private static boolean threadIsUp = true;
-    private static int iteration = 0;
 
     public CustomConsumer(BlockingQueue<Integer> queue, boolean isEven) {
         this.arrOfIntegers = queue;
         this.isEven = isEven;
-    }
 
-    private void stopConsume() {
-        threadIsUp = false;
     }
 
     @Override
     public void run() {
-        while (threadIsUp) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Integer num = arrOfIntegers.peek();
                 if (num != null) {
@@ -37,10 +32,7 @@ public class CustomConsumer implements Runnable {
                     }
                 }
             } catch (InterruptedException e) {
-                this.stopConsume();
-            }
-            if (iteration == 100) {
-                this.stopConsume();
+                Thread.currentThread().interrupt();
             }
         }
     }
@@ -48,6 +40,5 @@ public class CustomConsumer implements Runnable {
     private void consume() throws InterruptedException {
         System.out.println("Consumer took:" + arrOfIntegers.take() + " with "
                 + Thread.currentThread().getName());
-        iteration++;
     }
 }

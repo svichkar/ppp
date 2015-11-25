@@ -15,9 +15,9 @@ public class Anagrama {
 		System.out.println("Please put the second value and press Enter.");
 		userInput2 = in.nextLine();
 
-		char[] input1 = userInput1.replaceAll("[^ A-Za-z0-9]", "").replace(" ", "").trim().toCharArray();
+		char[] input1 = userInput1.replaceAll("[^ A-Za-z0-9]", "").replace(" ", "").toLowerCase().trim().toCharArray();
 		Arrays.sort(input1);
-		char[] input2 = userInput2.replaceAll("[^ A-Za-z0-9]", "").replace(" ", "").trim().toCharArray();
+		char[] input2 = userInput2.replaceAll("[^ A-Za-z0-9]", "").replace(" ", "").toLowerCase().trim().toCharArray();
 		Arrays.sort(input2);
 
 		System.out.println(Arrays.equals(input1, input2) ? "These strings are anagrams of each other"

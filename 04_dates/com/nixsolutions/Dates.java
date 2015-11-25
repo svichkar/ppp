@@ -13,16 +13,17 @@ import java.util.*;
  */
 public class Dates {
 
-    static void LengthOfMonth(int year) {
+    static void lengthOfMonth(int year) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         for (int i = 0; i < 12; i++) {
             calendar.set(Calendar.MONTH, i);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
             System.out.println(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         }
     }
 
-    static void DatesForMondays(int year, int month) {
+    static void datesForMondays(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month - 1);
@@ -34,7 +35,7 @@ public class Dates {
         }
     }
 
-    static boolean Friday13th(int year, int month, int day) {
+    static boolean friday13Th(int year, int month, int day) {
         boolean state;
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -44,7 +45,7 @@ public class Dates {
         return state;
     }
 
-    static String HowLongAgo(int year, int month, int day) {
+    static String howLongAgo(int year, int month, int day) {
         String temp = "";
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -82,10 +83,10 @@ public class Dates {
         int day = in.nextInt();
         in.close();
 
-        Dates.LengthOfMonth(year);
-        Dates.DatesForMondays(year, month);
-        System.out.println(Dates.Friday13th(year, month, day));
-        System.out.println(Dates.HowLongAgo(year, month, day));
+        Dates.lengthOfMonth(year);
+        Dates.datesForMondays(year, month);
+        System.out.println(Dates.friday13Th(year, month, day));
+        System.out.println(Dates.howLongAgo(year, month, day));
 
         LocalDate current = LocalDate.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);

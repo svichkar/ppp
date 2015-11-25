@@ -17,8 +17,6 @@ public class NumberOfDays {
 		}
 	}
 
-	
-
 	/**
 	 * Used for printing the number of the days in each of the month in some
 	 * year
@@ -31,6 +29,7 @@ public class NumberOfDays {
 	public void countNumberOfDaysInMonth(int year) {
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		System.out.println("You asked for " + year + " year");
 		for (int i = 0; i < 12; i++) {
 			calendar.set(Calendar.MONTH, i);

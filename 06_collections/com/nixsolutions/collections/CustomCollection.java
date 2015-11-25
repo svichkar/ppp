@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class CustomCollection<E> implements Collection<E> {
-	private int realSize = 0;
+	private int realSize;
 	private static final int DEFAULT_SIZE = 1;
 	private E[] arrInternal;
 
@@ -156,7 +156,7 @@ public class CustomCollection<E> implements Collection<E> {
 		boolean isRemoved = false;
 		for (int i = 0; i < realSize; i++) {
 			if (arrInternal[i].equals(o)) {
-				System.arraycopy(arrInternal, i + 1, arrInternal, i, realSize - 1 - i);
+				System.arraycopy(arrInternal, i + 1, arrInternal, i, realSize - i - 1);
 				arrInternal = Arrays.copyOfRange(arrInternal, 0, realSize - 1);
 				realSize--;
 				isRemoved = true;
@@ -272,7 +272,7 @@ public class CustomCollection<E> implements Collection<E> {
 		@Override
 		public E next() {
 			if (this.hasNext()) {
-				return (E) arrInternal[currentIndex++];
+				return (E) arrInternal[currentIndex];
 			} else {
 				return null;
 			}

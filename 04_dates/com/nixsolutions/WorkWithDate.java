@@ -17,6 +17,7 @@ public class WorkWithDate {
     private static void quantityOfDaysByYear(int year) {
         Calendar cal = Calendar.getInstance();
         cal.set(cal.YEAR, year);
+        cal.set(cal.DAY_OF_MONTH,1);
         for (int i = 0; i < 12; i++) {
             cal.set(cal.MONTH, i);
             System.out.println(cal.getDisplayName(cal.MONTH, cal.LONG, Locale.US) + " - " + cal.getActualMaximum(cal.DAY_OF_MONTH));

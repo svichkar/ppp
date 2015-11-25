@@ -14,7 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-
 public class WorkWithData {
 
 	public static void lengthEachMonthsAtDesiredYear(int neededYear) {
@@ -26,7 +25,7 @@ public class WorkWithData {
 			calendar.set(Calendar.MONTH, i);
 			dayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 			String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
-		System.out.println(String.format("%s: %s", monthName, dayOfMonth));
+			System.out.println(String.format("%s: %s", monthName, dayOfMonth));
 		}
 	}
 
@@ -85,9 +84,9 @@ public class WorkWithData {
 
 			System.out.print(
 					"Please choose version of Java for working with dates. Please press button 7 or 8. To exit, press e.");
-			String versionJavaInput = reader.readLine();
-			int versionJava = Integer.parseInt(versionJavaInput);
-			if (versionJava==7) {
+			String versionJava = reader.readLine();
+			if ("7".equals(versionJava)) {
+
 				// Java 7
 				System.out.println("You choose Java 7 version.");
 				Date date = new Date();
@@ -102,7 +101,8 @@ public class WorkWithData {
 				dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, vietnamLocale);
 				System.out.println("Local VIETNAM time is " + dateFormat.format(date));
 				System.out.println();
-			} else if (versionJava==8) {
+			} else if ("8".equals(versionJava)) {
+
 				// Date-Time API Java 8
 				System.out.println("You choose Java 8 version.");
 				LocalDate currentLocalDate = LocalDate.now();
@@ -120,7 +120,7 @@ public class WorkWithData {
 				System.out.println("Local Canada time is " + localTimeCanada);
 				System.out.println("Local Pakistan time is " + localTimePakistan);
 				System.out.println("Local Vietnam time is " + localTimeVietnam);
-			} else if (versionJavaInput.toUpperCase().equals("E")) {
+			} else if (versionJava.toUpperCase().equals("E")) {
 				System.out.println("");
 				System.out.print("Thanks. Bye.");
 				break;
@@ -134,20 +134,20 @@ public class WorkWithData {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
-		//1
+		// 1
 		lengthEachMonthsAtDesiredYear(2015);
-		
-		//2
-		//dateForAllMondays(2015, 11);
-		
-		//3
-		//definitionFridayThirteenth("13-02-2015");
-		
-		//4
-		//passedTime(10,11,2015);
-		
-		//5
-		//currentDateForLocaleCanadaGermanyPakistanVietnam();
+
+		// 2
+		dateForAllMondays(2015, 11);
+
+		// 3
+		definitionFridayThirteenth("13-02-2015");
+
+		// 4
+		passedTime(10, 11, 2015);
+
+		// 5
+		currentDateForLocaleCanadaGermanyPakistanVietnam();
 	}
 
 }

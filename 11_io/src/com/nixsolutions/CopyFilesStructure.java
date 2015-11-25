@@ -15,6 +15,8 @@ public class CopyFilesStructure
 {
     public static void main(String[] args)
     {
+        createFileStructure(1,1);
+
         File srcFolder = new File("c:\\123");
         File destFolder = new File("c:\\321");
 
@@ -37,6 +39,21 @@ public class CopyFilesStructure
         }
 
         System.out.println("Done");
+    }
+
+    private static void createFileStructure(int depth, int count) {
+
+        File root = new File("test");
+        root.mkdir();
+
+        File file = new File(root.getPath() + "/file");
+        try {
+            //file.mkdir();
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void copyFolder(File src, File dest)

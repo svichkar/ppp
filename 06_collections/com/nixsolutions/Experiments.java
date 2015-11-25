@@ -11,7 +11,11 @@ public class Experiments {
 
 		Collection<Integer> customCol = genRandCusColl(50);
 		Collection<Integer> regularCol = genRandRegCol(100);
-
+		
+		for (Integer integer : customCol) {
+			System.out.println(integer);
+		}
+		
 		// check adAll
 		customCol.addAll(regularCol);
 		System.out.println("size after addAll= " + customCol.size());

@@ -1,8 +1,6 @@
 package com.nixsolutions;
 
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by kozlovskij on 11/20/2015.

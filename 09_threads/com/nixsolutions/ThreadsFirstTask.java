@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -10,16 +10,17 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ThreadsFirstTask {
     public static void main(String[] args) {
-        ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
-        ReentrantLock lock = new ReentrantLock();
-        AtomicBoolean flag = new AtomicBoolean(false);
+        int capacity = 100;
+        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(capacity);
 
-        Producer producer = new Producer(queue, lock, flag);
-        Consumer evenConsumer = new Consumer(queue, lock, true, flag);
-        Consumer unEvenConsumer = new Consumer(queue, lock, false, flag);
+        Producer producer = new Producer(queue);
+        Consumer evenConsumer = new Consumer(queue, true);
+        Consumer unEvenConsumer = new Consumer(queue, false);
 
-        new Thread(producer).start();
-        new Thread(evenConsumer).start();
-        new Thread(unEvenConsumer).start();
+        ExecutorService service = Executors.newCachedThreadPool();
+        service.submit(producer);
+        service.submit(evenConsumer);
+        service.submit(unEvenConsumer);
+        service.shutdownNow();
     }
 }

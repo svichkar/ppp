@@ -1,6 +1,9 @@
 package com.nixsolutions;
 
 
+import java.util.Iterator;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
@@ -9,43 +12,27 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by Sergey on 20.11.2015.
  */
 class Consumer implements Runnable {
-    private ConcurrentLinkedQueue<Integer> queue;
+    private BlockingQueue<Integer> queue;
     private boolean even;
-    private ReentrantLock lock;
-    private AtomicBoolean flag;
-    private boolean aBoolean = false;
 
-    Consumer(ConcurrentLinkedQueue<Integer> queue, ReentrantLock lock, boolean even, AtomicBoolean flag) {
+    Consumer(BlockingQueue<Integer> queue, boolean even) {
         this.queue = queue;
-        this.lock = lock;
         this.even = even;
-        this.flag = flag;
     }
 
     public void run() {
-        while (!aBoolean) {
-            try {
-                lock.lock();
-                if (!queue.isEmpty()) {
-                    if (even) {
-                        if (queue.peek() % 2 == 0) {
-                            System.out.println("Even: " + queue.poll());
-                        }
-                    } else {
-                        if (queue.peek() % 2 == 1) {
-                            System.out.println("UnEven: " + queue.poll());
-                        }
-                    }
+        while (queue.peek() == null) ;
+        for (Integer i : queue) {
+            Integer temp = i;
+            if (even) {
+                if (temp % 2 == 0) {
+                    System.out.println("Even: " + temp);
                 }
-                if (flag.get()) {
-                    aBoolean = queue.isEmpty();
+            } else {
+                if (temp % 2 == 1) {
+                    System.out.println("UnEven: " + temp);
                 }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
             }
-
         }
     }
 }

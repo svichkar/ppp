@@ -77,7 +77,8 @@ public class AsyncEvenSort {
         this.execService = Executors.newFixedThreadPool(this.threadPool);
     }
 
-    public AsyncEvenSort(ExecutorService execService, int queueLength, int threadPool, int elementsCount) {
+    public AsyncEvenSort(ExecutorService execService, int queueLength, int threadPool,
+            int elementsCount) {
         this.execService = execService;
         this.queueLength = queueLength;
         this.threadPool = threadPool;
@@ -88,7 +89,8 @@ public class AsyncEvenSort {
     public void start() {
         this.getExecService().submit(new Consumer(queue, true));
         this.getExecService().submit(new Consumer(queue, false));
-        Future producer = this.getExecService().submit(new Producer(queue, this.getElementsCount()));
+        Future producer = this.getExecService()
+                .submit(new Producer(queue, this.getElementsCount()));
         try {
             while ((Integer) producer.get() != this.getElementsCount());
         } catch (InterruptedException | ExecutionException ex) {

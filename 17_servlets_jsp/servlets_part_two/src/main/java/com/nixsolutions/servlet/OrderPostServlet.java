@@ -2,7 +2,8 @@ package com.nixsolutions.servlet;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.Instant;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -57,13 +58,16 @@ public class OrderPostServlet extends HttpServlet {
 					order.setOrderStatusId(Integer.parseInt(order_status_id));
 					order.setDescription(order_description);
 					order.setCarId(Integer.parseInt(car_id));
-					//order.setTimestampStart(Timestamp.valueOf(timestamp_started));
-					
-					//
-					if (timestamp_finished != null && timestamp_finished != "") {
-						order.setTimestampFinish(Timestamp.valueOf(timestamp_finished));
-					} else {
-						order.setTimestampFinish(null);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+					try {
+						order.setTimestampStart(new Timestamp(sdf.parse(timestamp_started).getTime()));
+						if (timestamp_finished != null && timestamp_finished != "") {
+							order.setTimestampFinish(new Timestamp(sdf.parse(timestamp_finished).getTime()));
+						} else {
+							order.setTimestampFinish(null);
+						}
+					} catch (ParseException e) {
+						e.printStackTrace();
 					}
 					orderDao.update(order);
 				}

@@ -70,16 +70,16 @@ public class OrderInWork {
 	
 	@Override
 	public String toString() {
-/*		String res = "order_status_id = " + (order_status_id == 0 ? "null" : order_status_id) + 
+		String res = "order_status_id = " + (order_status_id == 0 ? "null" : order_status_id) + 
 				", description = '" + description + "', car_id = " + 
 				(car_id == 0 ? "null" : car_id) + ", timestamp_start = " + 
 				(timestamp_start == null ? "current_timestamp()" : "PARSEDATETIME('" + 
 				timestamp_start.toString() + "', 'yyyy-MM-dd HH:mm:ss.SS')") +
 				", timestamp_finish = " + (timestamp_finish == null ? "null" : "PARSEDATETIME('" + 
-				timestamp_finish.toString() + "', 'yyyy-MM-dd HH:mm:ss.SS')");*/
-		String res = "order_status_id = " + (order_status_id == 0 ? "null" : order_status_id) + 
+				timestamp_finish.toString() + "', 'yyyy-MM-dd HH:mm:ss.SS')");
+/*		String res = "order_status_id = " + (order_status_id == 0 ? "null" : order_status_id) + 
 				", description = '" + description + "', car_id = " + 
-				(car_id == 0 ? "null" : car_id);
+				(car_id == 0 ? "null" : car_id);*/
 		return res;
 	}
 	

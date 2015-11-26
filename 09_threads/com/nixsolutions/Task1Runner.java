@@ -11,22 +11,21 @@ public class Task1Runner {
 		BlockingQueue<Integer> sharedQ = new ArrayBlockingQueue<>(100);
 		ExecutorService runner = Executors.newFixedThreadPool(3);
 		int attempts = 0;
-		
+
 		Consumer cons1 = new Consumer(sharedQ, "even");
 		Consumer cons2 = new Consumer(sharedQ, "odd");
 		Producer prod = new Producer(sharedQ);
-		
+
 		runner.execute(prod);
 		runner.execute(cons1);
 		runner.execute(cons2);
-		
+
 		while (sharedQ.isEmpty()) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println("waiting for an item");
 			attempts++;
 			if (attempts == 2) {
 				cons1.stop();

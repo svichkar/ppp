@@ -4,8 +4,8 @@ import java.util.concurrent.BlockingQueue;
 
 public class Consumer implements Runnable {
 	private BlockingQueue<Integer> sharedQ;
-	String oddOrEven;
-	boolean flag = true;
+	private String oddOrEven;
+	private boolean flag = true;
 
 	public Consumer(BlockingQueue<Integer> sharedQ, String oe) {
 		this.sharedQ = sharedQ;
@@ -50,8 +50,6 @@ public class Consumer implements Runnable {
 	}
 
 	public void stop() {
-		System.out.println("stop command for: "
-				+ Thread.currentThread().getName() + this.getClass().getName());
 		this.flag = false;
 	}
 }

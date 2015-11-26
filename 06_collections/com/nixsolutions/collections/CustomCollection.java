@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.*;
 
 public class CustomCollection<E> implements Collection<E> {
 	private int realSize;
@@ -255,28 +257,31 @@ public class CustomCollection<E> implements Collection<E> {
 	 * @author Evgeniy
 	 * @param Iterator
 	 */
-	@SuppressWarnings("hiding")
-	private class CustomIterator<E> implements Iterator<E> {
+	private class CustomIterator implements Iterator<E> {
 		private int currentIndex;
+		private int previousSize;
 
 		public CustomIterator() {
 			this.currentIndex = 0;
+			this.previousSize = realSize;
 		}
 
 		@Override
 		public boolean hasNext() {
+			
 			return (currentIndex < realSize);
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public E next() {
 			if (this.hasNext()) {
-				return (E) arrInternal[currentIndex];
+				E toReturn = (E) arrInternal[currentIndex];
+				if (previousSize == realSize)
+					currentIndex++;
+				return toReturn;
 			} else {
-				return null;
+				throw new NoSuchElementException();
 			}
 		}
-
 	}
 }

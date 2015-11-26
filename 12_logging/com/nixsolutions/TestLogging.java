@@ -11,7 +11,7 @@ public class TestLogging {
     public static void main(String[] args) {
         CustomSaveLogging test = new CustomSaveLogging();
         try {
-            LOGGER.trace("start the copying process");
+            LOGGER.entry("start the copying process");
             test.save("test", "D:\\test.txt");
             LOGGER.debug(test.getText() + "-" + test.getPath());
             test.save("test1", "");
@@ -21,7 +21,7 @@ public class TestLogging {
         } catch (RuntimeException e) {
             LOGGER.error("We caught exception: ",  e);
         } finally {
-            LOGGER.trace("application close");
+            LOGGER.exit("application close");
         }
     }
 }

@@ -9,18 +9,19 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
  * @author mednorcom
  */
-public class Producer implements Callable {
+public class Producer implements Runnable {
 
     private BlockingQueue<Integer> queue;
-    private int elementsCount;
-    private AtomicInteger generatedNumbers;
+    private AtomicInteger remainingInQueue;
+
+    public AtomicInteger getRemainingInQueue() {
+        return remainingInQueue;
+    }
 
     protected BlockingQueue<Integer> getQueue() {
         return queue;
@@ -30,35 +31,19 @@ public class Producer implements Callable {
         this.queue = queue;
     }
 
-    public int getElementsCount() {
-        return elementsCount;
-    }
-
-    public void setElementsCount(int elementsCount) {
-        this.elementsCount = elementsCount;
-    }
-
-    public Producer(BlockingQueue<Integer> queue, int elementsCount) {
+    public Producer(BlockingQueue<Integer> queue, AtomicInteger remainingInQueue) {
         this.queue = queue;
-        this.elementsCount = elementsCount;
+        this.remainingInQueue = remainingInQueue;
     }
-
 
     @Override
-    public Integer call() throws Exception {
+    public void run() {
         int i;
-        for (i = 0; i < this.getElementsCount(); i++) {
-            Lock lock = new ReentrantLock();
-            boolean locked = false;
-            try {
-                this.getQueue().add(new Random().nextInt());
-            } finally {
-                if (locked) {
-                    lock.unlock();
-                }
-            }
+        while (this.getRemainingInQueue().getAndDecrement() > 0) {
+
+            this.getQueue().add(new Random().nextInt());
         }
-        return i;
+
     }
-    
+
 }

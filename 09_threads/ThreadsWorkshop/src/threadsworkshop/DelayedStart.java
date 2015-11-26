@@ -58,7 +58,7 @@ public class DelayedStart {
     public DelayedStart() {
         this.countTo = 1000;
         this.counter = new AtomicInteger(0);
-        this.threadPool = 3;
+        this.threadPool = 1;
         this.execService = Executors.newScheduledThreadPool(this.threadPool);
     }
     

@@ -76,7 +76,8 @@ public class Consumer implements Runnable {
                         Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     if (this.even == (a % 2 == 0)) {
-                        if (this.even != (this.getQueue().peek() % 2 == 0)||this.getQueue().peek()==null) {
+                        if (this.even != 
+                                (this.getQueue().peek() % 2 == 0)||this.getQueue().peek()==null) {
                             System.out.println("WrongNumber: " + this.getQueue().peek());
                         }
                         System.out.println("Consumer '" + (this.even ? "even" : "odd") + "': "

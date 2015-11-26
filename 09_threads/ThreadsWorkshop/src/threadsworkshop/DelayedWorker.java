@@ -34,7 +34,7 @@ public class DelayedWorker implements Runnable {
         if (!Thread.currentThread().isInterrupted()) {
             if (this.getCounter().get() >= this.getCountStartFrom()) {
                 System.out.println("Delayed worker (started after " + this.countStartFrom
-                        + " iteration(s)) is working fine; Current interation is:" 
+                        + " iteration(s)) is working fine; Current interation is:"
                         + this.getCounter());
             }
         }

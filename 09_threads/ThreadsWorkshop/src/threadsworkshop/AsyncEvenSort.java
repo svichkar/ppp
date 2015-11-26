@@ -13,7 +13,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
 
 /**
  *
@@ -119,7 +118,8 @@ public class AsyncEvenSort {
     public void start() {
         boolean even = true;
         for (int i = 0; i < this.getConsumerCount(); i++) {
-            this.getTaskList().add(this.getExecService().submit(new Consumer(this.getQueue(), even, this.getRemainingDequeue())));
+            this.getTaskList().add(this.getExecService()
+                    .submit(new Consumer(this.getQueue(), even, this.getRemainingDequeue())));
             even = !even;
         }
         for (int i = 0; i < this.getProducerCount(); i++) {

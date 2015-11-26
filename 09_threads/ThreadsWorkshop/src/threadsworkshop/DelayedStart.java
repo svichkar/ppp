@@ -18,9 +18,10 @@ import java.util.logging.Logger;
  * @author Mednor
  */
 public class DelayedStart {
+
     private AtomicInteger counter;
     private int countTo;
-    private ScheduledExecutorService  execService;
+    private ScheduledExecutorService execService;
     private int threadPool;
 
     public AtomicInteger getCounter() {
@@ -43,7 +44,7 @@ public class DelayedStart {
         return execService;
     }
 
-    public void setExecService(ScheduledExecutorService  execService) {
+    public void setExecService(ScheduledExecutorService execService) {
         this.execService = execService;
     }
 
@@ -61,17 +62,15 @@ public class DelayedStart {
         this.threadPool = 1;
         this.execService = Executors.newScheduledThreadPool(this.threadPool);
     }
-    
-    public void start ()
-    {
+
+    public void start() {
         this.getExecService().scheduleAtFixedRate(new DelayedWorker(this.getCounter(), 100), 0, 1,
                 TimeUnit.SECONDS);
         this.getExecService().scheduleAtFixedRate(new DelayedWorker(this.getCounter(), 300), 0, 1,
                 TimeUnit.SECONDS);
         this.getExecService().scheduleAtFixedRate(new DelayedWorker(this.getCounter(), 500), 0, 1,
                 TimeUnit.SECONDS);
-        for (int i = 1; i <= this.getCountTo(); i++)
-        {
+        for (int i = 1; i <= this.getCountTo(); i++) {
             this.setCounter(i);
             try {
                 Thread.sleep(100);
@@ -79,7 +78,7 @@ public class DelayedStart {
                 Logger.getLogger(DelayedStart.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         this.getExecService().shutdownNow();
     }
 }

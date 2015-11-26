@@ -5,7 +5,7 @@ package com.nixsolutions;
  */
 public class SaveStringToFileTest {
     public static void main(String[] args) {
-        SaveStringToFile sstf = new SaveStringToFile();
+        SaveStringToFileLog sstf = new SaveStringToFileLog();
         sstf.save("Trying to save this", "D:/saveTester.txt");
         sstf.save("Second try", "Z:/saveTester.txt");
         sstf.save("", "D:/saveTester.txt");

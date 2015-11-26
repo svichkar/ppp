@@ -1,3 +1,5 @@
+package com.nixsolutions;
+
 /**
  * Created by konstantin on 16.11.2015.
  */

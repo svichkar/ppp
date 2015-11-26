@@ -3,7 +3,7 @@ package com.nixsolutions;
 /**
  * Created by kozlovskij on 11/13/2015.
  */
-public class Test {
+public class TestLogging {
     public static void main(String[] args) {
         CustomSaveLogging test = new CustomSaveLogging();
         try {

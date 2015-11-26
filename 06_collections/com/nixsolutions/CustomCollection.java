@@ -8,10 +8,9 @@ import java.util.Iterator;
 /**
  * the class implements Collection interface with addition of custom method
  * get()
- * 
- * @author evgeniykryzhanovskiy
  *
  * @param <E>
+ * @author evgeniykryzhanovskiy
  */
 public class CustomCollection<E> implements Collection<E> {
 	/**
@@ -35,7 +34,7 @@ public class CustomCollection<E> implements Collection<E> {
 
 	/**
 	 * returns an instance of element by its index in the collection
-	 * 
+	 *
 	 * @param index
 	 *            an index of the element
 	 * @return the element
@@ -76,10 +75,19 @@ public class CustomCollection<E> implements Collection<E> {
 	@Override
 	public boolean contains(Object o) {
 		boolean status = false;
-		for (E e : storage) {
-			if (e.equals(o)) {
-				status = true;
-				break;
+		if (o == null) {
+			for (int i = 0; i < storage.length; i++) {
+				if (storage[i] == o) {
+					status = true;
+					break;
+				}
+			}
+		} else {
+			for (int i = 0; i < storage.length; i++) {
+				if (o.equals(storage[i])) {
+					status = true;
+					break;
+				}
 			}
 		}
 		return status;
@@ -110,15 +118,31 @@ public class CustomCollection<E> implements Collection<E> {
 	@Override
 	public boolean remove(Object o) {
 		boolean status = false;
-		for (int i = 0; i < storage.length; i++) {
-			if (storage[i].equals(o)) {
-				System.arraycopy(storage, i + 1, storage, i,
-						storage.length - i - 1);
-				storage = Arrays.copyOfRange(storage, 0, storage.length - 1);
-				size--;
-				status = true;
-				break;
+		if (o == null) {
+			for (int i = 0; i < storage.length; i++) {
+				if (storage[i] == null) {
+					System.arraycopy(storage, i + 1, storage, i,
+							storage.length - i - 1);
+					storage = Arrays.copyOfRange(storage, 0,
+							storage.length - 1);
+					size--;
+					status = true;
+					break;
+				}
 			}
+		} else {
+			for (int i = 0; i < storage.length; i++) {
+				if (o.equals(storage[i])) {
+					System.arraycopy(storage, i + 1, storage, i,
+							storage.length - i - 1);
+					storage = Arrays.copyOfRange(storage, 0,
+							storage.length - 1);
+					size--;
+					status = true;
+					break;
+				}
+			}
+
 		}
 		return status;
 	}
@@ -192,6 +216,10 @@ public class CustomCollection<E> implements Collection<E> {
 			} else {
 				return null;
 			}
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
 		}
 	}
 }

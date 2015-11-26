@@ -23,6 +23,7 @@ public class CustomCollectionTest {
         cc2.add("Tree5");
         cc.remove("Tree");
         cc.retainAll(cc2);
+        System.out.println(cc.containsAll(cc2));
         CustomCollection<String> cc3 = new CustomCollection();
         cc3.add("Tree2");
         cc.removeAll(cc3);

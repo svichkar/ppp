@@ -29,12 +29,23 @@ public class CustomCollection<E> implements Collection<E> {
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (initialArray[i].equals(o)) {
-                return true;
+        boolean result = false;
+        if (o == null) {
+            for (int i = 0; i < initialArray.length; i++) {
+                if (initialArray[i] == o) {
+                    result = true;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < initialArray.length; i++) {
+                if (o.equals(initialArray[i])) {
+                    result = true;
+                    break;
+                }
             }
         }
-        return false;
+        return result;
     }
 
     @Override
@@ -125,9 +136,10 @@ public class CustomCollection<E> implements Collection<E> {
     public boolean containsAll(Collection<?> c) {
         boolean result = true;
         for (Object o : c) {
-            if (!this.contains(o))
+            if (!this.contains(o)) {
                 result = false;
-            break;
+                break;
+            }
         }
         return result;
     }

@@ -108,7 +108,9 @@ public class MyPainfullCollection<E> implements Collection<E> {
                 }
 
             } else if (!current.equals(o)) {
-                updated[i] = current;
+                if (i < this.size() - 1) {
+                    updated[i] = current;
+                }
                 i++;
                 continue;
             }

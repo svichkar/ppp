@@ -19,7 +19,13 @@ public class CollectionsWorkshop {
     public static void main(String[] args) {
 
         MyPainfullCollection<Integer> myCollection = new MyPainfullCollection<>();
-
+        myCollection.add(1);
+        myCollection.add(2);
+        myCollection.add(3);
+        myCollection.add(4);
+        myCollection.add(5);
+        boolean a = myCollection.remove(8);
+        myCollection.size();
         //Try methods here
     }
 

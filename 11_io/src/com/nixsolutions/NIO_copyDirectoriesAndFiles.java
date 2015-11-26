@@ -11,7 +11,7 @@ import java.util.List;
 public class NIO_copyDirectoriesAndFiles {
 
     public static void main(String[] args) throws IOException{
-        copyDirectoryUsingNIO("H:\\JavaPPP\\labs2\\javappp\\11_io\\otsuda", "H:\\JavaPPP\\labs2\\javappp\\11_io\\suda");
+        copyDirectoryUsingNIO("E:\\timeReports\\2015\\timesheets", "E:\\timeReports\\2015\\2");
     }
 
     /**
@@ -30,7 +30,7 @@ public class NIO_copyDirectoriesAndFiles {
         Path srcPath = Paths.get(src);
         Files.walk(srcPath).forEach(wholePath -> pathes.add(wholePath.toString()));
         for (String wholePath : pathes) {
-            String pathForCopy = wholePath.toString().replace(src, dist);
+            String pathForCopy = wholePath.replace(src, dist);
             if (Files.isDirectory(Paths.get(wholePath), LinkOption.NOFOLLOW_LINKS))
                 Files.createDirectories((Paths.get(pathForCopy)));
             else

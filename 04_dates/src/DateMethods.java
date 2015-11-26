@@ -28,6 +28,7 @@ public class DateMethods {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
 
         for (int i = 0; i < N; i++) {
             calendar.set(calendar.MONTH, i);

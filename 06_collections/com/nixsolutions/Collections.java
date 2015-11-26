@@ -1,7 +1,5 @@
 package com.nixsolutions;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 /**
@@ -31,25 +29,26 @@ public class Collections {
         }
 
         MyCollection secondCollection = new MyCollection();
-        for (int i = 0; i <3 ; i++) {
-            secondCollection.add(collection.getElementAt(i));
+        for (int i = 0; i < 3; i++) {
+            secondCollection.add(collection.get(i));
         }
 
         System.out.println(collection.size());
 
-        for (int i = 0; i <collection.size() ; i++) {
-            System.out.println(collection.getElementAt(i).toString());
+        for (int i = 0; i < collection.size(); i++) {
+            System.out.println(collection.get(i).toString());
         }
 
         collection.retainAll(secondCollection);
 
         System.out.println(collection.size());
 
-        for (int i = 0; i <collection.size() ; i++) {
-            System.out.println(collection.getElementAt(i).toString());
+        for (int i = 0; i < collection.size(); i++) {
+            System.out.println(collection.get(i).toString());
         }
-
     }
+
 }
+
 
 

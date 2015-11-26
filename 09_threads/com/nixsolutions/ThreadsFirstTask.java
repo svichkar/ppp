@@ -19,6 +19,6 @@ public class ThreadsFirstTask {
         service.submit(producer);
         service.submit(evenConsumer);
         service.submit(unEvenConsumer);
-        service.shutdownNow();
+        service.shutdown();
     }
 }

@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * the class implements Collection interface with addition of custom method
@@ -214,7 +215,7 @@ public class CustomCollection<E> implements Collection<E> {
 			if (this.hasNext()) {
 				return (E) storage[index++];
 			} else {
-				return null;
+				throw new NoSuchElementException();
 			}
 		}
 

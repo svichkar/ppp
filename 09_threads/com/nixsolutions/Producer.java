@@ -15,7 +15,13 @@ class Producer implements Runnable {
     }
 
     public void run() {
-        while (queue.offer(random.nextInt(500))) ;
+        for (int i = 0; i <100 ; i++) {
+            try {
+                queue.put(random.nextInt(500));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

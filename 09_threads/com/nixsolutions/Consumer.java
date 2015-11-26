@@ -17,16 +17,19 @@ class Consumer implements Runnable {
 
     public void run() {
         while (queue.peek() == null) ;
-        for (Integer i : queue) {
-            Integer temp = i;
-            if (even) {
-                if (temp % 2 == 0) {
-                    System.out.println("Even: " + temp);
+        while (queue.peek() != null) {
+            try {
+                if (even) {
+                    if (queue.peek() % 2 == 0) {
+                        System.out.println("Even: " + queue.take());
+                    }
+                } else {
+                    if (queue.peek() % 2 == 1) {
+                        System.out.println("UnEven: " + queue.take());
+                    }
                 }
-            } else {
-                if (temp % 2 == 1) {
-                    System.out.println("UnEven: " + temp);
-                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

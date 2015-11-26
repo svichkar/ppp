@@ -31,7 +31,7 @@ public class CustomSaveLogging implements exception.Save {
             writer.write(text);
             writer.flush();
         } catch (IOException e) {
-            LOGGER.error("file or stream are not created");
+            LOGGER.error("file or stream are not created", e);
             throw new RuntimeException(e);
         } finally {
             try {

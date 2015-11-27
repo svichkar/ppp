@@ -2,7 +2,6 @@ package com.nixsolutions;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,10 +11,19 @@ public class CopyAll {
 
 	public static void main(String[] args) {
 
-		File original = new File("D:\\tduty\\lab11_io\\folder_4");
-		File copyTo = new File("d:\\all\\Lab11_io_copy\\rtest");
-		
-		getAndCopy(original, copyTo);
+		File original = new File(
+				"/Users/evgeniykryzhanovskiy/Documents/workspace/");
+		File copyTo = new File(
+				"/Users/evgeniykryzhanovskiy/Documents/test_of_the_io");
+		System.out.println("Copy will be executed for the next: \nCopy from: "
+				+ original.getAbsolutePath() + "\nCopy to: "
+				+ copyTo.getAbsolutePath());
+
+		try {
+			getAndCopy(original, copyTo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -28,34 +36,35 @@ public class CopyAll {
 	 *            a path to which all content of the original folder will be
 	 *            copied
 	 */
-	public static void getAndCopy(File orig, File copy) {
-		if (!orig.exists()) {
-			System.out.println(
-					"please check the original directory, it is not correct");
-		} else if (orig.isDirectory()) {
+	public static void getAndCopy(File orig, File copy) throws IOException {
+		if (orig.isDirectory()) {
 			if (!copy.exists()) {
 				copy.mkdirs();
-				File[] files = orig.listFiles();
-				for (File fil : files) {
+				System.out.println(
+						"folder " + orig.getName() + " was copied from "
+								+ orig.getParent() + " to " + copy.getParent());
+			}
+			File[] files = orig.listFiles();
+			for (File fil : files) {
+				if (fil.compareTo(copy) != 0) {
 					getAndCopy(new File(orig, fil.getName()),
 							new File(copy, fil.getName()));
 				}
 			}
 		} else {
-			try (InputStream in = new FileInputStream(orig);
-					OutputStream out = new FileOutputStream(copy);) {
+			InputStream in = new FileInputStream(orig);
+			OutputStream out = new FileOutputStream(copy);
+			byte[] buffer = new byte[1024];
+			int length;
 
-				byte[] buffer = new byte[1024];
-
-				int length;
-				while ((length = in.read(buffer)) > 0) {
-					out.write(buffer, 0, length);
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			while ((length = in.read(buffer)) > 0) {
+				out.write(buffer, 0, length);
 			}
+
+			in.close();
+			out.close();
+			System.out.println("file " + orig.getName() + " was copied from "
+					+ orig.getParent() + " to " + copy.getParent());
 		}
 	}
 }

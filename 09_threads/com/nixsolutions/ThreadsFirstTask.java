@@ -8,8 +8,7 @@ import java.util.concurrent.*;
 
 public class ThreadsFirstTask {
     public static void main(String[] args) {
-        int capacity = 100;
-        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(capacity);
+        BlockingQueue<Integer> queue = new LinkedBlockingQueue<>();
 
         Producer producer = new Producer(queue);
         Consumer evenConsumer = new Consumer(queue, true);

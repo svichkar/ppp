@@ -60,7 +60,7 @@ public class Consumer implements Runnable {
                 }
             }
         }
-        System.out.print("Done\n");
+        System.out.print("Consumer: Done\n");
     }
 
     /*@Override

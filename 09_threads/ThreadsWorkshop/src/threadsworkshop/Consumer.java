@@ -44,7 +44,7 @@ public class Consumer implements Runnable {
         while (!Thread.currentThread().isInterrupted() && this.remainingDequeue.get() > 0) {
             boolean locked = false;
             try {
-                locked = this.LOCK.tryLock();
+                locked = Consumer.LOCK.tryLock();
                 if (!this.getQueue().isEmpty() && locked) {
                     if (this.even == (this.getQueue().element() % 2 == 0)) {
                         System.out.println("Consumer '" + (this.even ? "even" : "odd") + "': "
@@ -56,7 +56,7 @@ public class Consumer implements Runnable {
                 throw new RuntimeException(ex);
             } finally {
                 if (locked) {
-                    this.LOCK.unlock();
+                    Consumer.LOCK.unlock();
                 }
             }
         }

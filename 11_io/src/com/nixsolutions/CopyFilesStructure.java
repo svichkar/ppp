@@ -13,107 +13,52 @@ import java.util.Random;
  */
 
 public class CopyFilesStructure {
-    public static final int DEPTH = 3;
-    public static final int FOLDER_COUNT = 10;
-    public static final String ROOT = "testFolder";
+
+    public static final int DIR_COUNT = 10;
+    public static final String ROOT_DIR = "testFolder";
 
     public static void main(String[] args) {
 
-        createFileStructure(ROOT, DEPTH, FOLDER_COUNT);
+        File srcFolder = null;
 
-        File srcFolder = new File(ROOT);
+        try {
+            srcFolder = createFileStructure(ROOT_DIR, DIR_COUNT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Files tree was not created. Check error and try again.");
+            System.exit(0);
+        }
+
         File destFolder = new File("destinationFolder");
 
-        //make sure source exists
-        if (!srcFolder.exists()) {
-
-            System.out.println("Directory does not exist.");
-            //just exit
+        try {
+            copyFolder(srcFolder, destFolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Folder cannot be copied. Check error and try again.");
             System.exit(0);
-
-        } else {
-
-            try {
-                copyFolder(srcFolder, destFolder);
-            } catch (IOException e) {
-                e.printStackTrace();
-                //error, just exit
-                System.exit(0);
-            }
         }
 
         System.out.println("Done");
     }
 
-    private static void createFileStructure(String rootName, int depth, int count) {
-
-        int folderCount = 0;
-
-        File root = new File(rootName);
-        root.mkdir();
-
-        while (folderCount != count) {
-
-            Random random = new Random();
-
-            int index = random.nextInt(2);
-
-            File file;
-            String fileName = String.valueOf(random.nextInt(1000000000));
-
-            switch (index) {
-
-                case 0: {
-                    file = new File(root.getPath() + "/file_" + fileName);
-                    try {
-                        file.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                }
-
-                case 1: {
-                    file = new File(root.getPath() + "/directory_" + fileName);
-                    file.mkdir();
-                    folderCount++;
-                    break;
-                }
-            }
-        }
-
-        if (root.getName().equals(ROOT)) {
-
-            for (File f : root.listFiles()) {
-                folderCount = 0;
-                if (f.isDirectory()) {
-                    while (folderCount != count) {
-                        createFileStructure(f.getPath(), DEPTH, FOLDER_COUNT);
-                        root = new File(ROOT);
-                    }
-                }
-            }
-        }
-
-    }
-
-    public static void copyFolder(File src, File dest)
-            throws IOException {
+    /**
+     * method which copies content from one directory to another
+     *
+     * @param src  - source directory to copy
+     * @param dest - destination directory to copy in
+     * @throws IOException
+     */
+    public static void copyFolder(File src, File dest) throws IOException {
 
         if (src.isDirectory()) {
 
-            //if directory not exists, create it
             if (!dest.exists()) {
                 dest.mkdir();
-                System.out.println("Directory copied from "
-                        + src + "  to " + dest);
             }
 
-            //list all the directory contents
             String files[] = src.list();
-
             for (String file : files) {
-                //construct the src and dest file structure
                 File srcFile = new File(src, file);
                 File destFile = new File(dest, file);
                 //recursive copy
@@ -122,7 +67,6 @@ public class CopyFilesStructure {
 
         } else {
             //if file, then copy it
-            //Use bytes stream to support all file types
             InputStream in = new FileInputStream(src);
             OutputStream out = new FileOutputStream(dest);
 
@@ -138,5 +82,75 @@ public class CopyFilesStructure {
             out.close();
             System.out.println("File copied from " + src + " to " + dest);
         }
+    }
+
+    /**
+     * method creates folders and files tree
+     *
+     * @param rootFolder - name of root folder
+     * @param count      - count of folder at the same level
+     * @return File of root directory
+     * @throws IOException
+     */
+    private static File createFileStructure(String rootFolder, int count) throws IOException {
+
+        File[] rootFiles = fillFolder(rootFolder, count);
+
+        for (File f : rootFiles) {
+            if (f.isDirectory()) {
+                for (File child : fillFolder(f.getPath(), count)) {
+                    if (child.isDirectory()) {
+                        fillFolder(child.getPath(), count);
+                    }
+                }
+            }
+        }
+
+        System.out.println("Files tree is created. Root directory: " + rootFolder);
+        return new File(rootFolder);
+    }
+
+    /**
+     * method creates and fills specified directory with random folders and files
+     *
+     * @param path   - name of folder
+     * @param number - count of created folders within
+     * @return File[] - array of created Files (both folders and files)
+     * @throws IOException
+     */
+    private static File[] fillFolder(String path, int number) throws IOException {
+
+        int folderCount = 0;
+
+        File root = new File(path);
+        if (!root.exists()) {
+            root.mkdir();
+        }
+
+        while (folderCount != number) {
+
+            Random random = new Random();
+            int index = random.nextInt(2);
+
+            File file;
+            String fileName = String.valueOf(random.nextInt(1000000000));
+
+            switch (index) {
+
+                case 0: {
+                    file = new File(root.getPath() + "/file_" + fileName);
+                    file.createNewFile();
+                    break;
+                }
+
+                case 1: {
+                    file = new File(root.getPath() + "/directory_" + fileName);
+                    file.mkdir();
+                    folderCount++;
+                    break;
+                }
+            }
+        }
+        return root.listFiles();
     }
 }

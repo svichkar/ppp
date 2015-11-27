@@ -11,13 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-
 /**
  *
  * @author mednorcom
  */
 public class GenericsWorkshop {
-            
+
     public static Map<String, Double> summator(Map<String, List<? extends Number>> inputMap) {
         Map<String, Double> outputMap = new HashMap<>();
         for (Map.Entry<String, List<? extends Number>> entry : inputMap.entrySet()) {
@@ -42,14 +41,14 @@ public class GenericsWorkshop {
             for (int j = 0; j < listLength; j++) {
                 testList.add(new Random().nextDouble());
             }
-
             testMap.put("testkey" + i, testList);
         }
-        System.out.println(testMap.toString());
-        
-        System.out.println(new FloatToDouble().get(12456.2123F));
-        System.out.println(new IntArrayToString().get(new Integer[]{1,2,3,4,5,6,7}));
-        
+        System.out.println("Map content: " + testMap.toString());
+        System.out.println("Summator method: " + GenericsWorkshop.summator(testMap).toString());
+        System.out.println("Float to double: " + new FloatToDouble().get(12456.2123F));
+        System.out.println("Array of Integers to string: " 
+                + new IntArrayToString().get(new Integer[]{1, 2, 3, 4, 5, 6, 7}));
+
     }
 
 }

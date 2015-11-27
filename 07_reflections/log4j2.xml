@@ -12,6 +12,10 @@
             <AppenderRef ref="Console"/>
         </Logger>
 
+        <Logger name= "CustomClassLoader" level="all" additivity="true">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
         <Root level="all" additivity="true">
             <AppenderRef ref="Console"/>
         </Root>

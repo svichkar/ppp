@@ -69,7 +69,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 	public OrderWorker createFrom(OrderWorker entity) {
 		OrderWorker entInstance = null;
 		try (Connection conn = CustomConnectionManager.getConnection()) {
-			conn.setAutoCommit(false);
 			String sql = getCreate();
 			try (Statement stmt = conn.createStatement()) {
 				int insertCount = stmt.executeUpdate(String.format(sql, entity.getValuesCommaSeparated()));
@@ -77,10 +76,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 					throw new SQLException(
 							"On creation either multiple or no records were affected. Count: " + insertCount);
 				}
-				conn.commit();
-			} catch (SQLException e) {
-				conn.rollback();
-				throw e;
 			}
 			sql = getSelectByID();
 			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -103,7 +98,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 	@Override
 	public void update(OrderWorker entity) {
 		try (Connection conn = CustomConnectionManager.getConnection()) {
-			conn.setAutoCommit(false);
 			String sql = getUpdate();
 			try (Statement stmt = conn.createStatement()) {
 				int updCount = stmt
@@ -111,10 +105,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 				if (updCount != 1) {
 					throw new SQLException("On update either multiple or no records were affected. Count: " + updCount);
 				}
-				conn.commit();
-			} catch (SQLException ex) {
-				conn.rollback();
-				throw ex;
 			}
 		} catch (SQLException ex) {
 			LOG.error(ex.getMessage());
@@ -124,7 +114,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 	@Override
 	public void delete(OrderWorker entity) {
 		try (Connection conn = CustomConnectionManager.getConnection()) {
-			conn.setAutoCommit(false);
 			String sql = getDelete();
 			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 				stmt.setInt(1, entity.getId());
@@ -134,10 +123,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 					throw new SQLException(
 							"On deletion either multiple or no records were affected. Count: " + updCount);
 				}
-				conn.commit();
-			} catch (SQLException ex) {
-				conn.rollback();
-				throw ex;
 			}
 		} catch (SQLException ex) {
 			LOG.error(ex.getMessage());

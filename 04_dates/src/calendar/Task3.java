@@ -40,7 +40,6 @@ public class Task3 {
 			year = 1999;
 		}
 		return year;
-
 	}
 
 	public static int getMonthFromKeyBoard() {

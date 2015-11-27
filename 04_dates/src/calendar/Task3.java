@@ -20,12 +20,11 @@ public class Task3 {
 
 	public static void main(String[] args) {
 
-		//LengthOfMonth();
-		// CheckMonday();
-		 //CheckFridayThirteen();
-		DifferenceInDates();
-		// AllLocalDates();
-
+		lengthOfMonth();
+		checkMonday();
+		checkFridayThirteen();
+		differenceInDates();
+		allLocalDates();
 	}
 
 	public static int getYearFromKeyBoard() {
@@ -56,7 +55,6 @@ public class Task3 {
 			month = 4;
 		}
 		return month;
-
 	}
 
 	public static int getDayFromKeyBoard() {
@@ -71,15 +69,13 @@ public class Task3 {
 			day = 15;
 		}
 		return day;
-
 	}
 
-	//// Написать метод который для указанного года выводит длину каждого месяца
-	public static void LengthOfMonth() {
+	public static void lengthOfMonth() {
 
 		System.out.println("метод который для указанного года выводит длину каждого месяца");
-
 		calendar.set(Calendar.YEAR, getYearFromKeyBoard());
+		calendar.set(calendar.DAY_OF_MONTH, 1);
 
 		for (int i = 0; i < 12; i++) {
 
@@ -89,13 +85,9 @@ public class Task3 {
 			System.out.println(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 
 		}
-
 	}
 
-	// Написать метод который для указанного месяца и года выводит список дат
-	// которые выпадают на понедельник.
-
-	public static void CheckMonday() {
+	public static void checkMonday() {
 
 		System.out.println(
 				"Написать метод который для указанного месяца и года выводит список дат которые выпадают на понедельник.");
@@ -104,9 +96,8 @@ public class Task3 {
 		int dayOfWeek;
 
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-								
 		calendar.clear();
-		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard()-1, 1);
+		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard() - 1, 1);
 
 		countDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
@@ -122,33 +113,26 @@ public class Task3 {
 		}
 	}
 
-	// Написать метод который проверяет является ли указанная дата пятницей
-	// тринадцатого.
-	public static void CheckFridayThirteen() {
+	public static void checkFridayThirteen() {
 
 		System.out.println("Написать метод который проверяет является ли указанная дата пятницей тринадцатого");
-
 		SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-				
+
 		calendar.clear();
-		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard()-1, getDayFromKeyBoard());
-		
+		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard() - 1, getDayFromKeyBoard());
+
 		if (((calendar.get(Calendar.DAY_OF_WEEK)) == 6) && ((calendar.get(Calendar.DAY_OF_MONTH)) == 13)) { // 6=FRIDAY
 
 			System.out.println("Friday 13");
 			System.out.println(df.format(calendar.getTime()));
-		}
-		else {
+		} else {
 
 			System.out.println("!=Friday 13");
 		}
 
 	}
 
-	// Написать метод который для указанной даты возвращает строку в которой
-	// написано сколько лет, месяцев, дней прошло с этой даты. Например “2 года,
-	// 1 месяц и 23 дня
-	public static void DifferenceInDates() {
+	public static void differenceInDates() {
 
 		System.out.println(
 				"Написать метод который для указанной даты возвращает строку в которой написано сколько лет, месяцев, дней прошло с этой даты.");
@@ -156,37 +140,32 @@ public class Task3 {
 		long diff;
 		long currentMillis;
 		long alldays;
-		int Years = 0;
-		int Months = 0;
-		int Days = 0;
+		int years = 0;
+		int months = 0;
+		int days = 0;
 		double DaysInYear = 365.25;
 		int DaysInMonth = 30;
 		int leftDays = 0;
 
 		currentMillis = calendar.getTimeInMillis();
-								
 		calendar.clear();
-		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard()-1, getDayFromKeyBoard());
+		calendar.set(getYearFromKeyBoard(), getMonthFromKeyBoard() - 1, getDayFromKeyBoard());
 
 		diff = currentMillis - calendar.getTimeInMillis();
-
 		alldays = TimeUnit.MILLISECONDS.toDays(diff);
 
 		leftDays = (int) (alldays % DaysInYear);
-		Years = (int) ((alldays - leftDays) / DaysInYear);
-		Days = leftDays % DaysInMonth;
-		Months = (int) (leftDays - Days) / DaysInMonth;
+		years = (int) ((alldays - leftDays) / DaysInYear);
+		days = leftDays % DaysInMonth;
+		months = (int) (leftDays - days) / DaysInMonth;
 
-		System.out.println("Years=" + Years);
-		System.out.println("Months=" + Months);
-		System.out.println("Days=" + Days);
+		System.out.println("Years=" + years);
+		System.out.println("Months=" + months);
+		System.out.println("Days=" + days);
 
 	}
 
-	// Используя локаль для Канады, Германии, Пакистана и Вьетнама вывести
-	// текущую дату в полном формате используя Date-Time API Java 8 и
-	// возможности Java 7
-	public static void AllLocalDates() {
+	public static void allLocalDates() {
 
 		System.out.println(
 				"Используя локаль для Канады, Германии, Пакистана и Вьетнама вывести текущую дату в полном формате используя Date-Time API Java 8 и возможности Java 7");
@@ -213,5 +192,4 @@ public class Task3 {
 		System.out.println("Vietnam date: " + dateFormat.format(currentDate));
 
 	}
-
 }

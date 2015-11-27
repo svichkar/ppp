@@ -18,7 +18,7 @@ public class ThreadsWorkshop {
         // TODO code application logic here
 
         AsyncEvenSort sortEven = new AsyncEvenSort(1000, 100, 2, 1);
-        //sortEven.start();
+        sortEven.start();
         
 
         DelayedStart delayedStart = new DelayedStart();

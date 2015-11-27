@@ -128,10 +128,7 @@ public class AsyncEvenSort {
         }
         while (this.getTaskList().size() > 0) {
             this.getTaskList().removeIf((Future t) -> {
-                if (t.isDone() || t.isCancelled()) {
-                    return true;
-                }
-                return false;
+                return t.isDone() || t.isCancelled();
             });
         }
         this.getExecService().shutdown();

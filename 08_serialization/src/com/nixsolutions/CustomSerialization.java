@@ -20,7 +20,10 @@ public class CustomSerialization {
 		 * Serialization
 		 */
 		try {
-			Account account = new Account(123L, "Yuriy", "Admin");
+			Account account = new Account();
+			account.setName("Yuriy");
+			account.setRole("Admin");
+			account.setID(1L);
 			System.out.println("Process of serialization is start...");
 			FileOutputStream file = new FileOutputStream("lab8.dat");
 			ObjectOutputStream oos = new ObjectOutputStream(file);
@@ -29,7 +32,8 @@ public class CustomSerialization {
 			oos.close();
 			file.close();
 			System.out.println(
-					"Process of serialization was finished. Please see file \"lab8.dat\" in the project directory.");
+					"Process of serialization was finished. Please see file \"lab8.dat\" in the project directory. Results of serialization are: "
+							+ account);
 			System.out.println("");
 		} catch (IOException e) {
 			e.printStackTrace();

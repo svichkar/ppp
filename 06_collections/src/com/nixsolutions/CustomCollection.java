@@ -13,11 +13,12 @@ import java.util.NoSuchElementException;
  */
 public class CustomCollection<E> implements Collection<E> {
 
-	/** The Constant DEFAULT_CAPACITY. */
-	private static final int DEFAULT_CAPACITY = 5;
+	/** The Constant DEFAULT */
+	private static final int DEFAULT = 1;
+	private int size = 0;
 
-	/** The mass data. */
-	private Object[] massData;
+	/** The data Collect. */
+	private Object[] dataCollect;
 
 	/** The b. */
 	private boolean b = false;
@@ -29,7 +30,7 @@ public class CustomCollection<E> implements Collection<E> {
 	 *             the exception
 	 */
 	public CustomCollection() throws Exception {
-		this.massData = new Object[DEFAULT_CAPACITY];
+		dataCollect = (E[]) new Object[DEFAULT];
 	}
 
 	/*
@@ -40,12 +41,12 @@ public class CustomCollection<E> implements Collection<E> {
 	@Override
 	public boolean add(Object e) {
 		try {
-			Object[] temp = massData.clone();
-			massData = new Object[temp.length + 1];
+			Object[] temp = dataCollect.clone();
+			dataCollect = new Object[temp.length + 1];
 			for (int i = 0; i < temp.length; i++) {
-				massData[i] = temp[i];
+				dataCollect[i] = temp[i];
 			}
-			massData[massData.length - 1] = e;
+			dataCollect[dataCollect.length - 1] = e;
 		} catch (Exception ex) {
 			return false;
 		}
@@ -72,7 +73,7 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public void clear() {
-		for (Object i : massData) {
+		for (Object i : dataCollect) {
 			i = null;
 		}
 	}
@@ -84,7 +85,7 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean contains(Object o) {
-		for (Object ob : massData) {
+		for (Object ob : dataCollect) {
 			if (ob.equals(o)) {
 				b = true;
 			} else {
@@ -101,17 +102,15 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		int quantity = 0;
-		for (Object obj : c) {
-			if (contains(obj)) {
-				quantity++;
-			}
+		boolean status = true;
+		for (Object object : c) {
+			if (!this.contains(object)) {
+				status = false;
 
+				break;
+			}
 		}
-		if (c.size() == quantity) {
-			return true;
-		}
-		return false;
+		return status;
 
 	}
 
@@ -122,7 +121,7 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		if (massData.length != 0) {
+		if (size != 0) {
 			return false;
 		} else {
 			return true;
@@ -146,7 +145,7 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean remove(Object o) {
-		Object[] temp = massData.clone();
+		Object[] temp = dataCollect.clone();
 		for (Object ob : temp) {
 			if (ob.equals(o)) {
 				remove(o);
@@ -165,11 +164,12 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public boolean removeAll(Collection<?> c) {
+		int initialSize = dataCollect.length;
 		for (Object o : c) {
-			remove(o);
-			b = true;
+			while (this.remove(o)) {
+			}
 		}
-		return b;
+		return initialSize != dataCollect.length;
 	}
 
 	/*
@@ -180,7 +180,7 @@ public class CustomCollection<E> implements Collection<E> {
 	@Override
 	public boolean retainAll(Collection<?> c) {
 		boolean result = false;
-		for (Object obj : massData) {
+		for (Object obj : dataCollect) {
 			if (!c.contains(obj)) {
 				remove(obj);
 				result = true;
@@ -196,7 +196,8 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public int size() {
-		return massData.length;
+		return size;
+		
 	}
 
 	/*
@@ -206,7 +207,9 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public Object[] toArray() {
-		return Arrays.copyOf(massData, massData.length);
+		Object[] array = new Object[size];
+		System.arraycopy(dataCollect, 0, array, 0, size);
+		return array;
 	}
 
 	/*
@@ -216,7 +219,7 @@ public class CustomCollection<E> implements Collection<E> {
 	 */
 	@Override
 	public <T> T[] toArray(T[] a) {
-		Object[] temp = massData.clone();
+		Object[] temp = dataCollect.clone();
 		return (T[]) temp.clone();
 	}
 
@@ -238,7 +241,7 @@ public class CustomCollection<E> implements Collection<E> {
 		 */
 		@Override
 		public boolean hasNext() {
-			if (actualIndex < massData.length) {
+			if (actualIndex < dataCollect.length) {
 				return true;
 			}
 			return false;
@@ -252,7 +255,7 @@ public class CustomCollection<E> implements Collection<E> {
 		@Override
 		public E next() {
 			if (this.hasNext()) {
-				E current = (E) massData[actualIndex];
+				E current = (E) dataCollect[actualIndex];
 				actualIndex++;
 				return current;
 			} else {

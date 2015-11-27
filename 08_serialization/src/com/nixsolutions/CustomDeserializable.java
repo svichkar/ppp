@@ -27,8 +27,8 @@ public class CustomDeserializable {
 			Account accountDeSer = (Account) ois.readObject();
 			ois.close();
 			file.close();
-			System.out.println(
-					"Process of deserialization was finished. Results of deserialization are: " + accountDeSer);
+			System.out.println("Process of deserialization was finished. Results of deserialization are: "
+					+ accountDeSer);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

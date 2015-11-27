@@ -4,24 +4,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
-import java.util.Set;
-
-import static org.reflections.ReflectionUtils.*;
-
 
 /**
  * Created by Serko on 27.11.2015.
  */
-public class MyReflectionTask1Utils {
+public class MyReflectionTask1Reflect {
     private static final Logger LOGGER = LogManager.getRootLogger();
 
     public static void main(String[] args) {
         LOGGER.entry();
         ForTestObjects test = new ForTestObjects("name", 24, true, 12.0);
-        Set<Field> fields = getAllFields(test.getClass());
-        for (Field f : fields) {
+        Class c = test.getClass();
+        Field[] array = c.getDeclaredFields();
+        for (int i = 0; i < array.length; i++) {
             try {
-                LOGGER.trace(getField(test, f.getName()));
+                LOGGER.trace(getField(test, array[i].getName()));
             } catch (IllegalAccessException | NoSuchFieldException e) {
                 LOGGER.error(e);
             }
@@ -30,11 +27,17 @@ public class MyReflectionTask1Utils {
     }
 
     public static Object getField(Object object, String fieldName) throws IllegalAccessException, NoSuchFieldException {
-        Set<Field> fields = getFields(object.getClass(), withName(fieldName), withAnnotation(Public.class));
-        for (Field f : fields) {
-            f.setAccessible(true);
-            return f.get(object);
+        Class c = object.getClass();
+        try {
+            Field field = c.getDeclaredField(fieldName);
+            if (field.isAnnotationPresent(Public.class)) {
+                field.setAccessible(true);
+                return field.get(object);
+            } else {
+                throw new IllegalAccessException("Haven't @Public annotation");
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw e;
         }
-        throw new IllegalAccessException("Haven't @Public annotation");
     }
 }

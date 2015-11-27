@@ -11,6 +11,7 @@ public class ForTestObjects {
     private String field0;
     @Public
     private int field1;
+    @Deprecated
     private boolean field2;
     private double field3;
     private static final Logger LOGGER = LogManager.getLogger(ForTestObjects.class);

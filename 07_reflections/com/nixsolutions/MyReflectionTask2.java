@@ -20,7 +20,7 @@ public class MyReflectionTask2  {
         } catch (ClassNotFoundException e) {
             LOGGER.error(e);
         }
-        LOGGER.exit("Class loaded");
+        LOGGER.exit();
 
     }
 }

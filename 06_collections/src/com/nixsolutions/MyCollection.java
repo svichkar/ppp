@@ -199,10 +199,7 @@ public class MyCollection<E> implements Collection<E> {
      */
     @Override
     public void clear() {
-        MyIterator iter = new MyIterator();
-        while(iter.hasNext()){
-            iter.remove();
-        }
+        collectSize = 0;
     }
 
     /**

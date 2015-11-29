@@ -54,6 +54,10 @@ public class Main {
         System.out.printf("Check retainAll:\n");
         printCollectionElements(strCollection1);
 
+        strCollection1.clear();
+        System.out.printf("\nAfter clear():\n");
+        printCollectionElements(strCollection1);
+
     }
 
     public static <T> void printCollectionElements(MyCollection<T> collection){

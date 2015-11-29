@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 
-import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
+import org.dbunit.DatabaseUnitException;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -18,31 +19,28 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2DataTypeFactory;
-import org.dbunit.operation.DatabaseOperation;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.app.ConnectionManager;
-import com.nixsolutions.dao.impl.CarDAOImpl;
-import com.nixsolutions.dao.impl.OrderStatusDAOImpl;
 import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
-import com.nixsolutions.entities.Car;
-import com.nixsolutions.entities.OrderInWork;
-import com.nixsolutions.entities.OrderStatus;
+import com.nixsolutions.dao.impl.StatusDAOImpl;
+import com.nixsolutions.entities.Status;
 
-public class OrderStatusDbTest extends DBTestCase {
+public class StatusDbTest extends DBTestCase {
 
 	private String pathToFile;
 	private QueryDataSet partialDS;
 	private ServiceStationDAOFactoryImpl ssFactory;
 
-	public OrderStatusDbTest() throws Exception {
+	public StatusDbTest() throws ClassNotFoundException, DatabaseUnitException,
+			SQLException {
 		super();
 		Class cls = Class.forName("org.h2.Driver");
 		// /path to xml file
 		pathToFile = cls.getClassLoader()
-				.getResource("com/nixsolutions/car.xml").getFile();
+				.getResource("com/nixsolutions/status.xml").getFile();
 
 		// define default settings
 		System.setProperty(
@@ -66,26 +64,13 @@ public class OrderStatusDbTest extends DBTestCase {
 
 		// init factory
 		ssFactory = new ServiceStationDAOFactoryImpl();
-
 		partialDS = new QueryDataSet(idbconn);
-		partialDS.addTable("ORDER_STATUS", "SELECT * FROM SQLLAB.order_status");
+		partialDS.addTable("STATUS", "SELECT * FROM SQLLAB.status");
 	}
 
 	@Override
 	protected IDataSet getDataSet() throws Exception {
 		return new FlatXmlDataSetBuilder().build(new File(pathToFile));
-	}
-
-	protected DatabaseOperation getSetUpOperation() throws Exception {
-		return DatabaseOperation.REFRESH;
-	}
-
-	protected DatabaseOperation getTearDownOperation() throws Exception {
-		return DatabaseOperation.NONE;
-	}
-
-	protected void setUpDatabaseConfig(DatabaseConfig config) {
-
 	}
 
 	@Before
@@ -100,21 +85,48 @@ public class OrderStatusDbTest extends DBTestCase {
 	}
 
 	@Test
-	public void testAddingOneOrderStatus() throws DataSetException,
-			SQLException, Exception {
-		OrderStatusDAOImpl osDAO = (OrderStatusDAOImpl) ssFactory
-				.getDao(OrderStatus.class);
-		OrderStatus os1 = new OrderStatus();
-		os1.setOrder_status_name("Test status");
+	public void testAddStatus() throws Exception {
+		StatusDAOImpl sDAO = (StatusDAOImpl) ssFactory.getDao(Status.class);
+		Status s1 = new Status();
+		s1.setStatus_name(UUID.randomUUID().toString());
 
-		osDAO.create(os1);
+		sDAO.create(s1);
 
-		IDataSet ds = getConnection().createDataSet(
-				new String[] { "ORDER_STATUS" });
-		ITable tActual = ds.getTable("ORDER_STATUS");
+		IDataSet ds = getConnection().createDataSet(new String[] { "STATUS" });
+		ITable tActual = ds.getTable("STATUS");
+		ITable tExpectedWorker = getDataSet().getTable("STATUS");
 
-		Assert.assertEquals(os1.getOrder_status_name(), tActual.getValue(
-				tActual.getRowCount() - 1, "order_status_name"));
+		Assert.assertNotEquals(tActual, tExpectedWorker);
 	}
 
+	@Test
+	public void testUpdateStatus() throws Exception {
+		StatusDAOImpl sDAO = (StatusDAOImpl) ssFactory.getDao(Status.class);
+		Status s1 = sDAO.getAll().get(sDAO.getAll().size() - 1);
+		s1.setStatus_name(String.format("Bugagag status %s", UUID.randomUUID()
+				.toString()));
+
+		sDAO.update(s1);
+
+		IDataSet ds = getConnection().createDataSet(new String[] { "STATUS" });
+		ITable tActual = ds.getTable("STATUS");
+		ITable tExpectedWorker = getDataSet().getTable("STATUS");
+
+		Assert.assertNotEquals(tActual.getValue(tActual.getRowCount() - 1,
+				"status_name"), tExpectedWorker.getValue(
+				tExpectedWorker.getRowCount() - 1, "status_name"));
+	}
+
+	@Test
+	public void testDeleteStatus() throws Exception {
+		StatusDAOImpl sDAO = (StatusDAOImpl) ssFactory.getDao(Status.class);
+		Status s1 = sDAO.getAll().get(sDAO.getAll().size() - 1);
+		sDAO.delete(s1);
+
+		IDataSet ds = getConnection().createDataSet(new String[] { "STATUS" });
+		ITable tActual = ds.getTable("STATUS");
+		ITable tExpectedWorker = getDataSet().getTable("STATUS");
+
+		Assert.assertNotEquals(tActual, tExpectedWorker);
+	}
 }

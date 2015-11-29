@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 
-import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
+import org.dbunit.DatabaseUnitException;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
@@ -24,25 +25,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.app.ConnectionManager;
-import com.nixsolutions.dao.impl.CarDAOImpl;
-import com.nixsolutions.dao.impl.OrderStatusDAOImpl;
 import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
-import com.nixsolutions.entities.Car;
-import com.nixsolutions.entities.OrderInWork;
-import com.nixsolutions.entities.OrderStatus;
+import com.nixsolutions.dao.impl.WorkerDAOImpl;
+import com.nixsolutions.entities.Worker;
 
-public class OrderStatusDbTest extends DBTestCase {
+public class WorkerDbTest extends DBTestCase {
 
 	private String pathToFile;
 	private QueryDataSet partialDS;
 	private ServiceStationDAOFactoryImpl ssFactory;
 
-	public OrderStatusDbTest() throws Exception {
+	public WorkerDbTest() throws ClassNotFoundException, DatabaseUnitException,
+			SQLException {
 		super();
 		Class cls = Class.forName("org.h2.Driver");
 		// /path to xml file
 		pathToFile = cls.getClassLoader()
-				.getResource("com/nixsolutions/car.xml").getFile();
+				.getResource("com/nixsolutions/worker.xml").getFile();
 
 		// define default settings
 		System.setProperty(
@@ -66,9 +65,8 @@ public class OrderStatusDbTest extends DBTestCase {
 
 		// init factory
 		ssFactory = new ServiceStationDAOFactoryImpl();
-
 		partialDS = new QueryDataSet(idbconn);
-		partialDS.addTable("ORDER_STATUS", "SELECT * FROM SQLLAB.order_status");
+		partialDS.addTable("WORKER", "SELECT * FROM SQLLAB.worker");
 	}
 
 	@Override
@@ -100,21 +98,51 @@ public class OrderStatusDbTest extends DBTestCase {
 	}
 
 	@Test
-	public void testAddingOneOrderStatus() throws DataSetException,
-			SQLException, Exception {
-		OrderStatusDAOImpl osDAO = (OrderStatusDAOImpl) ssFactory
-				.getDao(OrderStatus.class);
-		OrderStatus os1 = new OrderStatus();
-		os1.setOrder_status_name("Test status");
+	public void testAddWorker() throws Exception {
+		WorkerDAOImpl wDAO = (WorkerDAOImpl) ssFactory.getDao(Worker.class);
+		Worker w1 = new Worker();
+		w1.setF_name("Test");
+		w1.setL_name("Test2");
+		w1.setSpec_id(1);
+		w1.setStatus_id(3);
+		wDAO.create(w1);
 
-		osDAO.create(os1);
+		IDataSet ds = getConnection().createDataSet(new String[] { "WORKER" });
+		ITable tActual = ds.getTable("WORKER");
 
-		IDataSet ds = getConnection().createDataSet(
-				new String[] { "ORDER_STATUS" });
-		ITable tActual = ds.getTable("ORDER_STATUS");
+		ITable tExpectedWorker = getDataSet().getTable("WORKER");
 
-		Assert.assertEquals(os1.getOrder_status_name(), tActual.getValue(
-				tActual.getRowCount() - 1, "order_status_name"));
+		Assert.assertNotEquals(tActual, tExpectedWorker);
+	}
+
+	@Test
+	public void testUpdateWorker() throws Exception {
+		WorkerDAOImpl wDAO = (WorkerDAOImpl) ssFactory.getDao(Worker.class);
+		Worker w1 = wDAO.getAll().get(wDAO.getAll().size() - 1);
+		w1.setL_name(UUID.randomUUID().toString());
+		wDAO.update(w1);
+
+		IDataSet ds = getConnection().createDataSet(new String[] { "WORKER" });
+		ITable tActual = ds.getTable("WORKER");
+		ITable tExpectedWorker = getDataSet().getTable("WORKER");
+
+		Assert.assertNotEquals(tActual.getValue(
+				tExpectedWorker.getRowCount() - 1, "l_name"), tExpectedWorker
+				.getValue(tExpectedWorker.getRowCount() - 1, "l_name"));
+	}
+
+	@Test
+	public void testDeleteWorker() throws Exception {
+		WorkerDAOImpl wDAO = (WorkerDAOImpl) ssFactory.getDao(Worker.class);
+		Worker w1 = wDAO.getAll().get(wDAO.getAll().size() - 1);
+
+		wDAO.delete(w1);
+
+		IDataSet ds = getConnection().createDataSet(new String[] { "WORKER" });
+		ITable tActual = ds.getTable("WORKER");
+		ITable tExpectedWorker = getDataSet().getTable("WORKER");
+
+		Assert.assertNotEquals(tActual, tExpectedWorker);
 	}
 
 }

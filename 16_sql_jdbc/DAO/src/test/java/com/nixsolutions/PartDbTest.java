@@ -1,9 +1,5 @@
 package com.nixsolutions;
 
-import h2.CarDAOImpl;
-import h2.PartDAOImpl;
-import h2.ServiceStationDAOFactoryImpl;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,15 +24,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.Car;
-import entities.Part;
+import com.nixsolutions.app.ConnectionManager;
+import com.nixsolutions.dao.impl.CarDAOImpl;
+import com.nixsolutions.dao.impl.PartDAOImpl;
+import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
+import com.nixsolutions.entities.Car;
+import com.nixsolutions.entities.Part;
 
 public class PartDbTest extends DBTestCase {
 
 	private String pathToFile;
 	private QueryDataSet partialDS;
 	private ServiceStationDAOFactoryImpl ssFactory;
-	private ConnectionManager connMgr;
 
 	public PartDbTest() throws Exception {
 		super();
@@ -51,7 +50,7 @@ public class PartDbTest extends DBTestCase {
 				"org.h2.Driver");
 		System.setProperty(
 				PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL,
-				"jdbc:h2:tcp://localhost/~/sqldb");
+				"jdbc:h2:tcp://localhost/~/sqllab");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME,
 				"sa");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD,
@@ -59,9 +58,8 @@ public class PartDbTest extends DBTestCase {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA,
 				"SQLLAB");
 
-		connMgr = new ConnectionManager();
 		IDatabaseConnection idbconn = new DatabaseConnection(
-				connMgr.getConnection());
+				ConnectionManager.getConnection());
 		idbconn.getConfig().setProperty(
 				DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
 				new H2DataTypeFactory());
@@ -103,8 +101,7 @@ public class PartDbTest extends DBTestCase {
 
 	@Test
 	public void testAddPart() throws DataSetException, SQLException, Exception {
-		PartDAOImpl partDAO = (PartDAOImpl) ssFactory.getDao(
-				connMgr.getConnection(), Part.class);
+		PartDAOImpl partDAO = (PartDAOImpl) ssFactory.getDao(Part.class);
 		Part p1 = new Part();
 		p1.setPart_name("Bolt");
 		p1.setAmount(1000);
@@ -121,15 +118,14 @@ public class PartDbTest extends DBTestCase {
 	@Test
 	public void testUpdatePart() throws DataSetException, SQLException,
 			Exception {
-		PartDAOImpl partDAO = (PartDAOImpl) ssFactory.getDao(
-				connMgr.getConnection(), Part.class);
+		PartDAOImpl partDAO = (PartDAOImpl) ssFactory.getDao(Part.class);
 		Part p1 = new Part();
 		p1.setPart_name("Bolt");
 		p1.setAmount(1000);
 		p1.setVendor("XTZ");
 		partDAO.create(p1);
 
-		Part p2 = partDAO.findByName(p1.getPart_name());
+		Part p2 = partDAO.getAll().get(partDAO.getAll().size()-1);
 		p2.setAmount(2000);
 		partDAO.update(p2);
 
@@ -139,5 +135,4 @@ public class PartDbTest extends DBTestCase {
 		Assert.assertEquals(BigInteger.valueOf(p2.getAmount()),
 				tActual.getValue(tActual.getRowCount() - 1, "amount"));
 	}
-
 }

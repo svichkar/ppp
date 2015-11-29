@@ -1,8 +1,5 @@
 package com.nixsolutions;
 
-import h2.CustomerDAOImpl;
-import h2.ServiceStationDAOFactoryImpl;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,13 +21,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.Customer;
+import com.nixsolutions.app.ConnectionManager;
+import com.nixsolutions.dao.impl.CustomerDAOImpl;
+import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
+import com.nixsolutions.entities.Customer;
 
 public class CustomerDbTest extends DBTestCase {
 	private String pathToFile;
 	private QueryDataSet partialDS;
 	private ServiceStationDAOFactoryImpl ssFactory;
-	private ConnectionManager connMgr;
 
 	public CustomerDbTest() throws Exception {
 		super();
@@ -45,7 +44,7 @@ public class CustomerDbTest extends DBTestCase {
 				"org.h2.Driver");
 		System.setProperty(
 				PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL,
-				"jdbc:h2:tcp://localhost/~/sqldb");
+				"jdbc:h2:tcp://localhost/~/sqllab");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME,
 				"sa");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD,
@@ -53,9 +52,8 @@ public class CustomerDbTest extends DBTestCase {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA,
 				"SQLLAB");
 
-		connMgr = new ConnectionManager();
 		IDatabaseConnection idbconn = new DatabaseConnection(
-				connMgr.getConnection());
+				ConnectionManager.getConnection());
 		idbconn.getConfig().setProperty(
 				DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
 				new H2DataTypeFactory());
@@ -97,8 +95,8 @@ public class CustomerDbTest extends DBTestCase {
 
 	@Test
 	public void testAddingOneMoreCustomer() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) ssFactory.getDao(
-				connMgr.getConnection(), Customer.class);
+		CustomerDAOImpl customerDAO = (CustomerDAOImpl) ssFactory
+				.getDao(Customer.class);
 		Customer customer1 = new Customer();
 		customer1.setf_name("Igor");
 		customer1.setl_name("Petrov");
@@ -117,15 +115,16 @@ public class CustomerDbTest extends DBTestCase {
 
 	@Test
 	public void testUpdateCustomer() throws DataSetException, Exception {
-		CustomerDAOImpl customerDAO = (CustomerDAOImpl) ssFactory.getDao(
-				connMgr.getConnection(), Customer.class);
+		CustomerDAOImpl customerDAO = (CustomerDAOImpl) ssFactory
+				.getDao(Customer.class);
 		Customer customer1 = new Customer();
 		customer1.setf_name("Igor");
 		customer1.setl_name("Petrov");
 		customer1.setphone("+295543534543");
 		customerDAO.create(customer1);
 
-		Customer customer2 = customerDAO.findByName(customer1.getL_name());
+		Customer customer2 = customerDAO.getAll().get(
+				customerDAO.getAll().size() - 1);
 		customer2.setphone("+123");
 
 		customerDAO.update(customer2);
@@ -141,5 +140,4 @@ public class CustomerDbTest extends DBTestCase {
 		Assert.assertNotEquals(customer1.getPhone(),
 				tActualCust.getValue(tActualCust.getRowCount() - 1, "phone"));
 	}
-
 }

@@ -1,9 +1,5 @@
 package com.nixsolutions;
 
-import h2.CustomerDAOImpl;
-import h2.OrderInWorkDAOImpl;
-import h2.ServiceStationDAOFactoryImpl;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,14 +24,17 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.Customer;
-import entities.OrderInWork;
+import com.nixsolutions.app.ConnectionManager;
+import com.nixsolutions.dao.impl.CustomerDAOImpl;
+import com.nixsolutions.dao.impl.OrderInWorkDAOImpl;
+import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
+import com.nixsolutions.entities.Customer;
+import com.nixsolutions.entities.OrderInWork;
 
 public class OrderInWorkDbTest extends DBTestCase {
 	private String pathToFile;
 	private QueryDataSet partialDS;
 	private ServiceStationDAOFactoryImpl ssFactory;
-	private ConnectionManager connMgr;
 
 	public OrderInWorkDbTest() throws Exception {
 		super();
@@ -50,7 +49,7 @@ public class OrderInWorkDbTest extends DBTestCase {
 				"org.h2.Driver");
 		System.setProperty(
 				PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL,
-				"jdbc:h2:tcp://localhost/~/sqldb");
+				"jdbc:h2:tcp://localhost/~/sqllab");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME,
 				"sa");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD,
@@ -58,9 +57,8 @@ public class OrderInWorkDbTest extends DBTestCase {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA,
 				"SQLLAB");
 
-		connMgr = new ConnectionManager();
 		IDatabaseConnection idbconn = new DatabaseConnection(
-				connMgr.getConnection());
+				ConnectionManager.getConnection());
 		idbconn.getConfig().setProperty(
 				DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
 				new H2DataTypeFactory());
@@ -104,7 +102,7 @@ public class OrderInWorkDbTest extends DBTestCase {
 	@Test
 	public void testAddOrder() throws DataSetException, Exception {
 		OrderInWorkDAOImpl oiwDAO = (OrderInWorkDAOImpl) ssFactory.getDao(
-				connMgr.getConnection(), OrderInWork.class);
+				OrderInWork.class);
 		OrderInWork oiw1 = new OrderInWork();
 		oiw1.setCar_id(4);
 		oiw1.setDatetime_start(new Timestamp(new Date().getTime()));

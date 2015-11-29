@@ -36,7 +36,7 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
                 LOGGER.trace("Class " + name + " loaded");
                 return temp;
             } catch (IOException e) {
-                LOGGER.trace("Class not found in " + pathtobin, e);
+                LOGGER.trace("Class not found in " + pathtobin + "unable to get byte array", e);
                 return super.findClass(name);
             }
         } else {

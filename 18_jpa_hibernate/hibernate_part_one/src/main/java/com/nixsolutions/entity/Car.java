@@ -9,7 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Car implements Serializable {
@@ -25,7 +26,8 @@ public class Car implements Serializable {
 	private String vin;
 	@Column(name = "description", length = 200, nullable = true)
 	private String description;
-	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
 	private Customer customer;
 	
 	public void setCarId(int car_id) {

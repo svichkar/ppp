@@ -22,8 +22,37 @@ public class Part implements Serializable {
 	private String vendor;
 	@Column(name = "amount", nullable = false)
 	private long amount;
-	
-	public void setPartId(int part_id) {
+
+	public int getPart_id() {
+		return part_id;
+	}
+
+	public void setPart_id(int part_id) {
 		this.part_id = part_id;
 	}
+
+	public String getPart_name() {
+		return part_name;
+	}
+
+	public void setPart_name(String part_name) {
+		this.part_name = part_name;
+	}
+
+	public String getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
+	}
+
+	public long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
+
 }

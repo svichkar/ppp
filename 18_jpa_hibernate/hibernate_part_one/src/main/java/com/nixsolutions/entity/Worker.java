@@ -24,7 +24,7 @@ public class Worker implements Serializable {
 	@Column(name = "last_name", length = 50, nullable = false)
 	private String last_name;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "worker_specialization_id", referencedColumnName = "worker_specialization_id")
+	@JoinColumn(name = "specialization_id", referencedColumnName = "specialization_id")
 	private Worker_Specialization worker_specialization;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_id", referencedColumnName = "status_id")

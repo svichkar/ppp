@@ -15,7 +15,7 @@ public class Part implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "part_id")
-	private int part_id;
+	private long part_id;
 	@Column(name = "part_name", length = 250, nullable = false)
 	private String part_name;
 	@Column(name = "vendor", length = 100, nullable = false)
@@ -23,11 +23,11 @@ public class Part implements Serializable {
 	@Column(name = "amount", nullable = false)
 	private long amount;
 
-	public int getPart_id() {
+	public long getPart_id() {
 		return part_id;
 	}
 
-	public void setPart_id(int part_id) {
+	public void setPart_id(long part_id) {
 		this.part_id = part_id;
 	}
 

@@ -26,24 +26,22 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
-        Class<?> temp = null;
+        Class<?> temp;
         byte[] array;
-        try {
-            array = getClassFromFile(pathtobin + "\\"+ name + ".class");
-            temp = defineClass(name, array, 0, array.length);
-        } catch (IOException e) {
-            LOGGER.trace("Class not found in " + pathtobin, e);
-        } finally {
-            if (temp != null) {
-                LOGGER.trace("Class" + name + " loaded");
+        File file = new File(pathtobin + "\\"+ name + ".class");
+        if (file.exists()) {
+            try {
+                array = Files.readAllBytes(file.toPath());
+                temp = defineClass(name, array, 0, array.length);
+                LOGGER.trace("Class " + name + " loaded");
                 return temp;
-            } else {return super.findClass(name);}
+            } catch (IOException e) {
+                LOGGER.trace("Class not found in " + pathtobin, e);
+                return super.findClass(name);
+            }
+        } else {
+            LOGGER.trace("Class not found in " + pathtobin);
+            return super.findClass(name);
         }
     }
-
-    private byte[] getClassFromFile(String path) throws IOException {
-        return Files.readAllBytes(new File(path).toPath());
-    }
-
-
 }

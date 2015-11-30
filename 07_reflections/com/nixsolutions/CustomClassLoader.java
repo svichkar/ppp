@@ -28,7 +28,7 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         Class<?> temp;
         byte[] array;
-        File file = new File(pathtobin + "\\"+ name + ".class");
+        File file = new File(pathtobin + "\\"+ shortName(name) + ".class");
         if (file.exists()) {
             try {
                 array = Files.readAllBytes(file.toPath());
@@ -40,8 +40,13 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
                 return super.findClass(name);
             }
         } else {
-            LOGGER.trace("Class not found in " + pathtobin);
+            LOGGER.trace("Class not found in " + pathtobin + " loading from system class loader");
             return super.findClass(name);
         }
+    }
+
+    protected String shortName (String name) {
+        name = name.substring(name.lastIndexOf('.') + 1);
+        return name;
     }
 }

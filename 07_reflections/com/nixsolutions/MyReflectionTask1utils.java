@@ -12,7 +12,7 @@ import static org.reflections.ReflectionUtils.*;
 /**
  * Created by Serko on 27.11.2015.
  */
-public class MyReflectionTask1Utils {
+public class MyReflectionTask1utils {
     private static final Logger LOGGER = LogManager.getRootLogger();
 
     public static void main(String[] args) {

@@ -2,8 +2,8 @@ package com.nixsolutions.app;
 
 import org.hibernate.Session;
 
-import com.nixsolutions.entity.Car;
-import com.nixsolutions.entity.Role;
+import com.nixsolutions.hibernate.entity.Car;
+import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class App 

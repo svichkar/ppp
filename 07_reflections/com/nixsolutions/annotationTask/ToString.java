@@ -1,4 +1,4 @@
-package com.nixsolutions.annotationTask;
+package com.nixsolutions.annotationtask;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

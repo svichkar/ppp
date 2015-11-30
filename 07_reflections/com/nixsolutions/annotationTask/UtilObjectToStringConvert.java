@@ -1,4 +1,4 @@
-package com.nixsolutions.annotationTask;
+package com.nixsolutions.annotationtask;
 
 import java.lang.reflect.Field;
 import org.reflections.ReflectionUtils;

@@ -1,4 +1,4 @@
-package com.nixsolutions.annotationTask;
+package com.nixsolutions.annotationtask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,17 +7,17 @@ import org.apache.logging.log4j.Logger;
  * Created by rybkinrolla on 27.11.2015.
  */
 public class UtilTestConvert {
-    private static final Logger logger = LogManager.getLogger("UtilTestConvertLogger");
+    private static final Logger LOGGER = LogManager.getLogger("UtilTestConvert");
 
     public static void main(String[] args) {
         BedForConvert bed = new BedForConvert("noname", 1, 2, 0.5f);
         try {
-            logger.info(UtilObjectToStringConvert.ReflectByAnnotation(bed));
-            logger.info(UtilObjectToStringConvert.GoogleReflectByAnnotation(bed));
+            LOGGER.info(UtilObjectToStringConvert.ReflectByAnnotation(bed));
+            LOGGER.info(UtilObjectToStringConvert.GoogleReflectByAnnotation(bed));
         } catch (NoSuchFieldException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         } catch (IllegalAccessException e) {
-            logger.catching(e);
+            LOGGER.catching(e);
         }
     }
 }

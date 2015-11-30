@@ -1,4 +1,4 @@
-package com.nixsolutions.annotationTask;
+package com.nixsolutions.annotationtask;
 
 /**
  * Created by rybkinrolla on 27.11.2015.

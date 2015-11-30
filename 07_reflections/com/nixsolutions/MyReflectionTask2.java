@@ -16,10 +16,11 @@ public class MyReflectionTask2  {
         CustomClassLoader loader = new CustomClassLoader();
         loader.setPath(".\\07_reflections");
         try {
-            loader.loadClass("Arrays1");
+            loader.loadClass("com.nixsolutions.Arrays1");
         } catch (ClassNotFoundException e) {
             LOGGER.error(e);
         }
-        LOGGER.exit("Class loaded");
+
+        LOGGER.exit();
     }
 }

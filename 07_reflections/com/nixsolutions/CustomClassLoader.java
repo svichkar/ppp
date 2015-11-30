@@ -29,24 +29,19 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
         Class<?> temp;
         byte[] array;
         File file = new File(pathtobin + "\\"+ shortName(name) + ".class");
-        if (file.exists()) {
             try {
                 array = Files.readAllBytes(file.toPath());
                 temp = defineClass(name, array, 0, array.length);
                 LOGGER.trace("Class " + name + " loaded");
                 return temp;
             } catch (IOException e) {
-                LOGGER.trace("Class not found in " + pathtobin + "unable to get byte array", e);
+                LOGGER.trace("Class not found in " + pathtobin + " loading from system class loader");
                 return super.findClass(name);
             }
-        } else {
-            LOGGER.trace("Class not found in " + pathtobin + " loading from system class loader");
-            return super.findClass(name);
-        }
     }
 
     protected String shortName (String name) {
-        name = name.substring(name.lastIndexOf('.') + 1);
-        return name;
+        String substring = name.substring(name.lastIndexOf('.') + 1);
+        return substring;
     }
 }

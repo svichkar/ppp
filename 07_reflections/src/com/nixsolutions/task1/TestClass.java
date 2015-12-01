@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package com.nixsolutions.task1;
 
 /**
  * Created by konstantin on 11/30/2015.
@@ -9,6 +9,12 @@ public class TestClass {
     private String word;
     @Public
     private double course;
+
+    public TestClass () {
+        number = 10;
+        word = "Test";
+        course = 1L;
+    }
 
     public double getCourse() {
         return course;

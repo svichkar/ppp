@@ -12,8 +12,6 @@ public class Main {
 
    public static void main (String args[]) {
 
-
-
        MyClassLoader loader = new MyClassLoader();
        loader.setPath("C:\\gitRepo\\javappp\\08_serialization\\out\\production\\Serialization\\");
        Class loadClass = null;

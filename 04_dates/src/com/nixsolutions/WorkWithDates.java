@@ -108,8 +108,7 @@ public class WorkWithDates {
         Calendar oldDate = Calendar.getInstance();
         oldDate.setTime(dateOld);
 
-        if(currentDate.before(oldDate))
-        {
+        if(currentDate.before(oldDate)){
             System.out.println("You enter date from future!");
             return "You enter date from future!";
         }

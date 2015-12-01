@@ -13,7 +13,7 @@
 		<div class="head1"></div>
 		<form action="partPost.do" method="POST">
 			<c:if test="${action=='edit'}">
-			<p>Part ID: </p><input type="text" name="id" value="${part.id}" /><br>			
+			<p>Part ID: </p><input type="text" name="id" value="${part.partId}" /><br>			
 			<div class="buffer"></div>
 			</c:if>
 			<p>Part Name: </p><input type="text" name="part_name" value="${part.partName == null ? '' : part.partName}" /><br>

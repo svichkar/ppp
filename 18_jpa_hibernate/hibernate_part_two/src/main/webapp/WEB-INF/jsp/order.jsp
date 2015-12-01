@@ -43,7 +43,7 @@
 						<td colspan=3 height="40">
 							<div align="center">
 								<form>
-									<input type="hidden" name="order_id" value="${order.id}" /> <input
+									<input type="hidden" name="order_id" value="${order.orderId}" /> <input
 										type="submit" formaction="addOrderPart.do" formmethod="GET"
 										value="Add new part to order" class="input_add" />
 								</form>
@@ -57,7 +57,7 @@
 			<form action="orderPost.do" method="POST">
 				<c:if test="${action=='edit'}">
 					<p>Order ID:</p>
-					<input type="text" name="id" value="${order.id}" />
+					<input type="text" name="id" value="${order.orderId}" />
 					<br>
 					<div class="buffer"></div>
 				</c:if>
@@ -72,8 +72,8 @@
 				<p>Order Status:</p>
 				<select name="order_status_id">
 					<c:forEach var="item" items="${order_statuses}">
-						<option value="${item.id}"
-							<c:if test="${order.orderStatusId eq item.id}"> selected</c:if>>
+						<option value="${item.orderStatusId}"
+							<c:if test="${order.orderStatus..orderStatusId eq item.orderStatusId}"> selected</c:if>>
 							<c:out value="${item.orderStatusName}" />
 						</option>
 					</c:forEach>
@@ -82,8 +82,8 @@
 				<p>Car:</p>
 				<select name="car_id">
 					<c:forEach var="item" items="${cars}">
-						<option value="${item.id}"
-							<c:if test="${order.carId eq item.id}"> selected</c:if>><c:out
+						<option value="${item.carId}"
+							<c:if test="${order.carId eq item.carId}"> selected</c:if>><c:out
 								value="${item.model}" />
 							<c:out value="${item.vin}" /></option>
 					</c:forEach>
@@ -136,7 +136,7 @@
 						<td colspan=3 height="40">
 							<div align="center">
 								<form>
-									<input type="hidden" name="order_id" value="${order.id}" /> <input
+									<input type="hidden" name="order_id" value="${order.orderId}" /> <input
 										type="submit" formaction="addOrderWorker.do" formmethod="GET"
 										value="Add new worker to order" class="input_add" />
 								</form>

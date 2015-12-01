@@ -1,16 +1,16 @@
 package com.nixsolutions.bean;
 
 public class OrderPartBean {
-	private int orderId;
+	private long orderId;
 	private String partName;
-	private int usedAmount;
-	private int partId;
+	private long usedAmount;
+	private long partId;
 
-	public int getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 
@@ -22,19 +22,19 @@ public class OrderPartBean {
 		this.partName = partName;
 	}
 
-	public int getUsedAmount() {
+	public long getUsedAmount() {
 		return usedAmount;
 	}
 
-	public void setUsedAmount(int usedAmount) {
+	public void setUsedAmount(long usedAmount) {
 		this.usedAmount = usedAmount;
 	}
 
-	public int getPartId() {
+	public long getPartId() {
 		return partId;
 	}
 
-	public void setPartId(int partId) {
+	public void setPartId(long partId) {
 		this.partId = partId;
 	}
 

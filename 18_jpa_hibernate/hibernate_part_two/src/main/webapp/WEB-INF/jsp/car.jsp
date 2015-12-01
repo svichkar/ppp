@@ -13,7 +13,7 @@
 		<div class="head1"></div>
 		<form action="carPost.do" method="POST">
 			<c:if test="${action=='edit'}">
-			<p>Car ID: </p><input type="text" name="id" value="${car.id}" /><br>			
+			<p>Car ID: </p><input type="text" name="id" value="${car.carId}" /><br>			
 			<div class="buffer"></div>
 			</c:if>
 			<p>Car Description: </p><input type="text" name="description" value="${car.description == null ? '' : car.description}" /><br>
@@ -25,7 +25,7 @@
 			<p>Customer: </p>
 			<select name="customer_id">
 			<c:forEach var="item" items="${customers}">
-			<option value="${item.id}"<c:if test="${car.customerId eq item.id}"> selected</c:if>><c:out value="${item.firstName}" /> <c:out value="${item.lastName}" /></option>
+			<option value="${item.customerId}"<c:if test="${car.customer.customerId eq item.customerId}"> selected</c:if>><c:out value="${item.firstName}" /> <c:out value="${item.lastName}" /></option>
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>

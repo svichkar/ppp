@@ -1,16 +1,16 @@
 package com.nixsolutions.bean;
 
 public class OrderWorkerBean {
-	private int orderId;
+	private long orderId;
 	private String workerName;
 	private String isCompleted;
 	private int workerId;
 
-	public int getOrderId() {
+	public long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(int orderId) {
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
 

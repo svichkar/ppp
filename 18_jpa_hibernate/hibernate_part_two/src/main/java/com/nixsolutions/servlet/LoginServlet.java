@@ -7,25 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
+import com.nixsolutions.dao.UserDAO;
+import com.nixsolutions.dao.impl.DAOFactoryImpl;
 import com.nixsolutions.hibernate.entity.User;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -1714560100510914933L;
-	private static SessionFactory sf;
-	private Session session;
+	private static UserDAO userDao;
 	
 	@Override
 	public void init() {
-		sf = HibernateUtil.getSessionFactory();
-		session = sf.getCurrentSession();
+		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		userDao = daoFactory.getUserDAO();
 	}
 
 /*	@Override
@@ -45,9 +40,8 @@ public class LoginServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		Transaction tr = session.beginTransaction();
 		try {
-			User user = (User) session.createCriteria(User.class).add(Restrictions.eq("userLogin", login)).list().get(0);
+			User user = userDao.getUserByLogin(login);
 			if (password.equals(user.getUserPassword())) {
 				request.getSession().setAttribute("login", login);
 				response.sendRedirect("nav.do");
@@ -57,7 +51,6 @@ public class LoginServlet extends HttpServlet {
 			}
 		} catch (NullPointerException e) {
 			//
-			tr.rollback();
 			response.sendRedirect("");
 		}
 	}

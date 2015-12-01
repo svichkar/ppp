@@ -16,7 +16,7 @@
 			<p>Part Name: </p>
 			<select name="part_id">
 			<c:forEach var="item" items="${parts}">
-			<option value="${item.id}"<c:if test="${part.partId eq item.id}"> selected</c:if>><c:out value="${item.partName}" /></option>
+			<option value="${item.partId}"<c:if test="${part.partId eq item.partId}"> selected</c:if>><c:out value="${item.partName}" /></option>
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>

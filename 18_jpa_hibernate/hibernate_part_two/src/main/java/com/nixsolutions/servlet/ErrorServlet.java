@@ -19,10 +19,12 @@ public class ErrorServlet extends HttpServlet {
 		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 		String servletName = (String) request.getAttribute("javax.servlet.error.servlet_name");
 		String requestUri = (String) request.getAttribute("javax.servlet.error.request_uri");
+		String exceptionName = exception.getClass().getName();
 		request.setAttribute("exception", exception);
 		request.setAttribute("statusCode", statusCode);
 		request.setAttribute("servletName", servletName);
 		request.setAttribute("requestUri", requestUri);
+		request.setAttribute("exceptionName", exceptionName);
 		request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
 	}
 }

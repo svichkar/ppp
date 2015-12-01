@@ -16,7 +16,7 @@
 			<p>Worker Name: </p>
 			<select name="worker_id">
 			<c:forEach var="item" items="${workers}">
-			<option value="${item.id}"<c:if test="${worker.workerId eq item.id}"> selected</c:if>><c:out value="${item.firstName}" /> <c:out value="${item.lastName}" /></option>
+			<option value="${item.workerId}"<c:if test="${worker.workerId eq item.workerId}"> selected</c:if>><c:out value="${item.firstName}" /> <c:out value="${item.lastName}" /></option>
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>

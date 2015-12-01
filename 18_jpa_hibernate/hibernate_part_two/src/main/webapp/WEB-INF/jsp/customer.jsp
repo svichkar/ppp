@@ -13,7 +13,7 @@
 		<div class="head1"></div>
 		<form action="customerPost.do" method="POST">
 			<c:if test="${action=='edit'}">
-			<p>Customer ID: </p><input type="text" name="id" value="${customer.id}" /><br>			
+			<p>Customer ID: </p><input type="text" name="id" value="${customer.customerId}" /><br>			
 			<div class="buffer"></div>
 			</c:if>
 			<p>First Name: </p><input type="text" name="first_name" value="${customer.firstName == null ? '' : customer.firstName}" /><br>
@@ -25,7 +25,7 @@
 			<p>User Login: </p>
 			<select name="user_id">
 			<c:forEach var="item" items="${users}">
-			<option value="${item.id}" <c:if test="${customer.userId eq item.id}"> selected</c:if>><c:out value="${item.userLogin}" /></option>
+			<option value="${item.userId}" <c:if test="${customer.user.userId eq item.userId}"> selected</c:if>><c:out value="${item.userLogin}" /></option>
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>

@@ -69,4 +69,17 @@ public class Car implements Serializable {
 	public Customer getCustomer() {
 		return customer;
 	}
+
+	public Car(int carId, String model, String vin, String description, Customer customer) {
+		this.carId = carId;
+		this.model = model;
+		this.vin = vin;
+		this.description = description;
+		this.customer = customer;
+	}
+	
+	public Car() {
+		this(0, "", "", "", null);
+	}
+	
 }

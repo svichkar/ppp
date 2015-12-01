@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Customer implements Serializable {
@@ -26,7 +26,7 @@ public class Customer implements Serializable {
 	private String lastName;
 	@Column(name = "phone", length = 25, nullable = true)
 	private String phone;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
 
@@ -68,5 +68,17 @@ public class Customer implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Customer(int customerId, String firstName, String lastName, String phone, User user) {
+		this.customerId = customerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.user = user;
+	}
+	
+	public Customer() {
+		this(0, "", "", "", null);
 	}
 }

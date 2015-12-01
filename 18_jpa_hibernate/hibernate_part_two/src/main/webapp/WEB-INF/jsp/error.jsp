@@ -19,7 +19,7 @@
 			<c:if test="${statusCode eq 500}">
 			<h3>Servlet Exception Handling</h3>
 			<ul><li>Servlet Name: ${servletName}</li>
-			<li>Exception Name: ${exception.class.name}</li>
+			<li>Exception Name: ${exceptionName}</li>
 			<li>Requested URI: ${requestUri}</li>
 			<li>Exception Message: ${exception.message}</li>
 			</ul>

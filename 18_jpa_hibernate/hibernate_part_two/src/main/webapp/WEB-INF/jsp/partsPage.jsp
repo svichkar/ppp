@@ -17,13 +17,13 @@
 		</tr>
 		<c:forEach var="item" items="${parts}">
 			<tr>
-				<td><c:out value="${item.id}" /></td>
+				<td><c:out value="${item.partId}" /></td>
 				<td><c:out value="${item.partName}" /></td>
 				<td><c:out value="${item.vendor}" /></td>
 				<td><c:out value="${item.amount}" /></td>
 				<td>
 					<form method="POST">
-						<input type="hidden" name="part_id" value="${item.id}">
+						<input type="hidden" name="part_id" value="${item.partId}">
 						<input type="submit" name="action" formaction="editPart.do" value="Edit" class="input_edit">
 						<input type="submit" name="action" formaction="deletePart.do" value="Delete" class="input_edit">
 					</form>

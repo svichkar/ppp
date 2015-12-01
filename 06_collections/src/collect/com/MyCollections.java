@@ -141,18 +141,18 @@ public class MyCollections<E> implements java.util.Collection<E> {
 	@Override
 	public Object[] toArray() {
 		// TODO Auto-generated method stub
-		E[] toArrayCollect = (E[]) new Object[part];
+		E[] toArrayCollect = (E[]) new Object[size];
 		System.arraycopy(arrCollect, 0, toArrayCollect, 0, size);
 		return toArrayCollect;
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		if (a.length < size) {
+		if (a.length < size()) {
 			System.arraycopy(arrCollect, 0, a, 0, size);
 			return a;
 		} else {
-			a = (T[]) new Object[size];
+			a = (T[]) new Object[size()];
 			System.arraycopy(arrCollect, 0, a, 0, size);
 			return a;
 		}

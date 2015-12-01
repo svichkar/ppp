@@ -56,14 +56,15 @@ public class WorkWithDates {
 
     //Duration of each month in input year
     public static void outputMonthLength(int year){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setLenient(false);
-        calendar.set(Calendar.YEAR, year);
         System.out.println("We output count of days for each month of " + year + " year on follow rows:");
+        GregorianCalendar calend = new GregorianCalendar();
         for(int monthIndex = 0; monthIndex < 12; monthIndex++){
-            calendar.set(Calendar.MONTH, monthIndex);
-            System.out.println(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " has "
-                    + calendar.getActualMaximum(Calendar.DAY_OF_MONTH) + " days");
+            calend.set(year, monthIndex, 1);
+            SimpleDateFormat format = new SimpleDateFormat("MMMM");
+            Date date = calend.getTime();
+            String month = format.format(date);
+            int maxDate = calend.getActualMaximum(Calendar.DAY_OF_MONTH);
+            System.out.println(month + " has " + maxDate + " days");
         }
     }
 

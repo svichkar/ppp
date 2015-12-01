@@ -31,10 +31,12 @@ public class MyReflectionTask1utils {
 
     public static Object getField(Object object, String fieldName) throws IllegalAccessException, NoSuchFieldException {
         Set<Field> fields = getFields(object.getClass(), withName(fieldName), withAnnotation(Public.class));
-        for (Field f : fields) {
-            f.setAccessible(true);
-            return f.get(object);
+        if (!fields.isEmpty()) {
+            Field field = fields.iterator().next();
+            field.setAccessible(true);
+            return field.get(object);
+        } else {
+            throw new IllegalAccessException("Haven't @Public annotation");
         }
-        throw new IllegalAccessException("Haven't @Public annotation");
     }
 }

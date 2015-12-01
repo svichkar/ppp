@@ -11,7 +11,8 @@ public class Test {
 		FileSaver save = new FileSaver();
 		try {
 			LOG.debug("first try with valid parameters");
-			save.save("test string to save", "/Users/evgeniykryzhanovskiy/text1.txt");
+			save.save("test string to save",
+					"d:\\text1.txt");
 			LOG.debug("second try with invalid parameters, error will occure");
 			save.save("test string to save", "geniykryzhanovskiy/text.txt");
 		} catch (Exception e) {

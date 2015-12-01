@@ -41,7 +41,8 @@ public class FileSaver implements Save {
 			// 1) check if we have a correct (absolute) patch. Custom exception
 			// can be thrown
 			if (!path.isAbsolute()) {
-				throw LOG.throwing(new MyException("the path is not an absolute path, please correct and try again"));
+				throw LOG.throwing(new MyException(
+						"the path is not an absolute path, please correct and try again"));
 			}
 
 			// 2) create the file if it does not exist
@@ -50,12 +51,13 @@ public class FileSaver implements Save {
 				Files.createDirectories(path.getParent());
 				Files.createFile(path);
 				LOG.info("file {} was created", path);
-			}else {
-				LOG.warn("file {} will be rewrited", path);	
+			} else {
+				LOG.warn("file {} will be rewrited", path);
 			}
-			
+
 			// 3) write the text in to the file
-			Files.write(path, textSave.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+			Files.write(path, textSave.getBytes(),
+					StandardOpenOption.TRUNCATE_EXISTING);
 			LOG.info("file {} was sucessfully saved", path);
 		} catch (IOException e) {
 			LOG.error(e.getMessage(), e);

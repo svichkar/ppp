@@ -14,19 +14,17 @@ public class CollectionMain {
 		Object q = "abc";
 		Object s = "f";
 		Object t = "h";
+		Object k=null;
 		collection.add(o);
 		collection.add(p);
 		collection.add(q);
 		collection.add(s);
+		collection.add(p);
 		check = collection.contains(q);
 		check = collection.remove(p);
-		check = collection.contains(p);
-
 		ArrayList<String> list = new ArrayList<>(Arrays.asList("new", "list"));
 		check = collection.addAll(list);
-		check = collection.containsAll(list);
-		check = collection.retainAll(list);
-		check = collection.removeAll(list);
+		check = collection.removeAll(list);		
 		collection.add(t);
 		check = collection.isEmpty();
 		collection.clear();

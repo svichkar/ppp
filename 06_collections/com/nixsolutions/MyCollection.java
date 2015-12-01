@@ -71,29 +71,52 @@ public class MyCollection implements Collection {
 
 	@Override
 	public boolean remove(Object o) {
-		try {
-			int index = 0;
+		boolean result = false;
+		int index = 0;
+		if (o == null) {
+			for (int i = 0; i < myArray.length; i++)
+				if (myArray[i] == null) {
+					index = i;
+					break;
+				}
+			tempArray = new Object[myArray.length - 1];
+			System.arraycopy(myArray, 0, tempArray, 0, index);
+			System.arraycopy(myArray, index + 1, tempArray, index, myArray.length - index - 1);
+			myArray = tempArray;
+			result = true;
+		}
+
+		else {
+
 			for (int i = 0; i < myArray.length; i++)
 				if (myArray[i].equals(o)) {
 					index = i;
+					break;
 				}
 
 			tempArray = new Object[myArray.length - 1];
 			System.arraycopy(myArray, 0, tempArray, 0, index);
 			System.arraycopy(myArray, index + 1, tempArray, index, myArray.length - index - 1);
 			myArray = tempArray;
-			return true;
-		} catch (Exception ex) {
-			return false;
+			result = true;
 		}
+
+		return result;
+
 	}
 
 	@Override
 	public boolean removeAll(Collection c) {
 		try {
-			for (Object o : c)
-				if (this.contains(o))
-					this.remove(o);
+			tempArray = new Object[myArray.length];
+			int j = 0;
+			for (int i = 0; i < myArray.length; i++)
+				if (!c.contains(myArray[i])) {
+					tempArray[j] = myArray[i];
+					j++;
+				}
+			myArray = new Object[j];
+			System.arraycopy(tempArray, 0, myArray, 0, j);
 			return true;
 		} catch (Exception ex) {
 			return false;

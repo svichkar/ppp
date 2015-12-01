@@ -117,13 +117,13 @@ public class WorkWithDates {
         int deltaMonth = currentDate.get( Calendar.MONTH ) - oldDate.get( Calendar.MONTH );
         int deltaYear = currentDate.get( Calendar.YEAR ) - oldDate.get( Calendar.YEAR );
 
-        if ( deltaDay < 0 ) {
+        if ( deltaDay < 0 ){
             deltaDay += new GregorianCalendar(currentDate.get( Calendar.YEAR ), currentDate.get( Calendar.DAY_OF_MONTH ) - 1, 0)
                     .getActualMaximum((Calendar.DAY_OF_MONTH));
             deltaMonth--;
         }
 
-        if ( deltaMonth < 0 ) {
+        if ( deltaMonth < 0 ){
             deltaMonth += 12;
             deltaYear--;
         }
@@ -133,8 +133,7 @@ public class WorkWithDates {
     }
 
     // Print date using Java 8 and Java 7 in full format for different locals
-    public static void outCurrentDateForDiffLocals()
-    {
+    public static void outCurrentDateForDiffLocals(){
         Locale localePakistan = new Locale("en", "PK"); //we use English because it is one of official pakistan's language
         Locale localeVietnam = new Locale("vi", "VN");
 
@@ -155,7 +154,5 @@ public class WorkWithDates {
         System.out.println("Germany local: " + DateFormat.getDateInstance(DateFormat.FULL, Locale.GERMANY).format(currentDate));
         System.out.println("Pakistan local: " + DateFormat.getDateInstance(DateFormat.FULL, localePakistan).format(currentDate));
         System.out.println("Vietnam local: " + DateFormat.getDateInstance(DateFormat.FULL, localeVietnam).format(currentDate));
-
     }
-
 }

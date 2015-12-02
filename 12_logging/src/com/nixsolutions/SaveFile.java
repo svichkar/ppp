@@ -1,10 +1,13 @@
 package com.nixsolutions;
 
 import exception.Save;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
-import java.nio.file.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
@@ -12,34 +15,40 @@ import org.apache.log4j.Logger;
  */
 public class SaveFile implements Save {
 
-    private static Logger logger = LogManager.getLogger(SaveFile.class.getName());
+    private static final Logger LOG = LogManager.getLogger(SaveFile.class);
 
     @Override
     public void save(String text, String filePath) {
 
+        LOG.entry();
         Path path = Paths.get(filePath);
 
-        if (path.isAbsolute() == false)
-            logger.error("1", new RuntimeException("Specified path is not absolute."));
-            //throw new RuntimeException("Specified path is not absolute.");
+        if (path.isAbsolute() == false) {
+            LOG.error("Path \"{}\" is not absolute.", path);
+            throw new RuntimeException("Specified path is not absolute.");
+        }
 
         if (Files.exists(path) == false) {
             try {
-                logger.info("File by path does not exists. It will be created.");
+                LOG.info("File by path does not exists. It will be created.");
                 Files.createDirectories(path.getParent());
+                LOG.debug("Directory \"\" {}", path.getParent());
                 Files.createFile(path);
                 Files.write(path, text.getBytes());
+
             } catch (IOException io) {
-                logger.error("2", new RuntimeException("File cannot be created or written.", io));
-                //throw new RuntimeException("File cannot be created or written.", io);
+                LOG.error(io);
+                throw new RuntimeException("File cannot be created or written.", io);
             }
         } else {
             try {
                 Files.write(path, text.getBytes());
+
             } catch (IOException io) {
-                logger.error("3", new RuntimeException("File cannot be written.", io));
-                //throw new RuntimeException("File cannot be written.", io);
+                LOG.error(io);
+                throw new RuntimeException("File cannot be written.", io);
             }
         }
+
     }
 }

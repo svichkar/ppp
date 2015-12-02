@@ -136,7 +136,7 @@ public class OrderPartServlet extends HttpServlet {
 		List<OrderPartBean> resultList = new ArrayList<>();
 		for (OrderPart item : orderPartList) {
 			OrderPartBean opb = new OrderPartBean();
-			opb.setOrderId(item.getId());
+			opb.setOrderId(item.getOrder().getOrderId());
 			Part p = item.getPart();
 			opb.setPartId(p.getPartId());
 			opb.setPartName(p.getPartName());
@@ -150,7 +150,7 @@ public class OrderPartServlet extends HttpServlet {
 		List<OrderWorkerBean> resultList = new ArrayList<>();
 		for (OrderWorker item : orderWorkerList) {
 			OrderWorkerBean owb = new OrderWorkerBean();
-			owb.setOrderId(item.getId());
+			owb.setOrderId(item.getOrder().getOrderId());
 			Worker w = item.getWorker();
 			owb.setWorkerId(w.getWorkerId());
 			owb.setWorkerName(w.getFirstName() + " " + w.getLastName());

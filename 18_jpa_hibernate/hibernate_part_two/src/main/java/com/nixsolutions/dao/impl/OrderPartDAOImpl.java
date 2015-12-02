@@ -100,7 +100,7 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 	}
 
 	@Override
-	public OrderPart getByPK(long orderId, int partId) {
+	public OrderPart getByPK(long orderId, long partId) {
 		Session session = sessionFactory.getCurrentSession();
 		OrderPart orderPart = null;
 		Transaction tx = session.beginTransaction();

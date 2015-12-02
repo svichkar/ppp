@@ -36,9 +36,9 @@
 					style="width: 95px" />&nbsp;
 			</form>
 			<br>
-			<form action="getLoans" enctype="text/plain" method="get"
-				name="getLoans" target="_self">
-				<input name="getLoans" type="submit" value="Journal"
+			<form action="journal" enctype="text/plain" method="get"
+				name="journal" target="_self">
+				<input name="journal" type="submit" value="Journal"
 					style="width: 95px" />&nbsp;
 			</form>
 

@@ -12,6 +12,7 @@ import dao.impl.*;
 import entity.Book;
 import entity.BookInstance;
 import entity.Category;
+import entity.Journal;
 import entity.Reader;
 
 public class WorkWithDb {
@@ -19,6 +20,10 @@ public class WorkWithDb {
 	static final Logger LOG = LogManager.getLogger(Book.class);
 	public static void main(String[] args) {
 		DBDaoFactory factory = new DBDaoFactory();
+		JournalDao journal = factory.getJournalDao();
+		List<Journal> jd  = journal.getAllJournalRecords();
+		jd = journal.addInfoToJournal(jd);
+		
 		 //DropAllTablesFromDB.main(null);
 		// DBCreationThroughDrivermanager.main(null);
 

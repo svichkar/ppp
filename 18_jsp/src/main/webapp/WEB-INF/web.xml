@@ -1,9 +1,8 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-      version="3.0">
-  <display-name>Archetype Created Web Application</display-name>
-  <servlet>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
 		<servlet-name>AuthorizationServlet</servlet-name>
 		<servlet-class>servlets.AuthorizationCheck</servlet-class>
 	</servlet>
@@ -59,7 +58,16 @@
 		<servlet-name>addNewReader</servlet-name>
 		<servlet-class>servlets.AddNewReader</servlet-class>
 	</servlet>
-	
+	<servlet>
+		<servlet-name>journal</servlet-name>
+		<servlet-class>servlets.JournalDoc</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>deleteJournalRecord</servlet-name>
+		<servlet-class>servlets.DeleteJournalRecord</servlet-class>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>AuthorizationServlet</servlet-name>
 		<url-pattern>/j_security_check</url-pattern>
@@ -116,5 +124,13 @@
 		<servlet-name>addNewReader</servlet-name>
 		<url-pattern>/addNewReader</url-pattern>
 	</servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>journal</servlet-name>
+		<url-pattern>/journal</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>deleteJournalRecord</servlet-name>
+		<url-pattern>/deleteJournalRecord</url-pattern>
+	</servlet-mapping>
+
 </web-app>

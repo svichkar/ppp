@@ -1,9 +1,7 @@
 package entity;
 
 public class Category {
-	public Category() {
-	}
-
+	
 	public Category(int id, String name) {
 		this.id = id;
 		this.name = name;
@@ -11,6 +9,9 @@ public class Category {
 	public Category(String name) {
 		this.name = name;
 	}
+	public Category() {
+	}
+
 	private int id;
 	private String name;
 

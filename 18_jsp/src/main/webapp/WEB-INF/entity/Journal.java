@@ -11,7 +11,36 @@ public class Journal {
 	private int reader_id;
 	private Date start_date;
 	private Date end_date;
+	private String bookName;
+	private String bookAuthor;
+	private int bookInventoryNumber;
+	private String readerName;
+	private String bookCategory;
 
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public String getBookAuthor() {
+		return bookAuthor;
+	}
+	public void setBookAuthor(String bookAuthor) {
+		this.bookAuthor = bookAuthor;
+	}
+	public int getBookInventoryNumber() {
+		return bookInventoryNumber;
+	}
+	public void setBookInventoryNumber(int bookInventoryNumber) {
+		this.bookInventoryNumber = bookInventoryNumber;
+	}
+	public String getReaderName() {
+		return readerName;
+	}
+	public void setReaderName(String readerName) {
+		this.readerName = readerName;
+	}
 	public int getId() {
 		return id;
 	}
@@ -41,5 +70,11 @@ public class Journal {
 	}
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
+	}
+	public String getBookCategory() {
+		return bookCategory;
+	}
+	public void setBookCategory(String bookCategory) {
+		this.bookCategory = bookCategory;
 	}
 }

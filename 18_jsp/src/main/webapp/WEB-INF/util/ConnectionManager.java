@@ -1,6 +1,5 @@
 package util;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +25,11 @@ public class ConnectionManager {
 		try {
 			if (connectionPool == null) {
 				prop = new Properties();
-				
-				//input = new FileInputStream(filename);
-				ClassLoader classLoader = ConnectionManager.class.getClassLoader();
-				input = new FileInputStream(
-						classLoader.getResource("").getPath().toString().replace("%20", " ") + "jdbc.properties");
-				
+				ClassLoader classLoader = ConnectionManager.class
+						.getClassLoader();
+				input = new FileInputStream(classLoader.getResource("")
+						.getPath().toString().replace("%20", " ") + filename);
+
 				prop.load(input);
 
 				connectionPool = JdbcConnectionPool.create(

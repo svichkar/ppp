@@ -13,8 +13,16 @@ import java.util.Random;
  (сумма списка по этому ключу) как значение, показать использование на примере
  */
 
+/**
+ * The Class MethodSum.
+ */
 public class MethodSum {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Map<String, List<? extends Number>> map = new HashMap<>();
 		Map<String, Double> newMapAfterSummator = new HashMap<>();
@@ -38,6 +46,12 @@ public class MethodSum {
 
 	}
 
+	/**
+	 * Method Summator
+	 *
+	 * @param map the map
+	 * @return the map
+	 */
 	public static Map<String, Double> methodMapSum(Map<String, List<? extends Number>> map) {
 		Map<String, Double> returnMap = new HashMap<>();
 		for (Entry<String, List<? extends Number>> entry : map.entrySet()) {

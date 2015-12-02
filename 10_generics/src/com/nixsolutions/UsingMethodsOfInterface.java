@@ -26,7 +26,7 @@ public class UsingMethodsOfInterface {
 		//demonstration of Converting massive of Integers number to String format.
 		MassIntToString massIntToString = new MassIntToString();
 		String resultString = new String();
-		int[] inputMass = {1,2,3,4,5,6,7,8,9};
+		int[] inputMass = {12,2,3,4,5,6,72,8,9};
 		resultString = massIntToString.get(inputMass);
 		System.out.println("Result String is - " +  resultString);
 		

@@ -1,10 +1,5 @@
 package com.nixsolutions.task2;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Created by konstantin on 11/24/2015.
  */
@@ -16,108 +11,86 @@ public class Main {
     public static final int THIRD = 500;
 
     public static void main(String args[]) {
-
-        //declare flags variables which indicates start state for time tasks
-        AtomicBoolean isFirstStarted = new AtomicBoolean(false);
-        AtomicBoolean isSecondStarted = new AtomicBoolean(false);
-        AtomicBoolean isThirdStarted = new AtomicBoolean(false);
-
-        // declare and initialization counter
-        AtomicInteger counter = new AtomicInteger(1);
-
-        //Declare timer task for main
-        TimerTask mainTask = new TimerTask() {
+        Runnable firstThread = new Runnable() {
             @Override
             public void run() {
-
-                counter.getAndIncrement();
+                while (true) {
+                    try {
+                        reportThreadWork(1);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
 
-        /**
-         * timer task with overrided run method
-         * which reports about first thread work
-         */
-        TimerTask reportTaskFirst = new TimerTask() {
+        Runnable secondThread = new Runnable() {
             @Override
             public void run() {
-                reportThreadWork(1);
+                while (true) {
+                    try {
+                        reportThreadWork(2);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
 
-        /**
-         * timer task with overrided run method
-         * which reports about second thread work
-         */
-        TimerTask reportTaskSecond = new TimerTask() {
+        Runnable thirdThread = new Runnable() {
             @Override
             public void run() {
-                reportThreadWork(2);
+                while (true) {
+                    try {
+                        reportThreadWork(3);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
-
-        /**
-         * timer task with overrided run method
-         * which reports about third thread work
-         */
-        TimerTask reportTaskThird = new TimerTask() {
-            @Override
-            public void run() {
-                reportThreadWork(3);
-            }
-        };
-
-        // declare timers for timer tasks
-        Timer mainTimer = new Timer("MainTimer");
-        Timer firstTimer = new Timer("FirstTimer");
-        Timer secondTimer = new Timer("SecondTimer");
-        Timer thirdTimer = new Timer("ThirdTimer");
 
         Thread mainThread = new Thread(new Runnable() {
 
             /**
              * Overrided run method
-             * which starts 3 timer tasks when counter reaches 100, 300, 500 respectively
+             * which starts 3 threads when counter reaches 100, 300, 500 respectively
              * and ends when counter reaches his max value - 1000
              */
             @Override
             public void run() {
+                int counter = 0;
 
-                // start main timer task with period 100 ms
-                mainTimer.scheduleAtFixedRate(mainTask, 0, 100);
-                System.out.println("Counter has started");
+                    while (counter != COUNTER_MAX) {
+                        try {
+                        Thread.sleep(100);
+                        counter++;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
-                while (counter.get() != COUNTER_MAX) {
-                    if (counter.get() == FIRST && isFirstStarted.get() == false) {
-
-                        System.out.println(String.format("Counter has reached %d", counter.get()));
-                        // start first timer task with period 1 sec
-                        firstTimer.scheduleAtFixedRate(reportTaskFirst, 0, 1000);
-                        isFirstStarted.set(true);
+                        if (counter == FIRST) {
+                            System.out.println(String.format("Counter has reached %d", counter));
+                            Thread t1 = new Thread(firstThread);
+                            t1.start();
+                        }
+                        if (counter == SECOND) {
+                            System.out.println(String.format("Counter has reached %d", counter));
+                            Thread t2 = new Thread(secondThread);
+                            t2.start();
+                        }
+                        if (counter == THIRD) {
+                            System.out.println(String.format("Counter has reached %d", counter));
+                            Thread t3 = new Thread(thirdThread);
+                            t3.start();
+                        }
                     }
-                    if (counter.get() == SECOND && isSecondStarted.get() == false) {
 
-                        System.out.println(String.format("Counter has reached %d", counter.get()));
-                        // start second timer task with period 1 sec
-                        secondTimer.scheduleAtFixedRate(reportTaskSecond, 0, 1000);
-                        isSecondStarted.set(true);
-                    }
-                    if (counter.get() == THIRD && isThirdStarted.get() == false) {
-
-                        System.out.println(String.format("Counter has reached %d", counter.get()));
-                        // start third timer task with period 1 sec
-                        thirdTimer.scheduleAtFixedRate(reportTaskThird, 0, 1000);
-                        isThirdStarted.set(true);
-                    }
-                }
-
-                // Cancel all timers after counter reaches his max value
-                mainTimer.cancel();
-                firstTimer.cancel();
-                secondTimer.cancel();
-                thirdTimer.cancel();
-
-                System.out.println(String.format("Counter has reached max value - %d and terminated", counter.get()));
+                System.out.println(String.format("Counter has reached max value - %d and terminated", counter));
+                System.exit(1);
             }
         });
 

@@ -1,5 +1,7 @@
 package com.nixsolutions.task1;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -8,11 +10,15 @@ import java.util.concurrent.Executors;
  */
 public class Main {
 
+    public static final int N = 100;
+
     public static void main(String args[]) {
 
-        Producer producer = new Producer();
-        EvenConsumer evenConsumer = new EvenConsumer(producer.getQueue(), producer.getReady());
-        OddConsumer oddConsumer = new OddConsumer(producer.getQueue(), producer.getReady());
+        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(N);
+
+        Producer producer = new Producer(queue);
+        EvenConsumer evenConsumer = new EvenConsumer(queue);
+        OddConsumer oddConsumer = new OddConsumer(queue);
 
         ExecutorService service = Executors.newFixedThreadPool(3);
 

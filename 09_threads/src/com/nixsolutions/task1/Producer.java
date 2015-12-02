@@ -1,9 +1,7 @@
 package com.nixsolutions.task1;
 
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,27 +9,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Producer implements Runnable {
 
-    public static final int N = 100;
-
-    protected BlockingQueue<Integer> queue;
-    protected AtomicInteger remainingCapacity;
-    protected AtomicBoolean isFull;
+    private BlockingQueue<Integer> queue;
+    private AtomicInteger remainingCapacity;
 
     /**
      * Producer's constructor
      */
-    public Producer() {
-        this.queue = new ArrayBlockingQueue<>(N);
-        this.remainingCapacity = new AtomicInteger(queue.remainingCapacity());
-        this.isFull = new AtomicBoolean(false);
-    }
-
-    /**
-     * getter for BlockingQueue queue
-     * @return queue
-     */
-    public BlockingQueue<Integer> getQueue() {
-        return this.queue;
+    public Producer(BlockingQueue<Integer> blockingQueue) {
+        this.queue = blockingQueue;
+        this.remainingCapacity = new AtomicInteger(blockingQueue.remainingCapacity());
     }
 
     /**
@@ -45,18 +31,8 @@ public class Producer implements Runnable {
                 queue.put(ThreadLocalRandom.current().nextInt());
                 remainingCapacity.decrementAndGet();
             }
-            isFull.set(true);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * getter for isFull which indicates filled queue
-     *
-     * @return true or false
-     */
-    public AtomicBoolean getReady() {
-        return this.isFull;
     }
 }

@@ -1,27 +1,22 @@
 package com.nixsolutions.task1;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by svichkar on 11/23/2015.
  */
 public class OddConsumer implements Runnable {
 
-    protected BlockingQueue<Integer> queue;
-    protected AtomicBoolean isFull;
+    private BlockingQueue<Integer> queue;
 
-    public OddConsumer(BlockingQueue<Integer> blockingQueue, AtomicBoolean isFull) {
+    public OddConsumer(BlockingQueue<Integer> blockingQueue) {
         this.queue = blockingQueue;
-        this.isFull = isFull;
     }
 
     @Override
     public void run() {
-        while (isFull.get() == false || queue.isEmpty() == false) {
-
+        while (true) {
             Integer element = queue.peek();
-
             if (element != null && element % 2 != 0) {
                 System.out.println(String.format("odd element: %s", queue.poll()));
             }

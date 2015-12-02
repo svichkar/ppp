@@ -32,16 +32,17 @@ public class SaveFile implements Save {
             try {
                 LOG.info("File by path does not exists. It will be created.");
                 Files.createDirectories(path.getParent());
-                LOG.debug("Directory \"\" {}", path.getParent());
                 Files.createFile(path);
+                LOG.debug("File \"{}\" was created", path);
                 Files.write(path, text.getBytes());
-
+                LOG.debug("Text \"{}\" was written to file.", text);
             } catch (IOException io) {
                 LOG.error(io);
                 throw new RuntimeException("File cannot be created or written.", io);
             }
         } else {
             try {
+                LOG.warn("File \"{}\" will be overwritten.", path);
                 Files.write(path, text.getBytes());
 
             } catch (IOException io) {
@@ -49,6 +50,6 @@ public class SaveFile implements Save {
                 throw new RuntimeException("File cannot be written.", io);
             }
         }
-
+        LOG.exit();
     }
 }

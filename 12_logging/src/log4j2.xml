@@ -9,12 +9,12 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.nixsolutions" level="trace"  additivity="false">
-            <AppenderRef ref="Console" />
+        <Root level="TRACE">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="com.nixsolutions" level="TRACE"  additivity="false">
+            <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Logger>
-        <Root level="trace">
-            <AppenderRef ref="Console" />
-        </Root>
     </Loggers>
 </Configuration>

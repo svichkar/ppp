@@ -6,7 +6,7 @@ import com.nixsolutions.hibernate.entity.OrderWorker;
 
 public interface OrderWorkerDAO extends GenericDAO<OrderWorker> {
 	
-	public OrderWorker getByPK(int orderId, int workerId);
+	public OrderWorker getByPK(long orderId, int workerId);
 	
 	public List<OrderWorker> getByOrderId(long orderId);
 }

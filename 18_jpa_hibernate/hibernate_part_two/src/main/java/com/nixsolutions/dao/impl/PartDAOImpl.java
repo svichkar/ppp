@@ -68,7 +68,7 @@ public class PartDAOImpl implements PartDAO {
 	}
 
 	@Override
-	public Part getByPK(int id) {
+	public Part getByPK(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		Part part = null;
 		Transaction tx = session.beginTransaction();
@@ -96,5 +96,10 @@ public class PartDAOImpl implements PartDAO {
 			LOG.error(ex);
 		}
 		return partList;
+	}
+
+	@Override
+	public Part getByPK(int id) {
+		return getByPK((long) id);
 	}
 }

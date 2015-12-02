@@ -100,13 +100,13 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 	}
 
 	@Override
-	public OrderWorker getByPK(int orderId, int workerId) {
+	public OrderWorker getByPK(long orderId, int workerId) {
 		Session session = sessionFactory.getCurrentSession();
 		OrderWorker orderWorker = null;
 		Transaction tx = session.beginTransaction();
 		try {
 			orderWorker = (OrderWorker) session.createCriteria(OrderWorker.class)
-					.add(Restrictions.eq("orderId", orderId)).add(Restrictions.eq("workerId", workerId)).uniqueResult();
+					.add(Restrictions.eq("order.orderId", orderId)).add(Restrictions.eq("worker.workerId", workerId)).uniqueResult();
 			tx.commit();
 		} catch (Exception ex) {
 			tx.rollback();
@@ -122,7 +122,7 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 		List<OrderWorker> orderWorkerList = null;
 		Transaction tx = session.beginTransaction();
 		try {
-			orderWorkerList = session.createCriteria(OrderWorker.class).add(Restrictions.eq("orderId", orderId)).list();
+			orderWorkerList = session.createCriteria(OrderWorker.class).add(Restrictions.eq("order.orderId", orderId)).list();
 			tx.commit();
 		} catch (Exception ex) {
 			tx.rollback();

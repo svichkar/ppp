@@ -73,7 +73,7 @@
 				<select name="order_status_id">
 					<c:forEach var="item" items="${order_statuses}">
 						<option value="${item.orderStatusId}"
-							<c:if test="${order.orderStatus..orderStatusId eq item.orderStatusId}"> selected</c:if>>
+							<c:if test="${order.orderStatus.orderStatusId eq item.orderStatusId}"> selected</c:if>>
 							<c:out value="${item.orderStatusName}" />
 						</option>
 					</c:forEach>
@@ -83,7 +83,7 @@
 				<select name="car_id">
 					<c:forEach var="item" items="${cars}">
 						<option value="${item.carId}"
-							<c:if test="${order.carId eq item.carId}"> selected</c:if>><c:out
+							<c:if test="${order.car.carId eq item.carId}"> selected</c:if>><c:out
 								value="${item.model}" />
 							<c:out value="${item.vin}" /></option>
 					</c:forEach>

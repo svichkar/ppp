@@ -65,4 +65,15 @@ public class OrderWorker implements Serializable {
 		this.isCompleted = isCompleted;
 	}
 
+	public OrderWorker(long id, OrderInWork order, Worker worker, IsCompletedValue isCompleted) {
+		this.id = id;
+		this.order = order;
+		this.worker = worker;
+		this.isCompleted = isCompleted;
+	}
+	
+	public OrderWorker() {
+		this(0, null, null, IsCompletedValue.N);
+	}
+
 }

@@ -75,7 +75,7 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 	}
 
 	@Override
-	public OrderInWork getByPK(int id) {
+	public OrderInWork getByPK(long id) {
 		Session session = sessionFactory.getCurrentSession();
 		OrderInWork orderInWork = null;
 		Transaction tx = session.beginTransaction();
@@ -201,6 +201,11 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 		LOG.error(ex);
 		}
 		return orderInWorkList;
+	}
+
+	@Override
+	public OrderInWork getByPK(int id) {
+		return getByPK((long) id);
 	}
 
 }

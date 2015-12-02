@@ -100,13 +100,13 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 	}
 
 	@Override
-	public OrderPart getByPK(int orderId, int partId) {
+	public OrderPart getByPK(long orderId, int partId) {
 		Session session = sessionFactory.getCurrentSession();
 		OrderPart orderPart = null;
 		Transaction tx = session.beginTransaction();
 		try {
-			orderPart = (OrderPart) session.createCriteria(OrderPart.class).add(Restrictions.eq("orderId", orderId))
-					.add(Restrictions.eq("partId", partId)).uniqueResult();
+			orderPart = (OrderPart) session.createCriteria(OrderPart.class).add(Restrictions.eq("order.orderId", orderId))
+					.add(Restrictions.eq("part.partId", partId)).uniqueResult();
 			tx.commit();
 		} catch (Exception ex) {
 			tx.rollback();
@@ -122,7 +122,7 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		List<OrderPart> orderPartList = null;
 		Transaction tx = session.beginTransaction();
 		try {
-			orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("orderId", orderId)).list();
+			orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("order.orderId", orderId)).list();
 			tx.commit();
 		} catch (Exception ex) {
 			tx.rollback();

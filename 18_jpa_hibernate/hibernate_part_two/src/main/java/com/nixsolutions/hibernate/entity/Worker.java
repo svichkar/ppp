@@ -81,4 +81,18 @@ public class Worker implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Worker(int workerId, String firstName, String lastName, WorkerSpecialization workerSpecialization,
+			Status status, User user) {
+		this.workerId = workerId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.workerSpecialization = workerSpecialization;
+		this.status = status;
+		this.user = user;
+	}
+	
+	public Worker() {
+		this(0, "", "", null, null, null);
+	}
 }

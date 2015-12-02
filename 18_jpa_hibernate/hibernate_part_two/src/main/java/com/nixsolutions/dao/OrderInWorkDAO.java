@@ -20,4 +20,6 @@ public interface OrderInWorkDAO extends GenericDAO<OrderInWork> {
 	public List<OrderInWork> getOrdersByWorker(Worker worker);
 	
 	public List<OrderInWork> getOrdersByCustomer(Customer customer);
+	
+	public OrderInWork getByPK(long id);
 }

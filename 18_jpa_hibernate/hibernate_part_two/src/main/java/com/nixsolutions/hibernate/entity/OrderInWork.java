@@ -2,6 +2,7 @@ package com.nixsolutions.hibernate.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -82,5 +83,19 @@ public class OrderInWork implements Serializable {
 
 	public void setTimestampFinish(Timestamp timestampFinish) {
 		this.timestampFinish = timestampFinish;
+	}
+
+	public OrderInWork(long orderId, OrderStatus orderStatus, String description, Car car, Timestamp timestampStart,
+			Timestamp timestampFinish) {
+		this.orderId = orderId;
+		this.orderStatus = orderStatus;
+		this.description = description;
+		this.car = car;
+		this.timestampStart = timestampStart;
+		this.timestampFinish = timestampFinish;
+	}
+	
+	public OrderInWork() {
+		this(0, null, "", null, new Timestamp(new Date().getTime()), null);
 	}
 }

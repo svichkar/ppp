@@ -30,14 +30,14 @@
 			<p>Status: </p>
 			<select name="status_id">
 			<c:forEach var="item" items="${statuses}">
-			<option value="${item.statusId}"<c:if test="${worker.statusId eq item.statusId}"> selected</c:if>><c:out value="${item.statusName}" /></option>
+			<option value="${item.statusId}"<c:if test="${worker.status.statusId eq item.statusId}"> selected</c:if>><c:out value="${item.statusName}" /></option>
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>
 			<p>User: </p>
 			<select name="user_id">
 			<c:forEach var="item" items="${users}">
-			<option value="${item.userId}"<c:if test="${worker.userId eq item.userId}"> selected</c:if>><c:out value="${item.userLogin}" /></option>
+			<option value="${item.userId}"<c:if test="${worker.user.userId eq item.userId}"> selected</c:if>><c:out value="${item.userLogin}" /></option>
 			</c:forEach>
 			</select><br>
 			<div class="buffer"></div>

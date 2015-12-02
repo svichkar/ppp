@@ -1,8 +1,4 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 /**
@@ -11,110 +7,135 @@ import org.junit.rules.ExpectedException;
 
 
 public class StringBuilderTest {
-    private static String INPUTSTRING = "testString!";
-    private static char ACHAR = '!';
-    private StringBuilder stringBuilder;
-    private String outString;
-    private int length;
-    private int position;
+
+    private static StringBuilder BUILDER;
+    private static String INPUTSTRING = "TestString!";
+    private String testString = "someText";
+    private char[] chars = {'a', 'b', 'c', 'd', 'e', 'f'};
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @BeforeClass
+    public static void createNewInstance() {
+        BUILDER = new StringBuilder();
+    }
+
     @Before
-    public void createNewInstanceOfStringBuilder() {
-        stringBuilder = new StringBuilder();
-        stringBuilder.append(INPUTSTRING);
+    public void setUp() {
+        BUILDER.append(INPUTSTRING);
     }
 
     @After
-    public void tearDown () {
-        stringBuilder = null;
-        outString = "";
-        length = 0;
-        position = 0;
+    public void tearDown() {
+        BUILDER.delete(0, BUILDER.length());
     }
 
     @Test
-    public void shouldReturnStringEqualInputString () {
-        //when
-        outString = stringBuilder.toString();
-        //then
-        Assert.assertEquals(INPUTSTRING, outString);
+    public void shouldAppendStringToTail() {
+        String temp = INPUTSTRING + testString;
+        BUILDER.append(testString);
+        Assert.assertEquals(temp, BUILDER.toString());
     }
 
     @Test
-    public void shouldReturnLengthEqualInputStringLength () {
-        //when
-        length = stringBuilder.length();
-        //then
-        Assert.assertEquals(INPUTSTRING.length(), length);
-    }
-
-    @Test
-    public void shouldReturnConcatenationOfStrings() {
-        //given
-        stringBuilder.append(INPUTSTRING);
-        //when
-        outString= stringBuilder.toString();
-        //then
-        Assert.assertEquals(INPUTSTRING + INPUTSTRING, outString);
-
-    }
-
-    @Test
-    public void shouldInsertStringAtSelectedPositionWithinLength () {
-        //given
-        position = (int) (Math.random() * stringBuilder.length());
-        //when
-        stringBuilder.insert(position, ACHAR);
-        //then
-        Assert.assertEquals(ACHAR, stringBuilder.charAt(position));
-    }
-
-    @Test
-    public void shouldReturnExceptionByInsertStringAtSelectedPositionBeyondLength () throws ArrayIndexOutOfBoundsException {
-        //given
-        position = (int) (Math.random() * stringBuilder.length()) + stringBuilder.length() + 1;
-        //when
-        exception.expect(ArrayIndexOutOfBoundsException.class);
-        stringBuilder.insert(position, ACHAR);
-    }
-
-    @Test
-    public  void shouldReplaceCharactersSequenceWithCharactersInSpecifiedString () {
-        //given
-        position = (int) (Math.random() * stringBuilder.length());
-        //when
-        stringBuilder.replace(position, position + 1, String.valueOf(ACHAR));
-        //then
-        Assert.assertEquals(ACHAR, stringBuilder.charAt(position));
-    }
-
-    @Test
-    public void shouldReverseInputString () {
-        //given
-        for (int i = INPUTSTRING.length() - 1; i >= 0 ; i--) {
-            outString += INPUTSTRING.charAt(i);
+    public void shouldAppendCharSequenceToTail() {
+        String temp = INPUTSTRING;
+        for (int i = 0; i < chars.length; i++) {
+            temp += chars[i];
         }
-        //when
-        stringBuilder.reverse();
-        //then
-        Assert.assertEquals(outString, stringBuilder.toString());
+        BUILDER.append(chars);
+        Assert.assertEquals(temp, BUILDER.toString());
     }
 
     @Test
-    public void shouldDeleteCharInSpecifiedPosition () {
-        //given
-        position = (int) (Math.random() * stringBuilder.length());
-        for (int i = 0; i <INPUTSTRING.length() ; i++) {
+    public void shouldInsertSpecifiedStringAtSpecifiedPosition() {
+        int position = (int) (Math.random() * BUILDER.length());
+        String temp = "";
+        for (int i = 0; i < INPUTSTRING.length(); i++) {
             if (i != position) {
-                outString += INPUTSTRING.charAt(i);
+                temp += INPUTSTRING.charAt(i);
+            } else {
+                for (int j = 0; j < testString.length(); j++) {
+                    temp += testString.charAt(j);
+                }
+                temp += INPUTSTRING.charAt(i);
             }
         }
-        //when
-        stringBuilder.deleteCharAt(position);
-        //then
-        Assert.assertEquals(outString, stringBuilder.toString());
+        BUILDER.insert(position, testString);
+        Assert.assertEquals(temp, BUILDER.toString());
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenInsertInPositionGreaterThanLenth() throws IndexOutOfBoundsException {
+        int position = (int) (Math.random() * BUILDER.length()) + BUILDER.length() + 1;
+        exception.expect(IndexOutOfBoundsException.class);
+        BUILDER.insert(position, testString);
+    }
+
+    @Test
+    public void shouldReplaceStringInRange() {
+        int position = (int) (Math.random() * BUILDER.length());
+        int endPosition = position + (int) (Math.random() * BUILDER.length());
+        String temp = "";
+        for (int i = 0; i < position; i++) {
+            temp += INPUTSTRING.charAt(i);
+        }
+        for (int i = 0; i < testString.length(); i++) {
+            temp += testString.charAt(i);
+        }
+        if (endPosition < INPUTSTRING.length()) {
+            for (int i = endPosition; i < INPUTSTRING.length(); i++) {
+                temp += INPUTSTRING.charAt(i);
+            }
+        }
+        BUILDER.replace(position, endPosition, testString);
+        Assert.assertEquals(temp, BUILDER.toString());
+    }
+
+    @Test
+    public void shouldDeleteSpecifiedRange() {
+        int position = (int) (Math.random() * BUILDER.length());
+        int endPosition = position + (int) (Math.random() * BUILDER.length());
+        String temp = "";
+        for (int i = 0; i < position; i++) {
+            temp += INPUTSTRING.charAt(i);
+        }
+        if (endPosition < INPUTSTRING.length()) {
+            for (int i = endPosition; i < INPUTSTRING.length(); i++) {
+                temp += INPUTSTRING.charAt(i);
+            }
+        }
+        BUILDER.delete(position, endPosition);
+        Assert.assertEquals(temp, BUILDER.toString());
+    }
+
+    @Test
+    public void shouldReverseString() {
+        String temp = "";
+        for (int i = INPUTSTRING.length() - 1; i >= 0; i--) {
+            temp += INPUTSTRING.charAt(i);
+        }
+        BUILDER.reverse();
+        Assert.assertEquals(temp, BUILDER.toString());
+    }
+
+    @Test
+    public void shouldReturnSubstringFromPositionToEnd() {
+        int position = (int) (Math.random() * BUILDER.length());
+        String temp = "";
+        for (int i = 0; i < INPUTSTRING.length(); i++) {
+            if (i >= position) {
+                temp += INPUTSTRING.charAt(i);
+            }
+        }
+        Assert.assertEquals(temp, BUILDER.substring(position));
+    }
+
+    @Test
+    public void shouldReturnExceptionWhenIndexForSubstringIsNegative() throws IndexOutOfBoundsException {
+        int position = (int) (Math.random() * BUILDER.length()) * -1;
+        exception.expect(IndexOutOfBoundsException.class);
+        BUILDER.substring(position);
     }
 }

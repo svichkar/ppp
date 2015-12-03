@@ -1,6 +1,7 @@
 package com.nixsolutions.reflections;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * this class allows to load classes from a custom defined path
+ * 
  * @author kryzhanovskiy
  *
  */
@@ -32,7 +34,9 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
 		Class<?> result;
 		byte classData[] = null;
 
-		Path path = Paths.get(getPath(), name + ".class");
+		Path path = Paths.get(getPath(),
+				name.replace(".", FileSystems.getDefault().getSeparator())
+						+ ".class");
 		LOG.debug(path.toString());
 
 		if (Files.notExists(path)) {

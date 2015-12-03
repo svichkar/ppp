@@ -11,10 +11,10 @@ public class Task2Test {
 	public static void main(String[] args) {
 
 		MyClassLoader loader = new MyClassLoader();
-		loader.setPath("D:\\com\\nixsolutions\\");
+		loader.setPath("D:\\06_collections");
 		Class someClass = null;
 		try {
-			someClass = loader.loadClass("Car");
+			someClass = loader.loadClass("com.nixsolutions.Experiments2");
 		} catch (ClassNotFoundException e) {
 			LOG.error(e.getMessage(), e);
 		}

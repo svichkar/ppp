@@ -10,7 +10,7 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="com.nixsolutions.reflections" level="trace"
+		<Logger name="com.nixsolutions" level="trace"
 			additivity="false">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="File" />

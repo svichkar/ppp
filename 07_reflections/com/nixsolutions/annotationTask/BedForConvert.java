@@ -3,6 +3,7 @@ package com.nixsolutions.annotationtask;
 /**
  * Created by rybkinrolla on 27.11.2015.
  */
+
 public class BedForConvert {
     private String brandName;
     @ToString

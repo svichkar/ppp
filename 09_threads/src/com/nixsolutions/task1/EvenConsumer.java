@@ -9,10 +9,18 @@ public class EvenConsumer implements Runnable {
 
     private BlockingQueue<Integer> queue;
 
+    /**
+     * EvenConsumer's constructor
+     * @param blockingQueue
+     */
     public EvenConsumer(BlockingQueue<Integer> blockingQueue) {
         this.queue = blockingQueue;
     }
 
+    /**
+     * overrided run method
+     * which polls even numbers from queue
+     */
     @Override
     public void run() {
         while (true) {

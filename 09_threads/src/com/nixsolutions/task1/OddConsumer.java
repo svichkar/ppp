@@ -9,10 +9,18 @@ public class OddConsumer implements Runnable {
 
     private BlockingQueue<Integer> queue;
 
+    /**
+     * OddConsumer's constructor
+     * @param blockingQueue
+     */
     public OddConsumer(BlockingQueue<Integer> blockingQueue) {
         this.queue = blockingQueue;
     }
 
+    /**
+     * overrided run method
+     * which polls odd numbers from queue
+     */
     @Override
     public void run() {
         while (true) {

@@ -62,7 +62,9 @@ public class Main {
              */
             @Override
             public void run() {
+
                 int counter = 0;
+                System.out.println("Counter has started.");
 
                     while (counter != COUNTER_MAX) {
                         try {

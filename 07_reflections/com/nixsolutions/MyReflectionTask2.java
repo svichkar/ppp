@@ -14,13 +14,12 @@ public class MyReflectionTask2  {
     public static void main(String[] args) {
         LOGGER.entry();
         CustomClassLoader loader = new CustomClassLoader();
-        loader.setPath(".\\07_reflections");
+        loader.setPath("C:\\Users\\kozlovskij\\Desktop");
         try {
-            loader.loadClass("com.nixsolutions.Arrays1");
+            loader.loadClass("com.nixsolutions.TestClass");
         } catch (ClassNotFoundException e) {
             LOGGER.error(e);
         }
-
         LOGGER.exit();
     }
 }

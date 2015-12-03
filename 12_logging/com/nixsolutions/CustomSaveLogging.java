@@ -39,7 +39,7 @@ public class CustomSaveLogging implements exception.Save {
                     writer.close();
                 }
             } catch (IOException e) {
-                LOGGER.warn("Stream isn't close");
+                LOGGER.warn("Stream isn't close", e);
                 throw new RuntimeException(e);
             }
         }

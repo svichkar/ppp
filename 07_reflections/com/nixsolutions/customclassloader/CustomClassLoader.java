@@ -22,8 +22,9 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         try {
-            byte[] b = FileUtils.readFileToByteArray(new File(pathNew + name + ".class"));
-            return defineClass(name, b, 0, b.length);
+            File filePath = new File((pathNew + name.replace(".",File.separator.toString()) + ".class"));
+            byte[] b = FileUtils.readFileToByteArray(filePath);
+            return defineClass(null, b, 0, b.length);
         } catch (IOException e) {
             return super.findClass(name);
         }

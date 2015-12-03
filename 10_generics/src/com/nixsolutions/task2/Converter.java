@@ -5,7 +5,7 @@ package com.nixsolutions.task2;
 public interface  Converter <I,T> {
 
     /**
-     *
+     * abstract method to covert one type to another
      * @param <I> - type to convert from
      * @param <T> - type to convert to
      */

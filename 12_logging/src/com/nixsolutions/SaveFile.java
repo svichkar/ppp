@@ -17,6 +17,11 @@ public class SaveFile implements Save {
 
     private static final Logger LOG = LogManager.getLogger(SaveFile.class);
 
+    /**
+     * overrided save method
+     * @param text
+     * @param filePath
+     */
     @Override
     public void save(String text, String filePath) {
 

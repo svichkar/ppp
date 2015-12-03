@@ -26,13 +26,13 @@ public class Main {
         try {
             saveFile.save("Write this text into file which doesn't exist.", "d:/directory/doesNotExistFile.txt");
         } catch (Exception e) {
-            LOG.catching(Level.WARN, e);
+            LOG.catching(Level.ERROR, e);
         }
 
         try {
             saveFile.save("Overwrite existing file with current text.", "d:/directory/doesNotExistFile.txt");
         } catch (Exception e) {
-            LOG.catching(Level.WARN, e);
+            LOG.catching(Level.ERROR, e);
         }
         LOG.exit();
     }

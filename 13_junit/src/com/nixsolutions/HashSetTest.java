@@ -9,8 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-public class HashSetTest<E> {
+public class HashSetTest {
 	private HashSet<String> hashSet;
 	private HashSet<String> hashSetClone;
 	private ArrayList<String> listData;
@@ -33,14 +32,9 @@ public class HashSetTest<E> {
 		hashSet.clear();
 		listData.clear();
 		hashSetClone.clear();
-	}
-
-	@Test
-	public void shouldBeAddedElementToHashSetIfItIsNotAlreadyPresent() {
-		// given
-		hashSet.add(listData.get(0));
-		// then
-		Assert.assertTrue(hashSet.contains(listData.get(0)));
+		count = 0;
+		sizeSet = 0;
+		elementExist = false;
 	}
 
 	@Test
@@ -106,6 +100,14 @@ public class HashSetTest<E> {
 		hashSet.clear();
 		// then
 		Assert.assertTrue(hashSet.size() == 0);
+	}
+
+	@Test
+	public void shouldBeAddedElementToHashSetIfItIsNotAlreadyPresent() {
+		// given
+		hashSet.add(listData.get(0));
+		// then
+		Assert.assertTrue(hashSet.contains(listData.get(0)));
 	}
 
 }

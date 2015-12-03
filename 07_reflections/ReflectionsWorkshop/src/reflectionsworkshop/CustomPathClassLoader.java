@@ -45,8 +45,8 @@ public class CustomPathClassLoader extends ClassLoader implements PathClassLoade
     public Class<?> findClass(String className) throws ClassNotFoundException {
         if (this.getPath() != null) {
             try {
-                byte b[] = FileUtils.readFileToByteArray(new File(this.getPath() + className
-                        + ".class"));
+                byte b[] = FileUtils.readFileToByteArray(new File(new File(this.getPath(),
+                        className.replace(".", "/")).getPath() + ".class"));
                 return defineClass(className, b, 0, b.length);
             } catch (FileNotFoundException ex) {
                 LOGGER.warn("CustomPathClassLoader failed to load class", ex);

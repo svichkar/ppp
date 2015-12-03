@@ -42,14 +42,15 @@ public class ReflectionsWorkshop {
         }
         LOGGER.info("Task2:");
         CustomPathClassLoader testLoader = new CustomPathClassLoader();
-        testLoader.setPath("testclasses\\");
+        testLoader.setPath("C:\\Users\\mednorcom\\Documents\\NetBeansProjects\\GIT\\javappp\\"
+                + "07_reflections\\ReflectionsWorkshop\\customClassFolder");
         try {
-            System.out.println(testLoader.loadClass("reflectionsworkshop.UtilityClass")
+            System.out.println(testLoader.loadClass("genericsworkshop.FloatToDouble")
                     .getName());
         } catch (ClassNotFoundException ex) {
             LOGGER.error(ex);
         }
-
+        
     }
 
 }

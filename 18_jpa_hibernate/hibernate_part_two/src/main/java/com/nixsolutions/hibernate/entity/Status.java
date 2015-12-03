@@ -34,4 +34,13 @@ public class Status implements Serializable {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
+
+	public Status(int statusId, String statusName) {
+		this.statusId = statusId;
+		this.statusName = statusName;
+	}
+	
+	public Status() {
+		this(0, "");
+	}
 }

@@ -36,4 +36,13 @@ public class WorkerSpecialization implements Serializable {
 	public void setSpecializationName(String specializationName) {
 		this.specializationName = specializationName;
 	}
+
+	public WorkerSpecialization(int specializationId, String specializationName) {
+		this.specializationId = specializationId;
+		this.specializationName = specializationName;
+	}
+	
+	public WorkerSpecialization() {
+		this(0, "");
+	}
 }

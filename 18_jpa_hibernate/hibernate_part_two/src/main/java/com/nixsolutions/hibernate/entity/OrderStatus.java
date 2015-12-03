@@ -36,4 +36,13 @@ public class OrderStatus implements Serializable {
 	public void setOrderStatusName(String orderStatusName) {
 		this.orderStatusName = orderStatusName;
 	}
+
+	public OrderStatus(int orderStatusId, String orderStatusName) {
+		this.orderStatusId = orderStatusId;
+		this.orderStatusName = orderStatusName;
+	}
+	
+	public OrderStatus() {
+		this(0, "");
+	}
 }

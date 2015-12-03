@@ -37,7 +37,7 @@ public class OrderWorker implements Serializable{
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "worker_id", referencedColumnName = "worker_id")
-	private Set<Worker> worker;
+	private Worker worker;
 
 	@Column(name = "isCompleted", columnDefinition = "boolean default false")
 	private boolean isCompleted;
@@ -58,11 +58,11 @@ public class OrderWorker implements Serializable{
 		this.order = order;
 	}
 
-	public Set<Worker> getWorker() {
+	public Worker getWorker() {
 		return worker;
 	}
 
-	public void setWorker(Set<Worker> worker) {
+	public void setWorker(Worker worker) {
 		this.worker = worker;
 	}
 

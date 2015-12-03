@@ -4,6 +4,7 @@
 package com.nixsolutions.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -42,7 +43,7 @@ public class PartOrder implements Serializable{
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "part_id", referencedColumnName = "part_id")
-	private Set<Part> part;
+	private Part part;
 
 	@Column(name = "amount", columnDefinition = "int default 0")
 	private Integer amount;
@@ -64,11 +65,11 @@ public class PartOrder implements Serializable{
 	}
 
 
-	public Set<Part> getPart() {
+	public Part getPart() {
 		return part;
 	}
 
-	public void setPart(Set<Part> part) {
+	public void setPart(Part part) {
 		this.part = part;
 	}
 

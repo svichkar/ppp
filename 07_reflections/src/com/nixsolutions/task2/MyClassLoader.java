@@ -12,33 +12,60 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
 
     String path;
 
+    /**
+     * MyClassLoader's constructor
+     */
     public MyClassLoader() {
-        super(MyClassLoader.class.getClassLoader());
+        super(ClassLoader.class.getClassLoader());
     }
 
+    /**
+     * gets path
+     *
+     * @return path to directory
+     */
     @Override
     public String getPath() {
         return this.path;
     }
 
+    /**
+     * sets path
+     *
+     * @param dir - path to directory
+     */
     @Override
     public void setPath(String dir) {
 
         this.path = dir;
     }
 
+    /**
+     * overrided method loadClass
+     *
+     * @param name - class name
+     * @return Class of some type
+     * @throws ClassNotFoundException
+     */
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         return findClass(name);
     }
 
+    /**
+     * overrided method findClass
+     *
+     * @param name - class name
+     * @return Class of some type
+     * @throws ClassNotFoundException
+     */
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         try {
-            byte[] bytes =  FileUtils.readFileToByteArray(new File(String.format("%s%s.class", path, name.replace(".", "/"))));
+            byte[] bytes = FileUtils.readFileToByteArray(new File(String.format("%s%s.class", path, name.replace(".", "/"))));
             return defineClass(name, bytes, 0, bytes.length);
         } catch (IOException e) {
-            return super.findClass(name);
+            return super.loadClass(name);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.nixsolutions;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,19 +19,19 @@ public class Main {
         try {
             saveFile.save("Path is not absolute!!! Exception should be thrown.", "/directory/doesNotExistFile.txt");
         } catch (Exception e) {
-            LOG.catching(Level.ERROR, e);
+            LOG.error("Exception was thrown:", e);
         }
 
         try {
             saveFile.save("Write this text into file which doesn't exist.", "d:/directory/doesNotExistFile.txt");
         } catch (Exception e) {
-            LOG.catching(Level.ERROR, e);
+            LOG.error("Exception was thrown:", e);
         }
 
         try {
             saveFile.save("Overwrite existing file with current text.", "d:/directory/doesNotExistFile.txt");
         } catch (Exception e) {
-            LOG.catching(Level.ERROR, e);
+            LOG.error("Exception was thrown:", e);
         }
         LOG.exit();
     }

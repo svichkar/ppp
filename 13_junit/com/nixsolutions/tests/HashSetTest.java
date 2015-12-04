@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,31 +15,30 @@ import java.util.Iterator;
  */
 public class HashSetTest {
     private HashSet hashSet;
-    private final Object testObj = new Object();
-    private final Object testObjOther = new Object();
+    private final Object testObject = new Object();
+    private final Object testObjectOther = new Object();
 
-    @After
-    public void tearDown() {
-        hashSet = null;
+    @Before
+    public void initializeHashSet() {
+        hashSet = new HashSet();
     }
 
     @Test
     public void shouldAddElementToHashSet() {
-        hashSet = new HashSet();
-        hashSet.add(testObj);
-        assertTrue(hashSet.contains(testObj));
+        hashSet.add(testObject);
+        assertTrue(hashSet.contains(testObject));
     }
 
     @Test
     public void shouldRemoveElementFromHashSet() {
-        hashSet = new HashSet(java.util.Arrays.asList(testObj, testObjOther));
-        hashSet.remove(testObj);
-        assertFalse(hashSet.contains(testObj));
+        hashSet = new HashSet(java.util.Arrays.asList(testObject, testObjectOther));
+        hashSet.remove(testObject);
+        assertFalse(hashSet.contains(testObject));
     }
 
     @Test
     public void shouldClearHashSet() {
-        hashSet = new HashSet(java.util.Arrays.asList(testObj));
+        hashSet = new HashSet(java.util.Arrays.asList(testObject));
         HashSet hashSetNew = new HashSet();
         hashSet.clear();
         assertEquals(hashSet, hashSetNew);
@@ -47,20 +46,20 @@ public class HashSetTest {
 
     @Test
     public void shouldContainUniqueValues() {
-        hashSet = new HashSet(java.util.Arrays.asList(testObj, testObjOther, testObj, testObjOther));
+        hashSet = new HashSet(java.util.Arrays.asList(testObject, testObjectOther, testObject, testObjectOther));
         assertTrue(hashSet.size() == 2);
     }
 
     @Test
     public void shouldBeCorrectlyCloned() {
-        hashSet = new HashSet(java.util.Arrays.asList(testObj, testObjOther));
+        hashSet = new HashSet(java.util.Arrays.asList(testObject, testObjectOther));
         HashSet hashSetNew = (HashSet) hashSet.clone();
         assertEquals(hashSet, hashSetNew);
     }
 
     @Test
     public void shouldBeRightIterated() {
-        hashSet = new HashSet(java.util.Arrays.asList(testObj, testObjOther));
+        hashSet = new HashSet(java.util.Arrays.asList(testObject, testObjectOther));
         Iterator it = hashSet.iterator();
         int counter = 0;
         while(it.hasNext()){
@@ -78,7 +77,7 @@ public class HashSetTest {
 
     @Test
     public void shouldBeRightSized() {
-        hashSet = new HashSet(java.util.Arrays.asList(testObj, testObjOther));
+        hashSet = new HashSet(java.util.Arrays.asList(testObject, testObjectOther));
         assertTrue(hashSet.size() == 2);
     }
 

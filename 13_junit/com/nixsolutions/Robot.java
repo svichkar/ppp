@@ -37,7 +37,10 @@ public class Robot {
         direction--;
     }
     public void stepForward() {
-        switch (Math.abs(direction % 4)) {
+        while (direction < 0){
+            direction = direction + 4;
+        }
+        switch (direction % 4) {
             case 0:
                 coordinateY--;
                 break;

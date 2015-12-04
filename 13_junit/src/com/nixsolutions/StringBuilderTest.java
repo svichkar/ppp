@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class StringBuilderTest {
 
     private String testString = "Here is some test text";
-    private StringBuilder stringBuilder = new StringBuilder();
+    private StringBuilder stringBuilder;
 
     @Before
     public void setUp() {
@@ -23,7 +23,7 @@ public class StringBuilderTest {
     @After
     public void tearDown() {
 
-        stringBuilder = new StringBuilder();
+        stringBuilder = null;
     }
 
     @Test
@@ -55,6 +55,22 @@ public class StringBuilderTest {
 
         stringBuilder.delete(0, 5);
         assertEquals(stringBuilder.toString(), testString.substring(5));
+    }
+
+    @Test
+    public void deleteCharAtShouldDeleteCharAtSpecifiedPosition() throws IndexOutOfBoundsException {
+
+        int index = 5;
+
+        String result = new String();
+        for (int i = 0; i < testString.toCharArray().length; i++) {
+            if (i != index) {
+                result += testString.charAt(i);
+            }
+        }
+        stringBuilder.deleteCharAt(index);
+
+        assertEquals(stringBuilder.toString(), result);
     }
 
     @Test
@@ -94,7 +110,7 @@ public class StringBuilderTest {
         String reverseString = "";
         for (int i = testString.toCharArray().length - 1; i >= 0; i--) {
 
-            reverseString += testString.toCharArray()[i];
+            reverseString += testString.charAt(i);
         }
         assertEquals(stringBuilder.toString(), reverseString);
     }

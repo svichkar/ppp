@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.nixsolutions.junit;
 
 import java.util.HashSet;
@@ -13,72 +10,78 @@ import org.junit.Test;
  *
  */
 public class JunitLab {
-	private HashSet<String> hSet;
+	private HashSet<String> mainTestingHashSet;
 
 	@Before
 	public void setValuesForTesting() {
 		// Given for each of the tests
-		hSet = new HashSet<>();
+		mainTestingHashSet = new HashSet<>();
 	}
 
 	@Test
-	public void checkIfSpecifiedElementsCanBeAdded() {		
-		int sizeBefore = hSet.size();
-		hSet.add("String #1");
-		int sizeAfter = hSet.size();		
-		Assert.assertTrue(sizeBefore < sizeAfter && hSet.contains("String #1"));
+	public void checkIfSpecifiedElementsCanBeAdded() {
+		int sizeBefore = mainTestingHashSet.size();
+		mainTestingHashSet.add("String #1");
+		int sizeAfter = mainTestingHashSet.size();
+		Assert.assertTrue(sizeBefore < sizeAfter);
+		Assert.assertTrue(mainTestingHashSet.contains("String #1"));
 	}
 
 	@Test
-	public void checkIfSpecifiedElementsCanBeRemoved() {		
-		hSet.add("String #1");
-		hSet.add("String #2");
-		int sizeBefore = hSet.size();
-		hSet.remove("String #1");
-		int sizeAfter = hSet.size();
-		Assert.assertTrue(sizeBefore > sizeAfter && !hSet.contains("String #1") && hSet.contains("String #2"));
+	public void checkIfSpecifiedElementsCanBeRemoved() {
+		mainTestingHashSet.add("String #1");
+		mainTestingHashSet.add("String #2");
+		int sizeBefore = mainTestingHashSet.size();
+		mainTestingHashSet.remove("String #1");
+		int sizeAfter = mainTestingHashSet.size();
+		Assert.assertTrue(sizeBefore > sizeAfter);
+		Assert.assertFalse(mainTestingHashSet.contains("String #1"));
+		Assert.assertTrue(mainTestingHashSet.contains("String #2"));
 	}
 
 	@Test
 	public void checkIfContainsElement() {
-		hSet.add("Test string");
-		Assert.assertTrue(hSet.contains("Test string"));
+		mainTestingHashSet.add("Test string");
+		Assert.assertTrue(mainTestingHashSet.contains("Test string"));
 	}
 
 	@Test
 	public void checkIfClears() {
-		hSet.add("Test string");
-		hSet.clear();
-		Assert.assertFalse(hSet.contains("Test string") && hSet.size() > 0);
+		mainTestingHashSet.add("Test string");
+		mainTestingHashSet.clear();
+		Assert.assertFalse(mainTestingHashSet.contains("Test string"));
+		Assert.assertTrue(mainTestingHashSet.size() == 0);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void checkIfClones() {
-		hSet.add("Value will be cloned");
-		HashSet<String> hSetToCompare = (HashSet<String>) hSet.clone();
-		Assert.assertEquals(hSet, hSetToCompare);
+		mainTestingHashSet.add("Value will be cloned");
+		HashSet<String> hSetToCompare = (HashSet<String>) mainTestingHashSet.clone();
+		Assert.assertEquals(mainTestingHashSet, hSetToCompare);
 	}
 
 	@Test
 	public void checkDuplicatesCannotBeAdded() {
-		hSet.add("String #1");
-		hSet.add("String #2");
-		Assert.assertFalse(hSet.add("String #1"));
+		mainTestingHashSet.add("String #1");
+		mainTestingHashSet.add("String #2");
+		Assert.assertFalse(mainTestingHashSet.add("String #1"));
 	}
 
 	@Test
-	public void checkOtherHashSeatCanBeAddedExceptExistingItems() {
+	public void checkOtherHashSetCanBeAddedExceptExistingItems() {
 		HashSet<String> hSetForAdding = new HashSet<>();
 
-		hSet.add("String #1");
-		hSet.add("String #2");
+		mainTestingHashSet.add("String #1");
+		mainTestingHashSet.add("String #2");
 
 		hSetForAdding.add("String #3");
 		hSetForAdding.add("String #4");
 		hSetForAdding.add("String #1");
-		hSet.addAll(hSetForAdding);
-		Assert.assertTrue(hSet.contains("String #3") && hSet.contains("String #4") && hSet.size() == 4);
+		mainTestingHashSet.addAll(hSetForAdding);
+		Assert.assertTrue(mainTestingHashSet.contains("String #3"));
+		Assert.assertTrue(mainTestingHashSet.contains("String #4"));
+		Assert.assertTrue(mainTestingHashSet.size() == 4);
 	}
 
 }

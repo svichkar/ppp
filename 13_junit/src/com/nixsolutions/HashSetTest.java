@@ -9,8 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class HashSetTest {
-	private HashSet<String> hashSet;
+	private HashSet<String> hashSetExample;
 	private HashSet<String> hashSetClone;
 	private ArrayList<String> listData;
 	private int count = 0;
@@ -19,7 +20,7 @@ public class HashSetTest {
 
 	@Before
 	public void NeededDataForTesting() {
-		hashSet = new HashSet<String>();
+		hashSetExample = new HashSet<String>();
 		listData = new ArrayList<>();
 		hashSetClone = new HashSet<String>();
 		listData.add("First");
@@ -29,33 +30,38 @@ public class HashSetTest {
 
 	@After
 	public void tearDown() {
-		hashSet.clear();
+		hashSetExample.clear();
 		listData.clear();
 		hashSetClone.clear();
-		count = 0;
-		sizeSet = 0;
-		elementExist = false;
+	}
+
+	@Test
+	public void shouldBeAddedElementToHashSetIfItIsNotAlreadyPresent() {
+		// given
+		hashSetExample.add(listData.get(0));
+		// then
+		Assert.assertTrue(hashSetExample.contains(listData.get(0)));
 	}
 
 	@Test
 	public void shouldBeRemoveElementInHashSetIfItIsPresent() {
 		// given
-		hashSet.addAll(listData);
+		hashSetExample.addAll(listData);
 		// when
-		hashSet.remove(listData.get(2));
+		hashSetExample.remove(listData.get(2));
 		// then
-		Assert.assertTrue(hashSet.contains(listData.get(0)));
-		Assert.assertTrue(hashSet.contains(listData.get(1)));
-		Assert.assertFalse(hashSet.contains(listData.get(2)));
+		Assert.assertTrue(hashSetExample.contains(listData.get(0)));
+		Assert.assertTrue(hashSetExample.contains(listData.get(1)));
+		Assert.assertFalse(hashSetExample.contains(listData.get(2)));
 	}
 
 	@Test
 	public void shouldBeDetermineQuantityOfElementsInHashSet() {
 		// given
-		hashSet.addAll(listData);
+		hashSetExample.addAll(listData);
 		// when
 		count = listData.size();
-		sizeSet = hashSet.size();
+		sizeSet = hashSetExample.size();
 		// then
 		Assert.assertEquals(sizeSet, count);
 
@@ -64,30 +70,30 @@ public class HashSetTest {
 	@Test
 	public void shouldBeElementNotAddedToHashSetBecauseItIsAlreadyPresentInHashSet() {
 		// given
-		hashSet.add(listData.get(0));
+		hashSetExample.add(listData.get(0));
 		// when
-		hashSet.add(listData.get(0));
+		hashSetExample.add(listData.get(0));
 		// then
-		Assert.assertTrue(hashSet.size() == 1);
-		Assert.assertFalse(hashSet.size() == 2);
+		Assert.assertTrue(hashSetExample.size() == 1);
+		Assert.assertFalse(hashSetExample.size() == 2);
 	}
 
 	@Test
 	public void shouldBeCloneHashSetToNewHashSet() {
 		// given
-		hashSet.addAll(listData);
+		hashSetExample.addAll(listData);
 		// when
-		hashSetClone = (HashSet<String>) hashSet.clone();
+		hashSetClone = (HashSet<String>) hashSetExample.clone();
 		// then
-		Assert.assertEquals(hashSetClone, hashSet);
+		Assert.assertEquals(hashSetClone, hashSetExample);
 	}
 
 	@Test
 	public void shouldBeContainSpecifiedElementInHashSet() {
 		// given
-		hashSet.add(listData.get(0));
+		hashSetExample.add(listData.get(0));
 		// when
-		elementExist = hashSet.contains(listData.get(0));
+		elementExist = hashSetExample.contains(listData.get(0));
 		// then
 		Assert.assertTrue(elementExist);
 	}
@@ -95,19 +101,11 @@ public class HashSetTest {
 	@Test
 	public void shouldBeClearHashSet() {
 		// given
-		hashSet.addAll(listData);
+		hashSetExample.addAll(listData);
 		// when
-		hashSet.clear();
+		hashSetExample.clear();
 		// then
-		Assert.assertTrue(hashSet.size() == 0);
-	}
-
-	@Test
-	public void shouldBeAddedElementToHashSetIfItIsNotAlreadyPresent() {
-		// given
-		hashSet.add(listData.get(0));
-		// then
-		Assert.assertTrue(hashSet.contains(listData.get(0)));
+		Assert.assertTrue(hashSetExample.size() == 0);
 	}
 
 }

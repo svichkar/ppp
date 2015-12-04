@@ -10,15 +10,15 @@ import java.nio.file.StandardOpenOption;
  * Created by rybkinrolla on 04.12.2015.
  */
 public class Robot {
-    public int coordinateX;
-    public int coordinateY;
-    public int directionDegree;
+    private int coordinateX;
+    private int coordinateY;
+    private int angleOfRotation;
     private File outCoordinatesFile;
 
     public Robot(File pathToWriteCoordinates) throws IOException {
         coordinateX = 0;
         coordinateY = 0;
-        directionDegree = 0;
+        angleOfRotation = 0;
         outCoordinatesFile = pathToWriteCoordinates;
         if (!Files.exists(outCoordinatesFile.toPath())) {
             Files.createFile(outCoordinatesFile.toPath());
@@ -26,17 +26,19 @@ public class Robot {
     }
 
     public void stepForward() throws IOException {
-        if (directionDegree == 90) {
-            coordinateY++;
-        }
-        if (directionDegree == 180) {
-            coordinateX--;
-        }
-        if (directionDegree == 270) {
-            coordinateY--;
-        }
-        if (directionDegree == 0) {
-            coordinateX++;
+        switch (angleOfRotation) {
+            case 90:
+                coordinateY++;
+                break;
+            case 180:
+                coordinateX--;
+                break;
+            case 270:
+                coordinateY--;
+                break;
+            case 0:
+                coordinateX++;
+                break;
         }
         BufferedWriter bufferedWriter = Files.newBufferedWriter((outCoordinatesFile.toPath()), StandardOpenOption.APPEND);
         bufferedWriter.write("x" + coordinateX + "y" + coordinateY + "\n");
@@ -45,16 +47,16 @@ public class Robot {
     }
 
     public void turnRight() {
-        if (directionDegree == 0) {
-            directionDegree = 360;
+        if (angleOfRotation == 0) {
+            angleOfRotation = 360;
         }
-        directionDegree -= 90;
+        angleOfRotation -= 90;
     }
 
     public void turnLeft() {
-        directionDegree += 90;
-        if (directionDegree == 360) {
-            directionDegree = 0;
+        if (angleOfRotation == 360) {
+            angleOfRotation = 0;
         }
+        angleOfRotation += 90;
     }
 }

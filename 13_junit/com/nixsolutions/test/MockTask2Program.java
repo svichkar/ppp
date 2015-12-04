@@ -6,6 +6,7 @@ import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 
@@ -40,11 +41,11 @@ public class MockTask2Program {
 
     @Test
     public void shouldExecuteCommandsInRightOrder() {
-        program.run("lrfr");
+        program.run("lrfrr");
         InOrder inOrder = inOrder(robot);
         inOrder.verify(robot).turnLeft();
         inOrder.verify(robot).turnRight();
         inOrder.verify(robot).stepForward();
-        inOrder.verify(robot).turnRight();
+        inOrder.verify(robot, times(2)).turnRight();
     }
 }

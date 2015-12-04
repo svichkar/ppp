@@ -15,5 +15,5 @@ public class MockTask2Robot {
     @InjectMocks
     private Program robot;
 
-    
+
 }

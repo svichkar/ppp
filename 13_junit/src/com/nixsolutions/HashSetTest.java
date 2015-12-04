@@ -28,13 +28,6 @@ public class HashSetTest {
 		listData.add("Third");
 	}
 
-	@After
-	public void tearDown() {
-		hashSetExample.clear();
-		listData.clear();
-		hashSetClone.clear();
-	}
-
 	@Test
 	public void shouldBeAddedElementToHashSetIfItIsNotAlreadyPresent() {
 		// given

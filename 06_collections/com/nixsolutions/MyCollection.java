@@ -73,32 +73,30 @@ public class MyCollection implements Collection {
 	public boolean remove(Object o) {
 		boolean result = false;
 		int index = 0;
+
 		if (o == null) {
 			for (int i = 0; i < myArray.length; i++)
 				if (myArray[i] == null) {
-					index = i;
+					tempArray = new Object[myArray.length - 1];
+					System.arraycopy(myArray, 0, tempArray, 0, i);
+					System.arraycopy(myArray, i + 1, tempArray, i, myArray.length - i - 1);
+					myArray = tempArray;
+					result = true;
 					break;
 				}
-			tempArray = new Object[myArray.length - 1];
-			System.arraycopy(myArray, 0, tempArray, 0, index);
-			System.arraycopy(myArray, index + 1, tempArray, index, myArray.length - index - 1);
-			myArray = tempArray;
-			result = true;
 		}
 
 		else {
 
 			for (int i = 0; i < myArray.length; i++)
 				if (myArray[i].equals(o)) {
-					index = i;
+					tempArray = new Object[myArray.length - 1];
+					System.arraycopy(myArray, 0, tempArray, 0, i);
+					System.arraycopy(myArray, i + 1, tempArray, i, myArray.length - i - 1);
+					myArray = tempArray;
+					result = true;
 					break;
 				}
-
-			tempArray = new Object[myArray.length - 1];
-			System.arraycopy(myArray, 0, tempArray, 0, index);
-			System.arraycopy(myArray, index + 1, tempArray, index, myArray.length - index - 1);
-			myArray = tempArray;
-			result = true;
 		}
 
 		return result;
@@ -107,6 +105,7 @@ public class MyCollection implements Collection {
 
 	@Override
 	public boolean removeAll(Collection c) {
+		boolean result = false;
 		try {
 			tempArray = new Object[myArray.length];
 			int j = 0;
@@ -114,10 +113,13 @@ public class MyCollection implements Collection {
 				if (!c.contains(myArray[i])) {
 					tempArray[j] = myArray[i];
 					j++;
-				}
+					result = false;
+				} else
+					result = true;
 			myArray = new Object[j];
 			System.arraycopy(tempArray, 0, myArray, 0, j);
-			return true;
+			return result;
+
 		} catch (Exception ex) {
 			return false;
 		}

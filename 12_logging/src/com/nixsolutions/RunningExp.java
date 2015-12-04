@@ -17,7 +17,7 @@ public class RunningExp extends Exp {
 		lOG.entry("Program is starting...");
 		RunningExp run = new RunningExp();
 		workDir = System.getProperty("user.dir");
-		lOG.info("Working directory for saving file is - " + workDir);
+		lOG.debug("Working directory for saving file is - " + workDir);
 		run.save("Laba 12_Log", workDir + "\\Laba1.txt");
 		lOG.exit();
 	}

@@ -20,8 +20,8 @@ public abstract class Exp implements Save {
 	private static final Logger lOG = LogManager.getLogger(Exp.class.getName());
 	@Override
 	public void save(String stringForSaving, String absolutPathToFile) {
-		lOG.info("Path for file - "+absolutPathToFile);
-		lOG.info("String for writing - "+stringForSaving);
+		lOG.debug("Path for file - "+absolutPathToFile);
+		lOG.debug("String for writing - "+stringForSaving);
 		File file = new File(absolutPathToFile);
 		try {
 			if (stringForSaving.isEmpty()) {

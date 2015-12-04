@@ -7,9 +7,9 @@ import org.junit.Test;
 
 public class StrBuilderTest {
 
-	StringBuilder builder; 
-	String first;
-	String second;
+	private StringBuilder builder; 
+	private String first;
+	private String second;
 
 	@Before
 	public void initiationOfTheData() {
@@ -47,12 +47,6 @@ public class StrBuilderTest {
 	public void shouldInsertStringAtGivenPosition() {
 		builder.insert(0, second);
 		assertEquals(second + first, builder.toString());
-	}
-
-	@Test
-	public void shouldappendChar() {
-		builder.append("s");
-		assertTrue(builder.toString().endsWith("s"));
 	}
 
 	@Test

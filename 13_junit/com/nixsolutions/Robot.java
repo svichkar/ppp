@@ -37,8 +37,8 @@ public class Robot {
         direction--;
     }
     public void stepForward() {
-        while (direction < 0){
-            direction = direction + 4;
+        if (direction < 0) {
+            direction = 4 - Math.abs(direction % 4);
         }
         switch (direction % 4) {
             case 0:

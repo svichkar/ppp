@@ -1,0 +1,8 @@
+16:55:13.552 [main] TRACE com.nixsolutions.RunningExp - entry params(Program is starting...)
+16:55:13.554 [main] DEBUG com.nixsolutions.RunningExp - Working directory for saving file is - D:\Java\javappp\12_logging
+16:55:13.554 [main] INFO  com.nixsolutions.Exp - Path for file - D:\Java\javappp\12_logging\Laba1.txt
+16:55:13.554 [main] INFO  com.nixsolutions.Exp - String for writing - Laba 12_Log
+16:55:13.554 [main] INFO  com.nixsolutions.Exp - Creating file for writing.
+16:55:13.561 [main] DEBUG com.nixsolutions.Exp - Writing string to file
+16:55:13.562 [main] INFO  com.nixsolutions.Exp - String is saved to file.
+16:55:13.562 [main] TRACE com.nixsolutions.RunningExp - exit

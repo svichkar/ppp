@@ -20,8 +20,8 @@ public abstract class Exp implements Save {
 	private static final Logger lOG = LogManager.getLogger(Exp.class.getName());
 	@Override
 	public void save(String stringForSaving, String absolutPathToFile) {
-		lOG.debug("Path for file - "+absolutPathToFile);
-		lOG.debug("String for writing - "+stringForSaving);
+		lOG.info("Path for file - "+absolutPathToFile);
+		lOG.info("String for writing - "+stringForSaving);
 		File file = new File(absolutPathToFile);
 		try {
 			if (stringForSaving.isEmpty()) {
@@ -31,7 +31,7 @@ public abstract class Exp implements Save {
 				if (file.exists()) {
 					lOG.warn("Rewriting input string to file.");
 					FileWriter fileWriter = new FileWriter(file);
-					fileWriter.append(stringForSaving);
+					lOG.debug("Writing string to file...", fileWriter.append(stringForSaving)); 
 					fileWriter.flush();
 					fileWriter.close();
 					lOG.info("String is saved to file.");
@@ -39,7 +39,7 @@ public abstract class Exp implements Save {
 					lOG.info("Creating file for writing.");
 					file.createNewFile();
 					FileWriter fileWriter = new FileWriter(file);
-					fileWriter.append(stringForSaving);
+					lOG.debug("Writing string to file...", fileWriter.append(stringForSaving));
 					fileWriter.flush();
 					fileWriter.close();
 					lOG.info("String is saved to file.");

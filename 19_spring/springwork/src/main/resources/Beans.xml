@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"    
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-   <bean id="helloWorld" class="com.tutorialspoint.HelloWorld">
-       <property name="message" value="Hello World!"/>
-   </bean>
-
+	<bean id="customDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver"/>
+		<property name="url" value="jdbc:h2:tcp://localhost/~/sqllab"/>
+		<property name="username" value="sa"/>
+		<property name="password" value=""/>
+	</bean>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="customDataSource"/>
+		<property name="hibernateProperties">
+       		<list>
+       			<value>hibernate.cfg.xml</value>
+       		</list>
+       	</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:data-source-ref="dataSource"/>
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
+	
+	<bean id="carDAO" class="com.nixsolutions.dao.impl.CarDAOImpl"/>
+	<bean id="customerDAO" class="com.nixsolutions.dao.impl.CustomerDAOImpl"/>
+	<bean id="orderInWorkDAO" class="com.nixsolutions.dao.impl.OrderInWorkDAOImpl"/>
+	<bean id="orderPartDAO" class="com.nixsolutions.dao.impl.OrderPartDAOImpl"/>
+	<bean id="orderStatusDAO" class="com.nixsolutions.dao.impl.OrderStatusDAOImpl"/>
+	<bean id="orderWorkerDAO" class="com.nixsolutions.dao.impl.OrderWorkerDAOImpl"/>
+	<bean id="partDAO" class="com.nixsolutions.dao.impl.PartDAOImpl"/>
+	<bean id="roleDAO" class="com.nixsolutions.dao.impl.RoleDAOImpl"/>
+	<bean id="statusDAO" class="com.nixsolutions.dao.impl.StatusDAOImpl"/>
+	<bean id="userDAO" class="com.nixsolutions.dao.impl.UserDAOImpl"/>
+	<bean id="workerDAO" class="com.nixsolutions.dao.impl.WorkerDAOImpl"/>
+	<bean id="workerSpecializationDAO" class="com.nixsolutions.dao.impl.WorkerSpecializationDAOImpl"/>
+	<context:component-scan base-package="com.nixsolutions"/>
 </beans>

@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package com.nixsolutions.junit;
 
 import org.junit.After;
 import org.junit.Before;

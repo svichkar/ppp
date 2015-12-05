@@ -8,10 +8,10 @@ public class Main {
     public static void main(String args[]) {
 
         MyClassLoader loader = new MyClassLoader();
-        loader.setPath("C:\\gitRepo\\javappp\\08_serialization\\out\\production\\Serialization\\");
+        loader.setPath("C:\\gitRepo\\javappp\\11_io\\out\\production\\InputOutput");
         Class loadClass = null;
         try {
-            loadClass = loader.loadClass("com.nixsolutions.Serializator");
+            loadClass = loader.loadClass("com.nixsolutions.CopyFilesStructure");
             System.out.println(String.format("Class by path '%s' OR from CLASSPATH was loaded.", loader.getPath()));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

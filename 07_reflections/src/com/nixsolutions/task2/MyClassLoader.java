@@ -1,9 +1,10 @@
 package com.nixsolutions.task2;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by svichkar on 12/1/2015.
@@ -11,13 +12,6 @@ import java.io.IOException;
 public class MyClassLoader extends ClassLoader implements PathClassLoader {
 
     String path;
-
-    /**
-     * MyClassLoader's constructor
-     */
-    public MyClassLoader() {
-        super(ClassLoader.class.getClassLoader());
-    }
 
     /**
      * gets path
@@ -41,18 +35,6 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
     }
 
     /**
-     * overrided method loadClass
-     *
-     * @param name - class name
-     * @return Class of some type
-     * @throws ClassNotFoundException
-     */
-    @Override
-    public Class<?> loadClass(String name) throws ClassNotFoundException {
-        return findClass(name);
-    }
-
-    /**
      * overrided method findClass
      *
      * @param name - class name
@@ -61,11 +43,15 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
      */
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
+
+        Class<?> clazz;
+        Path pathToDir = Paths.get(getPath(), name.replace(".", FileSystems.getDefault().getSeparator()) + ".class");
         try {
-            byte[] bytes = FileUtils.readFileToByteArray(new File(String.format("%s%s.class", path, name.replace(".", "/"))));
-            return defineClass(name, bytes, 0, bytes.length);
+            byte[] bytes = Files.readAllBytes(pathToDir);
+            clazz = defineClass(name,bytes, 0, bytes.length,null);
+            return clazz;
         } catch (IOException e) {
-            return super.loadClass(name);
+            return super.findClass(name);
         }
     }
 }

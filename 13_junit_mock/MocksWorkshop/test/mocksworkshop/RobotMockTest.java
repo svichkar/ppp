@@ -5,43 +5,36 @@
  */
 package mocksworkshop;
 
-import java.io.File;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
+import org.junit.runner.RunWith;
+import static org.mockito.Mockito.mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  *
  * @author mednorcom
  */
-public class RobotAndProgramTest {
+@RunWith(MockitoJUnitRunner.class)
+public class RobotMockTest {
 
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
+    
+//@InjectMocks private Robot myRobo = null;
 
     /**
      * Test of getCoordinates method, of class Robot.
      */
     @Test
     public void robotShouldMoveAccordingToProgram() throws IOException {
-        Robot myRobo = new Robot(new File(folder.getRoot(), "robo.log").getPath());
+       
+        Robot myRobo = mock(Robot.class);
+        myRobo.getCoordinates();
+        
+        
+        /*given(logFile.exists() == false).willReturn(true);
         Program myProgram = new Program(myRobo);
         myProgram.executeCommand("ffflfrflllllfrrrrrf");
-        assertEquals(myRobo.getCoordinates(), "5.2");
+        assertEquals(myRobo.getCoordinates(), "5.2");*/
     }
 
 }

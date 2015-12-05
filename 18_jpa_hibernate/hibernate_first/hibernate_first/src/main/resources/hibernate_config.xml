@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.driver_class">org.h2.Driver</property>
+		<!--<property name="connection.url">jdbc:h2:mem:test123</property>-->
+		<property name="connection.url">jdbc:h2:tcp://localhost/~/testDB</property>
+		<property name="connection.username">sa</property>
+		<property name="connection.password"></property>
+		<property name="show_sql">true</property>
+		<property name="connection.autocommit">true</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="current_session_context_class">thread</property>
+
+		<mapping class="com.nixsolutions.entity.Role" />
+		<mapping class="com.nixsolutions.entity.Status" />
+		<mapping class="com.nixsolutions.entity.StudentGroup" />
+		<mapping class="com.nixsolutions.entity.Term" />
+		<mapping class="com.nixsolutions.entity.Subject" />
+		<mapping class="com.nixsolutions.entity.User" />
+		<mapping class="com.nixsolutions.entity.Student" />
+		<mapping class="com.nixsolutions.entity.Journal" />
+	</session-factory>
+</hibernate-configuration>

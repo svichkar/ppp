@@ -2,7 +2,6 @@ package com.nixsolutions.task1;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by svichkar on 11/23/2015.
@@ -10,14 +9,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Producer implements Runnable {
 
     private BlockingQueue<Integer> queue;
-    private AtomicInteger remainingCapacity;
 
     /**
      * Producer's constructor
      */
     public Producer(BlockingQueue<Integer> blockingQueue) {
         this.queue = blockingQueue;
-        this.remainingCapacity = new AtomicInteger(blockingQueue.remainingCapacity());
     }
 
     /**
@@ -26,10 +23,11 @@ public class Producer implements Runnable {
     @Override
     public void run() {
 
+        int N = queue.remainingCapacity();
+        int i = 0;
         try {
-            while (remainingCapacity.get() > 0) {
+            while (i++ < N) {
                 queue.put(ThreadLocalRandom.current().nextInt());
-                remainingCapacity.decrementAndGet();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

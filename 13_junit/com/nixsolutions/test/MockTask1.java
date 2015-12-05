@@ -5,10 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +31,6 @@ public class MockTask1 {
         while ((line = bufferedReader.readLine()) != null) {
             actualResults.add(line);
         }
-
         Assert.assertArrayEquals(expectedResults,actualResults.toArray());
     }
 }

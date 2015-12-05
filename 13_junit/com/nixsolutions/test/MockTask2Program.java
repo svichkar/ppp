@@ -41,11 +41,15 @@ public class MockTask2Program {
 
     @Test
     public void shouldExecuteCommandsInRightOrder() {
-        program.run("lrfrr");
+        program.run("lffrflfrrfff");
         InOrder inOrder = inOrder(robot);
         inOrder.verify(robot).turnLeft();
+        inOrder.verify(robot, times(2)).stepForward();
         inOrder.verify(robot).turnRight();
         inOrder.verify(robot).stepForward();
+        inOrder.verify(robot).turnLeft();
+        inOrder.verify(robot).stepForward();
         inOrder.verify(robot, times(2)).turnRight();
+        inOrder.verify(robot, times(3)).stepForward();
     }
 }

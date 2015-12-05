@@ -3,9 +3,8 @@ package com.nixsolutions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 
 
 /**
@@ -17,18 +16,15 @@ public class Robot {
     private int coordinateY = 0;
     private int direction = 1;
     private File file;
+    private Writer fileWriter;
 
     public Robot(File file) {
         this.file = file;
     }
-
-    public void copyToFile (String line, File file){
-        try (FileWriter fileWriter = new FileWriter(file, true)) {
-            fileWriter.write(line);
-        } catch (IOException e) {
-            LOGGER.error(e);
-        }
+    public void setFileWriter(Writer writer){
+        fileWriter = writer;
     }
+
     public void turnLeft() {
         direction++;
     }
@@ -57,6 +53,14 @@ public class Robot {
                 LOGGER.error("wrong direction: " + direction);
                 break;
         }
-        this.copyToFile(coordinateX + "." + coordinateY + "\n", file);
+        try {
+            if (fileWriter == null) {
+                fileWriter = new FileWriter(file, true);
+            }
+            fileWriter.write(coordinateX + "." + coordinateY + "\n");
+            fileWriter.flush();
+        } catch (IOException e) {
+            LOGGER.error(e);
+        }
     }
 }

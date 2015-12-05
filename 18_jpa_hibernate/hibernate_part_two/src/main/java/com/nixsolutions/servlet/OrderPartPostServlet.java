@@ -68,7 +68,7 @@ public class OrderPartPostServlet extends HttpServlet {
 				if (part_id != null) {
 					OrderPart orderPart = orderPartDao.getByPK(Integer.parseInt(order_id), Integer.parseInt(part_id));
 					if (orderPart == null) {
-						orderPart = new OrderPart(0, orderDao.getByPK(Integer.parseInt(order_id)), partDao.getByPK(Integer.parseInt(part_id)), Integer.parseInt(used_amount));
+						orderPart = new OrderPart(orderDao.getByPK(Integer.parseInt(order_id)), partDao.getByPK(Integer.parseInt(part_id)), Integer.parseInt(used_amount));
 						orderPartDao.createFrom(orderPart);
 					} else {
 						orderPart.setUsedAmount(Integer.parseInt(used_amount));

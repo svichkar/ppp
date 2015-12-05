@@ -49,7 +49,7 @@ public class WorkerPostServlet extends HttpServlet {
 				String specialization_id = request.getParameter("specialization_id");
 				String user_id = request.getParameter("user_id");
 				if (worker_id == null || worker_id.equals("")) {
-					Worker worker = new Worker(0, first_name, last_name, workerSpecDao.getByPK(Integer.parseInt(specialization_id)), 
+					Worker worker = new Worker(first_name, last_name, workerSpecDao.getByPK(Integer.parseInt(specialization_id)), 
 							statusDao.getByPK(Integer.parseInt(status_id)), userDao.getByPK(Integer.parseInt(user_id)));
 					workerDao.createFrom(worker);
 				} else {

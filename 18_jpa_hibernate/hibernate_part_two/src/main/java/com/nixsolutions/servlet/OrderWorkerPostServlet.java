@@ -70,7 +70,7 @@ public class OrderWorkerPostServlet extends HttpServlet {
 					OrderWorker orderWorker = orderWorkerDao.getByPK(Integer.parseInt(order_id),
 							Integer.parseInt(worker_id));
 					if (orderWorker == null) {
-						orderWorker = new OrderWorker(0, orderDao.getByPK(Integer.parseInt(order_id)),
+						orderWorker = new OrderWorker(orderDao.getByPK(Integer.parseInt(order_id)),
 								workerDao.getByPK(Integer.parseInt(worker_id)), IsCompletedValue.valueOf(is_completed));
 						orderWorkerDao.createFrom(orderWorker);
 					} else {

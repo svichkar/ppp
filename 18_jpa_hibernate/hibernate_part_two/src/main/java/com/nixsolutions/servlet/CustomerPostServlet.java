@@ -42,7 +42,7 @@ public class CustomerPostServlet extends HttpServlet {
 				String phone = request.getParameter("phone");
 				String user_id = request.getParameter("user_id");
 				if (customer_id == null || customer_id.equals("")) {
-					Customer customer = new Customer(0, first_name, last_name, phone, userDao.getByPK(Integer.parseInt(user_id)));
+					Customer customer = new Customer(first_name, last_name, phone, userDao.getByPK(Integer.parseInt(user_id)));
 					customerDao.createFrom(customer);
 				} else {
 					Customer customer = customerDao.getByPK(Integer.parseInt(customer_id));

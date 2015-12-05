@@ -85,9 +85,8 @@ public class OrderInWork implements Serializable {
 		this.timestampFinish = timestampFinish;
 	}
 
-	public OrderInWork(long orderId, OrderStatus orderStatus, String description, Car car, Timestamp timestampStart,
+	public OrderInWork(OrderStatus orderStatus, String description, Car car, Timestamp timestampStart,
 			Timestamp timestampFinish) {
-		this.orderId = orderId;
 		this.orderStatus = orderStatus;
 		this.description = description;
 		this.car = car;
@@ -96,6 +95,6 @@ public class OrderInWork implements Serializable {
 	}
 	
 	public OrderInWork() {
-		this(0, null, "", null, new Timestamp(new Date().getTime()), null);
+		this(null, "", null, new Timestamp(new Date().getTime()), null);
 	}
 }

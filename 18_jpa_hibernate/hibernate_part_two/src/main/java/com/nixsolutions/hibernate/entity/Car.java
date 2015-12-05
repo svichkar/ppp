@@ -70,8 +70,7 @@ public class Car implements Serializable {
 		return customer;
 	}
 
-	public Car(int carId, String model, String vin, String description, Customer customer) {
-		this.carId = carId;
+	public Car(String model, String vin, String description, Customer customer) {
 		this.model = model;
 		this.vin = vin;
 		this.description = description;
@@ -79,7 +78,7 @@ public class Car implements Serializable {
 	}
 	
 	public Car() {
-		this(0, "", "", "", null);
+		this("", "", "", null);
 	}
 	
 }

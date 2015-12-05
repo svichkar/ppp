@@ -55,15 +55,14 @@ public class Part implements Serializable {
 		this.amount = amount;
 	}
 
-	public Part(long partId, String partName, String vendor, long amount) {
-		this.partId = partId;
+	public Part(String partName, String vendor, long amount) {
 		this.partName = partName;
 		this.vendor = vendor;
 		this.amount = amount;
 	}
 	
 	public Part() {
-		this(0, "", "", 0);
+		this("", "", 0);
 	}
 
 }

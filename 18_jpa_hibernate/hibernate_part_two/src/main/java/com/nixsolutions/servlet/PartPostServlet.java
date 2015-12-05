@@ -41,7 +41,7 @@ public class PartPostServlet extends HttpServlet {
 				String vendor = request.getParameter("vendor");
 				String amount = request.getParameter("amount");
 				if (part_id == null || part_id.equals("")) {
-					Part part = new Part(0, part_name, vendor, Integer.parseInt(amount));
+					Part part = new Part(part_name, vendor, Integer.parseInt(amount));
 					partDao.createFrom(part);
 				} else {
 					Part part = partDao.getByPK(Integer.parseInt(part_id));

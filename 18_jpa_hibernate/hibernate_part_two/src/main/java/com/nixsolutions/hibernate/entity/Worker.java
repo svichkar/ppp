@@ -82,9 +82,8 @@ public class Worker implements Serializable {
 		this.user = user;
 	}
 
-	public Worker(int workerId, String firstName, String lastName, WorkerSpecialization workerSpecialization,
+	public Worker(String firstName, String lastName, WorkerSpecialization workerSpecialization,
 			Status status, User user) {
-		this.workerId = workerId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.workerSpecialization = workerSpecialization;
@@ -93,6 +92,6 @@ public class Worker implements Serializable {
 	}
 	
 	public Worker() {
-		this(0, "", "", null, null, null);
+		this("", "", null, null, null);
 	}
 }

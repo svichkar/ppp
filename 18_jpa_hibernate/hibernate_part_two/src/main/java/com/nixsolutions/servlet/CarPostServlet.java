@@ -45,7 +45,7 @@ public class CarPostServlet extends HttpServlet {
 				String car_vin = request.getParameter("vin");
 				String customer_id = request.getParameter("customer_id");
 				if (car_id == null || car_id.equals("")) {
-					Car car = new Car(0, car_model, car_vin, car_description, customerDao.getByPK(Integer.parseInt(customer_id)));
+					Car car = new Car(car_model, car_vin, car_description, customerDao.getByPK(Integer.parseInt(customer_id)));
 					carDao.createFrom(car);
 				} else {
 					Car car = carDao.getByPK(Integer.parseInt(car_id));

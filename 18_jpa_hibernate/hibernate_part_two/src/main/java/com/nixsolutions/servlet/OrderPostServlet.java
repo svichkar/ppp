@@ -53,7 +53,7 @@ public class OrderPostServlet extends HttpServlet {
 				String timestamp_started = request.getParameter("timestamp_started");
 				String timestamp_finished = request.getParameter("timestamp_finished");
 				if (order_id == null || order_id.equals("")) {
-					OrderInWork order = new OrderInWork(0, orderStatusDao.getByPK(Integer.parseInt(order_status_id)),
+					OrderInWork order = new OrderInWork(orderStatusDao.getByPK(Integer.parseInt(order_status_id)),
 							order_description, carDao.getByPK(Integer.parseInt(car_id)),
 							new Timestamp(new Date().getTime()), null);
 					orderDao.createFrom(order);

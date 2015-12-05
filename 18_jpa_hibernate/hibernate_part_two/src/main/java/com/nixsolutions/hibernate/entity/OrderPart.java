@@ -62,14 +62,13 @@ public class OrderPart implements Serializable {
 		this.usedAmount = usedAmount;
 	}
 
-	public OrderPart(long id, OrderInWork order, Part part, long usedAmount) {
-		this.id = id;
+	public OrderPart(OrderInWork order, Part part, long usedAmount) {
 		this.order = order;
 		this.part = part;
 		this.usedAmount = usedAmount;
 	}
 	
 	public OrderPart() {
-		this(0, null, null, 0);
+		this(null, null, 0);
 	}
 }

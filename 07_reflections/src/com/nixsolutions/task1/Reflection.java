@@ -1,5 +1,6 @@
 package com.nixsolutions.task1;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -10,24 +11,27 @@ public class Reflection {
     public static void main(String args[]) {
 
         TestClass object = new TestClass();
-        String[] fieldNames = {"course", "word", "number", "notExistingField"};
+        Field[] fields = object.getClass().getDeclaredFields();
+        Object result;
 
-        for (String fieldName : fieldNames) {
-
+        for (Field field : fields) {
             try {
-                MyUtils.getValueByReflectionApi(object, fieldName);
+                result = MyUtils.getValueByReflectionApi(object, field.getName());
+                System.out.println(String.format("Field: %s; Type: %s; Value: %s", field.getName(), field.getType(), result));
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
 
             try {
-                MyUtils.getValueByGoogleReflection(object, fieldName);
+                result = MyUtils.getValueByGoogleReflection(object, field.getName());
+                System.out.println(String.format("Field: %s; Type: %s; Value: %s", field.getName(), field.getType(), result));
             } catch (NoSuchFieldException | IllegalAccessException e) {
                 e.printStackTrace();
             }
 
             try {
-                MyUtils.getValueByBeanUtils(object, fieldName);
+                result = MyUtils.getValueByBeanUtils(object, field.getName());
+                System.out.println(String.format("Field: %s; Type: %s; Value: %s", field.getName(), field.getType(), result));
             } catch (NoSuchFieldException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }

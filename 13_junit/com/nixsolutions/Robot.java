@@ -14,15 +14,13 @@ public class Robot {
     private int coordinateY;
     private int angleOfRotation;
     private File outCoordinatesFile;
+    private BufferedWriter bufferedWriter;
 
     public Robot(File pathToWriteCoordinates) throws IOException {
         coordinateX = 0;
         coordinateY = 0;
         angleOfRotation = 0;
         outCoordinatesFile = pathToWriteCoordinates;
-        if (!Files.exists(outCoordinatesFile.toPath())) {
-            Files.createFile(outCoordinatesFile.toPath());
-        }
     }
 
     public void stepForward() throws IOException {
@@ -40,10 +38,7 @@ public class Robot {
                 coordinateX++;
                 break;
         }
-        BufferedWriter bufferedWriter = Files.newBufferedWriter((outCoordinatesFile.toPath()), StandardOpenOption.APPEND);
-        bufferedWriter.write("x" + coordinateX + "y" + coordinateY + "\n");
-        bufferedWriter.flush();
-        bufferedWriter.close();
+        writeCoordinatesToFile();
     }
 
     public void turnRight() {
@@ -58,5 +53,23 @@ public class Robot {
             angleOfRotation = 0;
         }
         angleOfRotation += 90;
+    }
+
+    private void writeCoordinatesToFile() throws IOException {
+        if (!outCoordinatesFile.exists()) {
+            Files.createFile(outCoordinatesFile.toPath());
+        }
+        if (bufferedWriter == null) {
+            bufferedWriter = Files.newBufferedWriter((outCoordinatesFile.toPath()), StandardOpenOption.APPEND);
+        }
+        if (coordinateY == 0 && coordinateX == 0) {
+        } else {
+            bufferedWriter.write("x" + coordinateX + "y" + coordinateY + "\n");
+            bufferedWriter.flush();
+        }
+    }
+
+    public void setBufferedWriter(BufferedWriter bw) {
+        bufferedWriter = bw;
     }
 }

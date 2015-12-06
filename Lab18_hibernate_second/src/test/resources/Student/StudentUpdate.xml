@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<student student_id="1" first_name="Ivan" last_name="Petrov"
+		date_birthday="1990-02-02" date_entry="2012-06-15" student_group_id="1"
+		term_id="1" status_id="1" />
+	<student student_id="2" first_name="Petr" last_name="Ivanov"
+		date_birthday="1991-02-11" date_entry="2012-06-10" student_group_id="1"
+		term_id="1" status_id="1" />
+	<student student_id="3" first_name="Semen" last_name="Ribak"
+		date_birthday="1991-03-22" date_entry="2012-07-05" student_group_id="2"
+		term_id="1" status_id="1" />
+	<student student_id="4" first_name="Pavel" last_name="Pravsha"
+		date_birthday="1993-05-12" date_entry="2012-06-11" student_group_id="3"
+		term_id="2" status_id="1" />
+</dataset>

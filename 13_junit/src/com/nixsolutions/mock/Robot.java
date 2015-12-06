@@ -1,20 +1,31 @@
 package com.nixsolutions.mock;
 
+import org.apache.commons.io.FileUtils;
+
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by svichkar on 12/5/2015.
  */
 public class Robot {
 
-    private Point coordinates = new Point();
+    private Point coordinates;
     private Directions direction;
+    private File file;
 
-    public Robot() {
+    public Robot(String fileName) {
 
-        coordinates.setLocation(0, 0);
-        System.out.println(String.format("X: %s; Y: %s", coordinates.x, coordinates.y));
+        coordinates = new Point(0, 0);
         setDirection(Directions.RIGHT);
+
+        this.file = FileUtils.getFile(fileName);
+        try {
+            FileUtils.write(file, String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y), true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Directions getDirection() {
@@ -23,6 +34,10 @@ public class Robot {
 
     public void setDirection(Directions direction) {
         this.direction = direction;
+    }
+
+    public Point getCoordinates() {
+        return coordinates.getLocation();
     }
 
     public void turnLeft() {
@@ -48,7 +63,6 @@ public class Robot {
 
     }
 
-
     public void turnRight() {
 
         switch (getDirection()) {
@@ -71,7 +85,6 @@ public class Robot {
         }
     }
 
-
     public void stepForward() {
 
         switch (getDirection()) {
@@ -93,7 +106,11 @@ public class Robot {
                 break;
         }
 
-        System.out.println(String.format("X: %s; Y: %s", coordinates.x, coordinates.y));
+        try {
+            FileUtils.write(file, String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y), true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

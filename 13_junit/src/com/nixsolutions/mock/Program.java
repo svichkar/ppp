@@ -1,6 +1,8 @@
 package com.nixsolutions.mock;
 
 
+import java.io.File;
+
 /**
  * Created by svichkar on 12/5/2015.
  */
@@ -8,24 +10,26 @@ public class Program {
 
     private Robot robot;
 
-    public Program() {
-        robot = new Robot();
-        doWork();
+    public Program(Robot robot) {
+        this.robot = robot;
     }
 
-     protected void doWork () {
+     protected void move (String operation) {
 
-        robot.turnLeft();
-        robot.stepForward();
-        robot.stepForward();
-        robot.turnRight();
-        robot.stepForward();
-        robot.turnLeft();
-        robot.stepForward();
-        robot.turnRight();
-        robot.turnRight();
-        robot.stepForward();
-        robot.stepForward();
-        robot.stepForward();
+         char[] stepsArray = operation.toCharArray();
+
+         for (char step : stepsArray){
+             switch (step) {
+                 case 'f':
+                     robot.stepForward();
+                     break;
+                 case 'l':
+                     robot.turnLeft();
+                     break;
+                 case 'r':
+                     robot.turnRight();
+                     break;
+             }
+         }
     }
 }

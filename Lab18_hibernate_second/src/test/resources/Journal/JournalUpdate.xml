@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<journal journal_id="1" student_id="1" subject_id="1" rate_id="5" />
+	<journal journal_id="2" student_id="1" subject_id="2" rate_id="5" />
+	<journal journal_id="3" student_id="2" subject_id="2" rate_id="4" />
+	<journal journal_id="4" student_id="3" subject_id="1" rate_id="3" />
+	<journal journal_id="5" student_id="4" subject_id="4" rate_id="4" />
+</dataset>

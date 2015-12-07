@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-   <status status_id="1" status_name="Active"/>
-   <status status_id="2" status_name="Vacation" />
-   <status status_id="3" status_name="Expelled"/>
-   <status status_id="4" status_name="ToDelete"/>
-</dataset>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<studentgroup student_group_id="1" student_group_name="One"/>
+	<studentgroup student_group_id="2" student_group_name="Two" />
+	<studentgroup student_group_id="3" student_group_name="Three"/>
+
+	<term term_id="1" alias="I" />
+	<term term_id="2" alias="II" />
+	<term term_id="3" alias="III" />
+
+	<status status_id="1" status_name="Active" />
+	<status status_id="2" status_name="Vacation" />
+	<status status_id="3" status_name="Expelled" />
+
+	<student student_id="1" first_name="Ivan" last_name="Petrov"
+		date_birthday="1990-02-02" date_entry="2012-06-15" student_group_id="1"
+		term_id="1" status_id="1" />
+	<student student_id="2" first_name="Petr" last_name="Ivanov"
+		date_birthday="1991-02-11" date_entry="2012-06-10" student_group_id="1"
+		term_id="1" status_id="1" />
+	<student student_id="3" first_name="Semen" last_name="Ribak"
+		date_birthday="1991-03-22" date_entry="2012-07-05" student_group_id="2"
+		term_id="1" status_id="1" />
+	<student student_id="4" first_name="Pavel" last_name="Levsha"
+		date_birthday="1993-05-12" date_entry="2012-06-11" student_group_id="3"
+		term_id="2" status_id="1" />
+</dataset>

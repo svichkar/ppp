@@ -9,71 +9,95 @@ package com.nixsolutions;
  */
 public class TestingStringBuiilder {
 
-    private StringBuilder sb2;
+    private StringBuilder sb;
     private String one;
-    private String second;
     private int number;
 
     @Before
     public void setup(){
-        //sb = new StringBuilder("Test text");
-        one = "One";
-        second = "Second";
+        sb = null;
+        one = "One1";
         number = 120;
     }
 
     @Test
     public void shouldCreateStringBuilderWithInputString(){
-        sb2 = new StringBuilder(one);
-        Assert.assertEquals(one, sb2.toString());
+        sb = new StringBuilder(one);
+        Assert.assertEquals(one, sb.toString());
     }
 
     @Test
     public void shouldCreateStringBuilderWithAccordingCapacity(){
-        sb2 = new StringBuilder(number);
-        Assert.assertEquals(number, sb2.capacity());
+        sb = new StringBuilder(number);
+        Assert.assertEquals(number, sb.capacity());
     }
 
-    /*@Test
-    public void shouldConcatinateStrings(){
+    @Test
+    public void shouldDeleteCharsFromSpecifyedPlaceWithSpecifyedLength(){
+        sb = new StringBuilder("0123 5678");
+        Assert.assertEquals("0123 78", sb.delete(5, 7).toString());
+    }
 
-    }*/
+    @Test
+    public void shouldDeleteCharWithSpecifyedIndex(){
+        sb = new StringBuilder("Terst");
+        Assert.assertEquals("Test", sb.deleteCharAt(2).toString());
+    }
 
-    /*
-    https://docs.oracle.com/javase/8/docs/api/java/lang/StringBuilder.html#
+    @Test
+    public void shouldReturnStartIndexOfSpecifyedString(){
+        sb = new StringBuilder("Test base fun import");
+        Assert.assertEquals(4, sb.indexOf(" base"));
+    }
 
-    delete(int start, int end)
+    @Test
+    public void shouldInsertStringInsideStringBuilderValueOnSpecifyedPosition(){
+        sb = new StringBuilder("But I Kant");
+        Assert.assertEquals("But I am Kant", sb.insert(6, "am ").toString());
+    }
 
-    deleteCharAt(int index)
+    @Test
+    public void shouldReturnIndexOfLastEntryOfSpecifyedStringInSubstring(){
+        sb = new StringBuilder("Last 17 index is 17");
+        Assert.assertEquals(17, sb.lastIndexOf("17"));
+    }
 
- 	indexOf(String str)
+    @Test
+    public void shouldReturnLengthOfCurrentSubstring(){
+        sb = new StringBuilder(one);
+        Assert.assertEquals(4, sb.length());
+    }
 
-     insert(int offset, boolean b)
+    @Test
+    public void shouldReplaceSpecifyedPartOfSubstringToNewString(){
+        sb = new StringBuilder("He can sleep");
+        Assert.assertEquals("He can't sleep",sb.replace(3, 6, "can't").toString());
+    }
 
-      	insert(int offset, char c)
+    @Test
+    public void shouldReverseCurrentSubstring(){
+        sb = new StringBuilder("Reverse it");
+        Assert.assertEquals("ti esreveR", sb.reverse().toString());
+    }
 
-      	 	insert(int offset, long l)
+    @Test
+    public void shouldReturnSubstringFromSpecifyedIndexTillTheEnd(){
+        sb = new StringBuilder("Test text");
+        Assert.assertEquals("text", sb.substring(5).toString());
 
-      	 	 	lastIndexOf(String str)
+    }
 
-      	 	 	 	length()
+    @Test
+    public void shouldReturnSubstringBeetwenSpecifyedIndexes(){
+        sb = new StringBuilder("From 7 .qwerty. to 14");
+        Assert.assertEquals(".qwerty", sb.substring(7,14).toString());
+    }
+    
+    @Test
+    public void shouldAddToCurrentStringTextRepresentationOfBooleanValue(){
+        sb = new StringBuilder("This is ");
+        Assert.assertEquals("This is true", sb.append(true).toString());
+    }
 
-      	 	 	 	replace(int start, int end, String str)
-
-      	 	 	 	reverse()
-
-      	 	 	 	setLength(int newLength)
-Sets the length of the character sequence.
-
- 	substring(int start)
-
- 	substring(int start, int end)
-
- 	 	trimToSize()
-
- 	 	
-
-
-     */
 }
 

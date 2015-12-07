@@ -1,4 +1,13 @@
-Написать тест в терминах BDD на класс StringBuilder
-https://docs.google.com/document/d/1Bm07Z6LjKcCGaanEz4bFe1wsKOwUH-ehsub6OE4pEcI/edit?usp=sharing
+Реализовать класс Robot, умеющий выполнять команды turnLeft, turnRight, stepForward. 
+Начальные координаты 0,0, смотрит в направлении оси X; 
+команда шаг вперед изменяет координаты в соответствии с направлением и записывает их в файл. 
+Реализовать класс Program, выполняющий цепочку команд над роботом, заданным кодом (lffrflfrrfff).
 
-https://docs.google.com/presentation/d/1ngxGwb9StybavvUDwBaNQVe8sHg-_F_J9D4M912gvXc/pub?start=false&loop=false&delayms=3000
+1. Протестировать что Program и Robot работают правильно, использовать это (1 тест):
+
+  @Rule
+
+  public TemporaryFolder folder = new TemporaryFolder();
+
+2. Протестировать что Program и Robot работает правильно, используюя mocks, избегая создания файлов (2 теста)
+

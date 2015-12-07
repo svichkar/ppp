@@ -8,33 +8,33 @@ import org.junit.Test;
 public class StrBuilderTest {
 
 	private StringBuilder builder; 
-	private String first;
-	private String second;
+	private String testSrringA;
+	private String testStringB;
 
 	@Before
 	public void initiationOfTheData() {
 		builder = new StringBuilder();
-		first = "test";
-		second = "testirovanie";
-		builder.append(first);
+		testSrringA = "test";
+		testStringB = "testirovanie";
+		builder.append(testSrringA);
 	}
 
 	@Test
 	public void shouldCreateBuilderWithSpecifiedString() {
-		builder = new StringBuilder(first);
-		assertEquals(first, builder.toString());
+		builder = new StringBuilder(testSrringA);
+		assertEquals(testSrringA, builder.toString());
 	}
 
 	@Test
 	public void shouldAppendGivenArgumentWithString() {
-		builder.append(second);
-		assertEquals(first + second, builder.toString());
+		builder.append(testStringB);
+		assertEquals(testSrringA + testStringB, builder.toString());
 	}
 
 	@Test
 	public void shouldSubstringFromSpecifiedPosition() {
-		builder.append(second);
-		assertEquals(second, builder.substring(4));
+		builder.append(testStringB);
+		assertEquals(testStringB, builder.substring(4));
 	}
 
 	@Test
@@ -45,14 +45,14 @@ public class StrBuilderTest {
 
 	@Test
 	public void shouldInsertStringAtGivenPosition() {
-		builder.insert(0, second);
-		assertEquals(second + first, builder.toString());
+		builder.insert(0, testStringB);
+		assertEquals(testStringB + testSrringA, builder.toString());
 	}
 
 	@Test
 	public void shouldReplaceStringFromSpecificBeginIndexAndEndIndex() {
-		builder.replace(0, 4, second);
-		assertEquals(second, builder.toString());
+		builder.replace(0, 4, testStringB);
+		assertEquals(testStringB, builder.toString());
 	}
 
 	@Test

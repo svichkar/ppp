@@ -10,7 +10,7 @@ public class Program {
 	}
 
 	public void executeCommands(String commands){
-		robotPath = commands.toCharArray();
+		robotPath = commands.toLowerCase().toCharArray();
 		
 		for (char c : robotPath) {
 			switch (c) {

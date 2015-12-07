@@ -23,7 +23,6 @@ public class CarDAOImpl implements CarDAO {
 	public void createFrom(Car entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		//Car car = null;
 		try {
 			session.saveOrUpdate("car", entity);
 			tx.commit();
@@ -31,16 +30,6 @@ public class CarDAOImpl implements CarDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-/*		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			car = (Car) session.get(Car.class, entity.getCarId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return car;*/
 	}
 
 	@Override

@@ -32,16 +32,6 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-/*		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			orderInWork = (OrderInWork) session.get(OrderInWork.class, entity.getOrderId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return orderInWork;*/
 	}
 
 	@Override

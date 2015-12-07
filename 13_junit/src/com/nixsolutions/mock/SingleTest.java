@@ -31,8 +31,6 @@ public class SingleTest {
     @After
     public void tearDown() {
 
-        robot = null;
-        program = null;
     }
 
     @Test

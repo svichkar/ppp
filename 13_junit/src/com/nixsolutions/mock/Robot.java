@@ -1,10 +1,10 @@
 package com.nixsolutions.mock;
 
-import org.apache.commons.io.FileUtils;
-
 import java.awt.*;
-import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * Created by svichkar on 12/5/2015.
@@ -13,16 +13,18 @@ public class Robot {
 
     private Point coordinates;
     private Directions direction;
-    private File file;
+    private FileWriter fileWriter;
+    private BufferedWriter bufferedWriter;
 
     public Robot(String fileName) {
 
         coordinates = new Point(0, 0);
         setDirection(Directions.RIGHT);
 
-        this.file = FileUtils.getFile(fileName);
         try {
-            FileUtils.write(file, String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y), true);
+            fileWriter = new FileWriter(fileName, true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -107,11 +109,16 @@ public class Robot {
         }
 
         try {
-            FileUtils.write(file, String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y), true);
+            bufferedWriter.append(String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y));
         } catch (IOException e) {
-            e.printStackTrace();
+            new RuntimeException(e);
+        } finally {
+            try {
+                if (bufferedWriter != null)
+                    bufferedWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
-
-
 }

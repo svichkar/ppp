@@ -18,15 +18,12 @@ import java.util.List;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by kozlovskij on 12/4/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class MockTask2Robot {
-    @Mock
-    private File file;
 
     @Mock
     private Writer writer;
@@ -39,7 +36,6 @@ public class MockTask2Robot {
 
     @Before
     public void setUp() {
-        when(file.exists()).thenReturn(true);
         robot.setFileWriter(writer);
     }
 

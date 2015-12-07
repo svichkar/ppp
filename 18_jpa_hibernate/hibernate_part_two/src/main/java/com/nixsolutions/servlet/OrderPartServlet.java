@@ -67,10 +67,7 @@ public class OrderPartServlet extends HttpServlet {
 				request.setAttribute("parts", partList);
 				OrderPartBean opb = new OrderPartBean();
 				opb.setOrderId(Integer.parseInt(order_id));
-				opb.setPartId(1);
 				opb.setUsedAmount(0);
-				Part p = partDao.getByPK(1);
-				opb.setPartName(p.getPartName());
 				request.setAttribute("part", opb);
 				request.getRequestDispatcher("/WEB-INF/jsp/orderPart.jsp").forward(request, response);
 			} else {

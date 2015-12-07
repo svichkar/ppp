@@ -4,9 +4,7 @@ import java.util.List;
 
 public interface GenericDAO<T> {
 	
-	//public T create();
-	
-	public T createFrom(T entity);
+	public void createFrom(T entity);
 	
 	public void update(T entity);
 	

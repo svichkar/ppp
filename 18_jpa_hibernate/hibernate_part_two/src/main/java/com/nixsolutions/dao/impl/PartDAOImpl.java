@@ -18,10 +18,9 @@ public class PartDAOImpl implements PartDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public Part createFrom(Part entity) {
+	public void createFrom(Part entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Part part = null;
 		try {
 			session.saveOrUpdate("part", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class PartDAOImpl implements PartDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			part = (Part) session.get(Part.class, entity.getPartId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return part;
 	}
 
 	@Override

@@ -60,4 +60,14 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	public User(String userLogin, String userPassword, Role role) {
+		this.userLogin = userLogin;
+		this.userPassword = userPassword;
+		this.role = role;
+	}
+	
+	public User() {
+		this("", "", null);
+	}
+
 }

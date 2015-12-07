@@ -55,7 +55,7 @@ public class TestRoleDao extends DBTestCase {
 	@Test
 	public void testAdd() throws Exception {
 		Role testRole = new Role("test");
-		testRole = roleDao.createFrom(testRole);
+		roleDao.createFrom(testRole);
 		IDatabaseConnection conn = tester.getConnection();
 		conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());
 		IDataSet actualData = conn.createDataSet();
@@ -69,7 +69,7 @@ public class TestRoleDao extends DBTestCase {
 	@Test
 	public void testUpdate() throws Exception {
 		Role testRole = new Role("test");
-		testRole = roleDao.createFrom(testRole);
+		roleDao.createFrom(testRole);
 		testRole.setRoleName("test2");
 		roleDao.update(testRole);
 		IDatabaseConnection conn = tester.getConnection();
@@ -84,9 +84,9 @@ public class TestRoleDao extends DBTestCase {
 	
 	public void testDelete() throws Exception {
 		Role testRoleOne = new Role("test");
-		testRoleOne = roleDao.createFrom(testRoleOne);
+		roleDao.createFrom(testRoleOne);
 		Role testRoleTwo = new Role("test2");
-		testRoleTwo = roleDao.createFrom(testRoleTwo);
+		roleDao.createFrom(testRoleTwo);
 		roleDao.delete(testRoleOne);
 		IDatabaseConnection conn = tester.getConnection();
 		conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());

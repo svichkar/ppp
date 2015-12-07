@@ -70,8 +70,7 @@ public class Customer implements Serializable {
 		this.user = user;
 	}
 
-	public Customer(int customerId, String firstName, String lastName, String phone, User user) {
-		this.customerId = customerId;
+	public Customer(String firstName, String lastName, String phone, User user) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;
@@ -79,6 +78,6 @@ public class Customer implements Serializable {
 	}
 	
 	public Customer() {
-		this(0, "", "", "", null);
+		this("", "", "", null);
 	}
 }

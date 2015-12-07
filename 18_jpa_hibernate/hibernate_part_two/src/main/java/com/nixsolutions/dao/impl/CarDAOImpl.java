@@ -20,10 +20,10 @@ public class CarDAOImpl implements CarDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public Car createFrom(Car entity) {
+	public void createFrom(Car entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Car car = null;
+		//Car car = null;
 		try {
 			session.saveOrUpdate("car", entity);
 			tx.commit();
@@ -31,7 +31,7 @@ public class CarDAOImpl implements CarDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
+/*		session = sessionFactory.getCurrentSession();
 		tx = session.beginTransaction();
 		try {
 			car = (Car) session.get(Car.class, entity.getCarId());
@@ -40,7 +40,7 @@ public class CarDAOImpl implements CarDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		return car;
+		return car;*/
 	}
 
 	@Override

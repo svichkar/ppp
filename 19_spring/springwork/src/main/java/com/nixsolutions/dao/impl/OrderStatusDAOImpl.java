@@ -18,10 +18,9 @@ public class OrderStatusDAOImpl implements OrderStatusDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public OrderStatus createFrom(OrderStatus entity) {
+	public void createFrom(OrderStatus entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		OrderStatus orderStatus = null;
 		try {
 			session.saveOrUpdate("orderStatus", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class OrderStatusDAOImpl implements OrderStatusDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			orderStatus = (OrderStatus) session.get(OrderStatus.class, entity.getOrderStatusId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return orderStatus;
 	}
 
 	@Override

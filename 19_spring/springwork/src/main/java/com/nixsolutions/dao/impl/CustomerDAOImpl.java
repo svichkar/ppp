@@ -18,10 +18,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public Customer createFrom(Customer entity) {
+	public void createFrom(Customer entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Customer customer = null;
 		try {
 			session.saveOrUpdate("customer", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			customer = (Customer) session.get(Customer.class, entity.getCustomerId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return customer;
 	}
 
 	@Override

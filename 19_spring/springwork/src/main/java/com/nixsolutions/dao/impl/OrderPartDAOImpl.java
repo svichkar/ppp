@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.hibernate.entity.OrderPart;
+import com.nixsolutions.hibernate.entity.Part;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class OrderPartDAOImpl implements OrderPartDAO {
@@ -19,10 +20,9 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public OrderPart createFrom(OrderPart entity) {
+	public void createFrom(OrderPart entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		OrderPart orderPart = null;
 		try {
 			session.saveOrUpdate("orderPart", entity);
 			tx.commit();
@@ -30,16 +30,6 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			orderPart = (OrderPart) session.get(OrderPart.class, entity.getId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return orderPart;
 	}
 
 	@Override
@@ -123,6 +113,22 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 			orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("order.orderId", orderId)).list();
+			tx.commit();
+		} catch (Exception ex) {
+			tx.rollback();
+			LOG.error(ex);
+		}
+		return orderPartList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderPart> getOrderPartByPart(Part part) {
+		Session session = sessionFactory.getCurrentSession();
+		List<OrderPart> orderPartList = null;
+		Transaction tx = session.beginTransaction();
+		try {
+			orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("part.partId", part.getPartId())).list();
 			tx.commit();
 		} catch (Exception ex) {
 			tx.rollback();

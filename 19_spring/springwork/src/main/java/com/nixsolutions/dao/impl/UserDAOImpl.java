@@ -19,10 +19,9 @@ public class UserDAOImpl implements UserDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public User createFrom(User entity) {
+	public void createFrom(User entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		User user = null;
 		try {
 			session.saveOrUpdate("user", entity);
 			tx.commit();
@@ -30,16 +29,6 @@ public class UserDAOImpl implements UserDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			user = (User) session.get(User.class, entity.getUserId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return user;
 	}
 
 	@Override

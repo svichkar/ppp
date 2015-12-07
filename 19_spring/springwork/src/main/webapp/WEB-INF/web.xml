@@ -7,4 +7,7 @@ version="3.0">
 <error-page>
         <location>/error_handler</location>
     </error-page>
+    <welcome-file-list>
+    	<welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>

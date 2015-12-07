@@ -18,10 +18,9 @@ public class WorkerDAOImpl implements WorkerDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public Worker createFrom(Worker entity) {
+	public void createFrom(Worker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Worker worker = null;
 		try {
 			session.saveOrUpdate("worker", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class WorkerDAOImpl implements WorkerDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			worker = (Worker) session.get(Worker.class, entity.getWorkerId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return worker;
 	}
 
 	@Override

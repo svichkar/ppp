@@ -9,16 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.nixsolutions.dao.OrderInWorkDAO;
-import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.dao.WorkerSpecializationDAO;
 import com.nixsolutions.dao.impl.DAOFactoryImpl;
-import com.nixsolutions.hibernate.entity.OrderInWork;
-import com.nixsolutions.hibernate.entity.OrderPart;
 import com.nixsolutions.hibernate.entity.OrderWorker;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
@@ -29,9 +25,7 @@ public class WorkerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static UserDAO userDao;
-	private static OrderInWorkDAO orderDao;
 	private static OrderWorkerDAO orderWorkerDao;
-	private static OrderPartDAO orderPartDao;
 	private static WorkerDAO workerDao;
 	private static StatusDAO statusDao;
 	private static WorkerSpecializationDAO workerSpecDao;
@@ -40,9 +34,7 @@ public class WorkerServlet extends HttpServlet {
 	public void init() {
 		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
 		userDao = daoFactory.getUserDAO();
-		orderDao = daoFactory.getOrderInWorkDAO();
 		orderWorkerDao = daoFactory.getOrderWorkerDAO();
-		orderPartDao = daoFactory.getOrderPartDAO();
 		workerDao = daoFactory.getWorkerDAO();
 		statusDao = daoFactory.getStatusDAO();
 		workerSpecDao = daoFactory.getWorkerSpecializationDAO();
@@ -89,16 +81,9 @@ public class WorkerServlet extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/jsp/worker.jsp").forward(request, response);
 				} else {
 					Worker worker = workerDao.getByPK(Integer.parseInt(worker_id));
-					List<OrderInWork> orderList = orderDao.getOrdersByWorker(worker);
-					for (OrderInWork order : orderList) {
-						List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getOrderId());
-						for (OrderWorker ow : owList) {
-							orderWorkerDao.delete(ow);
-						}
-						List<OrderPart> opList = orderPartDao.getByOrderId(order.getOrderId());
-						for (OrderPart op : opList) {
-							orderPartDao.delete(op);
-						}
+					List<OrderWorker> orderWorkerList = orderWorkerDao.getOrderWorkerByWorker(worker);
+					for (OrderWorker orderWorker : orderWorkerList) {
+						orderWorkerDao.delete(orderWorker);
 					}
 					workerDao.delete(worker);
 					User workerUser = worker.getUser();

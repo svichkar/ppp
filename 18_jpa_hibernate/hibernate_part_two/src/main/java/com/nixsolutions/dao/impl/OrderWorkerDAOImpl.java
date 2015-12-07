@@ -11,6 +11,7 @@ import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.hibernate.entity.OrderWorker;
+import com.nixsolutions.hibernate.entity.Worker;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class OrderWorkerDAOImpl implements OrderWorkerDAO {
@@ -19,10 +20,9 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public OrderWorker createFrom(OrderWorker entity) {
+	public void createFrom(OrderWorker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		OrderWorker orderWorker = null;
 		try {
 			session.saveOrUpdate("orderWorker", entity);
 			tx.commit();
@@ -30,16 +30,6 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			orderWorker = (OrderWorker) session.get(OrderWorker.class, entity.getId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return orderWorker;
 	}
 
 	@Override
@@ -132,6 +122,22 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 			LOG.error(ex);
 		}
 		return orderWorkerList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderWorker> getOrderWorkerByWorker(Worker worker) {
+		Session session = sessionFactory.getCurrentSession();
+		List<OrderWorker> orderPartList = null;
+		Transaction tx = session.beginTransaction();
+		try {
+			orderPartList = session.createCriteria(OrderWorker.class).add(Restrictions.eq("worker.workerId", worker.getWorkerId())).list();
+			tx.commit();
+		} catch (Exception ex) {
+			tx.rollback();
+			LOG.error(ex);
+		}
+		return orderPartList;
 	}
 
 }

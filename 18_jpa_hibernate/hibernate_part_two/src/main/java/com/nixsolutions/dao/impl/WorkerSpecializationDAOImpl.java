@@ -18,10 +18,9 @@ public class WorkerSpecializationDAOImpl implements WorkerSpecializationDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public WorkerSpecialization createFrom(WorkerSpecialization entity) {
+	public void createFrom(WorkerSpecialization entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		WorkerSpecialization workerSpecialization = null;
 		try {
 			session.saveOrUpdate("workerSpecialization", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class WorkerSpecializationDAOImpl implements WorkerSpecializationDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			workerSpecialization = (WorkerSpecialization) session.get(WorkerSpecialization.class, entity.getSpecializationId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return workerSpecialization;
 	}
 
 	@Override

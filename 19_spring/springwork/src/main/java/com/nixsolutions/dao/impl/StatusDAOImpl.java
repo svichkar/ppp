@@ -18,10 +18,9 @@ public class StatusDAOImpl implements StatusDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public Status createFrom(Status entity) {
+	public void createFrom(Status entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Status status = null;
 		try {
 			session.saveOrUpdate("status", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class StatusDAOImpl implements StatusDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			status = (Status) session.get(Status.class, entity.getStatusId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return status;
 	}
 
 	@Override

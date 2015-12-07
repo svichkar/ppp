@@ -18,10 +18,9 @@ public class RoleDAOImpl implements RoleDAO {
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
-	public Role createFrom(Role entity) {
+	public void createFrom(Role entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		Role role = null;
 		try {
 			session.saveOrUpdate("role", entity);
 			tx.commit();
@@ -29,16 +28,6 @@ public class RoleDAOImpl implements RoleDAO {
 			tx.rollback();
 			LOG.error(ex);
 		}
-		session = sessionFactory.getCurrentSession();
-		tx = session.beginTransaction();
-		try {
-			role = (Role) session.get(Role.class, entity.getRoleId());
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return role;
 	}
 
 	@Override

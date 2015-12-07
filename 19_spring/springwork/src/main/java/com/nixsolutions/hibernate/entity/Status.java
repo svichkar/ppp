@@ -35,12 +35,11 @@ public class Status implements Serializable {
 		this.statusName = statusName;
 	}
 
-	public Status(int statusId, String statusName) {
-		this.statusId = statusId;
+	public Status(String statusName) {
 		this.statusName = statusName;
 	}
 	
 	public Status() {
-		this(0, "");
+		this("");
 	}
 }

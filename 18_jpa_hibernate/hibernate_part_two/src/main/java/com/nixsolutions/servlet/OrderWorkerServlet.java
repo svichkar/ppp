@@ -67,10 +67,7 @@ public class OrderWorkerServlet extends HttpServlet {
 				request.setAttribute("workers", workerList);
 				OrderWorkerBean owb = new OrderWorkerBean();
 				owb.setOrderId(Integer.parseInt(order_id));
-				owb.setWorkerId(1);
 				owb.setIsCompleted("N");
-				Worker w = workerDao.getByPK(1);
-				owb.setWorkerName(w.getFirstName() + " " + w.getLastName());
 				request.setAttribute("worker", owb);
 				request.getRequestDispatcher("/WEB-INF/jsp/orderWorker.jsp").forward(request, response);
 			} else {

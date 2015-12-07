@@ -37,12 +37,11 @@ public class OrderStatus implements Serializable {
 		this.orderStatusName = orderStatusName;
 	}
 
-	public OrderStatus(int orderStatusId, String orderStatusName) {
-		this.orderStatusId = orderStatusId;
+	public OrderStatus(String orderStatusName) {
 		this.orderStatusName = orderStatusName;
 	}
 	
 	public OrderStatus() {
-		this(0, "");
+		this("");
 	}
 }

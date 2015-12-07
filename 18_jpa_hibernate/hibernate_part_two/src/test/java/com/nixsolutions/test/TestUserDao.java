@@ -60,9 +60,9 @@ public class TestUserDao extends DBTestCase {
 	@Test
 	public void testAdd() throws Exception {
 		Role testRole = new Role("test");
-		testRole = roleDao.createFrom(testRole);
+		roleDao.createFrom(testRole);
 		User testUser = new User("testLogin", "testPassword", testRole);
-		testUser = userDao.createFrom(testUser);
+		userDao.createFrom(testUser);
 		IDatabaseConnection conn = tester.getConnection();
 		conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());
 		IDataSet actualData = conn.createDataSet();
@@ -76,9 +76,9 @@ public class TestUserDao extends DBTestCase {
 	@Test
 	public void testUpdate() throws Exception {
 		Role testRole = new Role("test");
-		testRole = roleDao.createFrom(testRole);
+		roleDao.createFrom(testRole);
 		User testUser = new User("testLogin", "testPassword", testRole);
-		testUser = userDao.createFrom(testUser);
+		userDao.createFrom(testUser);
 		testUser.setUserLogin("test2Login");
 		userDao.update(testUser);
 		IDatabaseConnection conn = tester.getConnection();
@@ -93,11 +93,11 @@ public class TestUserDao extends DBTestCase {
 	
 	public void testDelete() throws Exception {
 		Role testRole = new Role("test");
-		testRole = roleDao.createFrom(testRole);
+		roleDao.createFrom(testRole);
 		User testUserOne = new User("testLogin", "testPassword", testRole);
-		testUserOne = userDao.createFrom(testUserOne);
+		userDao.createFrom(testUserOne);
 		User testUserTwo = new User("testLogin2", "testPassword2", testRole);
-		testUserTwo = userDao.createFrom(testUserTwo);
+		userDao.createFrom(testUserTwo);
 		userDao.delete(testUserOne);
 		IDatabaseConnection conn = tester.getConnection();
 		conn.getConfig().setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new H2DataTypeFactory());

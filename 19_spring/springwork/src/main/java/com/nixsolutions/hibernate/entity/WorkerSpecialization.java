@@ -37,12 +37,11 @@ public class WorkerSpecialization implements Serializable {
 		this.specializationName = specializationName;
 	}
 
-	public WorkerSpecialization(int specializationId, String specializationName) {
-		this.specializationId = specializationId;
+	public WorkerSpecialization(String specializationName) {
 		this.specializationName = specializationName;
 	}
 	
 	public WorkerSpecialization() {
-		this(0, "");
+		this("");
 	}
 }

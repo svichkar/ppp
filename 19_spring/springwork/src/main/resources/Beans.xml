@@ -13,7 +13,7 @@
 
 	
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver"/>
 		<property name="url" value="jdbc:h2:tcp://localhost/~/sqllab"/>
 		<property name="username" value="sa"/>
@@ -27,16 +27,19 @@
        			<prop key="hibernate.default_schema">SQLLAB</prop>
        			<prop key="hibernate.connection.pool_size">20</prop>
        			<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
-       			<prop key="hibernate.current_session_context_class">thread</prop>
+       			<!--<prop key="hibernate.current_session_context_class">thread</prop>-->
        			<prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
        			<prop key="hibernate.show_sql">true</prop>
        			<prop key="hbm2ddl.auto">validate</prop>
        		</props>
        	</property>
 	</bean>
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
 	
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:data-source-ref="dataSource"/>
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
+	
+	<tx:annotation-driven transaction-manager="txManager"/>
 	
 	<bean id="carDAO" class="com.nixsolutions.dao.impl.CarDAOImpl"/>
 	<bean id="customerDAO" class="com.nixsolutions.dao.impl.CustomerDAOImpl"/>
@@ -51,4 +54,5 @@
 	<bean id="workerDAO" class="com.nixsolutions.dao.impl.WorkerDAOImpl"/>
 	<bean id="workerSpecializationDAO" class="com.nixsolutions.dao.impl.WorkerSpecializationDAOImpl"/>
 	<context:component-scan base-package="com.nixsolutions"/>
+	
 </beans>

@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
 			String role = roleDao.getByRoleId(roleId).getRoleName();
 			RequestDispatcher rs;
 			switch (role.toLowerCase()) {
-			case "admin":
+			case "administrator":
 				System.out.println(userDao.getAll().size());
 				request.setAttribute("users", userDao.getAll());
 				request.setAttribute("roles", roleDao.getAll());
@@ -58,16 +58,16 @@ public class LoginServlet extends HttpServlet {
 				rs.forward(request, response);
 				break;
 			case "teacher":
-				rs = request.getRequestDispatcher("index.jsp");
+				rs = request.getRequestDispatcher("index.html");
 				rs.include(request, response);
 				break;
 			case "student":
-				rs = request.getRequestDispatcher("index.jsp");
+				rs = request.getRequestDispatcher("index.html");
 				rs.include(request, response);
 				break;
 			}
 		} else {
-			RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher rs = request.getRequestDispatcher("index.html");
 			rs.include(request, response);
 		}
 		out.close();
@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 			int roleId = userDao.getByUserName(userName).getRoleId();
 			String role = roleDao.getByRoleId(roleId).getRoleName();
 			switch (role.toLowerCase()) {
-			case "admin":
+			case "administrator":
 				System.out.println(userDao.getAll().size());
 				request.setAttribute("users", userDao.getAll());
 				request.setAttribute("roles", roleDao.getAll());
@@ -96,18 +96,18 @@ public class LoginServlet extends HttpServlet {
 				break;
 			case "teacher":
 				out.println("<font color=red>Sorry, not yet ready.</font>");
-				rs = request.getRequestDispatcher("index.jsp");
+				rs = request.getRequestDispatcher("index.html");
 				rs.include(request, response);
 				break;
 			case "student":
 				out.println("<font color=red>Sorry, not yet ready.</font>");
-				rs = request.getRequestDispatcher("index.jsp");
+				rs = request.getRequestDispatcher("index.html");
 				rs.include(request, response);
 				break;
 			}
 		} else {
 			out.println("<font color=red>Sorry, username or password is wrong.</font>");
-			rs = request.getRequestDispatcher("index.jsp");
+			rs = request.getRequestDispatcher("index.html");
 			rs.include(request, response);
 		}
 		out.close();

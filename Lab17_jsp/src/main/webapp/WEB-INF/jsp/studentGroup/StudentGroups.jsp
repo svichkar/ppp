@@ -16,7 +16,7 @@
 				<td>${item.id}</td>
 				<td>${item.studentGroupName}</td>				
 				<td>
-						<form action="editStudentGroup.do" method="post">
+						<form action="editStudentGroup.do" method="get">
 							<input type="hidden" name="studentGroupId" value="${item.id}">
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 						</form>

@@ -25,7 +25,7 @@ public class JournalDaoImpl implements JournalDao {
 		PreparedStatement stm = null;
 		Connection conn = null;
 		try {
-			String sql = "INSERT INTO journal (student_id, subject_id, rate) VALUES (?, ?, ?);";
+			String sql = "INSERT INTO journal (student_id, subject_id, rate_id) VALUES (?, ?, ?);";
 			conn = ConnectionManager.getConnection();
 			stm = conn.prepareStatement(sql);
 			stm.setInt(1, studentId);
@@ -49,7 +49,7 @@ public class JournalDaoImpl implements JournalDao {
 	public void update(Journal journal) {
 		PreparedStatement stm = null;
 		Connection conn = null;
-		String sql = "UPDATE journal SET student_id=?, subject_id=?, rate=?  WHERE journal_id=?;";
+		String sql = "UPDATE journal SET student_id=?, subject_id=?, rate_id=?  WHERE journal_id=?;";
 		try {
 			conn = ConnectionManager.getConnection();
 			stm = conn.prepareStatement(sql);
@@ -132,7 +132,7 @@ public class JournalDaoImpl implements JournalDao {
 			stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(sql);
 			while (rs.next()) {
-				toReturn.add(new Journal(rs.getInt("journal_id"), rs.getInt("student_id"), rs.getInt("subject_id"), rs.getInt("rate")));
+				toReturn.add(new Journal(rs.getInt("journal_id"), rs.getInt("student_id"), rs.getInt("subject_id"), rs.getInt("rate_id")));
 			}
 		} catch (SQLException e) {
 			LOG.error(e.getMessage(), e);
@@ -160,7 +160,7 @@ public class JournalDaoImpl implements JournalDao {
 			stm.setInt(1, studentId);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
-				toReturn.add(new Journal(rs.getInt("journal_id"), rs.getInt("student_id"), rs.getInt("subject_id"), rs.getInt("rate")));
+				toReturn.add(new Journal(rs.getInt("journal_id"), rs.getInt("student_id"), rs.getInt("subject_id"), rs.getInt("rate_id")));
 			}
 		} catch (SQLException e) {
 			LOG.error(e.getMessage(), e);
@@ -188,7 +188,7 @@ public class JournalDaoImpl implements JournalDao {
 			stm.setInt(1, subjectId);
 			ResultSet rs = stm.executeQuery();
 			while (rs.next()) {
-				toReturn.add(new Journal(rs.getInt("journal_id"), rs.getInt("student_id"), rs.getInt("subject_id"), rs.getInt("rate")));
+				toReturn.add(new Journal(rs.getInt("journal_id"), rs.getInt("student_id"), rs.getInt("subject_id"), rs.getInt("rate_id")));
 			}
 		} catch (SQLException e) {
 			LOG.error(e.getMessage(), e);

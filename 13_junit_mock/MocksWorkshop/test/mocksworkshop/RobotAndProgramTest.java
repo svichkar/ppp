@@ -41,7 +41,7 @@ public class RobotAndProgramTest {
         Robot myRobo = new Robot(new File(folder.getRoot(), "robo.log").getPath());
         Program myProgram = new Program(myRobo);
         myProgram.executeCommand("ffflfrflllllfrrrrrf");
-        assertEquals(myRobo.getCoordinates(), "5.2");
+        assertEquals("5.2", myRobo.getCoordinates());
     }
 
 }

@@ -5,7 +5,9 @@
  */
 package mocksworkshop;
 
+import java.io.File;
 import java.io.IOException;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,24 +15,24 @@ import org.apache.logging.log4j.Logger;
  *
  * @author mednorcom
  */
-public class MocksWorkshop {
+public class RobotFileLogWriter implements RobotLogWriter {
 
+    private File movelog;
     private final static Logger LOGGER = LogManager.getLogger();
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        LOGGER.entry(args);
-        Robot myRobo = new Robot("E:\\robo.log");
-            Program myProgram = new Program(myRobo);
-        try {
-            myProgram.executeCommand("lllllfffffffff");
-        } catch (IOException ex) {
-            LOGGER.error("Movement log write error", ex);
-        }
-        LOGGER.exit();
+    public RobotFileLogWriter(String filename) {
+        this.movelog = FileUtils.getFile(filename);
     }
+    
+    
 
+    @Override
+    public void writeLog(String loggingIssue) throws IOException {
+        try {
+            FileUtils.write(movelog, loggingIssue, true);
+        } catch (IOException ex) {
+            LOGGER.warn("Robot log write error", ex);
+            throw ex;
+        }
+    }
 }

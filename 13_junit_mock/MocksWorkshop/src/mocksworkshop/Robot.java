@@ -5,12 +5,11 @@
  */
 package mocksworkshop;
 
-import java.io.File;
 import java.io.IOException;
 import static java.lang.Math.abs;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -22,7 +21,7 @@ public class Robot {
     private int axisX;
     private int axisY;
     private int direction;
-    private File movelog;
+    private RobotLogWriter moveLogFile;
     public final static int NORTH = 0;
     public final static int EAST = 1;
     public final static int SOUTH = 2;
@@ -61,11 +60,11 @@ public class Robot {
         return String.valueOf(axisX) + "." + String.valueOf(axisY);
     }
 
-    public Robot(String filename) {
+    public Robot(String logPath) {
         axisX = 0;
         axisY = 0;
         direction = EAST;
-        this.movelog = FileUtils.getFile(filename);
+        this.moveLogFile = new RobotFileLogWriter(logPath);
     }
 
     public void stepForward() throws IOException {
@@ -84,12 +83,7 @@ public class Robot {
                 break;
         }
         LOGGER.debug("Coordinates:" + getCoordinates());
-        try {
-            FileUtils.write(movelog, "Robot position: " + getCoordinates() + "\n", true);
-        } catch (IOException ex) {
-            LOGGER.warn("Movement log write error", ex);
-            throw ex;
-        }
+        writeRobotLog("Robot position: " + getCoordinates() + "\n");
 
     }
 
@@ -102,6 +96,11 @@ public class Robot {
     public void turnLeft() {
         setDirection(getDirection() - 1);
         LOGGER.debug("Direction changed to:" + getDirection());
+    }
+
+    protected void writeRobotLog(String loggingAction) throws IOException {
+
+        moveLogFile.writeLog(loggingAction);
     }
 
 }

@@ -40,7 +40,7 @@ public class AddNewStudentGroupServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		StudentGroup studentGroup = new StudentGroup();
-		studentGroup.setGroupName(request.getParameter("studentGroupName"));
+		studentGroup.setStudentGroupName(request.getParameter("studentGroupName"));
 		studentGroupDao.create(studentGroup);
 		response.sendRedirect("StudentGroups.do");
 	}

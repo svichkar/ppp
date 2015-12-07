@@ -101,7 +101,6 @@ public class JournalTest extends DBUnitConfig {
 		//Journal journalExpected = new Journal(1, 1, 1, 3);
 		Journal journalActual =  journalDao.getByJournalById(1);
 		Assert.assertEquals(journalExpected.getRate().getId(), journalActual.getRate().getId());
-		Assert.assertEquals(journalExpected.getStudent().getId(), journalExpected.getStudent().getId());
 		Assert.assertEquals(journalExpected.getSubject().getSubjectId(), journalExpected.getSubject().getSubjectId());
 		Assert.assertEquals(journalExpected.getId(), journalActual.getId());
 	}
@@ -110,7 +109,7 @@ public class JournalTest extends DBUnitConfig {
 	public void testGetByJournalsByStudentId() throws Exception {
 		List<Journal> journalActual =  journalDao.getJournalByStudent(studentDao.getByStudentId(1));
 		for (Journal journal : journalActual){
-			Assert.assertEquals(1, journal.getStudent().getId());
+			Assert.assertEquals(1, journal.getStudent().getStudentId());
 		}
 		Assert.assertEquals(2, journalActual.size());
 	}

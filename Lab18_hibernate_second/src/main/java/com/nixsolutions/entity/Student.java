@@ -35,12 +35,11 @@ public class Student implements Serializable {
 
 	public Student() {
 	}
-
-	public int getId() {
+	public int getStudentId() {
 		return studentId;
 	}
 
-	public void setId(int studentId) {
+	public void setStudentId(int studentId) {
         this.studentId = studentId;
 	}
 

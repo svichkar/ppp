@@ -103,7 +103,7 @@ public class StudentTest extends DBUnitConfig {
 	@Test
 	public void testGetById() throws Exception {
         Student studentExpected = new Student();
-        studentExpected.setId(4);
+        studentExpected.setStudentId(4);
         studentExpected.setFirstName("Pavel");
         studentExpected.setLastName("Levsha");
         studentExpected.setDateBirthday(Date.valueOf("1993-05-12"));
@@ -115,14 +115,14 @@ public class StudentTest extends DBUnitConfig {
 		Student studentActual =  studentDao.getByStudentId(4);
 		Assert.assertEquals(studentExpected.getFirstName(), studentActual.getFirstName());
 		Assert.assertEquals(studentExpected.getLastName(), studentActual.getLastName());
-		Assert.assertEquals(studentExpected.getId(), studentActual.getId());
+		Assert.assertEquals(studentExpected.getStudentId(), studentActual.getStudentId());
 	}
 	
 	@Test
 	public void testGetByStudentsByName() throws Exception {
 		List<Student> studentExpected = new ArrayList<Student>();
         Student expected = new Student();
-        expected.setId(4);
+        expected.setStudentId(4);
         expected.setFirstName("Pavel");
         expected.setLastName("Levsha");
         expected.setDateBirthday(Date.valueOf("1993-05-12"));
@@ -135,6 +135,6 @@ public class StudentTest extends DBUnitConfig {
 		Assert.assertEquals(studentExpected.size(), studentActual.size());
 		Assert.assertEquals(studentExpected.get(0).getFirstName(), studentActual.get(0).getFirstName());
 		Assert.assertEquals(studentExpected.get(0).getLastName(), studentActual.get(0).getLastName());
-		Assert.assertEquals(studentExpected.get(0).getId(), studentActual.get(0).getId());
+		Assert.assertEquals(studentExpected.get(0).getStudentId(), studentActual.get(0).getStudentId());
 	}
 }

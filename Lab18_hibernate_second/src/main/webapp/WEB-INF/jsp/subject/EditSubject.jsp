@@ -13,7 +13,11 @@
 		<b>Term:</b><br>
 		<select name="term">
 		<c:forEach var="item" items="${terms}">
+<<<<<<< HEAD
 		<option value="${item.alias}"<c:if test="${subject.alias eq item.alias}"> selected</c:if>>${item.alias}</option>		
+=======
+		<option value="${item.alias}"<c:if test="${subject.term.alias eq item.alias}"> selected</c:if>>${item.alias}</option>		
+>>>>>>> 0bd4b5a686e06f5baebec57e04b4ac6b7bb7e717
 		</c:forEach>
 		</select><br>
 		<p>

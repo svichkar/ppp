@@ -48,7 +48,7 @@ public class StudentGroupTest extends DBUnitConfig {
 	@Test
 	public void testCreate() throws Exception {
 		StudentGroup studentGroup = new StudentGroup();
-		studentGroup.setGroupName("Test");
+		studentGroup.setStudentGroupName("Test");
 		studentGroupDao.create(studentGroup);
 		IDataSet expectedData = new FlatXmlDataSetBuilder()
 				.build(new FileInputStream("src/test/resources/StudentGroup/StudentGroupCreate.xml"));
@@ -61,8 +61,8 @@ public class StudentGroupTest extends DBUnitConfig {
 	@Test
 	public void testDelete() throws Exception {
 		StudentGroup studentGroup = new StudentGroup();
-		studentGroup.setGroupName("ToDelete");
-		studentGroup.setId(4);
+		studentGroup.setStudentGroupName("ToDelete");
+		studentGroup.setStudentGroupId(4);
 		studentGroupDao.delete(studentGroup);
 		IDataSet expectedData = new FlatXmlDataSetBuilder()
 				.build(new FileInputStream("src/test/resources/StudentGroup/StudentGroupDelete.xml"));
@@ -75,8 +75,8 @@ public class StudentGroupTest extends DBUnitConfig {
 	@Test
 	public void testUpdate() throws Exception {
         StudentGroup studentGroup = new StudentGroup();
-        studentGroup.setGroupName("Test");
-        studentGroup.setId(3);
+        studentGroup.setStudentGroupName("Test");
+        studentGroup.setStudentGroupId(3);
 		studentGroupDao.update(studentGroup);
 		IDataSet expectedData = new FlatXmlDataSetBuilder()
 				.build(new FileInputStream("src/test/resources/StudentGroup/StudentGroupUpdate.xml"));
@@ -89,20 +89,20 @@ public class StudentGroupTest extends DBUnitConfig {
 	@Test
 	public void testGetById() throws Exception {
         StudentGroup studentGroupExpected = new StudentGroup();
-        studentGroupExpected.setGroupName("One");
-        studentGroupExpected.setId(1);
+        studentGroupExpected.setStudentGroupName("One");
+        studentGroupExpected.setStudentGroupId(1);
 		StudentGroup studentGroupActual =  studentGroupDao.getByStudentGroupId(1);
-		Assert.assertEquals(studentGroupExpected.getGroupName(), studentGroupActual.getGroupName());
-		Assert.assertEquals(studentGroupExpected.getId(), studentGroupActual.getId());
+		Assert.assertEquals(studentGroupExpected.getStudentGroupName(), studentGroupActual.getStudentGroupName());
+		Assert.assertEquals(studentGroupExpected.getStudentGroupId(), studentGroupActual.getStudentGroupId());
 	}
 	
 	@Test
 	public void testGetByGroupName() throws Exception {
         StudentGroup studentGroupExpected = new StudentGroup();
-        studentGroupExpected.setGroupName("Three");
-        studentGroupExpected.setId(3);
+        studentGroupExpected.setStudentGroupName("Three");
+        studentGroupExpected.setStudentGroupId(3);
 		StudentGroup studentGroupActual =  studentGroupDao.getByStudentGroupName("Three");
-		Assert.assertEquals(studentGroupExpected.getGroupName(), studentGroupActual.getGroupName());
-		Assert.assertEquals(studentGroupExpected.getId(), studentGroupActual.getId());
+		Assert.assertEquals(studentGroupExpected.getStudentGroupName(), studentGroupActual.getStudentGroupName());
+		Assert.assertEquals(studentGroupExpected.getStudentGroupId(), studentGroupActual.getStudentGroupId());
 	}
 }

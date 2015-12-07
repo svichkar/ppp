@@ -6,7 +6,6 @@
 package mocksworkshop;
 
 import java.io.IOException;
-import static java.lang.Math.abs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static java.lang.Math.abs;

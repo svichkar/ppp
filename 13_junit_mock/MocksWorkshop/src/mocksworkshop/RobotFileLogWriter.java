@@ -23,8 +23,6 @@ public class RobotFileLogWriter implements RobotLogWriter {
     public RobotFileLogWriter(String filename) {
         this.movelog = FileUtils.getFile(filename);
     }
-    
-    
 
     @Override
     public void writeLog(String loggingIssue) throws IOException {

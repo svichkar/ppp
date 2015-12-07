@@ -24,7 +24,7 @@ public class MocksWorkshop {
         // TODO code application logic here
         LOGGER.entry(args);
         Robot myRobo = new Robot("E:\\robo.log");
-            Program myProgram = new Program(myRobo);
+        Program myProgram = new Program(myRobo);
         try {
             myProgram.executeCommand("lllllfffffffff");
         } catch (IOException ex) {

@@ -1,7 +1,6 @@
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
-import java.util.Arrays;
 
 /**
  * Created by kozlovskij on 12/2/2015.

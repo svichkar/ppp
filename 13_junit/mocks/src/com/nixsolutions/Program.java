@@ -18,10 +18,10 @@ public class Program {
     /**
      * Method setup circle of robot actions and execute them
      * If we have char defferent from 'f', 'l' or 'r' we ignore it
-     * @param inputCommads like a line of chars flr (foeward-left-right)
+     * @param inputCommands like a line of chars flr (foeward-left-right)
      * @throws IOException
      */
-    public void setupRobotProgram(String inputCommads) throws IOException {
+    public void setupRobotProgram(String inputCommands) throws IOException {
         char[] arr = inputCommads.toCharArray();
         for (int i = 0; i < arr.length; i++) {
             switch (arr[i]) {

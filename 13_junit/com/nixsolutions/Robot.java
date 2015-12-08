@@ -12,17 +12,13 @@ import java.io.*;
  */
 public class Robot {
     private static final Logger LOGGER = LogManager.getLogger(Robot.class);
+    OutputStream stream;
     private int coordinateX = 0;
     private int coordinateY = 0;
     private int direction = 1;
-    private File file;
-    private Writer fileWriter;
 
-    public Robot(File file) {
-        this.file = file;
-    }
-    public void setFileWriter(Writer writer){
-        fileWriter = writer;
+    public Robot (OutputStream stream) {
+    this.stream = stream;
     }
 
     public void turnLeft() {
@@ -32,6 +28,7 @@ public class Robot {
     public void turnRight() {
         direction--;
     }
+
     public void stepForward() {
         if (direction < 0) {
             direction = 4 - Math.abs(direction % 4);
@@ -53,14 +50,13 @@ public class Robot {
                 LOGGER.error("wrong direction: " + direction);
                 break;
         }
+        String temp = coordinateX + "." + coordinateY + "\n";
         try {
-            if (fileWriter == null) {
-                fileWriter = new FileWriter(file, true);
-            }
-            fileWriter.write(coordinateX + "." + coordinateY + "\n");
-            fileWriter.flush();
+            stream.write(temp.getBytes());
+            stream.flush();
         } catch (IOException e) {
             LOGGER.error(e);
         }
     }
 }
+

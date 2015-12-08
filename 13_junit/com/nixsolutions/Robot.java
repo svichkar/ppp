@@ -62,8 +62,7 @@ public class Robot {
         if (bufferedWriter == null) {
             bufferedWriter = Files.newBufferedWriter((outCoordinatesFile.toPath()), StandardOpenOption.APPEND);
         }
-        if (coordinateY == 0 && coordinateX == 0) {
-        } else {
+        if (coordinateY != 0 || coordinateX != 0) {
             bufferedWriter.write("x" + coordinateX + "y" + coordinateY + "\n");
             bufferedWriter.flush();
         }

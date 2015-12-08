@@ -9,18 +9,18 @@ public class StudentGroup implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "student_group_id")
-    private int studentGroupId;
+    private Integer studentGroupId;
     @Column(name = "group_name", length = 256, nullable = false)
     private String groupName;
 
     public StudentGroup() {
     }
 
-    public int getStudentGroupId() {
+    public Integer getStudentGroupId() {
 	return studentGroupId;
     }
 
-    public void setStudentGroupId(int studentGroupId) {
+    public void setStudentGroupId(Integer studentGroupId) {
 	this.studentGroupId = studentGroupId;
     }
 

@@ -9,18 +9,18 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "role_id")
-    private int roleId;
+    private Integer roleId;
     @Column(name = "role_name", length = 256, nullable = false)
     private String roleName;
 
     public Role() {
     }
 
-    public int getRoleId() {
+    public Integer getRoleId() {
 	return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Integer roleId) {
 	this.roleId = roleId;
     }
 

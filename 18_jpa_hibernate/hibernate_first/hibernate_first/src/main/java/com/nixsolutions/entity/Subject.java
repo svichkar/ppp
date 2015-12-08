@@ -9,7 +9,7 @@ public class Subject implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "subject_id")
-    private int subjectId;
+    private Integer subjectId;
     @Column(name = "subject_name", length = 256, nullable = false)
     private String subjectName;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -27,11 +27,11 @@ public class Subject implements Serializable {
     public Subject() {
     }
 
-    public int getSubjectId() {
+    public Integer getSubjectId() {
 	return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(Integer subjectId) {
 	this.subjectId = subjectId;
     }
 

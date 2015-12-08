@@ -9,7 +9,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
     @Column(name = "email", length = 256, nullable = false)
     private String email;
     @Column(name = "password", length = 256, nullable = false)
@@ -21,11 +21,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
 	return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
 	this.userId = userId;
     }
 

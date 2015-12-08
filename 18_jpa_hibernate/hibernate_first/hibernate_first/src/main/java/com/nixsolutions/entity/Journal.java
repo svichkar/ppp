@@ -9,7 +9,7 @@ public class Journal implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "journal_id")
-    private int journalId;
+    private Integer journalId;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     private Student student;
@@ -38,11 +38,11 @@ public class Journal implements Serializable {
         this.subject = subject;
     }
 
-    public int getJournalId() {
+    public Integer getJournalId() {
 	return journalId;
     }
 
-    public void setJournalId(int journalId) {
+    public void setJournalId(Integer journalId) {
 	this.journalId = journalId;
     }
 

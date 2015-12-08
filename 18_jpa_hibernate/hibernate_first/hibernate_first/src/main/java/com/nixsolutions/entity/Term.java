@@ -9,18 +9,18 @@ public class Term implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "term_id")
-    private int termId;
+    private Integer termId;
     @Column(name = "term_alias", length = 256, nullable = false)
     private String termAlias;
 
     public Term() {
     }
 
-    public int getTermId() {
+    public Integer getTermId() {
 	return termId;
     }
 
-    public void setTermId(int termId) {
+    public void setTermId(Integer termId) {
 	this.termId = termId;
     }
 

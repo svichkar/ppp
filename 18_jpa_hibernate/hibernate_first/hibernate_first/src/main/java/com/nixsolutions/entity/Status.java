@@ -9,18 +9,18 @@ public class Status implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "status_id")
-    private int statusId;
+    private Integer statusId;
     @Column(name = "status_name", length = 256, nullable = false)
     private String statusName;
 
     public Status() {
     }
 
-    public int getStatusId() {
+    public Integer getStatusId() {
 	return statusId;
     }
 
-    public void setStatusId(int statusId) {
+    public void setStatusId(Integer statusId) {
 	this.statusId = statusId;
     }
 

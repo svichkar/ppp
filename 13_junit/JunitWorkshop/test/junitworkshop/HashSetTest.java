@@ -28,16 +28,16 @@ public class HashSetTest {
 
     @Test
     public void methodAddShouldAddNewElementToTheHashTableIfItIsnotAlreadyPresent() {
-        this.testHashSet.add(this.TEST_STRING1);
-        this.testHashSet.add(this.TEST_STRING1);
-        this.testHashSet.add(this.TEST_INTEGER);
-        this.testHashSet.add(this.TEST_INTEGER);
-        this.testHashSet.add(null);
+        testHashSet.add(TEST_STRING1);
+        testHashSet.add(TEST_STRING1);
+        testHashSet.add(TEST_INTEGER);
+        testHashSet.add(TEST_INTEGER);
+        testHashSet.add(null);
 
         assertTrue(testHashSet.contains(TEST_STRING1));
         assertTrue(testHashSet.contains(TEST_INTEGER));
         assertTrue(testHashSet.contains(null));
-        assertTrue(this.testHashSet.size() == 3);
+        assertEquals(3,testHashSet.size());
 
     }
 

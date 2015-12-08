@@ -14,6 +14,7 @@ public class User implements Serializable {
     private String email;
     @Column(name = "password", length = 256, nullable = false)
     private String password;
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 

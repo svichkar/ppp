@@ -23,7 +23,7 @@ public class MocksWorkshop {
     public static void main(String[] args) {
         // TODO code application logic here
         LOGGER.entry(args);
-        Robot myRobo = new Robot("E:\\robo.log");
+        Robot myRobo = new Robot(new RobotFileLogWriter("E:\\robo.log"));
         Program myProgram = new Program(myRobo);
         try {
             myProgram.executeCommand("lllllfffffffff");

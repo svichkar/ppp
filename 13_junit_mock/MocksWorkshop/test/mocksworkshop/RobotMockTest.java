@@ -30,7 +30,7 @@ public class RobotMockTest {
     private RobotLogWriter moveLogFile;
 
     @InjectMocks
-    private Robot myRobo = new Robot("filename");
+    private Robot myRobo = new Robot(moveLogFile);
 
     @Captor
     private ArgumentCaptor<String> logIssueCaptor;

@@ -20,7 +20,7 @@ public class Robot {
     private int axisX;
     private int axisY;
     private int direction;
-    private RobotLogWriter moveLogFile;
+    private RobotLogWriter moveLog;
     public final static int NORTH = 0;
     public final static int EAST = 1;
     public final static int SOUTH = 2;
@@ -59,11 +59,11 @@ public class Robot {
         return String.valueOf(axisX) + "." + String.valueOf(axisY);
     }
 
-    public Robot(String logPath) {
+    public Robot(RobotLogWriter moveLog) {
         axisX = 0;
         axisY = 0;
         direction = EAST;
-        this.moveLogFile = new RobotFileLogWriter(logPath);
+        this.moveLog = moveLog;
     }
 
     public void stepForward() throws IOException {
@@ -99,7 +99,7 @@ public class Robot {
 
     protected void writeRobotLog(String loggingAction) throws IOException {
 
-        moveLogFile.writeLog(loggingAction);
+        moveLog.writeLog(loggingAction);
     }
 
 }

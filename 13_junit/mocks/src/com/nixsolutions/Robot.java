@@ -2,28 +2,32 @@ package com.nixsolutions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.*;
+import java.nio.file.*;
 
 /**
  * @author Sirotkin Mikhail
  */
 public class Robot {
-   /*–еализовать класс Robot, умеющий выполн€ть команды turnLeft, turnRight, stepForward. Ќачальные координаты 0,0,
-   смотрит в направлении оси X;
-   команда шаг вперед измен€ет координаты в соответствии с направлением и записывает их в файл.*/
 
     private int coordX;
     private int coordY;
-
+    /**
+     * Field with possible values of direction
+     */
     private enum direction {RIGHT, DOWN, LEFT, UP};
     private direction currentDirection;
+    private File robotsMovingCoordinates;
+    private BufferedWriter bw;
 
     /**
      * Constructor
      */
-    public Robot(){
+    public Robot(File fileForRobotsMovingCoordinates){
         coordX = 0;
         coordY = 0;
         currentDirection = direction.RIGHT;
+        this.robotsMovingCoordinates = fileForRobotsMovingCoordinates;
     }
 
     /**
@@ -40,7 +44,7 @@ public class Robot {
     /**
      * Methods for moving Robot forward
      */
-    public void stepForward(){
+    public void stepForward() throws IOException {
         switch(currentDirection){
             case RIGHT:
                 coordX++;
@@ -55,6 +59,7 @@ public class Robot {
                 coordY++;
                 break;
         }
+        addCurrentCoordinatesToFile();
     }
 
     /**
@@ -95,5 +100,16 @@ public class Robot {
                 currentDirection = direction.RIGHT;
                 break;
         }
+    }
+
+    private void addCurrentCoordinatesToFile() throws IOException {
+        if (!robotsMovingCoordinates.exists()) {
+            Files.createFile(robotsMovingCoordinates.toPath());
+        }
+        if (bw == null) {
+            bw = Files.newBufferedWriter((robotsMovingCoordinates.toPath()), StandardOpenOption.APPEND);
+        }
+        bw.write("x = " + getCoordinates().get("X") + "; " + "y = " + getCoordinates().get("Y") + "\n");
+        bw.flush();
     }
 }

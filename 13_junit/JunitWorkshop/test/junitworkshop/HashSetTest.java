@@ -23,7 +23,7 @@ public class HashSetTest {
 
     @Before
     public void setUp() {
-        this.testHashSet = new HashSet();
+        testHashSet = new HashSet();
     }
 
     @Test

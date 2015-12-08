@@ -1,33 +1,39 @@
 package com.nixsolutions.mock;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.*;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+
 
 /**
  * Created by svichkar on 12/5/2015.
  */
 public class Robot {
 
+    private static final Logger LOGGER = LogManager.getLogger(Robot.class);
+
     private Point coordinates;
     private Directions direction;
-    private FileWriter fileWriter;
-    private BufferedWriter bufferedWriter;
+    private String fileName;
+    private Writer fileWriter;
 
     public Robot(String fileName) {
 
         coordinates = new Point(0, 0);
         setDirection(Directions.RIGHT);
+        this.fileName = fileName;
+    }
 
-        try {
-            fileWriter = new FileWriter(fileName, true);
-            bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public Writer getFileWriter() {
+        return fileWriter;
+    }
+
+    public void setFileWriter(Writer fileWriter) {
+        this.fileWriter = fileWriter;
     }
 
     public Directions getDirection() {
@@ -109,15 +115,18 @@ public class Robot {
         }
 
         try {
-            bufferedWriter.append(String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y));
+            if (fileWriter == null) {
+                fileWriter = new FileWriter(fileName,true);
+            }
+            fileWriter.write(String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y));
+            fileWriter.flush();
         } catch (IOException e) {
-            new RuntimeException(e);
+            LOGGER.error("File cannot be written.", e);
         } finally {
             try {
-                if (bufferedWriter != null)
-                    bufferedWriter.close();
+                fileWriter.flush();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                LOGGER.error("File cannot be written.", e);
             }
         }
     }

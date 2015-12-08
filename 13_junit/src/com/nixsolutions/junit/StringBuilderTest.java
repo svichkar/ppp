@@ -1,6 +1,5 @@
 package com.nixsolutions.junit;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,20 +17,6 @@ public class StringBuilderTest {
     public void setUp() {
 
         stringBuilder = new StringBuilder(testString);
-    }
-
-    @After
-    public void tearDown() {
-
-        stringBuilder = null;
-    }
-
-    @Test
-    public void appendObjectShouldAppendStringRepresentationOfObject() {
-
-        Object object = new Object();
-        stringBuilder.append(object);
-        assertEquals(stringBuilder.toString(), testString + object.toString());
     }
 
     @Test

@@ -1,12 +1,15 @@
 package com.nixsolutions.mock;
 
 
-import java.io.File;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by svichkar on 12/5/2015.
  */
 public class Program {
+
+    private static final Logger LOGGER = LogManager.getLogger(Program.class);
 
     private Robot robot;
 
@@ -14,9 +17,9 @@ public class Program {
         this.robot = robot;
     }
 
-     protected void move (String operation) {
+     public void move(String operation) {
 
-         char[] stepsArray = operation.toCharArray();
+         char[] stepsArray = operation.toLowerCase().toCharArray();
 
          for (char step : stepsArray){
              switch (step) {
@@ -28,6 +31,9 @@ public class Program {
                      break;
                  case 'r':
                      robot.turnRight();
+                     break;
+                 default:
+                     LOGGER.error("Wrong step specified: {}", step);
                      break;
              }
          }

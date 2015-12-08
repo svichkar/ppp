@@ -1,9 +1,8 @@
-package com.nixsolutions.mock;
+package main.java.mock;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -16,27 +15,25 @@ public class Robot {
 
     private static final Logger LOGGER = LogManager.getLogger(Robot.class);
 
-    private Point coordinates;
+    private int x;
+    private int y;
     private Directions direction;
     private String fileName;
     private Writer fileWriter;
 
     public Robot(String fileName) {
 
-        coordinates = new Point(0, 0);
+        x = 0;
+        y = 0;
         setDirection(Directions.RIGHT);
         this.fileName = fileName;
-    }
-
-    public Writer getFileWriter() {
-        return fileWriter;
     }
 
     public void setFileWriter(Writer fileWriter) {
         this.fileWriter = fileWriter;
     }
 
-    public Directions getDirection() {
+    private Directions getDirection() {
         return direction;
     }
 
@@ -44,8 +41,12 @@ public class Robot {
         this.direction = direction;
     }
 
-    public Point getCoordinates() {
-        return coordinates.getLocation();
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public void turnLeft() {
@@ -98,19 +99,19 @@ public class Robot {
         switch (getDirection()) {
 
             case LEFT:
-                coordinates.setLocation(coordinates.x - 1, coordinates.y);
+                x--;
                 break;
 
             case RIGHT:
-                coordinates.setLocation(coordinates.x + 1, coordinates.y);
+                x++;
                 break;
 
             case UP:
-                coordinates.setLocation(coordinates.x, coordinates.y + 1);
+                y++;
                 break;
 
             case DOWN:
-                coordinates.setLocation(coordinates.x, coordinates.y - 1);
+                y--;
                 break;
         }
 
@@ -118,7 +119,7 @@ public class Robot {
             if (fileWriter == null) {
                 fileWriter = new FileWriter(fileName,true);
             }
-            fileWriter.write(String.format("X: %s; Y: %s\n", coordinates.x, coordinates.y));
+            fileWriter.write(String.format("X: %s; Y: %s\n", x, y));
             fileWriter.flush();
         } catch (IOException e) {
             LOGGER.error("File cannot be written.", e);

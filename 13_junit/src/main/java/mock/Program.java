@@ -1,4 +1,4 @@
-package com.nixsolutions.mock;
+package main.java.mock;
 
 
 import org.apache.logging.log4j.LogManager;

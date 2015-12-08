@@ -1,4 +1,4 @@
-package com.nixsolutions.junit;
+package test.java.junit;
 
 import org.junit.Before;
 import org.junit.Test;

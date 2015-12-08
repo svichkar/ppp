@@ -1,7 +1,7 @@
-package com.nixsolutions.mock.tests;
+package test.java.mock;
 
-import com.nixsolutions.mock.Program;
-import com.nixsolutions.mock.Robot;
+import main.java.mock.Program;
+import main.java.mock.Robot;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;

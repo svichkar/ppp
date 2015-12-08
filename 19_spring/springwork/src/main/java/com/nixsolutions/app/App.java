@@ -8,8 +8,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.nixsolutions.dao.CarDAO;
+import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.hibernate.entity.Car;
+import com.nixsolutions.hibernate.entity.Status;
 import com.nixsolutions.hibernate.entity.User;
 
 public class App {
@@ -29,6 +31,8 @@ public class App {
 		carList = carDao.getAll();
 		carDao.delete(tCar);
 		carList = carDao.getAll();
+		StatusDAO statusDao = (StatusDAO) context.getBean("statusDAO");
+		Status s = statusDao.getByPK(1);
 		((ConfigurableApplicationContext) context).close();
 	}
 

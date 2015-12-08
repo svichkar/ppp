@@ -4,86 +4,67 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.hibernate.entity.Status;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("statusDAO")
+@Transactional
 public class StatusDAOImpl implements StatusDAO {
 
 	public static Logger LOG = LogManager.getLogger(StatusDAOImpl.class.getName());
-	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
 	public void createFrom(Status entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("status", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("status", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void update(Status entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("status", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("status", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void delete(Status entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.delete("status", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().delete("status", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public Status getByPK(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Status status = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			status = (Status) session.byId(Status.class).load(id);
-			tx.commit();
+			return (Status) sessionFactory.getCurrentSession().byId(Status.class).load(id);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return status;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Status> getAll() {
-		Session session = sessionFactory.getCurrentSession();
-		List<Status> statusList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			statusList = session.createCriteria(Status.class).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(Status.class).list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return statusList;
 	}
 }

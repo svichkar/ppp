@@ -4,86 +4,67 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.RoleDAO;
 import com.nixsolutions.hibernate.entity.Role;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("roleDAO")
+@Transactional
 public class RoleDAOImpl implements RoleDAO {
 
 	public static Logger LOG = LogManager.getLogger(RoleDAOImpl.class.getName());
-	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
 	public void createFrom(Role entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("role", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("role", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void update(Role entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("role", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("role", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void delete(Role entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.delete("role", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().delete("role", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public Role getByPK(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Role role = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			role = (Role) session.byId(Role.class).load(id);
-			tx.commit();
+			return (Role) sessionFactory.getCurrentSession().byId(Role.class).load(id);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return role;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Role> getAll() {
-		Session session = sessionFactory.getCurrentSession();
-		List<Role> roleList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			roleList = session.createCriteria(Role.class).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(Role.class).list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return roleList;
 	}
 }

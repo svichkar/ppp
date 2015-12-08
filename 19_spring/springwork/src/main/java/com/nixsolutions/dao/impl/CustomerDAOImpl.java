@@ -4,86 +4,67 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.CustomerDAO;
 import com.nixsolutions.hibernate.entity.Customer;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("customerDAO")
+@Transactional
 public class CustomerDAOImpl implements CustomerDAO {
 
 	public static Logger LOG = LogManager.getLogger(CustomerDAOImpl.class.getName());
-	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
 	public void createFrom(Customer entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("customer", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("customer", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void update(Customer entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("customer", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("customer", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void delete(Customer entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.delete("customer", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().delete("customer", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public Customer getByPK(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		Customer customer = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			customer = (Customer) session.byId(Customer.class).load(id);
-			tx.commit();
+			return (Customer) sessionFactory.getCurrentSession().byId(Customer.class).load(id);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return customer;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> getAll() {
-		Session session = sessionFactory.getCurrentSession();
-		List<Customer> customerList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			customerList = session.createCriteria(Customer.class).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(Customer.class).list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return customerList;
 	}
 }

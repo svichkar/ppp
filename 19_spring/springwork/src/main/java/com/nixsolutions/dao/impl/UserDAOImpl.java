@@ -4,134 +4,106 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.hibernate.entity.User;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("userDAO")
+@Transactional
 public class UserDAOImpl implements UserDAO {
 
 	public static Logger LOG = LogManager.getLogger(UserDAOImpl.class.getName());
-	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
 	public void createFrom(User entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("user", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("user", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void update(User entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("user", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("user", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void delete(User entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.delete("user", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().delete("user", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public User getByPK(int id) {
-		Session session = sessionFactory.getCurrentSession();
-		User user = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			user = (User) session.byId(User.class).load(id);
-			tx.commit();
+			return (User) sessionFactory.getCurrentSession().byId(User.class).load(id);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return user;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAll() {
-		Session session = sessionFactory.getCurrentSession();
-		List<User> userList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			userList = session.createCriteria(User.class).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(User.class).list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return userList;
 	}
 
 	@Override
 	public User getUserByLogin(String login) {
-		Session session = sessionFactory.getCurrentSession();
-		User user = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			user = (User) session.createCriteria(User.class).add(Restrictions.eq("userLogin", login)).uniqueResult();
-			tx.commit();
+			return (User) sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("userLogin", login))
+					.uniqueResult();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return user;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsers() {
-		Session session = sessionFactory.getCurrentSession();
-		List<User> userList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			userList = session.createCriteria(User.class).add(Restrictions.eq("role.roleId", 2)).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("role.roleId", 2))
+					.list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return userList;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getWorkers() {
-		Session session = sessionFactory.getCurrentSession();
-		List<User> userList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			userList = session.createCriteria(User.class).add(Restrictions.eq("role.roleId", 3)).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(User.class)
+					.add(Restrictions.eq("role.roleId", 3))
+					.list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return userList;
 	}
 }

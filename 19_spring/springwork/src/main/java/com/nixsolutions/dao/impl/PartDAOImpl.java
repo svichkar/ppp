@@ -4,87 +4,68 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.hibernate.entity.Part;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("partDAO")
+@Transactional
 public class PartDAOImpl implements PartDAO {
 
 	public static Logger LOG = LogManager.getLogger(PartDAOImpl.class.getName());
-	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Override
 	public void createFrom(Part entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("part", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("part", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void update(Part entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.saveOrUpdate("part", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().saveOrUpdate("part", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public void delete(Part entity) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
 		try {
-			session.delete("part", entity);
-			tx.commit();
+			sessionFactory.getCurrentSession().delete("part", entity);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
 		}
 	}
 
 	@Override
 	public Part getByPK(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		Part part = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			part = (Part) session.byId(Part.class).load(id);
-			tx.commit();
+			return (Part) sessionFactory.getCurrentSession().byId(Part.class).load(id);
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return part;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Part> getAll() {
-		Session session = sessionFactory.getCurrentSession();
-		List<Part> partList = null;
-		Transaction tx = session.beginTransaction();
 		try {
-			partList = session.createCriteria(Part.class).list();
-			tx.commit();
+			return sessionFactory.getCurrentSession().createCriteria(Part.class).list();
 		} catch (Exception ex) {
-			tx.rollback();
 			LOG.error(ex);
+			return null;
 		}
-		return partList;
 	}
 
 	@Override

@@ -49,12 +49,7 @@ public class SingleWithoutMockTest {
 
         program.move("llf");
 
-        String actual = "";
-        List<String> all = Files.readAllLines(Paths.get(fileName));
-        for (String s : all) {
-            actual += s + "\n";
-        }
-
+        String actual = extractDataFromFile(fileName);
         String expected = "X: -1; Y: 0\n";
         assertEquals(expected, actual);
     }

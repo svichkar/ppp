@@ -16,23 +16,10 @@ public class Main {
         SaveFile saveFile = new SaveFile();
         LOG.debug("Instance of \"{}\" class was created.", saveFile.getClass().getName());
 
-        try {
-            saveFile.save("Path is not absolute!!! Exception should be thrown.", "/directory/doesNotExistFile.txt");
-        } catch (Exception e) {
-            LOG.error("Exception was thrown:", e);
-        }
+        saveFile.save("Path is not absolute!!! Exception should be thrown.", "/directory/doesNotExistFile.txt");
+        saveFile.save("Write this text into file which doesn't exist.", "d:/directory/doesNotExistFile.txt");
+        saveFile.save("Overwrite existing file with current text.", "d:/directory/doesNotExistFile.txt");
 
-        try {
-            saveFile.save("Write this text into file which doesn't exist.", "d:/directory/doesNotExistFile.txt");
-        } catch (Exception e) {
-            LOG.error("Exception was thrown:", e);
-        }
-
-        try {
-            saveFile.save("Overwrite existing file with current text.", "d:/directory/doesNotExistFile.txt");
-        } catch (Exception e) {
-            LOG.error("Exception was thrown:", e);
-        }
         LOG.exit();
     }
 }

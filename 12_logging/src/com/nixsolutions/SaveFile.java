@@ -29,8 +29,7 @@ public class SaveFile implements Save {
         Path path = Paths.get(filePath);
 
         if (path.isAbsolute() == false) {
-            LOG.error("Path \"{}\" is not absolute.", path);
-            throw new RuntimeException("Specified path is not absolute.");
+            LOG.throwing(new RuntimeException("Specified path is not absolute."));
         }
 
         if (Files.exists(path) == false) {
@@ -42,8 +41,7 @@ public class SaveFile implements Save {
                 Files.write(path, text.getBytes());
                 LOG.debug("Text \"{}\" was written to file.", text);
             } catch (IOException io) {
-                LOG.error(io);
-                throw new RuntimeException("File cannot be created or written.", io);
+                LOG.throwing(new RuntimeException(io));
             }
         } else {
             try {
@@ -51,8 +49,7 @@ public class SaveFile implements Save {
                 Files.write(path, text.getBytes());
 
             } catch (IOException io) {
-                LOG.error(io);
-                throw new RuntimeException("File cannot be written.", io);
+                LOG.throwing(new RuntimeException(io));
             }
         }
         LOG.exit();

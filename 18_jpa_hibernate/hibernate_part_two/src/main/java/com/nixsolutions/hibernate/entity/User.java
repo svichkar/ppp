@@ -19,7 +19,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private int userId;
+	private Integer userId;
 	@Column(name = "user_login", length = 25, nullable = false)
 	private String userLogin;
 	@Column(name = "user_password", length = 25, nullable = false)
@@ -28,11 +28,11 @@ public class User implements Serializable {
 	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
 	private Role role;
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

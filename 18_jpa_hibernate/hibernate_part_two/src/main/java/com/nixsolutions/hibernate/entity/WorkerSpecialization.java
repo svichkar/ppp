@@ -17,15 +17,15 @@ public class WorkerSpecialization implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "specialization_id")
-	private int specializationId;
+	private Integer specializationId;
 	@Column(name = "specialization_name", length = 50, nullable = false)
 	private String specializationName;
 
-	public int getSpecializationId() {
+	public Integer getSpecializationId() {
 		return specializationId;
 	}
 
-	public void setSpecializationId(int specializationId) {
+	public void setSpecializationId(Integer specializationId) {
 		this.specializationId = specializationId;
 	}
 

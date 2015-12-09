@@ -41,13 +41,13 @@ public class PartPostServlet extends HttpServlet {
 				String vendor = request.getParameter("vendor");
 				String amount = request.getParameter("amount");
 				if (part_id == null || part_id.equals("")) {
-					Part part = new Part(part_name, vendor, Integer.parseInt(amount));
+					Part part = new Part(part_name, vendor, Long.parseLong(amount));
 					partDao.createFrom(part);
 				} else {
 					Part part = partDao.getByPK(Integer.parseInt(part_id));
 					part.setPartName(part_name);
 					part.setVendor(vendor);
-					part.setAmount(Integer.parseInt(amount));
+					part.setAmount(Long.parseLong(amount));
 					partDao.update(part);
 				}
 				request.setAttribute("target", "Parts");

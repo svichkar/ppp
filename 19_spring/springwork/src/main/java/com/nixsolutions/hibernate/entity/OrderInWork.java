@@ -23,7 +23,7 @@ public class OrderInWork implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
-	private long orderId;
+	private Long orderId;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_status_id", referencedColumnName = "order_status_id")
 	private OrderStatus orderStatus;
@@ -37,11 +37,11 @@ public class OrderInWork implements Serializable {
 	@Column(name = "timestamp_finish")
 	private Timestamp timestampFinish;
 
-	public long getOrderId() {
+	public Long getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(long orderId) {
+	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 

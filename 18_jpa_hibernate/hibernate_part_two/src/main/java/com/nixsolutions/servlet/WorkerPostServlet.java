@@ -61,7 +61,7 @@ public class WorkerPostServlet extends HttpServlet {
 					worker.setUser(userDao.getByPK(Integer.parseInt(user_id)));
 					workerDao.update(worker);
 				}
-				request.setAttribute("target", "Cars");
+				request.setAttribute("target", "Workers");
 				request.getRequestDispatcher("/nav.do").forward(request, response);
 			} else {
 				//

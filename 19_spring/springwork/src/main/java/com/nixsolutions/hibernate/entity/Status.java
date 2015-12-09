@@ -15,15 +15,15 @@ public class Status implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "status_id")
-	private int statusId;
+	private Integer statusId;
 	@Column(name = "status_name", length = 50, nullable = false)
 	private String statusName;
 
-	public int getStatusId() {
+	public Integer getStatusId() {
 		return statusId;
 	}
 
-	public void setStatusId(int statusId) {
+	public void setStatusId(Integer statusId) {
 		this.statusId = statusId;
 	}
 

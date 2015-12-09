@@ -17,4 +17,20 @@ public class CustomerService {
 	public List<Customer> getAllCustomers() {
 		return customerDao.getAll();
 	}
+	
+	public Customer getCustomerById(int id) {
+		return customerDao.getByPK(id);
+	}
+	
+	public void addCustomer(Customer customer) {
+		customerDao.createFrom(customer);
+	}
+	
+	public void updateCustomer(Customer customer) {
+		customerDao.update(customer);
+	}
+	
+	public void deleteCustomer(Customer customer) {
+		customerDao.delete(customer);
+	}
 }

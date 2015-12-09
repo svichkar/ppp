@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nixsolutions.bean.OrderBean;
 import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.hibernate.entity.Car;
+import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
 import com.nixsolutions.hibernate.entity.User;
 
@@ -32,6 +33,22 @@ public class OrderService {
 	
 	public List<OrderBean> getAllOrdersAsBeansByUser(User user) {
 		return processAsBeans(getAllOrdersByUser(user));
+	}
+	
+	public List<OrderInWork> getOrdersByCustomer(Customer customer) {
+		return orderDao.getOrdersByCustomer(customer);
+	}
+	
+	public void addOrder(OrderInWork order) {
+		orderDao.createFrom(order);
+	}
+	
+	public void updateOrder(OrderInWork order) {
+		orderDao.update(order);
+	}
+	
+	public void deleteOrder(OrderInWork order) {
+		orderDao.delete(order);
 	}
 	
 	private List<OrderBean> processAsBeans(List<OrderInWork> orderList) {

@@ -17,15 +17,15 @@ public class OrderStatus implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_status_id")
-	private int orderStatusId;
+	private Integer orderStatusId;
 	@Column(name = "order_status_name", length = 25, nullable = false)
 	private String orderStatusName;
 
-	public int getOrderStatusId() {
+	public Integer getOrderStatusId() {
 		return orderStatusId;
 	}
 
-	public void setOrderStatusId(int orderStatusId) {
+	public void setOrderStatusId(Integer orderStatusId) {
 		this.orderStatusId = orderStatusId;
 	}
 

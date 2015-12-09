@@ -19,7 +19,7 @@ public class Customer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id")
-	private int customerId;
+	private Integer customerId;
 	@Column(name = "first_name", length = 25, nullable = false)
 	private String firstName;
 	@Column(name = "last_name", length = 25, nullable = false)
@@ -30,11 +30,11 @@ public class Customer implements Serializable {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 
-	public int getCustomerId() {
+	public Integer getCustomerId() {
 		return customerId;
 	}
 

@@ -15,15 +15,15 @@ public class Role implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id")
-	private int roleId;
+	private Integer roleId;
 	@Column(name = "role_name", length = 25, nullable = false)
 	private String roleName;
 
-	public int getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 

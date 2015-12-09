@@ -25,6 +25,22 @@ public class CarService {
 		return processAsBeans(getAllCars());
 	}
 	
+	public List<Car> getCarsByCustomer(Customer customer) {
+		return carDao.getCarsByCustomer(customer);
+	}
+	
+	public void addCar(Car car) {
+		carDao.createFrom(car);
+	}
+	
+	public void updateCar(Car car) {
+		carDao.update(car);
+	}
+	
+	public void deleteCar(Car car) {
+		carDao.delete(car);
+	}
+	
 	private List<CarBean> processAsBeans(List<Car> carList) {
 		List<CarBean> resultList = new ArrayList<>();
 		for (Car item : carList) {

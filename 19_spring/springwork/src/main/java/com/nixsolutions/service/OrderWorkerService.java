@@ -23,7 +23,7 @@ public class OrderWorkerService {
 		return orderWorkerDao.getOrderWorkerByWorker(worker);
 	}
 
-	public void delete(OrderWorker orderWorker) {
+	public void deleteOrderWorker(OrderWorker orderWorker) {
 		orderWorkerDao.delete(orderWorker);
 	}
 }

@@ -19,7 +19,7 @@ public class Car implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "car_id")
-	private int carId;
+	private Integer carId;
 	@Column(name = "model", length = 100, nullable = false)
 	private String model;
 	@Column(name = "vin", length = 17, nullable = false)
@@ -30,11 +30,11 @@ public class Car implements Serializable {
 	@JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
 	private Customer customer;
 	
-	public void setCarId(int carId) {
+	public void setCarId(Integer carId) {
 		this.carId = carId;
 	}
 	
-	public int getCarId() {
+	public Integer getCarId() {
 		return carId;
 	}
 	

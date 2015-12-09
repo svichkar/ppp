@@ -19,7 +19,7 @@ public class Worker implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "worker_id")
-	private int workerId;
+	private Integer workerId;
 	@Column(name = "first_name", length = 50, nullable = false)
 	private String firstName;
 	@Column(name = "last_name", length = 50, nullable = false)
@@ -34,11 +34,11 @@ public class Worker implements Serializable {
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
 	private User user;
 
-	public int getWorkerId() {
+	public Integer getWorkerId() {
 		return workerId;
 	}
 
-	public void setWorkerId(int workerId) {
+	public void setWorkerId(Integer workerId) {
 		this.workerId = workerId;
 	}
 

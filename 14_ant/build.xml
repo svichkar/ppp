@@ -43,10 +43,19 @@
         <junit printsummary="yes" haltonfailure="no">
             <classpath refid="classpath"/>
             <classpath location="${build}"/>
-            <test name="SingleWithoutMockTest" haltonfailure="no" todir="${report}">
+
+            <!--test name="SingleWithoutMockTest" haltonfailure="no" todir="${report}">
                 <formatter type="plain" />
                 <formatter type="xml" />
-            </test>
+            </test-->
+
+            <formatter type="plain" />
+            <formatter type="xml" />
+            <batchtest fork="yes" todir="${report}">
+                <fileset dir="${test}">
+                    <include name="*Test.java" />
+                </fileset>
+            </batchtest>
         </junit>
     </target>
 

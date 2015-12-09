@@ -1,0 +1,63 @@
+<project name="14_ant" default="dist" basedir=".">
+    <description>Build script for 14_ant project</description>
+    <property file="14_ant.properties"/>
+    <property name="src" location="src"/>
+    <property name="test" location="test"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <property name="lib" location="lib"/>
+
+    <path id="14_ant.classpath">
+        <pathelement location="${build}/class"/>
+        <pathelement location="${build}/test"/>
+        <pathelement location="${lib}/log4j-api-2.4.1.jar"/>
+        <pathelement location="${lib}/junit-4.12.jar"/>
+        <pathelement location="${lib}/mockito-all-1.9.5.jar"/>
+    </path>
+
+    <target name="clean" description="cleanup">
+        <echo message="clean started"/>
+        <delete dir="${build}"/>
+        <delete dir="dist"/>
+        <echo message="cleaning complete"/>
+    </target>
+
+    <target name="init" depends="clean">
+        <echo message="start creating dirs"/>
+        <mkdir dir="${build}"/>
+        <mkdir dir="${build}/class"/>
+        <mkdir dir="${build}/test"/>
+        <echo message="creating complete"/>
+    </target>
+
+    <target name="compile" depends="init" description="class compile">
+        <echo message="compile classes"/>
+        <javac srcdir="${src}" destdir="${build}/class">
+            <classpath refid="14_ant.classpath"/>
+        </javac>
+        <javac srcdir="${test}" destdir="${build}/test">
+            <classpath refid="14_ant.classpath"/>
+        </javac>
+        <echo message="compiling complete"/>
+    </target>
+
+    <target name="test" depends="compile" description="run test">
+        <echo message="test started"/>
+        <junit printsummary="yes" haltonerror="yes" haltonfailure="yes">
+            <classpath refid="14_ant.classpath"/>
+            <test name="FullTest"/>
+        </junit>
+        <echo message="test complete"/>
+    </target>
+
+    <target name="dist" depends="test" description="make jar">
+        <echo message="dist started"/>
+        <mkdir dir="${dist}"/>
+        <jar jarfile="${dist}/14_ant.jar" basedir="${build}/class"/>
+        <checksum file="${dist}/14_ant.jar"/>
+        <buildnumber/>
+        <manifest file="manifest"/>
+        <echo message="dist complete"/>
+    </target>
+
+</project>

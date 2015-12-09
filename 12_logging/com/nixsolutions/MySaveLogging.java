@@ -26,7 +26,8 @@ public class MySaveLogging implements exception.Save {
 			fw.flush();
 
 		} catch (IOException e) {
-			LOG.catching(new RuntimeException(e));
+			LOG.error("Exception is thrown: ", e);
+			new RuntimeException(e);
 		} finally {
 			try {
 				LOG.info("Closing FileWriter...");

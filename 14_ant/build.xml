@@ -1,0 +1,69 @@
+<project name="MyProject" default="dist" basedir=".">
+    <description>
+        Ant task
+    </description>
+    <property file="project.properties"/>
+    <property name="src" location="src"/>
+    <property name="test" location="test"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <property name="lib" location="lib"/>
+    <property name="buildTest" location="build_test"/>
+    <path id="customClassPath">
+        <pathelement location="${lib}/junit-4.12.jar"/>
+        <pathelement location="${lib}/mockito-all-1.9.5.jar"/>
+        <pathelement location="${build}"/>
+        <pathelement location="${buildTest}"/>
+    </path>
+    <target name="init">
+        <antcall target="timestamp">
+            <param name="message" value="Ant process started"/>
+        </antcall>
+        <mkdir dir="${build}"/>
+        <mkdir dir="${buildTest}"/>
+        <echo message="initialization process finished"/>
+    </target>
+    <target name="compile" depends="init">
+        <echo message="compilation process started"/>
+        <javac srcdir="${src}" destdir="${build}"/>
+        <javac srcdir="${test}" destdir="${buildTest}">
+            <classpath refid="customClassPath"/>
+        </javac>
+        <echo message="compilation process finished"/>
+    </target>
+    <target name="dist" depends="compile">
+        <echo message="distributive process started"/>
+        <mkdir dir="${dist}/lib"/>
+        <jar jarfile="${dist}/lib/RobotAndProgram.jar" basedir="${build}"/>
+        <echo message="distributive process finished"/>
+    </target>
+    <target name="clean">
+        <echo message="clean process started"/>
+        <delete dir="${build}"/>
+        <delete dir="${buildTest}"/>
+        <delete dir="${dist}"/>
+        <echo message="clean process finished"/>
+    </target>
+    <target name="test" depends="compile">
+        <echo message="tests started"/>
+        <junit printsummary="yes" haltonfailure="no" showoutput="yes">
+            <classpath refid="customClassPath"/>
+            <batchtest fork="yes">
+                <fileset dir="${buildTest}" casesensitive="no">
+                    <include name="*Test.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+        <echo message="tests finished"/>
+    </target>
+    <target name="echoProperties">
+        <echo message="All properties"/>
+        <echoproperties format="xml"/>
+    </target>
+    <target name="timestamp">
+        <tstamp>
+            <format property="currentTime" pattern="MM/dd/yyyy hh:mm:ss"/>
+        </tstamp>
+        <echo message="${message} ${currentTime}"/>
+    </target>
+</project>

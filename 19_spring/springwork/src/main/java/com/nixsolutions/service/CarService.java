@@ -29,6 +29,10 @@ public class CarService {
 		return carDao.getCarsByCustomer(customer);
 	}
 	
+	public Car getCarById(int carId) {
+		return carDao.getByPK(carId);
+	}
+	
 	public void addCar(Car car) {
 		carDao.createFrom(car);
 	}

@@ -24,6 +24,7 @@
 				<td>
 					<form method="POST">
 						<input type="hidden" name="part_id" value="${item.partId}">
+						<input type="hidden" name="target" value="Parts" />
 						<input type="submit" name="action" formaction="editPart.do" value="Edit" class="input_edit">
 						<input type="submit" name="action" formaction="deletePart.do" value="Delete" class="input_edit">
 					</form>

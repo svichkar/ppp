@@ -27,16 +27,24 @@ public class OrderService {
 		return processAsBeans(getAllOrders());
 	}
 	
-	public List<OrderInWork> getAllOrdersByUser(User user) {
+	public OrderInWork getOrderById(long id) {
+		return orderDao.getByPK(id);
+	}
+	
+	public List<OrderInWork> getOrdersByUser(User user) {
 		return orderDao.getOrdersByUser(user);
 	}
 	
-	public List<OrderBean> getAllOrdersAsBeansByUser(User user) {
-		return processAsBeans(getAllOrdersByUser(user));
+	public List<OrderBean> getOrdersAsBeansByUser(User user) {
+		return processAsBeans(getOrdersByUser(user));
 	}
 	
 	public List<OrderInWork> getOrdersByCustomer(Customer customer) {
 		return orderDao.getOrdersByCustomer(customer);
+	}
+	
+	public List<OrderInWork> getOrdersByCar(Car car) {
+		return orderDao.getOrdersByCar(car);
 	}
 	
 	public void addOrder(OrderInWork order) {

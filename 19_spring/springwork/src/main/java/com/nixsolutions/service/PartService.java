@@ -17,4 +17,20 @@ public class PartService {
 	public List<Part> getAllParts() {
 		return partDao.getAll();
 	}
+	
+	public Part getPartById(long id) {
+		return partDao.getByPK(id);
+	}
+	
+	public void addPart(Part part) {
+		partDao.createFrom(part);
+	}
+	
+	public void updatePart(Part part) {
+		partDao.update(part);
+	}
+	
+	public void deletePart(Part part) {
+		partDao.delete(part);
+	}
 }

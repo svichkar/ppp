@@ -40,7 +40,7 @@ public class NavigationController {
 			return "/WEB-INF/jsp/ordersPage.jsp";
 		} else if (role.equals("User")) {
 			User user = userService.getUserByLogin(login);
-			model.addAttribute("orders", orderService.getAllOrdersAsBeansByUser(user));
+			model.addAttribute("orders", orderService.getOrdersAsBeansByUser(user));
 			return "/WEB-INF/jsp/userPage.jsp";
 		} else {
 			return "";

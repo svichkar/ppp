@@ -32,6 +32,7 @@
 				<td>
 					<form method="POST">
 						<input type="hidden" name="order_id" value="${item.orderId}">
+						<input type="hidden" name="target" value="Orders" />
 						<input type="submit" name="action" formaction="editOrder.do" value="Edit" class="input_edit">
 						<input type="submit" name="action" formaction="deleteOrder.do" value="Delete" class="input_edit">
 					</form>

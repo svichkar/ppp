@@ -1,4 +1,8 @@
 <project name="Ant" basedir="." default="dist">
+
+    <property name="app.version" value="1.0.0"/>
+    <property name="app.name" value="Ant test project"/>
+
     <property name="src" location="src"/>
     <property name="test" location="test"/>
     <property name="build" location="build"/>
@@ -16,25 +20,31 @@
     </target>
 
     <target name="compile" depends="init" description="compilation">
-        <echo message="Copying 'log4j2.xml' config file..."/>
-        <copy todir="${build}" overwrite="true">
-            <fileset dir="${src}" includes="log4j2.xml"/>
-        </copy>
         <echo message="Starting compilation..."/>
         <javac srcdir="${basedir}" destdir="${build}" includeantruntime="false">
             <classpath>
                 <path refid="classpath"/>
             </classpath>
-            <include name="${src}\*.java"/>
-            <include name="${test}\*.java"/>
         </javac>
+        <echo message="Copying 'log4j2.xml' config file..."/>
+        <copy todir="${build}" overwrite="true">
+            <fileset dir="${src}" includes="log4j2.xml"/>
+        </copy>
+        <echo message="destination dir '${build}'..."/>
         <echo message="Compilation finished..."/>
     </target>
 
     <target name="dist" depends="compile" description="Distention">
         <echo message="Distention has started..."/>
         <mkdir dir="${dist}"/>
-        <jar destfile="${dist}/Hello.jar" basedir="${build}"/>
+        <jar destfile="${dist}/Hello.jar" basedir="${build}">
+            <manifest>
+                <attribute name='Specification-Version' value='${app.version}'/>
+                <attribute name='Specification-Title' value='${app.name}'/>
+                <attribute name='Implementation-Version' value='${app.version}'/>
+                <attribute name='Implementation-Title' value='${app.name}'/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="test" depends="compile" description="testing">
@@ -44,16 +54,12 @@
             <classpath refid="classpath"/>
             <classpath location="${build}"/>
 
-            <!--test name="SingleWithoutMockTest" haltonfailure="no" todir="${report}">
-                <formatter type="plain" />
-                <formatter type="xml" />
-            </test-->
+            <formatter type="plain"/>
+            <formatter type="xml"/>
 
-            <formatter type="plain" />
-            <formatter type="xml" />
             <batchtest fork="yes" todir="${report}">
                 <fileset dir="${test}">
-                    <include name="*Test.java" />
+                    <include name="*Test.java"/>
                 </fileset>
             </batchtest>
         </junit>
@@ -62,6 +68,10 @@
     <target name="clean" description="Delete all generated files">
         <echo message="Cleaning has started..."/>
         <delete dir="${build}"/>
+    </target>
+
+    <target name="run" depends="dist">
+        <java jar="dist/Hello.jar" fork="true" logerror="true"/>
     </target>
 
 </project>

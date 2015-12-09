@@ -1,43 +1,53 @@
 <project name="Ant" basedir="." default="dist">
     <property name="src" location="src"/>
+    <property name="test" location="test"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     <property name="lib-dir" location="lib"/>
-    <property name="test" location="test"/>
+    <property name="report" location="report"/>
 
-    <path id="external.classpath">
-        <pathelement location="${lib-dir}/hamcrest-core-1.3.jar" />
-        <pathelement location="${lib-dir}/junit-4.12.jar" />
-        <pathelement location="${lib-dir}/log4j-api-2.4.1.jar" />
-        <pathelement location="${lib-dir}/log4j-core-2.4.1.jar" />
-        <pathelement location="${lib-dir}/mockito-all-1.9.5.jar" />
+    <path id="classpath">
+        <fileset dir="${lib-dir}" includes="*.jar"/>
     </path>
 
-    <target name="init" depends="clean" description="initialization">
+    <target name="init" description="initialization">
         <echo message="Initialization has started..."/>
         <mkdir dir="${build}"/>
     </target>
 
     <target name="compile" depends="init" description="compilation">
-        <echo message="Compilation has started..."/>
-        <javac srcdir="${basedir}" destdir="${build}" >
+        <echo message="Copying 'log4j2.xml' config file..."/>
+        <copy todir="${build}" overwrite="true">
+            <fileset dir="${src}" includes="log4j2.xml"/>
+        </copy>
+        <echo message="Starting compilation..."/>
+        <javac srcdir="${basedir}" destdir="${build}" includeantruntime="false">
             <classpath>
-                <path refid="external.classpath" />
+                <path refid="classpath"/>
             </classpath>
             <include name="${src}\*.java"/>
             <include name="${test}\*.java"/>
         </javac>
+        <echo message="Compilation finished..."/>
     </target>
 
     <target name="dist" depends="compile" description="Distention">
         <echo message="Distention has started..."/>
-        <mkdir dir="${dist}/jar"/>
-        <jar destfile="${dist}/jar/Hello.jar" basedir="${build}"/>
+        <mkdir dir="${dist}"/>
+        <jar destfile="${dist}/Hello.jar" basedir="${build}"/>
     </target>
 
-    <target name="test" description="testing">
+    <target name="test" depends="compile" description="testing">
         <echo message="Testing has started..."/>
-        <mkdir dir="${test}"/>
+        <mkdir dir="${report}"/>
+        <junit printsummary="yes" haltonfailure="no">
+            <classpath refid="classpath"/>
+            <classpath location="${build}"/>
+            <test name="SingleWithoutMockTest" haltonfailure="no" todir="${report}">
+                <formatter type="plain" />
+                <formatter type="xml" />
+            </test>
+        </junit>
     </target>
 
     <target name="clean" description="Delete all generated files">

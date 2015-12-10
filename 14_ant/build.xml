@@ -1,0 +1,55 @@
+<project name="14_ant" default="dist" basedir=".">
+	<description>Build script</description>
+	<property file="14_ant.properties" />
+	<property name="src" location="src" />
+	<property name="test" location="test" />
+	<property name="lib" location="lib" />
+	<property name="build" location="build" />
+	<property name="classes" location="build/classes" />
+	<property name="tests" location="build/tests" />
+	<property name="dist" location="dist" />
+	<path id="14_ant.classpath">
+		<pathelement location="${classes}" />
+		<pathelement location="${tests}" />
+		<pathelement location="${lib}/hamcrest-core-1.3.jar" />
+		<pathelement location="${lib}/junit-4.12.jar" />
+		<pathelement location="${lib}/mockito-all-1.9.5.jar" />
+	</path>
+	<target name="clean">
+		<echo>Target clean started</echo>
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<echo>Target clean completed</echo>
+	</target>
+	<target name="init" depends="clean">
+		<echo>Target init started</echo>
+		<mkdir dir="${build}" />
+		<mkdir dir="${classes}" />
+		<mkdir dir="${tests}" />
+		<echo>Target init completed</echo>
+	</target>
+	<target name="compile" depends="init" description="Compiling classes">
+		<echo>Target compile started</echo>
+		<javac srcdir="${src}" destdir="${classes}" includeantruntime="false" classpathref="14_ant.classpath" />
+		<javac srcdir="${test}" destdir="${tests}" includeantruntime="false" classpathref="14_ant.classpath" />
+		<echo>Target compile completed</echo>
+	</target>
+	<target name="test" depends="compile">
+		<echo>Target test started</echo>
+		<junit printsummary="yes" fork="yes" haltonfailure="yes">
+			<classpath refid="14_ant.classpath" />
+			<formatter type="brief" usefile="false" />
+			<test name="com.nixsolutions.RobotTest" />
+		</junit>
+		<echo>Target test completed</echo>
+	</target>
+	<target name="dist" depends="test">
+		<echo>Target dist started</echo>
+		<mkdir dir="${dist}" />
+		<jar jarfile="${dist}/14_ant.jar" basedir="${classes}" />
+		<zip destfile="${dist}/14_ant.zip" basedir="${dist}"/>
+		<move file="${dist}/14_ant.zip" todir="."/>
+		<buildnumber file="mybuild.number"/>
+		<echo>Target dist completed</echo>
+	</target>
+</project>

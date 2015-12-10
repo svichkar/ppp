@@ -14,41 +14,34 @@ public class StatusBoImpl implements StatusBo {
 
 	@Autowired
 	private StatusDao statusDao;
-	
+
 	@Override
 	public void create(Status status) {
-		// TODO Auto-generated method stub
-
+		statusDao.create(status);
 	}
 
 	@Override
 	public void update(Status status) {
-		// TODO Auto-generated method stub
-
+		statusDao.update(status);
 	}
 
 	@Override
 	public void delete(Status status) {
-		// TODO Auto-generated method stub
-
+		statusDao.delete(status);
 	}
 
 	@Override
 	public Status getByStatusId(int statusId) {
-		// TODO Auto-generated method stub
-		return null;
+		return statusDao.getByStatusId(statusId);
 	}
 
 	@Override
 	public Status getByStatusName(String statusName) {
-		// TODO Auto-generated method stub
-		return null;
+		return statusDao.getByStatusName(statusName);
 	}
 
 	@Override
 	public List<Status> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return statusDao.getAll();
 	}
-
 }

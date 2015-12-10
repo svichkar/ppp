@@ -83,10 +83,10 @@
     <target depends="compile" name="dist">
         <echo>Creating jar</echo>    
         <jar jarfile="${dist}/${project.name}-${project.version}.jar" basedir="${build}/classes">
-        <manifest>
+            <manifest>
                 <attribute name="Main-Class" value="mocksworkshop.MocksWorkshop"/>
                 <attribute name="Class-Path" value="${class.path.libs.names}"/>
-        </manifest>
+            </manifest>
         </jar>
         <copy todir="${dist}/lib" flatten="true">
             <fileset dir="${lib}">
@@ -120,6 +120,7 @@
     
     <target depends="compile" name="jar" description="Creates single jar with all libraries included">
         <timestamp.get/>
+        <echo>Generating commulative jar</echo>
         <jar jarfile="${dist}/${project.name}-${project.version}.jar" basedir="${build}/classes">
             <zipgroupfileset dir="${lib}" includes="**/*.jar" excludes="CopyLibs/*"/>
             <manifest>
@@ -127,6 +128,7 @@
             </manifest>       
         </jar>  
         <timestamp.get/>  
+        <echo>Commulative jar generated</echo>
     </target>
     
     <!--default IDE targets-->

@@ -1,77 +1,99 @@
 <project name="Ant" basedir="." default="dist">
 
-    <property name="app.version" value="1.0.0"/>
-    <property name="app.name" value="Ant test project"/>
+    <property file="project.properties"/>
 
-    <property name="src" location="src"/>
-    <property name="test" location="test"/>
-    <property name="build" location="build"/>
-    <property name="dist" location="dist"/>
-    <property name="lib-dir" location="lib"/>
-    <property name="report" location="report"/>
+    <property name="app.version" value="1.0.5"/>
+    <property name="app.name" value="Ant test project"/>
+    <property name="dir.src" location="src"/>
+    <property name="dir.test" location="test"/>
+    <property name="dir.build" location="build"/>
+    <property name="dir.dist" location="dist"/>
+    <property name="dir.lib" location="lib"/>
+    <property name="dir.report" location="report"/>
+    <property name="dir.report.file" value="report.zip"/>
 
     <path id="classpath">
-        <fileset dir="${lib-dir}" includes="*.jar"/>
+        <fileset dir="${dir.lib}" includes="*.jar"/>
     </path>
 
-    <target name="init" description="initialization">
-        <echo message="Initialization has started..."/>
-        <mkdir dir="${build}"/>
+    <target name="init" depends="clean" description="perform initialization">
+        <echo message="****** Initialization has started. ******"/>
+        <mkdir dir="${dir.build}"/>
+        <echo message="All temporary folders was created."/>
+        <echo message="****** Initialization has finished. ******"/>
     </target>
 
-    <target name="compile" depends="init" description="compilation">
-        <echo message="Starting compilation..."/>
-        <javac srcdir="${basedir}" destdir="${build}" includeantruntime="false">
-            <classpath>
-                <path refid="classpath"/>
-            </classpath>
+    <target name="compile" depends="init" description="perform compilation">
+        <echo message="****** Compilation has started. ******"/>
+        <javac srcdir="${dir.src}: ${dir.test}" destdir="${dir.build}" includeantruntime="false">
+            <classpath refid="classpath"/>
         </javac>
-        <echo message="Copying 'log4j2.xml' config file..."/>
-        <copy todir="${build}" overwrite="true">
-            <fileset dir="${src}" includes="log4j2.xml"/>
+        <echo message="compiled files was located to '${dir.build}'"/>
+        <echo message="Copying 'log4j2.xml' config file"/>
+        <copy todir="${dir.build}" overwrite="true">
+            <fileset dir="${dir.src}" includes="log4j2.xml"/>
         </copy>
-        <echo message="destination dir '${build}'..."/>
-        <echo message="Compilation finished..."/>
+        <echo message="****** Compilation has finished. ******"/>
     </target>
 
-    <target name="dist" depends="compile" description="Distention">
-        <echo message="Distention has started..."/>
-        <mkdir dir="${dist}"/>
-        <jar destfile="${dist}/Hello.jar" basedir="${build}">
+    <target name="dist" depends="compile" description="generate jar distribute file">
+        <echo message="****** Distribution has started. ******"/>
+        <mkdir dir="${dir.dist}"/>
+        <jar destfile="${dir.dist}/my-ant-${app.version}.jar" basedir="${dir.build}">
             <manifest>
-                <attribute name='Specification-Version' value='${app.version}'/>
-                <attribute name='Specification-Title' value='${app.name}'/>
                 <attribute name='Implementation-Version' value='${app.version}'/>
                 <attribute name='Implementation-Title' value='${app.name}'/>
             </manifest>
         </jar>
+        <echo message="****** Distribution has finished. ******"/>
     </target>
 
-    <target name="test" depends="compile" description="testing">
-        <echo message="Testing has started..."/>
-        <mkdir dir="${report}"/>
+    <target name="test" depends="compile" description="perform test execution">
+        <echo message="****** Testing has started. ******"/>
+        <echo message="Creating directory for test results."/>
+        <mkdir dir="${dir.report}"/>
         <junit printsummary="yes" haltonfailure="no">
             <classpath refid="classpath"/>
-            <classpath location="${build}"/>
-
+            <classpath location="${dir.build}"/>
             <formatter type="plain"/>
-            <formatter type="xml"/>
-
-            <batchtest fork="yes" todir="${report}">
-                <fileset dir="${test}">
+            <batchtest fork="yes" todir="${dir.report}">
+                <fileset dir="${dir.test}">
                     <include name="*Test.java"/>
                 </fileset>
             </batchtest>
         </junit>
+        <echo message="****** Testing has finished. ******"/>
     </target>
 
-    <target name="clean" description="Delete all generated files">
-        <echo message="Cleaning has started..."/>
-        <delete dir="${build}"/>
+    <target name="clean" description="Delete all temporary files">
+        <echo message="****** Cleaning temporary files has started. ******"/>
+        <delete dir="${dir.build}"/>
+        <delete dir="${dir.dist}"/>
+        <delete dir="${dir.report}"/>
+        <delete file="${dir.report.file}"/>
+        <echo message="****** Cleaning temporary files has finished. ******"/>
     </target>
 
-    <target name="run" depends="dist">
-        <java jar="dist/Hello.jar" fork="true" logerror="true"/>
+    <target name="zip" depends="test" description="compress '${dir.report}' folder with test results.">
+        <echo message="****** Compressing has started. ******"/>
+        <zip basedir="${dir.report}" destfile="${dir.report.file}"/>
+        <echo message="****** Compressing has finished. ******"/>
     </target>
 
+    <target name='email' depends="zip" description="send email with test results report in attachments">
+        <echo message="****** Sending email has started. ******"/>
+        <mail mailhost='smtp.gmail.com' mailport='587' user='ant.javappp@gmail.com' password='javappp2015'
+              subject='Test results' enablestarttls="true">
+            <from address="ant.javappp@gmail.com"/>
+            <to address="2012kostyan@gmail.com"/>
+            <message>Please find the attached report for test results.</message>
+            <attachments>
+                <fileset dir="${basedir}">
+                    <include name="report.zip"/>
+                </fileset>
+            </attachments>
+        </mail>
+        <delete file="${dir.report.file}"/>
+        <echo message="****** Sending email has finished. ******"/>
+    </target>
 </project>

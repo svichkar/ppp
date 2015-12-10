@@ -8,6 +8,7 @@ package reflectionsworkshop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,8 +46,8 @@ public class CustomPathClassLoader extends ClassLoader implements PathClassLoade
     public Class<?> findClass(String className) throws ClassNotFoundException {
         if (this.getPath() != null) {
             try {
-                byte b[] = FileUtils.readFileToByteArray(new File(this.getPath() + className
-                        + ".class"));
+                byte b[] = FileUtils.readFileToByteArray(new File(new File(this.getPath(),
+                        className.replace(".", File.separator)).getPath() + ".class"));
                 return defineClass(className, b, 0, b.length);
             } catch (FileNotFoundException ex) {
                 LOGGER.warn("CustomPathClassLoader failed to load class", ex);

@@ -42,4 +42,22 @@ public class PartController {
 		model.addAttribute("target", "Parts");
 		return "/nav.do";
 	}
+
+	@RequestMapping(value = "/partPost.do", method = RequestMethod.POST)
+	public String processPart(@ModelAttribute(value = "id") String partId,
+			@ModelAttribute(value = "part_name") String partName, @ModelAttribute(value = "vendor") String partVendor,
+			@ModelAttribute(value = "amount") String amount, Model model) {
+		Part part = partService.getPartById(partId.equals("") ? 0 : Long.parseLong(partId));
+		if (part == null) {
+			part = new Part(partName, partVendor, Long.parseLong(amount));
+			partService.addPart(part);
+		} else {
+			part.setPartName(partName);
+			part.setVendor(partVendor);
+			part.setAmount(Long.parseLong(amount));
+			partService.updatePart(part);
+		}
+		model.addAttribute("target", "Parts");
+		return "/nav.do";
+	}
 }

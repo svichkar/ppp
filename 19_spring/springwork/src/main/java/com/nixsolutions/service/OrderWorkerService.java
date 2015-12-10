@@ -1,70 +1,26 @@
 package com.nixsolutions.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.nixsolutions.bean.OrderWorkerBean;
-import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.hibernate.entity.OrderWorker;
 import com.nixsolutions.hibernate.entity.Worker;
 
-@Service
-public class OrderWorkerService {
+public interface OrderWorkerService {
 
-	@Autowired
-	private OrderWorkerDAO orderWorkerDao;
+	List<OrderWorker> getOrderWorkersByOrderId(long orderId);
 
-	public List<OrderWorker> getOrderWorkersByOrderId(long orderId) {
-		return orderWorkerDao.getByOrderId(orderId);
-	}
+	List<OrderWorkerBean> getOrderWorkersAsBeansByOrderId(long orderId);
 
-	public List<OrderWorkerBean> getOrderWorkersAsBeansByOrderId(long orderId) {
-		return processAsBeans(getOrderWorkersByOrderId(orderId));
-	}
+	List<OrderWorker> getOrderWorkersByWorker(Worker worker);
 
-	public List<OrderWorker> getOrderWorkersByWorker(Worker worker) {
-		return orderWorkerDao.getOrderWorkerByWorker(worker);
-	}
+	OrderWorker getOrderWorkerByIds(long orderId, int workerId);
 
-	public OrderWorker getOrderWorkerByIds(long orderId, int workerId) {
-		return orderWorkerDao.getByPK(orderId, workerId);
-	}
+	OrderWorkerBean getOrderWorkerByIdsAsBean(long orderId, int workerId);
 
-	@SuppressWarnings("serial")
-	public OrderWorkerBean getOrderWorkerByIdsAsBean(long orderId, int workerId) {
-		return processAsBeans(new ArrayList<OrderWorker>() {
-			{
-				add(getOrderWorkerByIds(orderId, workerId));
-			}
-		}).get(0);
-	}
+	void addOrderWorker(OrderWorker orderWorker);
 
-	public void addOrderWorker(OrderWorker orderWorker) {
-		orderWorkerDao.createFrom(orderWorker);
-	}
+	void updateOrderWorker(OrderWorker orderWorker);
 
-	public void updateOrderWorker(OrderWorker orderWorker) {
-		orderWorkerDao.update(orderWorker);
-	}
-
-	public void deleteOrderWorker(OrderWorker orderWorker) {
-		orderWorkerDao.delete(orderWorker);
-	}
-
-	private List<OrderWorkerBean> processAsBeans(List<OrderWorker> orderWorkerList) {
-		List<OrderWorkerBean> resultList = new ArrayList<>();
-		for (OrderWorker item : orderWorkerList) {
-			OrderWorkerBean owb = new OrderWorkerBean();
-			owb.setOrderId(item.getOrder().getOrderId());
-			Worker w = item.getWorker();
-			owb.setWorkerId(w.getWorkerId());
-			owb.setWorkerName(w.getFirstName() + " " + w.getLastName());
-			owb.setIsCompleted(item.getIsCompleted().toString());
-			resultList.add(owb);
-		}
-		return resultList;
-	}
+	void deleteOrderWorker(OrderWorker orderWorker);
 }

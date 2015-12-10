@@ -49,12 +49,8 @@ public class NavigationController {
 
 	@RequestMapping(value = "/nav.do", method = RequestMethod.POST)
 	public String furtherNavigation(@ModelAttribute(value = "login") String login,
-			@RequestParam(value = "target", required = false) String targetParam, @ModelAttribute(value = "target") String targetAttr,
-			Model model) {
-		/*
-		 * String role = userService.getUserRole(login); if
-		 * (role.equals("Administrator")) {
-		 */
+			@RequestParam(value = "target", required = false) String targetParam,
+			@ModelAttribute(value = "target") String targetAttr, Model model) {
 		String target = targetParam != null ? targetParam : targetAttr;
 		if (target == null || target.equals("Orders")) {
 			model.addAttribute("orders", orderService.getAllOrdersAsBeans());
@@ -72,7 +68,6 @@ public class NavigationController {
 			model.addAttribute("workers", workerService.getAllWorkersAsBeans());
 			return "WEB-INF/jsp/workersPage.jsp";
 		}
-		/* } */
 		return "";
 	}
 }

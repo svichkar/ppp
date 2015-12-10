@@ -54,7 +54,30 @@ public class WorkerController {
 		Worker worker = workerService.getWorkerById(workerId);
 		orderWorkerService.getOrderWorkersByWorker(worker).forEach(x -> orderWorkerService.deleteOrderWorker(x));
 		workerService.deleteWorker(worker);
-		//model.addAttribute("target", "Workers");
+		return "/nav.do";
+	}
+
+	@RequestMapping(value = "/workerPost.do", method = RequestMethod.POST)
+	public String processWorker(@ModelAttribute(value = "id") String workerId,
+			@ModelAttribute(value = "first_name") String firstName,
+			@ModelAttribute(value = "last_name") String lastName, @ModelAttribute(value = "status_id") String statusId,
+			@ModelAttribute(value = "specialization_id") String specId,
+			@ModelAttribute(value = "user_id") String userId, Model model) {
+		Worker worker = workerService.getWorkerById(workerId.equals("") ? 0 : Integer.parseInt(workerId));
+		if (worker == null) {
+			worker = new Worker(firstName, lastName, specService.getSpecById(Integer.parseInt(specId)),
+					statusService.getStatusById(Integer.parseInt(statusId)),
+					userService.getUserById(Integer.parseInt(userId)));
+			workerService.createWorker(worker);
+		} else {
+			worker.setFirstName(firstName);
+			worker.setLastName(lastName);
+			worker.setWorkerSpecialization(specService.getSpecById(Integer.parseInt(specId)));
+			worker.setStatus(statusService.getStatusById(Integer.parseInt(statusId)));
+			worker.setUser(userService.getUserById(Integer.parseInt(userId)));
+			workerService.updateWorker(worker);
+		}
+		model.addAttribute("target", "Workers");
 		return "/nav.do";
 	}
 }

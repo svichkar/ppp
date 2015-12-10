@@ -1,70 +1,26 @@
 package com.nixsolutions.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.nixsolutions.bean.OrderPartBean;
-import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.hibernate.entity.OrderPart;
 import com.nixsolutions.hibernate.entity.Part;
 
-@Service
-public class OrderPartService {
+public interface OrderPartService {
 
-	@Autowired
-	private OrderPartDAO orderPartDao;
+	List<OrderPart> getOrderPartsByOrderId(long orderId);
 
-	public List<OrderPart> getOrderPartsByOrderId(long orderId) {
-		return orderPartDao.getByOrderId(orderId);
-	}
+	List<OrderPartBean> getOrderPartsAsBeansByOrderId(long orderId);
 
-	public List<OrderPartBean> getOrderPartsAsBeansByOrderId(long orderId) {
-		return processAsBeans(getOrderPartsByOrderId(orderId));
-	}
+	List<OrderPart> getOrderPartsByPart(Part part);
 
-	public List<OrderPart> getOrderPartsByPart(Part part) {
-		return orderPartDao.getOrderPartByPart(part);
-	}
+	OrderPart getOrderPartByIds(long orderId, long partId);
 
-	public OrderPart getOrderPartByIds(long orderId, long partId) {
-		return orderPartDao.getByPK(orderId, partId);
-	}
+	OrderPartBean getOrderPartByIdsAsBean(long orderId, long partId);
 
-	@SuppressWarnings("serial")
-	public OrderPartBean getOrderPartByIdsAsBean(long orderId, long partId) {
-		return processAsBeans(new ArrayList<OrderPart>() {
-			{
-				add(getOrderPartByIds(orderId, partId));
-			}
-		}).get(0);
-	}
+	void addOrderPart(OrderPart orderPart);
 
-	public void addOrderPart(OrderPart orderPart) {
-		orderPartDao.createFrom(orderPart);
-	}
+	void updateOrderPart(OrderPart orderPart);
 
-	public void updateOrderPart(OrderPart orderPart) {
-		orderPartDao.update(orderPart);
-	}
-
-	public void deleteOrderPart(OrderPart orderPart) {
-		orderPartDao.delete(orderPart);
-	}
-
-	private List<OrderPartBean> processAsBeans(List<OrderPart> orderPartList) {
-		List<OrderPartBean> resultList = new ArrayList<>();
-		for (OrderPart item : orderPartList) {
-			OrderPartBean opb = new OrderPartBean();
-			opb.setOrderId(item.getOrder().getOrderId());
-			Part p = item.getPart();
-			opb.setPartId(p.getPartId());
-			opb.setPartName(p.getPartName());
-			opb.setUsedAmount(item.getUsedAmount());
-			resultList.add(opb);
-		}
-		return resultList;
-	}
+	void deleteOrderPart(OrderPart orderPart);
 }

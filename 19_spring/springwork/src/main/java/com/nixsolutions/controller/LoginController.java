@@ -14,9 +14,10 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(@RequestParam(value="login") String login, @RequestParam("password") String password, Model model) {
+	public String login(@RequestParam(value = "login") String login, @RequestParam("password") String password,
+			Model model) {
 		if (userService.isUserValid(login, password)) {
 			model.addAttribute("login", login);
 			return "redirect:/nav.do";
@@ -24,5 +25,5 @@ public class LoginController {
 			return "";
 		}
 	}
-	
+
 }

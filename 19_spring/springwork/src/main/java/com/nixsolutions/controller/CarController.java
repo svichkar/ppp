@@ -62,4 +62,25 @@ public class CarController {
 		carService.deleteCar(car);
 		return "/nav.do";
 	}
+
+	@RequestMapping(value = "/carPost.do", method = RequestMethod.POST)
+	public String processCar(@ModelAttribute(value = "id") String carId,
+			@ModelAttribute(value = "description") String carDescription,
+			@ModelAttribute(value = "model") String carModel, @ModelAttribute(value = "vin") String carVin,
+			@ModelAttribute(value = "customer_id") String customerId, Model model) {
+		Car car = carService.getCarById(carId.equals("") ? 0 : Integer.parseInt(carId));
+		if (car == null) {
+			car = new Car(carModel, carVin, carDescription,
+					customerService.getCustomerById(Integer.parseInt(customerId)));
+			carService.addCar(car);
+		} else {
+			car.setModel(carModel);
+			car.setVin(carVin);
+			car.setDescription(carDescription);
+			car.setCustomer(customerService.getCustomerById(Integer.parseInt(customerId)));
+			carService.updateCar(car);
+		}
+		model.addAttribute("target", "Cars");
+		return "/nav.do";
+	}
 }

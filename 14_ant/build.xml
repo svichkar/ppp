@@ -19,6 +19,8 @@
     <target name="init" depends="clean" description="perform initialization">
         <echo message="****** Initialization has started. ******"/>
         <mkdir dir="${dir.build}"/>
+        <mkdir dir="${dir.dist}"/>
+        <mkdir dir="${dir.report}"/>
         <echo message="All temporary folders was created."/>
         <echo message="****** Initialization has finished. ******"/>
     </target>
@@ -38,7 +40,6 @@
 
     <target name="dist" depends="compile" description="generate jar distribute file">
         <echo message="****** Distribution has started. ******"/>
-        <mkdir dir="${dir.dist}"/>
         <jar destfile="${dir.dist}/my-ant-${app.version}.jar" basedir="${dir.build}">
             <manifest>
                 <attribute name='Implementation-Version' value='${app.version}'/>
@@ -50,8 +51,6 @@
 
     <target name="test" depends="compile" description="perform test execution">
         <echo message="****** Testing has started. ******"/>
-        <echo message="Creating directory for test results."/>
-        <mkdir dir="${dir.report}"/>
         <junit printsummary="yes" haltonfailure="no">
             <classpath refid="classpath"/>
             <classpath location="${dir.build}"/>
@@ -62,6 +61,7 @@
                 </fileset>
             </batchtest>
         </junit>
+        <echo message="Test results stored in ${dir.report}."/>
         <echo message="****** Testing has finished. ******"/>
     </target>
 

@@ -19,7 +19,7 @@ import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.dao.WorkerDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Car;
 import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
@@ -43,7 +43,7 @@ public class NavigationServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		orderDao = daoFactory.getOrderInWorkDAO();
 		carDao = daoFactory.getCarDAO();
@@ -63,7 +63,7 @@ public class NavigationServlet extends HttpServlet {
 				request.setAttribute("orders", getOrdersAsBean(orderList));
 				request.getRequestDispatcher("/WEB-INF/jsp/ordersPage.jsp").forward(request, response);
 			} else if (role.getRoleName().equals("User")) {
-				List<OrderInWork> orderList = orderDao.getOrdersByUser(user);
+				List<OrderInWork> orderList = orderDao.getOrdersByUserId(user.getUserId());
 				request.setAttribute("orders", getOrdersAsBean(orderList));
 				request.getRequestDispatcher("/WEB-INF/jsp/userPage.jsp").forward(request, response);
 			} else {
@@ -80,7 +80,7 @@ public class NavigationServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = (String) request.getSession().getAttribute("login");
 		String target = (String) request.getParameter("target");
-		target = target != null ? target : (String) request.getAttribute("target"); 
+		target = target != null ? target : (String) request.getAttribute("target");
 		if (login != null) {
 			User user = userDao.getUserByLogin(login);
 			Role role = user.getRole();
@@ -133,7 +133,7 @@ public class NavigationServlet extends HttpServlet {
 		}
 		return resultList;
 	}
-	
+
 	private List<CarBean> getCarsAsBean(List<Car> carList) {
 		List<CarBean> resultList = new ArrayList<>();
 		for (Car item : carList) {
@@ -148,7 +148,7 @@ public class NavigationServlet extends HttpServlet {
 		}
 		return resultList;
 	}
-	
+
 	private List<WorkerBean> getWorkersAsBean(List<Worker> workerList) {
 		List<WorkerBean> resultList = new ArrayList<>();
 		for (Worker item : workerList) {

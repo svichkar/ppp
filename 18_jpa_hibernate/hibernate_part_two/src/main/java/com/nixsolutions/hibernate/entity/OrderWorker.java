@@ -70,9 +70,12 @@ public class OrderWorker implements Serializable {
 		this.worker = worker;
 		this.isCompleted = isCompleted;
 	}
-	
+
 	public OrderWorker() {
-		this(null, null, IsCompletedValue.N);
+
 	}
 
+	public static OrderWorker getDefaultOrderWorkerInstance() {
+		return new OrderWorker(null, null, IsCompletedValue.N);
+	}
 }

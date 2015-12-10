@@ -29,43 +29,43 @@ public class Car implements Serializable {
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
 	private Customer customer;
-	
+
 	public void setCarId(Integer carId) {
 		this.carId = carId;
 	}
-	
+
 	public Integer getCarId() {
 		return carId;
 	}
-	
+
 	public void setModel(String model) {
 		this.model = model;
 	}
-	
+
 	public String getModel() {
 		return model;
 	}
-	
+
 	public void setVin(String vin) {
 		this.vin = vin;
 	}
-	
+
 	public String getVin() {
 		return vin;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	
+
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -76,9 +76,12 @@ public class Car implements Serializable {
 		this.description = description;
 		this.customer = customer;
 	}
-	
+
 	public Car() {
-		this("", "", "", null);
+
 	}
-	
+
+	public static Car getDefaultCarInstance() {
+		return new Car("", "", "", null);
+	}
 }

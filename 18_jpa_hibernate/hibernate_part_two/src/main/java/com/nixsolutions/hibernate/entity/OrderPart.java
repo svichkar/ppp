@@ -37,7 +37,7 @@ public class OrderPart implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public OrderInWork getOrder() {
 		return order;
 	}
@@ -67,8 +67,12 @@ public class OrderPart implements Serializable {
 		this.part = part;
 		this.usedAmount = usedAmount;
 	}
-	
+
 	public OrderPart() {
-		this(null, null, 0L);
+
+	}
+
+	public static OrderPart getDefaultOrderPartInstance() {
+		return new OrderPart(null, null, 0L);
 	}
 }

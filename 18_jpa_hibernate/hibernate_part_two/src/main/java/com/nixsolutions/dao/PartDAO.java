@@ -4,5 +4,5 @@ import com.nixsolutions.hibernate.entity.Part;
 
 public interface PartDAO extends GenericDAO<Part> {
 	
-	public Part getByPK(long id);
+	Part getByPK(long id);
 }

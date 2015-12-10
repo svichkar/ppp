@@ -38,8 +38,12 @@ public class Status implements Serializable {
 	public Status(String statusName) {
 		this.statusName = statusName;
 	}
-	
+
 	public Status() {
-		this("");
+
+	}
+
+	public static Status getDefaultStatusInstance() {
+		return new Status("");
 	}
 }

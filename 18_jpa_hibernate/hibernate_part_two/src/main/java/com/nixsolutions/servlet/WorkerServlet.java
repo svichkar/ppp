@@ -14,7 +14,7 @@ import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.dao.WorkerSpecializationDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.OrderWorker;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
@@ -32,7 +32,7 @@ public class WorkerServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		orderWorkerDao = daoFactory.getOrderWorkerDAO();
 		workerDao = daoFactory.getWorkerDAO();
@@ -81,13 +81,12 @@ public class WorkerServlet extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/jsp/worker.jsp").forward(request, response);
 				} else {
 					Worker worker = workerDao.getByPK(Integer.parseInt(worker_id));
-					List<OrderWorker> orderWorkerList = orderWorkerDao.getOrderWorkerByWorker(worker);
+					List<OrderWorker> orderWorkerList = orderWorkerDao
+							.getOrderWorkerByWorkerId(Integer.parseInt(worker_id));
 					for (OrderWorker orderWorker : orderWorkerList) {
 						orderWorkerDao.delete(orderWorker);
 					}
 					workerDao.delete(worker);
-					User workerUser = worker.getUser();
-					userDao.delete(workerUser);
 					request.setAttribute("target", "Workers");
 					request.getRequestDispatcher("/nav.do").forward(request, response);
 				}

@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -13,48 +13,33 @@ import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.hibernate.entity.User;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDaoHibernate implements UserDAO {
 
-	public static Logger LOG = LogManager.getLogger(UserDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(UserDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(User entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("user", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(User entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("user", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(User entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("user", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -62,13 +47,8 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		User user = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			user = (User) session.byId(User.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		user = (User) session.get(User.class, id);
+		tx.commit();
 		return user;
 	}
 
@@ -78,13 +58,8 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<User> userList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			userList = session.createCriteria(User.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		userList = session.createCriteria(User.class).list();
+		tx.commit();
 		return userList;
 	}
 
@@ -93,13 +68,8 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		User user = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			user = (User) session.createCriteria(User.class).add(Restrictions.eq("userLogin", login)).uniqueResult();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		user = (User) session.createCriteria(User.class).add(Restrictions.eq("userLogin", login)).uniqueResult();
+		tx.commit();
 		return user;
 	}
 
@@ -109,13 +79,8 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<User> userList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			userList = session.createCriteria(User.class).add(Restrictions.eq("role.roleId", 2)).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		userList = session.createCriteria(User.class).add(Restrictions.eq("role.roleId", 2)).list();
+		tx.commit();
 		return userList;
 	}
 
@@ -125,13 +90,8 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<User> userList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			userList = session.createCriteria(User.class).add(Restrictions.eq("role.roleId", 3)).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		userList = session.createCriteria(User.class).add(Restrictions.eq("role.roleId", 3)).list();
+		tx.commit();
 		return userList;
 	}
 }

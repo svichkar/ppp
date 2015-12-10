@@ -15,7 +15,7 @@ import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Car;
 import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
@@ -37,7 +37,7 @@ public class CustomerServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		orderDao = daoFactory.getOrderInWorkDAO();
 		carDao = daoFactory.getCarDAO();
@@ -85,7 +85,7 @@ public class CustomerServlet extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/jsp/customer.jsp").forward(request, response);
 				} else {
 					Customer customer = customerDao.getByPK(Integer.parseInt(customer_id));
-					List<OrderInWork> orderList = orderDao.getOrdersByCustomer(customer);
+					List<OrderInWork> orderList = orderDao.getOrdersByCustomerId(Integer.parseInt(customer_id));
 					for (OrderInWork order : orderList) {
 						List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getOrderId());
 						for (OrderWorker ow : owList) {
@@ -97,13 +97,11 @@ public class CustomerServlet extends HttpServlet {
 						}
 						orderDao.delete(order);
 					}
-					List<Car> carList = carDao.getCarsByCustomer(customer);
-					for(Car c : carList) {
+					List<Car> carList = carDao.getCarsByCustomerId(Integer.parseInt(customer_id));
+					for (Car c : carList) {
 						carDao.delete(c);
 					}
 					customerDao.delete(customer);
-					User customerUser = customer.getUser();
-					userDao.delete(customerUser);
 					request.setAttribute("target", "Customers");
 					request.getRequestDispatcher("/nav.do").forward(request, response);
 				}

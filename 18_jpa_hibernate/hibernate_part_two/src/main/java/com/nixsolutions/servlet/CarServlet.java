@@ -15,7 +15,7 @@ import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Car;
 import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
@@ -37,7 +37,7 @@ public class CarServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		orderDao = daoFactory.getOrderInWorkDAO();
 		carDao = daoFactory.getCarDAO();
@@ -85,7 +85,7 @@ public class CarServlet extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
 				} else {
 					Car car = carDao.getByPK(Integer.parseInt(car_id));
-					List<OrderInWork> orderList = orderDao.getOrdersByCar(car);
+					List<OrderInWork> orderList = orderDao.getOrdersByCarId(Integer.parseInt(car_id));
 					for (OrderInWork order : orderList) {
 						List<OrderWorker> owList = orderWorkerDao.getByOrderId(order.getOrderId());
 						for (OrderWorker ow : owList) {

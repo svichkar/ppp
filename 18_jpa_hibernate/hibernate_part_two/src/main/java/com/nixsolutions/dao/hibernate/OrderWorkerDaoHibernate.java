@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -11,51 +11,35 @@ import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.hibernate.entity.OrderWorker;
-import com.nixsolutions.hibernate.entity.Worker;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class OrderWorkerDAOImpl implements OrderWorkerDAO {
+public class OrderWorkerDaoHibernate implements OrderWorkerDAO {
 
-	public static Logger LOG = LogManager.getLogger(OrderWorkerDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(OrderWorkerDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(OrderWorker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("orderWorker", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(OrderWorker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("orderWorker", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(OrderWorker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("orderWorker", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -63,13 +47,8 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		OrderWorker orderWorker = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderWorker = (OrderWorker) session.byId(OrderWorker.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderWorker = (OrderWorker) session.get(OrderWorker.class, id);
+		tx.commit();
 		return orderWorker;
 	}
 
@@ -79,13 +58,8 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderWorker> orderWorkerList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderWorkerList = session.createCriteria(OrderWorker.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderWorkerList = session.createCriteria(OrderWorker.class).list();
+		tx.commit();
 		return orderWorkerList;
 	}
 
@@ -94,16 +68,11 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		OrderWorker orderWorker = null;
 		Transaction tx = session.beginTransaction();
-		try {
-
-			orderWorker = (OrderWorker) session.createCriteria(OrderWorker.class)
-					.add(Restrictions.eq("order.orderId", orderId)).add(Restrictions.eq("worker.workerId", workerId))
-					.uniqueResult();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderWorker = (OrderWorker) session.createCriteria(OrderWorker.class)
+				.add(Restrictions.eq("order.orderId", orderId))
+				.add(Restrictions.eq("worker.workerId", workerId))
+				.uniqueResult();
+		tx.commit();
 		return orderWorker;
 	}
 
@@ -113,30 +82,23 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderWorker> orderWorkerList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderWorkerList = session.createCriteria(OrderWorker.class).add(Restrictions.eq("order.orderId", orderId))
-					.list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderWorkerList = session.createCriteria(OrderWorker.class)
+				.add(Restrictions.eq("order.orderId", orderId))
+				.list();
+		tx.commit();
 		return orderWorkerList;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderWorker> getOrderWorkerByWorker(Worker worker) {
+	public List<OrderWorker> getOrderWorkerByWorkerId(int workerId) {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderWorker> orderPartList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderPartList = session.createCriteria(OrderWorker.class).add(Restrictions.eq("worker.workerId", worker.getWorkerId())).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderPartList = session.createCriteria(OrderWorker.class)
+				.add(Restrictions.eq("worker.workerId", workerId))
+				.list();
+		tx.commit();
 		return orderPartList;
 	}
 

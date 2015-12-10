@@ -40,6 +40,10 @@ public class Role implements Serializable {
 	}
 
 	public Role() {
-		this("");
+
+	}
+
+	public static Role getDefaultRoleInstance() {
+		return new Role("");
 	}
 }

@@ -22,7 +22,7 @@ import org.junit.Test;
 import com.nixsolutions.dao.DAOFactory;
 import com.nixsolutions.dao.RoleDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
 
@@ -52,7 +52,7 @@ public class TestUserDao extends DBTestCase {
 		tester = new JdbcDatabaseTester("org.h2.Driver",
 				"jdbc:h2:mem:test;SCHEMA=sqllab", "sa", "");
 		tester.setDataSet(getDataSet());
-		daoFactory = new DAOFactoryImpl();
+		daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		roleDao = daoFactory.getRoleDAO();
 	}

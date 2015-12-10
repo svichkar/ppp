@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -12,48 +12,33 @@ import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.hibernate.entity.Part;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class PartDAOImpl implements PartDAO {
+public class PartDaoHibernate implements PartDAO {
 
-	public static Logger LOG = LogManager.getLogger(PartDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(PartDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(Part entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("part", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(Part entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("part", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(Part entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("part", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -61,13 +46,8 @@ public class PartDAOImpl implements PartDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Part part = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			part = (Part) session.byId(Part.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		part = (Part) session.get(Part.class, id);
+		tx.commit();
 		return part;
 	}
 
@@ -77,13 +57,8 @@ public class PartDAOImpl implements PartDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Part> partList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			partList = session.createCriteria(Part.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		partList = session.createCriteria(Part.class).list();
+		tx.commit();
 		return partList;
 	}
 

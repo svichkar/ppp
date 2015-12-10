@@ -60,9 +60,13 @@ public class Part implements Serializable {
 		this.vendor = vendor;
 		this.amount = amount;
 	}
-	
+
 	public Part() {
-		this("", "", 0L);
+
+	}
+
+	public static Part getDefaultPartInstance() {
+		return new Part("", "", 0L);
 	}
 
 }

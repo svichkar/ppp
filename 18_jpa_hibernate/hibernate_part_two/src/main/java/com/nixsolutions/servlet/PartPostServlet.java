@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Part;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
@@ -24,7 +24,7 @@ public class PartPostServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		partDao = daoFactory.getPartDAO();
 	}

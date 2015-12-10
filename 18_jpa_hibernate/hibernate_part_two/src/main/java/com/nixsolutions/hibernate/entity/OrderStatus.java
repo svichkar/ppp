@@ -40,8 +40,12 @@ public class OrderStatus implements Serializable {
 	public OrderStatus(String orderStatusName) {
 		this.orderStatusName = orderStatusName;
 	}
-	
+
 	public OrderStatus() {
-		this("");
+
+	}
+
+	public static OrderStatus getDefaultOrderStatusInstance() {
+		return new OrderStatus("");
 	}
 }

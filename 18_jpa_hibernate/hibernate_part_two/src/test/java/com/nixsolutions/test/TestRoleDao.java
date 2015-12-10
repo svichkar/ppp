@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
 import com.nixsolutions.dao.RoleDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Role;
 
 public class TestRoleDao extends DBTestCase {
@@ -48,7 +48,7 @@ public class TestRoleDao extends DBTestCase {
 	public void setUp() throws Exception {
 		tester = new JdbcDatabaseTester("org.h2.Driver", "jdbc:h2:mem:test;SCHEMA=sqllab", "sa", "");
 		tester.setDataSet(getDataSet());
-		daoFactory = new DAOFactoryImpl();
+		daoFactory = new DaoFactoryHibernate();
 		roleDao = daoFactory.getRoleDAO();
 	}
 	

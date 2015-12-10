@@ -2,27 +2,27 @@ package com.nixsolutions.dao;
 
 public interface DAOFactory {
 	
-	public CarDAO getCarDAO();
+	CarDAO getCarDAO();
 	
-	public CustomerDAO getCustomerDAO();
+	CustomerDAO getCustomerDAO();
 	
-	public OrderInWorkDAO getOrderInWorkDAO();
+	OrderInWorkDAO getOrderInWorkDAO();
 	
-	public OrderPartDAO getOrderPartDAO();
+	OrderPartDAO getOrderPartDAO();
 	
-	public OrderStatusDAO getOrderStatusDAO();
+	OrderStatusDAO getOrderStatusDAO();
 	
-	public OrderWorkerDAO getOrderWorkerDAO();
+	OrderWorkerDAO getOrderWorkerDAO();
 	
-	public PartDAO getPartDAO();
+	PartDAO getPartDAO();
 	
-	public StatusDAO getStatusDAO();
+	StatusDAO getStatusDAO();
 	
-	public WorkerDAO getWorkerDAO();
+	WorkerDAO getWorkerDAO();
 	
-	public WorkerSpecializationDAO getWorkerSpecializationDAO();
+	WorkerSpecializationDAO getWorkerSpecializationDAO();
 	
-	public RoleDAO getRoleDAO();
+	RoleDAO getRoleDAO();
 	
-	public UserDAO getUserDAO();
+	UserDAO getUserDAO();
 }

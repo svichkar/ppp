@@ -6,9 +6,9 @@ import com.nixsolutions.hibernate.entity.User;
 
 public interface UserDAO extends GenericDAO<User> {
 	
-	public User getUserByLogin(String login);
+	User getUserByLogin(String login);
 	
-	public List<User> getUsers();
+	List<User> getUsers();
 	
-	public List<User> getWorkers();
+	List<User> getWorkers();
 }

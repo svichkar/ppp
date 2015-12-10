@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order_in_work")
+@Table(name = "order_in_work")
 public class OrderInWork implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +32,7 @@ public class OrderInWork implements Serializable {
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "car_id", referencedColumnName = "car_id")
 	private Car car;
-	@Column(name = "timestamp_start", nullable= false, columnDefinition = "timestamp default current_timestamp()")
+	@Column(name = "timestamp_start", nullable = false, columnDefinition = "timestamp default current_timestamp()")
 	private Timestamp timestampStart;
 	@Column(name = "timestamp_finish")
 	private Timestamp timestampFinish;
@@ -93,8 +93,12 @@ public class OrderInWork implements Serializable {
 		this.timestampStart = timestampStart;
 		this.timestampFinish = timestampFinish;
 	}
-	
+
 	public OrderInWork() {
-		this(null, "", null, new Timestamp(new Date().getTime()), null);
+
+	}
+
+	public static OrderInWork getDefaultOrderInstance() {
+		return new OrderInWork(null, "", null, new Timestamp(new Date().getTime()), null);
 	}
 }

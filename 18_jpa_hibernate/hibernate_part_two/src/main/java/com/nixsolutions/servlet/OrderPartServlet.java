@@ -19,7 +19,7 @@ import com.nixsolutions.dao.OrderStatusDAO;
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Car;
 import com.nixsolutions.hibernate.entity.OrderInWork;
 import com.nixsolutions.hibernate.entity.OrderPart;
@@ -44,7 +44,7 @@ public class OrderPartServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		orderDao = daoFactory.getOrderInWorkDAO();
 		carDao = daoFactory.getCarDAO();

@@ -82,16 +82,20 @@ public class Worker implements Serializable {
 		this.user = user;
 	}
 
-	public Worker(String firstName, String lastName, WorkerSpecialization workerSpecialization,
-			Status status, User user) {
+	public Worker(String firstName, String lastName, WorkerSpecialization workerSpecialization, Status status,
+			User user) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.workerSpecialization = workerSpecialization;
 		this.status = status;
 		this.user = user;
 	}
-	
+
 	public Worker() {
-		this("", "", null, null, null);
+
+	}
+
+	public static Worker getDefaultWorkerInstance() {
+		return new Worker("", "", null, null, null);
 	}
 }

@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -10,54 +10,36 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.OrderInWorkDAO;
-import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
-import com.nixsolutions.hibernate.entity.User;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class OrderInWorkDAOImpl implements OrderInWorkDAO {
+public class OrderInWorkDaoHibernate implements OrderInWorkDAO {
 
-	public static Logger LOG = LogManager.getLogger(OrderInWorkDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(OrderInWorkDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(OrderInWork entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("orderInWork", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(OrderInWork entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("orderInWork", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(OrderInWork entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("orderInWork", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -65,13 +47,8 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 		Session session = sessionFactory.getCurrentSession();
 		OrderInWork orderInWork = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderInWork = (OrderInWork) session.byId(OrderInWork.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderInWork = (OrderInWork) session.get(OrderInWork.class, id);
+		tx.commit();
 		return orderInWork;
 	}
 
@@ -81,67 +58,50 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderInWork> orderInWorkList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderInWorkList = session.createCriteria(OrderInWork.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
-		return orderInWorkList;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<OrderInWork> getOrdersByUser(User user) {
-		Session session = sessionFactory.getCurrentSession();
-		List<OrderInWork> orderInWorkList = null;
-		Transaction tx = session.beginTransaction();
-		try {
-		orderInWorkList = session.createCriteria(OrderInWork.class, "order").createAlias("order.car", "car")
-				.createAlias("car.customer", "customer").createAlias("customer.user", "user")
-				.add(Restrictions.eq("user.userId", user.getUserId())).list();
+		orderInWorkList = session.createCriteria(OrderInWork.class).list();
 		tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
 		return orderInWorkList;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderInWork> getOrdersByCar(Car car) {
+	public List<OrderInWork> getOrdersByUserId(int userId) {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderInWork> orderInWorkList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderInWorkList = session.createCriteria(OrderInWork.class).add(Restrictions.eq("car.carId", car.getCarId()))
-					.list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderInWorkList = session.createCriteria(OrderInWork.class, "order")
+				.createAlias("order.car", "car")
+				.createAlias("car.customer", "customer")
+				.createAlias("customer.user", "user")
+				.add(Restrictions.eq("user.userId", userId))
+				.list();
+		tx.commit();
 		return orderInWorkList;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderInWork> getOrdersByCustomer(Customer customer) {
+	public List<OrderInWork> getOrdersByCarId(int carId) {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderInWork> orderInWorkList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderInWorkList = session.createCriteria(OrderInWork.class, "order").createAlias("order.car", "car")
-					.createAlias("car.customer", "customer")
-					.add(Restrictions.eq("customer.customerId", customer.getCustomerId()))
-					.list();
-			tx.commit();
-		} catch (Exception ex) {
-		tx.rollback();
-		LOG.error(ex);
-		}
+		orderInWorkList = session.createCriteria(OrderInWork.class).add(Restrictions.eq("car.carId", carId)).list();
+		tx.commit();
+		return orderInWorkList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderInWork> getOrdersByCustomerId(int customerId) {
+		Session session = sessionFactory.getCurrentSession();
+		List<OrderInWork> orderInWorkList = null;
+		Transaction tx = session.beginTransaction();
+		orderInWorkList = session.createCriteria(OrderInWork.class, "order")
+				.createAlias("order.car", "car")
+				.createAlias("car.customer", "customer")
+				.add(Restrictions.eq("customer.customerId", customerId))
+				.list();
+		tx.commit();
 		return orderInWorkList;
 	}
 

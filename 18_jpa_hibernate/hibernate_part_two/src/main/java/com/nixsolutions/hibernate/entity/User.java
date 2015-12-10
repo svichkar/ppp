@@ -65,9 +65,13 @@ public class User implements Serializable {
 		this.userPassword = userPassword;
 		this.role = role;
 	}
-	
+
 	public User() {
-		this("", "", null);
+
+	}
+
+	public static User getDefaultUserInstance() {
+		return new User("", "", null);
 	}
 
 }

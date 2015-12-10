@@ -40,8 +40,12 @@ public class WorkerSpecialization implements Serializable {
 	public WorkerSpecialization(String specializationName) {
 		this.specializationName = specializationName;
 	}
-	
+
 	public WorkerSpecialization() {
-		this("");
+
+	}
+
+	public static WorkerSpecialization getDefaultWorkerSpecializationInstance() {
+		return new WorkerSpecialization("");
 	}
 }

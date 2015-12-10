@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.OrderPart;
 import com.nixsolutions.hibernate.entity.Part;
 import com.nixsolutions.hibernate.entity.Role;
@@ -28,7 +28,7 @@ public class PartServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		orderPartDao = daoFactory.getOrderPartDAO();
 		partDao = daoFactory.getPartDAO();
@@ -69,7 +69,7 @@ public class PartServlet extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/jsp/part.jsp").forward(request, response);
 				} else {
 					Part part = partDao.getByPK(Integer.parseInt(part_id));
-					List<OrderPart> orderPartList = orderPartDao.getOrderPartByPart(part);
+					List<OrderPart> orderPartList = orderPartDao.getOrderPartByPartId(Integer.parseInt(part_id));
 					for (OrderPart orderPart : orderPartList) {
 						orderPartDao.delete(orderPart);
 					}

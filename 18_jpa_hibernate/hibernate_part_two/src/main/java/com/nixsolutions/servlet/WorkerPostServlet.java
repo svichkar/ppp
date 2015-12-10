@@ -12,7 +12,7 @@ import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.dao.WorkerSpecializationDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
+import com.nixsolutions.dao.hibernate.DaoFactoryHibernate;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
 import com.nixsolutions.hibernate.entity.Worker;
@@ -28,7 +28,7 @@ public class WorkerPostServlet extends HttpServlet {
 
 	@Override
 	public void init() {
-		DAOFactoryImpl daoFactory = new DAOFactoryImpl();
+		DaoFactoryHibernate daoFactory = new DaoFactoryHibernate();
 		userDao = daoFactory.getUserDAO();
 		workerDao = daoFactory.getWorkerDAO();
 		workerSpecDao = daoFactory.getWorkerSpecializationDAO();

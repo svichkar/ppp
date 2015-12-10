@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -12,48 +12,33 @@ import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.hibernate.entity.Worker;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class WorkerDAOImpl implements WorkerDAO {
+public class WorkerDaoHibernate implements WorkerDAO {
 
-	public static Logger LOG = LogManager.getLogger(WorkerDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(WorkerDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(Worker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("worker", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(Worker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("worker", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(Worker entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("worker", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -61,13 +46,8 @@ public class WorkerDAOImpl implements WorkerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Worker worker = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			worker = (Worker) session.byId(Worker.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		worker = (Worker) session.get(Worker.class, id);
+		tx.commit();
 		return worker;
 	}
 
@@ -77,13 +57,8 @@ public class WorkerDAOImpl implements WorkerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Worker> workerList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			workerList = session.createCriteria(Worker.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		workerList = session.createCriteria(Worker.class).list();
+		tx.commit();
 		return workerList;
 	}
 

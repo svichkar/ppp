@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -12,48 +12,33 @@ import com.nixsolutions.dao.CustomerDAO;
 import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class CustomerDAOImpl implements CustomerDAO {
+public class CustomerDaoHibernate implements CustomerDAO {
 
-	public static Logger LOG = LogManager.getLogger(CustomerDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(CustomerDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(Customer entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("customer", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(Customer entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("customer", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(Customer entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("customer", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -61,13 +46,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Customer customer = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			customer = (Customer) session.byId(Customer.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		customer = (Customer) session.get(Customer.class, id);
+		tx.commit();
 		return customer;
 	}
 
@@ -77,13 +57,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Customer> customerList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			customerList = session.createCriteria(Customer.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		customerList = session.createCriteria(Customer.class).list();
+		tx.commit();
 		return customerList;
 	}
 }

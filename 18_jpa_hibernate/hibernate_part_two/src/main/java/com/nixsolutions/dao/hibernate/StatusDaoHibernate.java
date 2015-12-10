@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -12,48 +12,33 @@ import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.hibernate.entity.Status;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class StatusDAOImpl implements StatusDAO {
+public class StatusDaoHibernate implements StatusDAO {
 
-	public static Logger LOG = LogManager.getLogger(StatusDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(StatusDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(Status entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("status", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(Status entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("status", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(Status entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("status", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -61,13 +46,8 @@ public class StatusDAOImpl implements StatusDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Status status = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			status = (Status) session.byId(Status.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		status = (Status) session.get(Status.class, id);
+		tx.commit();
 		return status;
 	}
 
@@ -77,13 +57,8 @@ public class StatusDAOImpl implements StatusDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Status> statusList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			statusList = session.createCriteria(Status.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		statusList = session.createCriteria(Status.class).list();
+		tx.commit();
 		return statusList;
 	}
 }

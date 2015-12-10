@@ -76,8 +76,12 @@ public class Customer implements Serializable {
 		this.phone = phone;
 		this.user = user;
 	}
-	
+
 	public Customer() {
-		this("", "", "", null);
+
+	}
+
+	public static Customer getDefaultCustomerInstance() {
+		return new Customer("", "", "", null);
 	}
 }

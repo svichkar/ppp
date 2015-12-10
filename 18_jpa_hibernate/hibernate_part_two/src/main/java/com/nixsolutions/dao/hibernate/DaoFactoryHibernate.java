@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,68 +17,68 @@ import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.dao.WorkerSpecializationDAO;
 
-public class DAOFactoryImpl implements DAOFactory {
+public class DaoFactoryHibernate implements DAOFactory {
 	
-	public static Logger LOG = LogManager.getLogger(DAOFactoryImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(DaoFactoryHibernate.class.getName());
 
 	@Override
 	public CarDAO getCarDAO() {
-		return new CarDAOImpl();
+		return new CarDaoHibernate();
 	}
 
 	@Override
 	public CustomerDAO getCustomerDAO() {
-		return new CustomerDAOImpl();
+		return new CustomerDaoHibernate();
 	}
 
 	@Override
 	public OrderInWorkDAO getOrderInWorkDAO() {
-		return new OrderInWorkDAOImpl();
+		return new OrderInWorkDaoHibernate();
 	}
 
 	@Override
 	public OrderPartDAO getOrderPartDAO() {
-		return new OrderPartDAOImpl();
+		return new OrderPartDaoHibernate();
 	}
 
 	@Override
 	public OrderStatusDAO getOrderStatusDAO() {
-		return new OrderStatusDAOImpl();
+		return new OrderStatusDaoHibernate();
 	}
 
 	@Override
 	public OrderWorkerDAO getOrderWorkerDAO() {
-		return new OrderWorkerDAOImpl();
+		return new OrderWorkerDaoHibernate();
 	}
 
 	@Override
 	public PartDAO getPartDAO() {
-		return new PartDAOImpl();
+		return new PartDaoHibernate();
 	}
 
 	@Override
 	public StatusDAO getStatusDAO() {
-		return new StatusDAOImpl();
+		return new StatusDaoHibernate();
 	}
 
 	@Override
 	public WorkerDAO getWorkerDAO() {
-		return new WorkerDAOImpl();
+		return new WorkerDaoHibernate();
 	}
 
 	@Override
 	public WorkerSpecializationDAO getWorkerSpecializationDAO() {
-		return new WorkerSpecializationDAOImpl();
+		return new WorkerSpecializationDaoHibernate();
 	}
 
 	@Override
 	public RoleDAO getRoleDAO() {
-		return new RoleDAOImpl();
+		return new RoleDaoHibernate();
 	}
 
 	@Override
 	public UserDAO getUserDAO() {
-		return new UserDAOImpl();
+		return new UserDaoHibernate();
 	}
 
 }

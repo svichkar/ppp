@@ -1,4 +1,4 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao.hibernate;
 
 import java.util.List;
 
@@ -11,51 +11,35 @@ import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.hibernate.entity.OrderPart;
-import com.nixsolutions.hibernate.entity.Part;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class OrderPartDAOImpl implements OrderPartDAO {
+public class OrderPartDaoHibernate implements OrderPartDAO {
 
-	public static Logger LOG = LogManager.getLogger(OrderPartDAOImpl.class.getName());
+	public static Logger LOG = LogManager.getLogger(OrderPartDaoHibernate.class.getName());
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createFrom(OrderPart entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("orderPart", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void update(OrderPart entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.saveOrUpdate("orderPart", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.saveOrUpdate(entity);
+		tx.commit();
 	}
 
 	@Override
 	public void delete(OrderPart entity) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		try {
-			session.delete("orderPart", entity);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		session.delete(entity);
+		tx.commit();
 	}
 
 	@Override
@@ -63,13 +47,8 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		Session session = sessionFactory.getCurrentSession();
 		OrderPart orderPart = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderPart = (OrderPart) session.byId(OrderPart.class).load(id);
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderPart = (OrderPart) session.get(OrderPart.class, id);
+		tx.commit();
 		return orderPart;
 	}
 
@@ -79,13 +58,8 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderPart> orderPartList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderPartList = session.createCriteria(OrderPart.class).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderPartList = session.createCriteria(OrderPart.class).list();
+		tx.commit();
 		return orderPartList;
 	}
 
@@ -94,14 +68,11 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		Session session = sessionFactory.getCurrentSession();
 		OrderPart orderPart = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderPart = (OrderPart) session.createCriteria(OrderPart.class).add(Restrictions.eq("order.orderId", orderId))
-					.add(Restrictions.eq("part.partId", partId)).uniqueResult();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderPart = (OrderPart) session.createCriteria(OrderPart.class)
+				.add(Restrictions.eq("order.orderId", orderId))
+				.add(Restrictions.eq("part.partId", partId))
+				.uniqueResult();
+		tx.commit();
 		return orderPart;
 	}
 
@@ -111,29 +82,19 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderPart> orderPartList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("order.orderId", orderId)).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("order.orderId", orderId)).list();
+		tx.commit();
 		return orderPartList;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderPart> getOrderPartByPart(Part part) {
+	public List<OrderPart> getOrderPartByPartId(long partId) {
 		Session session = sessionFactory.getCurrentSession();
 		List<OrderPart> orderPartList = null;
 		Transaction tx = session.beginTransaction();
-		try {
-			orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("part.partId", part.getPartId())).list();
-			tx.commit();
-		} catch (Exception ex) {
-			tx.rollback();
-			LOG.error(ex);
-		}
+		orderPartList = session.createCriteria(OrderPart.class).add(Restrictions.eq("part.partId", partId)).list();
+		tx.commit();
 		return orderPartList;
 	}
 

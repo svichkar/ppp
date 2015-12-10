@@ -13,14 +13,14 @@ public class Term implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "term_id")
-    private int termId;
+    private Integer termId;
     @Column(name = "alias", length = 256, nullable = false)
     private String alias;
 
     public Term() {
     }
 
-    public int getTermId() {
+    public Integer getTermId() {
         return termId;
     }
     public void setTermId(int termId) {

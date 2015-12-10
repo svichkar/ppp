@@ -110,7 +110,7 @@ public class JournalTest extends DBUnitConfig {
 	public void testGetByJournalsByStudentId() throws Exception {
 		List<Journal> journalActual =  journalDao.getJournalByStudent(studentDao.getByStudentId(1));
 		for (Journal journal : journalActual){
-			Assert.assertEquals(1, journal.getStudent().getStudentId());
+			Assert.assertEquals(1, journal.getStudent().getStudentId().intValue());
 		}
 		Assert.assertEquals(2, journalActual.size());
 	}
@@ -119,7 +119,7 @@ public class JournalTest extends DBUnitConfig {
 	public void testGetByJournalsBySubjectId() throws Exception {
 		List<Journal> journalActual =  journalDao.getJournalBySubject(subjectDao.getBySubjectId(2));
 		for (Journal journal : journalActual){
-			Assert.assertEquals(2, journal.getSubject().getSubjectId());
+			Assert.assertEquals(2, journal.getSubject().getSubjectId().intValue());
 		}
 		Assert.assertEquals(2, journalActual.size());
 	}

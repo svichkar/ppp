@@ -14,7 +14,7 @@ public class Student implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "student_id")
-	private int studentId;
+	private Integer studentId;
     @Column(name = "first_name", length = 256, nullable = false)
 	private String firstName;
     @Column(name = "last_name", length = 256, nullable = false)
@@ -36,7 +36,7 @@ public class Student implements Serializable {
 	public Student() {
 	}
 
-	public int getStudentId() {
+	public Integer getStudentId() {
 		return studentId;
 	}
 

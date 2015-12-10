@@ -13,7 +13,7 @@ public class Subject implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "subject_id")
-    private int subjectId;
+    private Integer subjectId;
     @Column(name = "name", length = 256, nullable = false)
     private String name;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -23,7 +23,7 @@ public class Subject implements Serializable {
     public Subject() {
     }
 
-    public int getSubjectId() {
+    public Integer getSubjectId() {
         return subjectId;
     }
 

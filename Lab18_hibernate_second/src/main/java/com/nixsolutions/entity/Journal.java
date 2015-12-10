@@ -13,7 +13,7 @@ public class Journal implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "journal_id")
-	private int journalId;
+	private Integer journalId;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
 	private Student student;
@@ -27,7 +27,7 @@ public class Journal implements Serializable {
 	public Journal(){
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return journalId;
 	}
 	public void setId(int journalId) {

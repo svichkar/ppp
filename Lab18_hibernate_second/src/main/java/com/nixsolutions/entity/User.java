@@ -13,7 +13,7 @@ public class User implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
     @Column(name = "user_name", length = 256, nullable = false)
     private String userName;
     @Column(name = "password", length = 256, nullable = false)
@@ -27,7 +27,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 

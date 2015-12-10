@@ -13,14 +13,14 @@ public class StudentGroup implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "student_group_id")
-	private int studentGroupId;
+	private Integer studentGroupId;
     @Column(name = "student_group_name", length = 256, nullable = false)
 	private String studentGroupName;
 	
 	public StudentGroup(){
 	}
 
-	public int getStudentGroupId() {		
+	public Integer getStudentGroupId() {		
 		return studentGroupId;
 	}
 

@@ -12,14 +12,14 @@ public class Rate implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "rate_id")
-	private int rateId;
+	private Integer rateId;
     @Column(name = "rate_value", length = 1, nullable = false)
 	private String rateValue;
 	
 	public Rate(){
 	}
 
-	public int getId() {		
+	public Integer getId() {		
 		return rateId;
 	}
 

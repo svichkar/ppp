@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="dist">
+
+	<property file="project.properties" />
+	<property name="src.dir" location="src" />
+	<property name="test.dir" location="test" />
+	<property name="lib.dir" location="lib" />
+	<property name="report.dir" location="${build.dir}/report" />
+	<property name="build.dir" value="build" />
+	<property name="build.java" location="${build.dir}/java" />
+	<property name="build.test" location="${build.dir}/test" />
+	<property name="build.jar" value="${build.dir}/dist" />
+	<property name="build.javadoc" value="${build.dir}/javadoc" />
+	<property name="jar.name" value="robot.jar" />
+
+	<path id="class.path">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.java}" />
+		<pathelement location="${build.test}" />
+	</path>
+
+	<target name="init" description="creates needed directories">
+		<echo>creating directories structure...</echo>
+		<mkdir dir="${build.dir}" description="temporary dir" />
+		<mkdir dir="${build.java}" description="for compiled programm classes" />
+		<mkdir dir="${build.test}" description="for compiled test classes" />
+		<mkdir dir="${build.javadoc}" description="for compiled test classes" />
+		<mkdir dir="${report.dir}" description="for junit report" />
+		<mkdir dir="${build.jar}" description="for jar file" />
+
+		<echo>all the dirs were created</echo>
+	</target>
+
+	<target name="compile" depends="init" description="compiles java files">
+		<echo>compiling classes...</echo>
+		<javac destdir="${build.java}" includeantruntime="false" debug="on" classpathref="class.path">
+			<src path="${src.dir}"/>
+			<include name="**/*.java" />
+		</javac>
+		<echo>the programm classes were compiled here: ${build.java}</echo>
+		<javac destdir="${build.test}" includeantruntime="false" debug="on" classpathref="class.path">
+			<src path="${test.dir}"/>
+			<include name="**/*.java" />
+		</javac>
+		<echo>the test classes were compiled here: ${build.test}</echo>
+	</target>
+
+	<target name="test" depends="compile" description="runs junit testing">
+		<echo>conducting testing...</echo>
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath refid="class.path" />
+			<formatter type="plain" />
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="${test.dir}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<echo>tests were conducted</echo>
+	</target>
+
+	<target name="dist" depends="test" description="makes jar file">
+		<echo>creating jar file</echo>
+		<jar destfile="${build.jar}/${jar.name}">
+			<fileset dir="${build.java}">
+				<include name="**/*.class" />
+				<exclude name="**/*Test*.class" />
+			</fileset>
+		</jar>
+		<echo>the jar file was created here: ${build.jar}/robot.jar</echo>
+	</target>
+
+	<target name="clean" description="deletes temporary dirs">
+		<input message="the ${build.dir} folder will be deleted!!! continue (y/n)?" 
+			validargs="y,n" addproperty="do.delete" />
+		<condition property="do.abort">
+			<equals arg1="n" arg2="${do.delete}" />
+		</condition>
+		<fail if="do.abort">Clean was canceled by user.</fail>
+		<echo>cleanin build diretories: ${build.dir}...</echo>
+		<delete dir="${build.dir}" />
+		<echo>the ${build.dir} was deleted</echo>
+	</target>
+
+	<target name="javadoc">
+		<echo>Making JavaDoc from source</echo>
+		<javadoc sourcepath="${src.dir}" destdir="${build.javadoc}" classpathref="class.path">
+		</javadoc>
+	</target>
+
+	<target name="zip">
+		<zip destfile="${build.dir}/project.zip" basedir="${build.dir}" />
+	</target>
+
+</project>

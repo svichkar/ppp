@@ -1,1 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.settings/
+/.idea/
 /target/
+/Lab19_spring.iml
+/.classpath
+/.project
+/.springBeans
+/log.log

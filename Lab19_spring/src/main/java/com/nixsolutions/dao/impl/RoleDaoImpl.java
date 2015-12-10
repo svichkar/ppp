@@ -88,7 +88,8 @@ public class RoleDaoImpl implements RoleDao {
         return role;
     }
 
-    public Role getByRoleName(String roleName) {
+    @SuppressWarnings("unchecked")
+	public Role getByRoleName(String roleName) {
         Role role = new Role();
         Session session = null;
         Transaction transaction = null;
@@ -97,7 +98,7 @@ public class RoleDaoImpl implements RoleDao {
             transaction = session.beginTransaction();
             Criteria c = session.createCriteria(Role.class);
             c.add(Restrictions.eq("roleName", roleName));
-            List list = c.list();
+            List<Role> list = c.list();
             role = (Role) list.get(0);
             transaction.commit();
         } catch (Exception ex) {
@@ -109,7 +110,8 @@ public class RoleDaoImpl implements RoleDao {
         return role;
     }
 
-    public List<Role> getAll() {
+    @SuppressWarnings("unchecked")
+	public List<Role> getAll() {
         List<Role> toReturn = new ArrayList<Role>();
         Session session = null;
         Transaction transaction = null;

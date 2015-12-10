@@ -16,8 +16,6 @@ import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.dao.impl.H2DaoFactory;
-import com.nixsolutions.dao.impl.RoleDaoImpl;
-import com.nixsolutions.dao.impl.UserDaoImpl;
 
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {

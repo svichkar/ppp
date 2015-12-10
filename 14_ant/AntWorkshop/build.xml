@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="AntWorkshop" default="run" basedir=".">
+    <description>Builds, tests, and runs the project AntWorkshop.</description>
+    
+    <!--Properties section-->
+    <property name="properties.path" location="antworkshop.properties"/>
+    <loadproperties srcFile="${properties.path}"/>
+    <property name="src" location="src"/>
+    <property name="test" location="test"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    <property name="lib" location="lib"/>
+    <property name="project.name" value="AntWorkshop"/>
+    <property name="project.version" value="Snapshot-1.0"/>
+    <property name="main.class" value="mocksworkshop.MocksWorkshop"/>
+    
+    <path id="class.path">
+        <pathelement path="${src}"/> 
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+            <exclude name="CopyLibs/*"/>
+        </fileset> 
+    </path>
+    
+    <path id="test.class.path">
+        <path refid="class.path"/>
+        <pathelement path="${test}"/> 
+    </path>
+    
+    <pathconvert property="class.path.libs.names" pathsep=" ">
+        <path refid="class.path" />
+        <mapper>
+            <chainedmapper>
+                <flattenmapper />
+                <globmapper from="*.jar" to="lib/*.jar" />
+            </chainedmapper>
+        </mapper>
+    </pathconvert>
+    
+    <macrodef  name="timestamp.get">
+        <sequential>
+            <local name="time.now"/>
+            <tstamp>
+                <format property="time.now" pattern="MM/dd/yyyy HH:mm:ss "/>
+            </tstamp>
+            <echo message="${time.now}" />
+        </sequential>
+    </macrodef>
+        
+    <!--Targets section-->   
+    <target depends="" name="init">
+        <echo>Creating temporary folders...</echo>
+        <mkdir dir="${build}/classes"/>
+        <mkdir dir="${build}/test"/>
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${dist}/lib"/>
+        <echo>Creating temporary folders - Done</echo>
+    </target>    
+    <target depends="init" name="compile">
+        <echo>Compliling sources... </echo>
+        <javac srcdir="${src}" destdir="${build}/classes" includeantruntime="false">
+            <classpath refid="class.path"/>
+        </javac>
+        <javac destdir="${build}/test" includeantruntime="false">
+            <src path="${test}"/>
+            <classpath refid="test.class.path"/>
+            <classpath location="${build}/classes" />
+        </javac>
+        <echo>Compliling sources - Done</echo>
+    </target>
+    <target depends="compile" name="test">
+        <echo>Running tests...</echo>
+        <junit>
+            <classpath refid="test.class.path"/>
+            <classpath location="${build}/test" />
+            <classpath location="${build}/classes" />
+            <formatter usefile="false" type="brief"/>
+            <test name="mocksworkshop.MocksTestSuite"/>           
+        </junit>
+        <echo>Tests - Done</echo>
+    </target>
+    <target depends="compile" name="dist">
+        <echo>Creating jar</echo>    
+        <jar jarfile="${dist}/${project.name}-${project.version}.jar" basedir="${build}/classes">
+        <manifest>
+                <attribute name="Main-Class" value="mocksworkshop.MocksWorkshop"/>
+                <attribute name="Class-Path" value="${class.path.libs.names}"/>
+        </manifest>
+        </jar>
+        <copy todir="${dist}/lib" flatten="true">
+            <fileset dir="${lib}">
+                <include name="**/*.jar"/>
+                <exclude name="CopyLibs/*"/>
+            </fileset>
+        </copy>
+        <echo>Creating jar - Done</echo>
+    </target>
+    <target depends="" name="clean">
+        <echo>Cleaning...</echo>
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+        <echo>Cleaning - Done</echo>        
+    </target>
+    
+    <target depends="compile" name="run">
+        <timestamp.get/>
+        <echo>Starting cummulative jar build</echo>
+        <echo>Starting run...</echo>
+        <java classname="${main.class}">
+            <classpath refid="class.path"/>
+            <classpath location="${build}/classes" />
+        </java>      
+        <input message="Press Return key to continue..."/>
+        <timestamp.get/>
+        <echo>Cummulative jar build - Done</echo>
+        <echo>End of run</echo> 
+              
+    </target>
+    
+    <target depends="compile" name="jar" description="Creates single jar with all libraries included">
+        <timestamp.get/>
+        <jar jarfile="${dist}/${project.name}-${project.version}.jar" basedir="${build}/classes">
+            <zipgroupfileset dir="${lib}" includes="**/*.jar" excludes="CopyLibs/*"/>
+            <manifest>
+                <attribute name="Main-Class" value="mocksworkshop.MocksWorkshop"/>
+            </manifest>       
+        </jar>  
+        <timestamp.get/>  
+    </target>
+    
+    <!--default IDE targets-->
+    <!--<import file="nbproject/build-impl.xml"/>-->
+</project>

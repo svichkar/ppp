@@ -6,7 +6,7 @@ public class Test {
 		FileSaver save = new FileSaver();
 		try {
 			save.save("test string to save",
-					"D:\\workspace\\test_test\\test.txt");
+					"/Users/evgeniykryzhanovskiy/Documents/test.txt");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

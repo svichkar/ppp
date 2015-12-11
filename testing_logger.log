@@ -1,0 +1,1297 @@
+2015-11-29 09:39:03,904 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:39:03,905 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:39:03,905 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:39:03,905 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 09:39:48,278 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:39:48,279 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:39:48,280 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:39:48,280 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 09:42:35,802 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:42:35,803 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:42:35,803 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:42:35,803 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 09:44:04,237 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:44:04,238 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:44:04,239 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:44:04,239 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 09:45:14,377 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:45:14,378 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:45:14,379 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:45:14,379 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 09:45:55,984 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:45:55,985 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:45:55,986 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:45:55,986 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 09:46:44,221 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 10:26:38,693 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 10:26:38,694 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 10:26:38,694 TRACE c.n.l.AnAnother [main] entry
+2015-11-29 10:26:38,695 ERROR c.n.l.AnAnother [main] FUCK!!
+2015-11-29 10:26:38,695 TRACE c.n.l.AnAnother [main] exit with(false)
+2015-11-29 10:26:38,695 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 10:26:38,695 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 16:38:26,983 TRACE c.n.l.Test [main] entry
+2015-11-29 16:38:26,991 TRACE c.n.l.Test [main] exit
+2015-11-29 16:40:31,583 TRACE c.n.l.Test [main] entry
+2015-11-29 16:40:31,585 TRACE c.n.l.FileSaver [main] entry params(test string to save, D:\workspace\test_test\test.txt)
+2015-11-29 16:40:31,590 TRACE c.n.l.Test [main] exit
+2015-11-29 16:51:24,702 TRACE c.n.l.Test [main] entry
+2015-11-29 16:51:24,704 TRACE c.n.l.FileSaver [main] entry params(test string to save, D:\workspace\test_test\test.txt)
+2015-11-29 16:51:24,708 ERROR c.n.l.Test [main] catching
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+2015-11-29 16:51:24,712 TRACE c.n.l.Test [main] exit
+2015-11-29 17:07:07,274 TRACE c.n.l.Test [main] entry
+2015-11-29 17:07:07,277 TRACE c.n.l.FileSaver [main] entry params(test string to save, D:\workspace\test_test\test.txt)
+2015-11-29 17:07:07,281 ERROR c.n.l.FileSaver [main] 
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+2015-11-29 17:07:07,286 ERROR c.n.l.Test [main] catching
+java.lang.NullPointerException
+	at java.nio.file.Files.provider(Files.java:97) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:727) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+2015-11-29 17:07:07,289 TRACE c.n.l.Test [main] exit
+2015-11-29 17:09:24,504 TRACE c.n.l.Test [main] entry
+2015-11-29 17:09:24,505 TRACE c.n.l.FileSaver [main] entry params(test string to save, D:\workspace\test_test\test.txt)
+2015-11-29 17:09:24,509 ERROR c.n.l.Test [main] catching
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:45) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+2015-11-29 17:09:24,512 TRACE c.n.l.Test [main] exit
+2015-11-29 17:09:57,091 TRACE c.n.l.Test [main] entry
+2015-11-29 17:09:57,094 TRACE c.n.l.FileSaver [main] entry params(test string to save, D:\workspace\test_test\test.txt)
+2015-11-29 17:09:57,097 ERROR c.n.l.Test [main] catching
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:45) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+2015-11-29 17:09:57,100 TRACE c.n.l.Test [main] exit
+2015-11-29 17:14:34,863 TRACE c.n.l.Test [main] entry
+2015-11-29 17:14:34,864 TRACE c.n.l.FileSaver [main] entry params(test string to save, D:\workspace\test_test\test.txt)
+2015-11-29 17:14:34,868 ERROR c.n.l.Test [main] the path is not an absolute path, please correct and try again
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:45) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+2015-11-29 17:14:34,871 TRACE c.n.l.Test [main] exit
+2015-11-29 17:17:02,379 TRACE c.n.l.Test [main] entry
+2015-11-29 17:17:02,381 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy)
+2015-11-29 17:17:02,390 ERROR c.n.l.Test [main] java.nio.file.FileSystemException: /Users/evgeniykryzhanovskiy: Is a directory
+java.lang.RuntimeException: java.nio.file.FileSystemException: /Users/evgeniykryzhanovskiy: Is a directory
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:59) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+Caused by: java.nio.file.FileSystemException: /Users/evgeniykryzhanovskiy: Is a directory
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:91) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214) ~[?:1.8.0_05]
+	at java.nio.file.spi.FileSystemProvider.newOutputStream(FileSystemProvider.java:434) ~[?:1.8.0_05]
+	at java.nio.file.Files.newOutputStream(Files.java:216) ~[?:1.8.0_05]
+	at java.nio.file.Files.write(Files.java:3289) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:56) ~[bin/:?]
+	... 1 more
+2015-11-29 17:17:02,395 TRACE c.n.l.Test [main] exit
+2015-11-29 17:17:47,773 TRACE c.n.l.Test [main] entry
+2015-11-29 17:17:47,775 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:17:47,784 INFO c.n.l.FileSaver [main] file was created
+2015-11-29 17:17:47,789 INFO c.n.l.FileSaver [main] file was suceffuly saved
+2015-11-29 17:17:47,789 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:17:47,789 TRACE c.n.l.Test [main] exit
+2015-11-29 17:20:26,757 TRACE c.n.l.Test [main] entry
+2015-11-29 17:20:26,759 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:20:26,764 WARN c.n.l.FileSaver [main] the file will be rewtited
+2015-11-29 17:20:26,769 INFO c.n.l.FileSaver [main] file was suceffuly saved
+2015-11-29 17:20:26,770 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:20:26,770 TRACE c.n.l.Test [main] exit
+2015-11-29 17:28:23,408 TRACE c.n.l.Test [main] entry
+2015-11-29 17:28:23,410 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:28:23,415 WARN c.n.l.FileSaver [main] the file will be rewtited
+2015-11-29 17:28:23,420 INFO c.n.l.FileSaver [main] file was suceffuly saved
+2015-11-29 17:28:23,421 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:28:23,421 TRACE c.n.l.Test [main] exit
+2015-11-29 17:33:21,429 TRACE c.n.l.Test [main] entry
+2015-11-29 17:33:21,431 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeiykryzhanovskiy/text.txt)
+2015-11-29 17:33:21,437 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /Users/evgeiykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:60) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /Users/evgeiykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:33:21,442 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /Users/evgeiykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /Users/evgeiykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:60) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:13) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /Users/evgeiykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:33:21,442 TRACE c.n.l.Test [main] exit
+2015-11-29 17:36:09,657 TRACE c.n.l.Test [main] entry
+2015-11-29 17:36:09,659 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:36:09,659 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:36:09,664 WARN c.n.l.FileSaver [main] the file will be rewrited
+2015-11-29 17:36:09,670 INFO c.n.l.FileSaver [main] file was sucessfully saved
+2015-11-29 17:36:09,670 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:36:09,670 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:36:09,670 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:36:09,671 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:60) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:36:09,676 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:60) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:36:09,677 TRACE c.n.l.Test [main] exit
+2015-11-29 17:38:03,669 TRACE c.n.l.Test [main] entry
+2015-11-29 17:38:03,671 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:38:03,671 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:38:03,676 WARN c.n.l.FileSaver [main] the file will be rewrited
+2015-11-29 17:38:03,681 INFO c.n.l.FileSaver [main] file was sucessfully saved
+2015-11-29 17:38:03,681 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:38:03,682 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:38:03,682 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:38:03,683 ERROR c.n.l.FileSaver [main] /evgeniykryzhanovskiy
+java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:38:03,690 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:38:03,691 ERROR c.n.l.Test [main] catching
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:38:03,691 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:38:03,692 TRACE c.n.l.Test [main] exit
+2015-11-29 17:40:25,568 TRACE c.n.l.Test [main] entry
+2015-11-29 17:40:25,571 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:40:25,571 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:40:25,576 WARN c.n.l.FileSaver [main] the file will be rewrited
+2015-11-29 17:40:25,582 INFO c.n.l.FileSaver [main] file was sucessfully saved
+2015-11-29 17:40:25,583 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:40:25,583 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:40:25,583 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:40:25,584 ERROR c.n.l.FileSaver [main] /evgeniykryzhanovskiy
+java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:40:25,589 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:40:25,590 ERROR c.n.l.Test [main] catching
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:40:25,590 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:40:25,591 TRACE c.n.l.Test [main] exit
+2015-11-29 17:40:56,795 TRACE c.n.l.Test [main] entry
+2015-11-29 17:40:56,797 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:40:56,797 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-29 17:40:56,809 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was created
+2015-11-29 17:40:56,813 INFO c.n.l.FileSaver [main] file was sucessfully saved
+2015-11-29 17:40:56,813 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:40:56,813 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:40:56,813 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:40:56,814 ERROR c.n.l.FileSaver [main] /evgeniykryzhanovskiy
+java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:40:56,819 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:40:56,819 ERROR c.n.l.Test [main] catching
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:40:56,820 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:40:56,820 TRACE c.n.l.Test [main] exit
+2015-11-29 17:42:01,602 TRACE c.n.l.Test [main] entry
+2015-11-29 17:42:01,604 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:42:01,604 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-29 17:42:01,610 WARN c.n.l.FileSaver [main] the file /Users/evgeniykryzhanovskiy/text1.txt will be rewrited
+2015-11-29 17:42:01,616 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was sucessfully saved
+2015-11-29 17:42:01,616 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:42:01,616 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:42:01,616 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:42:01,618 ERROR c.n.l.FileSaver [main] /evgeniykryzhanovskiy
+java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:42:01,622 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:42:01,623 ERROR c.n.l.Test [main] catching
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:42:01,624 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:42:01,624 TRACE c.n.l.Test [main] exit
+2015-11-29 17:43:32,004 TRACE c.n.l.Test [main] entry
+2015-11-29 17:43:32,006 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:43:32,006 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-29 17:43:32,012 WARN c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt will be rewrited
+2015-11-29 17:43:32,019 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was sucessfully saved
+2015-11-29 17:43:32,019 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:43:32,019 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:43:32,019 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:43:32,021 ERROR c.n.l.FileSaver [main] /evgeniykryzhanovskiy
+java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:43:32,026 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:43:32,027 ERROR c.n.l.Test [main] java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:43:32,027 TRACE c.n.l.Test [main] exit
+2015-11-29 17:44:57,037 TRACE c.n.l.Test [main] entry
+2015-11-29 17:44:57,039 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:44:57,040 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-29 17:44:57,046 WARN c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt will be rewrited
+2015-11-29 17:44:57,052 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was sucessfully saved
+2015-11-29 17:44:57,052 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:44:57,052 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:44:57,052 TRACE c.n.l.FileSaver [main] entry params(test string to save, /evgeniykryzhanovskiy/text.txt)
+2015-11-29 17:44:57,053 ERROR c.n.l.FileSaver [main] /evgeniykryzhanovskiy
+java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:44:57,058 ERROR c.n.l.FileSaver [main] throwing
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:44:57,059 ERROR c.n.l.Test [main] catching
+java.lang.RuntimeException: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:61) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+Caused by: java.nio.file.AccessDeniedException: /evgeniykryzhanovskiy
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107) ~[?:1.8.0_05]
+	at sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:383) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectory(Files.java:674) ~[?:1.8.0_05]
+	at java.nio.file.Files.createAndCheckIsDirectory(Files.java:778) ~[?:1.8.0_05]
+	at java.nio.file.Files.createDirectories(Files.java:764) ~[?:1.8.0_05]
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:49) ~[bin/:?]
+	... 1 more
+2015-11-29 17:44:57,059 TRACE c.n.l.Test [main] exit
+2015-11-29 17:45:29,847 TRACE c.n.l.Test [main] entry
+2015-11-29 17:45:29,849 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:45:29,849 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-29 17:45:29,855 WARN c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt will be rewrited
+2015-11-29 17:45:29,861 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was sucessfully saved
+2015-11-29 17:45:29,861 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:45:29,861 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:45:29,862 TRACE c.n.l.FileSaver [main] entry params(test string to save, geniykryzhanovskiy/text.txt)
+2015-11-29 17:45:29,862 ERROR c.n.l.FileSaver [main] throwing
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:45:29,864 ERROR c.n.l.Test [main] catching
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:45:29,865 TRACE c.n.l.Test [main] exit
+2015-11-29 17:47:27,496 TRACE c.n.l.Test [main] entry
+2015-11-29 17:47:27,498 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-29 17:47:27,498 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-29 17:47:27,504 WARN c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt will be rewrited
+2015-11-29 17:47:27,509 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was sucessfully saved
+2015-11-29 17:47:27,509 TRACE c.n.l.FileSaver [main] exit
+2015-11-29 17:47:27,509 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-29 17:47:27,510 TRACE c.n.l.FileSaver [main] entry params(test string to save, geniykryzhanovskiy/text.txt)
+2015-11-29 17:47:27,510 ERROR c.n.l.FileSaver [main] throwing
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:47:27,512 ERROR c.n.l.Test [main] catching
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-29 17:47:27,512 TRACE c.n.l.Test [main] exit
+2015-11-30 23:27:11,658 TRACE c.n.l.Test [main] entry
+2015-11-30 23:27:11,661 DEBUG c.n.l.Test [main] first try with valid parameters
+2015-11-30 23:27:11,661 TRACE c.n.l.FileSaver [main] entry params(test string to save, /Users/evgeniykryzhanovskiy/text1.txt)
+2015-11-30 23:27:11,667 WARN c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt will be rewrited
+2015-11-30 23:27:11,677 INFO c.n.l.FileSaver [main] file /Users/evgeniykryzhanovskiy/text1.txt was sucessfully saved
+2015-11-30 23:27:11,677 TRACE c.n.l.FileSaver [main] exit
+2015-11-30 23:27:11,677 DEBUG c.n.l.Test [main] second try with invalid parameters, error will occure
+2015-11-30 23:27:11,677 TRACE c.n.l.FileSaver [main] entry params(test string to save, geniykryzhanovskiy/text.txt)
+2015-11-30 23:27:11,677 ERROR c.n.l.FileSaver [main] throwing
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) [bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-30 23:27:11,680 ERROR c.n.l.Test [main] catching
+com.nixsolutions.logging.MyException: the path is not an absolute path, please correct and try again
+	at com.nixsolutions.logging.FileSaver.save(FileSaver.java:44) ~[bin/:?]
+	at com.nixsolutions.logging.Test.main(Test.java:16) [bin/:?]
+2015-11-30 23:27:11,680 TRACE c.n.l.Test [main] exit
+2015-11-30 23:30:59,799 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:30:59,800 TRACE c.n.r.Utils [main] exit
+2015-11-30 23:31:52,265 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:31:52,266 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:32:19,580 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:32:19,581 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:33:02,175 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:33:02,177 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:34:21,314 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:34:21,315 DEBUG c.n.r.Utils [main] count of the fields0
+2015-11-30 23:34:21,315 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:35:41,193 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:35:41,194 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:35:41,195 DEBUG c.n.r.Utils [main] the field contains the annotation
+2015-11-30 23:35:41,195 DEBUG c.n.r.Utils [main] the field contains the annotation
+2015-11-30 23:35:41,195 DEBUG c.n.r.Utils [main] the field contains the annotation
+2015-11-30 23:35:41,196 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:36:14,465 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:36:14,466 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:36:14,467 DEBUG c.n.r.Utils [main] the field contains the annotation: private java.lang.String com.nixsolutions.reflections.SimpleCar.color
+2015-11-30 23:36:14,468 DEBUG c.n.r.Utils [main] the field contains the annotation: private java.lang.String com.nixsolutions.reflections.SimpleCar.brand
+2015-11-30 23:36:14,468 DEBUG c.n.r.Utils [main] the field contains the annotation: private int com.nixsolutions.reflections.SimpleCar.speed
+2015-11-30 23:36:14,468 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:37:22,146 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:37:22,147 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:37:22,149 DEBUG c.n.r.Utils [main] the field contains the annotation: color
+2015-11-30 23:37:22,149 DEBUG c.n.r.Utils [main] the field contains the annotation: brand
+2015-11-30 23:37:22,149 DEBUG c.n.r.Utils [main] the field contains the annotation: speed
+2015-11-30 23:37:22,149 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:37:56,407 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:37:56,408 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:37:56,409 DEBUG c.n.r.Utils [main] color field contains the annotation
+2015-11-30 23:37:56,409 DEBUG c.n.r.Utils [main] brand field contains the annotation
+2015-11-30 23:37:56,410 DEBUG c.n.r.Utils [main] speed field contains the annotation
+2015-11-30 23:37:56,410 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:40:44,830 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:40:44,831 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:41:21,707 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:41:21,708 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:41:21,709 DEBUG c.n.r.Utils [main] color field contains the annotation and has value: Black
+2015-11-30 23:41:21,709 DEBUG c.n.r.Utils [main] brand field contains the annotation and has value: Mazda
+2015-11-30 23:41:21,710 DEBUG c.n.r.Utils [main] speed field contains the annotation and has value: 280
+2015-11-30 23:41:21,710 TRACE c.n.r.Utils [main] exit with(nothing)
+2015-11-30 23:45:02,902 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:45:02,903 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:45:02,904 DEBUG c.n.r.Utils [main] color field contains the annotation and has value: Black
+2015-11-30 23:45:02,904 DEBUG c.n.r.Utils [main] brand field contains the annotation and has value: Mazda
+2015-11-30 23:45:02,905 DEBUG c.n.r.Utils [main] speed field contains the annotation and has value: 280
+2015-11-30 23:45:02,905 TRACE c.n.r.Utils [main] exit with(color: Black; brand: Mazda; speed: 280; )
+2015-11-30 23:46:03,474 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:46:03,475 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:46:03,477 DEBUG c.n.r.Utils [main] color field contains the annotation and has value: Black
+2015-11-30 23:46:03,477 DEBUG c.n.r.Utils [main] brand field contains the annotation and has value: Mazda
+2015-11-30 23:46:03,477 DEBUG c.n.r.Utils [main] speed field contains the annotation and has value: 280
+2015-11-30 23:46:03,477 TRACE c.n.r.Utils [main] exit with(color: Black; brand: Mazda; speed: 280;)
+2015-11-30 23:59:43,855 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-11-30 23:59:43,856 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-11-30 23:59:43,857 DEBUG c.n.r.Utils [main] color field contains the annotation and has value: Black
+2015-11-30 23:59:43,858 DEBUG c.n.r.Utils [main] brand field contains the annotation and has value: Mazda
+2015-11-30 23:59:43,858 DEBUG c.n.r.Utils [main] speed field contains the annotation and has value: 280
+2015-11-30 23:59:43,858 TRACE c.n.r.Utils [main] exit with(java.lang.String color: Black; java.lang.String brand: Mazda; int speed: 280;)
+2015-12-01 00:00:13,370 TRACE c.n.r.Utils [main] entry params(class com.nixsolutions.reflections.SimpleCar)
+2015-12-01 00:00:13,371 DEBUG c.n.r.Utils [main] count of the fields 4
+2015-12-01 00:00:13,372 DEBUG c.n.r.Utils [main] color field contains the annotation and has value: Black
+2015-12-01 00:00:13,373 DEBUG c.n.r.Utils [main] brand field contains the annotation and has value: Mazda
+2015-12-01 00:00:13,373 DEBUG c.n.r.Utils [main] speed field contains the annotation and has value: 280
+2015-12-01 00:00:13,373 TRACE c.n.r.Utils [main] exit with(java.lang.String color: Black; java.lang.String brand: Mazda; int speed: 280;)
+2015-12-02 01:23:05,558 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/02_oop/com/nixsolutionsBus.class
+2015-12-02 01:23:21,998 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/02_oop/com/nixsolutions/Bus.class
+2015-12-02 01:24:32,502 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/02_oop/com/nixsolutions/Bus.java
+2015-12-02 01:24:55,100 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/02_oop/com/nixsolutions/Bus.class
+2015-12-02 01:27:17,836 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/02_oop/com/nixsolutionsBus.class
+2015-12-02 01:27:28,963 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/02_oop/com/nixsolutions/Bus.class
+2015-12-02 01:34:49,865 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/Bus.class
+2015-12-02 01:37:06,473 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/Bus.class
+2015-12-02 01:38:17,712 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:40:26,863 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:41:17,062 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:42:04,991 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:43:36,721 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:43:36,729 DEBUG c.n.r.Test [main] com.nixsolutions.Bus
+2015-12-02 01:45:56,570 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:45:56,582 DEBUG c.n.r.Test [main] com.nixsolutions.Bus
+2015-12-02 01:45:56,584 DEBUG c.n.r.Test [main] class com.nixsolutions.Bus
+2015-12-02 01:46:45,987 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:46:45,996 DEBUG c.n.r.Test [main] com.nixsolutions.Bus
+2015-12-02 01:46:45,997 DEBUG c.n.r.Test [main] class com.nixsolutions.Bus
+2015-12-02 01:48:49,650 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:48:49,659 DEBUG c.n.r.Test [main] com.nixsolutions.Bus
+2015-12-02 01:48:49,659 DEBUG c.n.r.Test [main] class com.nixsolutions.Bus
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] turnLeft
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] turnRight
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] move
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] compareTo
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] compareTo
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] setDistance
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] getDistance
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] wait
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] wait
+2015-12-02 01:48:49,660 INFO c.n.r.Test [main] wait
+2015-12-02 01:48:49,661 INFO c.n.r.Test [main] equals
+2015-12-02 01:48:49,661 INFO c.n.r.Test [main] toString
+2015-12-02 01:48:49,661 INFO c.n.r.Test [main] hashCode
+2015-12-02 01:48:49,661 INFO c.n.r.Test [main] getClass
+2015-12-02 01:48:49,661 INFO c.n.r.Test [main] notify
+2015-12-02 01:48:49,661 INFO c.n.r.Test [main] notifyAll
+2015-12-02 01:49:32,163 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Bus.class
+2015-12-02 01:49:32,171 DEBUG c.n.r.Test [main] com.nixsolutions.Bus
+2015-12-02 01:49:32,172 DEBUG c.n.r.Test [main] class com.nixsolutions.Bus
+2015-12-02 01:49:32,172 INFO c.n.r.Test [main] turnLeft
+2015-12-02 01:49:32,172 INFO c.n.r.Test [main] turnRight
+2015-12-02 01:49:32,172 INFO c.n.r.Test [main] move
+2015-12-02 01:49:48,171 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Car.class
+2015-12-02 01:49:48,180 DEBUG c.n.r.Test [main] com.nixsolutions.Car
+2015-12-02 01:49:48,181 DEBUG c.n.r.Test [main] class com.nixsolutions.Car
+2015-12-02 01:49:48,181 INFO c.n.r.Test [main] turnLeft
+2015-12-02 01:49:48,181 INFO c.n.r.Test [main] turnRight
+2015-12-02 01:49:48,181 INFO c.n.r.Test [main] move
+2015-12-02 01:58:43,190 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutionsCar.class
+2015-12-02 01:59:58,297 DEBUG c.n.r.CustomClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/Untitled/com/nixsolutions/Car.class
+2015-12-02 01:59:58,305 DEBUG c.n.r.Test [main] com.nixsolutions.Car
+2015-12-02 01:59:58,306 DEBUG c.n.r.Test [main] class com.nixsolutions.Car
+2015-12-02 01:59:58,306 INFO c.n.r.Test [main] turnLeft
+2015-12-02 01:59:58,306 INFO c.n.r.Test [main] turnRight
+2015-12-02 01:59:58,306 INFO c.n.r.Test [main] move
+2015-12-02 22:01:31,505 TRACE c.n.r.MyClassLoader [main] entry params(class name: Car; path: /Users/evgeniykryzhanovskiy/Documents/javappp/bin/com)
+2015-12-02 22:01:31,510 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/bin/com/Car.class
+2015-12-02 22:01:31,512 ERROR c.n.r.Task2Test [main] Car
+java.lang.ClassNotFoundException: Car
+	at java.lang.ClassLoader.findClass(ClassLoader.java:530) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.MyClassLoader.findClass(MyClassLoader.java:39) ~[bin/:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_05]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.Task2Test.main(Task2Test.java:17) [bin/:?]
+2015-12-02 22:03:01,096 DEBUG c.n.r.Task2Test [main] java.lang.String
+2015-12-02 22:03:01,097 DEBUG c.n.r.Task2Test [main] equals
+2015-12-02 22:03:01,097 DEBUG c.n.r.Task2Test [main] toString
+2015-12-02 22:03:01,097 DEBUG c.n.r.Task2Test [main] hashCode
+2015-12-02 22:03:01,097 DEBUG c.n.r.Task2Test [main] compareTo
+2015-12-02 22:03:01,097 DEBUG c.n.r.Task2Test [main] compareTo
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] indexOf
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] indexOf
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] indexOf
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] indexOf
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] indexOf
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] indexOf
+2015-12-02 22:03:01,098 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,099 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,099 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,099 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,099 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,099 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,099 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] valueOf
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] checkBounds
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] length
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] isEmpty
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] charAt
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] codePointAt
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] codePointBefore
+2015-12-02 22:03:01,100 DEBUG c.n.r.Task2Test [main] codePointCount
+2015-12-02 22:03:01,101 DEBUG c.n.r.Task2Test [main] offsetByCodePoints
+2015-12-02 22:03:01,101 DEBUG c.n.r.Task2Test [main] getChars
+2015-12-02 22:03:01,101 DEBUG c.n.r.Task2Test [main] getChars
+2015-12-02 22:03:01,101 DEBUG c.n.r.Task2Test [main] getBytes
+2015-12-02 22:03:01,101 DEBUG c.n.r.Task2Test [main] getBytes
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] getBytes
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] getBytes
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] contentEquals
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] contentEquals
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] nonSyncContentEquals
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] equalsIgnoreCase
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] compareToIgnoreCase
+2015-12-02 22:03:01,102 DEBUG c.n.r.Task2Test [main] regionMatches
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] regionMatches
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] startsWith
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] startsWith
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] endsWith
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] indexOfSupplementary
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] lastIndexOf
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] lastIndexOf
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] lastIndexOf
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] lastIndexOf
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] lastIndexOf
+2015-12-02 22:03:01,103 DEBUG c.n.r.Task2Test [main] lastIndexOf
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] lastIndexOfSupplementary
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] substring
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] substring
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] subSequence
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] concat
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] replace
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] replace
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] matches
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] contains
+2015-12-02 22:03:01,104 DEBUG c.n.r.Task2Test [main] replaceFirst
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] replaceAll
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] split
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] split
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] join
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] join
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] toLowerCase
+2015-12-02 22:03:01,105 DEBUG c.n.r.Task2Test [main] toLowerCase
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] toUpperCase
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] toUpperCase
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] trim
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] toCharArray
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] format
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] format
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] copyValueOf
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] copyValueOf
+2015-12-02 22:03:01,106 DEBUG c.n.r.Task2Test [main] intern
+2015-12-02 22:03:55,914 TRACE c.n.r.MyClassLoader [main] entry params(class name: Car; path: /Users/evgeniykryzhanovskiy/Documents/javappp/bin/com)
+2015-12-02 22:03:55,918 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/bin/com/Car.class
+2015-12-02 22:03:55,920 ERROR c.n.r.Task2Test [main] Car
+java.lang.ClassNotFoundException: Car
+	at java.lang.ClassLoader.findClass(ClassLoader.java:530) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.MyClassLoader.findClass(MyClassLoader.java:39) ~[bin/:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_05]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.Task2Test.main(Task2Test.java:17) [bin/:?]
+2015-12-02 22:04:26,164 TRACE c.n.r.MyClassLoader [main] entry params(class name: Car; path: /Users/evgeniykryzhanovskiy/Documents/javappp/bin/com/nixsolutions)
+2015-12-02 22:04:26,168 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/javappp/bin/com/nixsolutions/Car.class
+2015-12-02 22:04:26,181 TRACE c.n.r.MyClassLoader [main] exit with(class com.nixsolutions.Car)
+2015-12-02 22:04:26,181 DEBUG c.n.r.Task2Test [main] com.nixsolutions.Car
+2015-12-02 22:04:26,181 DEBUG c.n.r.Task2Test [main] turnLeft
+2015-12-02 22:04:26,181 DEBUG c.n.r.Task2Test [main] turnRight
+2015-12-02 22:04:26,181 DEBUG c.n.r.Task2Test [main] move
+2015-12-02 22:06:52,758 DEBUG c.n.r.Task2Test [main] com.nixsolutions.Car
+2015-12-02 22:06:52,759 DEBUG c.n.r.Task2Test [main] move
+2015-12-02 22:06:52,759 DEBUG c.n.r.Task2Test [main] turnLeft
+2015-12-02 22:06:52,759 DEBUG c.n.r.Task2Test [main] turnRight
+2015-12-02 22:07:11,275 DEBUG c.n.r.Task2Test [main] com.nixsolutions.Bus
+2015-12-02 22:07:11,276 DEBUG c.n.r.Task2Test [main] turnLeft
+2015-12-02 22:07:11,276 DEBUG c.n.r.Task2Test [main] move
+2015-12-02 22:07:11,276 DEBUG c.n.r.Task2Test [main] turnRight
+2015-12-02 22:07:29,519 DEBUG c.n.r.Task2Test [main] com.nixsolutions.Worker
+2015-12-02 22:07:29,520 DEBUG c.n.r.Task2Test [main] run
+2015-12-02 22:07:29,521 DEBUG c.n.r.Task2Test [main] getConut
+2015-12-02 22:08:13,867 DEBUG c.n.r.Task2Test [main] com.nixsolutions.reflections.MyUtils
+2015-12-02 22:08:13,868 DEBUG c.n.r.Task2Test [main] getAnnotationFields
+2015-12-02 22:08:13,868 DEBUG c.n.r.Task2Test [main] googleGetAnnotFileds
+2015-12-02 22:08:40,325 DEBUG c.n.r.Task2Test [main] com.nixsolutions.reflections.MyUtils
+2015-12-02 22:08:40,326 DEBUG c.n.r.Task2Test [main] getAnnotationFields
+2015-12-02 22:08:40,326 DEBUG c.n.r.Task2Test [main] googleGetAnnotFileds
+2015-12-02 22:10:09,635 TRACE c.n.r.MyClassLoader [main] entry params(class name: Producer; path: /Users/evgeniykryzhanovskiy/Documents/)
+2015-12-02 22:10:09,639 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/Producer.class
+2015-12-02 22:10:09,646 TRACE c.n.r.MyClassLoader [main] exit with(class com.nixsolutions.Producer)
+2015-12-02 22:10:09,646 DEBUG c.n.r.Task2Test [main] com.nixsolutions.Producer
+2015-12-02 22:10:09,647 DEBUG c.n.r.Task2Test [main] run
+2015-12-02 22:10:09,647 DEBUG c.n.r.Task2Test [main] random
+2015-12-02 22:11:19,806 TRACE c.n.r.MyClassLoader [main] entry params(class name: String; path: /Users/evgeniykryzhanovskiy/Documents/)
+2015-12-02 22:11:19,811 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/String.class
+2015-12-02 22:11:19,812 ERROR c.n.r.Task2Test [main] String
+java.lang.ClassNotFoundException: String
+	at java.lang.ClassLoader.findClass(ClassLoader.java:530) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.MyClassLoader.findClass(MyClassLoader.java:39) ~[bin/:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_05]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.Task2Test.main(Task2Test.java:17) [bin/:?]
+2015-12-02 22:12:01,540 TRACE c.n.r.MyClassLoader [main] entry params(class name: com.nixsolutions.SimpleCar; path: /Users/evgeniykryzhanovskiy/Documents/)
+2015-12-02 22:12:01,545 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/com.nixsolutions.SimpleCar.class
+2015-12-02 22:12:01,547 ERROR c.n.r.Task2Test [main] com.nixsolutions.SimpleCar
+java.lang.ClassNotFoundException: com.nixsolutions.SimpleCar
+	at java.lang.ClassLoader.findClass(ClassLoader.java:530) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.MyClassLoader.findClass(MyClassLoader.java:39) ~[bin/:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_05]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.Task2Test.main(Task2Test.java:17) [bin/:?]
+2015-12-02 22:12:19,343 DEBUG c.n.r.Task2Test [main] com.nixsolutions.reflections.SimpleCar
+2015-12-02 22:12:19,344 DEBUG c.n.r.Task2Test [main] getColor
+2015-12-02 22:12:19,344 DEBUG c.n.r.Task2Test [main] getBrand
+2015-12-02 22:12:19,344 DEBUG c.n.r.Task2Test [main] setBrand
+2015-12-02 22:12:19,344 DEBUG c.n.r.Task2Test [main] getSpeed
+2015-12-02 22:12:19,344 DEBUG c.n.r.Task2Test [main] setSpeed
+2015-12-02 22:12:19,345 DEBUG c.n.r.Task2Test [main] getPrice
+2015-12-02 22:12:19,345 DEBUG c.n.r.Task2Test [main] setPrice
+2015-12-02 22:12:19,345 DEBUG c.n.r.Task2Test [main] setColor
+2015-12-02 22:24:36,968 DEBUG c.n.r.Task2Test [main] com.nixsolutions.reflections.SimpleCar
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] getPrice
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] getSpeed
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] setPrice
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] setSpeed
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] getBrand
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] getColor
+2015-12-02 22:24:36,970 DEBUG c.n.r.Task2Test [main] setBrand
+2015-12-02 22:24:36,971 DEBUG c.n.r.Task2Test [main] setColor
+2015-12-02 22:26:13,699 TRACE c.n.r.MyClassLoader [main] entry params(class name: com.nixsolutions.logging.MyExeption; path: /Users/evgeniykryzhanovskiy/Documents/)
+2015-12-02 22:26:13,704 DEBUG c.n.r.MyClassLoader [main] /Users/evgeniykryzhanovskiy/Documents/com/nixsolutions/logging/MyExeption.class
+2015-12-02 22:26:13,706 ERROR c.n.r.Task2Test [main] com.nixsolutions.logging.MyExeption
+java.lang.ClassNotFoundException: com.nixsolutions.logging.MyExeption
+	at java.lang.ClassLoader.findClass(ClassLoader.java:530) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.MyClassLoader.findClass(MyClassLoader.java:39) ~[bin/:?]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[?:1.8.0_05]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[?:1.8.0_05]
+	at com.nixsolutions.reflections.Task2Test.main(Task2Test.java:17) [bin/:?]
+2015-12-02 22:26:43,408 DEBUG c.n.r.Task2Test [main] com.nixsolutions.logging.MyException
+2015-12-02 22:26:59,597 DEBUG c.n.r.Task2Test [main] com.nixsolutions.logging.MyException
+2015-12-05 20:33:56,820 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 2
+2015-12-05 20:33:56,822 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,825 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,832 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,833 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,834 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -1 facement: 4
+2015-12-05 20:33:56,834 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,835 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,835 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,836 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,838 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 20:33:56,839 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,839 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,839 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,840 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,841 DEBUG c.n.j.m.Robot [main] xAxis= -1; yAxis= 0 facement: 3
+2015-12-05 20:33:56,841 TRACE c.n.j.m.Robot [main] entry params(xAxis= -1; yAxis= 0, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,842 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,842 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,842 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,843 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 20:33:56,843 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,844 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,844 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,844 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,845 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-05 20:33:56,845 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 0, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,845 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,846 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,846 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,846 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-05 20:33:56,846 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,846 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,847 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,847 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,847 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-05 20:33:56,847 TRACE c.n.j.m.Robot [main] entry params(xAxis= 3; yAxis= 1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,848 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,848 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,848 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,848 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-05 20:33:56,849 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,849 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,849 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,849 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,849 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-05 20:33:56,850 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,850 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,850 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,850 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:33:56,851 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-05 20:33:56,851 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 1, /Users/evgeniykryzhanovskiy/DocumentsroboLog.log)
+2015-12-05 20:33:56,851 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log will be rewrited
+2015-12-05 20:33:56,851 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/DocumentsroboLog.log was sucessfully saved
+2015-12-05 20:33:56,852 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,033 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 2
+2015-12-05 20:36:38,034 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,036 INFO c.n.j.m.Robot [main] the file does not exist, it will be created
+2015-12-05 20:36:38,043 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was created
+2015-12-05 20:36:38,048 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,048 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,049 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -1 facement: 4
+2015-12-05 20:36:38,049 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,050 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,050 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,050 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,052 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 20:36:38,052 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,052 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,053 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,053 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,054 DEBUG c.n.j.m.Robot [main] xAxis= -1; yAxis= 0 facement: 3
+2015-12-05 20:36:38,054 TRACE c.n.j.m.Robot [main] entry params(xAxis= -1; yAxis= 0, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,055 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,055 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,055 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,056 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 20:36:38,056 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,057 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,057 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,057 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,057 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-05 20:36:38,057 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 0, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,058 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,058 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,058 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,058 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-05 20:36:38,059 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,059 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,059 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,059 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,059 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-05 20:36:38,059 TRACE c.n.j.m.Robot [main] entry params(xAxis= 3; yAxis= 1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,060 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,060 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,060 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,060 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-05 20:36:38,060 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,061 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,061 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,061 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,061 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-05 20:36:38,061 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,062 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,062 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,062 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 20:36:38,062 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-05 20:36:38,062 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 1, /Users/evgeniykryzhanovskiy/Documents)
+2015-12-05 20:36:38,062 WARN c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log will be rewrited
+2015-12-05 20:36:38,063 INFO c.n.j.m.Robot [main] file /Users/evgeniykryzhanovskiy/Documents/roboLog.log was sucessfully saved
+2015-12-05 20:36:38,063 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,605 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 22:44:47,606 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,608 INFO c.n.j.m.Robot [main] the file does not exist, it will be created
+2015-12-05 22:44:47,615 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was created
+2015-12-05 22:44:47,618 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,618 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,618 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-05 22:44:47,619 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,619 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,619 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,620 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,620 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 3
+2015-12-05 22:44:47,621 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,621 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,621 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,622 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,622 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 0 facement: 3
+2015-12-05 22:44:47,622 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,622 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,622 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,623 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,623 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -1 facement: 4
+2015-12-05 22:44:47,623 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,623 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,624 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,624 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,624 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -2 facement: 4
+2015-12-05 22:44:47,624 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -2, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,624 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,624 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,625 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,625 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= -2 facement: 1
+2015-12-05 22:44:47,625 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= -2, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,625 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,626 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,626 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,626 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= -1 facement: 2
+2015-12-05 22:44:47,626 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= -1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,627 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,627 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,627 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 22:44:47,627 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 2
+2015-12-05 22:44:47,628 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695)
+2015-12-05 22:44:47,628 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log will be rewrited
+2015-12-05 22:44:47,628 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6066576104757353997/junit552710537270978695/roboLog.log was sucessfully saved
+2015-12-05 22:44:47,629 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,336 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 23:12:23,338 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,340 INFO c.n.j.m.Robot [main] the file does not exist, it will be created
+2015-12-05 23:12:23,348 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was created
+2015-12-05 23:12:23,351 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,352 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,352 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-05 23:12:23,352 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,353 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,353 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,353 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,354 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 3
+2015-12-05 23:12:23,354 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,354 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,354 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,355 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,355 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 0 facement: 3
+2015-12-05 23:12:23,355 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,355 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,356 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,356 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,356 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -1 facement: 4
+2015-12-05 23:12:23,356 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,357 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,357 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,357 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,357 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -2 facement: 4
+2015-12-05 23:12:23,358 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -2, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,358 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,358 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,358 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,359 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= -2 facement: 1
+2015-12-05 23:12:23,359 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= -2, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,359 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,359 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,360 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,360 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= -1 facement: 2
+2015-12-05 23:12:23,360 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= -1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,360 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,361 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,361 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:12:23,361 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 2
+2015-12-05 23:12:23,361 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055)
+2015-12-05 23:12:23,361 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log will be rewrited
+2015-12-05 23:12:23,362 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit4432010519264195039/junit8109749049753092055/roboLog.log was sucessfully saved
+2015-12-05 23:12:23,362 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,864 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-05 23:17:37,865 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,867 INFO c.n.j.m.Robot [main] the file does not exist, it will be created
+2015-12-05 23:17:37,874 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was created
+2015-12-05 23:17:37,877 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,878 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,878 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-05 23:17:37,878 TRACE c.n.j.m.Robot [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,878 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,879 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,879 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,879 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 3
+2015-12-05 23:17:37,879 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,880 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,880 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,880 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,880 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 0 facement: 3
+2015-12-05 23:17:37,881 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,881 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,881 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,881 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,881 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -1 facement: 4
+2015-12-05 23:17:37,881 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,882 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,882 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,882 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,882 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= -2 facement: 4
+2015-12-05 23:17:37,882 TRACE c.n.j.m.Robot [main] entry params(xAxis= 0; yAxis= -2, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,883 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,883 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,883 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,883 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= -2 facement: 1
+2015-12-05 23:17:37,883 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= -2, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,884 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,884 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,885 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,885 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= -1 facement: 2
+2015-12-05 23:17:37,885 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= -1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,885 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,885 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,886 TRACE c.n.j.m.Robot [main] exit
+2015-12-05 23:17:37,886 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 2
+2015-12-05 23:17:37,886 TRACE c.n.j.m.Robot [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592)
+2015-12-05 23:17:37,886 WARN c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log will be rewrited
+2015-12-05 23:17:37,886 INFO c.n.j.m.Robot [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6586947293499901926/junit7404944863399953592/roboLog.log was sucessfully saved
+2015-12-05 23:17:37,887 TRACE c.n.j.m.Robot [main] exit
+2015-12-07 07:45:32,729 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 07:45:32,764 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 07:45:32,764 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 07:45:32,765 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 07:45:32,765 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 07:45:32,765 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 07:45:32,765 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 07:48:57,052 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 07:48:57,063 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 07:48:57,063 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 07:48:57,063 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 07:48:57,064 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 07:48:57,064 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 07:48:57,065 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 08:06:31,760 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 08:06:31,761 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,764 INFO c.n.j.m.SaveService [main] the file does not exist, it will be created
+2015-12-07 08:06:31,773 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was created
+2015-12-07 08:06:31,777 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,777 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:06:31,778 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 08:06:31,778 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,778 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log will be rewrited
+2015-12-07 08:06:31,779 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,779 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:06:31,780 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 08:06:31,780 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,780 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log will be rewrited
+2015-12-07 08:06:31,780 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,781 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:06:31,781 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 08:06:31,781 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 3; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,781 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log will be rewrited
+2015-12-07 08:06:31,782 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,782 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:06:31,782 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 08:06:31,783 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,783 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log will be rewrited
+2015-12-07 08:06:31,783 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,783 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:06:31,783 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 08:06:31,783 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,784 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log will be rewrited
+2015-12-07 08:06:31,784 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,784 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:06:31,784 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 08:06:31,784 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 0; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203)
+2015-12-07 08:06:31,785 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log will be rewrited
+2015-12-07 08:06:31,785 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit6465665517071779379/junit1899076302963220203/roboLog.log was sucessfully saved
+2015-12-07 08:06:31,785 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:09:09,756 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 08:09:09,767 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 08:09:09,767 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 08:09:09,767 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 08:09:09,768 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 08:09:09,768 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 08:09:09,768 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 08:12:36,359 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 08:12:36,360 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,362 INFO c.n.j.m.SaveService [main] the file does not exist, it will be created
+2015-12-07 08:12:36,367 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was created
+2015-12-07 08:12:36,370 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,370 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:12:36,370 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 08:12:36,371 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,371 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log will be rewrited
+2015-12-07 08:12:36,371 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,371 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:12:36,372 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 08:12:36,372 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,372 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log will be rewrited
+2015-12-07 08:12:36,372 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,373 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:12:36,373 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 08:12:36,373 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 3; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,373 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log will be rewrited
+2015-12-07 08:12:36,374 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,374 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:12:36,374 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 08:12:36,374 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,374 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log will be rewrited
+2015-12-07 08:12:36,375 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,375 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:12:36,375 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 08:12:36,375 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,375 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log will be rewrited
+2015-12-07 08:12:36,376 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,376 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 08:12:36,377 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 08:12:36,377 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 0; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388)
+2015-12-07 08:12:36,377 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log will be rewrited
+2015-12-07 08:12:36,378 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8409125169384981469/junit1099280345299897388/roboLog.log was sucessfully saved
+2015-12-07 08:12:36,378 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,667 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 11:45:44,669 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,671 INFO c.n.j.m.SaveService [main] the file does not exist, it will be created
+2015-12-07 11:45:44,676 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was created
+2015-12-07 11:45:44,679 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,679 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,680 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 11:45:44,680 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,680 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log will be rewrited
+2015-12-07 11:45:44,680 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,680 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,680 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 11:45:44,681 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,681 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log will be rewrited
+2015-12-07 11:45:44,681 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,681 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,681 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 11:45:44,682 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 3; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,682 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log will be rewrited
+2015-12-07 11:45:44,683 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,683 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,683 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 11:45:44,684 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,684 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log will be rewrited
+2015-12-07 11:45:44,684 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,684 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,684 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 11:45:44,685 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,685 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log will be rewrited
+2015-12-07 11:45:44,685 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,686 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:45:44,686 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 11:45:44,686 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 0; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127)
+2015-12-07 11:45:44,686 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log will be rewrited
+2015-12-07 11:45:44,687 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit8970651442522070636/junit7564633920410990127/roboLog.log was sucessfully saved
+2015-12-07 11:45:44,687 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,331 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 11:47:04,332 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,334 INFO c.n.j.m.SaveService [main] the file does not exist, it will be created
+2015-12-07 11:47:04,339 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was created
+2015-12-07 11:47:04,342 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,342 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,342 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 11:47:04,343 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 0, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,343 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log will be rewrited
+2015-12-07 11:47:04,343 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,343 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,344 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 11:47:04,344 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,344 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log will be rewrited
+2015-12-07 11:47:04,345 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,345 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,345 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 11:47:04,345 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 3; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,345 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log will be rewrited
+2015-12-07 11:47:04,345 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,346 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,346 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 11:47:04,346 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 2; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,346 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log will be rewrited
+2015-12-07 11:47:04,346 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,346 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,347 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 11:47:04,347 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 1; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,347 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log will be rewrited
+2015-12-07 11:47:04,347 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,348 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:04,348 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3
+2015-12-07 11:47:04,348 TRACE c.n.j.m.SaveService [main] entry params(xAxis= 0; yAxis= 1, /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685)
+2015-12-07 11:47:04,348 WARN c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log will be rewrited
+2015-12-07 11:47:04,348 INFO c.n.j.m.SaveService [main] file /var/folders/45/jbb9wdxj3_n6knyk2px0n2z80000gn/T/junit3667241378274055868/junit2027316289774399685/roboLog.log was sucessfully saved
+2015-12-07 11:47:04,349 TRACE c.n.j.m.SaveService [main] exit
+2015-12-07 11:47:15,688 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-07 11:47:15,699 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-07 11:47:15,699 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-07 11:47:15,699 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-07 11:47:15,700 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-07 11:47:15,700 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-07 11:47:15,700 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3

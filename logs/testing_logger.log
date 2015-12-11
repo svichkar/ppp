@@ -1,0 +1,8 @@
+2015-11-29 09:59:36,630 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 09:59:36,631 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 09:59:36,632 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 09:59:36,632 TRACE c.n.l.Log4Jexperiments [main] end of the application
+2015-11-29 10:00:31,476 DEBUG c.n.l.Log4Jexperiments [main] debug info
+2015-11-29 10:00:31,477 TRACE c.n.l.Log4Jexperiments [main] start of the application
+2015-11-29 10:00:31,477 ERROR c.n.l.Log4Jexperiments [main] AH OH, UH
+2015-11-29 10:00:31,477 TRACE c.n.l.Log4Jexperiments [main] end of the application

@@ -49,8 +49,8 @@ public class FileSaver implements Save {
 			}
 
 			// 3) write the text in to the file
-			Files.write(path, textSave.getBytes(),
-					StandardOpenOption.TRUNCATE_EXISTING);
+			Files.write(path, (textSave + "\r\n").getBytes(),
+					StandardOpenOption.APPEND);
 
 		} catch (IOException e) {
 			throw new RuntimeException(e);

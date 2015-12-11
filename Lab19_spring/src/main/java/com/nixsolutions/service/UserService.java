@@ -4,7 +4,7 @@ import com.nixsolutions.entity.User;
 
 import java.util.List;
 
-public interface UserBo {
+public interface UserService {
 	public void create(User user);
 
 	public void update(User user);

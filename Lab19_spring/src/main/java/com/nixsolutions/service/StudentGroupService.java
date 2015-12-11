@@ -4,7 +4,7 @@ import com.nixsolutions.entity.StudentGroup;
 
 import java.util.List;
 
-public interface StudentGroupBo {
+public interface StudentGroupService {
 
 	
 	public void create(StudentGroup studentGroup);

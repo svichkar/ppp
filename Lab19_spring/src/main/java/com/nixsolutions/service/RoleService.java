@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.nixsolutions.entity.Role;
 
-public interface RoleBo {
+public interface RoleService {
 	public void create(Role role);
 
 	public void update(Role role);

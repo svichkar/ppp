@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Term;
 import java.util.List;
 
 
-public interface SubjectBo {
+public interface SubjectService {
 	public void create(Subject subject);
 
 	public void update(Subject subject);

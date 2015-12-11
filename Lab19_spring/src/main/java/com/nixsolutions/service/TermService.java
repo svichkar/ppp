@@ -4,7 +4,7 @@ import com.nixsolutions.entity.Term;
 
 import java.util.List;
 
-public interface TermBo {
+public interface TermService {
 	public void create(Term term);
 
 	public void update(Term term);

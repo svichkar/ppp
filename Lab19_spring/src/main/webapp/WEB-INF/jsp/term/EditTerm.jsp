@@ -9,7 +9,7 @@
 		<form action="editTerm.do" method="post">
 		<b>Alias:</b><br>
 		<input type="text" name="alias" value="${term.alias}"><br>	
-		<input type="hidden" name="aliasOld" value="${term.alias}"><br>	
+		<input type="hidden" name="termId" value="${term.termId}"><br>	
 		<p>
 				<input type="submit" value="Save">
 			</p>

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.nixsolutions.dao.SubjectDao;
 import com.nixsolutions.entity.Subject;
 import com.nixsolutions.entity.Term;
-import com.nixsolutions.service.SubjectBo;
+import com.nixsolutions.service.SubjectService;
 
 @Service
-public class SubjectBoImpl implements SubjectBo {
+public class SubjectServiceImpl implements SubjectService {
 
 	@Autowired
 	private SubjectDao subjectDao;

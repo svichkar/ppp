@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.entity.Role;
-import com.nixsolutions.service.RoleBo;
+import com.nixsolutions.service.RoleService;
 
 @Service
-public class RoleBoImpl implements RoleBo {
+public class RoleServiceImpl implements RoleService {
 
 	@Autowired
 	private RoleDao roleDao;

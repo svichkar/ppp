@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.StatusDao;
 import com.nixsolutions.entity.Status;
-import com.nixsolutions.service.StatusBo;
+import com.nixsolutions.service.StatusService;
 
 @Service
-public class StatusBoImpl implements StatusBo {
+public class StatusServiceImpl implements StatusService {
 
 	@Autowired
 	private StatusDao statusDao;

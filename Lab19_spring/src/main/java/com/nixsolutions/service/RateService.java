@@ -4,7 +4,7 @@ import com.nixsolutions.entity.Rate;
 
 import java.util.List;
 
-public interface RateBo {
+public interface RateService {
 	
 	public void create(Rate rate);
 	

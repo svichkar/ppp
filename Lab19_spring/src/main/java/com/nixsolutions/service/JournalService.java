@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Subject;
 
 import java.util.List;
 
-public interface JournalBo {
+public interface JournalService {
 
 	public void create(Journal journal);
 

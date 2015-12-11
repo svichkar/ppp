@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.RateDao;
 import com.nixsolutions.entity.Rate;
-import com.nixsolutions.service.RateBo;
+import com.nixsolutions.service.RateService;
 
 @Service
-public class RateBoImpl implements RateBo {
+public class RateServiceImpl implements RateService {
 	
 	@Autowired
 	private RateDao rateDao;

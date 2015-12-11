@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.StudentGroupDao;
 import com.nixsolutions.entity.StudentGroup;
-import com.nixsolutions.service.StudentGroupBo;
+import com.nixsolutions.service.StudentGroupService;
 
 @Service
-public class StudentGroupBoImpl implements StudentGroupBo {
+public class StudentGroupServiceImpl implements StudentGroupService {
 
 	@Autowired
 	private StudentGroupDao studentGroupDao;

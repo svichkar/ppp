@@ -9,10 +9,10 @@ import com.nixsolutions.dao.JournalDao;
 import com.nixsolutions.entity.Journal;
 import com.nixsolutions.entity.Student;
 import com.nixsolutions.entity.Subject;
-import com.nixsolutions.service.JournalBo;
+import com.nixsolutions.service.JournalService;
 
 @Service
-public class JournalBoImpl implements JournalBo {
+public class JournalServiceImpl implements JournalService {
 	
 	@Autowired
 	private JournalDao journalDao;

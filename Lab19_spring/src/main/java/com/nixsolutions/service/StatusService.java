@@ -4,7 +4,7 @@ import com.nixsolutions.entity.Status;
 
 import java.util.List;
 
-public interface StatusBo {
+public interface StatusService {
 	public void create(Status status);
 
 	public void update(Status status);

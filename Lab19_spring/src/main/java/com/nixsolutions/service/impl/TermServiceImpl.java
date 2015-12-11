@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.TermDao;
 import com.nixsolutions.entity.Term;
-import com.nixsolutions.service.TermBo;
+import com.nixsolutions.service.TermService;
 
 @Service
-public class TermBoImpl implements TermBo {
+public class TermServiceImpl implements TermService {
 
 	@Autowired
 	private TermDao termDao;

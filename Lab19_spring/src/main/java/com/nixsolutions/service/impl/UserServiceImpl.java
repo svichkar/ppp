@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
-import com.nixsolutions.service.UserBo;
+import com.nixsolutions.service.UserService;
 
 @Service
-public class UserBoImpl implements UserBo {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;

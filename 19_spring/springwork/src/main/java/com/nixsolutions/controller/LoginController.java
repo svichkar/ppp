@@ -16,7 +16,7 @@ public class LoginController {
 	private UserService userService;
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(@RequestParam(value = "login") String login, @RequestParam("password") String password,
+	public String login(@RequestParam(value = "j_username") String login, @RequestParam("j_password") String password,
 			Model model) {
 		if (userService.isUserValid(login, password)) {
 			model.addAttribute("login", login);

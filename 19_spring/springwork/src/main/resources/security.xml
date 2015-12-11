@@ -1,0 +1,27 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+<http>
+   <intercept-url pattern="/springwork/index.jsp" access="permitAll"/>
+   <intercept-url pattern="/springwork/login.do" access="permitAll"/>  
+   <intercept-url pattern="/springwork/userPage.jsp" access="hasRole('ROLE_USER')"/>
+   <intercept-url pattern="/springwork/*" access="permitAll"/>
+   <intercept-url pattern="/springwork/*" access="hasRole('ROLE_ADMIN')"/> 
+   <form-login login-page="/springwork/index.jsp" default-target-url="/springwork/login.do" authentication-failure-url="/logout.html"/> 
+   <logout logout-url="/logout.html" logout-success-url="/logout.html"/> 
+   <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/> 
+   <remember-me/> 
+</http> 
+  
+<authentication-manager> 
+   <authentication-provider> 
+      <user-service> 
+         <user name="KennySmiles" password="password" authorities="ROLE_ADMIN"/>    
+      </user-service> 
+   </authentication-provider> 
+</authentication-manager> 
+</beans:beans> 

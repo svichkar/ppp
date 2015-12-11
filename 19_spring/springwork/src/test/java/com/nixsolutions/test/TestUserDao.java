@@ -18,29 +18,34 @@ import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.nixsolutions.dao.DAOFactory;
 import com.nixsolutions.dao.RoleDAO;
 import com.nixsolutions.dao.UserDAO;
-import com.nixsolutions.dao.impl.DAOFactoryImpl;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:spring-test.xml")
 public class TestUserDao extends DBTestCase {
 
 	public static Logger LOG = LogManager.getLogger(TestUserDao.class.getName());
-	protected DAOFactory daoFactory;
+	@Autowired
 	private UserDAO userDao;
+	@Autowired
 	private RoleDAO roleDao;
 	private JdbcDatabaseTester tester;
 
 	@Override
 	protected IDataSet getDataSet() throws Exception {
-		return new FlatXmlDataSetBuilder().setColumnSensing(true).build(new FileInputStream("src/test/resources/User/User.xml"));
+		return new FlatXmlDataSetBuilder().setColumnSensing(true)
+				.build(new FileInputStream("src/test/resources/User/User.xml"));
 	}
 
-	public TestUserDao(String name) throws ClassNotFoundException, SQLException {
-		super(name);
+	public TestUserDao() throws ClassNotFoundException, SQLException {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:mem:test;SCHEMA=sqllab");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa");
@@ -49,12 +54,8 @@ public class TestUserDao extends DBTestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		tester = new JdbcDatabaseTester("org.h2.Driver",
-				"jdbc:h2:mem:test;SCHEMA=sqllab", "sa", "");
+		tester = new JdbcDatabaseTester("org.h2.Driver", "jdbc:h2:mem:test;SCHEMA=sqllab", "sa", "");
 		tester.setDataSet(getDataSet());
-		daoFactory = new DAOFactoryImpl();
-		userDao = daoFactory.getUserDAO();
-		roleDao = daoFactory.getRoleDAO();
 	}
 
 	@Test
@@ -72,7 +73,7 @@ public class TestUserDao extends DBTestCase {
 		ITable expectedTable = expectedData.getTable("USER");
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
-	
+
 	@Test
 	public void testUpdate() throws Exception {
 		Role testRole = new Role("test");
@@ -90,7 +91,8 @@ public class TestUserDao extends DBTestCase {
 		ITable expectedTable = expectedData.getTable("USER");
 		Assertion.assertEquals(expectedTable, actualTable);
 	}
-	
+
+	@Test
 	public void testDelete() throws Exception {
 		Role testRole = new Role("test");
 		roleDao.createFrom(testRole);
@@ -110,13 +112,13 @@ public class TestUserDao extends DBTestCase {
 	}
 
 	@Override
-    protected DatabaseOperation getTearDownOperation() throws Exception {
-        return DatabaseOperation.DELETE_ALL;
-    }
-	
+	protected DatabaseOperation getTearDownOperation() throws Exception {
+		return DatabaseOperation.DELETE_ALL;
+	}
+
 	@Override
 	protected DatabaseOperation getSetUpOperation() throws Exception {
 		return DatabaseOperation.CLEAN_INSERT;
 	}
-	
+
 }

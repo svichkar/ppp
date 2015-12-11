@@ -1,4 +1,4 @@
-package com.nixsolutions.services.impl;
+package com.nixsolutions.service.impl;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import com.nixsolutions.dao.JournalDao;
 import com.nixsolutions.entity.Journal;
 import com.nixsolutions.entity.Student;
 import com.nixsolutions.entity.Subject;
-import com.nixsolutions.services.JournalBo;
+import com.nixsolutions.service.JournalBo;
 
 @Service
 public class JournalBoImpl implements JournalBo {

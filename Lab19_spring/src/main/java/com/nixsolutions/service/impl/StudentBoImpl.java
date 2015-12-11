@@ -1,53 +1,54 @@
-package com.nixsolutions.services.impl;
+package com.nixsolutions.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nixsolutions.dao.StudentDao;
 import com.nixsolutions.entity.Student;
 import com.nixsolutions.entity.StudentGroup;
-import com.nixsolutions.services.StudentBo;
+import com.nixsolutions.service.StudentBo;
 
+@Service
 public class StudentBoImpl implements StudentBo {
 
+	@Autowired
+	private StudentDao studentDao;
+	
 	@Override
 	public void create(Student student) {
-		// TODO Auto-generated method stub
-
+		studentDao.create(student);
 	}
 
 	@Override
 	public void update(Student student) {
-		// TODO Auto-generated method stub
-
+		studentDao.update(student);
 	}
 
 	@Override
 	public void delete(Student student) {
-		// TODO Auto-generated method stub
-
+		studentDao.delete(student);
 	}
 
 	@Override
 	public Student getByStudentId(int studentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return studentDao.getByStudentId(studentId);
 	}
 
 	@Override
 	public List<Student> getByStudentsByName(String firstName, String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		return studentDao.getByStudentsByName(firstName, lastName);
 	}
 
 	@Override
 	public List<Student> getStudentsByGroup(StudentGroup studentGroup) {
-		// TODO Auto-generated method stub
-		return null;
+		return studentDao.getStudentsByGroup(studentGroup);
 	}
 
 	@Override
 	public List<Student> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return studentDao.getAll();
 	}
 
 }

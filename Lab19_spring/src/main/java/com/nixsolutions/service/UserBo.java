@@ -1,4 +1,4 @@
-package com.nixsolutions.services;
+package com.nixsolutions.service;
 
 import com.nixsolutions.entity.User;
 

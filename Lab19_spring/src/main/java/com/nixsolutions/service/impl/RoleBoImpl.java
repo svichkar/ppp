@@ -1,4 +1,4 @@
-package com.nixsolutions.services.impl;
+package com.nixsolutions.service.impl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.entity.Role;
-import com.nixsolutions.services.RoleBo;
+import com.nixsolutions.service.RoleBo;
 
 @Service
 public class RoleBoImpl implements RoleBo {

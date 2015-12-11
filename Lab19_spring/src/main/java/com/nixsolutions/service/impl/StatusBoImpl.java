@@ -1,4 +1,4 @@
-package com.nixsolutions.services.impl;
+package com.nixsolutions.service.impl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.StatusDao;
 import com.nixsolutions.entity.Status;
-import com.nixsolutions.services.StatusBo;
+import com.nixsolutions.service.StatusBo;
 
 @Service
 public class StatusBoImpl implements StatusBo {

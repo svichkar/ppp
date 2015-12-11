@@ -1,4 +1,4 @@
-package com.nixsolutions.services.impl;
+package com.nixsolutions.service.impl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.RateDao;
 import com.nixsolutions.entity.Rate;
-import com.nixsolutions.services.RateBo;
+import com.nixsolutions.service.RateBo;
 
 @Service
 public class RateBoImpl implements RateBo {

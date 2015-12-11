@@ -1,53 +1,54 @@
-package com.nixsolutions.services.impl;
+package com.nixsolutions.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nixsolutions.dao.SubjectDao;
 import com.nixsolutions.entity.Subject;
 import com.nixsolutions.entity.Term;
-import com.nixsolutions.services.SubjectBo;
+import com.nixsolutions.service.SubjectBo;
 
+@Service
 public class SubjectBoImpl implements SubjectBo {
 
+	@Autowired
+	private SubjectDao subjectDao;
+	
 	@Override
 	public void create(Subject subject) {
-		// TODO Auto-generated method stub
-
+		subjectDao.create(subject);
 	}
 
 	@Override
 	public void update(Subject subject) {
-		// TODO Auto-generated method stub
-
+		subjectDao.update(subject);
 	}
 
 	@Override
 	public void delete(Subject subject) {
-		// TODO Auto-generated method stub
-
+		subjectDao.delete(subject);
 	}
 
 	@Override
 	public Subject getBySubjectId(int subjectId) {
-		// TODO Auto-generated method stub
-		return null;
+		return subjectDao.getBySubjectId(subjectId);
 	}
 
 	@Override
 	public List<Subject> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return subjectDao.getAll();
 	}
 
 	@Override
 	public List<Subject> getBySubjectName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return subjectDao.getBySubjectName(name);
 	}
 
 	@Override
 	public List<Subject> getSubjectsByTerm(Term term) {
-		// TODO Auto-generated method stub
-		return null;
+		return subjectDao.getSubjectsByTerm(term);
 	}
 
 }

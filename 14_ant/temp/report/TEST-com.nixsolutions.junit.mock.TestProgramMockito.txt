@@ -1,8 +1,0 @@
-Testsuite: com.nixsolutions.junit.mock.TestProgramMockito
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.362 sec
-------------- Standard Error -----------------
-ERROR StatusLogger No log4j2 configuration file found. Using default configuration: logging only errors to the console.
-------------- ---------------- ---------------
-
-Testcase: shouldTriggerCorrectRobotCommands took 0.011 sec
-Testcase: shouldIgnoreIncorrectCommands took 0.001 sec

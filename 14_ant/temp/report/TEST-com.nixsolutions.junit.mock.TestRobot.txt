@@ -1,7 +1,0 @@
-Testsuite: com.nixsolutions.junit.mock.TestRobot
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.301 sec
-------------- Standard Error -----------------
-ERROR StatusLogger No log4j2 configuration file found. Using default configuration: logging only errors to the console.
-------------- ---------------- ---------------
-
-Testcase: sholudHaveaLogFileWithRightCoordinates took 0.286 sec

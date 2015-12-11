@@ -29,7 +29,6 @@
 		<mkdir dir="${build.dir}" description="temporary dir" />
 		<mkdir dir="${build.java}" description="for compiled programm classes" />
 		<mkdir dir="${build.test}" description="for compiled test classes" />
-		<mkdir dir="${build.javadoc}" description="for compiled test classes" />
 		<mkdir dir="${report.dir}" description="for junit report" />
 		<mkdir dir="${build.jar}" description="for jar file" />
 
@@ -88,9 +87,10 @@
 	</target>
 
 	<target name="javadoc">
-		<echo>${TIME.NOW} Making JavaDoc from source</echo>
-		<javadoc sourcepath="${src.dir}" destdir="${build.javadoc}" classpathref="class.path">
-		</javadoc>
+			<echo>${TIME.NOW} Making JavaDoc from source</echo>
+			<mkdir dir="${build.javadoc}" />
+			<javadoc sourcepath="${src.dir}" destdir="${build.javadoc}" classpathref="class.path">
+			</javadoc>
 	</target>
 
 	<target name="zip">

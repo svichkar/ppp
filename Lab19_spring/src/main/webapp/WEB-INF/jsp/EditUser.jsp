@@ -8,7 +8,7 @@
 		<h2>User:</h2>
 		<form action="editUser.do" method="post">
 		<b>Login:</b><br>
-		<input type="hidden" name="loginPrevious" value="${user.userName}"><br>
+		<input type="hidden" name="userId" value="${user.userId}"><br>
 		<input type="text" name="login" value="${user.userName}"><br>
 		<b>Password:</b><br>
 		<input type="text" name="password" value="${user.password}"><br>

@@ -9,9 +9,9 @@
 <h3>Search by student</h3>
 <form action="Students.do" method="post">
   First Name:
-  <input type="text" name="firstName">
+  <input type="text" name="firstName" value="">
   Last Name:
-  <input type="text" name="lastName">
+  <input type="text" name="lastName" value="">
   <input type="submit" value="Search" style="width: 100px;">
  </form>
  <h3>Search by student group</h3>

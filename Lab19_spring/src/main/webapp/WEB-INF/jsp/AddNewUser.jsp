@@ -15,7 +15,7 @@
 		<b>Role:</b><br>
 		<select name="role">
 		<option>Select role</option>
-		<option value="Admin">Administrator</option>
+		<option value="Administrator">Administrator</option>
 		<option value="Manager">Manager</option>
 		<option value="Teacher">Teacher</option>
 		<option value="Student">Student</option>

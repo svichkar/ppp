@@ -14,11 +14,11 @@ import com.nixsolutions.service.StudentGroupService;
 public class StudentGroupController {
 
 	@Autowired
-	private StudentGroupService studentGroupBo;
+	private StudentGroupService studentGroupService;
 	
 	@RequestMapping(value = "/StudentGroups.do", method = { RequestMethod.GET, RequestMethod.POST })
 	protected String studentGroupGet(Model model) {
-		model.addAttribute("studentGroups", studentGroupBo.getAll());
+		model.addAttribute("studentGroups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/studentGroup/StudentGroups.jsp";
 	}
 
@@ -31,14 +31,14 @@ public class StudentGroupController {
 	protected String addNewStudentGroupPost(@ModelAttribute("studentGroupName") String studentGroupName, Model model) {
 		StudentGroup studentGroup = new StudentGroup();
 		studentGroup.setStudentGroupName(studentGroupName);
-		studentGroupBo.create(studentGroup);
-		model.addAttribute("studentGroups", studentGroupBo.getAll());
+		studentGroupService.create(studentGroup);
+		model.addAttribute("studentGroups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/studentGroup/StudentGroup.jsp";
 	}
 
 	@RequestMapping(value = "/editStudentGroup.do", method = RequestMethod.GET)
 	protected String editStudentGroupGet(@ModelAttribute("studentGroupId") String studentGroupId, Model model) {
-		StudentGroup studentGroup = studentGroupBo.getByStudentGroupId(Integer.parseInt(studentGroupId));
+		StudentGroup studentGroup = studentGroupService.getByStudentGroupId(Integer.parseInt(studentGroupId));
 		model.addAttribute("studentGroup", studentGroup);
 		return "/WEB-INF/jsp/studentGroup/EditStudentGroup.jsp";
 	}
@@ -46,17 +46,17 @@ public class StudentGroupController {
 	@RequestMapping(value = "/editStudentGroup.do", method = RequestMethod.POST)
 	protected String editStudentGroupPost(@ModelAttribute("studentGroupId") String studentGroupId,
 			@ModelAttribute("studentGroupName") String studentGroupName, Model model) {
-		StudentGroup studentGroup = studentGroupBo.getByStudentGroupId(Integer.parseInt(studentGroupId));
+		StudentGroup studentGroup = studentGroupService.getByStudentGroupId(Integer.parseInt(studentGroupId));
 		studentGroup.setStudentGroupName(studentGroupName);
-		studentGroupBo.update(studentGroup);
-		model.addAttribute("studentGroups", studentGroupBo.getAll());
+		studentGroupService.update(studentGroup);
+		model.addAttribute("studentGroups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/studentGroup/StudentGroup.jsp";
 	}
 
 	@RequestMapping(value = "/deleteStudentGroup.do", method = RequestMethod.POST)
 	protected String deleteStudentGroupPost(@ModelAttribute("studentGroupId") String studentGroupId, Model model) {
-		studentGroupBo.delete(studentGroupBo.getByStudentGroupId(Integer.parseInt(studentGroupId)));
-		model.addAttribute("studentGroups", studentGroupBo.getAll());
+		studentGroupService.delete(studentGroupService.getByStudentGroupId(Integer.parseInt(studentGroupId)));
+		model.addAttribute("studentGroups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/studentGroup/StudentGroup.jsp";
 	}
 }

@@ -13,11 +13,11 @@ import com.nixsolutions.service.TermService;
 @Controller
 public class TermController {
 	@Autowired
-	private TermService termBo;
+	private TermService termService;
 
 	@RequestMapping(value = "/Terms.do", method = { RequestMethod.GET, RequestMethod.POST })
 	protected String termGet(Model model) {
-		model.addAttribute("terms", termBo.getAll());
+		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/term/Terms.jsp";
 	}
 
@@ -30,14 +30,14 @@ public class TermController {
 	protected String addNewTermPost(@ModelAttribute("alias") String alias, Model model) {
 		Term term = new Term();
 		term.setAlias(alias);
-		termBo.create(term);
-		model.addAttribute("terms", termBo.getAll());
+		termService.create(term);
+		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/term/Term.jsp";
 	}
 
 	@RequestMapping(value = "/editTerm.do", method = RequestMethod.GET)
 	protected String editTermGet(@ModelAttribute("termId") String termId, Model model) {
-		Term term = termBo.getByTermId(Integer.parseInt(termId));
+		Term term = termService.getByTermId(Integer.parseInt(termId));
 		model.addAttribute("term", term);
 		return "/WEB-INF/jsp/term/EditTerm.jsp";
 	}
@@ -45,17 +45,17 @@ public class TermController {
 	@RequestMapping(value = "/editTerm.do", method = RequestMethod.POST)
 	protected String editTermPost(@ModelAttribute("termId") String termId,
 			@ModelAttribute("alias") String alias, Model model) {
-		Term term = termBo.getByTermId(Integer.parseInt(termId));
+		Term term = termService.getByTermId(Integer.parseInt(termId));
 		term.setAlias(alias);
-		termBo.update(term);
-		model.addAttribute("terms", termBo.getAll());
+		termService.update(term);
+		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/term/Term.jsp";
 	}
 
 	@RequestMapping(value = "/deleteTerm.do", method = RequestMethod.POST)
 	protected String deleteTermPost(@ModelAttribute("termId") String termId, Model model) {
-		termBo.delete(termBo.getByTermId(Integer.parseInt(termId)));
-		model.addAttribute("terms", termBo.getAll());
+		termService.delete(termService.getByTermId(Integer.parseInt(termId)));
+		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/term/Term.jsp";
 	}
 }

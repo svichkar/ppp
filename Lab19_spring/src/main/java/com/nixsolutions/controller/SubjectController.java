@@ -14,13 +14,13 @@ import com.nixsolutions.service.TermService;
 @Controller
 public class SubjectController {
 	@Autowired
-	private SubjectService subjectBo;
+	private SubjectService subjectService;
 	@Autowired
-	private TermService termBo;
+	private TermService termService;
 
 	@RequestMapping(value = "/Subjects.do", method = RequestMethod.GET)
 	protected String subjectGet(Model model) {
-		model.addAttribute("subjects", subjectBo.getAll());
+		model.addAttribute("subjects", subjectService.getAll());
 		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}
 
@@ -28,9 +28,9 @@ public class SubjectController {
 	protected String subjectPost(@ModelAttribute("searchType") String searchType,
 			@ModelAttribute("searchQuery") String searchQuery, Model model) {
 		if (searchType.equals("subject")) {
-			model.addAttribute("subjects", subjectBo.getBySubjectName(searchQuery));
+			model.addAttribute("subjects", subjectService.getBySubjectName(searchQuery));
 		} else {
-			model.addAttribute("subjects", subjectBo.getSubjectsByTerm(termBo.getByTermAlias(searchQuery)));
+			model.addAttribute("subjects", subjectService.getSubjectsByTerm(termService.getByTermAlias(searchQuery)));
 		}
 		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}
@@ -45,15 +45,15 @@ public class SubjectController {
 			@ModelAttribute("term") String term, Model model) {
 		Subject subject = new Subject();
 		subject.setName(subjectName);
-		subject.setTerm(termBo.getByTermAlias(term));
-		subjectBo.create(subject);
-		model.addAttribute("subjects", subjectBo.getAll());
+		subject.setTerm(termService.getByTermAlias(term));
+		subjectService.create(subject);
+		model.addAttribute("subjects", subjectService.getAll());
 		return "/WEB-INF/jsp/subject/Subject.jsp";
 	}
 
 	@RequestMapping(value = "/editSubject.do", method = RequestMethod.GET)
 	protected String editSubjectGet(@ModelAttribute("subjectId") String subjectId, Model model) {
-		Subject subject = subjectBo.getBySubjectId(Integer.parseInt(subjectId));
+		Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectId));
 		model.addAttribute("subject", subject);
 		return "/WEB-INF/jsp/subject/EditSubject.jsp";
 	}
@@ -62,18 +62,18 @@ public class SubjectController {
 	protected String editSubjectPost(@ModelAttribute("subjectId") String subjectId, 
 			@ModelAttribute("subject") String subjectName,
 			@ModelAttribute("term") String termAlias, Model model) {
-		Subject subject = subjectBo.getBySubjectId(Integer.parseInt(subjectId));
+		Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectId));
 		subject.setName(subjectName);
-		subject.setTerm(termBo.getByTermAlias(termAlias));
-		subjectBo.update(subject);
-		model.addAttribute("subjects", subjectBo.getAll());
+		subject.setTerm(termService.getByTermAlias(termAlias));
+		subjectService.update(subject);
+		model.addAttribute("subjects", subjectService.getAll());
 		return "/WEB-INF/jsp/subject/Subject.jsp";
 	}
 
 	@RequestMapping(value = "/deleteSubject.do", method = RequestMethod.POST)
 	protected String deleteSubjectPost(@ModelAttribute("subjectId") String subjectId, Model model) {
-		subjectBo.delete(subjectBo.getBySubjectId(Integer.parseInt(subjectId)));
-		model.addAttribute("subjects", subjectBo.getAll());
+		subjectService.delete(subjectService.getBySubjectId(Integer.parseInt(subjectId)));
+		model.addAttribute("subjects", subjectService.getAll());
 		return "/WEB-INF/jsp/subject/Subject.jsp";
 	}
 }

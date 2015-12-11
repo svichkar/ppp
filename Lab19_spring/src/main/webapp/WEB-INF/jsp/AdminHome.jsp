@@ -23,11 +23,11 @@
 				<td>${user.role.roleName}</td>
 				<td>
 						<form action="edirUser.do" method="get">
-							<input type="hidden" name="user" value="${user.userName}">
+							<input type="hidden" name="userId" value="${user.userId}">
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 						</form>
-						<form action="delete.do" method="post">
-							<input type="hidden" name="user" value="${user.userName}"> 
+						<form action="deleteUser.do" method="post">
+							<input type="hidden" name="userId" value="${user.userId}"> 
 							<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
 						</form>
 					</td>

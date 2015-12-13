@@ -1,6 +1,5 @@
-package test.java.mock;
+package com.nixsolutions.second;
 
-import main.java.mock.Robot;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

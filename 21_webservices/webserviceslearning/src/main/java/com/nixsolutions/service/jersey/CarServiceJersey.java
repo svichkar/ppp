@@ -8,9 +8,11 @@ import javax.jws.WebService;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,9 @@ import com.nixsolutions.hibernate.entity.Car;
 import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.service.CarService;
 
-//@Singleton
+@Singleton
 @Component
-@Path("/services/car")
+@Path("/car")
 public class CarServiceJersey {
 
 	@Autowired
@@ -30,9 +32,8 @@ public class CarServiceJersey {
 	
 	@GET
 	@Path("/getAll")
-	@Produces({"application/xml"})
-	public Response getAllCars() {
-		
-		return Response.status(200).entity(carDao.getAll()).build(); 
+	@Produces({MediaType.TEXT_PLAIN})
+	public List<Car> getAllCars() {
+		return carDao.getAll(); 
 	}
 }

@@ -11,7 +11,7 @@
 	<div align="center">
 		<p><c:out value="${title}" /></p>
 		<div class="head1"></div>
-		<form action="customerPost.do" method="POST">
+		<form action="<c:url value="/admin/customerPost.do"></c:url>" method="POST">
 			<c:if test="${action=='edit'}">
 			<p>Customer ID: </p><input type="text" name="id" value="${customer.customerId}" /><br>			
 			<div class="buffer"></div>
@@ -30,6 +30,7 @@
 			</select><br>
 			<div class="buffer"></div>
 			<input type="hidden" name="target" value="Customers" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<input type="submit" value="Submit" class="input_add"/>
 		</form>
 	</div>

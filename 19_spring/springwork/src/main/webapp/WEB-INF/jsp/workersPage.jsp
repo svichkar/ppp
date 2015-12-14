@@ -27,8 +27,8 @@
 					<form method="POST">
 						<input type="hidden" name="worker_id" value="${item.workerId}">
 						<input type="hidden" name="target" value="Workers" />
-						<input type="submit" name="action" formaction="editWorker.do" value="Edit" class="input_edit">
-						<input type="submit" name="action" formaction="deleteWorker.do" value="Delete" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/editWorker.do"></c:url>" value="Edit" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/deleteWorker.do"></c:url>" value="Delete" class="input_edit">
 					</form>
 				</td>
 			</tr>
@@ -36,7 +36,7 @@
 		<tr>
 			<td colspan=6>
 				<div align="center">
-					<form action="addWorker.do" method="GET">
+					<form action="<c:url value="/admin/addWorker.do"></c:url>" method="GET">
 						<input type="submit" value="Add new worker" class="input_add">
 					</form>
 				</div>

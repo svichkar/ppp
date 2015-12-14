@@ -33,7 +33,7 @@ public class OrderWorkerController {
 	@Autowired
 	private OrderStatusService orderStatusService;
 
-	@RequestMapping(value = "/addOrderWorker.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addOrderWorker.do", method = RequestMethod.GET)
 	public String addOrderWorker(@ModelAttribute(value = "order_id") long orderId, Model model) {
 		model.addAttribute("action", "add");
 		model.addAttribute("workers", workerService.getAllWorkers());
@@ -44,7 +44,7 @@ public class OrderWorkerController {
 		return "/WEB-INF/jsp/orderWorker.jsp";
 	}
 
-	@RequestMapping(value = "/editOrderWorker.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/editOrderWorker.do", method = RequestMethod.POST)
 	public String editOrderWorker(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "order_id") long orderId, @ModelAttribute(value = "worker_id") int workerId,
 			Model model) {
@@ -54,7 +54,7 @@ public class OrderWorkerController {
 		return "/WEB-INF/jsp/orderWorker.jsp";
 	}
 
-	@RequestMapping(value = "/deleteOrderWorker.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteOrderWorker.do", method = RequestMethod.POST)
 	public String deleteOrderWorker(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "order_id") long orderId, @ModelAttribute(value = "worker_id") int workerId,
 			Model model) {
@@ -68,7 +68,7 @@ public class OrderWorkerController {
 		return "/WEB-INF/jsp/order.jsp";
 	}
 
-	@RequestMapping(value = "/orderWorkerPost.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/orderWorkerPost.do", method = RequestMethod.POST)
 	public String processOrderWorker(@ModelAttribute(value = "order_id") String orderId,
 			@ModelAttribute(value = "worker_id") String workerId,
 			@ModelAttribute(value = "is_completed") String isCompleted, Model model) {

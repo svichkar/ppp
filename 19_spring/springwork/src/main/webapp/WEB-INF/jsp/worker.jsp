@@ -11,7 +11,7 @@
 	<div align="center">
 		<p><c:out value="${title}" /></p>
 		<div class="head1"></div>
-		<form action="workerPost.do" method="POST">
+		<form action="<c:url value="/admin/workerPost.do"></c:url>" method="POST">
 			<c:if test="${action=='edit'}">
 			<p>Worker ID: </p><input type="text" name="id" value="${worker.workerId}" /><br>			
 			<div class="buffer"></div>
@@ -42,6 +42,7 @@
 			</select><br>
 			<div class="buffer"></div>
 			<input type="hidden" name="target" value="Workers" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<input type="submit" value="Submit" class="input_add"/>
 		</form>
 	</div>

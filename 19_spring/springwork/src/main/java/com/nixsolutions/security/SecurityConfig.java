@@ -3,16 +3,16 @@ package com.nixsolutions.security;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.stereotype.Component;
 
-//@EnableWebSecurity
-//@Configuration
-//@ComponentScan
+@EnableWebSecurity
+@Configuration
+@Component
 public class SecurityConfig 
 extends WebSecurityConfigurerAdapter 
 {
@@ -21,7 +21,7 @@ extends WebSecurityConfigurerAdapter
 	DataSource dataSource;
 	
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("KennySmiles").password("password").roles("ADMIN");
         auth.inMemoryAuthentication().withUser("JohnHughes").password("password").roles("USER");
         //auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("SELECT * FROM sqllab.user WHERE user_login = ?").authoritiesByUsernameQuery("SELECT * FROM sqllab.role WHERE role_id = ?");
@@ -31,27 +31,19 @@ extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.anyRequest()
-				.authenticated()
+				.antMatchers("/").permitAll()
+				.antMatchers("/userPage*", "/nav.do").access("hasRole('ROLE_USER')")
+				.antMatchers("/admin/*", "/nav.do").access("hasRole('ROLE_ADMIN')")
 				.and()
 			.formLogin()
-				.loginPage("/login.html")
-				.permitAll()
+				.loginPage("/")
+				.loginProcessingUrl("/j_spring_security_check")
+				.usernameParameter("login")
+				.passwordParameter("password")
+				.defaultSuccessUrl("/login.do")
 				.and()
-			.authorizeRequests()
-				.antMatchers("/nav.do")
-				.access("hasRole('ROLE_USER')")
+			.csrf()
 				.and()
-			.authorizeRequests()
-				.antMatchers("/userPage*")
-				.access("hasRole('ROLE_USER')")
-				.and()
-			.authorizeRequests()
-				.antMatchers("/order*")
-				.access("hasRole('ROLE_ADMIN')")
-				.and()
-			
-			.logout()
-				.permitAll();
+			.exceptionHandling().accessDeniedPage("/");
 	}
 }

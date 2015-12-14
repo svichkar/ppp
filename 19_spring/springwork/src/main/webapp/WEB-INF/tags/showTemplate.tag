@@ -12,12 +12,13 @@
 		<div class="head1"></div>
 		<div id="nav_menu" align="center">
 			<div id="nav_elements">
-				<form method="POST" action="nav.do">
+				<form method="POST" action="<c:url value="/nav.do"></c:url>">
 					<input type="submit" name="target" value="Orders" class="nav_element">
 					<input type="submit" name="target" value="Cars" class="nav_element">
 					<input type="submit" name="target" value="Customers" class="nav_element">
 					<input type="submit" name="target" value="Parts" class="nav_element">
 					<input type="submit" name="target" value="Workers" class="nav_element">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
 			</div>
 		</div>

@@ -19,13 +19,13 @@ public class PartController {
 	@Autowired
 	private OrderPartService orderPartService;
 
-	@RequestMapping(value = "/addPart.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addPart.do", method = RequestMethod.GET)
 	public String addPart(Model model) {
 		model.addAttribute("action", "add");
 		return "/WEB-INF/jsp/part.jsp";
 	}
 
-	@RequestMapping(value = "/editPart.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/editPart.do", method = RequestMethod.POST)
 	public String editPart(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "part_id") long partId, Model model) {
 		model.addAttribute("part", partService.getPartById(partId));
@@ -33,7 +33,7 @@ public class PartController {
 		return "/WEB-INF/jsp/part.jsp";
 	}
 
-	@RequestMapping(value = "/deletePart.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deletePart.do", method = RequestMethod.POST)
 	public String deletePart(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "part_id") long partId, Model model) {
 		Part part = partService.getPartById(partId);
@@ -43,7 +43,7 @@ public class PartController {
 		return "/nav.do";
 	}
 
-	@RequestMapping(value = "/partPost.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/partPost.do", method = RequestMethod.POST)
 	public String processPart(@ModelAttribute(value = "id") String partId,
 			@ModelAttribute(value = "part_name") String partName, @ModelAttribute(value = "vendor") String partVendor,
 			@ModelAttribute(value = "amount") String amount, Model model) {

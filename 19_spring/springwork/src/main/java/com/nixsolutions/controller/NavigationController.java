@@ -33,7 +33,7 @@ public class NavigationController {
 	private WorkerService workerService;
 
 	@RequestMapping(value = "/nav.do", method = RequestMethod.GET)
-	public String initialNavigation(@RequestParam(value = "login") String login, Model model) {
+	public String initialNavigation(@ModelAttribute(value = "login") String login, Model model) {
 		String role = userService.getUserRole(login);
 		if (role.equals("Administrator")) {
 			model.addAttribute("orders", orderService.getAllOrdersAsBeans());

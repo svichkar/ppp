@@ -11,7 +11,7 @@
 	<div align="center">
 		<p><c:out value="${title}" /></p>
 		<div class="head1"></div>
-		<form action="orderPartPost.do" method="POST">
+		<form action="<c:url value="/admin/orderPartPost.do"></c:url>" method="POST">
 			<input type="hidden" name="order_id" value="${part.orderId}" />
 			<p>Part Name: </p>
 			<select name="part_id">
@@ -22,6 +22,7 @@
 			<div class="buffer"></div>
 			<p>Used Amount: </p>
 			<input type="text" name="used_amount" value="${part.usedAmount}" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<div class="buffer"></div>
 			<input type="submit" value="Submit" class="input_add"/>
 		</form>

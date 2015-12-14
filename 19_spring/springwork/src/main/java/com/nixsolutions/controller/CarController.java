@@ -31,14 +31,14 @@ public class CarController {
 	@Autowired
 	private OrderPartService orderPartService;
 
-	@RequestMapping(value = "/addCar.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addCar.do", method = RequestMethod.GET)
 	public String addCar(Model model) {
 		model.addAttribute("action", "add");
 		model.addAttribute("customers", customerService.getAllCustomers());
 		return "/WEB-INF/jsp/car.jsp";
 	}
 
-	@RequestMapping(value = "/editCar.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/editCar.do", method = RequestMethod.POST)
 	public String editCar(@ModelAttribute(value = "action") String action, @ModelAttribute(value = "car_id") int carId,
 			Model model) {
 		model.addAttribute("car", carService.getCarById(carId));
@@ -47,7 +47,7 @@ public class CarController {
 		return "/WEB-INF/jsp/car.jsp";
 	}
 
-	@RequestMapping(value = "/deleteCar.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteCar.do", method = RequestMethod.POST)
 	public String deleteCar(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "car_id") int carId, Model model) {
 		Car car = carService.getCarById(carId);
@@ -63,7 +63,7 @@ public class CarController {
 		return "/nav.do";
 	}
 
-	@RequestMapping(value = "/carPost.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/carPost.do", method = RequestMethod.POST)
 	public String processCar(@ModelAttribute(value = "id") String carId,
 			@ModelAttribute(value = "description") String carDescription,
 			@ModelAttribute(value = "model") String carModel, @ModelAttribute(value = "vin") String carVin,

@@ -33,8 +33,9 @@
 									<input type="hidden" name="order_id"
 										value="${partItem.orderId}" /> <input type="hidden"
 										name="part_id" value="${partItem.partId}" /> <input
-										type="submit" name="action" formaction="editOrderPart.do" value="Edit" /> <input
-										type="submit" name="action" formaction="deleteOrderPart.do" value="Delete" />
+										type="submit" name="action" formaction="<c:url value="/admin/editOrderPart.do"></c:url>" value="Edit" /> <input
+										type="submit" name="action" formaction="<c:url value="/admin/deleteOrderPart.do"></c:url>" value="Delete" />
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								</form>
 							</td>
 						</tr>
@@ -44,7 +45,7 @@
 							<div align="center">
 								<form>
 									<input type="hidden" name="order_id" value="${order.orderId}" /> <input
-										type="submit" formaction="addOrderPart.do" formmethod="GET"
+										type="submit" formaction="<c:url value="/admin/addOrderPart.do"></c:url>" formmethod="GET"
 										value="Add new part to order" class="input_add" />
 								</form>
 							</div>
@@ -54,7 +55,7 @@
 			</c:if>
 		</div>
 		<div class="third" id="center">
-			<form action="orderPost.do" method="POST">
+			<form action="<c:url value="/admin/orderPost.do"></c:url>" method="POST">
 				<c:if test="${action=='edit'}">
 					<p>Order ID:</p>
 					<input type="text" name="id" value="${order.orderId}" />
@@ -101,6 +102,7 @@
 					<br>
 					<div class="buffer"></div>
 				</c:if>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="hidden" name="target" value="Orders" /> <input
 					type="submit" value="Submit" class="input_add" />
 			</form>
@@ -125,9 +127,10 @@
 									<input type="hidden" name="order_id"
 										value="${workerItem.orderId}" /> <input type="hidden"
 										name="worker_id" value="${workerItem.workerId}" /> <input
-										type="submit" formaction="editOrderWorker.do" name="action"
+										type="submit" formaction="<c:url value="/admin/editOrderWorker.do"></c:url>" name="action"
 										value="Edit" /> <input type="submit"
-										formaction="deleteOrderWorker.do" name="action" value="Delete" />
+										formaction="<c:url value="/admin/deleteOrderWorker.do"></c:url>" name="action" value="Delete" />
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								</form>
 							</td>
 						</tr>
@@ -137,7 +140,7 @@
 							<div align="center">
 								<form>
 									<input type="hidden" name="order_id" value="${order.orderId}" /> <input
-										type="submit" formaction="addOrderWorker.do" formmethod="GET"
+										type="submit" formaction="<c:url value="/admin/addOrderWorker.do"></c:url>" formmethod="GET"
 										value="Add new worker to order" class="input_add" />
 								</form>
 							</div>

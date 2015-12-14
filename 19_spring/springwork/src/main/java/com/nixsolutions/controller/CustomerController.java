@@ -34,14 +34,14 @@ public class CustomerController {
 	@Autowired
 	private CarService carService;
 
-	@RequestMapping(value = "/addCustomer.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addCustomer.do", method = RequestMethod.GET)
 	public String addCustomer(Model model) {
 		model.addAttribute("action", "add");
 		model.addAttribute("users", userService.getUsersWithRoleUser());
 		return "/WEB-INF/jsp/customer.jsp";
 	}
 
-	@RequestMapping(value = "/editCustomer.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/editCustomer.do", method = RequestMethod.POST)
 	public String editCustomer(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "customer_id") int customerId, Model model) {
 		model.addAttribute("action", "edit");
@@ -50,7 +50,7 @@ public class CustomerController {
 		return "/WEB-INF/jsp/customer.jsp";
 	}
 
-	@RequestMapping(value = "/deleteCustomer.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteCustomer.do", method = RequestMethod.POST)
 	public String deleteCustomer(@ModelAttribute(value = "customer_id") int customerId, Model model) {
 		Customer customer = customerService.getCustomerById(customerId);
 		List<OrderInWork> orderList = orderService.getOrdersByCustomer(customer);
@@ -66,7 +66,7 @@ public class CustomerController {
 		return "/nav.do";
 	}
 
-	@RequestMapping(value = "/customerPost.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/customerPost.do", method = RequestMethod.POST)
 	public String processCustomer(@ModelAttribute(value = "id") String customerId,
 			@ModelAttribute(value = "first_name") String firstName,
 			@ModelAttribute(value = "last_name") String lastName, @ModelAttribute(value = "phone") String phone,

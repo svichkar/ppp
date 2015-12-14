@@ -33,8 +33,9 @@
 					<form method="POST">
 						<input type="hidden" name="order_id" value="${item.orderId}">
 						<input type="hidden" name="target" value="Orders" />
-						<input type="submit" name="action" formaction="editOrder.do" value="Edit" class="input_edit">
-						<input type="submit" name="action" formaction="deleteOrder.do" value="Delete" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/editOrder.do"></c:url>" value="Edit" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/deleteOrder.do"></c:url>" value="Delete" class="input_edit">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 			</tr>
@@ -42,7 +43,7 @@
 		<tr>
 			<td colspan=9>
 				<div align="center">
-					<form action="addOrder.do" method="GET">
+					<form action="<c:url value="/admin/addOrder.do"></c:url>" method="GET">
 						<input type="submit" value="Add new order" class="input_add">
 					</form>
 				</div>

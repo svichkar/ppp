@@ -25,8 +25,8 @@
 					<form method="POST">
 						<input type="hidden" name="part_id" value="${item.partId}">
 						<input type="hidden" name="target" value="Parts" />
-						<input type="submit" name="action" formaction="editPart.do" value="Edit" class="input_edit">
-						<input type="submit" name="action" formaction="deletePart.do" value="Delete" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/editPart.do"></c:url>" value="Edit" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/deletePart.do"></c:url>" value="Delete" class="input_edit">
 					</form>
 				</td>
 			</tr>
@@ -34,7 +34,7 @@
 		<tr>
 			<td colspan=5>
 				<div align="center">
-					<form action="addPart.do" method="GET">
+					<form action="<c:url value="/admin/addPart.do"></c:url>" method="GET">
 						<input type="submit" value="Add new part" class="input_add">
 					</form>
 				</div>

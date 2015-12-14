@@ -11,7 +11,7 @@
 	<div align="center">
 		<p><c:out value="${title}" /></p>
 		<div class="head1"></div>
-		<form action="orderWorkerPost.do" method="POST">
+		<form action="<c:url value="/admin/orderWorkerPost.do"></c:url>" method="POST">
 			<input type="hidden" name="order_id" value="${worker.orderId}" />
 			<p>Worker Name: </p>
 			<select name="worker_id">
@@ -26,6 +26,7 @@
 				<option value="N"<c:if test="${worker.isCompleted == 'N'}"> selected</c:if>>N</option>
 			</select>
 			<div class="buffer"></div>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			<input type="submit" value="Submit" class="input_add"/>
 		</form>
 	</div>

@@ -25,8 +25,8 @@
 					<form method="POST">
 						<input type="hidden" name="customer_id" value="${item.customerId}">
 						<input type="hidden" name="target" value="Customers" />
-						<input type="submit" name="action" formaction="editCustomer.do" value="Edit" class="input_edit">
-						<input type="submit" name="action" formaction="deleteCustomer.do" value="Delete" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/editCustomer.do"></c:url>" value="Edit" class="input_edit">
+						<input type="submit" name="action" formaction="<c:url value="/admin/deleteCustomer.do"></c:url>" value="Delete" class="input_edit">
 					</form>
 				</td>
 			</tr>
@@ -34,7 +34,7 @@
 		<tr>
 			<td colspan=5>
 				<div align="center">
-					<form action="addCustomer.do" method="GET">
+					<form action="<c:url value="/admin/addCustomer.do"></c:url>" method="GET">
 						<input type="submit" value="Add new Customer" class="input_add">
 					</form>
 				</div>

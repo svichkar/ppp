@@ -3,6 +3,7 @@ package com.nixsolutions.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +17,7 @@ public class LoginController {
 	private UserService userService;
 
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(@RequestParam(value = "j_username") String login, @RequestParam("j_password") String password,
+	public String login(@RequestParam(value = "login") String login, @RequestParam("password") String password,
 			Model model) {
 		if (userService.isUserValid(login, password)) {
 			model.addAttribute("login", login);
@@ -24,6 +25,12 @@ public class LoginController {
 		} else {
 			return "";
 		}
+	}
+	
+	@RequestMapping(value="/", method = RequestMethod.POST)
+	public String processLogin(Model model) {
+		model.addAttribute("target", "Orders");
+		return "/nav.do";
 	}
 
 }

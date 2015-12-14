@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-<ROLE ROLE_ID="1" ROLE_NAME="test"/>
-<ROLE ROLE_ID="2" ROLE_NAME="test"/>
-<ROLE ROLE_ID="3" ROLE_NAME="test"/>
-<USER USER_ID="1" USER_LOGIN="testLogin" USER_PASSWORD="testPassword" ROLE_ID="1"/>
-<USER USER_ID="3" USER_LOGIN="testLogin2" USER_PASSWORD="testPassword2" ROLE_ID="2"/>
-<USER USER_ID="4" USER_LOGIN="test2Login" USER_PASSWORD="testPassword" ROLE_ID="3"/>
+<ROLE ROLE_ID="5" ROLE_NAME="test"/>
+<ROLE ROLE_ID="6" ROLE_NAME="test"/>
+<ROLE ROLE_ID="7" ROLE_NAME="test"/>
+<USER USER_ID="1" USER_LOGIN="testLogin" USER_PASSWORD="testPassword" ROLE_ID="5"/>
+<USER USER_ID="3" USER_LOGIN="testLogin2" USER_PASSWORD="testPassword2" ROLE_ID="6"/>
+<USER USER_ID="4" USER_LOGIN="test2Login" USER_PASSWORD="testPassword" ROLE_ID="7"/>
 </dataset>

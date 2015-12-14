@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-stage</actionName>
+            <displayName>stage</displayName>
+            <goals>
+                <goal>site:stage</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-site</actionName>
+            <displayName>site</displayName>
+            <goals>
+                <goal>site:site</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-stage-deploy</actionName>
+            <displayName>stage-deploy</displayName>
+            <goals>
+                <goal>site:stage-deploy</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-run</actionName>
+            <displayName>run</displayName>
+            <goals>
+                <goal>site:run</goal>
+            </goals>
+        </action>
+    </actions>

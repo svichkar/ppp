@@ -9,22 +9,60 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <juinit.version>4.12</juinit.version>
-        <log4j.version>1.2.17</log4j.version>
+        <log4j.version>2.5</log4j.version>
+        <site.url>localhost</site.url>
+        <wagon-ssh.version>1.0</wagon-ssh.version>
+        <maven-reports.version>2.6</maven-reports.version>
     </properties>
     <modules>
-        <module>../SerializationMavenProject</module>
+        <module>ThreadsMavenModule</module>
+        <module>JunitMavenModule</module>
+        <module>MocksMavenModule</module>
+        <module>SerializationMavenProject</module>
     </modules>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${juinit.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
         </dependency>
     </dependencies>
+    <distributionManagement>
+        <site>
+            <id>MavenWorkshop</id>
+            <url>scp://${site.url}</url>
+        </site>
+    </distributionManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.4</version>
+                    <dependencies>
+                        <dependency><!-- add support for ssh/scp -->
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>${wagon-ssh.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-reports.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

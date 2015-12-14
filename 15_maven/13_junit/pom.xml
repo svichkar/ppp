@@ -5,13 +5,13 @@
     <parent>
         <artifactId>15_maven</artifactId>
         <groupId>15_maven</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>${library.version}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>13_junit</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>${library.version}</version>
     <dependencies>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

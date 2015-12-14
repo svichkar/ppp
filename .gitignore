@@ -2,5 +2,6 @@
 /logs/
 /src/
 /out/
-/.idea/
-/*.iml
+.idea/
+.target/
+*.iml

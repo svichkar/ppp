@@ -80,4 +80,39 @@ public class Customer implements Serializable {
 	public Customer() {
 		this("", "", "", null);
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (customerId == null ? 0 : customerId.hashCode());
+		result = prime * result + firstName.hashCode();
+		result = prime * result + lastName.hashCode();
+		result = prime * result + phone.hashCode();
+		result = prime * result + (user == null ? 0 : user.hashCode());
+		return result;
+	}
+
+	public boolean equals(Customer other) {
+		return ((this.customerId == null && other.customerId == null) 
+				|| customerId.equals(other.customerId)) 
+				&& this.firstName.equals(other.firstName) 
+				&& this.lastName.equals(other.lastName) 
+				&& this.phone.equals(other.phone) 
+				&& ((this.user == null 
+				&& other.user == null) 
+				|| this.user.equals(other.user));
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		else if (obj == null)
+			return false;
+		else if (getClass() != obj.getClass())
+			return false;
+		else 
+			return this.equals((Customer) obj);
+	}
 }

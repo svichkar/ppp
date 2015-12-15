@@ -87,7 +87,7 @@ public class Car implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + carId.hashCode();
+		result = prime * result + (carId == null ? 0 : carId.hashCode());
 		result = prime * result + model.hashCode();
 		result = prime * result + vin.hashCode();
 		result = prime * result + description.hashCode();
@@ -96,13 +96,17 @@ public class Car implements Serializable {
 	}
 
 	public boolean equals(Car other) {
-		return this.carId.equals(other.carId) 
+		return ((this.carId == null && other.carId == null) 
+				|| carId.equals(other.carId)) 
 				&& this.model.equals(other.model) 
-				&& this.vin.equals(other.vin)
-				&& this.description.equals(other.description)
-				&& this.customer.equals(other.customer);
+				&& this.vin.equals(other.vin) 
+				&& this.description.equals(other.description) 
+				&& ((this.customer == null 
+				&& other.customer == null) 
+				|| this.customer.equals(other.customer));
 	}
 
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -111,6 +115,6 @@ public class Car implements Serializable {
 		else if (getClass() != obj.getClass())
 			return false;
 		else 
-			return false;
+			return this.equals((Car) obj);
 	}
 }

@@ -32,8 +32,8 @@ extends WebSecurityConfigurerAdapter
 		http
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
-				.antMatchers("/userPage*", "/nav.do").access("hasRole('ROLE_USER')")
-				.antMatchers("/admin/*", "/nav.do").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/userPage.jsp", "/login.do", "/nav.do").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+				.antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')")
 				.and()
 			.formLogin()
 				.loginPage("/")

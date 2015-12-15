@@ -26,8 +26,8 @@ public class OrderWorkerServiceImpl implements OrderWorkerService {
 		return processAsBeans(getOrderWorkersByOrderId(orderId));
 	}
 
-	public List<OrderWorker> getOrderWorkersByWorker(Worker worker) {
-		return orderWorkerDao.getOrderWorkerByWorker(worker);
+	public List<OrderWorker> getOrderWorkersByWorkerId(int workerId) {
+		return orderWorkerDao.getOrderWorkerByWorkerId(workerId);
 	}
 
 	public OrderWorker getOrderWorkerByIds(long orderId, int workerId) {

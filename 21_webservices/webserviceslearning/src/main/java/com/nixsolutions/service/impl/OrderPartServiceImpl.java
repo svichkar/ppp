@@ -26,8 +26,8 @@ public class OrderPartServiceImpl implements OrderPartService {
 		return processAsBeans(getOrderPartsByOrderId(orderId));
 	}
 
-	public List<OrderPart> getOrderPartsByPart(Part part) {
-		return orderPartDao.getOrderPartByPart(part);
+	public List<OrderPart> getOrderPartsByPartId(long partId) {
+		return orderPartDao.getOrderPartByPartId(partId);
 	}
 
 	public OrderPart getOrderPartByIds(long orderId, long partId) {

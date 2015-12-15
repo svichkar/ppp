@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.OrderPartDAO;
 import com.nixsolutions.hibernate.entity.OrderPart;
-import com.nixsolutions.hibernate.entity.Part;
 
 @Repository("orderPartDAO")
 @Transactional
@@ -98,10 +97,10 @@ public class OrderPartDAOImpl implements OrderPartDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderPart> getOrderPartByPart(Part part) {
+	public List<OrderPart> getOrderPartByPartId(long partId) {
 		try {
 			return sessionFactory.getCurrentSession().createCriteria(OrderPart.class)
-					.add(Restrictions.eq("part.partId", part.getPartId()))
+					.add(Restrictions.eq("part.partId", partId))
 					.list();
 		} catch (Exception ex) {
 			LOG.error(ex);

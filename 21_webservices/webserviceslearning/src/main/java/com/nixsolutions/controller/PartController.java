@@ -37,7 +37,7 @@ public class PartController {
 	public String deletePart(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "part_id") long partId, Model model) {
 		Part part = partService.getPartById(partId);
-		orderPartService.getOrderPartsByPart(part).forEach(x -> orderPartService.deleteOrderPart(x));
+		orderPartService.getOrderPartsByPartId(partId).forEach(x -> orderPartService.deleteOrderPart(x));
 		partService.deletePart(part);
 		model.addAttribute("target", "Parts");
 		return "/nav.do";

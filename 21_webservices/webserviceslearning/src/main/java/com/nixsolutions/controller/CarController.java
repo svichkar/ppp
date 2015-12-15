@@ -51,7 +51,7 @@ public class CarController {
 	public String deleteCar(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "car_id") int carId, Model model) {
 		Car car = carService.getCarById(carId);
-		List<OrderInWork> orderList = orderService.getOrdersByCar(car);
+		List<OrderInWork> orderList = orderService.getOrdersByCarId(carId);
 		for (OrderInWork order : orderList) {
 			orderWorkerService.getOrderWorkersByOrderId(order.getOrderId())
 					.forEach(x -> orderWorkerService.deleteOrderWorker(x));

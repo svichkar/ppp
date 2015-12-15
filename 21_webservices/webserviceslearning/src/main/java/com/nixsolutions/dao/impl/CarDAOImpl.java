@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.CarDAO;
 import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
 
 @Repository("carDAO")
 @Transactional
@@ -62,9 +61,9 @@ public class CarDAOImpl implements CarDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Car> getCarsByCustomer(Customer customer) {
+	public List<Car> getCarsByCustomerId(int customerId) {
 		return sessionFactory.getCurrentSession().createCriteria(Car.class)
-				.add(Restrictions.eq("customer.customerId", customer.getCustomerId()))
+				.add(Restrictions.eq("customer.customerId", customerId))
 				.list();
 	}
 }

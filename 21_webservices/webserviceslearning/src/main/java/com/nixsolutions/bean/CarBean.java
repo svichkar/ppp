@@ -1,5 +1,8 @@
 package com.nixsolutions.bean;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class CarBean {
 	private int carId;
 	private String carModel;

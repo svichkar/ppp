@@ -53,7 +53,7 @@ public class CustomerController {
 	@RequestMapping(value = "/admin/deleteCustomer.do", method = RequestMethod.POST)
 	public String deleteCustomer(@ModelAttribute(value = "customer_id") int customerId, Model model) {
 		Customer customer = customerService.getCustomerById(customerId);
-		List<OrderInWork> orderList = orderService.getOrdersByCustomer(customer);
+		List<OrderInWork> orderList = orderService.getOrdersByCustomerId(customerId);
 		for (OrderInWork order : orderList) {
 			orderWorkerService.getOrderWorkersByOrderId(order.getOrderId())
 					.forEach(x -> orderWorkerService.deleteOrderWorker(x));
@@ -61,7 +61,7 @@ public class CustomerController {
 					.forEach(x -> orderPartService.deleteOrderPart(x));
 			orderService.deleteOrder(order);
 		}
-		carService.getCarsByCustomer(customer).forEach(x -> carService.deleteCar(x));
+		carService.getCarsByCustomerId(customerId).forEach(x -> carService.deleteCar(x));
 		customerService.deleteCustomer(customer);
 		return "/nav.do";
 	}

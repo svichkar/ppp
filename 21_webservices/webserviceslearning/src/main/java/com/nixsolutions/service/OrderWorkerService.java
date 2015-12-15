@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.nixsolutions.bean.OrderWorkerBean;
 import com.nixsolutions.hibernate.entity.OrderWorker;
-import com.nixsolutions.hibernate.entity.Worker;
 
 public interface OrderWorkerService {
 
@@ -12,7 +11,7 @@ public interface OrderWorkerService {
 
 	List<OrderWorkerBean> getOrderWorkersAsBeansByOrderId(long orderId);
 
-	List<OrderWorker> getOrderWorkersByWorker(Worker worker);
+	List<OrderWorker> getOrderWorkersByWorkerId(int workerId);
 
 	OrderWorker getOrderWorkerByIds(long orderId, int workerId);
 

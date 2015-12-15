@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.hibernate.entity.OrderWorker;
-import com.nixsolutions.hibernate.entity.Worker;
 
 @Repository("orderWorkerDAO")
 @Transactional
@@ -98,10 +97,10 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderWorker> getOrderWorkerByWorker(Worker worker) {
+	public List<OrderWorker> getOrderWorkerByWorkerId(int workerId) {
 		try {
 			return sessionFactory.getCurrentSession().createCriteria(OrderWorker.class)
-					.add(Restrictions.eq("worker.workerId", worker.getWorkerId()))
+					.add(Restrictions.eq("worker.workerId", workerId))
 					.list();
 		} catch (Exception ex) {
 			LOG.error(ex);

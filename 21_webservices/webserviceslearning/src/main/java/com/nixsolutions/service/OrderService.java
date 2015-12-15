@@ -3,10 +3,7 @@ package com.nixsolutions.service;
 import java.util.List;
 
 import com.nixsolutions.bean.OrderBean;
-import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
-import com.nixsolutions.hibernate.entity.User;
 
 public interface OrderService {
 
@@ -16,13 +13,13 @@ public interface OrderService {
 
 	OrderInWork getOrderById(long id);
 
-	List<OrderInWork> getOrdersByUser(User user);
+	List<OrderInWork> getOrdersByUserId(int userId);
 
-	List<OrderBean> getOrdersAsBeansByUser(User user);
+	List<OrderBean> getOrdersAsBeansByUserId(int userId);
 
-	List<OrderInWork> getOrdersByCustomer(Customer customer);
+	List<OrderInWork> getOrdersByCustomerId(int customerId);
 
-	List<OrderInWork> getOrdersByCar(Car car);
+	List<OrderInWork> getOrdersByCarId(int carId);
 
 	void addOrder(OrderInWork order);
 

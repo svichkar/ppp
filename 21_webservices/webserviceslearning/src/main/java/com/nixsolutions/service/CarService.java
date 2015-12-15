@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.nixsolutions.bean.CarBean;
 import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
 
 public interface CarService {
 
@@ -12,7 +11,7 @@ public interface CarService {
 
 	List<CarBean> getAllCarsAsBeans();
 
-	List<Car> getCarsByCustomer(Customer customer);
+	List<Car> getCarsByCustomerId(int customerId);
 
 	Car getCarById(int carId);
 

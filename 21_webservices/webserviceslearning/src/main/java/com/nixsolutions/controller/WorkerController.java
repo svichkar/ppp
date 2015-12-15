@@ -52,7 +52,7 @@ public class WorkerController {
 	public String deleteWorker(@ModelAttribute(value = "action") String action,
 			@ModelAttribute(value = "worker_id") int workerId, Model model) {
 		Worker worker = workerService.getWorkerById(workerId);
-		orderWorkerService.getOrderWorkersByWorker(worker).forEach(x -> orderWorkerService.deleteOrderWorker(x));
+		orderWorkerService.getOrderWorkersByWorkerId(workerId).forEach(x -> orderWorkerService.deleteOrderWorker(x));
 		workerService.deleteWorker(worker);
 		return "/nav.do";
 	}

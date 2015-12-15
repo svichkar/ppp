@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nixsolutions.bean.OrderBean;
 import com.nixsolutions.dao.OrderInWorkDAO;
 import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
-import com.nixsolutions.hibernate.entity.User;
 import com.nixsolutions.service.OrderService;
 
 @Service
@@ -32,20 +30,20 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getByPK(id);
 	}
 
-	public List<OrderInWork> getOrdersByUser(User user) {
-		return orderDao.getOrdersByUser(user);
+	public List<OrderInWork> getOrdersByUserId(int userId) {
+		return orderDao.getOrdersByUserId(userId);
 	}
 
-	public List<OrderBean> getOrdersAsBeansByUser(User user) {
-		return processAsBeans(getOrdersByUser(user));
+	public List<OrderBean> getOrdersAsBeansByUserId(int userId) {
+		return processAsBeans(getOrdersByUserId(userId));
 	}
 
-	public List<OrderInWork> getOrdersByCustomer(Customer customer) {
-		return orderDao.getOrdersByCustomer(customer);
+	public List<OrderInWork> getOrdersByCustomerId(int customerId) {
+		return orderDao.getOrdersByCustomerId(customerId);
 	}
 
-	public List<OrderInWork> getOrdersByCar(Car car) {
-		return orderDao.getOrdersByCar(car);
+	public List<OrderInWork> getOrdersByCarId(int carId) {
+		return orderDao.getOrdersByCarId(carId);
 	}
 
 	public void addOrder(OrderInWork order) {

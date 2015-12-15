@@ -11,10 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.OrderInWorkDAO;
-import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
 import com.nixsolutions.hibernate.entity.OrderInWork;
-import com.nixsolutions.hibernate.entity.User;
 
 @Repository("orderInWorkDAO")
 @Transactional
@@ -74,13 +71,13 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderInWork> getOrdersByUser(User user) {
+	public List<OrderInWork> getOrdersByUserId(int userId) {
 		try {
 		return sessionFactory.getCurrentSession().createCriteria(OrderInWork.class, "order")
 				.createAlias("order.car", "car")
 				.createAlias("car.customer", "customer")
 				.createAlias("customer.user", "user")
-				.add(Restrictions.eq("user.userId", user.getUserId()))
+				.add(Restrictions.eq("user.userId", userId))
 				.list();
 		} catch (Exception ex) {
 			LOG.error(ex);
@@ -90,10 +87,10 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderInWork> getOrdersByCar(Car car) {
+	public List<OrderInWork> getOrdersByCarId(int carId) {
 		try {
 			return sessionFactory.getCurrentSession().createCriteria(OrderInWork.class)
-					.add(Restrictions.eq("car.carId", car.getCarId()))
+					.add(Restrictions.eq("car.carId", carId))
 					.list();
 		} catch (Exception ex) {
 			LOG.error(ex);
@@ -103,12 +100,12 @@ public class OrderInWorkDAOImpl implements OrderInWorkDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<OrderInWork> getOrdersByCustomer(Customer customer) {
+	public List<OrderInWork> getOrdersByCustomerId(int customerId) {
 		try {
 			return sessionFactory.getCurrentSession().createCriteria(OrderInWork.class, "order")
 					.createAlias("order.car", "car")
 					.createAlias("car.customer", "customer")
-					.add(Restrictions.eq("customer.customerId", customer.getCustomerId()))
+					.add(Restrictions.eq("customer.customerId", customerId))
 					.list();
 		} catch (Exception ex) {
 			LOG.error(ex);

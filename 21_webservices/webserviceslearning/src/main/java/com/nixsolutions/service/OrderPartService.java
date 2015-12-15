@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.nixsolutions.bean.OrderPartBean;
 import com.nixsolutions.hibernate.entity.OrderPart;
-import com.nixsolutions.hibernate.entity.Part;
 
 public interface OrderPartService {
 
@@ -12,7 +11,7 @@ public interface OrderPartService {
 
 	List<OrderPartBean> getOrderPartsAsBeansByOrderId(long orderId);
 
-	List<OrderPart> getOrderPartsByPart(Part part);
+	List<OrderPart> getOrderPartsByPartId(long partId);
 
 	OrderPart getOrderPartByIds(long orderId, long partId);
 

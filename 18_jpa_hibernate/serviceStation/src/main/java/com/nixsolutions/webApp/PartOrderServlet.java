@@ -15,7 +15,6 @@ import com.nixsolutions.entity.OrderInWork;
 import com.nixsolutions.entity.OrderStatus;
 import com.nixsolutions.entity.OrderWorker;
 import com.nixsolutions.entity.Part;
-import com.nixsolutions.entity.Worker;
 
 /**
  * Servlet implementation class PartOrderServlet

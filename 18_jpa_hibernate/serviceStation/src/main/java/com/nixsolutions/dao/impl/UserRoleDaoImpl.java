@@ -82,13 +82,11 @@ public class UserRoleDaoImpl implements UserRoleDao {
 	 */
 
 	@Override
-	public void createNewUserRole(String user_role_name) {
-		UserRole role = new UserRole();
-		role.setUser_role_name(user_role_name);
+	public void createNewUserRole(UserRole user_role) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {
-			session.save(role);
+			session.save(user_role);
 			tx.commit();
 		} catch (Exception ex) {
 			tx.rollback();

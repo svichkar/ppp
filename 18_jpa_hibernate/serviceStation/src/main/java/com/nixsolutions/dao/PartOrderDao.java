@@ -6,7 +6,6 @@ package com.nixsolutions.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.nixsolutions.entity.Part;
 import com.nixsolutions.entity.PartOrder;
 
 /**

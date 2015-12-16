@@ -120,7 +120,6 @@ public class AddNewServlet extends HttpServlet {
 		String last_name = request.getParameter("last_name");
 		String first_name = request.getParameter("first_name");
 		String specialization_id = request.getParameter("specialization_id");
-		String homePage = request.getParameter("homePage");
 		String userLogin = request.getParameter("userLogin");
 		String userPassword = request.getParameter("userPassword");
 		UserRole role = null;
@@ -133,7 +132,7 @@ public class AddNewServlet extends HttpServlet {
 			role = DaoFactory.getUserRoleDaoImpl().getUserRole("manager");
 		} else
 			role = DaoFactory.getUserRoleDaoImpl().getUserRole("worker");
-		DaoFactory.getUserDaoImpl().createNewUser(userLogin, userPassword, role.getUser_role_id());
+		DaoFactory.getUserDaoImpl().createNewUser(userLogin, userPassword, role);
 		User user = DaoFactory.getUserDaoImpl().getUserByLogin(userLogin);
 		Worker worker = new Worker();
 		worker.setFirst_name(first_name);
@@ -150,10 +149,9 @@ public class AddNewServlet extends HttpServlet {
 		String last_name = request.getParameter("last_name");
 		String first_name = request.getParameter("first_name");
 		String phone = request.getParameter("phone");
-		String homePage = request.getParameter("homePage");
 		String userLogin = request.getParameter("userLogin");
 		String userPassword = request.getParameter("userPassword");
-		DaoFactory.getUserDaoImpl().createNewUser(userLogin, userPassword, 2);
+		DaoFactory.getUserDaoImpl().createNewUser(userLogin, userPassword, DaoFactory.getUserRoleDaoImpl().getUserRole(2));
 		User user = DaoFactory.getUserDaoImpl().getUserByLogin(userLogin);
 		Customer customer = new Customer();
 		customer.setFirst_name(first_name);

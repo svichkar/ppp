@@ -37,7 +37,7 @@ public class User implements Serializable {
 	private String userPassword;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_role_id", referencedColumnName = "user_role_id")
+	@JoinColumn(name = "user_role_id", referencedColumnName = "user_role_id", nullable = false)
 	private UserRole userRole;
 
 	public Long getUser_id() {

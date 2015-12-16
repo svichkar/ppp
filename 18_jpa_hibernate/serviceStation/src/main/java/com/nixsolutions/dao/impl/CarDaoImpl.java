@@ -130,6 +130,7 @@ public class CarDaoImpl implements CarDao {
 	 * @see com.nixsolutions.serviceStation.dAOFabrica.CarDao#getCarsByCustomerName(
 	 *      java.lang.String)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Car> getCarsByCustomerName(String last_name, String first_name) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();

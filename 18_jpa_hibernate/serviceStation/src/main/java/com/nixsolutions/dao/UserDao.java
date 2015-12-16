@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.nixsolutions.entity.User;
+import com.nixsolutions.entity.UserRole;
 
 /**
  * @author ������
@@ -62,7 +63,7 @@ public interface UserDao {
 	 * @param user_role_id
 	 * @throws SQLException
 	 */
-	public void createNewUser(String user_login, String user_password, Integer user_role_id);
+	public void createNewUser(String user_login, String user_password, UserRole user_role);
 
 	public User getUserByLogin(String login);
 

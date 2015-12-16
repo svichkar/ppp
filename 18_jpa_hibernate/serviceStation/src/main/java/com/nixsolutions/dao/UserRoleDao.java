@@ -28,7 +28,7 @@ public interface UserRoleDao {
 	 * @param model
 	 * @throws SQLException
 	 */
-	public void createNewUserRole(String model);
+	public void createNewUserRole(UserRole user_role);
 
 	public UserRole getUserRole(String user_role_name);
 }

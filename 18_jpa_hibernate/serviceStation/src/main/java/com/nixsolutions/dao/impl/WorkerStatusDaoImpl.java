@@ -99,7 +99,7 @@ public class WorkerStatusDaoImpl implements WorkerStatusDao {
 	 */
 	@Override
 	public void createNewStatus(String statusName) {
-		WorkerStatus status = null;
+		WorkerStatus status = new WorkerStatus();
 		status.setWorker_status_name(statusName);
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();

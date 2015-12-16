@@ -5,7 +5,7 @@ package com.nixsolutions.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -145,8 +145,6 @@ public class PartOrderDaoImpl implements PartOrderDao {
 	@Override
 	public void updatePartOrder(Integer order_id, Integer part_id, Integer amount) {
 		PartOrder partOrder =getPartByOrderId(order_id,part_id);
-		OrderInWork orderInWork = DaoFactory.getOrderInWorkDaoImpl().getOrderByID(order_id);
-		Part part = DaoFactory.getPartDaoImpl().getPart(part_id);
 		partOrder.setAmount(amount);
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();

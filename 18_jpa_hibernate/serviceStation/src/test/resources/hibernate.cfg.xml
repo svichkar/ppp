@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">org.h2.Driver</property>
+		<!-- <property name="hibernate.connection.url">jdbc:h2:tcp://localhost/~/sqllab</property> -->
+        <property name="connection.url">jdbc:h2:mem:test;INIT=CREATE SCHEMA sqllab</property>
+ 
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password"></property>
+		<property name="hbm2ddl.auto">create-drop</property>
+		<property name="default_schema">SQLLAB</property>
+		<property name="connection.pool_size">10</property>
+
+		<property name="dialect">org.hibernate.dialect.H2Dialect</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+		<property name="show_sql">true</property>
+
+		<mapping class="com.nixsolutions.entity.User" />
+		<mapping class="com.nixsolutions.entity.UserRole" />
+		<mapping class="com.nixsolutions.entity.Car" />
+		<mapping class="com.nixsolutions.entity.Customer" />
+		<mapping class="com.nixsolutions.entity.Worker" />
+		<mapping class="com.nixsolutions.entity.OrderInWork" />
+		<mapping class="com.nixsolutions.entity.PartOrder" />
+		<mapping class="com.nixsolutions.entity.OrderStatus" />
+		<mapping class="com.nixsolutions.entity.OrderWorker" />
+		<mapping class="com.nixsolutions.entity.Part" />
+		<mapping class="com.nixsolutions.entity.WorkerSpecialization" />
+		<mapping class="com.nixsolutions.entity.WorkerStatus" />
+
+	</session-factory>
+</hibernate-configuration>

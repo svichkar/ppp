@@ -5,7 +5,7 @@ package com.nixsolutions.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+//import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -116,7 +116,6 @@ public class OrderWorkerDaoImpl implements OrderWorkerDao {
 	@Override
 	public OrderInWork getActiveOrderByWorkerID(Integer worker_id) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		OrderInWork orderInWork = new OrderInWork();
 		OrderWorker orderWorker = null;
 		Transaction tx = session.beginTransaction();
 		try {

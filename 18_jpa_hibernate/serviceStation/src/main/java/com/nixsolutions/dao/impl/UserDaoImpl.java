@@ -12,9 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
+import com.nixsolutions.entity.UserRole;
 import com.nixsolutions.util.HibernateUtil;
 
 /**
@@ -204,11 +204,11 @@ public class UserDaoImpl implements UserDao {
 	 * java.lang.String, java.lang.Integer)
 	 */
 	@Override
-	public void createNewUser(String user_login, String user_password, Integer user_role_id) {
+	public void createNewUser(String user_login, String user_password, UserRole user_role) {
 		User user = new User();
 		user.setUser_login(user_login);
 		user.setUser_password(user_password);
-		user.setUserRole(DaoFactory.getUserRoleDaoImpl().getUserRole(user_role_id));
+		user.setUserRole(user_role);
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		try {

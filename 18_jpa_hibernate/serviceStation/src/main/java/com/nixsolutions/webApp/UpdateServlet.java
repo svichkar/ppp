@@ -66,7 +66,6 @@ public class UpdateServlet extends HttpServlet {
 			String carModel = request.getParameter("carModel");
 			String regNumber = request.getParameter("regNumber");
 			String vinNumber = request.getParameter("vinNumber");
-			String carOwner = request.getParameter("carOwner");
 			String car_description = request.getParameter("car_description");
 			String customer_id = request.getParameter("customer_id");
 			Car car = DaoFactory.getCarDaoImpl().getCarByID(Integer.decode(car_id));
@@ -122,7 +121,7 @@ public class UpdateServlet extends HttpServlet {
 			Worker worker = DaoFactory.getWorkerDaoImpl().getWorkerByID(Integer.decode(worker_id));
 			worker.setFirst_name(first_name);
 			worker.setLast_name(last_name);
-			// worker.setSpecialization_id(Integer.decode(specialization_id));
+			worker.setSpecialization(DaoFactory.getWorkerSpecializationDaoImpl().getSpecialization(Integer.decode(specialization_id)));
 			DaoFactory.getWorkerDaoImpl().updateWorker(worker);
 
 			response.sendRedirect("workerPage");

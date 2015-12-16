@@ -1,72 +1,57 @@
 package com.nixsolutions.test;
 
-import java.util.List;
+import static org.mockito.Mockito.verify;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.nixsolutions.dao.CarDAO;
-import com.nixsolutions.dao.CustomerDAO;
 import com.nixsolutions.hibernate.entity.Car;
-import com.nixsolutions.hibernate.entity.Customer;
-import com.nixsolutions.service.CarService;
+import com.nixsolutions.service.jersey.CarServiceJersey;
 
-import junit.framework.Assert;
-import junitx.framework.ListAssert;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:spring-test.xml")
+@RunWith(MockitoJUnitRunner.class)
 public class TestCarServiceJersey {
 
 	public static Logger LOG = LogManager.getLogger(TestCarServiceJersey.class.getName());
-	@Autowired
+	@Mock
 	private CarDAO carDao;
-	@Autowired
-	private CustomerDAO customerDao;
-	@Autowired
-	private CarService carService;
-	
-	@Before
-	public void setUp() {
-		Customer customer = new Customer("test", "test", "test", null);
-		customerDao.createFrom(customer);
-		Car car = new Car("test", "test", "test", customer);
-		carDao.createFrom(car);
-	}
-	
+	@InjectMocks
+	private CarServiceJersey carService;
+
 	@Test
 	public void testGetAll() {
-		List<Car> carListDao = carDao.getAll();
-		List<Car> carListService = carService.getAllCars();
-		ListAssert.assertEquals(carListDao, carListService);
+		carService.getAllCars();
+		verify(carDao).getAll();
 	}
-	
+
 	@Test
 	public void testGetById() {
-		Car carFromDao = carDao.getByPK(1);
-		Car carFromService = carService.getCarById(1);
-		Assert.assertEquals(carFromDao, carFromService);
+		carService.getCarById(0);
+		verify(carDao).getByPK(0);
 	}
-	
+
 	@Test
 	public void testGetByCustomerId() {
-		Customer customer = customerDao.getAll().get(0);
-		List<Car> carListDao = carDao.getCarsByCustomerId(customer.getCustomerId());
-		List<Car> carListService = carService.getCarsByCustomerId(customer.getCustomerId());
-		ListAssert.assertEquals(carListDao, carListService);
+		carService.getCarsByCustomerId(0);
+		verify(carDao).getCarsByCustomerId(0);
 	}
-	
+
 	@Test
 	public void testDelete() {
-		Car car = carDao.getAll().get(0);
+		Car car = new Car();
 		carService.deleteCar(car);
-		car = carDao.getByPK(car.getCarId());
-		Assert.assertNull(car);
+		verify(carDao).delete(car);
+	}
+
+	@Test
+	public void testUpdate() {
+		Car car = new Car();
+		carService.updateCar(car);
+		verify(carDao).update(car);
 	}
 }

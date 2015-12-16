@@ -1,0 +1,79 @@
+body {
+	font-family: "lucida sans", arial, sans-serif;
+	padding: 0px;
+	margin: 0px;
+	font-size: .78em;
+	background: #F0FFFF;
+}
+
+body p {
+	font-family: "lucida sans", arial, sans-serif;
+	font-weight: bold;
+	padding: 0px;
+	margin: 0px;
+	font-size: 2.0em;
+	background: #F0FFFF;
+}
+
+.head1 {
+	height: 30px;
+}
+
+.head2 {
+	height: 15px;
+}
+
+.nav_element {
+	font-family: "lucida sans", arial, sans-serif;
+	font-weight: bold;
+	width: 90px;
+	height: 25px;
+}
+
+.input_add {
+	font-family: "lucida sans", arial, sans-serif;
+	font-weight: bold;
+	width: 250px;
+	height: 25px;
+}
+
+.input_edit {
+	font-family: "lucida sans", arial, sans-serif;
+	font-weight: bold;
+	width: 60px;
+	height: 25px;
+}
+
+.global {
+	align: center;
+}
+
+.buffer {
+	height: 10px;
+}
+
+.third {
+	border: 0px solid black;
+	margin: 10px;
+	width: 30%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.large_text {
+	height: 100px;
+	width: 300px;
+}
+
+table {
+	
+}
+
+form {
+	margin-bottom: 0;
+}
+
+.highlight {
+    background-color: green;
+    font-weight: bold;
+}

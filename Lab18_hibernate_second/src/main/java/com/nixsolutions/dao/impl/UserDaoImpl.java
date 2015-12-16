@@ -3,150 +3,79 @@ package com.nixsolutions.dao.impl;
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.util.HibernateUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-    private static Logger LOG = LogManager.getLogger(UserDaoImpl.class.getName());
 
-    public UserDaoImpl() {
-    }
+	public UserDaoImpl() {
+	}
 
-    public void create(User user) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.save(user);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-    }
+	public void create(User user) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		session.save(user);
+		transaction.commit();
+	}
 
-    public void update(User user) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(user);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-    }
+	public void update(User user) {
+		Session session = null;
+		Transaction transaction = null;
+		session = HibernateUtil.getSessionFactory().getCurrentSession();
+		transaction = session.beginTransaction();
+		session.saveOrUpdate(user);
+		transaction.commit();
+	}
 
-    public void delete(User user) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.delete(user);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-    }
+	public void delete(User user) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		session.delete(user);
+		transaction.commit();
+	}
 
-    public User getByUserId(int userId) {
-        User user = new User();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            user = (User) session.get(User.class, userId);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return user;
-    }
+	public User getByUserId(int userId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		User user = (User) session.get(User.class, userId);
+		transaction.commit();
+		return user;
+	}
 
-    public User getByUserName(String userName) {
-        User user = new User();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Criteria c = session.createCriteria(User.class);
-            c.add(Restrictions.eq("userName", userName));
-            List list = c.list();
-            if (list.size() == 0){
-            	transaction.commit();
-            	return null;
-            }
-            user = (User) list.get(0);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return user;
-    }
+	public User getByUserName(String userName) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		Criteria c = session.createCriteria(User.class);
+		c.add(Restrictions.eq("userName", userName));
+		User user = (User) c.uniqueResult();
+		transaction.commit();
+		return user;
+	}
 
-    public List<User> getAll() {
-        List<User> toReturn = new ArrayList<User>();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            toReturn.addAll(session.createCriteria(User.class).list());
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return toReturn;
-    }
+	@SuppressWarnings("unchecked")
+	public List<User> getAll() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		List<User> toReturn = session.createCriteria(User.class).list();
+		transaction.commit();
+		return toReturn;
+	}
 
-    public boolean checkUser(String userName, String password) {
-        boolean result = false;
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Criteria c = session.createCriteria(User.class);
-            c.add(Restrictions.eq("userName", userName))
-             .add(Restrictions.eq("password", password));
-            List list = c.list();
-            result = list.iterator().hasNext();
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return result;
-    }
+	public boolean checkUser(String userName, String password) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
+		Criteria c = session.createCriteria(User.class);
+		c.add(Restrictions.eq("userName", userName)).add(Restrictions.eq("password", password));
+		User user = (User) c.uniqueResult();
+		transaction.commit();
+		if (user != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

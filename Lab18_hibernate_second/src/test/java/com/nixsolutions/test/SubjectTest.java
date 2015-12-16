@@ -120,7 +120,7 @@ public class SubjectTest extends DBUnitConfig {
 	
 	@Test
 	public void testGetByTermId() throws Exception {
-		List<Subject> listActual = subjectDao.getSubjectsByTerm(termDao.getByTermId(1));
+		List<Subject> listActual = subjectDao.getSubjectsByTermId(termDao.getByTermId(1).getTermId());
 		Assert.assertEquals(2, listActual.size());
 	}
 }

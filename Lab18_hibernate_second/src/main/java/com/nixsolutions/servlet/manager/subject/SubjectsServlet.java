@@ -49,7 +49,7 @@ public class SubjectsServlet extends HttpServlet {
 		if (searchType.equals("subject")){
 			subjects = subjectDao.getBySubjectName(query);			
 		}else{
-			subjects = subjectDao.getSubjectsByTerm(termDao.getByTermAlias(query));			
+			subjects = subjectDao.getSubjectsByTermId(termDao.getByTermAlias(query).getTermId());			
 		}
 		request.setAttribute("subjects", subjects);
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/subject/Subjects.jsp");

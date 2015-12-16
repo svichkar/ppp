@@ -1,7 +1,6 @@
 package com.nixsolutions.dao;
 
 import com.nixsolutions.entity.Student;
-import com.nixsolutions.entity.StudentGroup;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public interface StudentDao {
 	 */
 	public List<Student> getByStudentsByName(String firstName, String lastName);
 
-    public List<Student> getStudentsByGroup(StudentGroup studentGroup);
+    public List<Student> getStudentsByGroupId(int studentGroupId);
 
 	public List<Student> getAll();
 }

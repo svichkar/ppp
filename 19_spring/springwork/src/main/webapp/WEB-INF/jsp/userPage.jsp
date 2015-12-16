@@ -8,6 +8,14 @@
 	<div align="center">
 		<h1>User's Orders</h1>
 	</div>
+	<div class="buffer"></div>
+	<div align="center">
+		<form method="POST" action="<c:url value="/logout" />">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" /> <input type="submit" value="Logout"
+				class="nav_element">
+		</form>
+	</div>
 	<table align="center" width=50% border=1 cellpadding=8>
 		<tr height=40>
 			<td width=5%><b>Order ID</b></td>

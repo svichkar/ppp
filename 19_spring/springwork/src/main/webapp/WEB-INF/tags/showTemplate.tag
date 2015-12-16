@@ -9,8 +9,15 @@
 </head>
 <body>
 	<div id="global">
-		<div class="head1"></div>
+		<div class="head1" align = "center">
+		<div class="buffer"></div>
+		<form method="POST" action="<c:url value="/logout" />">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="submit" value="Logout" class="nav_element">
+		</form>
+		</div>
 		<div id="nav_menu" align="center">
+			<div class="buffer"></div>
 			<div id="nav_elements">
 				<form method="POST" action="<c:url value="/nav.do"></c:url>">
 					<input type="submit" name="target" value="Orders" class="nav_element">

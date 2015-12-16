@@ -13,18 +13,24 @@ import org.springframework.stereotype.Component;
 @EnableWebSecurity
 @Configuration
 @Component
-public class SecurityConfig 
-extends WebSecurityConfigurerAdapter 
-{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	DataSource dataSource;
 	
 	@Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("KennySmiles").password("password").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("JohnHughes").password("password").roles("USER");
-        //auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("SELECT * FROM sqllab.user WHERE user_login = ?").authoritiesByUsernameQuery("SELECT * FROM sqllab.role WHERE role_id = ?");
+        //auth.inMemoryAuthentication().withUser("KennySmiles").password("password").roles("ADMIN");
+        //auth.inMemoryAuthentication().withUser("JohnHughes").password("password").roles("USER");
+        auth
+        	.jdbcAuthentication()
+        	.dataSource(dataSource)
+        	.usersByUsernameQuery("SELECT user_login AS username, user_password AS password, 'true' " +
+        			"FROM sqllab.user WHERE user_login = ?")
+        	.authoritiesByUsernameQuery("SELECT u.user_login AS username, " +
+        			"CASE r.role_name WHEN 'Administrator' THEN 'ROLE_ADMIN' " +
+        			"ELSE 'ROLE_USER' END AS role FROM sqllab.user u " + 
+        			"INNER JOIN sqllab.role r ON u.role_id = r.role_id WHERE u.user_login = ?");
     }
 	
 	@Override
@@ -43,6 +49,10 @@ extends WebSecurityConfigurerAdapter
 				.defaultSuccessUrl("/login.do")
 				.and()
 			.csrf()
+				.and()
+			.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
 				.and()
 			.exceptionHandling().accessDeniedPage("/");
 	}

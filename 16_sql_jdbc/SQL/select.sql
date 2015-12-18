@@ -8,7 +8,7 @@ SELECT * FROM subject WHERE subject_name LIKE '%Engineering%';
 SELECT * FROM term WHERE term_name LIKE 'Spring%';
 SELECT student_id FROM journal WHERE grade_id IN(4,5);
 SELECT first_name, last_name, admission_date FROM student WHERE admission_date BETWEEN '2014-05-01' AND '2015-05-01';
-SELECT * FROM journal WHERE grade_id IS NULL;
+SELECT * FROM subject WHERE term_id IS NOT NULL;
 SELECT first_name, last_name FROM student WHERE status_id IN (SELECT status_id FROM status WHERE status_name='Active');
 SELECT subject_name FROM subject WHERE term_id IN (SELECT term_id FROM term WHERE term_name='Autumn-2015');
 SELECT first_name, last_name FROM student WHERE group_id IN (SELECT group_id FROM student_group WHERE group_name LIKE 'KI%');

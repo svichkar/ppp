@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class CustomConnectionManager {
+public class M2ConnectionManager {
 
     public static JdbcConnectionPool connectionPool;
 
@@ -21,9 +21,7 @@ public class CustomConnectionManager {
         if (connectionPool == null) {
 
             Properties prop = new Properties();
-
-            try {
-                FileInputStream propStream = new FileInputStream("jdbc.properties");
+            try (FileInputStream propStream = new FileInputStream("jdbc.properties");){
                 prop.load(propStream);
                 propStream.close();
             } catch (FileNotFoundException e) {
@@ -40,6 +38,7 @@ public class CustomConnectionManager {
             connectionPool.setMaxConnections(25);
             connectionPool.setLoginTimeout(120);
         }
+
         return connectionPool.getConnection();
     }
 }

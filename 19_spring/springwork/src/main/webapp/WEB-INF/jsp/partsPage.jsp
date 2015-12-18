@@ -27,6 +27,7 @@
 						<input type="hidden" name="target" value="Parts" />
 						<input type="submit" name="action" formaction="<c:url value="/admin/editPart.do"></c:url>" value="Edit" class="input_edit">
 						<input type="submit" name="action" formaction="<c:url value="/admin/deletePart.do"></c:url>" value="Delete" class="input_edit">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 			</tr>

@@ -29,6 +29,7 @@
 						<input type="hidden" name="target" value="Workers" />
 						<input type="submit" name="action" formaction="<c:url value="/admin/editWorker.do"></c:url>" value="Edit" class="input_edit">
 						<input type="submit" name="action" formaction="<c:url value="/admin/deleteWorker.do"></c:url>" value="Delete" class="input_edit">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 			</tr>

@@ -48,13 +48,14 @@ public class PartController {
 			@ModelAttribute(value = "part_name") String partName, @ModelAttribute(value = "vendor") String partVendor,
 			@ModelAttribute(value = "amount") String amount, Model model) {
 		Part part = partService.getPartById(partId.equals("") ? 0 : Long.parseLong(partId));
+		Long amountLong = amount.equals("") ? 0 : Long.parseLong(amount);
 		if (part == null) {
-			part = new Part(partName, partVendor, Long.parseLong(amount));
+			part = new Part(partName, partVendor, amountLong);
 			partService.addPart(part);
 		} else {
 			part.setPartName(partName);
 			part.setVendor(partVendor);
-			part.setAmount(Long.parseLong(amount));
+			part.setAmount(amountLong);
 			partService.updatePart(part);
 		}
 		model.addAttribute("target", "Parts");

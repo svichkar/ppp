@@ -42,7 +42,7 @@ public class JournalServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String tempId = request.getParameter("studentId");
         int id = Integer.parseInt(tempId);
-        List<Journal> journal = journalDao.getJournalByStudent(studentDao.getByStudentId(id));        
+        List<Journal> journal = journalDao.getJournalByStudentId(studentDao.getByStudentId(id).getStudentId());        
         request.setAttribute("journal", journal);
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/journal/Journal.jsp");
 		rs.forward(request, response);

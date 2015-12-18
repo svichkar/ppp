@@ -49,7 +49,7 @@ public class StudentsServlet extends HttpServlet {
             students.addAll(studentDao.getByStudentsByName(firstName, lastName));
         }else{
             String group = request.getParameter("studentGroup");
-            students.addAll(studentDao.getStudentsByGroup(studentGroupDao.getByStudentGroupName(group)));
+            students.addAll(studentDao.getStudentsByGroupId(studentGroupDao.getByStudentGroupName(group).getStudentGroupId()));
         }        
 		request.setAttribute("students", students);
         request.setAttribute("groups", studentGroupDao.getAll());

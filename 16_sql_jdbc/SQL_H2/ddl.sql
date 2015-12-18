@@ -57,7 +57,6 @@ last_name VARCHAR(255) NOT NULL,
 employee_category_id TINYINT NOT NULL,
 FOREIGN KEY (employee_category_id) REFERENCES employee_category(employee_category_id)
 );
-
 CREATE TABLE employee_car_order
 (
 employee_id INT NOT NULL,

@@ -2,7 +2,7 @@ INSERT INTO car_type (brand,model)
 VALUES ('Honda','Civic'), ('Honda','CR-V'), ('Lada','Kalina'), ('Hyundai','i30'), ('Toyota', 'Corolla');
 
 INSERT INTO client (first_name, last_name)
-VALUES ('Ivan','Lazy'), ('Ivan', 'Grozniy'), ('John', 'Doe'), ('Terry','Prachett'), ('Mike', 'Majestic');
+VALUES ('Ivan','Lazy'), ('Ivan', 'Grozniy'), ('John', 'Doe'), ('Terry','Prachett'), ('Mike', 'Majestic'), ('Jimmy','Brown');
 
 INSERT INTO car (serial_id, car_type_id, client_id)
 VALUES 
@@ -98,3 +98,15 @@ CURRENT_TIMESTAMP()
 --Employee are assigned to the task
 INSERT INTO employee_car_order (employee_id,car_order_id)
 VALUES(2,1),(3,1),(3,3),(4,2);
+
+--promote Jimmy and assign Mark's tasks
+UPDATE employee
+SET employee_category_id = SELECT employee_category_id FROM employee_category WHERE name='Suspension'
+WHERE first_name = 'Jimmy' and last_name = 'Brown';
+
+UPDATE employee_car_order
+SET employee_id = SELECT employee_id FROM employee WHERE first_name = 'Jimmy' AND last_name = 'Brown'
+WHERE employee_id = SELECT employee_id FROM employee WHERE first_name = 'Mark' AND last_name = 'Spencer';
+ 
+--fire Mark Spencer
+DELETE FROM employee WHERE first_name = 'Mark' AND last_name = 'Spencer';

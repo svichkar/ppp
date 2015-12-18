@@ -1,6 +1,6 @@
 --author
 INSERT INTO author (first_name,last_name) VALUES ('Alexandr','Pushkin');
-INSERT INTO author (first_name,last_name) VALUES ('Nikolay','Gogogl');
+INSERT INTO author (first_name,last_name) VALUES ('Nikolay','Gogol');
 INSERT INTO author (first_name,last_name) VALUES ('John','Smith');
 INSERT INTO author (first_name,last_name) VALUES ('Jeff','Johnson');
 INSERT INTO author (first_name,last_name) VALUES ('Peter','Griffin');

@@ -30,7 +30,7 @@ public class SubjectController {
 		if (searchType.equals("subject")) {
 			model.addAttribute("subjects", subjectService.getBySubjectName(searchQuery));
 		} else {
-			model.addAttribute("subjects", subjectService.getSubjectsByTerm(termService.getByTermAlias(searchQuery)));
+			model.addAttribute("subjects", subjectService.getSubjectsByTermId(termService.getByTermAlias(searchQuery).getTermId()));
 		}
 		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}

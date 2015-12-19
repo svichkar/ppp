@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.SubjectDao;
 import com.nixsolutions.entity.Subject;
-import com.nixsolutions.entity.Term;
 import com.nixsolutions.service.SubjectService;
 
 @Service
@@ -47,8 +46,8 @@ public class SubjectServiceImpl implements SubjectService {
 	}
 
 	@Override
-	public List<Subject> getSubjectsByTerm(Term term) {
-		return subjectDao.getSubjectsByTerm(term);
+	public List<Subject> getSubjectsByTermId(int termId) {
+		return subjectDao.getSubjectsByTermId(termId);
 	}
 
 }

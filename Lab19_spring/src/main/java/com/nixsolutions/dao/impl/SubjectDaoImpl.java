@@ -2,149 +2,57 @@ package com.nixsolutions.dao.impl;
 
 import com.nixsolutions.dao.SubjectDao;
 import com.nixsolutions.entity.Subject;
-import com.nixsolutions.entity.Term;
-import com.nixsolutions.util.HibernateUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Transactional
 public class SubjectDaoImpl implements SubjectDao {
 
-    private static Logger LOG = LogManager.getLogger(SubjectDaoImpl.class.getName());
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	public SubjectDaoImpl() {
 	}
 
-    public void create(Subject subject) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.save(subject);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-    }
+	public void create(Subject subject) {
+		sessionFactory.getCurrentSession().save(subject);
+	}
 
-    public void update(Subject subject) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(subject);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-    }
+	public void update(Subject subject) {
+		sessionFactory.getCurrentSession().saveOrUpdate(subject);
+	}
 
-    public void delete(Subject subject) {
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            session.delete(subject);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-    }
+	public void delete(Subject subject) {
+		sessionFactory.getCurrentSession().delete(subject);
+	}
 
-    public Subject getBySubjectId(int subjectId) {
-        Subject subject = new Subject();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            subject = (Subject) session.get(Subject.class, subjectId);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return  subject;
-    }
+	public Subject getBySubjectId(int subjectId) {
+		return (Subject) sessionFactory.getCurrentSession().get(Subject.class, subjectId);
+	}
 
-    public List<Subject> getAll() {
-        List<Subject> toReturn = new ArrayList<Subject>();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            toReturn.addAll(session.createCriteria(Subject.class).list());
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return toReturn;
-    }
+	@SuppressWarnings("unchecked")
+	public List<Subject> getAll() {
+		return sessionFactory.getCurrentSession().createCriteria(Subject.class).list();
+	}
 
-    public List<Subject> getBySubjectName(String name) {
-        List<Subject> toReturn = new ArrayList<Subject>();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-            Criteria c = session.createCriteria(Subject.class);
-            c.add(Restrictions.eq("name", name));
-            toReturn.addAll(c.list());
-            //term = (Term) list.get(0);
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-        return toReturn;
-    }
+	@SuppressWarnings("unchecked")
+	public List<Subject> getBySubjectName(String name) {
+		Criteria c = sessionFactory.getCurrentSession().createCriteria(Subject.class);
+		c.add(Restrictions.eq("name", name));
+		return c.list();
+	}
 
-    public List<Subject> getSubjectsByTerm(Term term) {
-		List<Subject> toReturn = new ArrayList<Subject>();
-        Session session = null;
-        Transaction transaction = null;
-        try {
-            session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-        Criteria c = session.createCriteria(Subject.class);
-        c.add(Restrictions.eq("term", term));
-        toReturn.addAll(c.list());
-            transaction.commit();
-        } catch (Exception ex) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            LOG.error(ex);
-        }
-		return toReturn;
+	@SuppressWarnings("unchecked")
+	public List<Subject> getSubjectsByTermId(int termId) {
+		Criteria c = sessionFactory.getCurrentSession().createCriteria(Subject.class);
+		c.add(Restrictions.eq("term.termId", termId));
+		return c.list();
 	}
 }

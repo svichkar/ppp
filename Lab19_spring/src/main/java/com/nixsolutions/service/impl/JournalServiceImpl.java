@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.JournalDao;
 import com.nixsolutions.entity.Journal;
-import com.nixsolutions.entity.Student;
-import com.nixsolutions.entity.Subject;
 import com.nixsolutions.service.JournalService;
 
 @Service
@@ -43,13 +41,13 @@ public class JournalServiceImpl implements JournalService {
 	}
 
 	@Override
-	public List<Journal> getJournalByStudent(Student student) {
-		return journalDao.getJournalByStudent(student);
+	public List<Journal> getJournalByStudentId(int studentId) {
+		return journalDao.getJournalByStudentId(studentId);
 	}
 
 	@Override
-	public List<Journal> getJournalBySubject(Subject subject) {
-		return journalDao.getJournalBySubject(subject);
+	public List<Journal> getJournalBySubjectId(int subjectId) {
+		return journalDao.getJournalBySubjectId(subjectId);
 	}
 
 }

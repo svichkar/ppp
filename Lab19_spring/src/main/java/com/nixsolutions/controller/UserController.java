@@ -70,6 +70,6 @@ public class UserController {
 	protected String deleteUserPost(@ModelAttribute("userId") String userId, Model model) {
 		userService.delete(userService.getByUserId(Integer.parseInt(userId)));
 		model.addAttribute("users", userService.getAll());
-		return "/WEB-INF/jsp/user/User.jsp";
+		return "/WEB-INF/jsp/AdminHome.jsp";
 	}
 }

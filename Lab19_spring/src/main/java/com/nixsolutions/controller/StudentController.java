@@ -41,7 +41,7 @@ public class StudentController {
 			model.addAttribute("students", studentService.getByStudentsByName(firstName, lastName));
 		} else {
 			model.addAttribute("students",
-					studentService.getStudentsByGroup(studentGroupService.getByStudentGroupName(studentGroupName)));
+					studentService.getStudentsByGroupId(studentGroupService.getByStudentGroupName(studentGroupName).getStudentGroupId()));
 		}
 		model.addAttribute("groups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/student/Students.jsp";

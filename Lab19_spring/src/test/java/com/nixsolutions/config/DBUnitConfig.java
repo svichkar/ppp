@@ -1,7 +1,5 @@
 package com.nixsolutions.config;
 
-import com.nixsolutions.dao.DaoFactory;
-import com.nixsolutions.dao.impl.H2DaoFactory;
 import com.nixsolutions.util.HibernateUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +23,6 @@ public class DBUnitConfig extends DBTestCase {
 	protected IDatabaseTester tester;
 	private Properties property;
 	protected IDataSet beforeData;
-	protected DaoFactory daoFactory;
 
 	public DBUnitConfig(String name) throws SQLException, ClassNotFoundException {
 		super(name);
@@ -52,7 +49,6 @@ public class DBUnitConfig extends DBTestCase {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, property.getProperty("DB_password"));
 		//System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "sqllab");	*/
         HibernateUtil.getSessionFactory();
-		daoFactory = new H2DaoFactory();
 	}
 
 	@Before

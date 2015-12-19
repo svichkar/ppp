@@ -13,6 +13,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileInputStream;
 import java.sql.Date;
@@ -21,9 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentTest extends DBUnitConfig {
+	@Autowired
 	private StudentDao studentDao;
+	@Autowired
 	private TermDao termDao;
+	@Autowired
     private StatusDao statusDao;
+    @Autowired
     private StudentGroupDao studentGroupDao;
 
 	public StudentTest(String name) throws SQLException, ClassNotFoundException {
@@ -38,10 +43,6 @@ public class StudentTest extends DBUnitConfig {
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/Student/Student.xml"));
 		tester.setDataSet(beforeData);
 		tester.onSetup();
-		studentDao = daoFactory.getStudentDao();
-        studentGroupDao = daoFactory.getStudentGroupDao();
-        statusDao = daoFactory.getStatusDao();
-        termDao = daoFactory.getTermDao();
 	}
 
 	@Test

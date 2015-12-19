@@ -10,15 +10,20 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 public class JournalTest extends DBUnitConfig {
+	@Autowired
     private JournalDao journalDao;
+	@Autowired
     private RateDao rateDao;
+	@Autowired
     private StudentDao studentDao;
+	@Autowired
     private SubjectDao subjectDao;
 
 	public JournalTest(String name) throws SQLException, ClassNotFoundException {
@@ -33,10 +38,6 @@ public class JournalTest extends DBUnitConfig {
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/Journal/Journal.xml"));
 		tester.setDataSet(beforeData);
 		tester.onSetup();
-        journalDao = daoFactory.getJournalDao();
-        rateDao = daoFactory.getRateDao();
-        studentDao = daoFactory.getStudentDao();
-        subjectDao = daoFactory.getSubjectDao();
 	}
 
 	@Test
@@ -108,7 +109,7 @@ public class JournalTest extends DBUnitConfig {
 	
 	@Test
 	public void testGetByJournalsByStudentId() throws Exception {
-		List<Journal> journalActual =  journalDao.getJournalByStudent(studentDao.getByStudentId(1));
+		List<Journal> journalActual =  journalDao.getJournalByStudentId(1);
 		for (Journal journal : journalActual){
 			Assert.assertEquals(1, journal.getStudent().getStudentId());
 		}
@@ -117,7 +118,7 @@ public class JournalTest extends DBUnitConfig {
 	
 	@Test
 	public void testGetByJournalsBySubjectId() throws Exception {
-		List<Journal> journalActual =  journalDao.getJournalBySubject(subjectDao.getBySubjectId(2));
+		List<Journal> journalActual =  journalDao.getJournalBySubjectId(2);
 		for (Journal journal : journalActual){
 			Assert.assertEquals(2, journal.getSubject().getSubjectId());
 		}

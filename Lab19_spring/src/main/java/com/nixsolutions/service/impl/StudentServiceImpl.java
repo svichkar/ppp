@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.StudentDao;
 import com.nixsolutions.entity.Student;
-import com.nixsolutions.entity.StudentGroup;
 import com.nixsolutions.service.StudentService;
 
 @Service
@@ -42,8 +41,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Student> getStudentsByGroup(StudentGroup studentGroup) {
-		return studentDao.getStudentsByGroup(studentGroup);
+	public List<Student> getStudentsByGroupId(int studentGroupId) {
+		return studentDao.getStudentsByGroupId(studentGroupId);
 	}
 
 	@Override

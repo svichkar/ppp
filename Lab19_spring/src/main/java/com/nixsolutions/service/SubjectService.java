@@ -1,7 +1,6 @@
 package com.nixsolutions.service;
 
 import com.nixsolutions.entity.Subject;
-import com.nixsolutions.entity.Term;
 
 import java.util.List;
 
@@ -19,5 +18,5 @@ public interface SubjectService {
 
 	public List<Subject> getBySubjectName(String name);
 	
-	public List<Subject> getSubjectsByTerm(Term term);
+	public List<Subject> getSubjectsByTermId(int termId);
 }

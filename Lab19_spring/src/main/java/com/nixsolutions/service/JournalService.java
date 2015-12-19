@@ -1,8 +1,6 @@
 package com.nixsolutions.service;
 
 import com.nixsolutions.entity.Journal;
-import com.nixsolutions.entity.Student;
-import com.nixsolutions.entity.Subject;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ public interface JournalService {
 
 	public List<Journal> getAll();
 	
-	public List<Journal> getJournalByStudent(Student student);
+	public List<Journal> getJournalByStudentId(int studentId);
 	
-	public List<Journal> getJournalBySubject(Subject subject);
+	public List<Journal> getJournalBySubjectId(int subjectId);
 }

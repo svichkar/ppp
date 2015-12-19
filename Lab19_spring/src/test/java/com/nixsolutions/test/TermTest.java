@@ -10,12 +10,14 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 public class TermTest extends DBUnitConfig {
+	@Autowired
 	private TermDao termDao;
 
 	public TermTest(String name) throws SQLException, ClassNotFoundException {
@@ -30,7 +32,6 @@ public class TermTest extends DBUnitConfig {
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/Term/Term.xml"));
 		tester.setDataSet(beforeData);
 		tester.onSetup();
-		termDao = daoFactory.getTermDao();
 	}
 
 	@Test

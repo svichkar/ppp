@@ -1,11 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url value="/style/style.css" var="cssUrl" />
+<c:url value="/js/basic.js" var="jsbasicUrl"/>
 <c:set var="title"
 	value="${action == 'add' ? 'Add New Order' : 'Edit Order'}" />
 <html>
 <head>
 <title><c:out value="${title}" /></title>
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="${jsbasicUrl}"></script>
 </head>
 <body>
 	<div class="head1"></div>
@@ -55,10 +57,13 @@
 			</c:if>
 		</div>
 		<div class="third" id="center">
-			<form action="<c:url value="/admin/orderPost.do"></c:url>" method="POST">
+			<form action="<c:url value="/admin/orderPost.do"></c:url>" method="POST" class="focusableForm">
 				<c:if test="${action=='edit'}">
 					<p>Order ID:</p>
-					<input type="text" name="id" value="${order.orderId}" />
+					<input type="text" name="id" value="${order.orderId}" readonly/>
+					<div class="hidden">
+						<p> Id of the order </p>
+					</div>
 					<br>
 					<div class="buffer"></div>
 				</c:if>
@@ -68,6 +73,9 @@
 					<c:out
 						value="${order.description == null ? '' : order.description}" />
 				</textarea>
+				<div class="hidden">
+				<p> Description of the order </p>
+				</div>
 				<br>
 				<div class="buffer"></div>
 				<p>Order Status:</p>
@@ -94,11 +102,17 @@
 					<p>Time Started:</p>
 					<input type="text" name="timestamp_started"
 						value="${order.timestampStart}" />
+					<div class="hidden">
+						<p> Time when order was started </p>
+					</div>
 					<br>
 					<div class="buffer"></div>
 					<p>Time Finished:</p>
 					<input type="text" name="timestamp_finished"
 						value="${order.timestampFinish}" />
+					<div class="hidden">
+						<p> Time when order was finished </p>
+					</div>
 					<br>
 					<div class="buffer"></div>
 				</c:if>

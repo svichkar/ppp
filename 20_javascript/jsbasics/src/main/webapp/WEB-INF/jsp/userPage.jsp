@@ -1,8 +1,12 @@
 <%@ page contentType="text/html; charset=windows-1251"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:url value="/style/style.css" var="cssUrl" />
+<c:url value="/js/basic.js" var="jsbasicUrl"/>
 <html>
 <head>
 <title>User Page</title>
+<link href="${cssUrl}" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="${jsbasicUrl}"></script>
 </head>
 <body bgcolor="#F0FFFF">
 	<div align="center">
@@ -28,7 +32,7 @@
 			<td width=15%><b>Time Finished</b></td>
 		</tr>
 		<c:forEach var="item" items="${orders}">
-			<tr>
+			<tr class="highlightable">
 				<td><c:out value="${item.orderId}" /></td>
 				<td><c:out value="${item.orderStatus}" /></td>
 				<td><c:out value="${item.description}" /></td>

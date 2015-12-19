@@ -74,6 +74,35 @@ form {
 }
 
 .highlight {
-    background-color: green;
-    font-weight: bold;
+	background-color: green;
+	font-weight: bold;
+}
+
+.focusableForm {
+	
+}
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+	font-weight: normal;
+	font-size: 0.8em;
+	margin: -9px 0 0 100px;
+	line-height: 0;
+	height: 7px;
+	padding: 1px;
+	text-align: left;
+	position: absolute;
+	left: 50%;
+}
+
+.highlightable {
+	
+}
+
+.formElement {
+	padding: 7px;
 }

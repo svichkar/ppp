@@ -17,7 +17,7 @@
 			<td width=20%><b>Action</b></td>
 		</tr>
 		<c:forEach var="item" items="${cars}">
-			<tr>
+			<tr class="highlightable">
 				<td><c:out value="${item.carId}" /></td>
 				<td><c:out value="${item.carModel}" /></td>
 				<td><c:out value="${item.carVin}" /></td>

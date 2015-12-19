@@ -20,7 +20,7 @@
 			<td width=10%><b>Action</b></td>
 		</tr>
 		<c:forEach var="item" items="${orders}">
-			<tr onclick="highlight(this)">
+			<tr class="highlightable">
 				<td><c:out value="${item.orderId}" /></td>
 				<td><c:out value="${item.orderStatus}" /></td>
 				<td><c:out value="${item.description}" /></td>

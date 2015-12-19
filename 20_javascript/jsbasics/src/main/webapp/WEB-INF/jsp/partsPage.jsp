@@ -16,7 +16,7 @@
 			<td width=20%><b>Action</b></td>
 		</tr>
 		<c:forEach var="item" items="${parts}">
-			<tr>
+			<tr class="highlightable">
 				<td><c:out value="${item.partId}" /></td>
 				<td><c:out value="${item.partName}" /></td>
 				<td><c:out value="${item.vendor}" /></td>
@@ -27,6 +27,7 @@
 						<input type="hidden" name="target" value="Parts" />
 						<input type="submit" name="action" formaction="<c:url value="/admin/editPart.do"></c:url>" value="Edit" class="input_edit">
 						<input type="submit" name="action" formaction="<c:url value="/admin/deletePart.do"></c:url>" value="Delete" class="input_edit">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 			</tr>

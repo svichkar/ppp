@@ -58,9 +58,31 @@ LEFT JOIN employee_car_order eco
 ON eco.employee_id = emp.employee_id;
 
 --numeric functions
-SELECT first_name, last_name FROM client WHERE client_id = RAND()*10;
+--lottery
+--Does not work as expected
+--SELECT first_name, last_name FROM client WHERE client_id = (MOD(ROUND(RAND()*10),5)+1);
+--workaround:
+SELECT first_name, last_name FROM client s JOIN 
+(SELECT (MOD(RAND()*1000,5)+1) AS num FROM dual) rand 
+ON client_id=rand.num; 
 
---Select only one employee of each spicialization
-SELECT first_name, last_name, category_id FROM employee
-WHERE employee_id IN (SELECT DISTINCT employee_id FROM employee);
+--string functions
+--replace John Doe with Unknown
+SELECT REPLACE(CONCAT(first_name,' ', last_name),'John Doe','Unknown') FROM client;
 
+--calendar
+--get days passed for each order
+SELECT *,DATEDIFF('DAY', start_date, CURRENT_TIMESTAMP()) AS day_difference FROM car_order;
+
+--aggragate
+--get cars models count per brand
+SELECT brand, COUNT (model) FROM car_type
+GROUP BY brand;
+
+--get orders with more than one resource working on
+SELECT co.* FROM car_order co
+JOIN
+(SELECT car_order_id FROM employee_car_order
+GROUP BY car_order_id
+HAVING COUNT(car_order_id)>1) filter_eco
+ON co.car_order_id = filter_eco.car_order_id;

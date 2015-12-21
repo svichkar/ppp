@@ -58,6 +58,7 @@ document.onreadystatechange = function() {
 	}
 
 	function submitListener(e) {
+		resetSubmitContainer(e.target);
 		if (!validate(e.target, options)) {
 			e.returnValue = false;
 		}
@@ -94,18 +95,40 @@ document.onreadystatechange = function() {
 				for ( var funcIndex in options[field]) {
 					var status = options[field][funcIndex].isValid(input);
 					if (!status) {
-						alert(options[field][funcIndex].message);
-						//
+						var divNode = document.createElement('div');
+						divNode.innerHTML += options[field][funcIndex].message;
+						divNode.className = 'error';
+						insertAfter(divNode, input.parentNode.querySelector('div.hidden'));
 					}
-					flag = flag & status;
+					flag = flag && status;
 				}
 			}
 		}
 		return flag;
 	}
 
+	function resetSubmitContainer(formElement) {
+		var formDivs = formElement.querySelectorAll('div.formElement');
+		for (var index in formDivs) {
+			if (index !== 'length' && index !== 'item') {
+				var formDiv = formDivs[index];
+				var errorDivs = formDiv.querySelectorAll('div.error');
+				for (var divIndex in errorDivs) {
+					if (divIndex !== 'length' && divIndex !== 'item') {
+						var errorDiv = errorDivs[divIndex];
+						formDiv.removeChild(errorDiv);
+					}
+				} 
+			}
+		}
+	}
+
+	function insertAfter(newNode, referenceNode) {
+		referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+	}
+	
 	var nonEmptyValidator = function(domElement) {
-		return domElement.value !== '';
+		return domElement.value.trim() !== '';
 	}
 
 	var options = {
@@ -126,10 +149,6 @@ document.onreadystatechange = function() {
 			message : 'VIN field should not be empty.'
 		}, {
 			isValid : function(domElement) {
-				/*
-				 * return domElement.value .search('[!@#$%^&*()-_=+\\|/.,<>?~`"\\\']')
-				 * === -1;
-				 */
 				return /^[a-zA-Z0-9]{17}$/.test(domElement.value);
 			},
 			message : 'VIN field must contain only 17 alphanumeric symbols.'
@@ -157,7 +176,7 @@ document.onreadystatechange = function() {
 			message : 'Phone field should not be empty.'
 		}, {
 			isValid : function(domElement) {
-				return /^[0-9]{10, 12}$/.test(domElement.value);
+				return /^[0-9]{10,12}$/.test(domElement.value);
 			},
 			message : 'Phone field name should contain from 10 to 12 digits.'
 		} ],
@@ -166,25 +185,17 @@ document.onreadystatechange = function() {
 			message : 'Order description field should not be empty.'
 		} ],
 		timestamp_started : [ {
-			isValid : function(domElement) {
-				/*
-				 * var inputDate = new Date(domElement.name); var today = new
-				 * Date(); today.setHours(today.getHours() - 1,
-				 * today.getMinutes(), today.getSeconds(),
-				 * today.getMilliseconds()); return inputDate > today;
-				 */
-				return true;
-			},
-			message : 'test'
+			isValid : nonEmptyValidator,
+			message : 'Start time field should not be empty.'
 		} ],
 		timestamp_finished : [ {
 			isValid : function(domElement) {
-				var start = domElement.getParentElement.querySelector('');
+				var start = domElement.parentElement.parentElement.querySelector('input[name="timestamp_started"]');
 				var startDate = new Date(start.value);
 				var finishDate = new Date(domElement.value);
 				return domElement.value === '' || finishDate > startDate;
 			},
-			message : 'Finished time should more than start date.'
+			message : 'Finished time should be more than start date.'
 		} ],
 		used_amount : [ {
 			isValid : nonEmptyValidator,

@@ -86,6 +86,32 @@ form {
 	display: none;
 }
 
+textarea + div.visible {
+	display: block;
+	font-weight: normal;
+	font-size: 0.8em;
+	margin: -50px 0 0 170px;
+	line-height: 0;
+	height: 7px;
+	padding: 1px;
+	text-align: left;
+	position: absolute;
+	left: 50%;
+}
+
+input[name=login] + div.visible {
+	display: block;
+	font-weight: normal;
+	font-size: 0.8em;
+	margin: -9px 0 0 120px;
+	line-height: 0;
+	height: 7px;
+	padding: 1px;
+	text-align: left;
+	position: absolute;
+	left: 50%;
+}
+
 .visible {
 	display: block;
 	font-weight: normal;
@@ -97,6 +123,11 @@ form {
 	text-align: left;
 	position: absolute;
 	left: 50%;
+}
+
+div.error {
+	display: block;
+	color: red;
 }
 
 .highlightable {

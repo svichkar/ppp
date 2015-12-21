@@ -92,6 +92,7 @@ public class GradeDaoImpl implements GradeDao {
 
     @Override
     public Grade findById(int id) {
+
         String sql = String.format("SELECT grade_id, grade_name FROM grade WHERE grade_id = %d", id);
         Grade result = new Grade();
 

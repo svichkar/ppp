@@ -19,11 +19,11 @@ public class TermTest {
         try  {
             TermDao dao = daoFactory.getTermDao();
 
-            Term term = new Term(1, "first");
+            Term term = new Term(3, "third");
             dao.create(term);
-            Term term2 = new Term(2, "third");
+            Term term2 = new Term(4, "another");
             dao.create(term2);
-            dao.update(term2 ,new Term(2, "second"));
+            dao.update(term2 ,new Term(4, "fourth"));
             dao.delete(term);
             list = dao.findAll();
             dao.findById(2);

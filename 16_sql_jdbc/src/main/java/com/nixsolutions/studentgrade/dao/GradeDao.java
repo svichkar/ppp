@@ -9,15 +9,13 @@ import java.util.List;
  */
 public interface GradeDao {
 
-    //http://www.dokwork.ru/2014/02/daotalk.html
+    public boolean create(Grade grade);
 
-    public boolean create();
+    public int update(Grade grade, Grade newGrade);
 
-    public int update(Grade grade);
-
-    public boolean delete(Grade grade);
+    public int delete(Grade grade);
 
     public List<Grade> findAll();
 
-    public Grade findById(int i);
+    public Grade findById(int id);
 }

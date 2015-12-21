@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.dao.impl;
+package com.nixsolutions.studentgrade.util;
 
 import org.h2.jdbcx.JdbcConnectionPool;
 

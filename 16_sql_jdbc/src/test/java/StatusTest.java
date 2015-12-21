@@ -1,6 +1,6 @@
-import com.nixsolutions.studentgrade.dao.GradeDao;
+import com.nixsolutions.studentgrade.dao.StatusDao;
 import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
-import com.nixsolutions.studentgrade.entity.Grade;
+import com.nixsolutions.studentgrade.entity.Status;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,22 +11,24 @@ import java.util.List;
  * Created by svichkar on 12/18/2015.
  */
 
-public class TestClass {
+public class StatusTest {
 
     @Test
     public void testGetAll() throws Exception {
         StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
-        List<Grade> list = new ArrayList<>();
+        List<Status> list = new ArrayList<>();
 
         try  {
-            GradeDao dao = daoFactory.getGradeDao();
+            StatusDao dao = daoFactory.getStatusDao();
 
-            Grade grade = new Grade(22, "dsfsd");
-            dao.create(grade);
-            dao.update(grade ,new Grade(77, "another one"));
-            dao.delete(new Grade(12, "another one"));
+            Status status = new Status(1, "active");
+            dao.create(status);
+            Status status2 = new Status(3, "expelled");
+            dao.create(status2);
+            dao.update(status ,new Status(5, "vacation"));
+            dao.delete(status2);
             list = dao.findAll();
-            dao.findById(9);
+            dao.findById(2);
         } catch (Exception e) {
 
         }

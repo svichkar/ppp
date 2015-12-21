@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.apps;
+package com.nixsolutions.studentgrade.app;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

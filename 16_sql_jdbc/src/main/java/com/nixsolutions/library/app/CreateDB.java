@@ -17,6 +17,7 @@ import java.util.Properties;
  */
 public class CreateDB {
     public static Logger LOGGER = LogManager.getLogger(CreateDB.class.getName());
+
     public static void main(String[] args) {
         LOGGER.entry();
         try {
@@ -37,31 +38,45 @@ public class CreateDB {
                     properties.getProperty("DB_USER"), properties.getProperty("DB_PASSWORD"));
             Statement statement = connection.createStatement();
             statement.addBatch("CREATE TABLE author (" +
-                    "author_id idENTITY, " +
+                    "author_id IDENTITY, " +
                     "first_name VARCHAR (256) NOT NULL,);");
             statement.addBatch("ALTER TABLE author " +
                     "ADD COLUMN last_name " +
                     "VARCHAR (256) NOT NULL;");
             statement.addBatch("CREATE TABLE category (" +
-                    "category_id idENTITY, " +
+                    "category_id IDENTITY, " +
                     "name VARCHAR (256) NOT NULL,);");
             statement.addBatch("CREATE TABLE cell (" +
-                    "cell_id idENTITY, " +
+                    "cell_id IDENTITY, " +
                     "name VARCHAR (256) NOT NULL, );");
             statement.addBatch("CREATE TABLE client (" +
-                    "client_id idENTITY, " +
+                    "client_id IDENTITY, " +
                     "first_name VARCHAR (256) NOT NULL, " +
                     "last_name VARCHAR (256) NOT NULL, " +
                     "phone VARCHAR (256), " +
                     "email VARCHAR (256),);");
             statement.addBatch("CREATE TABLE book (" +
-                    "book_id idENTITY, " +
+                    "book_id IDENTITY, " +
                     "name VARCHAR (256) NOT NULL, " +
                     "cell_id BIGINT, " +
                     "category_id BIGINT, " +
                     "FOREIGN KEY (cell_id) REFERENCES cell (cell_id), " +
                     "FOREIGN KEY (category_id) REFERENCES category (category_id),);");
-            statement.addBatch("");
+            statement.addBatch("CREATE TABLE author_book (" +
+                    "id IDENTITY, " +
+                    "author_id BIGINT, " +
+                    "book_id BIGINT, " +
+                    "FOREIGN KEY (book_id) REFERENCES book (book_id), " +
+                    "FOREIGN KEY (author_id) REFERENCES author (author_id),);");
+            statement.addBatch("CREATE TABLE rent_journal (" +
+                    "TICKET_id IDENTITY, " +
+                    "book_id BIGINT, " +
+                    "client_id BIGINT, " +
+                    "rent_date DATE NOT NULL, " +
+                    "expired_date DATE NOT NULL, " +
+                    "return_date DATE, " +
+                    "FOREIGN KEY (book_id) REFERENCES book (book_id), " +
+                    "FOREIGN KEY (client_id) REFERENCES client (client_id),);");
 
             statement.executeBatch();
 

@@ -11,5 +11,11 @@
         <Logger name= "CreateDB" level="all" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>
+        <Logger name= "DeleteDB" level="all" additivity="true">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Root level="all" additivity="true">
+            <AppenderRef ref="Console"/>
+        </Root>
     </Loggers>
 </Configuration>

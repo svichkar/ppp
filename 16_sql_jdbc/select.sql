@@ -31,7 +31,7 @@ WHERE subject_id IN (SELECT DISTINCT subject_id
 --task #8
 SELECT student_id, subject_id, grade_id FROM journal
 WHERE grade_id IS NOT NULL ORDER BY grade_id DESC; --returns journal info ordered by grade_id descending
---task #9 (TODO)
+--task #9
 SELECT first_name, last_name FROM student
 WHERE group_id
  
@@ -39,31 +39,34 @@ UNION
 
 SELECT first_name, last_name FROM student
 WHERE 
---task #10 (TODO)
+--task #10
+SELECT first_name, last_name, group_name FROM student st
+INNER JOIN student_group sg ON (st.group_id = sg.group_id);
+
+
 --task #11
+SELECT subject_id, subject_name, term_name FROM subject s
+LEFT OUTER JOIN term t ON (s.term_id = t.term_id); --returns all subjects with term name
+SELECT first_name, last_name, subject_id, grade_id FROM student st
+RIGHT OUTER JOIN journal j ON (st.student_id = j.student_id)
+WHERE grade_id IS NOT NULL AND status_id <> 3
+ORDER BY subject_id; --returns list of students with grades
+SELECT first_name, last_name, group_name, term_id, status_name FROM student stud
+LEFT OUTER JOIN student_group sg ON (stud.group_id = sg.group_id)
+LEFT OUTER JOIN status st ON (stud.status_id = st.status_id)
+ORDER BY group_name, term_id; --returns readable student info with full names
 --task #12
-SELECT student_id, subject_id, ROUND  ((grade_id/5.0)*100)
-FROM journal;
+SELECT student_id, subject_id, ROUND (grade_id/5.0)*100)
+FROM journal;--returns one more metric for grade values
 --task #13
-
-
-
-CREATE TABLE student_group(group_id BIGINT PRIMARY KEY, group_name VARCHAR(256) NOT NULL);
-CREATE TABLE status (status_id TINYINT PRIMARY KEY, status_name VARCHAR(256) NOT NULL);
-CREATE TABLE term(term_id BIGINT PRIMARY KEY);
-CREATE TABLE student(student_id BIGINT IDENTITY PRIMARY KEY,
-                 first_name VARCHAR(256) NOT NULL,
-                 last_name VARCHAR(256) NOT NULL,
-                 admission_date DATE,
-                 group_id BIGINT NOT NULL REFERENCES student_group(group_id),
-                 status_id TINYINT NOT NULL REFERENCES status(status_id),
-                 term_id BIGINT REFERENCES term(term_id)
-);
-CREATE TABLE grade(grade_id TINYINT PRIMARY KEY, grade_name VARCHAR(256) NOT NULL);
-CREATE TABLE subject(subject_id BIGINT PRIMARY KEY, 
-                  subject_name VARCHAR(256) NOT NULL,
-                  term_id BIGINT REFERENCES term(term_id));
-CREATE TABLE journal(journal_id BIGINT IDENTITY PRIMARY KEY, 
-                  student_id BIGINT REFERENCES student(student_id),
-                  subject_id BIGINT REFERENCES subject(subject_id),
-                  grade_id TINYINT REFERENCES grade(grade_id));
+SELECT TRIM(UPPER(first_name)), TRIM(UPPER(last_name)) FROM student
+WHERE admission_date > '2015-06-01'; --returns uppercase student names and surnames
+--task #14
+SELECT first_name, last_name, admission_date, QUARTER(admission_date) from student
+WHERE status_id <> 3;-- added column with quaters for admission date values
+--task #15
+SELECT group_id, COUNT(student_id) FROM student
+WHERE status_id = 1 GROUP BY group_id; --returns number of active students for each group
+SELECT student_id, AVG(grade_id) FROM journal
+GROUP BY student_id
+HAVING AVG(grade_id) >= 4; --returns students and their evarage grades for studens having grades greater or equals 4

@@ -85,119 +85,132 @@ document.onreadystatechange = function() {
 		item.classList.remove('visible');
 		item.classList.add('hidden');
 	}
-}
 
-function validate(form, options) {
-	var flag = true;
-	for ( var field in options) {
-		var input = form.querySelector('[name="' + field + '"')
-		for ( var funcIndex in options[field]) {
-			var status = !options[field][funcIndex].isValid(input);
-			if (!status) {
-				alert(options[field][funcIndex].message);
-				
+	function validate(form, options) {
+		var flag = true;
+		for ( var field in options) {
+			var input = form.querySelector('[name="' + field + '"');
+			if (input != null) {
+				for ( var funcIndex in options[field]) {
+					var status = options[field][funcIndex].isValid(input);
+					if (!status) {
+						alert(options[field][funcIndex].message);
+						//
+					}
+					flag = flag & status;
+				}
 			}
-			flag = flag & status;
 		}
+		return flag;
 	}
-	return flag;
-}
 
-var options = {
-	login : [ {
-		isValid : function(domElement) {
-			return domElement.value !== '';
-		},
-		message : 'The login field is required. Please enter the login.'
-	} ],
-	description : [ {
-		isValid : function(domElement) {
-			return domElement.value !== '';
-		},
-		message : 'Description field should not be empty.'
-	} ],
-	model : [ {
-		isValid : function(domElement) {
-			return domElement.value !== '';
-		},
-		message : 'Model field should be not empty.'
-	} ],
-	vin : [ {
-		isValid : function(domElement) {
-			return (domElement.value !== '')
-					& (domElement.value
-							.search('[!@#$%^&*()-_=+\\|/.,<>?~`"\\\']') === -1);
-		},
-		message : 'VIN field should not be empty and must contain only alpanumeric symbols.'
-	} ],
-	first_name : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	last_name : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	phone : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	order_description : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	timestamp_started : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	timestamp_finished : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	used_amount : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	part_name : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	vendor : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ],
-	amount : [ {
-		isValid : function(domElement) {
-			//
-			return false;
-		},
-		message : 'test'
-	} ]
+	var nonEmptyValidator = function(domElement) {
+		return domElement.value !== '';
+	}
+
+	var options = {
+		login : [ {
+			isValid : nonEmptyValidator,
+			message : 'The login field is required. Please enter the login.'
+		} ],
+		description : [ {
+			isValid : nonEmptyValidator,
+			message : 'Description field should not be empty.'
+		} ],
+		model : [ {
+			isValid : nonEmptyValidator,
+			message : 'Model field should be not empty.'
+		} ],
+		vin : [ {
+			isValid : nonEmptyValidator,
+			message : 'VIN field should not be empty.'
+		}, {
+			isValid : function(domElement) {
+				/*
+				 * return domElement.value .search('[!@#$%^&*()-_=+\\|/.,<>?~`"\\\']')
+				 * === -1;
+				 */
+				return /^[a-zA-Z0-9]{17}$/.test(domElement.value);
+			},
+			message : 'VIN field must contain only 17 alphanumeric symbols.'
+		} ],
+		first_name : [ {
+			isValid : nonEmptyValidator,
+			message : 'First name should not be empty.'
+		}, {
+			isValid : function(domElement) {
+				return /^[a-zA-Z\s]+$/.test(domElement.value);
+			},
+			message : 'First name should contain only letters.'
+		} ],
+		last_name : [ {
+			isValid : nonEmptyValidator,
+			message : 'Last name should not be empty.'
+		}, {
+			isValid : function(domElement) {
+				return /^[a-zA-Z\s]+$/.test(domElement.value);
+			},
+			message : 'Last name should contain only letters.'
+		} ],
+		phone : [ {
+			isValid : nonEmptyValidator,
+			message : 'Phone field should not be empty.'
+		}, {
+			isValid : function(domElement) {
+				return /^[0-9]{10, 12}$/.test(domElement.value);
+			},
+			message : 'Phone field name should contain from 10 to 12 digits.'
+		} ],
+		order_description : [ {
+			isValid : nonEmptyValidator,
+			message : 'Order description field should not be empty.'
+		} ],
+		timestamp_started : [ {
+			isValid : function(domElement) {
+				/*
+				 * var inputDate = new Date(domElement.name); var today = new
+				 * Date(); today.setHours(today.getHours() - 1,
+				 * today.getMinutes(), today.getSeconds(),
+				 * today.getMilliseconds()); return inputDate > today;
+				 */
+				return true;
+			},
+			message : 'test'
+		} ],
+		timestamp_finished : [ {
+			isValid : function(domElement) {
+				var start = domElement.getParentElement.querySelector('');
+				var startDate = new Date(start.value);
+				var finishDate = new Date(domElement.value);
+				return domElement.value === '' || finishDate > startDate;
+			},
+			message : 'Finished time should more than start date.'
+		} ],
+		used_amount : [ {
+			isValid : nonEmptyValidator,
+			message : 'Used Amount field should not be empty.'
+		}, {
+			isValid : function(domElement) {
+				return /^[0-9]+$/.test(domElement.value);
+			},
+			message : 'Used Amount field should contain only numeric values.'
+		} ],
+		part_name : [ {
+			isValid : nonEmptyValidator,
+			message : 'Part name should not be empty.'
+		} ],
+		vendor : [ {
+			isValid : nonEmptyValidator,
+			message : 'Vendor field should not be empty.'
+		} ],
+		amount : [ {
+			isValid : nonEmptyValidator,
+			message : 'Amount field should not be empty.'
+		}, {
+			isValid : function(domElement) {
+				return /^[0-9]+$/.test(domElement.value);
+			},
+			message : 'Amount field should contain only numeric values.'
+		} ]
+	}
 }

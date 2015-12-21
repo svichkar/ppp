@@ -32,18 +32,19 @@ WHERE subject_id IN (SELECT DISTINCT subject_id
 SELECT student_id, subject_id, grade_id FROM journal
 WHERE grade_id IS NOT NULL ORDER BY grade_id DESC; --returns journal info ordered by grade_id descending
 --task #9
-SELECT first_name, last_name FROM student
-WHERE group_id
- 
+SELECT first_name, last_name FROM student 
+WHERE term_id = (SELECT term_id FROM subject
+                                  WHERE subject_id = 1)
 UNION
-
-SELECT first_name, last_name FROM student
-WHERE 
+SELECT first_name, last_name FROM student stud
+INNER JOIN status stat ON (stud.status_id = stat.status_id)
+WHERE NOT status_name IN ( 'expelled', 'graduated');-- returns students studing java plus all not expelled and not graduated
 --task #10
 SELECT first_name, last_name, group_name FROM student st
-INNER JOIN student_group sg ON (st.group_id = sg.group_id);
-
-
+INNER JOIN student_group sg ON (st.group_id = sg.group_id); --returns not empty groups with studend names and surnames
+SELECT first_name, last_name, j.grade_id, grade_name FROM student st
+INNER JOIN journal j ON (st.student_id = j.student_id)
+INNER JOIN grade g ON (g.grade_id = j.grade_id ); --returns students having not empty grades in journal
 --task #11
 SELECT subject_id, subject_name, term_name FROM subject s
 LEFT OUTER JOIN term t ON (s.term_id = t.term_id); --returns all subjects with term name
@@ -56,8 +57,8 @@ LEFT OUTER JOIN student_group sg ON (stud.group_id = sg.group_id)
 LEFT OUTER JOIN status st ON (stud.status_id = st.status_id)
 ORDER BY group_name, term_id; --returns readable student info with full names
 --task #12
-SELECT student_id, subject_id, ROUND (grade_id/5.0)*100)
-FROM journal;--returns one more metric for grade values
+SELECT student_id, subject_id, ROUND ((grade_id/5.0)*100)
+FROM journal WHERE grade_id IS NOT NULL;--returns one more metric for grade values
 --task #13
 SELECT TRIM(UPPER(first_name)), TRIM(UPPER(last_name)) FROM student
 WHERE admission_date > '2015-06-01'; --returns uppercase student names and surnames

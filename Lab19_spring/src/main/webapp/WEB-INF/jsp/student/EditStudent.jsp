@@ -6,7 +6,7 @@
 	<jsp:attribute name="content_area">
 	<h1>Edit Student</h1>
 		<h2>Student:</h2>
-		<form action="editStudent.do" method="post">
+		<form action="<c:url value="/students/editStudent.do"></c:url>" method="post">
 		<b>First Name:</b><br>
 		<input type="text" name="firstName" value="${student.firstName}"><br>
 		<b>Last Name:</b><br>
@@ -34,6 +34,7 @@
         </c:forEach>
         </select><br>
 		<p>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<input type="hidden" name="studentId" value="${student.studentId}"><br>
 		<input type="submit" value="Save">
 			</p>

@@ -11,11 +11,12 @@ import com.nixsolutions.entity.Term;
 import com.nixsolutions.service.TermService;
 
 @Controller
+@RequestMapping(value = "/terms")
 public class TermController {
 	@Autowired
 	private TermService termService;
 
-	@RequestMapping(value = "/Terms.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/terms.do", method = { RequestMethod.GET, RequestMethod.POST })
 	protected String termGet(Model model) {
 		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/term/Terms.jsp";
@@ -32,7 +33,7 @@ public class TermController {
 		term.setAlias(alias);
 		termService.create(term);
 		model.addAttribute("terms", termService.getAll());
-		return "/WEB-INF/jsp/term/Term.jsp";
+		return "/WEB-INF/jsp/term/Terms.jsp";
 	}
 
 	@RequestMapping(value = "/editTerm.do", method = RequestMethod.GET)
@@ -49,13 +50,13 @@ public class TermController {
 		term.setAlias(alias);
 		termService.update(term);
 		model.addAttribute("terms", termService.getAll());
-		return "/WEB-INF/jsp/term/Term.jsp";
+		return "/WEB-INF/jsp/term/Terms.jsp";
 	}
 
 	@RequestMapping(value = "/deleteTerm.do", method = RequestMethod.POST)
 	protected String deleteTermPost(@ModelAttribute("termId") String termId, Model model) {
 		termService.delete(termService.getByTermId(Integer.parseInt(termId)));
 		model.addAttribute("terms", termService.getAll());
-		return "/WEB-INF/jsp/term/Term.jsp";
+		return "/WEB-INF/jsp/term/Terms.jsp";
 	}
 }

@@ -6,13 +6,12 @@
 	<jsp:attribute name="content_area">
 	<h1>Edit Student Group</h1>
 		<h2>Student Group:</h2>
-		<form action="editStudentGroup.do" method="post">
+		<form action="<c:url value="/studentGroups/editStudentGroup.do"></c:url>" method="post">
 		<b>Name:</b><br>
 		<input type="text" name="studentGroupName" value="${studentGroup.studentGroupName}"><br>	
 		<input type="hidden" name="studentGroupId" value="${studentGroup.studentGroupId}"><br>	
-		<p>
-				<input type="submit" value="Save">
-			</p>
+		<p><input type="submit" value="Save"></p>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>	
 </jsp:attribute>
 </t:generalManager>

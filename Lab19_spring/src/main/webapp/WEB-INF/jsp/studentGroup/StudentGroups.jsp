@@ -16,12 +16,14 @@
 				<td>${item.studentGroupId}</td>
 				<td>${item.studentGroupName}</td>				
 				<td>
-						<form action="editStudentGroup.do" method="get">
+						<form action="<c:url value="/studentGroups/editStudentGroup.do"></c:url>" method="get">
 							<input type="hidden" name="studentGroupId" value="${item.studentGroupId}">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 						</form>
-						<form action="deleteStudentGroup.do" method="post">
+						<form action="<c:url value="/studentGroups/deleteStudentGroup.do"></c:url>" method="post">
 							<input type="hidden" name="studentGroupId" value="${item.studentGroupId}"> 
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
 						</form>
 					</td>
@@ -29,8 +31,9 @@
 		</c:forEach>
 	</table>
 	
-	<form action="addNewStudentGroup.do" method="get">
+	<form action="<c:url value="/studentGroups/addNewStudentGroup.do"></c:url>" method="get">
 	<input type=submit name="create" value="Add new" style="width: 100px;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </jsp:attribute>
 </t:generalManager>

@@ -6,13 +6,12 @@
 	<jsp:attribute name="content_area">
 	<h1>Edit Term</h1>
 		<h2>Term:</h2>
-		<form action="editTerm.do" method="post">
-		<b>Alias:</b><br>
-		<input type="text" name="alias" value="${term.alias}"><br>	
-		<input type="hidden" name="termId" value="${term.termId}"><br>	
-		<p>
-				<input type="submit" value="Save">
-			</p>
+		<form action="<c:url value="/terms/editTerm.do"></c:url>" method="post">
+			<b>Alias:</b><br>
+			<input type="text" name="alias" value="${term.alias}"><br>	
+			<input type="hidden" name="termId" value="${term.termId}"><br>	
+			<p><input type="submit" value="Save"></p>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>	
 </jsp:attribute>
 </t:generalManager>

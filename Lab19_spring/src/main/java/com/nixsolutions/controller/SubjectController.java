@@ -12,19 +12,20 @@ import com.nixsolutions.service.SubjectService;
 import com.nixsolutions.service.TermService;
 
 @Controller
+@RequestMapping(value = "/subjects")
 public class SubjectController {
 	@Autowired
 	private SubjectService subjectService;
 	@Autowired
 	private TermService termService;
 
-	@RequestMapping(value = "/Subjects.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/subjects.do", method = RequestMethod.GET)
 	protected String subjectGet(Model model) {
 		model.addAttribute("subjects", subjectService.getAll());
 		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}
 
-	@RequestMapping(value = "/Subjects.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/subjects.do", method = RequestMethod.POST)
 	protected String subjectPost(@ModelAttribute("searchType") String searchType,
 			@ModelAttribute("searchQuery") String searchQuery, Model model) {
 		if (searchType.equals("subject")) {
@@ -37,6 +38,7 @@ public class SubjectController {
 
 	@RequestMapping(value = "/addNewSubject.do", method = RequestMethod.GET)
 	protected String addNewSubjectGet(Model model) {
+		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/subject/AddNewSubject.jsp";
 	}
 
@@ -48,13 +50,14 @@ public class SubjectController {
 		subject.setTerm(termService.getByTermAlias(term));
 		subjectService.create(subject);
 		model.addAttribute("subjects", subjectService.getAll());
-		return "/WEB-INF/jsp/subject/Subject.jsp";
+		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}
 
 	@RequestMapping(value = "/editSubject.do", method = RequestMethod.GET)
 	protected String editSubjectGet(@ModelAttribute("subjectId") String subjectId, Model model) {
 		Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectId));
 		model.addAttribute("subject", subject);
+		model.addAttribute("terms", termService.getAll());
 		return "/WEB-INF/jsp/subject/EditSubject.jsp";
 	}
 
@@ -67,13 +70,13 @@ public class SubjectController {
 		subject.setTerm(termService.getByTermAlias(termAlias));
 		subjectService.update(subject);
 		model.addAttribute("subjects", subjectService.getAll());
-		return "/WEB-INF/jsp/subject/Subject.jsp";
+		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}
 
 	@RequestMapping(value = "/deleteSubject.do", method = RequestMethod.POST)
 	protected String deleteSubjectPost(@ModelAttribute("subjectId") String subjectId, Model model) {
 		subjectService.delete(subjectService.getBySubjectId(Integer.parseInt(subjectId)));
 		model.addAttribute("subjects", subjectService.getAll());
-		return "/WEB-INF/jsp/subject/Subject.jsp";
+		return "/WEB-INF/jsp/subject/Subjects.jsp";
 	}
 }

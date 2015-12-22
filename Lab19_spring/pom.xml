@@ -8,7 +8,8 @@
 	<name>Lab19_spring Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<version.spring>4.1.6.RELEASE</version.spring>
+		<version.spring>4.1.6.RELEASE</version.spring>	
+		<version.spring.security>4.0.3.RELEASE</version.spring.security>		
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -91,6 +92,21 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${version.spring}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${version.spring.security}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${version.spring.security}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${version.spring.security}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>

@@ -8,10 +8,11 @@
 <h2>Search</h2>
 <b>Search strategy:</b>
 		<br>
-<form action="Subjects.do" method="post">
+<form action="<c:url value="/subjects/subjects.do"></c:url>" method="post">
   <input type="radio" name="searchType" value="subject" checked> Subject Name
   <input type="radio" name="searchType" value="term"> Term Name
   <input type="text" name="searchQuery">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   <input type="submit" value="Search" style="width: 100px;">
 </form> 
 <h2>Subjects</h2>
@@ -28,23 +29,26 @@
 				<td>${subject.name}</td>	
 				<td>${subject.term.alias}</td>				
 				<td>
-					<form action="editSubject.do" method="get">							
+					<form action="<c:url value="/subjects/editSubject.do"></c:url>" method="get">							
 						<input type=submit name="edit" value="Edit"
 								style="width: 100%; height: 50%;">
 						<input type="hidden" name="subjectId" value="${subject.subjectId}">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
-					<form action="deleteSubject.do" method="post">							
+					<form action="<c:url value="/subjects/deleteSubject.do"></c:url>" method="post">							
 						<input type=submit name="delete" value="Delete"
 								style="width: 100%; height: 50%;">
 						<input type="hidden" name="subjectId" value="${subject.subjectId}"> 
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	
-	<form action="addNewSubject.do" method="get">
+	<form action="<c:url value="/subjects/addNewSubject.do"></c:url>" method="get">
 	<input type=submit name="create" value="Add new" style="width: 100px;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </jsp:attribute>
 </t:generalManager>

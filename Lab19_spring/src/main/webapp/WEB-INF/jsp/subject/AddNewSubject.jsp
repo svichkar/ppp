@@ -6,7 +6,7 @@
 	<jsp:attribute name="content_area">
 	<h1>Add Subject</h1>
 		<h2>Subject:</h2>
-		<form action="addNewSubject.do" method="post">
+		<form action="<c:url value="/subjects/addNewSubject.do"></c:url>" method="post">
 		<b>Subject Name:</b><br>
 		<input type="text" name="subject"><br>		
 		<b>Term:</b><br>
@@ -15,9 +15,8 @@
 		<option value="${item.alias}">${item.alias}</option>		
 		</c:forEach>
 		</select><br>
-		<p>
-				<input type="submit" value="Save">
-			</p>
+		<p><input type="submit" value="Save"></p>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>	
 </jsp:attribute>
 </t:generalManager>

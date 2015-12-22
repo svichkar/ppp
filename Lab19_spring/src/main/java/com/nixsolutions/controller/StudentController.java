@@ -16,6 +16,7 @@ import com.nixsolutions.service.StudentService;
 import com.nixsolutions.service.TermService;
 
 @Controller
+@RequestMapping(value = "/students")
 public class StudentController {
 	@Autowired
 	private TermService termService;
@@ -26,22 +27,22 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 
-	@RequestMapping(value = "/Students.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/students.do", method = RequestMethod.GET)
 	protected String studentGet(Model model) {
 		model.addAttribute("students", studentService.getAll());
 		model.addAttribute("groups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/student/Students.jsp";
 	}
 
-	@RequestMapping(value = "/Students.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/students.do", method = RequestMethod.POST)
 	protected String studentPost(@ModelAttribute("firstName") String firstName,
 			@ModelAttribute("lastName") String lastName, @ModelAttribute("studentGroup") String studentGroupName,
 			Model model) {
 		if (!firstName.isEmpty()) {
 			model.addAttribute("students", studentService.getByStudentsByName(firstName, lastName));
 		} else {
-			model.addAttribute("students",
-					studentService.getStudentsByGroupId(studentGroupService.getByStudentGroupName(studentGroupName).getStudentGroupId()));
+			model.addAttribute("students", studentService.getStudentsByGroupId(
+					studentGroupService.getByStudentGroupName(studentGroupName).getStudentGroupId()));
 		}
 		model.addAttribute("groups", studentGroupService.getAll());
 		return "/WEB-INF/jsp/student/Students.jsp";
@@ -49,6 +50,9 @@ public class StudentController {
 
 	@RequestMapping(value = "/addNewStudent.do", method = RequestMethod.GET)
 	protected String addNewStudentGet(Model model) {
+		model.addAttribute("groups", studentGroupService.getAll());
+		model.addAttribute("terms", termService.getAll());
+		model.addAttribute("statuses", statusService.getAll());
 		return "/WEB-INF/jsp/student/AddNewStudent.jsp";
 	}
 
@@ -67,7 +71,7 @@ public class StudentController {
 		student.setStatus(statusService.getByStatusName(statusName));
 		studentService.create(student);
 		model.addAttribute("students", studentService.getAll());
-		return "/WEB-INF/jsp/student/Student.jsp";
+		return "/WEB-INF/jsp/student/Students.jsp";
 	}
 
 	@RequestMapping(value = "/editStudent.do", method = RequestMethod.GET)
@@ -96,14 +100,14 @@ public class StudentController {
 		student.setStatus(statusService.getByStatusName(statusName));
 		studentService.update(student);
 		model.addAttribute("students", studentService.getAll());
-		return "/WEB-INF/jsp/student/Student.jsp";
+		return "/WEB-INF/jsp/student/Students.jsp";
 	}
 
 	@RequestMapping(value = "/deleteStudent.do", method = RequestMethod.POST)
 	protected String deleteStudentPost(@ModelAttribute("studentId") String studentId, Model model) {
 		studentService.delete(studentService.getByStudentId(Integer.parseInt(studentId)));
 		model.addAttribute("students", studentService.getAll());
-		return "/WEB-INF/jsp/student/Student.jsp";
+		return "/WEB-INF/jsp/student/Students.jsp";
 	}
 
 }

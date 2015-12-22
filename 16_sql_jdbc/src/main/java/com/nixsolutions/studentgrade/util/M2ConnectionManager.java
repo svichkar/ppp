@@ -2,8 +2,6 @@ package com.nixsolutions.studentgrade.util;
 
 import org.h2.jdbcx.JdbcConnectionPool;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -21,11 +19,8 @@ public class M2ConnectionManager {
         if (connectionPool == null) {
 
             Properties prop = new Properties();
-            try (FileInputStream propStream = new FileInputStream("jdbc.properties");){
-                prop.load(propStream);
-                propStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            try {
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

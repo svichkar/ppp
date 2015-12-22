@@ -1,9 +1,10 @@
 package com.nixsolutions.studentgrade.app;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
@@ -15,33 +16,28 @@ public class Delete {
 
     public static void main(String args[]) {
 
+
+
         try {
-
-            Class.forName("org.h2.Driver");
-
             Properties prop = new Properties();
             try {
-                FileInputStream propStream = new FileInputStream("jdbc.properties");
-                prop.load(propStream);
-                propStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            String driver = prop.getProperty("jdbc.driver");
             String url = prop.getProperty("jdbc.url");
             String user = prop.getProperty("jdbc.user");
             String password = prop.getProperty("jdbc.password");
 
+            Class.forName(driver);
             connection = DriverManager.getConnection(url, user, password);
-            //connection = M2ConnectionManager.getConnection();
             Statement statement = connection.createStatement();
 
             statement.executeUpdate("DROP TABLE IF EXISTS student_group;");
             statement.executeUpdate("DROP TABLE IF EXISTS status;");
             statement.executeUpdate("DROP TABLE IF EXISTS term;");
-            statement.executeUpdate("DROP TABLE IF EXISTS grade;");
+           // statement.executeUpdate("DROP TABLE IF EXISTS grade;");
             statement.executeUpdate("DROP TABLE IF EXISTS subject;");
             statement.executeUpdate("DROP TABLE IF EXISTS student;");
             statement.executeUpdate("DROP TABLE IF EXISTS journal;");

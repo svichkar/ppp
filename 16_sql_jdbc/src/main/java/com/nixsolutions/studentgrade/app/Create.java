@@ -1,7 +1,5 @@
 package com.nixsolutions.studentgrade.app;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
@@ -16,25 +14,21 @@ public class Create {
     public static void main(String args[]) {
 
         try {
-            Class.forName("org.h2.Driver");
             Properties prop = new Properties();
             try {
-                FileInputStream propStream = new FileInputStream("jdbc.properties");
-                prop.load(propStream);
-                propStream.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            String driver = prop.getProperty("jdbc.driver");
             String url = prop.getProperty("jdbc.url");
             String user = prop.getProperty("jdbc.user");
             String password = prop.getProperty("jdbc.password");
 
+            Class.forName(driver);
             connection = DriverManager.getConnection(url, user, password);
-            //connection = M2ConnectionManager.getConnection();
             Statement statement = connection.createStatement();
+
             statement.executeUpdate("CREATE TABLE student_group(group_id BIGINT PRIMARY KEY, group_name VARCHAR(256) NOT NULL);");
             statement.executeUpdate("CREATE TABLE status (status_id TINYINT PRIMARY KEY, status_name VARCHAR(256) NOT NULL);");
             statement.executeUpdate("CREATE TABLE term(term_id BIGINT PRIMARY KEY, term_name VARCHAR(256) NOT NULL);");
@@ -49,7 +43,7 @@ public class Create {
                     "student_id BIGINT REFERENCES student(student_id), subject_id BIGINT REFERENCES subject(subject_id), " +
                     "grade_id TINYINT REFERENCES grade(grade_id));");
 
-            statement.executeUpdate("INSERT INTO grade (`grade_id`, `grade_name`) VALUES ('5', 'Excellent');");
+            //statement.executeUpdate("INSERT INTO grade (`grade_id`, `grade_name`) VALUES ('5', 'Excellent');");
 
             ResultSet resultSet = statement.executeQuery("select * from student_group;");
 

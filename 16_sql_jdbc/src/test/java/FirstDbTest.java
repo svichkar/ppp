@@ -37,7 +37,7 @@ public class FirstDbTest extends JdbcBasedDBTestCase {
     @Override
     protected IDataSet getDataSet() throws Exception {
 
-        return new FlatXmlDataSet(getClass().getResourceAsStream("/GradeTestDataSet.xml"));
+        return new FlatXmlDataSet(getClass().getResourceAsStream("/grade-data.xml"));
     }
 
     public void testGradeFindAll () throws Exception {

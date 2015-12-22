@@ -8,11 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Hello world!
  *
  */
 public class CreateTables {
+	public static final Logger LOG = LogManager.getLogger();
 	private String url;
 	private String name;
 	private String pswd;
@@ -77,7 +81,8 @@ public class CreateTables {
 					+ "expired_date DATE NOT NULL,"
 					+ "return_date DATE,FOREIGN KEY (client_id) REFERENCES client (client_id),"
 					+ "FOREIGN KEY (book_id) REFERENCES book (book_id))");
-
+			
+			LOG.info("all the tables were created");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

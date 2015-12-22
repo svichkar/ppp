@@ -8,7 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DeleteTables {
+	public static final Logger LOG = LogManager.getLogger();
 	private String url;
 	private String name;
 	private String pswd;
@@ -45,6 +49,7 @@ public class DeleteTables {
 			statem.executeUpdate("DROP TABLE author_book");
 			statem.executeUpdate("DROP TABLE rent_journal");
 
+			LOG.info("all the tables were deleted");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

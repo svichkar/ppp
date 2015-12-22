@@ -6,29 +6,34 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.h2.jdbcx.JdbcConnectionPool;
 
 public class H2ConnManager {
+	public static final Logger LOG = LogManager.getLogger();
 	private static JdbcConnectionPool pool;
-	private String url;
-	private String name;
-	private String pswd;
-	
+	private static String url;
+	private static String name;
+	private static String pswd;
+
 	private H2ConnManager() {
 	}
 
-	public Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		if (pool == null) {
 			setProperties();
 			pool = JdbcConnectionPool.create(url, name, pswd);
-		}		
+		}
 		Connection connect = pool.getConnection();
 		return connect;
 	}
-	
-	private void setProperties(){
-		InputStream input = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
+
+	private static void setProperties() {
 		Properties prop = new Properties();
+		InputStream input = prop.getClass().getClassLoader()
+				.getResourceAsStream("jdbc.properties");
+		
 		try {
 			prop.load(input);
 			url = prop.getProperty("host");

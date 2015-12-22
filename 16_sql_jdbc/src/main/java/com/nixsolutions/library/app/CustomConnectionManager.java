@@ -19,8 +19,8 @@ public class CustomConnectionManager {
     public static Connection getConnection () throws SQLException {
         if (h2ConnectionPool == null) {
             Properties properties = new Properties();
-            String propertieLocation = CreateDB.class.getClassLoader().getResource("jdbc.properties").getFile();
-            try (FileInputStream fileInputStream = new FileInputStream(propertieLocation)) {
+            String propertyLocation = CreateDB.class.getClassLoader().getResource("jdbc.properties").getFile();
+            try (FileInputStream fileInputStream = new FileInputStream(propertyLocation)) {
                 properties.load(fileInputStream);
             } catch (IOException e) {
                 LOGGER.error(e);

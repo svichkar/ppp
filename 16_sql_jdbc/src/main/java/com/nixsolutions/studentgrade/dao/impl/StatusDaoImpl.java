@@ -33,7 +33,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public int update(Status status, Status newStatus) {
 
-        String sql = "UPDATE status SET status_id = ?, status_name = ? WHERE status_id = ? and status_name = ?";
+        String sql = "UPDATE status SET status_id = ?, status_name = ? WHERE status_id = ? AND status_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public int delete(Status status) {
 
-        String sql = "DELETE FROM status WHERE status_id = ? and status_name = ?";
+        String sql = "DELETE FROM status WHERE status_id = ? AND status_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -69,7 +69,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public List<Status> findAll() {
 
-        String sql = "SELECT * FROM status;";
+        String sql = "SELECT * FROM status";
         List<Status> list = new ArrayList<>();
 
         try (Connection connection = M2ConnectionManager.getConnection();

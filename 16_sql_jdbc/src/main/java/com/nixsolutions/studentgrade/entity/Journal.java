@@ -10,12 +10,36 @@ public class Journal {
     private int subjectId;
     private int gradeId;
 
+    /**
+     * Default constructor
+     */
     public Journal() {
 
     }
 
+    /**
+     * Constructor with all parameters
+     *
+     * @param journalId
+     * @param studentId
+     * @param subjectId
+     * @param gradeId
+     */
     public Journal(int journalId, int studentId, int subjectId, int gradeId) {
         this.journalId = journalId;
+        this.studentId = studentId;
+        this.subjectId = subjectId;
+        this.gradeId = gradeId;
+    }
+
+    /**
+     * Constructor with all parameters except journalId
+     *
+     * @param studentId
+     * @param subjectId
+     * @param gradeId
+     */
+    public Journal(int studentId, int subjectId, int gradeId) {
         this.studentId = studentId;
         this.subjectId = subjectId;
         this.gradeId = gradeId;
@@ -52,7 +76,4 @@ public class Journal {
     public void setGradeId(int gradeId) {
         this.gradeId = gradeId;
     }
-
-
-
 }

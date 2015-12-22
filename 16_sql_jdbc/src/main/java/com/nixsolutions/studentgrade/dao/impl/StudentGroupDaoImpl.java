@@ -34,7 +34,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
     @Override
     public int update(StudentGroup group, StudentGroup newGroup) {
 
-        String sql = "UPDATE student_group SET group_id = ?, group_name = ? WHERE group_id = ? and group_name = ?";
+        String sql = "UPDATE student_group SET group_id = ?, group_name = ? WHERE group_id = ? AND group_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -54,7 +54,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
     @Override
     public int delete(StudentGroup group) {
 
-        String sql = "DELETE FROM student_group WHERE group_id = ? and group_name = ?";
+        String sql = "DELETE FROM student_group WHERE group_id = ? AND group_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

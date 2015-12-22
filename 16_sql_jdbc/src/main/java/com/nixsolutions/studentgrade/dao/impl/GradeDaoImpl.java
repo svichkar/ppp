@@ -34,7 +34,7 @@ public class GradeDaoImpl implements GradeDao {
     @Override
     public int update(Grade grade, Grade newGrade) {
 
-        String sql = "UPDATE grade SET grade_id = ?, grade_name = ? WHERE grade_id = ? and grade_name = ?";
+        String sql = "UPDATE grade SET grade_id = ?, grade_name = ? WHERE grade_id = ? AND grade_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -53,7 +53,7 @@ public class GradeDaoImpl implements GradeDao {
     @Override
     public int delete(Grade grade) {
 
-        String sql = "DELETE FROM grade WHERE grade_id = ? and grade_name = ?";
+        String sql = "DELETE FROM grade WHERE grade_id = ? AND grade_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -70,7 +70,7 @@ public class GradeDaoImpl implements GradeDao {
     @Override
     public List<Grade> findAll() {
 
-        String sql = "SELECT * FROM grade;";
+        String sql = "SELECT * FROM grade";
         List<Grade> list = new ArrayList<>();
 
         try (Connection connection = M2ConnectionManager.getConnection();

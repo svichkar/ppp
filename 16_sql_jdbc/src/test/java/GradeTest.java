@@ -11,7 +11,7 @@ import java.util.List;
  * Created by svichkar on 12/18/2015.
  */
 
-public class TestClass {
+public class GradeTest {
 
     @Test
     public void testGetAll() throws Exception {

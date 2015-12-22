@@ -15,11 +15,43 @@ public class Student {
     private int statusId;
     private int termId;
 
+    /**
+     * Default constructor
+     */
     public Student() {
     }
 
+    /**
+     * Constructor with all fields
+     * @param studentId
+     * @param firstName
+     * @param lastName
+     * @param groupId
+     * @param admissionDate
+     * @param statusId
+     * @param termId
+     */
     public Student(int studentId, String firstName, String lastName, int groupId, Date admissionDate, int statusId, int termId) {
         this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.groupId = groupId;
+        this.admissionDate = admissionDate;
+        this.statusId = statusId;
+        this.termId = termId;
+    }
+
+    /**
+     * Constructor without studentId parameter
+     * @param firstName
+     * @param lastName
+     * @param groupId
+     * @param admissionDate
+     * @param statusId
+     * @param termId
+     */
+    public Student(String firstName, String lastName, int groupId, Date admissionDate, int statusId, int termId) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.groupId = groupId;

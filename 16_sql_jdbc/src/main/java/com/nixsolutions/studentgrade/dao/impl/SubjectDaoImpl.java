@@ -101,7 +101,7 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public Subject findById(int id) {
 
-        String sql = String.format("SELECT grade_id, grade_name FROM grade WHERE grade_id = %d", id);
+        String sql = String.format("SELECT subject_id, subject_name FROM subject WHERE subject_id = %d", id);
         Subject result = new Subject();
 
         try (Connection connection = M2ConnectionManager.getConnection();

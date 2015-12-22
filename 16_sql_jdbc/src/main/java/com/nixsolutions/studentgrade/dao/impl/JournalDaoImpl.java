@@ -16,15 +16,27 @@ public class JournalDaoImpl implements JournalDao {
     @Override
     public boolean create(Journal journal) {
 
-        String sql = "INSERT INTO journal(journal_id, student_id, subject_id, grade_id) VALUES ( ?, ?, ?, ? )";
+        String sql;
+
+        if (journal.getJournalId() == 0) {
+            sql = "INSERT INTO journal(student_id, subject_id, grade_id) VALUES ( ?, ?, ? )";
+        } else {
+            sql = "INSERT INTO journal(journal_id, student_id, subject_id, grade_id) VALUES ( ?, ?, ?, ? )";
+        }
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, journal.getJournalId());
-            statement.setInt(2, journal.getStudentId());
-            statement.setInt(3, journal.getSubjectId());
-            statement.setInt(4, journal.getGradeId());
+            if (journal.getJournalId() == 0) {
+                statement.setInt(1, journal.getStudentId());
+                statement.setInt(2, journal.getSubjectId());
+                statement.setInt(3, journal.getGradeId());
+            } else {
+                statement.setInt(1, journal.getJournalId());
+                statement.setInt(2, journal.getStudentId());
+                statement.setInt(3, journal.getSubjectId());
+                statement.setInt(4, journal.getGradeId());
+            }
             statement.executeUpdate();
             return true;
         } catch (SQLException | ClassNotFoundException e) {
@@ -36,20 +48,41 @@ public class JournalDaoImpl implements JournalDao {
     @Override
     public int update(Journal journal, Journal newJournal) {
 
-        String sql = "UPDATE journal SET journal_id = ?, student_id = ?, subject_id = ?, grade_id = ? " +
-                "WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
+        String sql;
+        if (newJournal.getJournalId() == 0) {
+            sql = "UPDATE journal SET student_id = ?, subject_id = ?, grade_id = ? " +
+                    "WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
+        } else {
+            sql = "UPDATE journal SET journal_id = ?, student_id = ?, subject_id = ?, grade_id = ? " +
+                    "WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
+        }
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, newJournal.getJournalId());
-            statement.setInt(2, newJournal.getStudentId());
-            statement.setInt(3, newJournal.getSubjectId());
-            statement.setInt(4, newJournal.getGradeId());
-            statement.setInt(5, journal.getJournalId());
-            statement.setInt(6, journal.getStudentId());
-            statement.setInt(7, journal.getSubjectId());
-            statement.setInt(8, journal.getGradeId());
+            if (newJournal.getJournalId() == 0) {
+                //SET closure:
+                statement.setInt(1, newJournal.getStudentId());
+                statement.setInt(2, newJournal.getSubjectId());
+                statement.setInt(3, newJournal.getGradeId());
+                //WHERE closure:
+                statement.setInt(4, journal.getJournalId());
+                statement.setInt(5, journal.getStudentId());
+                statement.setInt(6, journal.getSubjectId());
+                statement.setInt(7, journal.getGradeId());
+            } else {
+                //SET closure:
+                statement.setInt(1, newJournal.getJournalId());
+                statement.setInt(2, newJournal.getStudentId());
+                statement.setInt(3, newJournal.getSubjectId());
+                statement.setInt(4, newJournal.getGradeId());
+                //WHERE closure:
+                statement.setInt(5, journal.getJournalId());
+                statement.setInt(6, journal.getStudentId());
+                statement.setInt(7, journal.getSubjectId());
+                statement.setInt(8, journal.getGradeId());
+            }
+
             return statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -81,7 +114,7 @@ public class JournalDaoImpl implements JournalDao {
     @Override
     public List<Journal> findAll() {
 
-        String sql = "SELECT * FROM journal;";
+        String sql = "SELECT * FROM journal";
         List<Journal> list = new ArrayList<>();
 
         try (Connection connection = M2ConnectionManager.getConnection();

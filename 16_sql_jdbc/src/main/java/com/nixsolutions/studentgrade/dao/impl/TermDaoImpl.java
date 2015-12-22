@@ -34,7 +34,7 @@ public class TermDaoImpl implements TermDao {
     @Override
     public int update(Term term, Term newTerm) {
 
-        String sql = "UPDATE term SET term_id = ?, term_name = ? WHERE term_id = ? and term_name = ?";
+        String sql = "UPDATE term SET term_id = ?, term_name = ? WHERE term_id = ? AND term_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -53,7 +53,7 @@ public class TermDaoImpl implements TermDao {
     @Override
     public int delete(Term term) {
 
-        String sql = "DELETE FROM term WHERE term_id = ? and term_name = ?";
+        String sql = "DELETE FROM term WHERE term_id = ? AND term_name = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -69,7 +69,7 @@ public class TermDaoImpl implements TermDao {
 
     @Override
     public List<Term> findAll() {
-        String sql = "SELECT * FROM term;";
+        String sql = "SELECT * FROM term";
         List<Term> list = new ArrayList<>();
 
         try (Connection connection = M2ConnectionManager.getConnection();

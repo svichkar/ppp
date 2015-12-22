@@ -10,7 +10,7 @@ ADD COLUMN last_name VARCHAR(256) NOT NULL;
 CREATE TABLE cell
 (
 cell_id IDENTITY,
-name CHAR(128),
+name CHAR(128)
 );
 
 ALTER TABLE cell
@@ -19,7 +19,7 @@ ALTER COLUMN name VARCHAR(256) NOT NULL;
 CREATE TABLE category
 (
 category_id IDENTITY,
-name VARCHAR(256) NOT NULL,
+name VARCHAR(256) NOT NULL
 );
 
 CREATE TABLE client

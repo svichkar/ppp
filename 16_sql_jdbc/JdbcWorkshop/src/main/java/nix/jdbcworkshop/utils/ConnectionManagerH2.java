@@ -17,18 +17,10 @@ import org.h2.jdbcx.JdbcConnectionPool;
 public class ConnectionManagerH2 {
 
     private static JdbcConnectionPool connectionPool;
-    private static String connectionString;
-    private static String username;
-    private static String password;
 
     public static Connection getConnection(String connectionString, String username, String password) throws SQLException {
         if (connectionPool == null) {
-            if (!(connectionString.equals(ConnectionManagerH2.connectionString)
-                    && username.equals(ConnectionManagerH2.username)
-                    && password.equals(ConnectionManagerH2.password))) {
-                connectionPool = JdbcConnectionPool.create(connectionString, username, password);
-                ConnectionManagerH2.connectionString = connectionString;
-            }
+            connectionPool = JdbcConnectionPool.create(connectionString, username, password);
         }
         return connectionPool.getConnection();
     }

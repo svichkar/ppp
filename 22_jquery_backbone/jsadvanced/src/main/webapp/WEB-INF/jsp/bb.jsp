@@ -1,17 +1,14 @@
-<%@ page contentType="text/html; charset=windows-1251"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="title"
+	value="${action == 'add' ? 'Add New Car' : 'Edit Car'}" />
 <c:url value="/style/style.css" var="cssUrl" />
-<c:url value="/js/basic.js" var="jsbasicUrl" />
 <html>
 <head>
-<title>${title}</title>
+<title><c:out value="${title}" /></title>
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="${jsbasicUrl}"></script>
-<script type="script" src="${jsbasicUrl}"></script>
 </head>
 <body>
-	<div id="global">
+	<div id="global_container">
 		<div class="head1" align="center">
 			<div class="buffer"></div>
 			<form method="POST" action="<c:url value="/logout" />">
@@ -36,7 +33,10 @@
 			</div>
 		</div>
 		<div id="content">
-			<div align="center">
+		</div>
+	</div>
+	<script id="allcars-content" type="text/template">
+		<div align="center" id="allCars" class="block">
 				<h1>All Cars</h1>
 			</div>
 			<table align="center" width=70% border=1 cellpadding=8>
@@ -81,7 +81,6 @@
 					</td>
 				</tr>
 			</table>
-		</div>
-	</div>
+	</script>
 </body>
 </html>

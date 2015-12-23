@@ -5,9 +5,12 @@ import java.util.List;
 
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -30,16 +33,16 @@ public class CarServiceJersey implements CarService {
 	private CarDAO carDao;
 
 	@GET
-	@Path("/getAll")
+	//@Path("/getAll")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Override
 	public List<Car> getAllCars() {
 		return carDao.getAll();
 	}
 
-	@GET
-	@Path("/getAllAsBeans")
-	@Produces({ MediaType.APPLICATION_JSON })
+	//@GET
+	//@Path("/getAllAsBeans")
+	//@Produces({ MediaType.APPLICATION_JSON })
 	@Override
 	public List<CarBean> getAllCarsAsBeans() {
 		return processAsBeans(getAllCars());
@@ -54,32 +57,32 @@ public class CarServiceJersey implements CarService {
 	}
 
 	@GET
-	@Path("/getById")
+	@Path("{carId}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Override
-	public Car getCarById(@QueryParam("carId") int carId) {
+	public Car getCarById(@PathParam("carId") int carId) {
 		return carDao.getByPK(carId);
 	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/add")
+	//@Path("/add")
 	@Override
 	public void addCar(Car car) {
 		carDao.createFrom(car);
 	}
 
-	@POST
+	@PUT
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/update")
+	//@Path("/update")
 	@Override
 	public void updateCar(Car car) {
 		carDao.update(car);
 	}
 
-	@POST
+	@DELETE
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/delete")
+	//@Path("/delete")
 	@Override
 	public void deleteCar(Car car) {
 		carDao.delete(car);

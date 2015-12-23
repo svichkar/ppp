@@ -1,16 +1,10 @@
-package com.nixsolutions.dao.impl;
+package com.nixsolutions.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.nixsolutions.app.H2ConnManager;
-import com.nixsolutions.dao.AuthorBookDao;
-import com.nixsolutions.dao.AuthorDao;
-import com.nixsolutions.dao.BookDao;
-import com.nixsolutions.dao.CategoryDao;
-import com.nixsolutions.dao.CellDao;
-import com.nixsolutions.dao.ClientDao;
-import com.nixsolutions.dao.RentJournalDao;
+import com.nixsolutions.dao.impl.AuthorDaoImpl;
 
 public class DaoFactory {
 	

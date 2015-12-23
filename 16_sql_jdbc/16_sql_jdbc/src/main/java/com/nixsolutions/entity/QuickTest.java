@@ -20,6 +20,20 @@ public class QuickTest {
 			System.out.println(author2.getSecondName());
 		}
 		
+		
+		Author authMiha = new Author();
+		authMiha.setFirstName("Michail");
+		authMiha.setSecondName("Lelyakov");
+		
+		new AuthorDaoImpl().createAuthor(authMiha);
+		
+		
+		//Author authMiha = new AuthorDaoImpl().getAuthor(11);
+		//new AuthorDaoImpl().deleteAuthor(authMiha);
+		Author authMih = new AuthorDaoImpl().getAuthor(14);
+		authMih.setFirstName("Mihasya");
+		authMih.setSecondName("Lelyla");
+		new AuthorDaoImpl().updateAuthor(authMih);
 	}
 
 }

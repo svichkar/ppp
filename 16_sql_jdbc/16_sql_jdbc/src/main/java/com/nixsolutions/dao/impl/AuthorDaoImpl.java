@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.app.H2ConnManager;
 import com.nixsolutions.dao.AuthorDao;
+import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Author;
 
 public class AuthorDaoImpl implements AuthorDao {
@@ -32,10 +33,11 @@ public class AuthorDaoImpl implements AuthorDao {
 				auth.setFirstName(result.getString("first_name"));
 				auth.setSecondName(result.getString("last_name"));
 				author.add(auth);
+				//need to insert assertion - if transaction was done
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("not able to get authors", e);
+			LOG.throwing(new DaoException("not able to get all authors"));
 		}
 		return author;
 	}
@@ -48,21 +50,16 @@ public class AuthorDaoImpl implements AuthorDao {
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 
 			statem.setInt(1, authorId);
-
 			ResultSet result = statem.executeQuery();
 			result.next();
 			author.setAuthorId(result.getInt("author_id"));
 			author.setFirstName(result.getString("first_name"));
 			author.setSecondName(result.getString("last_name"));
-
-			// Author author = new Author(result.getInt("author_id"),
-			// result.getString("first_name"), result.getString("second_name"));
-
+			//need to insert assertion - if transaction was done
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("not able to get an author by Id", e);
+			LOG.throwing(new DaoException("not able to get an author by Id"));
 		}
-
 		return author;
 	}
 
@@ -70,26 +67,44 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void createAuthor(Author author) {
 		String sql = "INSERT INTO author (first_name, last_name) VALUES (?, ?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-
+			
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
-			
-			statem.executeUpdate(sql);
+			statem.executeUpdate();
+			//need to insert assertion - if transaction was done
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("not able to create an author", e);
+			LOG.throwing(new DaoException("not able to create an author"));
 		}
 	}
 
 	@Override
 	public void updateAuthor(Author author) {
-		// TODO Auto-generated method stub
-
+		String sql = "UPDATE author SET first_name = ?, last_name = ?  WHERE author_id = ?";
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			
+			statem.setString(1, author.getFirstName());
+			statem.setString(2, author.getSecondName());
+			statem.setLong(3, author.getAuthorId());
+			statem.executeUpdate();
+			//need to insert assertion - if transaction was done
+		} catch (SQLException e) {
+			LOG.error("not able to update the author", e);
+			LOG.throwing(new DaoException("not able to update the author"));
+		}
 	}
 
 	@Override
 	public void deleteAuthor(Author author) {
-
+		String sql = "DELETE FROM author WHERE author_id = ?";
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			
+			statem.setLong(1, author.getAuthorId());
+			statem.executeUpdate();
+			//need to insert assertion - if transaction was done
+		} catch (SQLException e) {
+			LOG.error("not able to delete the author", e);
+			LOG.throwing(new DaoException("not able to delete the author"));
+		}
 	}
-
 }

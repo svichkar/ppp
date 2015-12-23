@@ -11,7 +11,7 @@ public interface SubjectDao {
 
     public boolean create(Subject subject);
 
-    public int update(Subject subject, Subject newSubject);
+    public int update(Subject subject);
 
     public int delete(Subject subject);
 

@@ -27,8 +27,7 @@ public class StudentTest {
             Student student2 = new Student(130, "student2", "student2", 2, new Date(2015 - 1900,9,25), 1, 2);
             dao.create(student2);
 
-            dao.update(student2 ,new Student("update without id", "EEEaaaEE", 2, new Date(2015 - 1900,9,25), 1, 2));
-            dao.update(student2, new Student(130, "update id", "h;lkjlkj", 2, new Date(2015 - 1900,9,25), 1, 2));
+            dao.update(student2 );
 
             dao.delete(student2);
             list = dao.findAll();

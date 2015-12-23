@@ -32,17 +32,15 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
     }
 
     @Override
-    public int update(StudentGroup group, StudentGroup newGroup) {
+    public int update(StudentGroup group) {
 
-        String sql = "UPDATE student_group SET group_id = ?, group_name = ? WHERE group_id = ? AND group_name = ?";
+        String sql = "UPDATE student_group SET group_name = ? WHERE group_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, newGroup.getGroupId());
-            statement.setString(2, newGroup.getGroupName());
-            statement.setInt(3, group.getGroupId());
-            statement.setString(4, group.getGroupName());
+            statement.setString(1, group.getGroupName());
+            statement.setInt(2, group.getGroupId());
             return statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {

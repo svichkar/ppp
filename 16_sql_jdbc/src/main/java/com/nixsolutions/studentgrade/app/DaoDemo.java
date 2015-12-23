@@ -20,7 +20,8 @@ public class DaoDemo {
 
         Grade grade = new Grade(22, "aaaaa");
         dao.create(grade);
-        dao.update(grade, new Grade(77, "one"));
+        grade.setGradeName("null");
+        dao.update(grade);
         dao.delete(new Grade(12, "another one"));
 
         List<Grade> list = new ArrayList<>();

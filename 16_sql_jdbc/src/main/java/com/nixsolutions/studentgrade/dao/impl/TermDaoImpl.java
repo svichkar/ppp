@@ -32,18 +32,17 @@ public class TermDaoImpl implements TermDao {
     }
 
     @Override
-    public int update(Term term, Term newTerm) {
+    public int update(Term term) {
 
-        String sql = "UPDATE term SET term_id = ?, term_name = ? WHERE term_id = ? AND term_name = ?";
+        String sql = "UPDATE term SET term_name = ? WHERE term_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, newTerm.getTermId());
-            statement.setString(2, newTerm.getTermName());
-            statement.setInt(3, term.getTermId());
-            statement.setString(4, term.getTermName());
+            statement.setString(1, term.getTermName());
+            statement.setInt(2, term.getTermId());
             return statement.executeUpdate();
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return 0;

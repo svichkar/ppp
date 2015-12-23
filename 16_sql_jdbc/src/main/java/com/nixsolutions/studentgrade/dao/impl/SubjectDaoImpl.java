@@ -33,20 +33,17 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
-    public int update(Subject subject, Subject newSubject) {
+    public int update(Subject subject) {
 
-        String sql = "UPDATE subject SET subject_id = ?, subject_name = ?, term_id = ? " +
-                "WHERE subject_id = ? AND subject_name = ? AND term_id = ?";
+        String sql = "UPDATE subject SET subject_name = ?, term_id = ? " +
+                "WHERE subject_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, newSubject.getSubjectId());
-            statement.setString(2, newSubject.getSubjectName());
-            statement.setInt(3, newSubject.getTermId());
-            statement.setInt(4, subject.getSubjectId());
-            statement.setString(5, subject.getSubjectName());
-            statement.setInt(6, subject.getTermId());
+            statement.setString(1, subject.getSubjectName());
+            statement.setInt(2, subject.getTermId());
+            statement.setInt(3, subject.getSubjectId());
             return statement.executeUpdate();
 
         } catch (SQLException | ClassNotFoundException e) {

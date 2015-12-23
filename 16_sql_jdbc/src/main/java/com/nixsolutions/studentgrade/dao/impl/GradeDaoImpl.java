@@ -32,18 +32,18 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
-    public int update(Grade grade, Grade newGrade) {
+    public int update(Grade grade) {
 
-        String sql = "UPDATE grade SET grade_id = ?, grade_name = ? WHERE grade_id = ? AND grade_name = ?";
+        String sql = "UPDATE grade SET grade_name = ? WHERE grade_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, newGrade.getGradeId());
-            statement.setString(2, newGrade.getGradeName());
-            statement.setInt(3, grade.getGradeId());
-            statement.setString(4, grade.getGradeName());
+            statement.setString(1, grade.getGradeName());
+            statement.setInt(2, grade.getGradeId());
+
             return statement.executeUpdate();
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return 0;

@@ -23,7 +23,7 @@ public class GradeTest {
 
             Grade grade = new Grade(22, "dsfsd");
             dao.create(grade);
-            dao.update(grade ,new Grade(77, "another one"));
+            dao.update(grade);
             dao.delete(new Grade(12, "another one"));
             list = dao.findAll();
             dao.findById(9);

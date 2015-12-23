@@ -11,7 +11,7 @@ public interface TermDao {
 
     public boolean create(Term status);
 
-    public int update(Term term, Term newTerm);
+    public int update(Term term);
 
     public int delete(Term term);
 

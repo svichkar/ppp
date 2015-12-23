@@ -11,7 +11,7 @@ public interface StudentDao {
 
     public boolean create(Student student);
 
-    public int update(Student student, Student newStudent);
+    public int update(Student student);
 
     public int delete(Student student);
 

@@ -31,18 +31,17 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public int update(Status status, Status newStatus) {
+    public int update(Status status) {
 
-        String sql = "UPDATE status SET status_id = ?, status_name = ? WHERE status_id = ? AND status_name = ?";
+        String sql = "UPDATE status SET status_name = ? WHERE status_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, newStatus.getStatusId());
-            statement.setString(2, newStatus.getStatusName());
-            statement.setInt(3, status.getStatusId());
-            statement.setString(4, status.getStatusName());
+            statement.setString(1, status.getStatusName());
+            statement.setInt(2, status.getStatusId());
             return statement.executeUpdate();
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             return 0;

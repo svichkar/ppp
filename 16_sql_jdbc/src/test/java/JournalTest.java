@@ -24,8 +24,8 @@ public class JournalTest {
             dao.create(journal);
             Journal journal2 = new Journal(103, 5, 1, 5);
             dao.create(journal2);
-            dao.update(journal2 ,new Journal(103, 6, 1, 3));
-            dao.update(journal2 ,new Journal(99, 5, 2, 2));
+            dao.update(journal2);
+            dao.update(journal2);
             dao.delete(journal);
             Journal journal3 = new Journal(100, 10, 6, 1);
             dao.create(journal3);

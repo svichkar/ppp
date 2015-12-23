@@ -25,7 +25,7 @@ public class SubjectTest {
             dao.create(subject);
             Subject subject2 = new Subject(58, "again2", 1);
             dao.create(subject2);
-            dao.update(subject ,new Subject(59, "upd", 1));
+            dao.update(subject);
             dao.delete(subject2);
             list = dao.findAll();
             dao.findById(2);

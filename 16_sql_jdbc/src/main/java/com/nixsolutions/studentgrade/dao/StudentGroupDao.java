@@ -11,7 +11,7 @@ public interface StudentGroupDao {
 
     public boolean create(StudentGroup group);
 
-    public int update(StudentGroup group, StudentGroup newGroup);
+    public int update(StudentGroup group);
 
     public int delete(StudentGroup group);
 

@@ -16,37 +16,20 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public boolean create(Student student) {
 
-        String sql;
-
-        if (student.getStudentId() == 0) {
-            sql = "INSERT INTO student(first_name, last_name, group_id, admission_date, status_id, term_id) " +
-                    "VALUES ( ?, ? , ?, ? , ?, ? )";
-        } else {
-            sql = "INSERT INTO student(student_id, first_name, last_name, group_id, admission_date, status_id, term_id) " +
-                    "VALUES ( ? , ?, ? , ?, ? , ?, ? )";
-        }
+        String sql = "INSERT INTO student(first_name, last_name, group_id, admission_date, status_id, term_id) " +
+                "VALUES ( ?, ? , ?, ? , ?, ? )";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            if (student.getStudentId() == 0) {
-                statement.setString(1, student.getFirstName());
-                statement.setString(2, student.getLastName());
-                statement.setInt(3, student.getGroupId());
-                statement.setDate(4, student.getAdmissionDate());
-                statement.setInt(5, student.getStatusId());
-                statement.setInt(6, student.getTermId());
-            } else {
-                statement.setInt(1, student.getStudentId());
-                statement.setString(2, student.getFirstName());
-                statement.setString(3, student.getLastName());
-                statement.setInt(4, student.getGroupId());
-                statement.setDate(5, student.getAdmissionDate());
-                statement.setInt(6, student.getStatusId());
-                statement.setInt(7, student.getTermId());
-            }
-
+            statement.setString(1, student.getFirstName());
+            statement.setString(2, student.getLastName());
+            statement.setInt(3, student.getGroupId());
+            statement.setDate(4, student.getAdmissionDate());
+            statement.setInt(5, student.getStatusId());
+            statement.setInt(6, student.getTermId());
             statement.executeUpdate();
+
             return true;
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -55,59 +38,20 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public int update(Student student, Student newStudent) {
-        String sql;
-        if (newStudent.getStudentId() == 0) {
-
-            sql = "UPDATE student SET first_name = ?, last_name = ?, group_id = ?, admission_date = ?, " +
-                    "status_id = ?, term_id = ? " +
-                    "WHERE student_id = ? AND first_name = ? AND last_name = ? AND " +
-                    "group_id = ? AND admission_date = ? AND  status_id = ? AND term_id = ?";
-        } else {
-            sql = "UPDATE student SET student_id = ?, first_name = ?, last_name = ?, group_id = ?, " +
-                    "admission_date = ?, status_id = ?, term_id = ? " +
-                    "WHERE student_id = ? AND first_name = ? AND last_name = ? AND " +
-                    "group_id = ? AND admission_date = ? AND  status_id = ? AND term_id = ?";
-        }
+    public int update(Student student) {
+        String sql = "UPDATE student SET first_name = ?, last_name = ?, group_id = ?, admission_date = ?, " +
+                "status_id = ?, term_id = ? WHERE student_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            if (newStudent.getStudentId() == 0) {
-                //SET closure:
-                statement.setString(1, newStudent.getFirstName());
-                statement.setString(2, newStudent.getLastName());
-                statement.setInt(3, newStudent.getGroupId());
-                statement.setDate(4, newStudent.getAdmissionDate());
-                statement.setInt(5, newStudent.getStatusId());
-                statement.setInt(6, newStudent.getTermId());
-                //WHERE closure:
-                statement.setInt(7, student.getStudentId());
-                statement.setString(8, student.getFirstName());
-                statement.setString(9, student.getLastName());
-                statement.setInt(10, student.getGroupId());
-                statement.setDate(11, student.getAdmissionDate());
-                statement.setInt(12, student.getStatusId());
-                statement.setInt(13, student.getTermId());
-
-            } else {
-                //SET closure:
-                statement.setInt(1, newStudent.getStudentId());
-                statement.setString(2, newStudent.getFirstName());
-                statement.setString(3, newStudent.getLastName());
-                statement.setInt(4, newStudent.getGroupId());
-                statement.setDate(5, newStudent.getAdmissionDate());
-                statement.setInt(6, newStudent.getStatusId());
-                statement.setInt(7, newStudent.getTermId());
-                //WHERE closure:
-                statement.setInt(8, student.getStudentId());
-                statement.setString(9, student.getFirstName());
-                statement.setString(10, student.getLastName());
-                statement.setInt(11, student.getGroupId());
-                statement.setDate(12, student.getAdmissionDate());
-                statement.setInt(13, student.getStatusId());
-                statement.setInt(14, student.getTermId());
-            }
+            statement.setString(1, student.getFirstName());
+            statement.setString(2, student.getLastName());
+            statement.setInt(3, student.getGroupId());
+            statement.setDate(4, student.getAdmissionDate());
+            statement.setInt(5, student.getStatusId());
+            statement.setInt(6, student.getTermId());
+            statement.setInt(7, student.getStudentId());
 
             return statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {

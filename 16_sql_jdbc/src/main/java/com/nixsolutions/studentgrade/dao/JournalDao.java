@@ -11,7 +11,7 @@ public interface JournalDao {
 
     public boolean create(Journal journal);
 
-    public int update(Journal journal, Journal newJournal);
+    public int update(Journal journal);
 
     public int delete(Journal journal);
 

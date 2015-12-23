@@ -11,7 +11,7 @@ public interface StatusDao {
 
     public boolean create(Status status);
 
-    public int update(Status status, Status newStatus);
+    public int update(Status status);
 
     public int delete(Status status);
 

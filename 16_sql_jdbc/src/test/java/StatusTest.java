@@ -25,7 +25,7 @@ public class StatusTest {
             dao.create(status);
             Status status2 = new Status(3, "expelled");
             dao.create(status2);
-            dao.update(status ,new Status(5, "vacation"));
+            dao.update(status);
             dao.delete(status2);
             list = dao.findAll();
             dao.findById(2);

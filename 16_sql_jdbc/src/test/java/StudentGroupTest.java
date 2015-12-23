@@ -25,7 +25,7 @@ public class StudentGroupTest {
             dao.create(group);
             StudentGroup group2 = new StudentGroup();
             dao.create(group2);
-            dao.update(group ,new StudentGroup(25,"googogog"));
+            dao.update(group);
             dao.delete(group2);
             list = dao.findAll();
             dao.findById(2);

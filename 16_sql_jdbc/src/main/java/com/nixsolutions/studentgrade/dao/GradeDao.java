@@ -11,7 +11,7 @@ public interface GradeDao {
 
     public boolean create(Grade grade);
 
-    public int update(Grade grade, Grade newGrade);
+    public int update(Grade grade);
 
     public int delete(Grade grade);
 

@@ -1,3 +1,6 @@
 2015-12-22 11:07:58,355 INFO c.n.a.CreateTables [main] all the tables were created
 2015-12-22 11:08:31,387 INFO c.n.a.DeleteTables [main] all the tables were deleted
 2015-12-22 11:13:29,528 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-22 23:51:33,034 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-22 23:53:06,846 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-22 23:53:28,344 INFO c.n.a.CreateTables [main] all the tables were created

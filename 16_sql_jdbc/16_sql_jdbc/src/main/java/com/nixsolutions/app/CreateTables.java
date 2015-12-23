@@ -11,10 +11,6 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * Hello world!
- *
- */
 public class CreateTables {
 	public static final Logger LOG = LogManager.getLogger();
 	private String url;
@@ -78,7 +74,6 @@ public class CreateTables {
 					+ "client_id BIGINT NOT NULL,"
 					+ "book_id BIGINT NOT NULL,"
 					+ "rent_date DATE NOT NULL,"
-					+ "expired_date DATE NOT NULL,"
 					+ "return_date DATE,FOREIGN KEY (client_id) REFERENCES client (client_id),"
 					+ "FOREIGN KEY (book_id) REFERENCES book (book_id))");
 			

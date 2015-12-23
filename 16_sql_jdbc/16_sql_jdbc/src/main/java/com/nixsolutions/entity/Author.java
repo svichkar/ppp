@@ -5,12 +5,14 @@ public class Author {
 	private String firstName;
 	private String secondName;
 
+	/*
 	public Author(int authorId, String firstName, String secondName) {
 		super();
 		this.authorId = authorId;
 		this.firstName = firstName;
 		this.secondName = secondName;
 	}
+*/
 
 	public int getAuthorId() {
 		return authorId;

@@ -19,6 +19,7 @@
 		<echo>Target clean started</echo>
 		<delete dir="${build}" />
 		<delete dir="${dist}" />
+		<delete file="./14_ant.zip" />
 		<echo>Target clean completed</echo>
 	</target>
 	<target name="init" depends="clean">
@@ -47,9 +48,9 @@
 		<echo>Target dist started</echo>
 		<mkdir dir="${dist}" />
 		<jar jarfile="${dist}/14_ant.jar" basedir="${classes}" />
-		<zip destfile="${dist}/14_ant.zip" basedir="${dist}"/>
-		<move file="${dist}/14_ant.zip" todir="."/>
-		<buildnumber file="mybuild.number"/>
+		<zip destfile="${dist}/14_ant.zip" basedir="${dist}" />
+		<move file="${dist}/14_ant.zip" todir="." />
+		<buildnumber file="mybuild.number" />
 		<echo>Target dist completed</echo>
 	</target>
 </project>

@@ -1,0 +1,44 @@
+/*-------------------------------------------    
+    General Selectors
+-------------------------------------------*/
+* { margin: 0; padding: 0; line-height: 1.4; }
+body { font: 10pt Arial, sans-serif; color: #333; width: 7in; margin: 0 auto !important; padding: 0 !important; }
+
+#skip, h1 a, #nav, #nav li a, #footer li, .heading_more, #breadcrumb, #secondary, #utility { display:  none !important } 
+
+h1, h2, h3, h4, h5, h6 {float: none; }
+
+p, ul, dl, ol { font-size: 11pt; margin-bottom: 1em; }
+a { color: 0078ae; text-decoration: underline; }
+
+img { border: none; margin-bottom: 10px; }
+	p img { float: right; margin: 0 0 5px 5px; }
+	
+.hr { border-top: 2px solid #babcbe; padding-top: 13px; }
+.border_tb, blockquote {  border-top: 1px solid #babcbe;border-bottom: 1px solid #e1e2e3; both; margin-bottom: 15px; }
+.border_tb h3 { margin:10px 0; }
+
+#landings { clear: both; }
+h1 {display: none;}
+h3 { margin-top: 1em; }
+
+#footer { clear: both; border-top: 3px solid #999; padding: 5px 0 2px; color: #333; }
+
+/*-------------------------------------------    
+    sIFR
+-------------------------------------------*/
+.sIFR-flash {
+	display: none !important;
+	height: 0;
+	width: 0;
+	position: absolute;
+	overflow: hidden;
+}
+
+.sIFR-alternate {
+	visibility: visible !important;
+	display: block !important;
+	position: static !important;
+	left: auto !important;
+	top: auto !important;
+}

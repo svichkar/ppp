@@ -1,0 +1,1158 @@
+/* ================ COLORS ====================== 
+
+
+   Dark Grey (for h2 page title, #main h3 headings, h6, and footer link hover): #212121;
+   
+   TEXT: (Note: other shades of grey are used for borders, footer links, breadcrumbs, etc., but these are the primary greys)
+   
+   - DARK GRAY (for h4 & strong text, and td text): #666; 
+   - MEDIUM GRAY (for body text): #505050; 
+   - LIGHT GRAY (for h5): #97969a;
+   
+   BACKGROUNDS:   
+   
+ 	- MEDIUM GRAY (for body background -visible only on monitors with resolution above 1024 x768): #bababa;
+ 	- MEDIUM GRAY (for border at top of page & footer background: #bababa; 
+ 	- PALER GRAY (for table heads) background-color:#f1f1f1; color:#787878;
+ 	- VERY PALE GRAY (for backgrounds of H3 headings in tertiary right nav as well as dropdown menus) background: #f6f6f7;
+ 	- EVEN PALER GRAY (for alt stripes on table rows): #f8f8f8
+					
+   BRIGHT BLUE (for links): #005A84
+   DARK ORANGE (for active / hover links): #FF8100
+   TURQUOISE (for topnav menubar secondary dropdown): #0078ae
+   BRIGHT BLUE (for visited links): #005A84
+   
+   modified: 20 july 2010 cweeks - updated social bookmark classes
+   modified: 23 march 2011 cweeks - 
+      -changed page background image to body-bg.jpg
+	  -removed border from links
+	  -changed link hover color to #00375E
+	  -added nav-bg.jpg to #menubar, #nav, and #search
+	  -changed menubar text color to #ffffff and added white border-right
+	  -added border to bottom of topnav FF8100 6px
+	  -changed #footer and #footer-wrap background color to #bababa
+	  -changed #footer color to #ffffff and added white border-right
+	  -changed #footer text to bold and font size 12px
+	  -changed #footer link to #ffffff and removed bottom border
+	  -changed #footer link hover to #212121
+	  -modifed padding-left on #footer address to 4px
+	  -removed text-transform from #footer
+	  -changed red selected/active color on tabs to orange (FF8100)
+	  -changed headings from red to dark gray (#212121)
+	  -changed background color on active subhav leftnav from d70d09 to bababa
+	  -numerous changes to subnav...color, backgrounds, font size, borders
+	  -added gray form button class
+	  -adjusted #secondary top padding
+	  -added pipe image to #menubar
+	  
+   
+ ================ END COLORS ======================  */
+
+* { margin: 0; padding: 0; line-height: 1.5; color: #505050; font-style: normal; font-weight: normal;  }
+body { font: normal 12px Arial, Helvetica, sans-serif; background:#bababa url(body-bg.jpg) repeat-x; border-top: none; }
+
+h1, h2, h3, h4, h5, h6, table, dl { clear: both; }
+#body2, #body3 { clear: both; }
+
+
+p { margin: 0 0 1em 0; }
+p, ul, dl, ol { font-size: 13px; margin-bottom: 1.3em;}
+
+a, a:visited { color: #005A84; text-decoration: none; }
+a em, a:visited em { color: #005A84; font-style: italic; }
+	a:hover em, a:focus em { color: #FF8100; font-style: italic; }
+		a:hover, a:focus, a:hover em, a:focus em, em a:hover, em a:focus, td a:hover .pdf  { color: #FF8100; outline: 0; }
+
+		a.noborder, a:visited.noborder, a:hover.noborder, a:focus.noborder { border-bottom:0 solid #FFFFFF; }
+a strong { color: #005A84; font-weight:bold; }
+	a:visited { color:#005A84; }
+    a:visited em { color: #005A84; font-style: italic; }
+a:hover, a:focus { color: #FF8100; }
+a:hover strong { color: #FF8100; font-weight:bold; }
+a:hover em { color: #FF8100; font-style:italic; }
+
+
+
+ul {margin: .5em 0;}
+ul li {list-style: none; background: transparent url(list-marker.gif) no-repeat left 0.6em; padding-left: 8px; margin-bottom: 0.8em; margin-left: 0 !important }
+	#wrap .expand_list dd ul li {list-style: none; background: transparent url(list-marker.gif) no-repeat left 0.6em; padding-left: 8px; margin-bottom: 0.8em; margin-left: 0 !important }
+	#secondary ul li, #tertiary ul li {margin-bottom: .5em}
+ul ul {margin: .6em 0 0 1em;}
+	#tertiary ul ul {margin-left: .5em;}
+ol li {margin: .6em 0 0 1.5em; *margin: .6em 0 0 26px}
+	#wrap .expand_list dd ol { margin: .6em 0 0 1.5em; *margin: .6em 0 0 26px; }
+	#wrap .expand_list dd ol li { list-style-type:decimal !important; }
+    ul.rss_list li {list-style: none; background: none !important;}
+
+blockquote { float: right; width: 200px; background: #fcfcfc url(/now/images/css/layout/blockquote-bg.gif) repeat-x left top; margin: 4px 0 8px 10px; border-top: 1px solid #babcbe; border-bottom: 1px solid #e1e2e3; clear: both; }
+	blockquote p { margin: 12px 15px 10px 15px; padding: 0 8px !important; }
+             #tertiary blockquote {border-top: 0;}
+             #tertiary blockquote p {margin: 10px 0 10px 0; padding: 10px 10px 0 0 !important}
+	blockquote cite { color: #5a5b5b; text-transform: uppercase; font-size: 11px; text-align: right; display: block; margin: 8px 15px}
+
+	
+strong {font-weight: bold; color: #5a5b5b}
+strong em { font-weight: bold; font-style: italic; }
+em {font-style: italic;}
+em strong { font-weight: bold; font-style: italic; }
+
+
+img { border: none; margin-bottom: 10px;}
+      a:link img, img a:link {border: none; border-bottom: none !important; text-decoration: none; }
+	.float_right { float: right; margin-left: 1em; }
+	.float_left { float: left; margin-right: 1em; }
+	.float_none { float: none; width: 100%; margin-left:0; }
+	.marbotz { margin-bottom: 0 !important; }
+	
+
+hr {border: 0; height: 1px; color: #e1e2e3; background-color: #e1e2e3;  margin-top: 0; margin-bottom: 6px;}
+
+/*-------------------------------------------    
+    SPAN STYLES
+-------------------------------------------*/
+
+.hero_learnmore { background:url(/now/images/css/layout/hero_learnmore.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; }
+.exe { background:url(/now/images/css/layout/exe.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.hqx { background:url(/now/images/css/layout/hqx-icon.png) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.pdf { background:url(/now/images/css/layout/pdf.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.ppt { background:url(/now/images/css/layout/ppt.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.webcast { background:url(/now/images/css/layout/webcst.gif) no-repeat center left; padding: 0 0 0 18px !important;  margin: 0 5px; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.word { background:url(/now/images/css/layout/word.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.xls { background:url(/now/images/css/layout/xls.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.TM {font-size:0.6em; position:relative; top:-0.6em; left:0;}
+     a .TM { color: #005A84; }
+     a:hover .TM, a:active .TM { color: #FF8100; }
+.rss_icon { background: transparent url(/now/images/css/layout/small_rss.gif) no-repeat center left; padding-left: 18px !important; margin: 0 5px !important; display: inline-block; }
+.phone { background:url(/now/images/css/layout/phonepic.jpg) no-repeat top left; padding-left: 12px !important; margin: 0 5px 0 0 !important; display: inline-block; }
+.closewindow { background:url(/now/images/css/layout/closex.gif) no-repeat center left; padding-left: 16px !important; margin: 0 5px !important; border-bottom: none !important; display: inline-block; color: #a3a2a6; font-size: 11px; }
+.arrow { background: transparent url(/now/images/css/layout/chevron.gif) no-repeat center left; padding-left: 15px !important; margin: 0 5px !important; border-bottom: none !important; display: inline-block; }
+a.more_link { background: transparent url(/now/images/css/layout/chevron.gif) no-repeat right center; padding-right: 15px; border-bottom: none !important; }
+a.back_link { background: transparent url(/now/images/css/layout/chevron-back.gif) no-repeat left center; padding-left: 15px; border-bottom: none !important; font-size: 11px; }
+a.enlarge { background: transparent url(/now/images/css/layout/enlarge.gif) no-repeat right center; padding-right: 15px; border-bottom: none !important; }
+.boldital { font-weight: bold; font-style: italic; }
+.smalltype { font-size: 0.8em; }
+.dottedrule  { border-bottom: 1px dotted #d7d7d7; margin-bottom: 1em; line-height:0; height:1px; }
+.smallgreytype { color: #a3a2a6; font-size: 11px; }
+
+#wrap #secondary ul li.headline { background: transparent url(/now/images/css/layout/nav/sec-nav-headline.gif) no-repeat center left; padding-left: 12px; margin-left: -12px !important; position: relative; display: block}
+	* html #wrap #secondary ul li.headline { background: transparent url(/now/images/css/layout/nav/sec-nav-headline.gif) no-repeat center left; padding-left: 12px !important; margin-left: 0 !important;  position: relative; display: block; }
+	* + html #wrap #secondary ul li.headline { background: transparent url(/now/images/css/layout/nav/sec-nav-headline.gif) no-repeat center left; padding-left: 12px !important; margin-left: 0 !important;  position: relative; display: block; }
+#wrap #secondary ul ul li.headline {background: transparent url(/now/images/css/layout/nav/sec-nav-headline.gif) no-repeat 16px center; display: block; padding-left: 12px !important; *padding-left: 10px !important; *border: 1px solid white; position: relative;}
+
+
+/*-------------------------------------------    
+    NOBEL PRIZE PREDICTIONS CLASSES
+-------------------------------------------*/
+
+.nobelwinner, a.nobelwinner { font-weight: bold; }
+.nobelwinner2 { background: transparent url(/now/images/css/layout/award_star_gold_1.png) no-repeat right center; padding-right: 20px; border-bottom: none !important; }
+h6.nobelwinner_note { background: transparent url(/now/images/css/layout/award_star_gold_1.png) no-repeat left center; padding-left: 20px; border-bottom: none !important; margin: 6px 0 !important; }
+.nobel_year_won { background: transparent url(/now/images/css/layout/award_star_gold_1.png) no-repeat left center; padding: 12px 0px 12px 20px; border-bottom: none !important; color: #97969a; letter-spacing: 1px; font-weight: normal; font-size: 11px; }
+.nobel_category { color: #97969a; letter-spacing: 1px; font-weight: normal; font-size: 11px; }
+a.nobelsuccess, a.nobelsuccess:visited { color: #005A84; border-bottom: 1px dotted #00375E !important; text-decoration: none; }
+.esirank { color:#d53e1c; font-size:11px; text-transform:uppercase; font-weight:normal; letter-spacing: 1px; }
+.nobel_label { color:#000; font-size:11px; text-transform:uppercase; font-weight:normal; letter-spacing: 1px; }
+.HallName { color: #000; }
+
+
+/*-------------------------------------------    
+    SOCIAL BOOKMARKS
+-------------------------------------------*/
+
+.twitter { background:url(/now/images/sbmk-icons/twitter.png) no-repeat center left; padding: 16px 0; padding-left: 36px !important; margin: 0 5px !important; display: inline-block; font-size: 11px; }
+    a.twitter { border-bottom: none !important; }
+
+
+
+/*-------------------------------------------
+   HEADINGS - Note these are by no means the only options.  On Thomsonreuters.com the h2 & H3 headings are SIFR replaced with the Locator
+   font (soon to be Knowledge).  TheLink sticks with the orange, black, gray color scheme, but modifies the font sizes introduces 
+   a background image dot for the equivalent of H3.  The models below are intended to be a starting point - not an absolute - except
+   for H1, which should always be used for linking the logo to the homepage of the site.
+-------------------------------------------*/
+
+
+h2 {font-size: 20px; text-transform: uppercase; color: #212121; margin: 30px 0 0 10px;line-height: 1.1em; }
+h3 {font-size: 14px; color: #212121; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1em; line-height: 1.1em; }
+	#main h3, #mainFull h3, #mainProduct h3, .half h3, .last_half h3 {margin-bottom: .5em; margin-top: .5em}
+	#secondary h3 {text-transform: uppercase; color: #212121; font-size: 12px; margin: 2em 0 .5em 0; border-top: none}
+		#main h3.first, #mainFull h3.first, #mainProduct h3.first, #secondary h3.first {margin-top: 0; padding: 1em 0 .2em 0; }
+		.mainfirst h3.first { margin-top: 0 !important; padding-top: 0 !important; }
+
+#tertiary h3 { color: #212121; font-size: 14px; font-weight: bold; margin: 12px 0 1em; letter-spacing: 0.1em; text-transform: uppercase; padding: 18px 0 0 0;}
+		#tertiary h3.first {margin-top: 0; padding: 0}
+h3 a, h3 a:link, h3 a:visited { border-bottom: none !important; color: #212121; }
+h3 a:hover, h3 a:active { color: #FF8100; }
+h4, h5, h6 {margin: 1.5em 0 .5em 0;}
+	h4.subtitle { margin: 0 0 0 10px; color: #666; letter-spacing: 1px; font-weight: normal; }
+h4 {font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;}
+h4 a, h4 a:link, h4 a:visited { border-bottom: none !important; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+h4 a:hover, h4 a:active { color: #FF8100; border-bottom: none !important; }
+h5 {font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; font-weight: normal;}
+h5 a, h5 a:link, h5 a:visited {font-size: 11px; color: #97969a; text-transform: uppercase; letter-spacing: 1px; font-weight: normal; border-bottom: none !important; }
+h5 a:hover, h5 a:active {color: #FF8100; border-bottom: none !important; }
+h6 {font-size: 11px; color: #212121; text-transform: uppercase; letter-spacing: 1px; font-weight: normal;}
+h6 a:link, h6 a:visited { color: #212121; border-bottom: none !important; }
+h6 a:hover, h6 a:active { color: #FF8100; border-bottom: none !important; }
+
+/*-------------------------------------------
+   LAYOUT
+-------------------------------------------*/
+
+#wrap { background: #fff; margin: 1.5em auto 1.5em auto; width: 960px; position: relative;}
+#header {width: 100%; margin: 0; float: left; padding:24px 0 0 0; clear: both;}
+	#header h1 { float:left; background: url(tr_logo_40.gif) no-repeat top right; height: 60px; width: 935px; min-width: 930px; }
+	#header h1 a { float:left; text-indent: -9999px; width: 445px;	background: url(/now/images/css/layout/nav/site_scientific.png)  no-repeat top left; margin: 0 0 0 13px; *margin: 0 0 0 8px; display: block;overflow:hidden; border-bottom: medium none; height: 60px}
+	#header h1 a#logo {float: right; background: url(tr_logo_40.gif) no-repeat top right; height: 60px;  text-indent: -9999px; }
+
+
+#search	{ background: #f1f1f1; background:#bababa url(nav-bg.jpg) repeat-x; width: 250px; height: 32px; float:right;   }
+		#search * { vertical-align: middle; }
+		#search label { position: absolute; left: -9999px; }
+		#search p { padding: 0; margin: 6px 0 0 0; *margin: 5px 0 0 0}
+			#search p input {}
+			#search p #searchfield { width: 132px; margin: 0 11px 0 20px; }
+		.hidden { visibility:hidden; }
+
+#login	{ background: #f1f1f1; padding: 4px; }
+
+#nav { float:left; width: 100%; height: 32px; background: #f1f1f1; background:#bababa url(nav-bg.jpg) repeat-x; xborder-bottom:1px solid #e1e2e3; xborder-top:1px solid #e1e2e3; border-bottom: 6px solid #FF8100;}
+				
+				
+/*-- container for the text area of page (main + secondary + tertiary --*/				
+	#content { float: left; clear:both; margin: 0; width: 100%; }
+
+/*-- the primary content on the page  --*/
+	#main {float: left; width: 455px; margin: 0;  padding: 18px 0; } 
+
+/*-- pages with no tertiary nav  --*/
+	#mainFull {float: left; width: 620px; margin: 0 10px 0 0;  padding: 18px 0; } 
+
+/*-- pages with no secondary and no tertiary nav  --*/
+	#mainProduct {float: right; width: 776px; margin: 0 20px 0 0;  padding: 18px 0;} 
+
+	/*-- divide the main body column into sections --*/
+		.half {width: 48%; float: left;}
+		 	.last_half { width: 48%; float: right; margin-left: 12px;}
+		/* .third {width: 30%; float: left;} */
+		.third, .last_third { float: left; width: 30%; margin-right: 20px; }
+		.last_third { margin-right: 0; }
+	
+/*-- the secondary navigation - in this case the left hand accordion--*/
+	#secondary {float: left; width: 174px; margin: 0px 28px 0 20px;  *margin-left: 10px; padding: 8px 0 18px 0; }
+/*-- the secondary column in popups - no content --*/
+	#secondary_popup {float: left; width: 10px; }
+
+/*-- the third level navigation - in this case right hand calls to action --*/
+	#tertiary {float: left; width: 200px;  margin: 18px 6px 0 13px;  }
+		.callout {padding-left: 4px;}
+
+
+.clearfix:after { content: "."; display: block; height: 0.1px; clear: both; font-size: 0; visibility: hidden; }
+.clearfix { display: inline-table; }
+/* \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* */
+
+#skip, img.logo { position: absolute; left: -9999px; }
+
+
+/*-------------------------------------------
+    MENUBAR
+-------------------------------------------*/
+
+#menubar {width: 680px; float: left; padding: 2px 0; margin: 4px 0 0 6px; list-style: none;  padding: 0; /* background:#FF8100 url(nav-bg.jpg) repeat-x; */ background: none;  }
+#menubar a{display: block; color: #ffffff; text-decoration: none; border-bottom: none; text-transform: uppercase; font-weight: bold; font-size: 11px;}
+	#menubar a.trigger {padding: 4px 10px 5px 10px; margin: 0;}
+#menubar li {float: left; position: relative; background: none; padding: 0; margin: 0; /* border-right: 1px solid #f1f1f1; */ background:url(nav-divider.gif) no-repeat center right; }
+
+/* hide from IE mac \*/
+#menubar li {position: static; width: auto;}
+
+/*--- dropdown menu secondary items ---*/
+
+#menubar li ul, #menubar ul li  {width: 140px;}
+#menubar ul li {padding: 0; margin: 0}
+#menubar ul li a  {padding: 3px 5px; margin: 0 3px}
+#menubar ul li a strong  {color: #0078ae; }
+#menubar li ul {position: absolute; z-index: 3;	display: none;background-color: #fff; background-image: none; border: 1px solid #d5d5d5; border-bottom: 1px solid #888; border-right: 1px solid  #bababa; padding: 6px 0; list-style-type: none; }
+#menubar li:hover a, #menubar a:focus, #menubar a:active, #menubar li.hvr a {color: #444; background: #dcdcdc; }
+#menubar li:hover ul, #menubar li.hvr ul {display: block; margin: 0;}
+#menubar li:hover ul a, #menubar li.hvr ul a {color: #222;background-color: transparent;}
+#menubar ul a {color: #0078ae !important; text-transform: none; font-weight: normal; border-bottom: 1px solid #eee; text-align: left; outline: none; -moz-outline-style: none; }
+	#menubar ul a.last {border-bottom: none;}
+#menubar ul a:hover {background: #f2f2f2 !important;color: #444 !important;}
+#menubar li ul li { background-image: none !important; }
+
+
+/*-------------------------------------------
+    BREADCRUMB
+-------------------------------------------*/
+
+#breadcrumb {margin: .5em 0 0 16px; *margin-left: 17px; }
+#breadcrumb li { color: #5a5b5b; font-size: 11px; background: transparent url(/now/images/css/layout/breadcrumb_marker.gif) no-repeat left center; padding-left: 8px; display: inline; left: 0; }
+#breadcrumb li.first { background: none; padding: 0; }
+#breadcrumb a { color: #005A84; border: none; }
+#breadcrumb a:hover, #breadcrumb a:focus { color: #FF8100; text-decoration: underline;}
+
+
+/*-------------------------------------------    
+    Secondary Navigation 
+-------------------------------------------*/
+#secondary { float: left; width: 180px; margin: 0 10px 0 20px; }
+* html #secondary { display: inline; }
+	
+	/* First level of subnav */
+	#secondary ul.subnav li { border-bottom:#ececec 1px solid; background: none; padding: 0; margin: 0; }
+	#secondary ul.subnav li.first { margin-top: 10px; }
+		#secondary ul.subnav a, body.home #business_units a { color: #5a5b5b; text-transform: uppercase; letter-spacing: none; display: block; font-size: 12px; padding: 0.3em 10px 0.3em 0; border: none; }
+		* html #secondary ul.subnav a { height: 1%; background-position: 5px 0.45em; } /* for IE6 */
+		* + html #secondary ul.subnav a { background-position: 5px 0.6em; } /* for IE7 */
+		#secondary ul.subnav a:hover, #secondary ul.subnav a:focus, body.home #business_units a:hover, body.home #business_units a:focus { color: #FF8100; background-color: #ffffff; }
+			#secondary ul.subnav a:hover span, #secondary ul.subnav strong span { color: #FF8100; }
+		#secondary ul.subnav strong { color: #FF8100; text-transform: uppercase; letter-spacing: none; display: block; font-weight: normal; font-size: 12px; padding: 0.3em 10px 0.3em 0; }
+		* html #secondary ul.subnav strong { background-position: 5px 0.45em; } /* for IE6 */
+		* + html #secondary ul.subnav strong { background-position: 5px 0.6em; } /* for IE7 */
+		
+		/* Second level of subnav */
+		#secondary ul.subnav ul { margin: 0; }
+			#secondary ul.subnav ul li { border-bottom: 1px solid #eeeff0; }
+				#secondary ul.subnav ul a { text-transform: none; letter-spacing: none; font-size: 12px; margin-left:15px; }				
+				#secondary ul.subnav ul strong { color: #FF8100; text-transform: none; letter-spacing: none; font-size: 12px; font-weight: normal; margin-left: 15px; }
+				* html #secondary ul.subnav ul a, * html #secondary ul.subnav ul strong { background-position: 5px 0.6em; } /* for IE6 */
+				* + html #secondary ul.subnav ul a, * + html #secondary ul.subnav ul strong { background-position: 5px 0.6em; } /* for IE7 */
+				
+				/* Third level of subnav */
+				#secondary ul.subnav ul ul li { border: none; }
+					#secondary ul.subnav ul ul li a, #secondary ul.subnav ul ul li strong { font-size: 12px;  margin-left:15px; padding-left: 15px; }
+					#secondary ul.subnav ul ul li a:hover, #secondary ul.subnav ul ul li a:focus { color: #FF8100; }
+					#secondary ul.subnav ul ul li strong { color: #FF8100; text-transform: none; letter-spacing: none; }	
+
+
+/*-------------------------------------------
+    SECONDARY NAV
+-------------------------------------------*/
+
+/* #secondary ul {list-style: none; }
+	#secondary li {border-bottom: 1px solid #f5f5f5; margin: .5em 0; background: none; padding: 0;}
+	#secondary li a {border-bottom: none; }
+	#secondary li a#active {color: #555}
+	*/
+
+
+
+/*-------------------------------------------
+    FOOTER
+-------------------------------------------*/
+
+#footer-wrap { clear: both; position: relative; top: 0; width:960px; background-color: #fff; padding:0; border-top: 10px solid #fff; }
+#footer { float: left; width: 100%; margin: 0; background: #bababa; clear: both; height: 24px; padding: 8px 0; }
+#footer * { color: #ffffff; display: inline; font-size: 12px; text-transform: none; font-weight: bold; }
+	#footer address { padding-left: 4px; margin-right: 50px; text-transform: uppercase; }
+#footer ul { list-style: none; }
+	#footer li { background: none; margin: 0; padding: 0; border-left: 1px solid #cccccc; padding-left: 12px; }
+#footer li a { color: #ffffff; margin-right: 8px; }
+#footer li a:hover, #footer li a:focus { color: #212121; }
+
+
+/*-------------------------------------------    
+    PRESS RELEASES STYLES
+-------------------------------------------*/
+
+#releases h4, #releases h4 a, #releases h4 a span { color: #005A84; font-size: 15px; font-weight: bold; margin: 0 0 0.75em; text-transform: none !important; } 
+#releases h4.subtitle, #releases h4.subtitle ul li {color: #afaeb2;  font-style: italic; font-size: 13px; font-weight: normal !important; margin: 0 0 18px; text-transform: none !important; letter-spacing: normal !important;}
+#releases h4.selected, #releases h4.selected a { color: #726e6d; }
+#wrap ul.meta { list-style: none; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin: .75em 0 1em; }
+	#wrap .meta li { background: none; display: inline; padding: 0; margin: 0; color: #727272; }
+	#wrap .meta .type { color: #505050; font-weight: bold; }
+	#wrap .sub ul.meta { margin-top: 0; }
+		#wrap .sub ul.meta li { background: none; }
+	
+#wrap ul.tools { list-style: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 1em; }
+#wrap #content h3 + .tools { margin: -.3em 0 1.5em; }
+	#wrap .tools li { border-left: 1px solid #cfcecf; padding: 0 0.3em 0 0.75em; display: inline; background: none; }
+	#wrap .tools li:first-child { padding-left: 0; border: none; }
+	#wrap .tools li.first { padding-left: 0; border: none; }
+		#wrap .tools a { color: #727272; border: none; }
+
+#main ul.sessions { list-style: none; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 1em; }
+	#main .sessions li { border-left: 1px solid #cfcecf; padding: 0 0.3em 0 0.75em; display: inline; background: none; }
+	#main .sessions li:first-child { padding-left: 0; border: none; }
+	#main .sessions li.first { padding-left: 0; border: none; }
+
+.rss {  background: transparent url(/now/images/css/layout/small_rss.gif) no-repeat right 1px !important; padding: 0 17px 0 10px !important;  margin-left: 7px; border-left: 1px solid #e1e2e3; }
+
+
+/*-------------------------------------------
+    IIFL ARTICLE STYLES
+-------------------------------------------*/
+
+#bigquote {}
+/* #bigquote .start { background: transparent url(/now/images/css/layout/quote_open4.png) no-repeat top left; padding-left: 46px !important; display: block; } */
+#bigquote .start { float: left; width: 46px; height: 34px; background: transparent url(/now/images/css/layout/quote_open4.png) no-repeat top left; }
+#bigquote .stop { background: transparent url(/now/images/css/layout/quote_close4.png) no-repeat right bottom; padding-right: 46px; border-bottom: none !important; }
+#bigquote cite { color: #5a5b5b; text-transform: uppercase; font-size: 11px; font-family: Arial, Helvetica, sans-serif; text-align: right; display: block; margin: 8px 0; letter-spacing: 1px;}
+
+
+
+/*-------------------------------------------
+    WOK Contest Entry
+-------------------------------------------*/
+
+#quote blockquote {
+	float:none;
+	width: 90%;
+	background-image:url(/now/images/css/layout/blockquote-1.png);
+    background-position: 8px 10px;
+    background-repeat:no-repeat;
+    padding-left:0px;
+    margin-left:10px;
+}
+#quote blockquote div.entry {
+	padding-left:1.25em;
+	padding-right:1.25em;
+    background-image:url(/now/images/css/layout/blockquote-2.png);
+    background-position:100% 100%; 
+    background-repeat:no-repeat;
+}
+
+
+
+/*-------------------------------------------    
+    HERO AREA
+-------------------------------------------*/		
+#hero { padding: 20px 10px; float: left; width: 900px; margin: 0 20px 10px; }
+* html #hero { margin-left: 10px; }
+	#hero p { color: #fff; line-height: 1.3; }
+	#hero .blurb { float: right; width: 196px; margin: 0 8px 0 0; line-height: 1.3; }
+		#hero .blurb h3 { color: #c9c9c9; font-size: 18px; font-weight: normal; line-height: 1.3; margin-top: 0px !important; }
+
+	#hero .subnav { width: 220px; float: left; margin: 0; }
+		#hero .subnav li { background: none; margin: 0 0 0.25em; }
+			#hero .subnav a { color: #4c4c4d; border: none; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; background: transparent url(/now/images/css/layout/hero-marker.png) no-repeat 0 0.4em; display: block; padding: 0.3em 10px 0.3em 20px; }
+			* html #hero .subnav a { background: transparent url(/now/images/css/layout/hero-marker.gif) no-repeat 0 0.5em; height: 1%;}
+			* + html #hero .subnav a { background-position: 0 0.6em; }
+			#hero .subnav a:hover, #hero .subnav a:focus { color: #FF8100; background-image: url(/now/images/css/layout/hero-marker-over.png); }
+			* html #hero .subnav a:hover, * html #hero .subnav a:focus {  color: #FF8100; background-image: url(/now/images/css/layout/hero-marker-over.gif); }	
+
+
+
+
+/*-------------------------------------------
+    TABLES
+-------------------------------------------*/
+
+table { border-collapse: separate; border:2px solid #f1f1f1; width:100%; margin:3px 0 1em 0; border-spacing: 0 0; }
+caption {text-align: left; padding: 12px 0 3px 3px; color: #666; font-size: 12px; font-weight: bold; letter-spacing: .03mm; text-transform: uppercase;}
+.alt td { background-color: #f8f8f8 }
+.trbg { background:#f8f8f8; }
+	th, td { font-size:12px; padding:3px 5px; border-left: 2px solid #fff; vertical-align: top; color:#505050; empty-cells: show}
+		th { background-color:#f1f1f1; color:#787878; font-weight:bold; text-align: left;}
+			 th a {text-decoration: none; border-bottom: 1px solid #dedede !important; color: #5a5b5b !important; font-weight: bold;}
+			 	 th a:hover {color: #c0c0c0 !important}
+    	 	 td a {text-decoration: none; border-bottom: none !important; }
+	    .number { text-align:right !important; padding: 3px 5px 3px 1px; }
+		.cell_center {text-align: center !important; padding: 3px 5px 3px 1px;}
+/* the following class is for use on tables with sortable column heads; use td for column heads instead of th */
+	table thead td{ font-weight:bold; cursor:pointer; text-decoration: underline; color: #00375E; background-color:#f1f1f1; }
+	table.noborder { border:none; }
+
+
+/*------------------------------------------
+    FORMS
+-------------------------------------------*/
+fieldset {border: none; border-top: 1px solid #e1e2e3; margin: 20px 0; padding: 4px 0;}
+fieldset .half, fieldset .last-half {width: 200px !important; padding-left: 3px !important;}
+fieldset .whole {width: 390px; padding-left: 3px}
+legend {font-size: 12px; color: #444; text-transform: uppercase; font-weight: bold;  letter-spacing: .02cm; padding-right: .3em}
+select { width: 95%; }
+	p select {  margin-bottom: 5px;  }
+select optgroup {
+	/* font-style:italic; */
+	font-weight: bold;
+}
+select optgroup option {
+	margin-left: 20px;
+}
+input, textarea {width: auto; margin: 0 6px 0 0;}
+	input.aligned { margin-top: 24px !important; }
+	input.aligned_bottom { margin-top: -16px !important; }
+	.callout input { margin-bottom: 10px; }
+	input.img_input_l { width: auto !important; float: left; margin-right: 16px;}
+	input.img_input_r { width: auto !important; float: right; margin-right: 16px;}
+	input.img_input { width: auto !important; float: right; margin-right: 16px; margin-bottom: 8px;}
+        input.img_input_go { width: auto !important; float: right; margin-top: -22px; padding-right: 14px}
+.small {width: 50px; }
+.smallmed {width: 70px;}
+.smalllarge {width: 100px;}
+.medium {width: 146px; }
+.large {width: 200px;}
+	.large_google {width: 200px; background-color:#ffffa0;}
+.xlarge {width: 360px;}
+.widest { width: 100%; }
+#btnGo { margin-top:16px; float:right; border:0px; height:20px; background-color:#FF8F00; color:#FFF; font:120% sans-serif; }
+#btnGo.small-btn { background:url(/now/images/css/layout/gray-button-bg.gif) repeat-x scroll 0 0 #FFF; border:0 none; color:#FFF; font-weight:normal; height:23px; line-height:1em; margin: 8px 160px 12px 0; padding:1px 10px; text-transform:uppercase; display:block; float:left; position:relative; }
+label {color: #5a5b5b; font-size: 12px; display: block; margin: 5px 8px 0 0;  } 
+	label em {margin: 0 6px 0 6px; font-weight: bold;  color: #f00 !important;}
+	.required {color: #f00 !important; font-weight: bold !important;}
+        .left_label {width: 160px; min-width: 160px !important; float: left; margin: 2px 10px 15px 0; clear: left; text-align: right;}
+        .left_input {margin-bottom: 15px;}
+        .left_area {margin-top: 22px;}
+.submit { width:95%; text-align:right; }
+	.formbutton { font-size: 11px; font-weight: normal; text-transform:uppercase; color: #FFFFFF; background-color: #FF9100; border: 0; letter-spacing: 1px; }
+	.formbutton2 { background-color:#ff9100;color:#FFF;text-transform:uppercase;letter-spacing:1px;font-size:12px;padding:0 6px 2px 6px;border:0; }
+	.main form p, #main form p, #mainFull form p, .callout form p { margin: 6px 0 5px 0 !important;}
+form strong {color: #5a5b5b; margin-left: 3px;}
+
+ul.checkboxes {padding: 0; margin-top: .6em; *margin-top: .4em; }
+         ul.checkboxes li { list-style: none;  background: none !important;  clear:both; height: auto; overflow: auto;}
+         ul.checkboxes li input {float: left; }
+         ul.checkboxes li label {margin: -2px 2em 0 .1em; *margin: 0 2em 1em 0; float: left; clear: right;}
+
+ul.form_list  {margin: .3em 0;} /*-- use for radio button and checkbox arrays -- */
+	.form_list li {display: inline; background: none; margin-right:1em; padding: 0}
+	.form_list_label {margin-top: 1em;}
+
+div.formbuilder { margin-bottom: 10px; padding: 7px; }
+div.formbuilder label { display:block;  float:left; width:200px;  margin-right: 1em; text-align:right; }
+div.formbuilder p label { clear:both; }
+
+
+
+/*-------------------------------------------    
+    TABSET STYLES
+-------------------------------------------*/
+
+dt { color: #231f20; font-size: 11px; font-weight: bold; margin-top: 1.4em; }
+dd { font-size: 12px; }
+
+blockquote { background: #fcfcfc url(/now/images/css/layout/blockquote-bg.gif) repeat-x left top; margin-top: 8px; }
+	blockquote p {  color: #505050; margin: 20px 15px 10px 15px; padding: 0 15px !important; }
+             .sub blockquote, #tertiary blockquote {border-top: 0;}
+             .sub blockquote p, #tertiary blockquote p {margin: 10px 0 10px 0; padding: 10px 10px 0 0 !important}
+	blockquote cite { color: #5a5b5b; text-transform: uppercase; font-size: 11px; text-align: right; display: block; margin: 10px 15px}
+	blockquote .date { color: #8b8c8c; padding-left: 5px; }
+
+	/*\*/ .tabset-active .tabset dt a, .rss-link, #secondary p a { overflow: hidden; } /**/
+
+
+/*-------------------------------------------    
+    Headings
+-------------------------------------------*/
+
+h3 { color: #212121; font-size: 15px; font-weight: bold; margin: 20px 0 10px 0; line-height: 1.1em; }
+		.tabset h3, body.products_services .has_sub h3, body.main .main h3, body.mainFull .mainFull h3, body.mainProduct .mainProduct h3 {margin: 0 0 10px 0 !important; padding: 10px 0 0 0 !important; border-top: 0 !important}
+
+
+dl.tabset p, dl.tabset h4, dl.tabset h3, dl.tabset h5, dl.tabset ul {margin-left: 0 !important;}
+
+
+/*-------------------------------------------    
+    .has_sub classes for tabsets
+-------------------------------------------*/
+.has_sub strong em, .has_sub em strong {font-style:italic; font-weight: bold; }
+	.has_sub ul li, .has_sub ul ul li {margin-bottom: 1em !important; margin-left: 10px;}
+        /*.has_sub ul, .has_sub ul ul {margin-bottom: 0.4em !important;}*/
+		.has_sub ul {margin-left: 0 !important; margin-right: 20px; }
+		.has_sub ol li {margin-bottom: 0.8em;}
+		.tabset h3, body.main .has_sub h3 { border: none; overflow: visible; clear: both; min-height: 1px; }
+	.has_sub h5 {margin-bottom: .7em;}
+.sub { float: left; width: 227px; margin: 0 0 2em 20px; width: 210px; }
+	.sub .sub_alt { border-top: 1px solid #e1e2e3;}
+.main .has_sub { border-top:none; padding-top:0; }
+.has_sub form p, .sub form p { margin: 6px 0 5px 0 !important;}
+.has_sub .expand_list {margin-right: 0 !important;}
+.business_units .full .has_sub .img_container .img_details h4 a, .business_units .full .has_sub .img_container .img_details h4 {text-transform: none  !important; font-size: 13px !important; font-weight: bold;  letter-spacing: 0; margin-top: 0 !important; margin-bottom: .7em}
+
+
+.has_sub { float: left; width: 468px; }
+* html .has_sub { width: 468px; }
+	.has_sub .half, .has_sub .last_half { float: left; width: 220px; margin-right: 20px; }
+	* html .has_sub .half { margin-right: 0; }
+	.has_sub .last_half { margin-right: 0; }
+	.has_sub .third, .has_sub .last_third { float: left; width: 140px; margin-right: 20px; }
+	* html .has_sub .third { margin-right: 10px; }
+	.has_sub .last_third { margin-right: 0; }
+	* html .has_sub .last_third { margin-right: 0; }
+
+	#mainFull .has_sub { width: 620px; }
+	* html #mainFull .has_sub { width: 600px; }
+
+/*-------------------------------------------    
+    Tabset - Old Styles
+-------------------------------------------*/
+/* .main .tabset, .wrap .tabset, .mainFull .tabset, .mainProduct .tabset { background:#fff; margin-top:-16px; border-top: 1px solid #e1e2e3; }
+.tabset dt { background: #fff; color: #5a97c4; font-size: 13px; display: block; height: 38px; margin-bottom: 10px; }
+
+.tabset-active .tabset dt { background:none; float:left; font-weight:normal; padding:0; margin:0 0 0 2px !important; }
+	.tabset-active .tabset dt.first { margin: 0;}
+		.tabset-active .tabset dt  { color: #5a97c4; display:block; font-size:13px; margin-bottom:10px; padding:8px 12px 0 0; border-bottom: none !important; }
+	.tabset-active .tabset dt a { color: #5a97c4; display:block; font-size:13px; font-weight: bold; margin-bottom:10px; padding:0 14px 0 0; border-bottom: none !important; background: transparent url(/now/images/css/layout/tab-divider.gif) no-repeat right center}
+		.tabset-active .tabset dt a:hover, .tabset-active .tabset dt a:focus { color: #75b2d5;}
+	.tabset-active .tabset dt.selected { color: #555; }
+		.tabset-active .tabset dt.selected a, .tabset-active .tabset dt.selected a:hover, .tabset-active .tabset dt.selected a:focus { color: #555; font-weight: bold;}
+.tabset-active .tabset dd { border-top:1px solid #e1e2e3; color: #f36f27; clear:left; display:none; padding-top:20px; position:relative; top:-10px; }
+.tabset-active .tabset dd.selected { display:block; }
+.tabset-active .tabset dd > h5:first-child, .tabset-active .tabset dd > h4:first-child {margin-top: 0;}
+.about .full .tabset dd li {margin-right: 70px;} */
+
+
+/*-------------------------------------------    
+    Tabset Revised Styles
+-------------------------------------------*/
+.main .tabset, .wrap .tabset, .mainFull .tabset, .mainProduct .tabset { background:#fff; margin-top:-16px; border-top: 1px solid #e1e2e3; }
+.tabset dt { color: #ffffff; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; display: block; height: 24px; margin-bottom: 10px; }
+
+.tabset-active .tabset dt { background:none; float:left; padding:0; margin:0 0 0 2px !important; }
+	.tabset-active .tabset dt.first { margin: 0; margin-left: 0 !important;}
+		.tabset-active .tabset dt { background-color: #c6c6c6; }
+	.tabset-active .tabset dt a { color: #ffffff; background-color: #FF8100; display:block; padding:2px 7px 2px 7px; border-bottom: none !important; background: transparent url(/now/images/s.gif) no-repeat right center;}
+		.tabset-active .tabset dt a:hover { background-color: #FF8100; height: 20px;}
+	.tabset-active .tabset dt.selected { background-color: #FF8100; }
+		.tabset-active .tabset dt.selected a, .tabset-active .tabset dt.selected a:hover, .tabset-active .tabset dt.selected a:focus { color: #ffffff; }
+		.tabset dt a:hover { _width: 130px;}
+.tabset-active .tabset dd { border:2px solid #e1e2e3; color: #f36f27; clear:left; display:none; padding: 10px; padding-top:20px; position:relative; }
+.tabset-active .tabset dd.selected { display:block; }
+.tabset-active .tabset dd > h5:first-child, .tabset-active .tabset dd > h4:first-child {margin-top: 0;}
+.about .full .tabset dd li {margin-right: 70px;}
+
+
+/*-------------------------------------------    
+    Tabset as lists
+-------------------------------------------*/
+.tabset { position: relative; }
+
+ul.tabs { list-style: none; margin: 0; padding: 0; }
+* html ul.tabs { height: 1%; }
+ul[class~="tabs"] { position: relative; top: 1em; margin: -1em 0 0; }
+* + html ul.tabs { margin: 0; height: 1%; top: 0; }
+	#content ul.tabs li { float: left; background: none; margin: 0 1px 0 0; padding: 0; border: none; }
+		ul.tabs a { display: block; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; border: none; text-decoration: none; background: #c6c6c6; font-size: 11px; padding: 0.3em 5px; }
+		ul.tabs a:hover, ul.tabs a:focus { background-color: #FF8100; color: #fff; border: none; }
+		ul.tabs a.active, ul.tabs li.ui-tabs-selected a { background-color: #FF8100; color: #fff; }
+		
+.tab { padding: 1em 10px; margin: 0 0 1.5em; clear: left; }
+
+
+
+
+/*----List/Tabs-----------------------------*/
+* html .expand_list li.first { border-top: 1px solid #e4e4db;  }
+* html dl.tabset { margin-bottom: 0px; }
+* html .tabset-active .tabset { height:1%; position:relative; }
+* + html .tabset-active .tabset { height:1%; }
+* html .tabset-active .tabset dd { float:left; width:100%; }
+* html .tabset-active #home_primary .tabset dd,
+* html .tabset-active .sub .tabset dd { float:none; width:auto; }
+
+/*-------------------------------------------
+    sIFR
+-------------------------------------------*/
+.sIFR-flash {visibility: visible !important; margin: 0;	padding: 0;}
+
+.sIFR-replaced, .sIFR-ignore {visibility: visible !important;}
+
+.sIFR-alternate {position: absolute;left: 0;top: 0;width: 0;height: 0;display: block; overflow: hidden;}
+
+html.sIFR-active h2 { min-height: 30px; }
+* html.sIFR-active h2 { height: 30px; }
+
+
+body.sIFR-active h3 { padding-bottom:0;}
+* html body.sIFR-active h3 { padding-bottom:6px; }
+* + html body.sIFR-active h3 { padding-bottom:6px;}
+
+* html.sIFR-active h2, * html.sIFR-active h2.small_title, * html.sIFR-active h3,  * html .sIFR-active h3.tagline  { visibility:hidden; }
+* + html.sIFR-active h2, * + html.sIFR-active h3 { visibility: hidden; }
+
+
+/*-------------------------------------------
+    Flash Holder
+-------------------------------------------*/
+body.tertiary #flash_holder  { background: transparent url(/now/images/css/layout/s.gif) no-repeat;}
+#feature { background: #fff url(/now/images/css/layout/s.gif) no-repeat; clear: both; margin: 0 0 14px 0; width: 190px; overflow-x: hidden; }
+	#flash_holder { float: left; line-height: 0; }
+		#flash_holder * { margin: 0; padding: 0; }
+
+body.main #flash_holder  { background: transparent url(/now/images/css/layout/s.gif) no-repeat; height: 257px;}
+#feature { background: #fff; clear: both; margin: 0 0 14px 0; width: 427px; overflow-x: hidden; }
+	#flash_holder { float: left; line-height: 0; }
+		#flash_holder * { margin: 0; padding: 0; }
+
+body.mainFull #flash_holder  { background: transparent url(/now/images/css/layout/s.gif) no-repeat; height: 257px;}
+#feature { background: #fff; clear: both; margin: 0 0 14px 0; width: 600px; overflow-x: hidden; }
+	#flash_holder { float: left; line-height: 0; }
+		#flash_holder * { margin: 0; padding: 0; }
+
+
+
+/*-------------------------------------------    
+    Expand/Contract List -  FAQs
+-------------------------------------------*/
+.border_tb { float: left; width: 468px; _width: 450px; margin: 0 30px 0 0;  padding: 18px 0; }
+#mainFull .border_tb { width: 620px; _width: 602px; }
+.expand_list { margin-bottom: 0; margin-right: 20px !important; }
+.main .expand_list { margin-right: 0 !important;}
+#wrap .expand_list li { background: none; padding-left: 0; margin-bottom: 0; }
+* html #wrap .expand_list li dl { height:1%; overflow:hidden; }
+* + html #wrap .expand_list li dl { height:1%; overflow:hidden; }
+#wrap .expand_list li.select { border-top: 8px solid #E1E2E3 !important;  border-bottom: 8px solid #E1E2E3;  }
+#wrap .expand_list li.first { border-top: none}
+#wrap .expand_list li.last { border-bottom: none;  padding-bottom: 10px;}
+	#wrap .expand_list dl { margin-bottom: 0;  padding: 10px 0 0; border-top: 1px solid #E1E2E3;  }
+		#wrap .expand_list dt { color: #00375E; text-decoration: none; cursor: pointer; margin: 0 0 10px; font-size: 12px; font-weight: bold !important;  }
+		#wrap .expand_list dt.selected { font-size: 15px; text-decoration: none; }
+/*        #wrap .expand_list dt:hover { font-weight: bold; color: #75b2d5; }
+        #wrap .expand_list dt a:hover em { font-weight: bold; font-style: italic; color: #75b2d5; } */
+            #wrap .expand_list dt a {font-weight: bold; border-bottom: none !important;}
+            #wrap .expand_list dt a em {font-weight: bold; font-style: italic; border-bottom: none !important;}
+		#wrap .expand_list dd { overflow:hidden; }
+		#wrap .expand_list dd.block_section { display: none; }
+
+
+/*-------------------------------------------
+    Hoverbox
+-------------------------------------------*/
+.hoverbox { cursor: default; list-style: none; }
+.hoverbox a { cursor: default; }
+.hoverbox a .preview { display: none; }
+.hoverbox a:hover .preview { display: block; position: absolute; top: -133px; left: -145px; z-index: 1; }
+.hoverbox img { background: #fff; border-color: #aaa #ccc #ddd #bbb; border-style: solid; border-width: 1px; color: inherit; padding: 2px; vertical-align: top; width: 150px; height: 113px; }
+.hoverbox li { background: #eee; border-color: #ddd #bbb #aaa #ccc; border-style: solid; border-width: 1px; color: inherit; display: inline; float: left; margin: 20px; padding: 5px; position: relative; }
+.hoverbox .preview { border-color: #000; width: 400px; height: 250px; }
+
+/*-------------------------------------------
+    LightView
+    http://www.nickstakenburg.com/projects/lightview
+-------------------------------------------*/
+
+#lightview {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 150px;
+	width: 150px;
+	margin: -75px 0 0 -75px;
+	padding: 0;
+}
+#lightview ul {margin: 0 !important;}
+#lightview ul li {list-style: none; background-image: none; padding-left: 0; margin-bottom: 0; margin-left: 0 !important; }
+a.lightview, a:hover.lightview {border-bottom: 0 solid #FFFFFF !important; cursor: pointer; }
+
+/* The container that holds everything */
+.lv_Container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: none;
+	padding: 0;
+	margin: 0;
+}
+
+.lv_Button {
+	cursor: pointer;
+	text-decoration: none;
+	border: none;
+	background: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* The buttons on the side when you view a gallery */
+.lv_Sides {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	clear: both;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.lv_Sides * { padding: 0; margin: 0; }
+.lv_Sides li {
+	list-style-type: none;
+	position: relative;
+}
+
+.lv_PrevSide { float: left; }
+.lv_NextSide { float: right; }
+.lv_Sides .lv_Wrapper {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+.lv_Sides .lv_Button {
+	float: left;
+	background: none;
+}
+
+/* The frames above and below the center, that hold the corners.
+   It's recommended not to change anything here, a lot is done in
+   javascript to build further upon this based on your settings.
+*/
+.lv_Frames {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+.lv_Frames li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.lv_Frame {
+	width: 100%;
+	display: block;
+}
+.lv_Frame * { padding: 0; margin: 0; }
+.lv_FrameTop {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	display: block;
+}
+.lv_FrameBottom {
+	position: relative;
+	float: left;
+	clear: both;
+}
+
+.lv_Liquid {
+	position: relative;
+	float: left;
+	width: 100%;
+	overflow: hidden;
+	clear: both;
+}
+.lv_Liquid .lv_Filler {
+	position: absolute;
+	height: 100%;
+	width: 2px;
+	top: 0;
+	left: 50%;
+}
+
+.lv_Half {
+	display: block;
+	height: 100%;
+	clear: both;
+	line-height: 0px;
+}
+.lv_Half li { list-style-type: none; }
+.lv_Corner {
+	float: left;
+	position: relative;
+}
+.lv_CornerTr, .lv_CornerBr { float: right; }
+
+.lv_Fill {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.lv_Half .lv_CornerWrapper {
+	float: left;
+	position: relative;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+}
+.lv_HalfRight .lv_CornerWrapper { float: right; }
+
+.lv_Corner { position: relative; }
+.lv_Corner canvas { position: relative; }
+.lv_HalfLeft .lv_Corner { float: left; }
+.lv_HalfRight .lv_Corner {
+	position: relative;
+	float: right;
+}
+
+/* To position content correctly in the center with correct
+   rounded corner display we need a few wrappers.
+   This is to get it right on all browsers.
+*/
+.lv_Center {
+	position: relative;
+	clear: both;
+	height: 100%;
+	overflow: hidden;
+	background: none;
+	padding: 0;
+	margin: 0;
+}
+.lv_WrapUp {
+	position: absolute;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+.lv_WrapDown {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+.lv_WrapCenter {
+	position: relative;
+	padding: 0;
+	margin: 0;
+}
+
+/* The loading indicator */
+.lv_Loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+.lv_Loading .lv_Button {
+	float: left;
+	height: 100%;
+	width: 100%;
+}
+
+.lv_MediaWrapper {
+	position: relative;
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	clear: both;
+	padding: 0;
+	margin: 0;
+}
+.lv_MediaWrapper img {
+	position: relative;
+	float: left;
+	padding: 0;
+	margin: 0;
+}
+
+/* The overlays on top of images that toggle the previous/next buttons */
+.lv_PrevNext {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+.lv_PrevNext * { padding: 0; margin: 0; }
+.lv_PrevNext .lv_Button {
+	position: relative;
+	height: 100%;
+}
+.lv_PrevButton { float: left; }
+.lv_NextButton { float: right; }
+
+/* The bar that holds title, caption, imagenumber, slideshow and closebutton */
+.lv_MenuBar {
+	clear: both;
+	position: relative;
+	width: 100%;
+	float: left;
+	font: 11px Arial, Helvetica, sans-serif;
+	color: #7a7a7a;
+	padding: 0;
+	margin: 0;
+	text-align:left;
+}
+.lv_MenuBar * { padding: 0; margin: 0; }
+
+/* When the Menubar is at the top, on (ajax/iframe/inline) content,
+   it will also have this style.
+   The margins are removed here for better alignment, and since it's
+   at the top we switch the inner margins to the other side.
+*/
+.lv_MenuTop .lv_DataText div,
+.lv_MenuTop .lv_ImgNumber div { margin: 0; padding: 0; }
+#lightview .lv_MenuTop .lv_Close, 
+#lightview .lv_MenuTop .lv_Data { margin: 0 0 6px 0; }
+
+.lv_Close, .lv_Data { margin: 6px 0 0 0; }
+.lv_Close {
+    position: relative;
+	float: right;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+
+.lv_Data {
+	position: relative;
+	float: left;
+	padding-bottom: 13px;
+	line-height: 13px;
+}
+
+.lv_Data li {
+	list-style-type: none;
+	float: left;
+	margin-top: 3px;
+}
+.lv_DataText { width: 100%; }
+.lv_DataText .lv_Title {
+	font-weight: bold;
+	margin-bottom: 12px;
+}
+.lv_DataText .lv_Caption { clear: both; }
+.lv_Data .lv_ImgNumber {
+	color: #a7a7a7;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+.lv_Data .lv_innerPrevNext, 
+.lv_Data .lv_Slideshow {
+	position: relative;
+	border-left: 1px solid #d7d7d7;
+	padding: 0 5px;
+	margin-top: 5px;
+	vertical-align: middle;
+}
+.lv_Data .lv_Slideshow { padding-right: 0px; }
+
+.lv_Data .lv_innerPrevNext .lv_Button, 
+.lv_Data .lv_Slideshow .lv_Button { /* play and stop */
+	float: left;
+	background-position: center left;
+	background-repeat: no-repeat;
+}
+
+/* the boxes that hold media or external content */
+.lv_Media,
+.lv_External {
+	position: relative;
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#lightview iframe {
+	border: 0;
+	clear: both;
+	padding: 0;
+	margin: 0;
+	background: none;
+}
+
+/* The container that hold buttons above the view, currently only topclose */
+.lv_topButtons {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+.lv_topcloseButtonImage { cursor: pointer; }
+
+
+/* The error/warning/download message that will appear when
+   a required plugin is not installed.
+*/
+#lightviewError p { padding: 0 0 10px 0; }
+#lightviewError div {
+	padding: 6px;
+	font: 11px Arial, Helvetica, sans-serif;
+}
+#lightviewError .message {
+	background: #fcb5b5;
+	color: #dd1f1f;
+	margin-bottom: 3px;
+}
+#lightviewError .type { font-weight: bold; }
+#lightviewError .pluginspage {
+	background: #b5fcbd;
+	color: #21be30;
+}
+#lightviewError a,
+#lightviewError a:hover,
+#lightviewError a:visited {
+	color: #21be30;
+	text-decoration: none;
+	background: none;
+	font-weight: bold;
+	border-bottom: 1px solid #7de689;
+}
+#lightviewError p {
+	margin-left: 0;
+	padding: 0;
+}
+
+#lv_overlay {
+  position: absolute; /* Opera will use fixed */
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+* html #lightview { /* IE6 */
+	position: absolute;
+	margin-top: expression( (-1 * this.offsetHeight / 2 + (document.documentElement ? document.documentElement.scrollTop : 0) + (Lightview.navbarHeight || 0)) + 'px');
+	margin-left: expression( -1 * this.offsetWidth / 2 + (document.documentElement ? document.documentElement.scrollLeft : 0) + 'px');
+}
+
+/* Always cover 100% of the screen in IE6 */
+html #lv_overlay {
+	position: absolute;
+	height: expression(((window.Enumerable && window.Enumerable.max) ? [document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight].max() : document.documentElement.scrollHeight) + 'px' );
+	width: expression(((window.Enumerable && window.Enumerable.max) ? [document.body.scrollWidth, document.documentElement.scrollWidth, document.body.offsetWidth, document.documentElement.clientHeight].max() : document.documentElement.scrollWidth) + 'px' );
+}
+.lightview .thumbnail { 
+	border: 1px solid #CCCCCC;
+	padding: 10px;
+	border-bottom: 1px solid #CCCCCC !important;
+}
+
+
+/*-------------------------------------------
+   SOCIAL BOOKMARKS IN FOOTER
+   note: twitter goes first in the string
+-------------------------------------------*/
+
+#footer li a.icon-twitter {
+	background: url(/now/images/sbmk-icons/twitter16x16.png) no-repeat left center;
+	margin-left: 100px; padding: 12px 0; padding-left: 20px; border-bottom: none !important;
+}
+#footer li a.icon-share {
+	background: url(/now/images/sbmk-icons/share16x16.png) no-repeat left center; 
+	padding: 12px 0; padding-left: 20px; border-bottom: none !important;
+}
+#footer li a.icon-facebook {
+	background: url(/now/images/sbmk-icons/facebook16x16.png) no-repeat left center;
+	padding: 12px 0; padding-left: 20px; border-bottom: none !important;
+} 
+
+/*-------------------------------------------
+    SOCIAL BOOKMARKS TOP OF PAGE
+-------------------------------------------*/
+
+#sb { float:right; margin: 0 16px 0 0; *margin-right: 17px; }
+#sb li { color: #5a5b5b; font-size: 11px;  background: none; padding-left: 8px; display: inline; left: 0; }
+#sb li.first { margin-left: 140px; padding: 0; }
+#sb a { color: #005A84; border: none; }
+#sb a:hover, #sb a:focus { color: #FF8100; text-decoration: underline;}
+
+#sb li a.icon-twitter {
+	background: url(/now/images/sbmk-icons/twitter16x16.png) no-repeat left center;
+	padding: 6px 0; padding-left: 20px; border-bottom: none !important;
+}
+#sb li a.icon-share {
+	background: url(/now/images/sbmk-icons/share16x16.png) no-repeat left center; 
+	padding: 6px 0; padding-left: 20px; border-bottom: none !important;
+}
+#sb li a.icon-facebook {
+	background: url(/now/images/sbmk-icons/facebook16x16.png) no-repeat left center;
+	padding: 6px 0; padding-left: 20px; border-bottom: none !important;
+} 

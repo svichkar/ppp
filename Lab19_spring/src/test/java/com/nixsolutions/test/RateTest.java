@@ -20,8 +20,7 @@ public class RateTest extends DBUnitConfig {
 	@Autowired
 	private RateDao rateDao;
 
-	public RateTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public RateTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

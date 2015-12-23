@@ -26,8 +26,7 @@ public class JournalTest extends DBUnitConfig {
 	@Autowired
     private SubjectDao subjectDao;
 
-	public JournalTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public JournalTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

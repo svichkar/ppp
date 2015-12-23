@@ -20,10 +20,8 @@
 		<option value="Teacher">Teacher</option>
 		<option value="Student">Student</option>
 		</select><br>
-		<p>
-				<input type="submit" value="Save">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			</p>
+		<p><input type="submit" value="Save">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>	
 </jsp:attribute>
 </t:general>

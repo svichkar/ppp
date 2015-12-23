@@ -12,15 +12,14 @@
   <input type="text" name="firstName" value="">
   Last Name:
   <input type="text" name="lastName" value="">
-  <input type="submit" value="Search" style="width: 100px;">
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+  <input type="submit" value="Search" style="width: 100px;">
  </form>
  <h3>Search by student group</h3>
  <form action="<c:url value="/students/students.do"></c:url>" method="post">
   Student Group:
   <select name="studentGroup">
   <c:forEach var="group" items="${groups}">
-  <option value="${group.studentGroupName}">${group.studentGroupName}</option>
   </c:forEach>
   </select>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -65,16 +64,16 @@
 				<td>
                     <form action="<c:url value="/journal/journal.do"></c:url>" method="post">
                 	    <input type=submit name="edit" value="Grades">
-                	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 		<input type="hidden" name="studentId" value="${student.studentId}">
+                		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 	</form>
                 </td>
 			</tr>
 		</c:forEach>
 	</table>
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	<form action="<c:url value="/students/addNewStudent.do"></c:url>" method="get">
 	<input type=submit name="create" value="Add new" style="width: 100px;">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 </jsp:attribute>
 </t:generalManager>

@@ -16,8 +16,8 @@
 		<option value="${item.alias}"<c:if test="${subject.term.alias eq item.alias}"> selected</c:if>>${item.alias}</option>		
 		</c:forEach>
 		</select><br>
-		<p><input type="submit" value="Save"></p>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<p><input type="submit" value="Save"></p>
 		</form>	
 </jsp:attribute>
 </t:generalManager>

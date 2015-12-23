@@ -18,13 +18,13 @@
 				<td>
 					<form action="<c:url value="/terms/editTerm.do"></c:url>" method="get">
 						<input type="hidden" name="termId" value="${term.termId}">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 					<form action="<c:url value="/terms/deleteTerm.do"></c:url>" method="post">
 						<input type="hidden" name="termId" value="${term.termId}"> 
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 			</tr>

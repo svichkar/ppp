@@ -23,8 +23,7 @@ public class UserTest extends DBUnitConfig {
 	@Autowired
 	private RoleDao roleDao;
 
-	public UserTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public UserTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

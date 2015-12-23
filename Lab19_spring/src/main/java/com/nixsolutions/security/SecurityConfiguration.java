@@ -18,9 +18,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource)
-				.usersByUsernameQuery("SELECT user_name, password, 'true' FROM user WHERE user_name = ?")
+				.usersByUsernameQuery("SELECT user_name AS username, password, 'true' FROM user WHERE user_name = ?")
 				.authoritiesByUsernameQuery("SELECT u.user_name AS username," + "CASE r.role_name "
-						+ "WHEN 'Administrator' THEN 'ROLE_ADMIN'" + "WHEN 'Manager' THEN  'ROLE_MANAGER'"
+						+ "WHEN 'Administrator' THEN 'ROLE_ADMIN'" + "WHEN 'Manager' THEN  'ROLE_USER'"
 						+ "WHEN 'Teacher' THEN 'ROLE_TEACHER'" + "WHEN 'Student' THEN 'ROLE_STUDENT'"
 						+ "END AS role FROM user u "
 						+ "INNER JOIN role r ON u.role_id = r.role_id WHERE u.user_name = ?");
@@ -30,8 +30,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-			.antMatchers("/css/**", "/").permitAll()
-			.antMatchers("/css/**", "/students/*", "/studentGroups/*", "/subjects/*", "/journal.do").access("hasRole('ROLE_MANAGER')")
+			.antMatchers("/").permitAll()
+			//.antMatchers("/css/**").permitAll()
+			.antMatchers("/students/**", "/studentGroups/**", "/subjects/**", "/terms/**", "/journal.do").access("hasRole('ROLE_USER')")
 			.antMatchers("/AdminHome.do", "/addNewUser.do", "/editUser.do").access("hasRole('ROLE_ADMIN')")
 			.and()
 		.formLogin()

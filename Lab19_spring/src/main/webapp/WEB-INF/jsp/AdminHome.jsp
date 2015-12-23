@@ -24,13 +24,13 @@
 				<td>
 						<form action="edirUser.do" method="get">
 							<input type="hidden" name="userId" value="${user.userId}">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 						<form action="deleteUser.do" method="post">
 							<input type="hidden" name="userId" value="${user.userId}"> 
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</td>
 			</tr>

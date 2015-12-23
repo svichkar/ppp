@@ -4,10 +4,10 @@
 <html>
 <head>
 <title>${title}</title>
-<link rel="stylesheet" href="<c:url value="css/style.css"/>">
+<link rel="stylesheet" href="<c:url value="/css/style.css"/>">
 </head>
 <body>
-	<a href="logout.do">Logout</a>
+	<a href="<c:url value="/logout.do"/>">Logout</a>
 	<div id="hmenu">
 		<ul>
 			<li><a href="<c:url value="/login.do"/>">Home</a></li>

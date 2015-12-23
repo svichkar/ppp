@@ -20,8 +20,7 @@ public class StatusTest extends DBUnitConfig {
 	@Autowired
 	private StatusDao statusDao;
 
-	public StatusTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public StatusTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

@@ -18,13 +18,13 @@
 				<td>
 						<form action="<c:url value="/studentGroups/editStudentGroup.do"></c:url>" method="get">
 							<input type="hidden" name="studentGroupId" value="${item.studentGroupId}">
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 						<form action="<c:url value="/studentGroups/deleteStudentGroup.do"></c:url>" method="post">
 							<input type="hidden" name="studentGroupId" value="${item.studentGroupId}"> 
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 					</td>
 			</tr>

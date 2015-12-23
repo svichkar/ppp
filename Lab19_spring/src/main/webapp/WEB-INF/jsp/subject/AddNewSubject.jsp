@@ -15,8 +15,8 @@
 		<option value="${item.alias}">${item.alias}</option>		
 		</c:forEach>
 		</select><br>
-		<p><input type="submit" value="Save"></p>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<p><input type="submit" value="Save"></p>
 		</form>	
 </jsp:attribute>
 </t:generalManager>

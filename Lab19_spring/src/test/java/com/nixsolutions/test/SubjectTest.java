@@ -23,8 +23,7 @@ public class SubjectTest extends DBUnitConfig {
 	@Autowired
 	private TermDao termDao;
 
-	public SubjectTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public SubjectTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

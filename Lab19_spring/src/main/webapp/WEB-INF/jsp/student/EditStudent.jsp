@@ -34,10 +34,10 @@
         </c:forEach>
         </select><br>
 		<p>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<input type="hidden" name="studentId" value="${student.studentId}"><br>
 		<input type="submit" value="Save">
-			</p>
+		</p>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>	
 </jsp:attribute>
 </t:generalManager>

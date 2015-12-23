@@ -31,8 +31,7 @@ public class StudentTest extends DBUnitConfig {
     @Autowired
     private StudentGroupDao studentGroupDao;
 
-	public StudentTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public StudentTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

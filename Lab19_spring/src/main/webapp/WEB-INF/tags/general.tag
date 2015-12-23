@@ -6,7 +6,7 @@
 <title>${title}</title>
 </head>
 <body>
-	<a href = "logout.do">Logout</a>
+	<a href="<c:url value="/logout.do"/>">Logout</a>
 	<div id="content">
 		<jsp:invoke fragment="content_area" />
 	</div>

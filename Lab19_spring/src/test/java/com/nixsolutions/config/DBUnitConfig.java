@@ -1,6 +1,5 @@
 package com.nixsolutions.config;
 
-import com.nixsolutions.util.HibernateUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dbunit.DBTestCase;
@@ -11,12 +10,22 @@ import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:test-context.xml")
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+    DirtiesContextTestExecutionListener.class })
 public class DBUnitConfig extends DBTestCase {
 	private final static Logger LOG = LogManager.getLogger(DBUnitConfig.class.getName());
 
@@ -24,8 +33,8 @@ public class DBUnitConfig extends DBTestCase {
 	private Properties property;
 	protected IDataSet beforeData;
 
-	public DBUnitConfig(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public DBUnitConfig() throws SQLException, ClassNotFoundException {
+		//super(name);
 		FileInputStream inputStream = null;
 		property = new Properties();
 		String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile();
@@ -47,15 +56,12 @@ public class DBUnitConfig extends DBTestCase {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, property.getProperty("DB_URL"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, property.getProperty("DB_login"));
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, property.getProperty("DB_password"));
-		//System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "sqllab");	*/
-        HibernateUtil.getSessionFactory();
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		tester = new JdbcDatabaseTester(property.getProperty("DB_driver"), property.getProperty("DB_URL"),
 				property.getProperty("DB_login"), property.getProperty("DB_password"));
-		//conn = ConnectionManager.getConnection();
 	}
 
 	@Override
@@ -69,8 +75,8 @@ public class DBUnitConfig extends DBTestCase {
     }
 	
 	@After
-	public void ternDown() {
-		HibernateUtil.shutdown();
-		//ConnectionManager.closeAllConnections();
+	public void tearDown() throws Exception {
+		tester.setTearDownOperation(this.getTearDownOperation());
+		tester.onTearDown();
 	}
 }

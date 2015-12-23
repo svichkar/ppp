@@ -30,14 +30,12 @@
 				<td>${subject.term.alias}</td>				
 				<td>
 					<form action="<c:url value="/subjects/editSubject.do"></c:url>" method="get">							
-						<input type=submit name="edit" value="Edit"
-								style="width: 100%; height: 50%;">
+						<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 						<input type="hidden" name="subjectId" value="${subject.subjectId}">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 					<form action="<c:url value="/subjects/deleteSubject.do"></c:url>" method="post">							
-						<input type=submit name="delete" value="Delete"
-								style="width: 100%; height: 50%;">
+						<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
 						<input type="hidden" name="subjectId" value="${subject.subjectId}"> 
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
@@ -47,8 +45,8 @@
 	</table>
 	
 	<form action="<c:url value="/subjects/addNewSubject.do"></c:url>" method="get">
-	<input type=submit name="create" value="Add new" style="width: 100px;">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	<input type=submit name="create" value="Add new" style="width: 100px;">
 	</form>
 </jsp:attribute>
 </t:generalManager>

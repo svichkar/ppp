@@ -10,8 +10,8 @@
 			<b>Alias:</b><br>
 			<input type="text" name="alias" value="${term.alias}"><br>	
 			<input type="hidden" name="termId" value="${term.termId}"><br>	
-			<p><input type="submit" value="Save"></p>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<p><input type="submit" value="Save"></p>
 		</form>	
 </jsp:attribute>
 </t:generalManager>

@@ -20,8 +20,7 @@ public class RoleTest extends DBUnitConfig {
 	@Autowired
 	private RoleDao roleDao;
 
-	public RoleTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public RoleTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before

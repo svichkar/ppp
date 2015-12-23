@@ -3,5 +3,6 @@
    <term term_id="1" alias="I"/>
    <term term_id="2" alias="II" />
    <term term_id="3" alias="III"/>
-   <term term_id="4" alias="IV"/>
+   <term term_id="4" alias="X"/>
+   <term term_id="5" alias="IV"/>
 </dataset>

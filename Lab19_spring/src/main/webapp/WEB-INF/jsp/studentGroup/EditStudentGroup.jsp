@@ -10,8 +10,8 @@
 		<b>Name:</b><br>
 		<input type="text" name="studentGroupName" value="${studentGroup.studentGroupName}"><br>	
 		<input type="hidden" name="studentGroupId" value="${studentGroup.studentGroupId}"><br>	
-		<p><input type="submit" value="Save"></p>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<p><input type="submit" value="Save"></p>
 		</form>	
 </jsp:attribute>
 </t:generalManager>

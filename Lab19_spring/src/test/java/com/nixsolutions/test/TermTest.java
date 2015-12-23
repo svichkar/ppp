@@ -20,15 +20,14 @@ public class TermTest extends DBUnitConfig {
 	@Autowired
 	private TermDao termDao;
 
-	public TermTest(String name) throws SQLException, ClassNotFoundException {
-		super(name);
+	public TermTest() throws SQLException, ClassNotFoundException {
 	}
 
 	@Before
 	public void setUp() throws Exception {
 		super.setUp();
 		FlatXmlDataSetBuilder flatXmlProducer = new FlatXmlDataSetBuilder();
-		flatXmlProducer.setColumnSensing(false);
+		flatXmlProducer.setColumnSensing(true);
 		beforeData = flatXmlProducer.build(new FileInputStream("src/test/resources/Term/Term.xml"));
 		tester.setDataSet(beforeData);
 		tester.onSetup();
@@ -62,8 +61,8 @@ public class TermTest extends DBUnitConfig {
 	@Test
 	public void testDelete() throws Exception {
         Term term = new Term();
-        term.setAlias("II");
-        term.setTermId(2);
+        term.setAlias("X");
+        term.setTermId(4);
 		termDao.delete(term);
 		IDataSet expectedData = new FlatXmlDataSetBuilder()
 				.build(new FileInputStream("src/test/resources/Term/TermDelete.xml"));

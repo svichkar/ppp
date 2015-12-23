@@ -42,13 +42,13 @@ INSERT INTO book (name,cell_id,category_id) VALUES ('Report','5','2');
 INSERT INTO book (name,cell_id,category_id) VALUES ('Jmeter manual','10','4');
 INSERT INTO book (name,cell_id,category_id) VALUES ('H2 Best practice','1','3');
 --author_book
-INSERT INTO author_book VALUES ('10','8');
-INSERT INTO author_book VALUES ('9','8');
-INSERT INTO author_book VALUES ('7','8');
-INSERT INTO author_book VALUES ('10','6');
-INSERT INTO author_book VALUES ('10','5');
-INSERT INTO author_book VALUES ('1','1');
-INSERT INTO author_book VALUES ('2','4');
+INSERT INTO author_book (author_id,book_id) VALUES ('10','8');
+INSERT INTO author_book (author_id,book_id) VALUES ('9','8');
+INSERT INTO author_book (author_id,book_id) VALUES ('7','8');
+INSERT INTO author_book (author_id,book_id) VALUES ('10','6');
+INSERT INTO author_book (author_id,book_id) VALUES ('10','5');
+INSERT INTO author_book (author_id,book_id) VALUES ('1','1');
+INSERT INTO author_book (author_id,book_id) VALUES ('2','4');
 --client
 INSERT INTO client (first_name,last_name,phone,email) VALUES ('Petya','Vasechkin','777-3-555','petya@mail.com');
 INSERT INTO client (first_name,last_name,phone,email) VALUES ('Vasya','Petechkin','777-3-556','vasya@mail.com');

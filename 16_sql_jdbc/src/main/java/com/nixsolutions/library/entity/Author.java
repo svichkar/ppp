@@ -4,7 +4,7 @@ package com.nixsolutions.library.entity;
  * Created by kozlovskij on 12/19/2015.
  */
 public class Author {
-    private Integer authorId = null;
+    private Integer authorId;
     private String firstName;
     private String lastName;
 

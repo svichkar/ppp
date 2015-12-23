@@ -1,8 +1,8 @@
 package com.nixsolutions.library.dao.impl;
 
 import com.nixsolutions.library.app.CustomConnectionManager;
-import com.nixsolutions.library.dao.AuthorDAO;
-import com.nixsolutions.library.entity.Author;
+import com.nixsolutions.library.dao.BookDAO;
+import com.nixsolutions.library.entity.Book;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,17 +14,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by kozlovskij on 12/22/2015.
+ * Created by kozlovskij on 12/23/2015.
  */
-public class AuthorDaoImpl implements AuthorDAO {
-    public static Logger LOGGER = LogManager.getLogger(AuthorDaoImpl.class.getName());
+public class BookDaoImpl implements BookDAO {
+    public static Logger LOGGER = LogManager.getLogger(BookDaoImpl.class.getName());
 
     @Override
-    public Author create(Author entity) {
+    public Book create(Book entity) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO author (first_name, last_name) VALUES ('" + entity.getFirstName() +
-                    "' ,'" + entity.getLastName() + "');");
+            statement.executeUpdate("INSERT INTO book (name, cell_id, category_id) VALUES ('" + entity.getName() +
+                    "' ,'" + entity.getCellId() + "' ,'" + entity.getCategoryId() + "');");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -32,33 +32,34 @@ public class AuthorDaoImpl implements AuthorDAO {
     }
 
     @Override
-    public void update(Author entity) {
+    public void update(Book entity) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("UPDATE author SET first_name='" + entity.getFirstName() + "', last_name='" +
-                    entity.getLastName() + "' WHERE author_id='" + entity.getAuthorId() + "';");
+            statement.executeUpdate("UPDATE book SET name='" + entity.getName() + "', cell_id='" +
+                    entity.getCellId() + "', category_id='" + entity.getCategoryId() + "' WHERE book_id='" +
+                    entity.getBookId() + "';");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    public void delete(Author entity) {
+    public void delete(Book entity) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM author WHERE author_id='" + entity.getAuthorId() + "';");
+            statement.executeUpdate("DELETE FROM book WHERE book_id='" + entity.getBookId() + "';");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    public Author findByID(Integer id) {
+    public Book findByID(Integer id) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM author WHERE author_id = '" + id + "';");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE book_id = '" + id + "';");
             resultSet.next();
-            Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
+            Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_name"));
             return entity;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -67,13 +68,13 @@ public class AuthorDaoImpl implements AuthorDAO {
     }
 
     @Override
-    public List<Author> findAll() {
-        List<Author> list = new ArrayList<>();
+    public List<Book> findAll() {
+        List<Book> list = new ArrayList<>();
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM author;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM book;");
             while (resultSet.next())
-            list.add(new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name")));
+                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_name")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);

@@ -7,13 +7,11 @@ import java.util.List;
  */
 public interface GenericDAO<E> {
 
-    public boolean create (E entity);
+    public E create (E entity);
 
-    public boolean update(E entity);
+    public void update(E entity);
 
-    public boolean delete(E entity);
-
-    public Integer getId(E entity);
+    public void delete(E entity);
 
     public E findByID(Integer id);
 

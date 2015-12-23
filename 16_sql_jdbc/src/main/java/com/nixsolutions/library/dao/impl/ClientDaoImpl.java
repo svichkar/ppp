@@ -1,0 +1,88 @@
+package com.nixsolutions.library.dao.impl;
+
+import com.nixsolutions.library.app.CustomConnectionManager;
+import com.nixsolutions.library.dao.ClientDAO;
+import com.nixsolutions.library.entity.Client;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by kozlovskij on 12/23/2015.
+ */
+public class ClientDaoImpl implements ClientDAO {
+    public static Logger LOGGER = LogManager.getLogger(ClientDaoImpl.class.getName());
+
+    @Override
+    public Client create(Client entity) {
+        try (Connection connection = CustomConnectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO client (first_name, last_name, phone, email) VALUES ('" +
+                    entity.getFirstName() + "', '" + entity.getLastName() + "', '" + entity.getPhone()+ "', '" +
+                    entity.getEmail() + "');");
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        return null;
+    }
+
+    @Override
+    public void update(Client entity) {
+        try (Connection connection = CustomConnectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE client SET first_name='" + entity.getFirstName() + "', last_name='" +
+                    entity.getLastName() + "', phone='" + entity.getPhone() + "', email='" +
+                    entity.getEmail() + "' WHERE client_id='" +
+                    entity.getClientId() + "';");
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+    }
+
+    @Override
+    public void delete(Client entity) {
+        try (Connection connection = CustomConnectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM client WHERE client_id='" + entity.getClientId() + "';");
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+    }
+
+    @Override
+    public Client findByID(Integer id) {
+        try (Connection connection = CustomConnectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE client_id = '" + id + "';");
+            resultSet.next();
+            Client entity = new Client(resultSet.getInt("client_id"), resultSet.getString("first_name"),
+                    resultSet.getString("last_name"), resultSet.getString("phone"), resultSet.getString("email"));
+            return entity;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Client> findAll() {
+        List<Client> list = new ArrayList<>();
+        try (Connection connection = CustomConnectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM cell;");
+            while (resultSet.next())
+                list.add(new Client (resultSet.getInt("client_id"), resultSet.getString("first_name"),
+                        resultSet.getString("last_name"), resultSet.getString("phone"), resultSet.getString("email")));
+            return list;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
+}

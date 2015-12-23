@@ -1,8 +1,8 @@
 package com.nixsolutions.library.dao.impl;
 
 import com.nixsolutions.library.app.CustomConnectionManager;
-import com.nixsolutions.library.dao.AuthorDAO;
-import com.nixsolutions.library.entity.Author;
+import com.nixsolutions.library.dao.CellDAO;
+import com.nixsolutions.library.entity.Cell;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,17 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by kozlovskij on 12/22/2015.
+ * Created by kozlovskij on 12/23/2015.
  */
-public class AuthorDaoImpl implements AuthorDAO {
-    public static Logger LOGGER = LogManager.getLogger(AuthorDaoImpl.class.getName());
+public class CellDaoImpl implements CellDAO{
+    public static Logger LOGGER = LogManager.getLogger(CellDaoImpl.class.getName());
 
     @Override
-    public Author create(Author entity) {
+    public Cell create(Cell entity) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO author (first_name, last_name) VALUES ('" + entity.getFirstName() +
-                    "' ,'" + entity.getLastName() + "');");
+            statement.executeUpdate("INSERT INTO cell (name) VALUES ('" + entity.getName() + "');");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -32,33 +31,33 @@ public class AuthorDaoImpl implements AuthorDAO {
     }
 
     @Override
-    public void update(Author entity) {
+    public void update(Cell entity) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("UPDATE author SET first_name='" + entity.getFirstName() + "', last_name='" +
-                    entity.getLastName() + "' WHERE author_id='" + entity.getAuthorId() + "';");
+            statement.executeUpdate("UPDATE cell SET name='" + entity.getName() + "' WHERE cell_id='" +
+                    entity.getCellId() + "';");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    public void delete(Author entity) {
+    public void delete(Cell entity) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM author WHERE author_id='" + entity.getAuthorId() + "';");
+            statement.executeUpdate("DELETE FROM cell WHERE cell_id='" + entity.getCellId() + "';");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
     }
 
     @Override
-    public Author findByID(Integer id) {
+    public Cell findByID(Integer id) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM author WHERE author_id = '" + id + "';");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM cell WHERE cell_id = '" + id + "';");
             resultSet.next();
-            Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
+            Cell entity = new Cell(resultSet.getInt("cell_id"), resultSet.getString("name"));
             return entity;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -67,13 +66,13 @@ public class AuthorDaoImpl implements AuthorDAO {
     }
 
     @Override
-    public List<Author> findAll() {
-        List<Author> list = new ArrayList<>();
+    public List<Cell> findAll() {
+        List<Cell> list = new ArrayList<>();
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM author;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM cell;");
             while (resultSet.next())
-            list.add(new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name")));
+                list.add(new Cell(resultSet.getInt("cell_id"), resultSet.getString("name")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);

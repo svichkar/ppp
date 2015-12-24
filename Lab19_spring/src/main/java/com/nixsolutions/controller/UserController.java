@@ -48,6 +48,7 @@ public class UserController {
 	@RequestMapping(value = "/editUser.do", method = RequestMethod.GET)
 	protected String editUserGet(@ModelAttribute("userId") String userId, Model model) {
 		User user = userService.getByUserId(Integer.parseInt(userId));
+		model.addAttribute("role", user.getRole());
 		model.addAttribute("user", user);
 		return "/WEB-INF/jsp/EditUser.jsp";
 	}

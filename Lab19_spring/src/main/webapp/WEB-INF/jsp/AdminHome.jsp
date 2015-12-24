@@ -22,7 +22,7 @@
 				<td>${user.email}</td>
 				<td>${user.role.roleName}</td>
 				<td>
-						<form action="edirUser.do" method="get">
+						<form action="editUser.do" method="get">
 							<input type="hidden" name="userId" value="${user.userId}">
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

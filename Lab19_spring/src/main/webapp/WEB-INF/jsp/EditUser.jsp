@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general title="Add User">
+<t:general title="Edit User">
 	<jsp:attribute name="content_area">
 	<h1>Edit User</h1>
 		<h2>User:</h2>

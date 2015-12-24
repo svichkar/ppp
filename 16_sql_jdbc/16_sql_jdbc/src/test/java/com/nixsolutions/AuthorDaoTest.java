@@ -20,28 +20,22 @@ public class AuthorDaoTest extends DBUnitConfig {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		beforeData = new FlatXmlDataFileLoader().load("/LibraryTestDataSet.xml");
+		beforeData = new FlatXmlDataFileLoader().load("/author/AuthorInitialDataSet.xml");
 		tester.setDataSet(beforeData);
 		tester.onSetup();
 	}
 	
-/*
-	@Test
-	public void shouldretrieveAuthorById() throws Exception {
-		Author auth = new AuthorDaoImpl().getAuthor(1);
-		IDataSet expectedData = new FlatXmlDataSetBuilder()
-				.build(Thread.currentThread().getContextClassLoader()
-						.getResourceAsStream("LibraryTestDataSet.xml"));
 
-		IDataSet actualData = tester.getConnection().createDataSet();
-		// Assertion.assertEquals(expectedData, actualData);
-		// Assert.assertEquals(expectedData.getTable("author").getRowCount(),persons.size());
+	public void testShouldretrieveAuthorById() throws Exception {
+		Author auth = new AuthorDaoImpl().getAuthor(5);
+		Assert.assertEquals(1, auth.getAuthorId());
+		Assert.assertEquals("Stephen", auth.getFirstName());
+		Assert.assertEquals("King", auth.getSecondName());
 	}
-*/
 
 	public void testShouldRetrieveAllUthors() throws Exception {
 		List<Author> authors = new AuthorDaoImpl().getAllAuthors();
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/LibraryTestDataSet.xml");
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("author"), actualData.getTable("author"));
 		Assert.assertEquals(expectedData.getTable("author").getRowCount(),authors.size());
@@ -50,7 +44,7 @@ public class AuthorDaoTest extends DBUnitConfig {
 	public void testShouldDeleteAuthor() throws Exception {
 		Author author = new AuthorDaoImpl().getAuthor(1);
 		new AuthorDaoImpl().deleteAuthor(author);
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/LibraryTestDataSet2.xml");
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("author"), actualData.getTable("author"));
 	}
@@ -60,14 +54,22 @@ public class AuthorDaoTest extends DBUnitConfig {
 		authMiha.setFirstName("Michail");
 		authMiha.setSecondName("Lelyakov");
 		new AuthorDaoImpl().createAuthor(authMiha);
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/LibraryTestDataSet3.xml");
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("author"), 
 	            expectedData.getTable("author").getTableMetaData().getColumns());
 	    Assertion.assertEquals(expectedData.getTable("author"), filteredTable); 
 	}
 
-	public void testShouldUpdateAuthor() {
-
+	public void testShouldUpdateAuthor() throws Exception {
+		Author updAuth = new AuthorDaoImpl().getAuthor(3);
+		updAuth.setFirstName("Michail");
+		updAuth.setSecondName("Lelyakov");
+		new AuthorDaoImpl().updateAuthor(updAuth);;
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorUpdate.xml");
+		IDataSet actualData = tester.getConnection().createDataSet();
+		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("author"), 
+	            expectedData.getTable("author").getTableMetaData().getColumns());
+	    Assertion.assertEquals(expectedData.getTable("author"), filteredTable);
 	}
 }

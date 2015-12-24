@@ -52,6 +52,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			statem.setInt(1, authorId);
 			ResultSet result = statem.executeQuery();
 			result.next();
+			//result.
 			author.setAuthorId(result.getInt("author_id"));
 			author.setFirstName(result.getString("first_name"));
 			author.setSecondName(result.getString("last_name"));

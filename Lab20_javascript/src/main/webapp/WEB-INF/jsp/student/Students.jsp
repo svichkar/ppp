@@ -9,16 +9,16 @@
 <h3>Search by student</h3>
 <form action="<c:url value="/students/students.do"></c:url>" method="post">
   First Name:
-  <input type="text" name="firstName" value="">
+  <input type="text" name="firstName" value="" tooltip="First Name student for searching">
   Last Name:
-  <input type="text" name="lastName" value="">
+  <input type="text" name="lastName" value="" tooltip="Last Name student for searching">
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   <input type="submit" value="Search" style="width: 100px;">
  </form>
  <h3>Search by student group</h3>
  <form action="<c:url value="/students/students.do"></c:url>" method="post">
   Student Group:
-  <select name="studentGroup">
+  <select name="studentGroup" tooltip="Student Group for searching students">  
   <c:forEach var="group" items="${groups}">
   <option value="${group.studentGroupName}">${group.studentGroupName}</option>
   </c:forEach>

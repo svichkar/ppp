@@ -21,14 +21,39 @@ public class BookDaoImpl implements BookDAO {
 
     @Override
     public Book create(Book entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
+        Connection connection = null;
+        Book newEntity = null;
+        try {
+            connection = CustomConnectionManager.getConnection();
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO book (name, cell_id, category_id) VALUES ('" + entity.getName() +
                     "' ,'" + entity.getCellId() + "' ,'" + entity.getCategoryId() + "');");
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            newEntity = new Book(keys.getInt(1), entity.getName(), entity.getCellId(), entity.getCategoryId());
+            connection.commit();
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            return newEntity;
         } catch (SQLException e) {
+            e.printStackTrace();
             LOGGER.error(e);
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                LOGGER.error(ex);
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
+            return newEntity;
         }
-        return null;
     }
 
     @Override
@@ -58,9 +83,14 @@ public class BookDaoImpl implements BookDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE book_id = '" + id + "';");
-            resultSet.next();
-            Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_name"));
-            return entity;
+            resultSet.last();
+            if (resultSet.getRow() == 1) {
+                Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_name"));
+                return entity;
+            } else {
+                LOGGER.trace("id " + id + " not found in book table");
+                return null;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;

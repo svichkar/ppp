@@ -21,13 +21,38 @@ public class CellDaoImpl implements CellDAO{
 
     @Override
     public Cell create(Cell entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
+        Connection connection = null;
+        Cell newEntity = null;
+        try {
+            connection = CustomConnectionManager.getConnection();
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO cell (name) VALUES ('" + entity.getName() + "');");
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            newEntity = new Cell(keys.getInt(1), entity.getName());
+            connection.commit();
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            return newEntity;
         } catch (SQLException e) {
+            e.printStackTrace();
             LOGGER.error(e);
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                LOGGER.error(ex);
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
+            return newEntity;
         }
-        return null;
     }
 
     @Override
@@ -56,9 +81,14 @@ public class CellDaoImpl implements CellDAO{
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM cell WHERE cell_id = '" + id + "';");
-            resultSet.next();
-            Cell entity = new Cell(resultSet.getInt("cell_id"), resultSet.getString("name"));
-            return entity;
+            resultSet.last();
+            if (resultSet.getRow() == 1) {
+                Cell entity = new Cell(resultSet.getInt("cell_id"), resultSet.getString("name"));
+                return entity;
+            } else {
+                LOGGER.trace("id " + id + " not found in cell table");
+                return null;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;

@@ -21,14 +21,39 @@ public class AuthorDaoImpl implements AuthorDAO {
 
     @Override
     public Author create(Author entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
+        Connection connection = null;
+        Author newEntity = null;
+        try {
+            connection = CustomConnectionManager.getConnection();
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO author (first_name, last_name) VALUES ('" + entity.getFirstName() +
                     "' ,'" + entity.getLastName() + "');");
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            newEntity = new Author(keys.getInt(1), entity.getFirstName(), entity.getLastName());
+            connection.commit();
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            return newEntity;
         } catch (SQLException e) {
+            e.printStackTrace();
             LOGGER.error(e);
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                LOGGER.error(ex);
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
+            return newEntity;
         }
-        return null;
     }
 
     @Override
@@ -57,10 +82,15 @@ public class AuthorDaoImpl implements AuthorDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author WHERE author_id = '" + id + "';");
-            resultSet.next();
-            Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
-            return entity;
-        } catch (SQLException e) {
+            resultSet.last();
+            if (resultSet.getRow() == 1) {
+                Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
+                return entity;
+            } else {
+                LOGGER.trace("id " + id + " not found in author table");
+                return null;
+            }
+                    } catch (SQLException e) {
             LOGGER.error(e);
             return null;
         }

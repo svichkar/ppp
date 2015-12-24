@@ -21,15 +21,40 @@ public class TicketDaoImpl implements TicketDAO {
 
     @Override
     public Ticket create(Ticket entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
+        Connection connection = null;
+        Ticket newEntity = null;
+        try {
+            connection = CustomConnectionManager.getConnection();
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO rent_journal (book_id, client_id, rent_date, expired_date, return_date) VALUES ('" +
                     entity.getBookId() + "', '" + entity.getClientId() + "', '" + entity.getRentDate()+ "', '" +
                     entity.getExpiredDate() + "', '" + entity.getReturnDate() + "');");
+            ResultSet keys = statement.getGeneratedKeys();
+            keys.next();
+            newEntity = new Ticket(keys.getInt(1), entity.getBookId(), entity.getClientId(), entity.getRentDate(), entity.getExpiredDate(), entity.getReturnDate());
+            connection.commit();
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            return newEntity;
         } catch (SQLException e) {
+            e.printStackTrace();
             LOGGER.error(e);
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                LOGGER.error(ex);
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
+            return newEntity;
         }
-        return null;
     }
 
     @Override
@@ -60,11 +85,16 @@ public class TicketDaoImpl implements TicketDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM rent_journal WHERE ticket_id = '" + id + "';");
-            resultSet.next();
-            Ticket entity = new Ticket(resultSet.getInt("ticket_id"), resultSet.getInt("book_id"),
-                    resultSet.getInt("client_id"), resultSet.getDate("rent_date"), resultSet.getDate("expired_date"),
-                    resultSet.getDate("return_date"));
-            return entity;
+            resultSet.last();
+            if (resultSet.getRow() == 1) {
+                Ticket entity = new Ticket(resultSet.getInt("ticket_id"), resultSet.getInt("book_id"),
+                        resultSet.getInt("client_id"), resultSet.getDate("rent_date"), resultSet.getDate("expired_date"),
+                        resultSet.getDate("return_date"));
+                return entity;
+            } else {
+                LOGGER.trace("id " + id + " not found in rent_journal table");
+                return null;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;

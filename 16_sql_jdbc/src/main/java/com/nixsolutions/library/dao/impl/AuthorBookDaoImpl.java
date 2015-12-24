@@ -82,9 +82,14 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author_book WHERE id = '" + id + "';");
-            resultSet.next();
-            AuthorBook entity = new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_name"));
-            return entity;
+            resultSet.last();
+            if (resultSet.getRow() == 1) {
+                AuthorBook entity = new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_id"));
+                return entity;
+            } else {
+                LOGGER.trace("id " + id + " not found in author_book table");
+                return null;
+            }
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;

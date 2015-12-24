@@ -34,7 +34,7 @@ public class CreateDB {
         }
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(properties.getProperty("DB_DRIVER"),
+            connection = DriverManager.getConnection(properties.getProperty("DB_URL"),
                     properties.getProperty("DB_USER"), properties.getProperty("DB_PASSWORD"));
             Statement statement = connection.createStatement();
             statement.addBatch("CREATE TABLE author (" +

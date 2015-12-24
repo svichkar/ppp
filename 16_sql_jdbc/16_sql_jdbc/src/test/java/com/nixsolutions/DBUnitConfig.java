@@ -8,23 +8,12 @@ import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.operation.DatabaseOperation;
-import org.junit.Before;
 
 public class DBUnitConfig extends DBTestCase {
     protected IDatabaseTester tester;
     private Properties prop;
     protected IDataSet beforeData;
     
-
-    @Before
-    public void setUp() throws Exception {
-        tester = new JdbcDatabaseTester(prop.getProperty("driver"),
-                                        prop.getProperty("url"),
-                                        prop.getProperty("login"),
-                                        prop.getProperty("password"));
-    }
- 
     public DBUnitConfig(String name) {
         super(name);
         prop = new Properties();
@@ -38,17 +27,24 @@ public class DBUnitConfig extends DBTestCase {
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, prop.getProperty("host"));
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, prop.getProperty("login"));
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, prop.getProperty("password"));
-        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "");
+       // System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "");
+    }
+    
+    public void setUp() throws Exception {
+        tester = new JdbcDatabaseTester(prop.getProperty("driver"),
+                                        prop.getProperty("host"),
+                                        prop.getProperty("login"),
+                                        prop.getProperty("password"));
     }
  
     @Override
     protected IDataSet getDataSet() throws Exception {
         return beforeData;
     }
- 
+ /*
     @Override
     protected DatabaseOperation getTearDownOperation() throws Exception {
         return DatabaseOperation.DELETE_ALL;
     }
-
+*/
 }

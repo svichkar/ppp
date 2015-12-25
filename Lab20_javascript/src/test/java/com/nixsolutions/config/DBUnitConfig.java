@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -35,11 +35,11 @@ public class DBUnitConfig extends DBTestCase {
 
 	public DBUnitConfig() throws SQLException, ClassNotFoundException {
 		//super(name);
-		FileInputStream inputStream = null;
+		InputStream inputStream = this.getClass().getResourceAsStream("/jdbc.properties");
 		property = new Properties();
-		String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile();
+		//String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile();
 		try {
-			inputStream = new FileInputStream(propsLocation);
+			//inputStream = new FileInputStream(propsLocation);
 			property.load(inputStream);
 		} catch (IOException ex) {
 			LOG.error(ex.getMessage());

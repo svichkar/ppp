@@ -6,14 +6,17 @@
 	<jsp:attribute name="content_area">
 	<h1>Add User</h1>
 		<h2>User:</h2>
-		<form action="addNewUser.do" method="post">
+		<form action="addNewUser.do" method="post" name="addUser">
 		<b>Login:</b><br>
-		<input type="text" name="login"><br>
-		<b>Password:</b><br> <input type="text" name="password"><br>
+		<input type="text" name="login" tooltip="Login"><br>
+		<b>Password:</b>
+		<br> <input id="password" type="password" name="password" tooltip="Password"><br>
+		<b>Confirm Password:</b>
+		<br> <input id="confirmPassword" type="password" name="confirmPassword" tooltip="Confirm password"><br>
 		<b>E-mail:</b><br>
-		<input type="email" name="email"><br>
+		<input type="email" name="email" tooltip="User e-mail"><br>
 		<b>Role:</b><br>
-		<select name="role">
+		<select name="role" tooltip="Choose a user role">
 		<option>Select role</option>
 		<option value="Administrator">Administrator</option>
 		<option value="Manager">Manager</option>

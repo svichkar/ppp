@@ -10,7 +10,7 @@
 		<b>Subject Name:</b><br>
 		<input type="text" name="subject" tooltip="Name of subject"><br>		
 		<b>Term:</b><br>
-		<select name="term">
+		<select name="term" tooltip="Choose a term">
 		<c:forEach var="item" items="${terms}">
 		<option tooltip="Choose term for subject" value="${item.alias}">${item.alias}</option>		
 		</c:forEach>

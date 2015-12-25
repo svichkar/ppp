@@ -9,7 +9,6 @@
 		<tr>
 			<th width=10%>User Id</th>
 			<th width=20%>User Name</th>
-			<th width=20%>User Password</th>
 			<th width=20%>User E-mail</th>
 			<th width=20%>User Role</th>
 			<th width=10%>Action</th>
@@ -18,7 +17,6 @@
 			<tr>
 				<td>${user.userId}</td>
 				<td>${user.userName}</td>
-				<td>${user.password}</td>
 				<td>${user.email}</td>
 				<td>${user.role.roleName}</td>
 				<td>

@@ -11,7 +11,7 @@
 		<input type="text" name="subject" value="${subject.name}" tooltip="Name of subject"><br>	
 		<input type="hidden" name="subjectId" value="${subject.subjectId}"><br>	
 		<b>Term:</b><br>
-		<select name="term">
+		<select name="term" tooltip="Choose a term">
 		<c:forEach var="item" items="${terms}">
 		<option tooltip="Choose term for subject" value="${item.alias}"<c:if test="${subject.term.alias eq item.alias}"> selected</c:if>>${item.alias}</option>		
 		</c:forEach>

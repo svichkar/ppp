@@ -9,13 +9,15 @@
 		<form action="editUser.do" method="post">
 		<b>Login:</b><br>
 		<input type="hidden" name="userId" value="${user.userId}"><br>
-		<input type="text" name="login" value="${user.userName}"><br>
+		<input type="text" name="login" value="${user.userName}" tooltip="Login"><br>
 		<b>Password:</b><br>
-		<input type="text" name="password" value="${user.password}"><br>
+		<input type="password" name="password" value="${user.password}" tooltip="Password"><br>
+		<b>Confirm Password:</b>
+		<br> <input id="confirmPassword" type="password" value="${user.password}" name="confirmPassword" tooltip="Confirm password"><br>
 		<b>E-mail:</b><br>
-		<input type="email" name="email" value="${user.email}"><br>
+		<input type="email" name="email" value="${user.email}" tooltip="User e-mail"><br>
 		<b>Role:</b><br>
-		<select name="role">
+		<select name="role" tooltip="Choose a user role">
 		<option value="${role.roleName}">${role.roleName}</option>
 		<option value="Admin">Administrator</option>
 		<option value="Manager">Manager</option>

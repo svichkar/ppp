@@ -1,9 +1,14 @@
 package com.nixsolutions.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.nixsolutions.entity.UserRole;
 
+/**
+ * @author mixeyes
+ *
+ */
 public interface RoleService {
 
 	/**
@@ -24,4 +29,6 @@ public interface RoleService {
 	public void createNewUserRole(UserRole user_role);
 
 	public UserRole getUserRole(String user_role_name);
+
+	List<UserRole> getAllRoles();
 }

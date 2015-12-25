@@ -13,7 +13,12 @@ public interface OrderService {
 	 * @throws SQLException
 	 */
 	public List<OrderInWork> getAllOrders();
-
+	/**
+	 * get all orders
+	 * 
+	 * @throws SQLException
+	 */
+	public List<OrderInWork> getOrdersByUserName(String userName);
 	/**
 	 * get order by sqllab.car
 	 * 

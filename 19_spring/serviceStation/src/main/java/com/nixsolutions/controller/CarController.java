@@ -18,44 +18,42 @@ public class CarController {
 	@Autowired
 	private CarService carService;
 
-	@RequestMapping(value = "/addNewCar", method = { RequestMethod.GET, RequestMethod.POST })
-	public String welcomeMessage(@RequestParam(value = "target", required = false) String target,
-			@RequestParam(value = "customer", required = false) String customerId,
+	@RequestMapping(value = "/admin/addNewCar", method = { RequestMethod.GET, RequestMethod.POST })
+	public String welcomeMessage(@RequestParam(value = "customer", required = false) String customerId,
+			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
+
+		model.addAttribute("customers", customerService.getAllCustomers());
+		model.addAttribute("homePage", homePage);
+		return "newCar";
+	}
+
+	@RequestMapping(value = "/admin/createNewCar", method = { RequestMethod.GET, RequestMethod.POST })
+	public String createNewCar(@RequestParam(value = "customer", required = false) String customerId,
 			@RequestParam(value = "regNumber", required = false) String regNumber,
 			@RequestParam(value = "carModel", required = false) String carModel,
 			@RequestParam(value = "vinNumber", required = false) String vinNumber,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
 
-		if (target.equalsIgnoreCase("car")) {
-			model.addAttribute("customers", customerService.getAllCustomers());
-			model.addAttribute("homePage", homePage);
-			return "newCar";
-		} else if (target.equalsIgnoreCase("Create Car")) {
-			Car car = new Car();
-			car.setCar_model(carModel);
-			car.setCustomer(customerService.getCustomerByID(customerId));
-			car.setReg_number(regNumber);
-			car.setVin_number(vinNumber);
-			carService.createNewCar(car);
-			model.addAttribute("homePage", homePage);
-			model.addAttribute("car", carService.getCarByRegNumber(regNumber));
-			model.addAttribute("customers", customerService.getAllCustomers());
-			return "editCar";
-		} else {
-			model.addAttribute("message", "Incorrect data");
-			return "newCar";
-		}
-
+		Car car = new Car();
+		car.setCar_model(carModel);
+		car.setCustomer(customerService.getCustomerByID(customerId));
+		car.setReg_number(regNumber);
+		car.setVin_number(vinNumber);
+		carService.createNewCar(car);
+		model.addAttribute("homePage", homePage);
+		model.addAttribute("car", carService.getCarByRegNumber(regNumber));
+		model.addAttribute("customers", customerService.getAllCustomers());
+		return "editCar";
 	}
 
-	@RequestMapping(value = "/carPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/carPage", method = RequestMethod.GET)
 	public String loadCarPage(@RequestParam(value = "homePage", required = false) String homePage, Model model) {
 		model.addAttribute("carList", carService.getAllCar());
 		model.addAttribute("homePage", homePage);
 		return "carPage";
 	}
 
-	@RequestMapping(value = "/updateCar", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateCar", method = RequestMethod.POST)
 	public String updateCar(@RequestParam(value = "customer_id", required = false) String customerId,
 			@RequestParam(value = "regNumber", required = false) String regNumber,
 			@RequestParam(value = "carModel", required = false) String carModel,
@@ -80,7 +78,7 @@ public class CarController {
 		return "adminPage";
 	}
 
-	@RequestMapping(value = "/updateExistingCar", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/admin/updateExistingCar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String updateExistingCar(@RequestParam(value = "car_id", required = false) String car_id,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
 		model.addAttribute("homePage", homePage);
@@ -89,7 +87,7 @@ public class CarController {
 		return "editCar";
 	}
 
-	@RequestMapping(value = "/deleteCar", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/admin/deleteCar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String deleteCar(@RequestParam(value = "car_id", required = false) String car_id,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
 		carService.deleteCar(carService.getCarByID(car_id));

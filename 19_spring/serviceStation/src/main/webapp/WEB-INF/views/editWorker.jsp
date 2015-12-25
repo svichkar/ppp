@@ -9,7 +9,7 @@
 				<c:out value="Edit existing worker" />
 			</h1>
 		</div>
-		<form id="worker" action="updateWorker" method="post">
+		<form id="worker" action="<c:url value="/admin/updateWorker"></c:url>" method="post">
 				<input hidden="hidden" name="worker_id" value="${worker.worker_id}" />
 				<input hidden="hidden" name="user_id" value="${worker.user.user_id}" />
 				<input hidden="hidden" name="action" value="edit" />
@@ -56,18 +56,16 @@
 				</tr>
 				<tr>
 				<td class="nav-menu" colspan="2">
-				<button type="submit" class="btn btn-primary btn-block btn-large" name="target" value="updateWorker">Update</button>
+				<button type="submit" class="btn btn-primary btn-block btn-large">Update</button>
 				</td>
 				</tr>
 			</table>
-						<input hidden="hidden" name="action" value="edit" />
 		</form>
 		<br />
 		<br />
-		<form action="adminPage" method="get">
+		<form action="<c:url value="/admin/adminPage"></c:url>" method="get">
 			<div style="width: 50%; margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-					name="target" value="worker">Cancel</button>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Cancel</button>
 			</div>
 		</form>
 	</jsp:attribute></t:mainTemplate>

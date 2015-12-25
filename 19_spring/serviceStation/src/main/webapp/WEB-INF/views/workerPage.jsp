@@ -20,7 +20,8 @@
 	<c:forEach var="worker" items="${workerList}">
 		<tr>
 			<td><c:out value="${worker.worker_id}" /></td>
-			<td><c:out value="${worker.last_name}" /><c:out value=" ${worker.first_name}" /></td>
+			<td><c:out value="${worker.last_name}" />
+						<c:out value=" ${worker.first_name}" /></td>
 			<td><c:out value="${worker.specialization.specialization_name}" /></td>
 			<td><c:out value="${worker.worker_status.worker_status_name}" /></td>
 			<td><c:out value="${worker.user.user_login}" /></td>
@@ -28,18 +29,22 @@
 			<td>
 				<form method="post">
 					<input type="hidden" name="worker_id" value="${worker.worker_id}"></input>
-					<input hidden="hidden" name="fieldName" value="worker"/>
-					<input type="submit" name="action" formaction="deleteWorker" value="Delete"/>
-					<input type="submit" name="target" formaction="updateExistingWorker" value="Edit Worker"/>
+					<input type="submit" name="action"
+								formaction="<c:url value="/admin/deleteWorker"></c:url>"
+								value="Delete" />
+					<input type="submit" name="target"
+								formaction="<c:url value="/admin/updateExistingWorker"></c:url>"
+								value="Edit Worker" />
 				</form>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<form action="addNewWorker" method="get"><div style="width: 50%; margin: 0 auto; text-align: center;">
-			<input hidden="hidden" name="homePage" value ="workerPage">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-				name="target" value="worker">Add new worker</button></div>
+<form action="<c:url value="/admin/addNewWorker"></c:url>" method="get">
+			<div style="width: 50%; margin: 0 auto; text-align: center;">
+			<input hidden="hidden" name="homePage" value="workerPage">
+			<button type="submit" class="btn btn-primary btn-block btn-large">Add new worker</button>
+			</div>
 		</form>
 
 

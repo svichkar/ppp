@@ -9,10 +9,9 @@
 				<c:out value="Edit existing customer" />
 			</h1>
 		</div>
-		<form id="customer" action="updateCustomer" method="post">
+		<form id="customer" action="<c:url value="/admin/updateCustomer"></c:url>" method="post">
 				<input hidden="hidden" name="customer_id" value="${customer.customer_id}" />
 				<input hidden="hidden" name="user_id" value="${customer.user.user_id}" />
-				<input hidden="hidden" name="action" value="edit" />
 <table>
 				<tr>
 					<th class="nav-menu" colspan="2"><h3>Edit general info</h3></th>
@@ -44,18 +43,16 @@
 				</tr>
 				<tr>
 				<td class="nav-menu" colspan="2">
-				<button type="submit" class="btn btn-primary btn-block btn-large" name="target" value="updateCustomer">Update</button>
+				<button type="submit" class="btn btn-primary btn-block btn-large">Update</button>
 				</td>
 				</tr>
 			</table>
-						<input hidden="hidden" name="action" value="edit" />
-		</form>
+			</form>
 		<br />
 		<br />
-		<form action="adminPage" method="get">
+		<form action="<c:url value="/admin/adminPage"></c:url>" method="get">
 			<div style="width: 50%; margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-					name="target" value="car">Cancel</button>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Cancel</button>
 			</div>
 		</form>
 	</jsp:attribute></t:mainTemplate>

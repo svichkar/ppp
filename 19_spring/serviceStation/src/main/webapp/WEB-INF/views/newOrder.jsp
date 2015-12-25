@@ -9,7 +9,7 @@
 						<c:out value="Create new order" />
 			</h1>
 	</div>
-<form id="newOrder" action="createNewOrder" method="post">					
+<form id="newOrder" action="<c:url value="/admin/createNewOrder"></c:url>" method="post">					
 <table>
 					<tr>				<td class="nav-menu"><p>Select car registration number</p></td> 
 			<td class="nav-menu">
@@ -23,23 +23,22 @@
 			<td class="nav-menu">
 			<input hidden="hidden" name="homePage" value="newOrder">
 			<button type="submit" class="btn btn-primary btn-block btn-large"
-							name="target" value="car" formaction="addNewCar">Add new car</button>
+							name="target" value="car" formaction="<c:url value="/admin/addNewCar"></c:url>">Add new car</button>
 		</td>			</tr>
 			<tr> <td class="nav-menu"><p>Enter issue description</p></td>	
 						<td class="nav-menu"><textarea name="description"
 							placeholder="issue description" form="newOrder"></textarea></td>			</tr>
 			<tr>				<td class="nav-menu" colspan="2"><input
 						type="submit" class="btn btn-primary btn-block btn-large"
-						name="target" value="Create order" form="newOrder"></input></td>			</tr>
+						form="newOrder"></input></td>			</tr>
 			
 </table>
 	</form>
 				<br />
 		<br />
-<form action="adminPage" method="get">
+<form action="<c:url value="/admin/adminPage"></c:url>" method="get">
 			<div style="width: 50%; margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-					name="target" value="car">Cancel</button>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Cancel</button>
 			</div>
 		</form>
 

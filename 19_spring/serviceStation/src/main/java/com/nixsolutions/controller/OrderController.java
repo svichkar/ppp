@@ -35,20 +35,20 @@ public class OrderController {
 	private OrderStatusService orderStatusService;
 	// endRegion
 
-	@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/adminPage", method = RequestMethod.GET)
 	public String loadAdminPage(Model model) {
 		model.addAttribute("orders", orderService.getAllOrders());
 		return "adminPage";
 	}
 
 	// region - new order
-	@RequestMapping(value = "/addNewOrder", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addNewOrder", method = RequestMethod.GET)
 	public String navigateToAddNewPage(Model model) {
 		model.addAttribute("carList", carService.getAllCar());
 		return "newOrder";
 	}
 
-	@RequestMapping(value = "/createNewOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createNewOrder", method = RequestMethod.POST)
 	public String createNewOrder(@RequestParam(value = "target", required = false) String target,
 			@RequestParam(value = "description", required = false) String description,
 			@RequestParam(value = "regNumber", required = false) String regNumber, Model model) {
@@ -58,7 +58,7 @@ public class OrderController {
 	}
 	// endRegion
 
-	@RequestMapping(value = "/updateOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateOrder", method = RequestMethod.POST)
 	public String updateOrder(@RequestParam(value = "order_id", required = false) String orderId, Model model) {
 		model.addAttribute("order", orderService.getOrderByID(orderId));
 		model.addAttribute("parts", partOrderService.getPartsByOrderId(orderId));
@@ -69,7 +69,7 @@ public class OrderController {
 		return "editOrder";
 	}
 
-	@RequestMapping(value = "/updateOrderGeneralInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateOrderGeneralInfo", method = RequestMethod.POST)
 	public String updateOrderGeneralInfo(@RequestParam(value = "order_status_id", required = false) String statusId,
 			@RequestParam(value = "order_id", required = false) String orderId,
 			@RequestParam(value = "order_description", required = false) String description, Model model) {
@@ -78,7 +78,7 @@ public class OrderController {
 		return updateOrder(orderId, model);
 	}
 
-	@RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteOrder", method = RequestMethod.POST)
 	public String deleteOrder(@RequestParam(value = "order_id", required = false) String orderId, Model model) {
 		try {
 			orderService.deleteOrderByID(orderId);
@@ -90,16 +90,17 @@ public class OrderController {
 	}
 
 	// region - add/edit/delete part to order
-	@RequestMapping(value = "/editPartInOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/editPartInOrder", method = RequestMethod.POST)
 	public String editPartInOrder(@RequestParam(value = "partQuant", required = false) String partQuant,
 			@RequestParam(value = "order_id", required = false) String orderId,
 			@RequestParam(value = "part_id", required = false) String partId, Model model) {
+		if(partQuant.isEmpty())partQuant="0";
 		partService.changeAmount(orderId, partId, partQuant);
 		partOrderService.setPartToOrder(orderId, partId, partQuant);
 		return updateOrder(orderId, model);
 	}
 
-	@RequestMapping(value = "/addPartToOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/addPartToOrder", method = RequestMethod.POST)
 	public String addPartToOrder(@RequestParam(value = "part_id", required = false) String partId,
 			@RequestParam(value = "order_id", required = false) String orderId,
 			@RequestParam(value = "partQuant", required = false) String partQuant, Model model) {
@@ -108,7 +109,7 @@ public class OrderController {
 		return updateOrder(orderId, model);
 	}
 
-	@RequestMapping(value = "/deletePartInOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deletePartInOrder", method = RequestMethod.POST)
 	public String deletePartInOrder(@RequestParam(value = "part_id", required = false) String partId,
 			@RequestParam(value = "order_id", required = false) String orderId, Model model) {
 		partOrderService.deletePartFromOrder(orderId, partId);
@@ -117,14 +118,14 @@ public class OrderController {
 	// endRegion
 
 	// region - add/edit/delete worker to order
-	@RequestMapping(value = "/addWorkerOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/addWorkerOrder", method = RequestMethod.POST)
 	public String addWorkerOrder(@RequestParam(value = "worker_id", required = false) String workerId,
 			@RequestParam(value = "order_id", required = false) String orderId, Model model) {
 		orderWorkerService.assignWorkerToOrder(orderId, workerId);
 		return updateOrder(orderId, model);
 	}
 
-	@RequestMapping(value = "/updateWorkerOrder", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateWorkerOrder", method = RequestMethod.POST)
 	public String updateWorkerOrder(@RequestParam(value = "worker_id", required = false) String workerId,
 			@RequestParam(value = "order_id", required = false) String orderId,
 			@RequestParam(value = "isFinished", required = false) String isFinished, Model model) {

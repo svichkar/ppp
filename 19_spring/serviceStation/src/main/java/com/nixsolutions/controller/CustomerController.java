@@ -29,26 +29,26 @@ public class CustomerController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value = "/customerPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/customerPage", method = RequestMethod.GET)
 	public String loadCustomerPage(Model model) {
 		model.addAttribute("customerList", customerService.getAllCustomers());
 		return "customerPage";
 	}
 
-	@RequestMapping(value = "/addNewCustomer", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addNewCustomer", method = RequestMethod.GET)
 	public String addNewCustomer(Model model) {
 //		model.addAttribute("customerList", customerService.getAllCustomers());
 		return "newCustomer";
 	}
 
-	@RequestMapping(value = "/createNewCustomer", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createNewCustomer", method = RequestMethod.POST)
 	public String createNewCustomer(@RequestParam(value = "last_name", required = false) String last_name,
 			@RequestParam(value = "first_name", required = false) String first_name,
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "userLogin", required = false) String userLogin,
 			@RequestParam(value = "userPassword", required = false) String userPassword,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
-		userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("customer"));
+		userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("ROLE_CUSTOMER"));
 		Customer customer = new Customer();
 		customer.setFirst_name(first_name);
 		customer.setLast_name(last_name);
@@ -59,14 +59,14 @@ public class CustomerController {
 		return "customerPage";
 	}
 
-	@RequestMapping(value = "/updateExistingCustomer", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateExistingCustomer", method = RequestMethod.POST)
 	public String updateExistingCustomer(@RequestParam(value = "customer_id", required = false) String customer_id,
 			Model model) {
 		model.addAttribute("customer", customerService.getCustomerByID(customer_id));
 		return "editCustomer";
 	}
 
-	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateCustomer", method = RequestMethod.POST)
 	public String updateCustomer(@RequestParam(value = "last_name", required = false) String last_name,
 			@RequestParam(value = "first_name", required = false) String first_name,
 			@RequestParam(value = "phone", required = false) String phone,
@@ -89,7 +89,7 @@ public class CustomerController {
 		return "customerPage";
 	}
 
-	@RequestMapping(value = "/deleteCustomer", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteCustomer", method = RequestMethod.POST)
 	public String deleteCustomer(@RequestParam(value = "customer_id", required = false) String customer_id,
 			@RequestParam(value = "user_id", required = false) String user_id, Model model) {
 		Customer customer = customerService.getCustomerByID(customer_id);

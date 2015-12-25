@@ -3,6 +3,8 @@
  */
 package com.nixsolutions.dao.impl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.UserRoleDao;
+import com.nixsolutions.entity.Car;
 import com.nixsolutions.entity.UserRole;
 
 /**
@@ -80,6 +83,18 @@ public class UserRoleDaoImpl implements UserRoleDao {
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<UserRole> getAllRoles() {
+		List<UserRole> roleList = null;
+		try {
+			roleList = sessionFactory.getCurrentSession().createCriteria(UserRole.class).list();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return roleList;
 	}
 
 }

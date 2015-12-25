@@ -4,6 +4,7 @@
 package com.nixsolutions.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.nixsolutions.entity.UserRole;
 
@@ -31,4 +32,9 @@ public interface UserRoleDao {
 	public void createNewUserRole(UserRole user_role);
 
 	public UserRole getUserRole(String user_role_name);
+
+	/**
+	 * @return
+	 */
+	public List<UserRole> getAllRoles();
 }

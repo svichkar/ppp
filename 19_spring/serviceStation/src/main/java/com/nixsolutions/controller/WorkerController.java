@@ -29,19 +29,19 @@ public class WorkerController {
 	@Autowired
 	private WorkerStatusService workerStatusService;
 
-	@RequestMapping(value = "/workerPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/workerPage", method = RequestMethod.GET)
 	public String loadWorkerPage(Model model) {
 		model.addAttribute("workerList", workerService.getAllWorkers());
 		return "workerPage";
 	}
 
-	@RequestMapping(value = "/addNewWorker", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addNewWorker", method = RequestMethod.GET)
 	public String addNewWorker(Model model) {
 		model.addAttribute("specs", specializationService.getAllSpecialization());
 		return "newWorker";
 	}
 
-	@RequestMapping(value = "/createNewWorker", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createNewWorker", method = RequestMethod.POST)
 	public String createNewWorker(@RequestParam(value = "last_name", required = false) String last_name,
 			@RequestParam(value = "first_name", required = false) String first_name,
 			@RequestParam(value = "specialization_id", required = false) String specializationId,
@@ -49,11 +49,11 @@ public class WorkerController {
 			@RequestParam(value = "userPassword", required = false) String userPassword,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
 		if (specializationId.equalsIgnoreCase("7"))
-			userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("storekeeper"));
+			userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("ROLE_STOREKEEPER"));
 		else if (specializationId.equalsIgnoreCase("6"))
-			userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("manager"));
+			userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("ROLE_MANAGER"));
 		else
-			userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("worker"));
+			userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("ROLE_WORKER"));
 		WorkerSpecialization spec = specializationService.getSpecialization(specializationId);
 		Worker worker = new Worker();
 		worker.setFirst_name(first_name);
@@ -66,7 +66,7 @@ public class WorkerController {
 		return "workerPage";
 	}
 
-	@RequestMapping(value = "/updateExistingWorker", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateExistingWorker", method = RequestMethod.POST)
 	public String updateExistingWorker(@RequestParam(value = "worker_id", required = false) String worker_id,
 			Model model) {
 		model.addAttribute("specs", specializationService.getAllSpecialization());
@@ -74,7 +74,7 @@ public class WorkerController {
 		return "editWorker";
 	}
 
-	@RequestMapping(value = "/updateWorker", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateWorker", method = RequestMethod.POST)
 	public String updateWorker(@RequestParam(value = "last_name", required = false) String last_name,
 			@RequestParam(value = "first_name", required = false) String first_name,
 			@RequestParam(value = "specialization_id", required = false) String specializationId,
@@ -100,7 +100,7 @@ public class WorkerController {
 
 	}
 
-	@RequestMapping(value = "/deleteWorker", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deleteWorker", method = RequestMethod.POST)
 	public String deleteWorker(@RequestParam(value = "worker_id", required = false) String worker_id,
 			@RequestParam(value = "user_id", required = false) String user_id, Model model) {
 		Worker worker = workerService.getWorkerByID(worker_id);

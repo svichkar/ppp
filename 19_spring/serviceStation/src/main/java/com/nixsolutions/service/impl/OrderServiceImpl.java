@@ -158,4 +158,9 @@ public class OrderServiceImpl implements OrderService {
 		return deleteOrderByID(Integer.decode(order_id));
 	}
 
+	@Override
+	public List<OrderInWork> getOrdersByUserName(String userName) {
+		return orderDao.getOrdersByUserName(userName);
+	}
+
 }

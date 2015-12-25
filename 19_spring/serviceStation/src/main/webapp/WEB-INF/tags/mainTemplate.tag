@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="<m:url value="/resources/style/mainStyle.css" />" rel="stylesheet">
+<link href="<m:url value="/resources/style/mainStyle.css" />"
+	rel="stylesheet">
 <%-- <link href="${cssUrl}" type="text/css" rel="stylesheet" /> --%>
 <title>${title}</title>
 </head>
@@ -13,25 +14,28 @@
 
 	<table class="nav-menu">
 		<tr>
-			<td class="nav-menu"><form action="adminPage" method="GET">
-					<button type="submit" name="target"
-						class="btn btn-primary btn-block btn-large" value="orders">Orders</button>
+			<td class="nav-menu" colspan="5"><form action="<m:url value="/logout"></m:url>"
+					method="GET">
+					<button type="submit" class="btn btn-primary btn-block btn-large"
+						value="Logout">Logout</button>
 				</form></td>
-			<td class="nav-menu"><form action="carPage" method="GET">
-					<button type="submit" name="target"
-						class="btn btn-primary btn-block btn-large" value="cars">Cars</button>
+		</tr>
+		<tr>
+			<td class="nav-menu">
+			<form action="<m:url value="/admin/adminPage"></m:url>" method="GET">
+					<button type="submit" class="btn btn-primary btn-block btn-large">Orders</button>
 				</form></td>
-			<td class="nav-menu"><form action="customerPage" method="GET">
-					<button type="submit" name="target"
-						class="btn btn-primary btn-block btn-large" value="customers">Customers</button>
+			<td class="nav-menu"><form action="<m:url value="/admin/carPage"></m:url>" method="GET">
+					<button type="submit" class="btn btn-primary btn-block btn-large">Cars</button>
 				</form></td>
-			<td class="nav-menu"><form action="workerPage" method="GET">
-					<button type="submit" name="target"
-						class="btn btn-primary btn-block btn-large" value="workers">Workers</button>
+			<td class="nav-menu"><form action="<m:url value="/admin/customerPage"></m:url>" method="GET">
+					<button type="submit" class="btn btn-primary btn-block btn-large">Customers</button>
 				</form></td>
-			<td class="nav-menu"><form action="partPage" method="GET">
-					<button type="submit" name="target"
-						class="btn btn-primary btn-block btn-large" value="parts">Parts</button>
+			<td class="nav-menu"><form action="<m:url value="/admin/workerPage"></m:url>" method="GET">
+					<button type="submit" class="btn btn-primary btn-block btn-large">Workers</button>
+				</form></td>
+			<td class="nav-menu"><form action="<m:url value="/admin/partPage"></m:url>" method="GET">
+					<button type="submit" class="btn btn-primary btn-block btn-large">Parts</button>
 				</form></td>
 		</tr>
 	</table>

@@ -9,7 +9,7 @@
 						<c:out value="Add new customer" />
 			</h1>
 	</div>
-<form id="newCustomer" action="createNewCustomer" method="post">
+<form id="newCustomer" action="<c:url value="/admin/createNewCustomer"></c:url>" method="post">
 <table>
 <tr>
 					<td class="nav-menu"><p>Last Name</p></td>
@@ -39,15 +39,15 @@
 			<tr>				<td class="nav-menu" colspan="3">
 			<input hidden="hidden" name="homePage" value="${homePage }">
 			<input type="submit" class="btn btn-primary btn-block btn-large"
-					name="target" value="Create Customer" form="newCustomer"></input></td>			</tr>
+					form="newCustomer"></input></td>			</tr>
 			
 </table>
 	</form>
 				<br />
 		<br />
-<form action="adminPage" method="get"><div style="width: 50%; margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-				name="target" value="car" >Cancel</button></div>
+<form action="<c:url value="/admin/adminPage"></c:url>" method="get">
+<div style="width: 50%; margin: 0 auto; text-align: center;">
+			<button type="submit" class="btn btn-primary btn-block btn-large">Cancel</button></div>
 		</form>
 
 		</jsp:attribute>

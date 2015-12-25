@@ -16,18 +16,18 @@ public class PartController {
 	@Autowired
 	private PartService partService;
 
-	@RequestMapping(value = "/partPage", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/partPage", method = RequestMethod.GET)
 	public String loadPartPage(Model model) {
 		model.addAttribute("partList", partService.getAllParts());
 		return "partPage";
 	}
 
-	@RequestMapping(value = "/addNewPart", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/addNewPart", method = RequestMethod.GET)
 	public String addNewPart(Model model) {
 		return "newPart";
 	}
 
-	@RequestMapping(value = "/createNewPart", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createNewPart", method = RequestMethod.POST)
 	public String createNewPart(@RequestParam(value = "part_name", required = false) String part_name,
 			@RequestParam(value = "vendor", required = false) String vendor,
 			@RequestParam(value = "amount", required = false) String amount, Model model) {
@@ -36,13 +36,13 @@ public class PartController {
 		return "partPage";
 	}
 
-	@RequestMapping(value = "/updateExistingPart", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updateExistingPart", method = RequestMethod.POST)
 	public String updateExistingPart(@RequestParam(value = "part_id", required = false) String part_id, Model model) {
 		model.addAttribute("part", partService.getPart(part_id));
 		return "editPart";
 	}
 
-	@RequestMapping(value = "/updatePart", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/updatePart", method = RequestMethod.POST)
 	public String updatePart(@RequestParam(value = "part_name", required = false) String part_name,
 			@RequestParam(value = "vendor", required = false) String vendor,
 			@RequestParam(value = "amount", required = false) String amount,
@@ -57,7 +57,7 @@ public class PartController {
 
 	}
 
-	@RequestMapping(value = "/deletePart", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/deletePart", method = RequestMethod.POST)
 	public String deletePart(@RequestParam(value = "part_id", required = false) String part_id, Model model) {
 		Part part = partService.getPart(part_id);
 		partService.deletePartByID(part.getPart_id());

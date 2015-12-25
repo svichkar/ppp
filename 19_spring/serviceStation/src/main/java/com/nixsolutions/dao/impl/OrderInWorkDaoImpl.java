@@ -163,4 +163,18 @@ public class OrderInWorkDaoImpl implements OrderInWorkDao {
 		else
 			return false;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderInWork> getOrdersByUserName(String userName) {
+		List<OrderInWork> orderInWorks = null;
+		try {
+			orderInWorks = sessionFactory.getCurrentSession().createCriteria(OrderInWork.class, "order")
+					.createAlias("order.car", "car").createAlias("car.customer", "customer")
+					.createAlias("customer.user", "user").add(Restrictions.eq("user.userLogin", userName)).list();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return orderInWorks;
+	}
 }

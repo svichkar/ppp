@@ -9,7 +9,7 @@
 				<c:out value="Edit existing car" />
 			</h1>
 		</div>
-		<form id="partInOrder" action="updateCar" method="post">
+		<form id="partInOrder" action="<c:url value="/admin/updateCar"></c:url>" method="post">
 				<input hidden="hidden" name="car_id" value="${car.car_id}" />
 				<input hidden="hidden" name="action" value="edit" />
 <table>
@@ -60,18 +60,16 @@
 				<tr>
 				<td class="nav-menu" colspan="2">
 							<input hidden="hidden" name="homePage" value="${homePage }">
-				<button type="submit" class="btn btn-primary btn-block btn-large" name="target" value="updateCar">Update</button>
+				<button type="submit" class="btn btn-primary btn-block btn-large">Update</button>
 				</td>
 				</tr>
 			</table>
-						<input hidden="hidden" name="action" value="edit" />
 		</form>
 		<br />
 		<br />
-		<form action="adminPage" method="get">
+		<form action="<c:url value="/admin/adminPage"></c:url>" method="get">
 			<div style="width: 50%; margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-					name="target" value="car">Cancel</button>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Cancel</button>
 			</div>
 		</form>
 	</jsp:attribute></t:mainTemplate>

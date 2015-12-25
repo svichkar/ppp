@@ -30,20 +30,19 @@
 				<form method="post">
 					<input type="hidden" name="car_id" value="${car.car_id}"></input>
 			<input hidden="hidden" name="homePage" value="carPage">
-					<input type="submit" name="action" formaction="deleteCar"
-								value="Delete" />
-					<input type="submit" name="target" formaction="updateExistingCar"
-								value="Edit Car" />
+					<input type="submit"
+								formaction="<c:url value="/admin/deleteCar"></c:url>" value="Delete"/>
+					<input type="submit"
+								formaction="<c:url value="/admin/updateExistingCar"></c:url>" value="Update"/>
 				</form>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<form action="addNewCar" method="get">
+<form action="<c:url value="/admin/addNewCar"></c:url>" method="get">
 			<div style="width: 50%; margin: 0 auto; text-align: center;">
 			<input hidden="hidden" name="homePage" value="carPage">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-					name="target" value="car">Add new car</button>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Add new car</button>
 			</div>
 		</form>
 

@@ -45,16 +45,15 @@
 					<input type="hidden" name="order_id" value="${order.order_id}"/>
 					<%-- <input type="hidden" name="order_id" value="${order.oredrInfo}"/> --%>
 					<input hidden="hidden" name="fieldName" value="order"/>
-					<input type="submit" name="action" formaction="deleteOrder" value="Delete"/>
-					<input type="submit" name="target" formaction="updateOrder" value="Edit order"/>
+					<input type="submit" name="action" formaction="<c:url value="/admin/deleteOrder"></c:url>" value="Delete"/>
+					<input type="submit" name="target" formaction="<c:url value="/admin/updateOrder"></c:url>" value="Edit order"/>
 				</form>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<form action="addNewOrder" method="get"><div style="width: 50%; margin: 0 auto; text-align: center;">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-				name="target" value="order">Add new order</button></div>
+<form action="<c:url value="/admin/addNewOrder"></c:url>" method="get"><div style="width: 50%; margin: 0 auto; text-align: center;">
+			<button type="submit" class="btn btn-primary btn-block btn-large">Add new order</button></div>
 		</form>
 		</jsp:attribute>
 </t:mainTemplate>

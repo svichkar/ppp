@@ -56,7 +56,20 @@ public interface OrderInWorkDao {
 	 */
 	public void createNewOrder(OrderInWork orderInWork);
 
+	/**
+	 * @param order_id
+	 * @return
+	 */
 	public boolean deleteOrderByID(Integer order_id);
 	
+	/**
+	 * @param orderInWork
+	 */
 	public void updateOrder(OrderInWork orderInWork);
+
+	/**
+	 * @param userName
+	 * @return
+	 */
+	public List<OrderInWork> getOrdersByUserName(String userName);
 }

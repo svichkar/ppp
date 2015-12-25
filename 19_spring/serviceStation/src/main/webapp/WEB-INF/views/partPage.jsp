@@ -24,18 +24,16 @@
 			<td>
 				<form method="post">
 					<input type="hidden" name="part_id" value="${part.part_id}"></input>
-					<input hidden="hidden" name="fieldName" value="part"/>
-					<input type="submit" name="action" formaction="deletePart" value="Delete"/>
-					<input type="submit" name="target" formaction="updateExistingPart" value="Edit Part"/>
+					<input type="submit" name="action" formaction="<c:url value="/admin/deletePart"></c:url>" value="Delete"/>
+					<input type="submit" name="target" formaction="<c:url value="/admin/updateExistingPart"></c:url>" value="Edit Part"/>
 				</form>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-<form action="addNewPart" method="get"><div style="width: 50%; margin: 0 auto; text-align: center;">
+<form action="<c:url value="/admin/addNewPart"></c:url>" method="get"><div style="width: 50%; margin: 0 auto; text-align: center;">
 			<input hidden="hidden" name="homePage" value ="partPage">
-			<button type="submit" class="btn btn-primary btn-block btn-large"
-				name="target" value="part">Add new part</button></div>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Add new part</button></div>
 		</form>
 
 		</jsp:attribute>

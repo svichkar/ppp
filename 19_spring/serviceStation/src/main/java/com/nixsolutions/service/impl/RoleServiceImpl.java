@@ -3,10 +3,13 @@
  */
 package com.nixsolutions.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.UserRoleDao;
+import com.nixsolutions.entity.User;
 import com.nixsolutions.entity.UserRole;
 import com.nixsolutions.service.RoleService;
 
@@ -20,6 +23,11 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private UserRoleDao roleDao;
 
+
+	@Override
+	public List<UserRole> getAllRoles() {
+		return roleDao.getAllRoles();
+	}
 	/*
 	 * (non-Javadoc)
 	 * 

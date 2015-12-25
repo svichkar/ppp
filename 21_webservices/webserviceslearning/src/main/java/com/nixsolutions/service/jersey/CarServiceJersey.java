@@ -32,7 +32,6 @@ public class CarServiceJersey implements CarService {
 	@GET
 	@Path("/getAll")
 	@Produces({ MediaType.APPLICATION_XML })
-	@Override
 	public List<Car> getAllCars() {
 		return carDao.getAll();
 	}
@@ -40,7 +39,6 @@ public class CarServiceJersey implements CarService {
 	@GET
 	@Path("/getAllAsBeans")
 	@Produces({ MediaType.APPLICATION_XML })
-	@Override
 	public List<CarBean> getAllCarsAsBeans() {
 		return processAsBeans(getAllCars());
 	}
@@ -48,7 +46,6 @@ public class CarServiceJersey implements CarService {
 	@GET
 	@Path("/getByCustomerId")
 	@Produces({ MediaType.APPLICATION_XML })
-	@Override
 	public List<Car> getCarsByCustomerId(@QueryParam("customerId") int customerId) {
 		return carDao.getCarsByCustomerId(customerId);
 	}
@@ -56,7 +53,6 @@ public class CarServiceJersey implements CarService {
 	@GET
 	@Path("/getById")
 	@Produces({ MediaType.APPLICATION_XML })
-	@Override
 	public Car getCarById(@QueryParam("carId") int carId) {
 		return carDao.getByPK(carId);
 	}
@@ -64,7 +60,6 @@ public class CarServiceJersey implements CarService {
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML })
 	@Path("/add")
-	@Override
 	public void addCar(Car car) {
 		carDao.createFrom(car);
 	}
@@ -72,7 +67,6 @@ public class CarServiceJersey implements CarService {
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML })
 	@Path("/update")
-	@Override
 	public void updateCar(Car car) {
 		carDao.update(car);
 	}
@@ -80,7 +74,6 @@ public class CarServiceJersey implements CarService {
 	@POST
 	@Consumes({ MediaType.APPLICATION_XML })
 	@Path("/delete")
-	@Override
 	public void deleteCar(Car car) {
 		carDao.delete(car);
 	}

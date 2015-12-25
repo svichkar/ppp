@@ -33,7 +33,7 @@ extends WebSecurityConfigurerAdapter
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
 				.antMatchers("/userPage.jsp", "/login.do", "/nav.do").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-				.antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')")
+				.antMatchers("/admin/*", "/services/*").access("hasRole('ROLE_ADMIN')")
 				.and()
 			.formLogin()
 				.loginPage("/")
@@ -42,8 +42,8 @@ extends WebSecurityConfigurerAdapter
 				.passwordParameter("password")
 				.defaultSuccessUrl("/login.do")
 				.and()
-			.csrf()
-				.and()
+			.csrf().disable()
+				//.and()
 			.exceptionHandling().accessDeniedPage("/");
 	}
 }

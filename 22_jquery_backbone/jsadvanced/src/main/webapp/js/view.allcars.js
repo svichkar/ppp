@@ -6,7 +6,8 @@ var AllCarsView = Backbone.View.extend({
 	template: $('#allcars-content').html(),
 	
 	initialize: function() {
-		this.collection = 
+		this.collection = new CarCollection();
+		this.render();
 	},
 	
 	render: function() {
@@ -16,3 +17,5 @@ var AllCarsView = Backbone.View.extend({
 		return this;
 	}
 });
+
+var allCarsView = new AllCarsView();

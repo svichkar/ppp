@@ -82,8 +82,7 @@ public class CategoryDaoImpl implements CategoryDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM category WHERE category_id = '" + id + "';");
-            resultSet.last();
-            if (resultSet.getRow() == 1) {
+            if (resultSet.next()) {
                 Category entity = new Category(resultSet.getInt("category_id"), resultSet.getString("name"));
                 return entity;
             } else {

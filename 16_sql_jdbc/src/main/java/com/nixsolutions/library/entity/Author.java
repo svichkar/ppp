@@ -27,7 +27,7 @@ public class Author {
         return lastName;
     }
 
-    public Integer getAuthorId() {
+    public int getAuthorId() {
         return authorId;
     }
 

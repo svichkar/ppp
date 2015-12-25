@@ -82,8 +82,7 @@ public class AuthorDaoImpl implements AuthorDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author WHERE author_id = '" + id + "';");
-            resultSet.last();
-            if (resultSet.getRow() == 1) {
+            if (resultSet.next()) {
                 Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
                 return entity;
             } else {

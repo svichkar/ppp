@@ -9,6 +9,7 @@ import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.operation.DatabaseOperation;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -43,6 +44,11 @@ public class DBUnitConfig  extends DBTestCase{
                 properties.getProperty("DB_URL"),
                 properties.getProperty("DB_USER"),
                 properties.getProperty("DB_PASSWORD"));
+    }
+
+    @Override
+    protected DatabaseOperation getTearDownOperation() throws Exception {
+        return DatabaseOperation.DELETE_ALL;
     }
 
     @Override

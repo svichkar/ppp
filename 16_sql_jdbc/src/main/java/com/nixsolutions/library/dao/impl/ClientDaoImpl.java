@@ -85,8 +85,7 @@ public class ClientDaoImpl implements ClientDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE client_id = '" + id + "';");
-            resultSet.last();
-            if (resultSet.getRow() == 1) {
+            if (resultSet.next()) {
                 Client entity = new Client(resultSet.getInt("client_id"), resultSet.getString("first_name"),
                         resultSet.getString("last_name"), resultSet.getString("phone"), resultSet.getString("email"));
                 return entity;

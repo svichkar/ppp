@@ -85,8 +85,7 @@ public class TicketDaoImpl implements TicketDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM rent_journal WHERE ticket_id = '" + id + "';");
-            resultSet.last();
-            if (resultSet.getRow() == 1) {
+            if (resultSet.next()) {
                 Ticket entity = new Ticket(resultSet.getInt("ticket_id"), resultSet.getInt("book_id"),
                         resultSet.getInt("client_id"), resultSet.getDate("rent_date"), resultSet.getDate("expired_date"),
                         resultSet.getDate("return_date"));

@@ -82,8 +82,7 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author_book WHERE id = '" + id + "';");
-            resultSet.last();
-            if (resultSet.getRow() == 1) {
+            if (resultSet.next()) {
                 AuthorBook entity = new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_id"));
                 return entity;
             } else {
@@ -103,7 +102,7 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author_book;");
             while (resultSet.next())
-                list.add(new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_name")));
+                list.add(new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_id")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);

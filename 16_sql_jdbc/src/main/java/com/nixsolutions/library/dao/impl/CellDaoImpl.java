@@ -81,8 +81,7 @@ public class CellDaoImpl implements CellDAO{
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM cell WHERE cell_id = '" + id + "';");
-            resultSet.last();
-            if (resultSet.getRow() == 1) {
+            if (resultSet.next()) {
                 Cell entity = new Cell(resultSet.getInt("cell_id"), resultSet.getString("name"));
                 return entity;
             } else {

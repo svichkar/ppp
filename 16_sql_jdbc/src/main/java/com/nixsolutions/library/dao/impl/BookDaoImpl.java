@@ -31,9 +31,10 @@ public class BookDaoImpl implements BookDAO {
             statement.executeUpdate("INSERT INTO book (name, cell_id, category_id) VALUES ('" + entity.getName() +
                     "' ,'" + entity.getCellId() + "' ,'" + entity.getCategoryId() + "');");
             ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            newEntity = new Book(keys.getInt(1), entity.getName(), entity.getCellId(), entity.getCategoryId());
             connection.commit();
+            keys.next();
+            newEntity = this.findByID(keys.getInt(1));
+            LOGGER.trace("added line in book table, with id:" + newEntity.getBookId());
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             return newEntity;
         } catch (SQLException e) {
@@ -63,6 +64,7 @@ public class BookDaoImpl implements BookDAO {
             statement.executeUpdate("UPDATE book SET name='" + entity.getName() + "', cell_id='" +
                     entity.getCellId() + "', category_id='" + entity.getCategoryId() + "' WHERE book_id='" +
                     entity.getBookId() + "';");
+            LOGGER.trace("updated line in book table, with id:" + entity.getBookId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -73,6 +75,7 @@ public class BookDaoImpl implements BookDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM book WHERE book_id='" + entity.getBookId() + "';");
+            LOGGER.trace("deleted line in book table, with id:" + entity.getBookId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }

@@ -30,9 +30,10 @@ public class CellDaoImpl implements CellDAO{
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO cell (name) VALUES ('" + entity.getName() + "');");
             ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            newEntity = new Cell(keys.getInt(1), entity.getName());
             connection.commit();
+            keys.next();
+            newEntity = this.findByID(keys.getInt(1));
+            LOGGER.trace("added line in cell table, with id:" + newEntity.getCellId());
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             return newEntity;
         } catch (SQLException e) {
@@ -61,6 +62,7 @@ public class CellDaoImpl implements CellDAO{
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE cell SET name='" + entity.getName() + "' WHERE cell_id='" +
                     entity.getCellId() + "';");
+            LOGGER.trace("updated line in cell table, with id:" + entity.getCellId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -71,6 +73,7 @@ public class CellDaoImpl implements CellDAO{
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM cell WHERE cell_id='" + entity.getCellId() + "';");
+            LOGGER.trace("deleted line in cell table, with id:" + entity.getCellId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }

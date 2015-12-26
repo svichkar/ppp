@@ -31,9 +31,10 @@ public class CategoryDaoImpl implements CategoryDAO {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO category (name) VALUES ('" + entity.getName() + "');");
             ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            newEntity = new Category(keys.getInt(1), entity.getName());
             connection.commit();
+            keys.next();
+            newEntity = this.findByID(keys.getInt(1));
+            LOGGER.trace("added line in category table, with id:" + newEntity.getCategoryId());
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             return newEntity;
         } catch (SQLException e) {
@@ -62,6 +63,7 @@ public class CategoryDaoImpl implements CategoryDAO {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE category SET name='" + entity.getName() + "' WHERE category_id='" +
                     entity.getCategoryId() + "';");
+            LOGGER.trace("updated line in category table, with id:" + entity.getCategoryId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -72,6 +74,7 @@ public class CategoryDaoImpl implements CategoryDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM category WHERE category_id='" + entity.getCategoryId() + "';");
+            LOGGER.trace("deleted line in category table, with id:" + entity.getCategoryId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }

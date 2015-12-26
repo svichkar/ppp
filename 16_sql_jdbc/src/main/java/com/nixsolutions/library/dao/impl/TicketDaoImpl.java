@@ -32,9 +32,10 @@ public class TicketDaoImpl implements TicketDAO {
                     entity.getBookId() + "', '" + entity.getClientId() + "', '" + entity.getRentDate()+ "', '" +
                     entity.getExpiredDate() + "', '" + entity.getReturnDate() + "');");
             ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            newEntity = new Ticket(keys.getInt(1), entity.getBookId(), entity.getClientId(), entity.getRentDate(), entity.getExpiredDate(), entity.getReturnDate());
             connection.commit();
+            keys.next();
+            newEntity = this.findByID(keys.getInt(1));
+            LOGGER.trace("added line in rent_journal table, with id:" + newEntity.getTicketId());
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             return newEntity;
         } catch (SQLException e) {
@@ -65,6 +66,7 @@ public class TicketDaoImpl implements TicketDAO {
                     entity.getClientId() + "', rent_date='" + entity.getRentDate() + "', expired_date='" +
                     entity.getExpiredDate() + "', return_date='" + entity.getReturnDate() + "' WHERE ticket_id='" +
                     entity.getTicketId() + "';");
+            LOGGER.trace("updated line in rent_journal table, with id:" + entity.getTicketId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -75,6 +77,7 @@ public class TicketDaoImpl implements TicketDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM rent_journal WHERE ticket_id='" + entity.getTicketId() + "';");
+            LOGGER.trace("deleted line in rent_journal table, with id:" + entity.getTicketId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }

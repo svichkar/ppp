@@ -31,10 +31,11 @@ public class AuthorDaoImpl implements AuthorDAO {
             statement.executeUpdate("INSERT INTO author (first_name, last_name) VALUES ('" + entity.getFirstName() +
                     "' ,'" + entity.getLastName() + "');");
             ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            newEntity = new Author(keys.getInt(1), entity.getFirstName(), entity.getLastName());
             connection.commit();
+            keys.next();
+            newEntity = this.findByID(keys.getInt(1));
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            LOGGER.trace("added line in author table, with id:" + newEntity.getAuthorId());
             return newEntity;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,6 +63,7 @@ public class AuthorDaoImpl implements AuthorDAO {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE author SET first_name='" + entity.getFirstName() + "', last_name='" +
                     entity.getLastName() + "' WHERE author_id='" + entity.getAuthorId() + "';");
+            LOGGER.trace("updated line in author table, with id:" + entity.getAuthorId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -72,6 +74,7 @@ public class AuthorDaoImpl implements AuthorDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM author WHERE author_id='" + entity.getAuthorId() + "';");
+            LOGGER.trace("deleted line in author table, with id:" + entity.getAuthorId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }

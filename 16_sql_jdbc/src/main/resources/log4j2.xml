@@ -8,7 +8,7 @@
     </Appenders>
 
     <Loggers>
-        <Root level="error" additivity="true">
+        <Root level="all" additivity="true">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

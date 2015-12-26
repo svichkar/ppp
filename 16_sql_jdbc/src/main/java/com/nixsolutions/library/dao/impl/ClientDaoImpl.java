@@ -32,9 +32,10 @@ public class ClientDaoImpl implements ClientDAO {
                     entity.getFirstName() + "', '" + entity.getLastName() + "', '" + entity.getPhone()+ "', '" +
                     entity.getEmail() + "');");
             ResultSet keys = statement.getGeneratedKeys();
-            keys.next();
-            newEntity = new Client(keys.getInt(1), entity.getFirstName(), entity.getLastName(), entity.getPhone(), entity.getEmail());
             connection.commit();
+            keys.next();
+            newEntity = this.findByID(keys.getInt(1));
+            LOGGER.trace("added line in client table, with id:" + newEntity.getClientId());
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             return newEntity;
         } catch (SQLException e) {
@@ -65,6 +66,7 @@ public class ClientDaoImpl implements ClientDAO {
                     entity.getLastName() + "', phone='" + entity.getPhone() + "', email='" +
                     entity.getEmail() + "' WHERE client_id='" +
                     entity.getClientId() + "';");
+            LOGGER.trace("updated line in client table, with id:" + entity.getClientId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -75,6 +77,7 @@ public class ClientDaoImpl implements ClientDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM client WHERE client_id='" + entity.getClientId() + "';");
+            LOGGER.trace("deleted line in client table, with id:" + entity.getClientId());
         } catch (SQLException e) {
             LOGGER.error(e);
         }

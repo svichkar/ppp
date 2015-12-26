@@ -82,9 +82,9 @@ public class BookDaoImpl implements BookDAO {
     public Book findByID(Integer id) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE book_id = '" + id + "';");;
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE book_id = '" + id + "';");
             if (resultSet.next()) {
-                Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_name"));
+                Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id"));
                 return entity;
             } else {
                 LOGGER.trace("id " + id + " not found in book table");
@@ -103,7 +103,7 @@ public class BookDaoImpl implements BookDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM book;");
             while (resultSet.next())
-                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_name")));
+                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);

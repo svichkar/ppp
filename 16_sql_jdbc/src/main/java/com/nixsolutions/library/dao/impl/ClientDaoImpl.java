@@ -104,7 +104,7 @@ public class ClientDaoImpl implements ClientDAO {
         List<Client> list = new ArrayList<>();
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM cell;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM client;");
             while (resultSet.next())
                 list.add(new Client (resultSet.getInt("client_id"), resultSet.getString("first_name"),
                         resultSet.getString("last_name"), resultSet.getString("phone"), resultSet.getString("email")));

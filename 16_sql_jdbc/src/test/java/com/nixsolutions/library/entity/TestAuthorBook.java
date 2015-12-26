@@ -1,7 +1,6 @@
 package com.nixsolutions.library.entity;
 
 import com.nixsolutions.library.dao.AuthorBookDAO;
-import com.nixsolutions.library.dao.AuthorDAO;
 import com.nixsolutions.library.entity.config.DBUnitConfig;
 import org.dbunit.Assertion;
 import org.dbunit.dataset.IDataSet;
@@ -69,6 +68,7 @@ public class TestAuthorBook extends DBUnitConfig {
         AuthorBookDAO authorBookDAO = daoFactory.getAuthorBookDAO();
         AuthorBook actualAuthorBook;
         actualAuthorBook = authorBookDAO.findByID(authorBook.getId());
+
         Assert.assertEquals(authorBook.getId(), actualAuthorBook.getId());
         Assert.assertEquals(authorBook.getAuthorId(), actualAuthorBook.getAuthorId());
         Assert.assertEquals(authorBook.getBookId(), actualAuthorBook.getBookId());
@@ -78,9 +78,13 @@ public class TestAuthorBook extends DBUnitConfig {
         AuthorBookDAO authorBookDAO = daoFactory.getAuthorBookDAO();
         List<AuthorBook> authorBooksList;
         authorBooksList = authorBookDAO.findAll();
+
+        Assert.assertEquals(2, authorBooksList.size());
+
         Assert.assertEquals(1, authorBooksList.get(0).getId());
         Assert.assertEquals(1, authorBooksList.get(0).getAuthorId());
         Assert.assertEquals(1, authorBooksList.get(0).getBookId());
+
         Assert.assertEquals(2, authorBooksList.get(1).getId());
         Assert.assertEquals(2, authorBooksList.get(1).getAuthorId());
         Assert.assertEquals(2, authorBooksList.get(1).getBookId());

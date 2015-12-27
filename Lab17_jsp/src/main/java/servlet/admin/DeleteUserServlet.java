@@ -1,7 +1,6 @@
 package servlet.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,7 @@ public class DeleteUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao;
 	private RoleDao roleDao;
-	
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -34,19 +33,17 @@ public class DeleteUserServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		PrintWriter out = response.getWriter();
 		User user = userDao.getByUserName(request.getParameter("user"));
 		String roleName = roleDao.getByRoleId(user.getRoleId()).getRoleName();
-		if (roleName.toLowerCase().equals("admin")){
-			out.println("<font color=red>You can't delete admin user.</font>");
-		}else{
+		if (roleName.toLowerCase().equals("admin")) {
+			request.setAttribute("adminDelete", "You can't delete admin user.");
+			response.sendRedirect("login.do");
+		} else {
 			userDao.delete(user);
-			out.println("<font color=green>User deleted sucsecfull.</font>");
 			response.sendRedirect("login.do");
 		}
-		out.close();
 	}
 }

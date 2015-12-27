@@ -134,7 +134,6 @@ public class LoginServlet extends HttpServlet {
 		sb.append("<tr>");
 		sb.append("<th width=10%>User Id</th>");
 		sb.append("<th width=30%>User Name</th>");
-		sb.append("<th width=30%>User Password</th>");
 		sb.append("<th width=20%>User Role</th>");
 		sb.append("<th width=10%>Action</th>");
 		sb.append("</tr>");
@@ -142,7 +141,6 @@ public class LoginServlet extends HttpServlet {
 			sb.append("<tr>");
 			sb.append("<td>" + user.getId() + "</td>");
 			sb.append("<td>" + user.getUserName() + "</td>");
-			sb.append("<td>" + user.getPassword() + "</td>");
 			sb.append("<td>" + roleDao.getByRoleId(user.getRoleId()).getRoleName() + "</td>");
 			sb.append("<td>");
 			sb.append("<form action=\"users.do\" method=\"post\">");

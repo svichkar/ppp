@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Journal">
-<jsp:attribute name="content_area">
-<h1>Terms</h1>
-<table style="width: 60%" border="1">
+	<jsp:attribute name="content_area">
+	<h1>Terms</h1>
+	<table style="width: 60%" border="1">
 		<tr>
 			<th width=25%>First Name</th>
 			<th width=25%>Last Name</th>
@@ -23,5 +23,5 @@
 			</tr>
 		</c:forEach>
 	</table>
-</jsp:attribute>
+	</jsp:attribute>
 </t:generalManager>

@@ -20,54 +20,58 @@ import java.util.List;
 public class JournalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SubjectDao subjectDao;
-    private JournalDao journalDao;
-    private StudentDao studentDao;
-    private StudentGroupDao studentGroupDao;
-    private RateDao rateDao;
-    
+	private JournalDao journalDao;
+	private StudentDao studentDao;
+	private StudentGroupDao studentGroupDao;
+	private RateDao rateDao;
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
 		try {
 			daoFactory = new H2DaoFactory();
 			subjectDao = daoFactory.getSubjectDao();
-            journalDao = daoFactory.getJournalDao();
-            studentDao = daoFactory.getStudentDao();
-            studentGroupDao = daoFactory.getStudentGroupDao();
-            rateDao = daoFactory.getRateDao();
+			journalDao = daoFactory.getJournalDao();
+			studentDao = daoFactory.getStudentDao();
+			studentGroupDao = daoFactory.getStudentGroupDao();
+			rateDao = daoFactory.getRateDao();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<JournalBean> journal = new ArrayList<>();
 		List<Journal> journalTemp = journalDao.getAll();
-		for (Journal recordTemp : journalTemp){
-            Student student = studentDao.getByStudentId(recordTemp.getStudentId());
-            journal.add(new JournalBean(student.getFirstName(), student.getLastName(),
-                    studentGroupDao.getByStudentGroupId(student.getStudentGroupId()).getStudentGroupName(),
-                    subjectDao.getBySubjectId(recordTemp.getSubjectId()).getName(),
-                    rateDao.getByRateId(recordTemp.getRateId()).getRateValue().toString()));
+		for (Journal recordTemp : journalTemp) {
+			Student student = studentDao.getByStudentId(recordTemp.getStudentId());
+			journal.add(new JournalBean(student.getFirstName(), student.getLastName(),
+					studentGroupDao.getByStudentGroupId(student.getStudentGroupId()).getStudentGroupName(),
+					subjectDao.getBySubjectId(recordTemp.getSubjectId()).getName(),
+					rateDao.getByRateId(recordTemp.getRateId()).getRateValue().toString()));
 		}
 		request.setAttribute("journal", journal);
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/journal/Journal.jsp");
 		rs.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<JournalBean> journal = new ArrayList<>();
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List<JournalBean> journal = new ArrayList<>();
 		String tempId = request.getParameter("studentId");
-        int id = Integer.parseInt(tempId);
-        List<Journal> journalTemp = journalDao.getJournalByStudentId(id);
-        for (Journal recordTemp : journalTemp){
-            Student student = studentDao.getByStudentId(recordTemp.getStudentId());
-            journal.add(new JournalBean(student.getFirstName(), student.getLastName(),
-                    studentGroupDao.getByStudentGroupId(student.getStudentGroupId()).getStudentGroupName(),
-                    subjectDao.getBySubjectId(recordTemp.getSubjectId()).getName(),
-                    rateDao.getByRateId(recordTemp.getRateId()).getRateValue().toString()));
-        }
-        request.setAttribute("journal", journal);
+		int id = Integer.parseInt(tempId);
+		List<Journal> journalTemp = journalDao.getJournalByStudentId(id);
+		for (Journal recordTemp : journalTemp) {
+			Student student = studentDao.getByStudentId(recordTemp.getStudentId());
+			journal.add(new JournalBean(student.getFirstName(), student.getLastName(),
+					studentGroupDao.getByStudentGroupId(student.getStudentGroupId()).getStudentGroupName(),
+					subjectDao.getBySubjectId(recordTemp.getSubjectId()).getName(),
+					rateDao.getByRateId(recordTemp.getRateId()).getRateValue().toString()));
+		}
+		request.setAttribute("journal", journal);
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/journal/Journal.jsp");
 		rs.forward(request, response);
 	}

@@ -17,7 +17,7 @@ import database.dao.impl.H2DaoFactory;
 public class AddNewTermServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TermDao termDao;
-    
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -28,19 +28,18 @@ public class AddNewTermServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-    public AddNewTermServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/term/AddNewTerm.jsp");
 		rs.include(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String alias = request.getParameter("alias");
-		termDao.create(alias);
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		termDao.create(request.getParameter("alias"));
 		response.sendRedirect("Terms.do");
 	}
-
 }

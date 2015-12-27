@@ -30,22 +30,23 @@ public class EditStudentGroupServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {		
-		String tempId = request.getParameter("studentGroupId");		
-		int id = Integer.parseInt(tempId);
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("studentGroupId"));
 		request.setAttribute("studentGroup", studentGroupDao.getByStudentGroupId(id));
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/studentGroup/EditStudentGroup.jsp");
 		rs.forward(request, response);
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tempId = request.getParameter("studentGroupId");
-		int id = Integer.parseInt(tempId);
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("studentGroupId"));
 		StudentGroup group = studentGroupDao.getByStudentGroupId(id);
 		group.setStudentGroupName(request.getParameter("studentGroupName"));
 		studentGroupDao.update(group);
-		response.sendRedirect("StudentGroups.do");				
+		response.sendRedirect("StudentGroups.do");
 	}
 }

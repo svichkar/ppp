@@ -1,7 +1,7 @@
 package database;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -27,11 +27,9 @@ public class CustomConnectionManager {
 	}
 	
 	private Properties getProperties(){
-		String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile();		
-		FileInputStream inputStream = null;
+		InputStream inputStream = this.getClass().getResourceAsStream("/jdbc.properties");
 		Properties property = new Properties();
-		try {				
-			inputStream = new FileInputStream(propsLocation);
+		try {		
 			property.load(inputStream);
 		} catch (IOException ex) {
 			LOG.error(ex.getMessage());

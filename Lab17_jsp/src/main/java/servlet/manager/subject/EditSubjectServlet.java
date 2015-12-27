@@ -33,14 +33,13 @@ public class EditSubjectServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {		
-		String tempId = request.getParameter("subjectId");
-		int subjectId = Integer.parseInt(tempId);
-		Subject subjectTemp = subjectDao.getBySubjectId(subjectId);
-		String term = termDao.getByTermId(subjectDao.getBySubjectId(subjectId).getTermId()).getAlias();		
-		request.setAttribute("subject", new SubjectBean(subjectId, subjectTemp.getName(), term));
+			throws ServletException, IOException {
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		String term = termDao.getByTermId(subjectDao.getBySubjectId(subjectId).getTermId()).getAlias();
+		request.setAttribute("subject", new SubjectBean(subjectId, subjectDao.getBySubjectId(subjectId).getName(), term));
 		request.setAttribute("terms", termDao.getAll());
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/subject/EditSubject.jsp");
 		try {
@@ -49,14 +48,15 @@ public class EditSubjectServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tempId = request.getParameter("subjectId");
-		int subjectId = Integer.parseInt(tempId);
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
 		Subject subject = subjectDao.getBySubjectId(subjectId);
 		subject.setName(request.getParameter("subject"));
 		subject.setTermId(termDao.getByTermAlias(request.getParameter("term")).getId());
 		subjectDao.update(subject);
-		response.sendRedirect("Subjects.do");				
+		response.sendRedirect("Subjects.do");
 	}
 }

@@ -18,7 +18,7 @@ import database.dao.impl.H2DaoFactory;
 @WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	private RoleDao roleDao;
 	private UserDao userDao;
 
@@ -33,12 +33,10 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-   
-    public LoginServlet() {
-        super();
-    }
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String userName = (String) request.getSession().getAttribute("login");
 		PrintWriter out = response.getWriter();
 		if (userName != null) {
@@ -73,7 +71,9 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		String userName = request.getParameter("login");
 		String password = request.getParameter("password");
@@ -111,5 +111,5 @@ public class LoginServlet extends HttpServlet {
 			rs.include(request, response);
 		}
 		out.close();
-	}	
+	}
 }

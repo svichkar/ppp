@@ -4,14 +4,12 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Add Student Group">
 	<jsp:attribute name="content_area">
-	<h1>Add Student Group</h1>
+		<h1>Add Student Group</h1>
 		<h2>Student Group:</h2>
 		<form action="addNewStudentGroup.do" method="post">
-		<b>Student Group Name:</b><br>
-		<input type="text" name="studentGroupName"><br>		
-		<p>
-				<input type="submit" value="Save">
-			</p>
+			<b>Student Group Name:</b><br>
+			<input type="text" name="studentGroupName"><br>		
+			<input type="submit" value="Save">
 		</form>	
-</jsp:attribute>
+	</jsp:attribute>
 </t:generalManager>

@@ -5,9 +5,6 @@
 <head>
 <title>${title}</title>
 <link rel="stylesheet" href="css/style.css">
-<script>
-$(function() {$( "#datepicker" ).datepicker();});
-</script>
 </head>
 <body>
 	<a href="logout.do">Logout</a>

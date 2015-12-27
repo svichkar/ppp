@@ -66,7 +66,8 @@ public class ChangeUserServlet extends HttpServlet {
 		sb.append("<form action=\"create.do\" method=\"post\">");
 		sb.append("<b>Login:</b><br>");
 		sb.append("<input type=\"text\" name=\"login\" name=\"login\"><br>");
-		sb.append("<b>Password:</b><br> <input type=\"text\" name=\"password\"><br>");
+		sb.append("<b>Password:</b><br> <input type=\"password\" name=\"password\"><br>");
+		sb.append("<b>Confirm Password:</b><br> <input type=\"password\" name=\"confirmPassword\"><br>");
 		sb.append("<b>Role:</b><br>");
 		sb.append("<select name=\"role\">");
 		sb.append("<option>Select role</option>");

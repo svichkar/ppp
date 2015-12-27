@@ -29,24 +29,24 @@ public class EditTermServlet extends HttpServlet {
 		}
 	}
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String tempId = request.getParameter("termId");
-        int termId = Integer.parseInt(tempId);
-        request.setAttribute("term", termDao.getByTermId(termId));
-        RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/term/EditTerm.jsp");
-        try {
-            rs.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        }
-    }
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String aliasOld = request.getParameter("aliasOld");
-		String aliasNew = request.getParameter("alias");
-		Term term = new Term(termDao.getByTermAlias(aliasOld).getId(), aliasNew);
-		termDao.update(term);
-		response.sendRedirect("Terms.do");				
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int termId = Integer.parseInt(request.getParameter("termId"));
+		request.setAttribute("term", termDao.getByTermId(termId));
+		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/term/EditTerm.jsp");
+		try {
+			rs.forward(request, response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		termDao.update(new Term(termDao.getByTermAlias(request.getParameter("aliasOld")).getId(),
+				request.getParameter("alias")));
+		response.sendRedirect("Terms.do");
 	}
 }

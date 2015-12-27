@@ -61,3 +61,7 @@ div#hmenu ul a:hover{
    color: #f6f0cc; 
    background-color: #227755; 
 }
+
+.error{
+	color: red;
+}

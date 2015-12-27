@@ -16,9 +16,9 @@ import database.dao.impl.H2DaoFactory;
 @WebServlet("/deleteSubject.do")
 public class DeleteSubjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	private SubjectDao subjectDao;
-    
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -30,7 +30,9 @@ public class DeleteSubjectServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String tempId = request.getParameter("subjectId");
 		int subjectId = Integer.parseInt(tempId);
 		Subject subject = subjectDao.getBySubjectId(subjectId);

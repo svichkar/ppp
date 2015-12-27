@@ -36,6 +36,7 @@ document.onreadystatechange = function() {
 		}
 
 		function submitEventListener(e) {
+			resetError(e.target);
 			if (!validate(e.target, options)) {
 				e.returnValue = false;
 			}
@@ -59,7 +60,8 @@ document.onreadystatechange = function() {
 
 					if (row.getAttribute('clicked_Row')) {
 						row.removeAttribute('clicked_Row');
-						row.className = row.className.replace(click_Class_Reg, "");
+						row.className = row.className.replace(click_Class_Reg,
+								"");
 						row.className += " " + hover_Class;
 					} else {
 						row.className += " " + click_Class;
@@ -69,59 +71,70 @@ document.onreadystatechange = function() {
 			}
 		}
 	}
-	
+
 	function showError(container, errorMessage) {
-		container.className = 'error';
+		// container.className = 'error';
 		var msgElem = document.createElement('span');
 		msgElem.className = "error-message";
 		msgElem.innerHTML = errorMessage;
-		container.appendChild(msgElem);
+		insertAfter(msgElem, container);
 	}
 
 	function resetError(container) {
-		container.className = '';
-		if (container.lastChild.className == "error-message") {
-			container.removeChild(container.lastChild);
+		var errors = container.querySelectorAll('.error-message');
+		if (errors.length != 0) {
+			for ( var error in errors) {
+				if (error !== 'length' && error !== 'item')
+					container.removeChild(errors[error]);
+				// error.remove();
+			}
 		}
+	}
+	/*
+	 * container.className = ''; if (container.lastChild.className ==
+	 * "error-message") { container.removeChild(container.lastChild); }
+	 */
+
+	function insertAfter(elem, refElem) {
+		return refElem.parentNode.insertBefore(elem, refElem.nextSibling);
 	}
 
 	function validate(form, options) {
 		var result = true;
-		resetError(from.parentNode);
 		for ( var option in options) {
 			var field = form.querySelector('[name="' + option + '"]');
-			if (input != undefined) {
+			if (field != null) {
 				for ( var check in options[option]) {
 					if (!options[option][check].isValid(field)) {
-						showError(from.parentNode,
-								options[option][check].message);
-						result = false;
+						showError(field, options[option][check].message);
+						if (result)
+							result = false;
 					}
 				}
 			}
 		}
 		return result;
 	}
-	
+
 	var isNotEmpty = function(domElement) {
-		return domElement.value !== '';
+		var reg_pusto = domElement.value.replace(/\s+/, '');
+		return reg_pusto !== '';
 	}
 
 	var options = {
 		login : [ {
 			isValid : isNotEmpty,
-			message : "The login field is required. Please enter the login name"
+			message : "The login field is required. Please enter the login name. "
 		} ],
 		password : [ {
 			isValid : isNotEmpty,
-			message : "The password field is required. Please enter the password"
+			message : "The password field is required. Please enter the password. "
 		} ],
 		confirmPassword : [
 				{
-					isValid : isNotEmpty(),
-					message : "The password field is required. Please enter the password"
-				},
-				{
+					isValid : isNotEmpty,
+					message : "The password field is required. Please enter the password. "
+				}, {
 					isValid : function(domElement) {
 						var pass = document.getElementById('password').value;
 						return domElement.value == pass;
@@ -131,18 +144,110 @@ document.onreadystatechange = function() {
 		email : [
 				{
 					isValid : isNotEmpty,
-					message : "The e-mail field is required. Please enter the email"
+					message : "The e-mail field is required. Please enter the email. "
 				},
 				{
 					isValid : function(domElement) {
 						var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 						return re.test(domElement.value);
 					},
-					message : "The email address is invalid. Please enter the correct email"
+					message : "The email address is invalid. Please enter the correct email. "
 				} ],
 		role : [ {
+			isValid : function(domElement) {
+				var text = domElement.value;
+				if (text === "Select role") {
+					return false;
+				} else {
+					return true;
+				}
+			},
+			message : "The role field is required. Please choose yser role. "
+		} ],
+		alias : [ {
 			isValid : isNotEmpty,
-			message : "The role field is required. Please choose yser role"
-		} ]
+			message : "The tern name field is required. Please enter the alias. "
+		} ],
+		searchQuery : [ {
+			isValid : isNotEmpty,
+			message : "The search query field is required. Please enter search query. "
+		} ],
+		subject : [ {
+			isValid : isNotEmpty,
+			message : "The subject field is required. Please enter the subject name. "
+		} ],
+		term : [ {
+			isValid : isNotEmpty,
+			message : "The term is required. Please choose the term. "
+		} ],
+		group : [ {
+			isValid : isNotEmpty,
+			message : "The student group name is required. Please choose the student group name. "
+		} ],
+		status : [ {
+			isValid : isNotEmpty,
+			message : "The status is required. Please choose the status. "
+		} ],
+		studentGroupName : [ {
+			isValid : isNotEmpty,
+			message : "The Student Group Name field is required. Please enter the student group name. "
+		} ],
+		studentGroup : [ {
+			isValid : isNotEmpty,
+			message : "The search field is required. Please enter the student group name. "
+		} ],
+		firstName : [
+				{
+					isValid : isNotEmpty,
+					message : 'The first name field is required. Please enter the first name. '
+				}, {
+					isValid : function(domElement) {
+						return /^[a-zA-Z\s]+$/.test(domElement.value);
+					},
+					message : 'First name should contain only letters.'
+				} ],
+		lastName : [
+				{
+					isValid : isNotEmpty,
+					message : 'The last name field is required. Please enter the last name. '
+				}, {
+					isValid : function(domElement) {
+						return /^[a-zA-Z\s]+$/.test(domElement.value);
+					},
+					message : 'Last name should contain only letters.'
+				} ],
+		bday : [
+				{
+					isValid : isNotEmpty,
+					message : "The Date Birthday field is required. Please enter the Date Birthday. "
+				},
+				{
+					isValid : function(domElement) {
+						var re = /([0-2]\d|3[01])\.(0\d|1[012])\.(\d{4})/;
+						return re.test(domElement.value);
+					},
+					message : "Data has incorect form. Please enter data in format YYYY-MM-DD. Example: 1990-02-02"
+				} ],
+		eday : [
+				{
+					isValid : isNotEmpty,
+					message : "The Date Entry field is required. Please enter the Entry Date. "
+				},
+				{
+					isValid : function(domElement) {
+						var re = /([0-2]\d|3[01])\.(0\d|1[012])\.(\d{4})/;
+						return re.test(domElement.value);
+					},
+					message : "Data has incorect form. Please enter data in format YYYY-MM-DD. Example: 1990-02-02"
+				},
+				{
+					isValid : function(domElement) {
+						var bday = new Date(
+								document.getElementById('bday').value);
+						var eday = new Date(domElement.value);
+						return eday > bday;
+					},
+					message : "Date Entry is less then Date Birsday. "
+				} ]
 	}
 }

@@ -12,9 +12,9 @@
 		<b>Last Name:</b><br>
         <input type="text" name="lastName" tooltip="Last Name of student"><br>
         <b>Date Birthday:</b><br>
-        <input type="date" name="bday" id="datepicker" tooltip="Date Birthday of student (Example: 1990-02-02)"></input><br>
+        <input type="date" name="bday" id="bday" tooltip="Date Birthday of student (Example: 1990-02-02)"></input><br>
         <b>Date Entry:</b><br>
-        <input type="date" name="eday" id="datepicker" tooltip="Date Birthday of student (Example: 2015-07-07)"></input><br>
+        <input type="date" name="eday" id="eday" tooltip="Date Entry of student (Example: 2015-07-07)"></input><br>
         <b>Student Group:</b><br>
         <select name="group" tooltip="Choose a student group">
         <c:forEach var="item" items="${groups}">

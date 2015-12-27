@@ -8,8 +8,10 @@
 		<h2>User:</h2>
 		<form action="addNewUser.do" method="post">
 		<b>Login:</b><br>
-		<input type="text" name="login"><br>
-		<b>Password:</b><br> <input type="text" name="password"><br>
+		<input type="text" name="login"><span class="error">${loginMessage}</span><br>
+		<b>Password:</b><br> <input type="password" name="password"><br>
+		<b>Confirm Password:</b><br> <input type="password" name="confirmPassword">
+		<span class="error">${passwordMessage}</span><br>
 		<b>E-mail:</b><br>
 		<input type="email" name="email"><br>
 		<b>Role:</b><br>
@@ -19,10 +21,8 @@
 		<option value="Manager">Manager</option>
 		<option value="Teacher">Teacher</option>
 		<option value="Student">Student</option>
-		</select><br>
-		<p>
-				<input type="submit" value="Save">
-			</p>
+		</select><span class="error">${roleMessage}</span><br>
+		<input type="submit" value="Save">
 		</form>	
 </jsp:attribute>
 </t:general>

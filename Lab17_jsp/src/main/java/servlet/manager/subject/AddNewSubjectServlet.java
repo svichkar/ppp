@@ -19,7 +19,7 @@ public class AddNewSubjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TermDao termDao;
 	private SubjectDao subjectDao;
-    
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -32,16 +32,18 @@ public class AddNewSubjectServlet extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("terms", termDao.getAll());
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/subject/AddNewSubject.jsp");
 		rs.include(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String subject = request.getParameter("subject");
-		String term = request.getParameter("term");
-		subjectDao.create(subject, termDao.getByTermAlias(term).getId());		
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		subjectDao.create(request.getParameter("subject"), termDao.getByTermAlias(request.getParameter("term")).getId());
 		response.sendRedirect("Subjects.do");
 	}
 

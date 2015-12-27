@@ -17,7 +17,7 @@ import database.dao.impl.H2DaoFactory;
 public class TermsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TermDao termDao;
-    
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -29,15 +29,11 @@ public class TermsServlet extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("terms", termDao.getAll());
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/term/Terms.jsp");
 		rs.include(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

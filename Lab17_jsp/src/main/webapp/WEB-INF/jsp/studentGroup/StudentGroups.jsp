@@ -4,8 +4,8 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Student Groups"> 
 <jsp:attribute name="content_area">
-<h1>Terms</h1>
-<table style="width: 40%" border="1">
+	<h1>Terms</h1>
+	<table style="width: 40%" border="1">
 		<tr>
 			<th width=20%>Group Id</th>
 			<th width=50%>Group Name</th>
@@ -16,21 +16,20 @@
 				<td>${item.id}</td>
 				<td>${item.studentGroupName}</td>				
 				<td>
-						<form action="editStudentGroup.do" method="get">
-							<input type="hidden" name="studentGroupId" value="${item.id}">
-							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
-						</form>
-						<form action="deleteStudentGroup.do" method="post">
-							<input type="hidden" name="studentGroupId" value="${item.id}"> 
-							<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
-						</form>
-					</td>
+					<form action="editStudentGroup.do" method="get">
+						<input type="hidden" name="studentGroupId" value="${item.id}">
+						<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
+					</form>
+					<form action="deleteStudentGroup.do" method="post">
+						<input type="hidden" name="studentGroupId" value="${item.id}"> 
+						<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
+					</form>
+				</td>
 			</tr>
 		</c:forEach>
-	</table>
-	
+	</table>	
 	<form action="addNewStudentGroup.do" method="get">
-	<input type=submit name="create" value="Add new" style="width: 100px;">
+		<input type=submit name="create" value="Add new" style="width: 100px;">
 	</form>
-</jsp:attribute>
+	</jsp:attribute>
 </t:generalManager>

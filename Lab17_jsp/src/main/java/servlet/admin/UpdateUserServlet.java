@@ -1,7 +1,6 @@
 package servlet.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +26,6 @@ public class UpdateUserServlet extends HttpServlet {
 		DaoFactory daoFactory;
 		try {
 			daoFactory = new H2DaoFactory();
-
 			roleDao = daoFactory.getRoleDao();
 			userDao = daoFactory.getUserDao();
 		} catch (ClassNotFoundException e) {
@@ -37,18 +35,9 @@ public class UpdateUserServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		PrintWriter out = response.getWriter();
-		String userNameOld = request.getParameter("loginPrevious");
-		String userName = request.getParameter("login");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		String role = request.getParameter("role");
-		int roleId = roleDao.getByRoleName(role).getId();
-		int studentId = userDao.getByUserName(userNameOld).getId();
-		User user = new User(studentId, userName, password, email, roleId);
-		userDao.update(user);
-		out.println("<font color=green>User updated sucsecfull.</font>");
+		userDao.update(new User(userDao.getByUserName(request.getParameter("loginPrevious")).getId(),
+				request.getParameter("login"), request.getParameter("password"), request.getParameter("email"),
+				roleDao.getByRoleName(request.getParameter("role")).getId()));
 		response.sendRedirect("login.do");
-		out.close();
 	}
 }

@@ -21,45 +21,48 @@ public class AddNewUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao;
 	private RoleDao roleDao;
-	
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
 		try {
 			daoFactory = new H2DaoFactory();
-
 			roleDao = daoFactory.getRoleDao();
 			userDao = daoFactory.getUserDao();
-		} catch (ClassNotFoundException  e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/AddNewUser.jsp");
 		rs.include(request, response);
 	}
-	
+
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		PrintWriter out = response.getWriter();
-		String userName = request.getParameter("login");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		String role = request.getParameter("role");
-		int roleId = roleDao.getByRoleName(role).getId();
-		if (userDao.getByUserName(userName) == null){
-			userDao.create(userName, password, email, roleId);
-			out.println("<font color=green>User created sucsecfull.</font>");
-			response.sendRedirect("login.do");
-			//RequestDispatcher rs = request.getRequestDispatcher("login.do");
-			//rs.include(request, response);
-		}else{
-			out.println("<font color=red>This user already exist.</font>");
-			response.sendRedirect("login.do");
-			//RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/AdminHome.jsp");
-			//rs.include(request, response);
+		if (!request.getParameter("password").equals(request.getParameter("confirmPassword"))) {
+			request.setAttribute("passwordMessage", "You entered different passwords.");
+			RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/AddNewUser.jsp");
+			rs.include(request, response);
+		} else {
+			if (request.getParameter("role").equals("Select role")) {
+				request.setAttribute("roleMessage", "You entered different passwords.");
+				RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/AddNewUser.jsp");
+				rs.include(request, response);
+			} else {
+				if (userDao.getByUserName(request.getParameter("login")) == null) {
+					userDao.create(request.getParameter("login"), request.getParameter("password"),
+							request.getParameter("email"), roleDao.getByRoleName(request.getParameter("role")).getId());
+					response.sendRedirect("login.do");
+				} else {
+					request.setAttribute("loginMessage", "This user already exist.");
+					RequestDispatcher rs = request.getRequestDispatcher("/WEB-INF/jsp/AddNewUser.jsp");
+					rs.include(request, response);
+				}
+			}
 		}
 		out.close();
 	}

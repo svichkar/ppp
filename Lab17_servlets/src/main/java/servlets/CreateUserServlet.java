@@ -21,7 +21,7 @@ public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDao userDao;
 	private RoleDao roleDao;
-	
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -34,21 +34,30 @@ public class CreateUserServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		PrintWriter out = response.getWriter();
 		String userName = request.getParameter("login");
 		String password = request.getParameter("password");
-		String role = request.getParameter("role");
-		int roleId = roleDao.getByRoleName(role).getRoleId();
-		if (userDao.getByUserName(userName) == null){
-			userDao.create(userName, password, roleId);
-			out.println("<font color=green>User created sucsecfull.</font>");
-			response.sendRedirect("login.do");
-		}else{
-			out.println("<font color=red>This user already exist.</font>");
-			response.sendRedirect("users.do");
+		String confirmPassword = request.getParameter("confirmPassword");
+		if (!password.equals(confirmPassword)) {
+			out.println("<font color=red>You entered different passwords.</font>");
+		} else {
+			String role = request.getParameter("role");
+			if (role.equals("Select role")) {
+				out.println("<font color=red>Please choose user role.</font>");
+			} else {
+				int roleId = roleDao.getByRoleName(role).getRoleId();
+				if (userDao.getByUserName(userName) == null) {
+					userDao.create(userName, password, roleId);
+					out.println("<font color=green>User created sucsecfull.</font>");
+					response.sendRedirect("login.do");
+				} else {
+					out.println("<font color=red>This user already exist.</font>");
+					response.sendRedirect("users.do");
+				}
+			}
 		}
 		out.close();
 	}

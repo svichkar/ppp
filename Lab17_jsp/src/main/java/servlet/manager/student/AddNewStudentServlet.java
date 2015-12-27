@@ -17,9 +17,9 @@ public class AddNewStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TermDao termDao;
 	private StudentDao studentDao;
-    private StudentGroupDao studentGroupDao;
-    private StatusDao statusDao;
-    
+	private StudentGroupDao studentGroupDao;
+	private StatusDao statusDao;
+
 	@Override
 	public void init() {
 		DaoFactory daoFactory;
@@ -27,15 +27,16 @@ public class AddNewStudentServlet extends HttpServlet {
 			daoFactory = new H2DaoFactory();
 			termDao = daoFactory.getTermDao();
 			studentDao = daoFactory.getStudentDao();
-            studentGroupDao = daoFactory.getStudentGroupDao();
-            statusDao = daoFactory.getStatusDao();
-
+			studentGroupDao = daoFactory.getStudentGroupDao();
+			statusDao = daoFactory.getStatusDao();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("groups", studentGroupDao.getAll());
 		request.setAttribute("statuses", statusDao.getAll());
 		request.setAttribute("terms", termDao.getAll());
@@ -43,18 +44,14 @@ public class AddNewStudentServlet extends HttpServlet {
 		rs.include(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String bday = request.getParameter("bday");
-        String eday = request.getParameter("eday");
-        String group = request.getParameter("group");
-        String term = request.getParameter("term");
-        String status = request.getParameter("status");
-
-		studentDao.create(firstName, lastName, Date.valueOf(bday), Date.valueOf(eday),
-                studentGroupDao.getByStudentGroupName(group).getId(),
-                termDao.getByTermAlias(term).getId(), statusDao.getByStatusName(status).getId());
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		studentDao.create(request.getParameter("firstName"), request.getParameter("lastName"),
+				Date.valueOf(request.getParameter("bday")), Date.valueOf(request.getParameter("eday")),
+				studentGroupDao.getByStudentGroupName(request.getParameter("group")).getId(),
+				termDao.getByTermAlias(request.getParameter("term")).getId(),
+				statusDao.getByStatusName(request.getParameter("status")).getId());
 		response.sendRedirect("Students.do");
 	}
 

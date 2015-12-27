@@ -17,7 +17,6 @@ public class AuthorDaoTest extends DBUnitConfig {
 		super(name);
 	}
 
-
 	public void setUp() throws Exception {
 		super.setUp();
 		beforeData = new FlatXmlDataFileLoader().load("/author/AuthorInitialDataSet.xml");
@@ -25,14 +24,18 @@ public class AuthorDaoTest extends DBUnitConfig {
 		tester.onSetup();
 	}
 	
-
 	public void testShouldretrieveAuthorById() throws Exception {
-		Author auth = new AuthorDaoImpl().getAuthor(5);
-		Assert.assertEquals(1, auth.getAuthorId());
+		Author auth = new AuthorDaoImpl().getAuthorById(1);
+		Assert.assertEquals(new Integer(1), auth.getAuthorId());
 		Assert.assertEquals("Stephen", auth.getFirstName());
 		Assert.assertEquals("King", auth.getSecondName());
 	}
-
+	
+	public void testShouldReturnNullIfQueryReturnedNoResultsAuthorById() throws Exception {
+		Author auth = new AuthorDaoImpl().getAuthorById(5);
+		Assert.assertNull(auth);
+	}
+	
 	public void testShouldRetrieveAllUthors() throws Exception {
 		List<Author> authors = new AuthorDaoImpl().getAllAuthors();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorInitialDataSet.xml");
@@ -42,7 +45,7 @@ public class AuthorDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldDeleteAuthor() throws Exception {
-		Author author = new AuthorDaoImpl().getAuthor(1);
+		Author author = new AuthorDaoImpl().getAuthorById(1);
 		new AuthorDaoImpl().deleteAuthor(author);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
@@ -62,10 +65,10 @@ public class AuthorDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateAuthor() throws Exception {
-		Author updAuth = new AuthorDaoImpl().getAuthor(3);
+		Author updAuth = new AuthorDaoImpl().getAuthorById(3);
 		updAuth.setFirstName("Michail");
 		updAuth.setSecondName("Lelyakov");
-		new AuthorDaoImpl().updateAuthor(updAuth);;
+		new AuthorDaoImpl().updateAuthor(updAuth);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("author"), 

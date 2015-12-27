@@ -1,16 +1,15 @@
 package com.nixsolutions.entity;
 
 public class Cell {
-	private int cellId;
+	private Integer cellId;
 	private String name;
 
-	public Cell(int cellId, String name) {
+	public Cell(String name) {
 		super();
-		this.cellId = cellId;
 		this.name = name;
 	}
 
-	public int getCellId() {
+	public Integer getCellId() {
 		return cellId;
 	}
 

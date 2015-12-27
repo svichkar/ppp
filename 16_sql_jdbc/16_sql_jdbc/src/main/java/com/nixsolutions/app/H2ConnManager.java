@@ -13,16 +13,16 @@ import org.h2.jdbcx.JdbcConnectionPool;
 public class H2ConnManager {
 	public static final Logger LOG = LogManager.getLogger();
 	private static JdbcConnectionPool pool;
-	private static String url = "jdbc:h2:tcp://localhost/~/sqllab";
-	private static String name= "sa";
-	private static String pswd = "";
+	private static String url;
+	private static String name;
+	private static String pswd;
 
 	private H2ConnManager() {
 	}
 
 	public static Connection getConnection() throws SQLException {
 		if (pool == null) {
-			//setProperties();
+			setProperties();
 			pool = JdbcConnectionPool.create(url, name, pswd);
 		}
 		Connection connect = pool.getConnection();
@@ -31,9 +31,8 @@ public class H2ConnManager {
 
 	private static void setProperties() {
 		Properties prop = new Properties();
-		InputStream input = prop.getClass().getClassLoader()
-				.getResourceAsStream("jdbc.properties");
-		
+		InputStream input = Thread.currentThread().getContextClassLoader().
+				getResourceAsStream("jdbc.properties");		
 		try {
 			prop.load(input);
 			url = prop.getProperty("host");

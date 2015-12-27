@@ -1,14 +1,15 @@
 package com.nixsolutions.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class RentJournal {
-	private int rentId;
-	private int bookId;
-	private int clientId;
+	private Integer rentId;
+	private Integer bookId;
+	private Integer clientId;
 	private Date rentDate;
 	private Date returnDate;
 
+	/*
 	public RentJournal(int rentId, int bookId, int clientId, Date rentDate) {
 		super();
 		this.rentId = rentId;
@@ -16,8 +17,8 @@ public class RentJournal {
 		this.clientId = clientId;
 		this.rentDate = rentDate;
 	}
-
-	public int getRentId() {
+*/
+	public Integer getRentId() {
 		return rentId;
 	}
 
@@ -25,7 +26,7 @@ public class RentJournal {
 		this.rentId = rentId;
 	}
 
-	public int getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 
@@ -33,7 +34,7 @@ public class RentJournal {
 		this.bookId = bookId;
 	}
 
-	public int getClientId() {
+	public Integer getClientId() {
 		return clientId;
 	}
 

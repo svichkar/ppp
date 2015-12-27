@@ -1,20 +1,21 @@
 package com.nixsolutions.entity;
 
 public class Client {
-	private int clientId;
+	private Integer clientId;
 	private String firstName;
 	private String secondName;
 	private String phone;
 	private String email;
 
+	/*
 	public Client(int clientId, String firstName, String secondName) {
 		super();
 		this.clientId = clientId;
 		this.firstName = firstName;
 		this.secondName = secondName;
 	}
-
-	public int getClientId() {
+*/
+	public Integer getClientId() {
 		return clientId;
 	}
 

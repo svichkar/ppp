@@ -1,8 +1,8 @@
 package com.nixsolutions.entity;
 
 public class AuthorBook {
-	private int authorId;
-	private int bookId;
+	private Integer authorId;
+	private Integer bookId;
 
 	public AuthorBook(int authorId, int bookId) {
 		super();
@@ -10,7 +10,7 @@ public class AuthorBook {
 		this.bookId = bookId;
 	}
 
-	public int getAuthorId() {
+	public Integer getAuthorId() {
 		return authorId;
 	}
 
@@ -18,7 +18,7 @@ public class AuthorBook {
 		this.authorId = authorId;
 	}
 
-	public int getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 

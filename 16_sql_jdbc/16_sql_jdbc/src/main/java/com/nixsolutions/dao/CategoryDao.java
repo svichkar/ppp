@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Category;
 
 public interface CategoryDao {
 	public List<Category> getAllCategories();
-	public Category getCategory(int categoryId);
+	public Category getCategoryById(int categoryId);
 	public void createCategory(Category category);
 	public void updateCategory(Category category);
 	public void deleteCategory(Category category);

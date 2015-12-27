@@ -1,12 +1,13 @@
 package com.nixsolutions.entity;
 
 public class Book {
-	private int bookId;
+	private Integer bookId;
 	private String name;
-	private int cellId;
-	private int categoryId;
-	private int authorId;
+	private Integer cellId;
+	private Integer categoryId;
+	//private Integer authorId;
 
+	/*
 	public Book(int bookId, String name, int cellId, int categoryId,
 			int authorId) {
 		super();
@@ -16,8 +17,8 @@ public class Book {
 		this.categoryId = categoryId;
 		this.authorId = authorId;
 	}
-
-	public int getBookId() {
+*/
+	public Integer getBookId() {
 		return bookId;
 	}
 
@@ -33,7 +34,7 @@ public class Book {
 		this.name = name;
 	}
 
-	public int getCellId() {
+	public Integer getCellId() {
 		return cellId;
 	}
 
@@ -41,20 +42,20 @@ public class Book {
 		this.cellId = cellId;
 	}
 
-	public int getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-
-	public int getAuthorId() {
+/*
+	public Integer getAuthorId() {
 		return authorId;
 	}
 
 	public void setAuthorId(int authorId) {
 		this.authorId = authorId;
 	}
-
+*/
 }

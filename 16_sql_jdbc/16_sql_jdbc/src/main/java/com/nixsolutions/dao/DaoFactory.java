@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.nixsolutions.app.H2ConnManager;
+import com.nixsolutions.dao.impl.AuthorBookDaoImpl;
 import com.nixsolutions.dao.impl.AuthorDaoImpl;
+import com.nixsolutions.dao.impl.BookDaoImpl;
+import com.nixsolutions.dao.impl.CategoryDaoImpl;
+import com.nixsolutions.dao.impl.CellDaoImpl;
+import com.nixsolutions.dao.impl.ClientDaoImpl;
+import com.nixsolutions.dao.impl.RentJournalDaoImpl;
 
 public class DaoFactory {
 	
@@ -14,7 +20,7 @@ public class DaoFactory {
 	}
 
 	public AuthorBookDao getAuthorBookDao() {
-		return null;
+		return new AuthorBookDaoImpl();
 	}
 
 	public AuthorDao getAuthorDao() {
@@ -22,22 +28,22 @@ public class DaoFactory {
 	}
 
 	public BookDao getBookDao() {
-		return null;
+		return new BookDaoImpl();
 	}
 
 	public CategoryDao getCategoryDao() {
-		return null;
+		return new CategoryDaoImpl();
 	}
 
 	public CellDao getCellDao() {
-		return null;
+		return new CellDaoImpl();
 	}
 
 	public ClientDao getClientDao() {
-		return null;
+		return new ClientDaoImpl();
 	}
 
 	public RentJournalDao getRentJournalDao() {
-		return null;
+		return new RentJournalDaoImpl();
 	}
 }

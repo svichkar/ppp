@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<client client_id="2" first_name="Alexandra" last_name="Adusheva" phone="123-4143-522" email="alexandra@email.com" />
+	<client client_id="3" first_name="Yriy" last_name="Golod" phone="123-63434-532" email="yuriy@email.com" />
+
+</dataset>

@@ -1,7 +1,7 @@
 package com.nixsolutions.entity;
 
 public class Author {
-	private int authorId;
+	private Integer authorId;
 	private String firstName;
 	private String secondName;
 
@@ -14,11 +14,11 @@ public class Author {
 	}
 */
 
-	public int getAuthorId() {
+	public Integer getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(int authorId) {
+	public void setAuthorId(Integer authorId) {
 		this.authorId = authorId;
 	}
 

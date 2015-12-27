@@ -1,16 +1,15 @@
 package com.nixsolutions.entity;
 
 public class Category {
-	private int categoryId;
+	private Integer categoryId;
 	private String name;
 
-	public Category(int categoryId, String name) {
+	public Category(String name) {
 		super();
-		this.categoryId = categoryId;
 		this.name = name;
 	}
 
-	public int getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
 

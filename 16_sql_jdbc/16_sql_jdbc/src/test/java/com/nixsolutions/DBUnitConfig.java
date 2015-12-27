@@ -8,6 +8,7 @@ import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
+import org.dbunit.operation.DatabaseOperation;
 
 public class DBUnitConfig extends DBTestCase {
     protected IDatabaseTester tester;
@@ -41,10 +42,10 @@ public class DBUnitConfig extends DBTestCase {
     protected IDataSet getDataSet() throws Exception {
         return beforeData;
     }
- /*
+ 
     @Override
     protected DatabaseOperation getTearDownOperation() throws Exception {
         return DatabaseOperation.DELETE_ALL;
     }
-*/
+
 }

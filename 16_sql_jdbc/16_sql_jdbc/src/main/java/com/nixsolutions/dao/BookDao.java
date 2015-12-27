@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Book;
 
 public interface BookDao {
 	public List<Book> getAllBooks();
-	public Book getBook(int bookId);
+	public Book getBookById(int bookId);
 	public void createBook(Book book);
 	public void updateBook(Book book);
 	public void deleteBook(Book book);

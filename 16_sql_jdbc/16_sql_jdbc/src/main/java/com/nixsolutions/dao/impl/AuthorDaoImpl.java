@@ -21,42 +21,38 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public List<Author> getAllAuthors() {
-		String sql = "SELECT * FROM AUTHOR;";
-		List<Author> author = new ArrayList<>();
-
+		String sql = "SELECT * FROM author;";
+		List<Author> authors = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
-
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Author auth = new Author();
 				auth.setAuthorId(result.getInt("author_id"));
 				auth.setFirstName(result.getString("first_name"));
 				auth.setSecondName(result.getString("last_name"));
-				author.add(auth);
-				//need to insert assertion - if transaction was done
+				authors.add(auth);
+				// need to insert assertion - if transaction was done
 			}
 		} catch (SQLException e) {
 			LOG.error("not able to get authors", e);
 			LOG.throwing(new DaoException("not able to get all authors"));
 		}
-		return author;
+		return authors;
 	}
 
 	@Override
-	public Author getAuthor(int authorId) {
-		String sql = "SELECT * FROM AUTHOR WHERE author_id = ?;";
-		Author author = new Author();
-
+	public Author getAuthorById(int authorId) {
+		String sql = "SELECT * FROM author WHERE author_id = ?;";
+		Author author = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-
 			statem.setInt(1, authorId);
 			ResultSet result = statem.executeQuery();
-			result.next();
-			//result.
-			author.setAuthorId(result.getInt("author_id"));
-			author.setFirstName(result.getString("first_name"));
-			author.setSecondName(result.getString("last_name"));
-			//need to insert assertion - if transaction was done
+			if (result.next()) {
+				author = new Author();
+				author.setAuthorId(result.getInt("author_id"));
+				author.setFirstName(result.getString("first_name"));
+				author.setSecondName(result.getString("last_name"));
+			}
 		} catch (SQLException e) {
 			LOG.error("not able to get an author by Id", e);
 			LOG.throwing(new DaoException("not able to get an author by Id"));
@@ -68,11 +64,10 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void createAuthor(Author author) {
 		String sql = "INSERT INTO author (first_name, last_name) VALUES (?, ?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
 			statem.executeUpdate();
-			//need to insert assertion - if transaction was done
+			// need to insert assertion - if transaction was done
 		} catch (SQLException e) {
 			LOG.error("not able to create an author", e);
 			LOG.throwing(new DaoException("not able to create an author"));
@@ -83,12 +78,11 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void updateAuthor(Author author) {
 		String sql = "UPDATE author SET first_name = ?, last_name = ?  WHERE author_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
 			statem.setLong(3, author.getAuthorId());
 			statem.executeUpdate();
-			//need to insert assertion - if transaction was done
+			// need to insert assertion - if transaction was done
 		} catch (SQLException e) {
 			LOG.error("not able to update the author", e);
 			LOG.throwing(new DaoException("not able to update the author"));
@@ -99,10 +93,9 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void deleteAuthor(Author author) {
 		String sql = "DELETE FROM author WHERE author_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			
 			statem.setLong(1, author.getAuthorId());
 			statem.executeUpdate();
-			//need to insert assertion - if transaction was done
+			// need to insert assertion - if transaction was done
 		} catch (SQLException e) {
 			LOG.error("not able to delete the author", e);
 			LOG.throwing(new DaoException("not able to delete the author"));

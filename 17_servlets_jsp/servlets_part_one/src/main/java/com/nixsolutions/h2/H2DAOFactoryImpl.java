@@ -46,14 +46,14 @@ public class H2DAOFactoryImpl implements DAOFactory<Connection> {
 	public H2DAOFactoryImpl() throws ClassNotFoundException, IOException {
 		Class.forName(driver);
 		Properties props = new Properties();
-		String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile();
+		String propsLocation = this.getClass().getClassLoader().getResource("jdbc.properties").getFile().replaceAll("%20", " ");
 		FileInputStream fis = new FileInputStream(propsLocation);
 		props.load(fis);
 		user = props.getProperty("DB_USER");
 		password = props.getProperty("DB_PASSWORD");
 		fis.close();
 		String dbLocation = this.getClass().getClassLoader().getResource("sqllab.mv.db").getFile();
-		url = "jdbc:h2:file:" + dbLocation.replaceAll(".mv.db", "").replaceAll("/(\\w:)", "$1");
+		url = "jdbc:h2:file:" + dbLocation.replaceAll("%20", " ").replaceAll(".mv.db", "").replaceAll("/(\\w:)", "$1");
 
 		creators = new HashMap<Class<?>, DAOCreator<Connection>>();
 		creators.put(User.class, new DAOCreator<Connection>() {

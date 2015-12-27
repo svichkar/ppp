@@ -1,13 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url value="/style/style.css" var="cssUrl" />
-<c:url value="/js/basic.js" var="jsbasicUrl" />
+<c:url value="/js/focus.js" var="jsfocusUrl" />
+<c:url value="/js/part.js" var="jspartUrl" />
 <c:set var="title"
 	value="${action == 'add' ? 'Add New Part' : 'Edit Part'}" />
 <html>
 <head>
 <title><c:out value="${title}" /></title>
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="${jsbasicUrl}"></script>
+<script type="text/javascript" src="${jsfocusUrl}"></script>
+<script type="text/javascript" src="${jspartUrl}"></script>
 </head>
 <body>
 	<div class="head1"></div>

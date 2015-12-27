@@ -2,12 +2,12 @@
 <%@attribute name="title"%>
 <%@attribute name="content_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl"/>
-<c:url value="/js/basic.js" var="jsbasicUrl"/>
+<c:url value="/js/highlight.js" var="jshighlightUrl"/>
 <html>
 <head>
 <title>${title}</title>
 <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="${jsbasicUrl}"></script>
+<script type="text/javascript" src="${jshighlightUrl}"></script>
 </head>
 <body>
 	<div id="global">

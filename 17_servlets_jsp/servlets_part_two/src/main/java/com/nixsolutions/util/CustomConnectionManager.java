@@ -25,7 +25,7 @@ public class CustomConnectionManager {
 				LOG.error(ex.getMessage());
 			}
 			String dbLocation = CustomConnectionManager.class.getClassLoader().getResource("sqllab.mv.db").getFile();
-			String url = "jdbc:h2:file:" + dbLocation.replaceAll(".mv.db", "").replaceAll("/(\\w:)", "$1") + ";FILE_LOCK=NO";
+			String url = "jdbc:h2:file:" + dbLocation.replaceAll("%20", " ").replaceAll(".mv.db", "").replaceAll("/(\\w:)", "$1") + ";FILE_LOCK=NO";
 			h2ConnPool = JdbcConnectionPool.create(url,
 					props.getProperty("DB_USER"), props.getProperty("DB_PASSWORD"));
 			h2ConnPool.setMaxConnections(20);

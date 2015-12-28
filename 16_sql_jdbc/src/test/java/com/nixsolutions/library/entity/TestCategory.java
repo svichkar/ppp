@@ -78,10 +78,10 @@ public class TestCategory extends DBUnitConfig {
 
         Assert.assertEquals(2, categoryList.size());
 
-        Assert.assertEquals(1, categoryList.get(0).getCategoryId());
+        Assert.assertEquals(new Integer(1), categoryList.get(0).getCategoryId());
         Assert.assertEquals("comedy", categoryList.get(0).getName());
 
-        Assert.assertEquals(2, categoryList.get(1).getCategoryId());
+        Assert.assertEquals(new Integer(2), categoryList.get(1).getCategoryId());
         Assert.assertEquals("tragedy", categoryList.get(1).getName());
     }
 }

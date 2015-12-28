@@ -87,16 +87,16 @@ public class TestTicket extends DBUnitConfig {
 
         Assert.assertEquals(2, ticketList.size());
 
-        Assert.assertEquals(1, ticketList.get(0).getTicketId());
-        Assert.assertEquals(1, ticketList.get(0).getBookId());
-        Assert.assertEquals(1, ticketList.get(0).getClientId());
+        Assert.assertEquals(new Integer(1), ticketList.get(0).getTicketId());
+        Assert.assertEquals(new Integer(1), ticketList.get(0).getBookId());
+        Assert.assertEquals(new Integer(1), ticketList.get(0).getClientId());
         Assert.assertEquals("2015-12-26", ticketList.get(0).getRentDate().toString());
         Assert.assertEquals("2015-12-26", ticketList.get(0).getExpiredDate().toString());
         Assert.assertEquals("2015-12-26", ticketList.get(0).getReturnDate().toString());
 
-        Assert.assertEquals(2, ticketList.get(1).getTicketId());
-        Assert.assertEquals(2, ticketList.get(1).getBookId());
-        Assert.assertEquals(2, ticketList.get(1).getClientId());
+        Assert.assertEquals(new Integer(2), ticketList.get(1).getTicketId());
+        Assert.assertEquals(new Integer(2), ticketList.get(1).getBookId());
+        Assert.assertEquals(new Integer(2), ticketList.get(1).getClientId());
         Assert.assertEquals("2015-12-26", ticketList.get(1).getRentDate().toString());
         Assert.assertEquals("2015-12-26", ticketList.get(1).getExpiredDate().toString());
         Assert.assertEquals("2015-12-26", ticketList.get(1).getReturnDate().toString());

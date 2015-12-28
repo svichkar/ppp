@@ -30,15 +30,15 @@ public class Ticket {
         this.returnDate = returnDate;
     }
 
-    public int getTicketId() {
+    public Integer getTicketId() {
         return ticketId;
     }
 
-    public int getBookId() {
+    public Integer getBookId() {
         return bookId;
     }
 
-    public int getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 

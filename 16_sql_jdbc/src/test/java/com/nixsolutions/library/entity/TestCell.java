@@ -78,10 +78,10 @@ public class TestCell extends DBUnitConfig {
 
         Assert.assertEquals(2, cellList.size());
 
-        Assert.assertEquals(1, cellList.get(0).getCellId());
+        Assert.assertEquals(new Integer(1), cellList.get(0).getCellId());
         Assert.assertEquals("A", cellList.get(0).getName());
 
-        Assert.assertEquals(2, cellList.get(1).getCellId());
+        Assert.assertEquals(new Integer(2), cellList.get(1).getCellId());
         Assert.assertEquals("B", cellList.get(1).getName());
     }
 }

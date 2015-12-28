@@ -50,7 +50,7 @@ FOREIGN KEY (author_id) REFERENCES author (author_id),
 
 CREATE TABLE rent_journal
 (
-TICKET_id IDENTITY,
+ticket_id IDENTITY,
 book_id BIGINT,
 client_id BIGINT,
 rent_date DATE NOT NULL,
@@ -58,4 +58,19 @@ expired_date DATE NOT NULL,
 return_date DATE,
 FOREIGN KEY (book_id) REFERENCES book (book_id),
 FOREIGN KEY (client_id) REFERENCES client (client_id),
+);
+
+CREATE TABLE role
+(
+role_id IDENTITY,
+name VARCHAR (256) NOT NULL,
+);
+
+CREATE TABLE user
+(
+user_id IDENTITY,
+login VARCHAR (256) NOT NULL,
+password VARCHAR (256) NOT NULL,
+role_id BIGINT,
+FOREIGN KEY (role_id) REFERENCES role (role_id),
 );

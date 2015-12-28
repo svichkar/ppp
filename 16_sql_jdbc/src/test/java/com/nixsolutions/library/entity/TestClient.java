@@ -81,13 +81,13 @@ public class TestClient extends DBUnitConfig {
 
         Assert.assertEquals(2, clientList.size());
 
-        Assert.assertEquals(1, clientList.get(0).getClientId());
+        Assert.assertEquals(new Integer(1), clientList.get(0).getClientId());
         Assert.assertEquals("Petr", clientList.get(0).getFirstName());
         Assert.assertEquals("Ivanov", clientList.get(0).getLastName());
         Assert.assertEquals("111-45-78", clientList.get(0).getPhone());
         Assert.assertEquals("simple@mail.com", clientList.get(0).getEmail());
 
-        Assert.assertEquals(2, clientList.get(1).getClientId());
+        Assert.assertEquals(new Integer(2), clientList.get(1).getClientId());
         Assert.assertEquals("Ivan", clientList.get(1).getFirstName());
         Assert.assertEquals("Petrov", clientList.get(1).getLastName());
         Assert.assertEquals("175-54-67", clientList.get(1).getPhone());

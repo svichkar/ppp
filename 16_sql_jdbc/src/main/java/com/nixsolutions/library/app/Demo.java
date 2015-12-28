@@ -33,9 +33,19 @@ public class Demo {
         author = authorDAO.create(author);
         category = categoryDAO.create(category);
         cell = cellDAO.create(cell);
+
+        book.setCategoryId(category.getCategoryId());
+        book.setCellId(cell.getCellId());
         book = bookDAO.create(book);
+
+        authorBook.setAuthorId(author.getAuthorId());
+        authorBook.setBookId(book.getBookId());
         authorBook = authorBookDAO.create(authorBook);
+
         client = clientDAO.create(client);
+
+        ticket.setBookId(book.getBookId());
+        ticket.setClientId(client.getClientId());
         ticket = ticketDAO.create(ticket);
 
         author.setLastName("Smith");
@@ -43,7 +53,7 @@ public class Demo {
 
         ticketDAO.delete(ticket);
 
-        System.out.println(bookDAO.findByID(1).getName());
+        System.out.println(bookDAO.findByID(book.getBookId()).getName());
 
         System.out.println(clientDAO.findAll().size());
     }

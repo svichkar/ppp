@@ -22,7 +22,7 @@ public class Book {
         this.categoryId = categoryId;
     }
 
-    public int getBookId() {
+    public Integer getBookId() {
         return bookId;
     }
 
@@ -30,15 +30,15 @@ public class Book {
         return name;
     }
 
-    public int getCellId() {
+    public Integer getCellId() {
         return cellId;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setBookId(int bookId) {
+    public void setBookId(Integer bookId) {
         this.bookId = bookId;
     }
 
@@ -46,11 +46,11 @@ public class Book {
         this.name = name;
     }
 
-    public void setCellId(int cellId) {
+    public void setCellId(Integer cellId) {
         this.cellId = cellId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 }

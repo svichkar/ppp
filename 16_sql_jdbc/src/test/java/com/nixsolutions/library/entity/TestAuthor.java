@@ -80,11 +80,11 @@ public class TestAuthor extends DBUnitConfig {
 
         Assert.assertEquals(2, authorList.size());
 
-        Assert.assertEquals(1, authorList.get(0).getAuthorId());
+        Assert.assertEquals(new Integer(1), authorList.get(0).getAuthorId());
         Assert.assertEquals("Oleg", authorList.get(0).getFirstName());
         Assert.assertEquals("Kril", authorList.get(0).getLastName());
 
-        Assert.assertEquals(2, authorList.get(1).getAuthorId());
+        Assert.assertEquals(new Integer(2), authorList.get(1).getAuthorId());
         Assert.assertEquals("Alex", authorList.get(1).getFirstName());
         Assert.assertEquals("Barchuk", authorList.get(1).getLastName());
     }

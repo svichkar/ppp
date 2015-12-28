@@ -43,6 +43,8 @@ public class DeleteDB {
             statement.addBatch("DROP TABLE client;");
             statement.addBatch("DROP TABLE category;");
             statement.addBatch("DROP TABLE cell;");
+            statement.addBatch("DROP TABLE user;");
+            statement.addBatch("DROP TABLE role;");
 
             statement.executeBatch();
 

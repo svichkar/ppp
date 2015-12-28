@@ -25,7 +25,7 @@ public class Client {
         this.email = email;
     }
 
-    public int getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 

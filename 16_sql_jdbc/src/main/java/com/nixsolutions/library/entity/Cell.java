@@ -16,7 +16,7 @@ public class Cell {
         this.name = name;
     }
 
-    public int getCellId() {
+    public Integer getCellId() {
         return cellId;
     }
 

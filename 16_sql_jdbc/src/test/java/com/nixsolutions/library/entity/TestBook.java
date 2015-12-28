@@ -80,14 +80,14 @@ public class TestBook extends DBUnitConfig {
 
         Assert.assertEquals(2, bookList.size());
 
-        Assert.assertEquals(1, bookList.get(0).getBookId());
+        Assert.assertEquals(new Integer(1), bookList.get(0).getBookId());
         Assert.assertEquals("bard tales", bookList.get(0).getName());
-        Assert.assertEquals(1, bookList.get(0).getCellId());
-        Assert.assertEquals(1, bookList.get(0).getCategoryId());
+        Assert.assertEquals(new Integer(1), bookList.get(0).getCellId());
+        Assert.assertEquals(new Integer(1), bookList.get(0).getCategoryId());
 
-        Assert.assertEquals(2, bookList.get(1).getBookId());
+        Assert.assertEquals(new Integer(2), bookList.get(1).getBookId());
         Assert.assertEquals("stories", bookList.get(1).getName());
-        Assert.assertEquals(2, bookList.get(1).getCellId());
-        Assert.assertEquals(2, bookList.get(1).getCategoryId());
+        Assert.assertEquals(new Integer(2), bookList.get(1).getCellId());
+        Assert.assertEquals(new Integer(2), bookList.get(1).getCategoryId());
     }
 }

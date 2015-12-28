@@ -81,12 +81,12 @@ public class TestAuthorBook extends DBUnitConfig {
 
         Assert.assertEquals(2, authorBooksList.size());
 
-        Assert.assertEquals(1, authorBooksList.get(0).getId());
-        Assert.assertEquals(1, authorBooksList.get(0).getAuthorId());
-        Assert.assertEquals(1, authorBooksList.get(0).getBookId());
+        Assert.assertEquals(new Integer(1), authorBooksList.get(0).getId());
+        Assert.assertEquals(new Integer(1), authorBooksList.get(0).getAuthorId());
+        Assert.assertEquals(new Integer(1), authorBooksList.get(0).getBookId());
 
-        Assert.assertEquals(2, authorBooksList.get(1).getId());
-        Assert.assertEquals(2, authorBooksList.get(1).getAuthorId());
-        Assert.assertEquals(2, authorBooksList.get(1).getBookId());
+        Assert.assertEquals(new Integer(2), authorBooksList.get(1).getId());
+        Assert.assertEquals(new Integer(2), authorBooksList.get(1).getAuthorId());
+        Assert.assertEquals(new Integer(2), authorBooksList.get(1).getBookId());
     }
 }

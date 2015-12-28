@@ -1,49 +1,33 @@
 package com.nixsolutions.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import com.nixsolutions.app.H2ConnManager;
-import com.nixsolutions.dao.impl.AuthorBookDaoImpl;
-import com.nixsolutions.dao.impl.AuthorDaoImpl;
-import com.nixsolutions.dao.impl.BookDaoImpl;
-import com.nixsolutions.dao.impl.CategoryDaoImpl;
-import com.nixsolutions.dao.impl.CellDaoImpl;
-import com.nixsolutions.dao.impl.ClientDaoImpl;
-import com.nixsolutions.dao.impl.RentJournalDaoImpl;
-
-public class DaoFactory {
+public abstract class DaoFactory {
+	public static final int H2 = 1;
+	public static final int CLOUDSCAPE = 2;
+	public static final int ORACLE = 3;
+	public static final int SYBASE = 4;
 	
-	public Connection getConnection() throws SQLException {
-		Connection connect = H2ConnManager.getConnection();
-		return connect;
-	}
-
-	public AuthorBookDao getAuthorBookDao() {
-		return new AuthorBookDaoImpl();
-	}
-
-	public AuthorDao getAuthorDao() {
-		return new AuthorDaoImpl();
-	}
-
-	public BookDao getBookDao() {
-		return new BookDaoImpl();
-	}
-
-	public CategoryDao getCategoryDao() {
-		return new CategoryDaoImpl();
-	}
-
-	public CellDao getCellDao() {
-		return new CellDaoImpl();
-	}
-
-	public ClientDao getClientDao() {
-		return new ClientDaoImpl();
-	}
-
-	public RentJournalDao getRentJournalDao() {
-		return new RentJournalDaoImpl();
-	}
+	public abstract AuthorBookDao getAuthorBookDao();
+	public abstract AuthorDao getAuthorDao();
+	public abstract BookDao getBookDao();
+	public abstract CategoryDao getCategoryDao();
+	public abstract CellDao getCellDao();
+	public abstract ClientDao getClientDao();
+	public abstract RentJournalDao getRentJournalDao();
+	
+	public static H2DaoFactory getDAOFactory(
+		      int whichFactory) {
+		  
+		    switch (whichFactory) {
+		    case H2:
+		    	 return new H2DaoFactory();
+		    case CLOUDSCAPE: 
+		          return null; //not implemented
+		      case ORACLE    : 
+		          return null; //not implemented
+		      case SYBASE    : 
+		          return null; //not implemented
+		      default           : 
+		          return null;
+		    }
+		  }
 }

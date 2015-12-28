@@ -4519,3 +4519,869 @@ com.nixsolutions.dao.DaoException: not able to update the author
 2015-12-27 22:39:56,965 TRACE c.n.d.i.RentJournalDaoImpl [main] the rentJournal was retrieved
 2015-12-27 22:39:57,013 TRACE c.n.d.i.RentJournalDaoImpl [main] the rentJournal was retrieved
 2015-12-27 22:39:57,054 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:19:49,904 ERROR c.n.d.i.AuthorDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:65) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:32) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:19:49,922 ERROR c.n.d.i.AuthorDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:32) [classes/:?]
+2015-12-28 14:19:51,945 ERROR c.n.d.i.CellDaoImpl [main] not able to create a cell
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:38) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:19:51,947 ERROR c.n.d.i.CellDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a cell
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:38) [classes/:?]
+2015-12-28 14:19:53,948 ERROR c.n.d.i.CategoryDaoImpl [main] not able to create a category
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:44) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:19:53,950 ERROR c.n.d.i.CategoryDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a category
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:44) [classes/:?]
+2015-12-28 14:19:55,967 ERROR c.n.d.i.ClientDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:72) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:54) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:19:55,968 ERROR c.n.d.i.ClientDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:82) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:54) [classes/:?]
+2015-12-28 14:19:57,986 ERROR c.n.d.i.BookDaoImpl [main] not able to create an book
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:69) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:63) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:19:57,988 ERROR c.n.d.i.BookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an book
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:77) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:63) [classes/:?]
+2015-12-28 14:19:59,993 ERROR c.n.d.i.AuthorBookDaoImpl [main] not able to create the authorBook
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:83) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:69) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:19:59,996 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:91) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:69) [classes/:?]
+2015-12-28 14:20:02,010 ERROR c.n.d.i.RentJournalDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Connection is broken: "java.net.ConnectException: Connection refused: connect: localhost" [90067-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:168) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:452) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:329) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:107) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:91) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.Driver.connect(Driver.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getJdbcConnection(JdbcDataSource.java:190) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getXAConnection(JdbcDataSource.java:353) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcDataSource.getPooledConnection(JdbcDataSource.java:385) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnectionNow(JdbcConnectionPool.java:227) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbcx.JdbcConnectionPool.getConnection(JdbcConnectionPool.java:199) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.app.H2ConnManager.getConnection(H2ConnManager.java:28) ~[classes/:?]
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:77) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:79) [classes/:?]
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method) ~[?:1.8.0_65]
+	at java.net.DualStackPlainSocketImpl.socketConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.doConnect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connectToAddress(Unknown Source) ~[?:1.8.0_65]
+	at java.net.AbstractPlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.PlainSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.SocksSocketImpl.connect(Unknown Source) ~[?:1.8.0_65]
+	at java.net.Socket.connect(Unknown Source) ~[?:1.8.0_65]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:122) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.util.NetUtils.createSocket(NetUtils.java:102) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.initTransfer(SessionRemote.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.connectServer(SessionRemote.java:448) ~[h2-1.4.190.jar:1.4.190]
+	... 12 more
+2015-12-28 14:20:02,011 ERROR c.n.d.i.RentJournalDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:89) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:79) [classes/:?]
+2015-12-28 14:20:14,195 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:20:14,199 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:20:14,203 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:20:14,208 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:20:14,210 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 14:20:14,231 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:31:07,000 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 14:31:14,486 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 14:31:20,702 ERROR c.n.d.i.AuthorDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: NULL not allowed for column "FIRST_NAME"; SQL statement:
+INSERT INTO author (first_name, last_name) VALUES (?, ?) [23502-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:191) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:68) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:39) [classes/:?]
+2015-12-28 14:31:20,708 ERROR c.n.d.i.AuthorDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:39) [classes/:?]
+2015-12-28 14:31:20,710 ERROR c.n.d.i.AuthorDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: NULL not allowed for column "FIRST_NAME"; SQL statement:
+INSERT INTO author (first_name, last_name) VALUES (?, ?) [23502-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:191) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:68) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:40) [classes/:?]
+2015-12-28 14:31:20,710 ERROR c.n.d.i.AuthorDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:40) [classes/:?]
+2015-12-28 14:31:20,713 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:31:20,715 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:31:20,716 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:31:20,720 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:31:20,722 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:31:20,723 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:31:20,726 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:31:20,729 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:31:20,730 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:31:20,735 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:31:20,737 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:31:20,738 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:31:20,741 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 14:31:20,745 ERROR c.n.d.i.AuthorBookDaoImpl [main] not able to create the authorBook
+org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (2)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:191) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:86) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:114) [classes/:?]
+2015-12-28 14:31:20,746 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:91) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:114) [classes/:?]
+2015-12-28 14:31:20,750 ERROR c.n.d.i.AuthorBookDaoImpl [main] not able to create the authorBook
+org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (3)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:191) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:86) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:115) [classes/:?]
+2015-12-28 14:31:20,751 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:91) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:115) [classes/:?]
+2015-12-28 14:31:20,758 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:31:20,759 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:31:20,761 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:37:47,478 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 14:37:51,544 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 14:37:57,410 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:37:57,413 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:37:57,413 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 14:37:57,416 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:37:57,417 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:37:57,417 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 14:37:57,420 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:37:57,421 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:37:57,422 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 14:37:57,425 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:37:57,427 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:37:57,429 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 14:37:57,432 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 14:37:57,433 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 14:37:57,435 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 14:37:57,442 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:37:57,445 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 14:37:57,447 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 17:54:15,591 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 17:54:19,879 ERROR c.n.d.i.AuthorDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "AUTHOR" not found; SQL statement:
+INSERT INTO author (first_name, last_name) VALUES (?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:65) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:38) [classes/:?]
+2015-12-28 17:54:19,884 ERROR c.n.d.i.AuthorDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:38) [classes/:?]
+2015-12-28 17:54:19,896 ERROR c.n.d.i.AuthorDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "AUTHOR" not found; SQL statement:
+INSERT INTO author (first_name, last_name) VALUES (?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:65) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:39) [classes/:?]
+2015-12-28 17:54:19,896 ERROR c.n.d.i.AuthorDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:39) [classes/:?]
+2015-12-28 17:54:19,898 ERROR c.n.d.i.AuthorDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "AUTHOR" not found; SQL statement:
+INSERT INTO author (first_name, last_name) VALUES (?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:65) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:40) [classes/:?]
+2015-12-28 17:54:19,899 ERROR c.n.d.i.AuthorDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.AuthorDaoImpl.createAuthor(AuthorDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:40) [classes/:?]
+2015-12-28 17:54:19,902 ERROR c.n.d.i.CellDaoImpl [main] not able to create a cell
+org.h2.jdbc.JdbcSQLException: Table "CELL" not found; SQL statement:
+INSERT INTO cell (name) VALUES (?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:48) [classes/:?]
+2015-12-28 17:54:19,903 ERROR c.n.d.i.CellDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a cell
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:48) [classes/:?]
+2015-12-28 17:54:19,904 ERROR c.n.d.i.CellDaoImpl [main] not able to create a cell
+org.h2.jdbc.JdbcSQLException: Table "CELL" not found; SQL statement:
+INSERT INTO cell (name) VALUES (?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:49) [classes/:?]
+2015-12-28 17:54:19,905 ERROR c.n.d.i.CellDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a cell
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:49) [classes/:?]
+2015-12-28 17:54:19,906 ERROR c.n.d.i.CellDaoImpl [main] not able to create a cell
+org.h2.jdbc.JdbcSQLException: Table "CELL" not found; SQL statement:
+INSERT INTO cell (name) VALUES (?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:50) [classes/:?]
+2015-12-28 17:54:19,907 ERROR c.n.d.i.CellDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a cell
+	at com.nixsolutions.dao.impl.CellDaoImpl.createCell(CellDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:50) [classes/:?]
+2015-12-28 17:54:19,920 ERROR c.n.d.i.CategoryDaoImpl [main] not able to create a category
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO category (name) VALUES (?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:58) [classes/:?]
+2015-12-28 17:54:19,920 ERROR c.n.d.i.CategoryDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a category
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:58) [classes/:?]
+2015-12-28 17:54:19,923 ERROR c.n.d.i.CategoryDaoImpl [main] not able to create a category
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO category (name) VALUES (?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:59) [classes/:?]
+2015-12-28 17:54:19,924 ERROR c.n.d.i.CategoryDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a category
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:59) [classes/:?]
+2015-12-28 17:54:19,926 ERROR c.n.d.i.CategoryDaoImpl [main] not able to create a category
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO category (name) VALUES (?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:60) [classes/:?]
+2015-12-28 17:54:19,926 ERROR c.n.d.i.CategoryDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create a category
+	at com.nixsolutions.dao.impl.CategoryDaoImpl.createCategory(CategoryDaoImpl.java:71) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:60) [classes/:?]
+2015-12-28 17:54:19,931 ERROR c.n.d.i.ClientDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "CLIENT" not found; SQL statement:
+INSERT INTO client (first_name, last_name, phone, email) VALUES (?, ?, ?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:72) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:82) [classes/:?]
+2015-12-28 17:54:19,932 ERROR c.n.d.i.ClientDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:82) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:82) [classes/:?]
+2015-12-28 17:54:19,933 ERROR c.n.d.i.ClientDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "CLIENT" not found; SQL statement:
+INSERT INTO client (first_name, last_name, phone, email) VALUES (?, ?, ?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:72) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:83) [classes/:?]
+2015-12-28 17:54:19,934 ERROR c.n.d.i.ClientDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:82) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:83) [classes/:?]
+2015-12-28 17:54:19,938 ERROR c.n.d.i.ClientDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "CLIENT" not found; SQL statement:
+INSERT INTO client (first_name, last_name, phone, email) VALUES (?, ?, ?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:72) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:84) [classes/:?]
+2015-12-28 17:54:19,940 ERROR c.n.d.i.ClientDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.ClientDaoImpl.createClient(ClientDaoImpl.java:82) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:84) [classes/:?]
+2015-12-28 17:54:19,943 ERROR c.n.d.i.BookDaoImpl [main] not able to create an book
+org.h2.jdbc.JdbcSQLException: Table "BOOK" not found; SQL statement:
+INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?); [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:69) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:103) [classes/:?]
+2015-12-28 17:54:19,944 ERROR c.n.d.i.BookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an book
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:77) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:103) [classes/:?]
+2015-12-28 17:54:19,946 ERROR c.n.d.i.BookDaoImpl [main] not able to create an book
+org.h2.jdbc.JdbcSQLException: Table "BOOK" not found; SQL statement:
+INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?); [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:69) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:104) [classes/:?]
+2015-12-28 17:54:19,946 ERROR c.n.d.i.BookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an book
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:77) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:104) [classes/:?]
+2015-12-28 17:54:19,947 ERROR c.n.d.i.BookDaoImpl [main] not able to create an book
+org.h2.jdbc.JdbcSQLException: Table "BOOK" not found; SQL statement:
+INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?); [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:69) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:105) [classes/:?]
+2015-12-28 17:54:19,948 ERROR c.n.d.i.BookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an book
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:77) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:105) [classes/:?]
+2015-12-28 17:54:19,952 ERROR c.n.d.i.AuthorBookDaoImpl [main] not able to create the authorBook
+org.h2.jdbc.JdbcSQLException: Table "AUTHOR_BOOK" not found; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:83) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:113) [classes/:?]
+2015-12-28 17:54:19,952 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:91) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:113) [classes/:?]
+2015-12-28 17:54:19,954 ERROR c.n.d.i.AuthorBookDaoImpl [main] not able to create the authorBook
+org.h2.jdbc.JdbcSQLException: Table "AUTHOR_BOOK" not found; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:83) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:114) [classes/:?]
+2015-12-28 17:54:19,954 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:91) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:114) [classes/:?]
+2015-12-28 17:54:19,955 ERROR c.n.d.i.AuthorBookDaoImpl [main] not able to create the authorBook
+org.h2.jdbc.JdbcSQLException: Table "AUTHOR_BOOK" not found; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:83) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:115) [classes/:?]
+2015-12-28 17:54:19,956 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:91) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:115) [classes/:?]
+2015-12-28 17:54:19,960 ERROR c.n.d.i.RentJournalDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "RENT_JOURNAL" not found; SQL statement:
+INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:78) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:137) [classes/:?]
+2015-12-28 17:54:19,960 ERROR c.n.d.i.RentJournalDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:89) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:137) [classes/:?]
+2015-12-28 17:54:19,963 ERROR c.n.d.i.RentJournalDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "RENT_JOURNAL" not found; SQL statement:
+INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:78) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:138) [classes/:?]
+2015-12-28 17:54:19,964 ERROR c.n.d.i.RentJournalDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:89) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:138) [classes/:?]
+2015-12-28 17:54:19,965 ERROR c.n.d.i.RentJournalDaoImpl [main] not able to create an author
+org.h2.jdbc.JdbcSQLException: Table "RENT_JOURNAL" not found; SQL statement:
+INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?) [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:78) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:139) [classes/:?]
+2015-12-28 17:54:19,966 ERROR c.n.d.i.RentJournalDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:89) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:139) [classes/:?]
+2015-12-28 17:54:19,968 ERROR c.n.d.i.ClientDaoImpl [main] not able to get a client by Id
+org.h2.jdbc.JdbcSQLException: Table "CLIENT" not found; SQL statement:
+SELECT * FROM client WHERE client_id = ?; [42102-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.prepare(CommandRemote.java:68) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.<init>(CommandRemote.java:45) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.engine.SessionRemote.prepareCommand(SessionRemote.java:494) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:72) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.ClientDaoImpl.getClientById(ClientDaoImpl.java:50) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:142) [classes/:?]
+2015-12-28 17:54:19,968 ERROR c.n.d.i.ClientDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to get a client by Id
+	at com.nixsolutions.dao.impl.ClientDaoImpl.getClientById(ClientDaoImpl.java:64) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:142) [classes/:?]
+2015-12-28 17:54:40,102 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 17:54:45,695 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 17:54:45,698 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 17:54:45,702 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 17:54:45,705 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 17:54:45,706 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 17:54:45,707 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 17:54:45,711 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 17:54:45,712 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 17:54:45,712 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 17:54:45,716 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 17:54:45,717 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 17:54:45,718 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 17:54:45,721 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 17:54:45,722 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 17:54:45,723 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 17:54:45,729 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 17:54:45,730 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 17:54:45,731 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 17:54:45,740 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:12:02,778 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 18:12:07,014 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 18:12:11,329 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:11,332 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:11,333 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:11,336 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:11,337 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:11,338 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:11,341 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:11,342 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:11,343 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:11,347 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:11,349 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:11,350 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:11,353 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:11,360 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:11,361 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:11,367 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:11,369 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:11,370 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:11,378 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:12:11,380 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:12:11,390 ERROR c.n.d.i.CellDaoImpl [main] not able to delete the cell
+org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_1F3: PUBLIC.BOOK FOREIGN KEY(CELL_ID) REFERENCES PUBLIC.CELL(CELL_ID) (2)"; SQL statement:
+DELETE FROM cell WHERE cell_id = ? [23503-190]
+	at org.h2.engine.SessionRemote.done(SessionRemote.java:624) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandRemote.executeUpdate(CommandRemote.java:191) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.CellDaoImpl.deleteCell(CellDaoImpl.java:95) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:160) [classes/:?]
+2015-12-28 18:12:11,394 ERROR c.n.d.i.CellDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to delete the cell
+	at com.nixsolutions.dao.impl.CellDaoImpl.deleteCell(CellDaoImpl.java:99) [classes/:?]
+	at com.nixsolutions.app.DaoDemo.main(DaoDemo.java:160) [classes/:?]
+2015-12-28 18:12:33,914 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 18:12:37,442 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 18:12:41,140 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:41,142 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:41,143 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:41,145 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:41,146 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:41,147 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:41,149 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:41,150 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:41,151 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:41,154 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:41,155 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:41,156 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:41,158 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:41,159 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:41,160 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:41,166 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:41,167 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:41,169 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:41,176 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:12:41,178 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:12:51,841 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 18:12:54,833 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 18:12:57,983 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:57,985 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:57,986 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:12:57,988 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:57,989 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:57,990 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:12:57,993 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:57,993 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:57,994 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:12:57,997 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:57,998 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:57,999 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:12:58,002 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:58,003 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:58,004 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:12:58,009 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:58,011 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:58,012 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:12:58,020 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:12:58,022 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:13:21,266 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 18:13:24,661 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 18:13:28,624 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:13:28,626 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:13:28,626 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:13:28,629 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:13:28,629 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:13:28,630 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:13:28,636 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:13:28,637 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:13:28,638 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:13:28,641 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:13:28,642 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:13:28,643 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:13:28,646 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:13:28,647 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:13:28,648 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:13:28,653 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:13:28,655 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:13:28,657 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:13:28,664 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:13:28,665 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:13:28,669 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:20:46,842 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 18:20:52,208 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 18:20:56,211 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:20:56,214 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:20:56,215 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:20:56,217 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:20:56,219 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:20:56,220 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:20:56,223 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:20:56,223 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:20:56,224 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:20:56,227 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:20:56,228 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:20:56,229 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:20:56,232 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:20:56,233 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:20:56,233 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:20:56,238 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:20:56,240 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:20:56,241 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:20:56,248 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:20:56,251 TRACE c.n.d.i.ClientDaoImpl [main] client with id: 1 was updated
+2015-12-28 18:20:56,253 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:20:56,254 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:20:56,256 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:47:48,991 INFO c.n.a.DeleteTables [main] all the tables were deleted
+2015-12-28 18:47:56,024 INFO c.n.a.CreateTables [main] all the tables were created
+2015-12-28 18:47:59,813 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:47:59,815 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:47:59,815 TRACE c.n.d.i.CellDaoImpl [main] cell was created
+2015-12-28 18:47:59,818 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:47:59,818 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:47:59,819 TRACE c.n.d.i.CategoryDaoImpl [main] category was created
+2015-12-28 18:47:59,821 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:47:59,823 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:47:59,825 TRACE c.n.d.i.ClientDaoImpl [main] client was created
+2015-12-28 18:47:59,828 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:47:59,829 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:47:59,830 TRACE c.n.d.i.BookDaoImpl [main] book was created
+2015-12-28 18:47:59,833 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:47:59,834 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:47:59,835 TRACE c.n.d.i.AuthorBookDaoImpl [main] authorBook entry was created
+2015-12-28 18:47:59,841 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:47:59,842 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:47:59,844 TRACE c.n.d.i.RentJournalDaoImpl [main] rentJournal was created
+2015-12-28 18:47:59,851 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:47:59,853 TRACE c.n.d.i.ClientDaoImpl [main] client with id: 1 was updated
+2015-12-28 18:47:59,855 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2015-12-28 18:47:59,857 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2015-12-28 18:47:59,859 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved

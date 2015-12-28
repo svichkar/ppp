@@ -8,6 +8,7 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
+
 import com.nixsolutions.dao.impl.CellDaoImpl;
 import com.nixsolutions.entity.Cell;
 

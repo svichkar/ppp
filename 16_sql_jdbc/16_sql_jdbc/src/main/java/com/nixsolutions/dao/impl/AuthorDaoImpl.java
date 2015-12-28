@@ -31,7 +31,6 @@ public class AuthorDaoImpl implements AuthorDao {
 				auth.setFirstName(result.getString("first_name"));
 				auth.setSecondName(result.getString("last_name"));
 				authors.add(auth);
-				// need to insert assertion - if transaction was done
 			}
 		} catch (SQLException e) {
 			LOG.error("not able to get authors", e);
@@ -67,7 +66,6 @@ public class AuthorDaoImpl implements AuthorDao {
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
 			statem.executeUpdate();
-			// need to insert assertion - if transaction was done
 		} catch (SQLException e) {
 			LOG.error("not able to create an author", e);
 			LOG.throwing(new DaoException("not able to create an author"));
@@ -82,7 +80,6 @@ public class AuthorDaoImpl implements AuthorDao {
 			statem.setString(2, author.getSecondName());
 			statem.setLong(3, author.getAuthorId());
 			statem.executeUpdate();
-			// need to insert assertion - if transaction was done
 		} catch (SQLException e) {
 			LOG.error("not able to update the author", e);
 			LOG.throwing(new DaoException("not able to update the author"));
@@ -95,7 +92,6 @@ public class AuthorDaoImpl implements AuthorDao {
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setLong(1, author.getAuthorId());
 			statem.executeUpdate();
-			// need to insert assertion - if transaction was done
 		} catch (SQLException e) {
 			LOG.error("not able to delete the author", e);
 			LOG.throwing(new DaoException("not able to delete the author"));

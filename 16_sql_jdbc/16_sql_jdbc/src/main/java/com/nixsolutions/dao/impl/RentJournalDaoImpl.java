@@ -23,7 +23,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public List<RentJournal> getAllRents() {
 		String sql = "SELECT * FROM rent_journal;";
 		List<RentJournal> rentJournals = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
+		try (Connection conn = H2ConnManager.getConnection();
+				Statement statem = conn.createStatement()) {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				RentJournal rentJournal = new RentJournal();
@@ -46,7 +47,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public RentJournal getRentById(int rentId) {
 		String sql = "SELECT * FROM rent_journal WHERE ticket_id = ?;";
 		RentJournal rentJournal = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, rentId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
@@ -60,7 +62,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			LOG.trace("the rentJournal was retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get a rentJournal by Id", e);
-			LOG.throwing(new DaoException("not able to get a rentJournal by Id"));
+			LOG.throwing(
+					new DaoException("not able to get a rentJournal by Id"));
 		}
 		return rentJournal;
 	}
@@ -88,55 +91,97 @@ public class RentJournalDaoImpl implements RentJournalDao {
 				conn.rollback();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
-			} finally {
-
-				if (statem != null) {
-					try {
-						statem.close();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-
-				}
-				if (conn != null) {
-					try {
-						conn.close();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
+			}
+		} finally {
+			if (statem != null) {
+				try {
+					statem.close();
+				} catch (SQLException e1) {// no need to trace it
 				}
 			}
-
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e1) {// no need to trace it
+				}
+			}
 		}
 	}
 
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		String sql = "UPDATE rent_journal SET book_id = ?, client_id = ?, rent_date = ?, return_date = ?  WHERE ticket_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		try {
+			conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
+			conn.setAutoCommit(false);
 			statem.setInt(1, rentJournal.getBookId());
 			statem.setInt(2, rentJournal.getClientId());
 			statem.setDate(3, rentJournal.getRentDate());
 			statem.setDate(4, rentJournal.getReturnDate());
 			statem.setInt(5, rentJournal.getRentId());
 			statem.executeUpdate();
+			conn.commit();
 			LOG.trace("rentJournal was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the author", e);
 			LOG.throwing(new DaoException("not able to update the author"));
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if (statem != null) {
+				try {
+					statem.close();
+				} catch (SQLException e1) {// no need to trace it
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e1) {// no need to trace it
+				}
+			}
 		}
 	}
 
 	@Override
 	public void deleteRent(RentJournal rentJournal) {
 		String sql = "DELETE FROM rent_journal WHERE ticket_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		try {
+			conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
+			conn.setAutoCommit(false);
 			statem.setLong(1, rentJournal.getRentId());
 			statem.executeUpdate();
+			conn.commit();
 		} catch (SQLException e) {
 			LOG.error("not able to delete the author", e);
 			LOG.throwing(new DaoException("not able to delete the author"));
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			if (statem != null) {
+				try {
+					statem.close();
+				} catch (SQLException e1) {// no need to trace it
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e1) {// no need to trace it
+				}
+			}
 		}
 	}
-
 }

@@ -25,7 +25,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
             statement.setString(2, group.getGroupName());
             statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -43,7 +43,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
             statement.setInt(2, group.getGroupId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -61,7 +61,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
             statement.setString(2, group.getGroupName());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -84,7 +84,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
                 group.setGroupName(rs.getString("group_name"));
                 list.add(group);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -104,7 +104,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
                 result.setGroupId(rs.getInt("group_id"));
                 result.setGroupName(rs.getString("group_name"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

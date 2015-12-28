@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.GradeDao;
 import com.nixsolutions.studentgrade.entity.Grade;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
  * Created by svichkar on 12/18/2015.
  */
 public class GradeDaoImpl implements GradeDao {
+
+    private static final Logger LOG = LogManager.getLogger(GradeDaoImpl.class);
 
     @Override
     public boolean create(Grade grade) {
@@ -25,9 +29,9 @@ public class GradeDaoImpl implements GradeDao {
             statement.setString(2, grade.getGradeName());
             statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
+        } catch (SQLException e) {
+            LOG.error(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -44,7 +48,7 @@ public class GradeDaoImpl implements GradeDao {
 
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -61,7 +65,7 @@ public class GradeDaoImpl implements GradeDao {
             statement.setInt(1, grade.getGradeId());
             statement.setString(2, grade.getGradeName());
             return statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -84,7 +88,7 @@ public class GradeDaoImpl implements GradeDao {
                 grade.setGradeName(rs.getString("grade_name"));
                 list.add(grade);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -104,7 +108,7 @@ public class GradeDaoImpl implements GradeDao {
                 result.setGradeId(rs.getInt("grade_id"));
                 result.setGradeName(rs.getString("grade_name"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

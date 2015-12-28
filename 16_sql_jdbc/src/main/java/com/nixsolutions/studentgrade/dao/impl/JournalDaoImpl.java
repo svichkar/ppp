@@ -27,7 +27,7 @@ public class JournalDaoImpl implements JournalDao {
             statement.executeUpdate();
 
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -47,7 +47,7 @@ public class JournalDaoImpl implements JournalDao {
             statement.setInt(4, journal.getJournalId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -67,7 +67,7 @@ public class JournalDaoImpl implements JournalDao {
             statement.setInt(4, journal.getGradeId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -92,7 +92,7 @@ public class JournalDaoImpl implements JournalDao {
                 journal.setGradeId(rs.getInt("grade_id"));
                 list.add(journal);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -114,7 +114,7 @@ public class JournalDaoImpl implements JournalDao {
                 result.setSubjectId(rs.getInt("subject_id"));
                 result.setGradeId(rs.getInt("grade_id"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

@@ -18,7 +18,7 @@ public class GradeTest {
         StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
         List<Grade> list = new ArrayList<>();
 
-        try  {
+
             GradeDao dao = daoFactory.getGradeDao();
 
             Grade grade = new Grade(22, "dsfsd");
@@ -27,9 +27,7 @@ public class GradeTest {
             dao.delete(new Grade(12, "another one"));
             list = dao.findAll();
             dao.findById(9);
-        } catch (Exception e) {
 
-        }
         Assert.assertNotNull(list);
         Assert.assertTrue(list.size() == 1);
     }

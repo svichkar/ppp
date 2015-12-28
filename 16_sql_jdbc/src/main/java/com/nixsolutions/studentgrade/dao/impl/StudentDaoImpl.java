@@ -31,7 +31,7 @@ public class StudentDaoImpl implements StudentDao {
             statement.executeUpdate();
 
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -54,7 +54,7 @@ public class StudentDaoImpl implements StudentDao {
             statement.setInt(7, student.getStudentId());
 
             return statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -78,7 +78,7 @@ public class StudentDaoImpl implements StudentDao {
             statement.setInt(7, student.getTermId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -107,7 +107,7 @@ public class StudentDaoImpl implements StudentDao {
 
                 list.add(student);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -133,7 +133,7 @@ public class StudentDaoImpl implements StudentDao {
                 result.setStatusId(rs.getInt("status_id"));
                 result.setTermId(rs.getInt("term_id"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

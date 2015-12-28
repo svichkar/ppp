@@ -25,7 +25,7 @@ public class TermDaoImpl implements TermDao {
             statement.setString(2, term.getTermName());
             statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -43,7 +43,7 @@ public class TermDaoImpl implements TermDao {
             statement.setInt(2, term.getTermId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -60,7 +60,7 @@ public class TermDaoImpl implements TermDao {
             statement.setInt(1, term.getTermId());
             statement.setString(2, term.getTermName());
             return statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -82,7 +82,7 @@ public class TermDaoImpl implements TermDao {
                 term.setTermName(rs.getString("term_name"));
                 list.add(term);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -102,7 +102,7 @@ public class TermDaoImpl implements TermDao {
                 result.setTermId(rs.getInt("term_id"));
                 result.setTermName(rs.getString("term_name"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

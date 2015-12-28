@@ -24,7 +24,7 @@ public class StatusDaoImpl implements StatusDao {
             statement.setString(2, status.getStatusName());
             statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -42,7 +42,7 @@ public class StatusDaoImpl implements StatusDao {
             statement.setInt(2, status.getStatusId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -59,7 +59,7 @@ public class StatusDaoImpl implements StatusDao {
             statement.setInt(1, status.getStatusId());
             statement.setString(2, status.getStatusName());
             return statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -82,7 +82,7 @@ public class StatusDaoImpl implements StatusDao {
                 status.setStatusName(rs.getString("status_name"));
                 list.add(status);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -102,7 +102,7 @@ public class StatusDaoImpl implements StatusDao {
                 result.setStatusId(rs.getInt("status_id"));
                 result.setStatusName(rs.getString("status_name"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

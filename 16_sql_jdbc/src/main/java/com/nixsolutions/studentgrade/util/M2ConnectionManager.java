@@ -1,5 +1,7 @@
 package com.nixsolutions.studentgrade.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.h2.jdbcx.JdbcConnectionPool;
 
 import java.io.IOException;
@@ -12,9 +14,11 @@ import java.util.Properties;
  */
 public class M2ConnectionManager {
 
+    private static final Logger LOG = LogManager.getLogger(M2ConnectionManager.class);
     public static JdbcConnectionPool connectionPool;
 
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
+
+    public static Connection getConnection() {
 
         if (connectionPool == null) {
 
@@ -22,9 +26,9 @@ public class M2ConnectionManager {
             try {
                 prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties"));
             } catch (IOException e) {
-                e.printStackTrace();
+                LOG.error(e);
+                throw new RuntimeException(e);
             }
-
             String url = prop.getProperty("jdbc.url");
             String user = prop.getProperty("jdbc.user");
             String password = prop.getProperty("jdbc.password");
@@ -34,6 +38,15 @@ public class M2ConnectionManager {
             connectionPool.setLoginTimeout(120);
         }
 
-        return connectionPool.getConnection();
+        try {
+            return connectionPool.getConnection();
+        } catch (SQLException e) {
+            LOG.error(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void closePoolConnections() {
+        connectionPool.dispose();
     }
 }

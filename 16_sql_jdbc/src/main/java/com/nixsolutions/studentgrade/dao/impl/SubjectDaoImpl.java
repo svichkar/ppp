@@ -26,7 +26,7 @@ public class SubjectDaoImpl implements SubjectDao {
             statement.setInt(3, subject.getTermId());
             statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -46,7 +46,7 @@ public class SubjectDaoImpl implements SubjectDao {
             statement.setInt(3, subject.getSubjectId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -65,7 +65,7 @@ public class SubjectDaoImpl implements SubjectDao {
             statement.setInt(3, subject.getTermId());
             return statement.executeUpdate();
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return 0;
         }
@@ -89,7 +89,7 @@ public class SubjectDaoImpl implements SubjectDao {
                 subject.setTermId(rs.getInt("term_id"));
                 list.add(subject);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -110,7 +110,7 @@ public class SubjectDaoImpl implements SubjectDao {
                 result.setSubjectName(rs.getString("subject_name"));
                 result.setTermId(rs.getInt("term_id"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;

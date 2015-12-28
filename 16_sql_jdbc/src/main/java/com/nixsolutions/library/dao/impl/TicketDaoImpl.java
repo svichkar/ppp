@@ -6,10 +6,7 @@ import com.nixsolutions.library.entity.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +26,9 @@ public class TicketDaoImpl implements TicketDAO {
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO rent_journal (book_id, client_id, rent_date, expired_date, return_date) VALUES ('" +
-                    entity.getBookId() + "', '" + entity.getClientId() + "', '" + entity.getRentDate()+ "', '" +
-                    entity.getExpiredDate() + "', '" + entity.getReturnDate() + "');");
+                    entity.getBookId() + "', '" + entity.getClientId() + "', '" +
+                    new Date(entity.getRentDate().getTime()) + "', '" + new Date(entity.getExpiredDate().getTime()) +
+                    "', '" + new Date(entity.getReturnDate().getTime()) + "');");
             ResultSet keys = statement.getGeneratedKeys();
             connection.commit();
             keys.next();
@@ -63,9 +61,9 @@ public class TicketDaoImpl implements TicketDAO {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE rent_journal SET book_id='" + entity.getBookId() + "', client_id='" +
-                    entity.getClientId() + "', rent_date='" + entity.getRentDate() + "', expired_date='" +
-                    entity.getExpiredDate() + "', return_date='" + entity.getReturnDate() + "' WHERE ticket_id='" +
-                    entity.getTicketId() + "';");
+                    entity.getClientId() + "', rent_date='" + new Date(entity.getRentDate().getTime()) +
+                    "', expired_date='" + new Date(entity.getExpiredDate().getTime()) + "', return_date='" +
+                    new Date(entity.getReturnDate().getTime()) + "' WHERE ticket_id='" + entity.getTicketId() + "';");
             LOGGER.trace("updated line in rent_journal table, with id:" + entity.getTicketId());
         } catch (SQLException e) {
             LOGGER.error(e);

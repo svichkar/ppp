@@ -1,6 +1,7 @@
 package com.nixsolutions.library.entity;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 /**
  * Created by kozlovskij on 12/19/2015.

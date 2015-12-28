@@ -64,14 +64,12 @@ public class TestAuthorBook extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
-        authorBook = new AuthorBook(1, 1, 1);
         AuthorBookDAO authorBookDAO = daoFactory.getAuthorBookDAO();
-        AuthorBook actualAuthorBook;
-        actualAuthorBook = authorBookDAO.findByID(authorBook.getId());
+        authorBook = authorBookDAO.findByID(1);
 
-        Assert.assertEquals(authorBook.getId(), actualAuthorBook.getId());
-        Assert.assertEquals(authorBook.getAuthorId(), actualAuthorBook.getAuthorId());
-        Assert.assertEquals(authorBook.getBookId(), actualAuthorBook.getBookId());
+        Assert.assertEquals(new Integer(1), authorBook.getId());
+        Assert.assertEquals(new Integer(1), authorBook.getAuthorId());
+        Assert.assertEquals(new Integer(1), authorBook.getBookId());
     }
 
     public void testFindAll() throws Exception {

@@ -63,14 +63,11 @@ public class TestAuthor extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
-        author = new Author(1, "Oleg", "Kril");
         AuthorDAO authorDAO = daoFactory.getAuthorDAO();
-        Author actualAuthor;
-        actualAuthor = authorDAO.findByID(author.getAuthorId());
-
-        Assert.assertEquals(author.getAuthorId(), actualAuthor.getAuthorId());
-        Assert.assertEquals(author.getFirstName(), actualAuthor.getFirstName());
-        Assert.assertEquals(author.getLastName(), actualAuthor.getLastName());
+        author = authorDAO.findByID(1);
+        Assert.assertEquals(new Integer(1), author.getAuthorId());
+        Assert.assertEquals("Oleg", author.getFirstName());
+        Assert.assertEquals("Kril", author.getLastName());
     }
 
     public void testFindAll() throws Exception {

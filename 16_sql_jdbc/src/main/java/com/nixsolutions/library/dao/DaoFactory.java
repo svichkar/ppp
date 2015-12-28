@@ -18,4 +18,9 @@ public interface DaoFactory {
     public ClientDAO getClientDAO();
 
     public TicketDAO getTicketDAO();
+
+    public RoleDAO getRoleDAO();
+
+    public UserDAO getUserDAO();
+
 }

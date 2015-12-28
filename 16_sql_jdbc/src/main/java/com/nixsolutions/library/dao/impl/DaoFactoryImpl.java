@@ -2,6 +2,7 @@ package com.nixsolutions.library.dao.impl;
 
 import com.nixsolutions.library.dao.*;
 
+
 /**
  * Created by kozlovskij on 12/24/2015.
  */
@@ -40,4 +41,15 @@ public class DaoFactoryImpl implements DaoFactory {
     public TicketDAO getTicketDAO() {
         return new TicketDaoImpl();
     }
+
+    @Override
+    public RoleDAO getRoleDAO() {
+        return new RoleDaoImpl();
+    }
+
+    @Override
+    public UserDAO getUserDAO() {
+        return new UserDaoImpl();
+    }
+
 }

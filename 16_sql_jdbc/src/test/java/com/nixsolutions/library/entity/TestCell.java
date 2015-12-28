@@ -62,13 +62,11 @@ public class TestCell extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
-        cell = new Cell(1, "A");
         CellDAO cellDAO = daoFactory.getCellDAO();
-        Cell actualCell;
-        actualCell = cellDAO.findByID(cell.getCellId());
+        cell = cellDAO.findByID(1);
 
-        Assert.assertEquals(cell.getCellId(), actualCell.getCellId());
-        Assert.assertEquals(cell.getName(), actualCell.getName());
+        Assert.assertEquals(new Integer(1), cell.getCellId());
+        Assert.assertEquals("A", cell.getName());
     }
 
     public void testFindAll() throws Exception {

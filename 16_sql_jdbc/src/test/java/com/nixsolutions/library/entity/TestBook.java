@@ -62,15 +62,13 @@ public class TestBook extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
-        book = new Book(1, "bard tales", 1, 1);
         BookDAO bookDAO = daoFactory.getBookDAO();
-        Book actualBook;
-        actualBook = bookDAO.findByID(book.getBookId());
+        book = bookDAO.findByID(1);
 
-        Assert.assertEquals(book.getBookId(), actualBook.getBookId());
-        Assert.assertEquals(book.getName(), actualBook.getName());
-        Assert.assertEquals(book.getCellId(), actualBook.getCellId());
-        Assert.assertEquals(book.getCategoryId(), actualBook.getCategoryId());
+        Assert.assertEquals(new Integer(1), book.getBookId());
+        Assert.assertEquals("bard tales", book.getName());
+        Assert.assertEquals(new Integer(1), book.getCellId());
+        Assert.assertEquals(new Integer(1), book.getCategoryId());
     }
 
     public void testFindAll() throws Exception {

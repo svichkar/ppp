@@ -62,16 +62,14 @@ public class TestClient extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
-        client = new Client(1, "Petr", "Ivanov", "111-45-78", "simple@mail.com");
         ClientDAO clientDAO = daoFactory.getClientDAO();
-        Client actualClient;
-        actualClient = clientDAO.findByID(client.getClientId());
+        client = clientDAO.findByID(1);
 
-        Assert.assertEquals(client.getClientId(), actualClient.getClientId());
-        Assert.assertEquals(client.getFirstName(), actualClient.getFirstName());
-        Assert.assertEquals(client.getLastName(), actualClient.getLastName());
-        Assert.assertEquals(client.getPhone(), actualClient.getPhone());
-        Assert.assertEquals(client.getEmail(), actualClient.getEmail());
+        Assert.assertEquals(new Integer(1), client.getClientId());
+        Assert.assertEquals("Petr", client.getFirstName());
+        Assert.assertEquals("Ivanov", client.getLastName());
+        Assert.assertEquals("111-45-78", client.getPhone());
+        Assert.assertEquals("simple@mail.com", client.getEmail());
     }
 
     public void testFindAll() throws Exception {

@@ -62,13 +62,11 @@ public class TestCategory extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
-        category = new Category(1, "comedy");
         CategoryDAO categoryDAO = daoFactory.getCategoryDAO();
-        Category actualCategory;
-        actualCategory = categoryDAO.findByID(category.getCategoryId());
+        category = categoryDAO.findByID(1);
 
-        Assert.assertEquals(category.getCategoryId(), actualCategory.getCategoryId());
-        Assert.assertEquals(category.getName(), actualCategory.getName());
+        Assert.assertEquals(new Integer(1), category.getCategoryId());
+        Assert.assertEquals("comedy", category.getName());
     }
 
     public void testFindAll() throws Exception {

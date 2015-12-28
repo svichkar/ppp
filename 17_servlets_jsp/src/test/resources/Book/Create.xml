@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <book name="bard tales" cell_id="1" category_id="1"/>
+    <book name="stories" cell_id="2" category_id="2"/>
+    <book name="History" cell_id="1" category_id="2"/>
+</dataset>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <user login="Admin" password="777" role_id="1"/>
+    <user login="petya" password="321" role_id="2"/>
+</dataset>

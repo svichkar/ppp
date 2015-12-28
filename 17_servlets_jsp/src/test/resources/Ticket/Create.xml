@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <rent_journal book_id="1" client_id="1" rent_date="2015-12-26" expired_date="2015-12-26" return_date="2015-12-26"/>
+    <rent_journal book_id="2" client_id="2" rent_date="2015-12-26" expired_date="2015-12-26" return_date="2015-12-26"/>
+    <rent_journal book_id="1" client_id="2" rent_date="2015-12-26" expired_date="2015-12-26" return_date="2015-12-26"/>
+</dataset>

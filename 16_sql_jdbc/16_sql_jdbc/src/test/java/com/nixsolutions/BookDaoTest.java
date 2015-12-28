@@ -8,11 +8,14 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
-import com.nixsolutions.dao.impl.BookDaoImpl;
+
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Book;
 
 public class BookDaoTest extends DBUnitConfig {
-
+	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+	
 	public BookDaoTest(String name) {
 		super(name);
 	}
@@ -25,7 +28,7 @@ public class BookDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldretrieveBookById() throws Exception {
-		Book book = new BookDaoImpl().getBookById(1);
+		Book book = factory.getBookDao().getBookById(1);
 		Assert.assertEquals(new Integer(1), book.getBookId());
 		Assert.assertEquals("book1", book.getName());
 		Assert.assertEquals(new Integer(1), book.getCategoryId());
@@ -33,12 +36,12 @@ public class BookDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldReturnNullIfQueryReturnedNoResultsBookById() throws Exception {
-		Book book = new BookDaoImpl().getBookById(5);
+		Book book = factory.getBookDao().getBookById(5);
 		Assert.assertNull(book);
 	}
 	
 	public void testShouldRetrieveAllBooks() throws Exception {
-		List<Book> books = new BookDaoImpl().getAllBooks();
+		List<Book> books = factory.getBookDao().getAllBooks();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/book/BookInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("book"), actualData.getTable("book"));
@@ -46,8 +49,8 @@ public class BookDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldDeleteBook() throws Exception {
-		Book book = new BookDaoImpl().getBookById(1);
-		new BookDaoImpl().deleteBook(book);
+		Book book = factory.getBookDao().getBookById(1);
+		factory.getBookDao().deleteBook(book);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/book/BookDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("book"), actualData.getTable("book"));
@@ -58,7 +61,7 @@ public class BookDaoTest extends DBUnitConfig {
 		book.setName("book5");
 		book.setCategoryId(2);
 		book.setCellId(2);
-		new BookDaoImpl().createBook(book);
+		factory.getBookDao().createBook(book);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/book/BookCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("book"), 
@@ -67,11 +70,11 @@ public class BookDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateBook() throws Exception {
-		Book book = new BookDaoImpl().getBookById(4);
+		Book book = factory.getBookDao().getBookById(4);
 		book.setName("book5");
 		book.setCategoryId(2);
 		book.setCellId(2);
-		new BookDaoImpl().updateBook(book);
+		factory.getBookDao().updateBook(book);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/book/BookUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 	    Assertion.assertEquals(expectedData.getTable("book"), actualData.getTable("book"));

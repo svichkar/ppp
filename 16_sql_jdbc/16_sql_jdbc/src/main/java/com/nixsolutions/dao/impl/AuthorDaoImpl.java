@@ -21,6 +21,7 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public List<Author> getAllAuthors() {
+		LOG.entry();
 		String sql = "SELECT * FROM author;";
 		List<Author> authors = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
@@ -36,11 +37,12 @@ public class AuthorDaoImpl implements AuthorDao {
 			LOG.error("not able to get authors", e);
 			LOG.throwing(new DaoException("not able to get all authors"));
 		}
-		return authors;
+		return LOG.exit(authors);
 	}
 
 	@Override
 	public Author getAuthorById(int authorId) {
+		LOG.entry(authorId);
 		String sql = "SELECT * FROM author WHERE author_id = ?;";
 		Author author = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
@@ -56,16 +58,18 @@ public class AuthorDaoImpl implements AuthorDao {
 			LOG.error("not able to get an author by Id", e);
 			LOG.throwing(new DaoException("not able to get an author by Id"));
 		}
-		return author;
+		return LOG.exit(author);
 	}
 
 	@Override
 	public void createAuthor(Author author) {
+		LOG.entry(author);
 		String sql = "INSERT INTO author (first_name, last_name) VALUES (?, ?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
 			statem.executeUpdate();
+			LOG.exit("author was created");
 		} catch (SQLException e) {
 			LOG.error("not able to create an author", e);
 			LOG.throwing(new DaoException("not able to create an author"));
@@ -74,12 +78,14 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public void updateAuthor(Author author) {
+		LOG.entry(author);
 		String sql = "UPDATE author SET first_name = ?, last_name = ?  WHERE author_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
 			statem.setLong(3, author.getAuthorId());
 			statem.executeUpdate();
+			LOG.exit("author was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the author", e);
 			LOG.throwing(new DaoException("not able to update the author"));
@@ -88,10 +94,12 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public void deleteAuthor(Author author) {
+		LOG.entry(author);
 		String sql = "DELETE FROM author WHERE author_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setLong(1, author.getAuthorId());
 			statem.executeUpdate();
+			LOG.exit("author was deleted");
 		} catch (SQLException e) {
 			LOG.error("not able to delete the author", e);
 			LOG.throwing(new DaoException("not able to delete the author"));

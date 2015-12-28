@@ -21,6 +21,7 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> getAllBooks() {
+		LOG.entry();
 		String sql = "SELECT * FROM book;";
 		List<Book> books = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
@@ -38,11 +39,12 @@ public class BookDaoImpl implements BookDao {
 			LOG.error("not able to get books", e);
 			LOG.throwing(new DaoException("not able to get all books"));
 		}
-		return books;
+		return LOG.exit(books);
 	}
 
 	@Override
 	public Book getBookById(int bookId) {
+		LOG.entry(bookId);
 		String sql = "SELECT * FROM book WHERE book_id = ?;";
 		Book book = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
@@ -55,23 +57,23 @@ public class BookDaoImpl implements BookDao {
 				book.setCategoryId(result.getInt("category_id"));
 				book.setCellId(result.getInt("cell_id"));
 			}
-			LOG.trace("the book was retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get a book by Id", e);
 			LOG.throwing(new DaoException("not able to get a book by Id"));
 		}
-		return book;
+		return LOG.exit(book);
 	}
 
 	@Override
 	public void createBook(Book book) {
+		LOG.entry(book);
 		String sql = "INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?);";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, book.getName());
 			statem.setInt(2, book.getCategoryId());
 			statem.setInt(3, book.getCellId());
 			statem.executeUpdate();
-			LOG.trace("book was created");
+			LOG.exit("book was created");
 		} catch (SQLException e) {
 			LOG.error("not able to create an book", e);
 			LOG.throwing(new DaoException("not able to create an book"));
@@ -80,6 +82,7 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public void updateBook(Book book) {
+		LOG.entry(book);
 		String sql = "UPDATE book SET name = ?, category_id = ?, cell_id=?  WHERE book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, book.getName());
@@ -87,7 +90,7 @@ public class BookDaoImpl implements BookDao {
 			statem.setInt(3, book.getCellId());
 			statem.setLong(4, book.getBookId());
 			statem.executeUpdate();
-			LOG.trace("book was updated");
+			LOG.exit("book was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the book", e);
 			LOG.throwing(new DaoException("not able to update the book"));
@@ -96,10 +99,12 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public void deleteBook(Book book) {
+		LOG.entry(book);
 		String sql = "DELETE FROM book WHERE book_id = ?;";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, book.getBookId());
 			statem.executeUpdate();
+			LOG.exit("book was deleted");
 		} catch (SQLException e) {
 			LOG.error("not able to delete the book", e);
 			LOG.throwing(new DaoException("not able to delete the book"));

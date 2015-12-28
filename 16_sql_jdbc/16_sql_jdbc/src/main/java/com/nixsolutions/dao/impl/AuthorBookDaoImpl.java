@@ -21,6 +21,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 
 	@Override
 	public AuthorBook getAuthorBookById(int authorId, int bookId) {
+		LOG.entry(authorId, bookId);
 		String sql = "SELECT * FROM author_book WHERE author_id = ? and book_id = ?;";
 		AuthorBook authorBook = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
@@ -30,16 +31,16 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			if (result.next()) {
 				authorBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
 			}
-			LOG.trace("the authorBook was retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get a authorBook by Id", e);
 			LOG.throwing(new DaoException("not able to get a authorBook by Id"));
 		}
-		return authorBook;
+		return LOG.exit(authorBook);
 	}
 
 	@Override
 	public List<AuthorBook> getAllAuthorBook() {
+		LOG.entry();
 		String sql = "SELECT * FROM author_book;";
 		List<AuthorBook> authorBooks = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
@@ -47,18 +48,17 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			while (result.next()) {
 				AuthorBook authBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
 				authorBooks.add(authBook);
-				// need to insert assertion - if transaction was done
 			}
-			LOG.trace("all the authorBooks were retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get authorBooks", e);
 			LOG.throwing(new DaoException("not able to get all authorBooks"));
 		}
-		return authorBooks;
+		return LOG.exit(authorBooks);
 	}
 
 	@Override
 	public List<AuthorBook> getBooksIdByAuthorId(int authorId) {
+		LOG.entry(authorId);
 		String sql = "SELECT * FROM author_book WHERE author_id = ?;";
 		List<AuthorBook> authorBooks = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
@@ -67,25 +67,23 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			while (result.next()) {
 				AuthorBook authBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
 				authorBooks.add(authBook);
-				// need to insert assertion - if transaction was done
 			}
-			LOG.trace("all the authorBooks were retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get authorBooks", e);
 			LOG.throwing(new DaoException("not able to get all authorBooks"));
 		}
-		return authorBooks;
+		return LOG.exit(authorBooks);
 	}
 
 	@Override
 	public void createAuthorBook(AuthorBook authorBook) {
+		LOG.entry(authorBook);
 		String sql = "INSERT INTO author_book (author_id, book_id) VALUES (?, ?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, authorBook.getAuthorId());
 			statem.setInt(2, authorBook.getBookId());
 			statem.executeUpdate();
-			LOG.trace("authorBook entry was created");
-			// need to insert assertion - if transaction was done
+			LOG.exit("authorBook entry was created");
 		} catch (SQLException e) {
 			LOG.error("not able to create the authorBook", e);
 			LOG.throwing(new DaoException("not able to create the authorBook"));
@@ -94,6 +92,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 
 	@Override
 	public void updateAuthorBook(AuthorBook authorBook) {
+		LOG.entry(authorBook);
 		String sql = "UPDATE author_book SET author_id = ?, book_id = ? WHERE author_id = ? AND book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, authorBook.getAuthorId());
@@ -101,8 +100,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			statem.setInt(1, authorBook.getAuthorId());
 			statem.setInt(2, authorBook.getBookId());
 			statem.executeUpdate();
-			LOG.trace("authorBook was updated");
-			// need to insert assertion - if transaction was done
+			LOG.exit("authorBook was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the authorBook", e);
 			LOG.throwing(new DaoException("not able to update the authorBook"));
@@ -111,12 +109,13 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 
 	@Override
 	public void deleteAuthorBook(AuthorBook authorBook) {
+		LOG.entry(authorBook);
 		String sql = "DELETE FROM author_book WHERE author_id = ? AND book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, authorBook.getAuthorId());
 			statem.setInt(2, authorBook.getBookId());
 			statem.executeUpdate();
-			// need to insert assertion - if transaction was done
+			LOG.exit("authorBook was deleted");
 		} catch (SQLException e) {
 			LOG.error("not able to delete the authorBook", e);
 			LOG.throwing(new DaoException("not able to delete the authorBook"));

@@ -8,11 +8,14 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
-import com.nixsolutions.dao.impl.CategoryDaoImpl;
+
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Category;
 
 public class CategoryDaoTest extends DBUnitConfig {
-
+	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+	
 	public CategoryDaoTest(String name) {
 		super(name);
 	}
@@ -25,18 +28,18 @@ public class CategoryDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldretrieveCategoryById() throws Exception {
-		Category category = new CategoryDaoImpl().getCategoryById(1);
+		Category category = factory.getCategoryDao().getCategoryById(1);
 		Assert.assertEquals(new Integer(1), category.getCategoryId());
 		Assert.assertEquals("Horror", category.getName());
 	}
 	
 	public void testShouldReturnNullIfQueryReturnedNoResultsCategoryById() throws Exception {
-		Category auth = new CategoryDaoImpl().getCategoryById(5);
+		Category auth = factory.getCategoryDao().getCategoryById(5);
 		Assert.assertNull(auth);
 	}
 	
 	public void testShouldRetrieveAllUthors() throws Exception {
-		List<Category> categories = new CategoryDaoImpl().getAllCategories();
+		List<Category> categories = factory.getCategoryDao().getAllCategories();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("category"), actualData.getTable("category"));
@@ -44,8 +47,8 @@ public class CategoryDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldDeleteCategory() throws Exception {
-		Category category = new CategoryDaoImpl().getCategoryById(1);
-		new CategoryDaoImpl().deleteCategory(category);
+		Category category = factory.getCategoryDao().getCategoryById(1);
+		factory.getCategoryDao().deleteCategory(category);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("category"), actualData.getTable("category"));
@@ -53,7 +56,7 @@ public class CategoryDaoTest extends DBUnitConfig {
 
 	public void testShouldCreateCategory() throws Exception {
 		Category drama = new Category("Drama");
-		new CategoryDaoImpl().createCategory(drama);
+		factory.getCategoryDao().createCategory(drama);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("category"), 
@@ -62,9 +65,9 @@ public class CategoryDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateCategory() throws Exception {
-		Category updCategory = new CategoryDaoImpl().getCategoryById(3);
+		Category updCategory = factory.getCategoryDao().getCategoryById(3);
 		updCategory.setName("SciFi");
-		new CategoryDaoImpl().updateCategory(updCategory);
+		factory.getCategoryDao().updateCategory(updCategory);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("category"), 

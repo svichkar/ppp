@@ -9,11 +9,13 @@ import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
 
-import com.nixsolutions.dao.impl.CellDaoImpl;
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Cell;
 
 public class CellDaoTest extends DBUnitConfig {
-
+	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+	
 	public CellDaoTest(String name) {
 		super(name);
 	}
@@ -26,18 +28,18 @@ public class CellDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldretrieveCellById() throws Exception {
-		Cell cell = new CellDaoImpl().getCellById(1);
+		Cell cell = factory.getCellDao().getCellById(1);
 		Assert.assertEquals(new Integer(1), cell.getCellId());
 		Assert.assertEquals("cell A", cell.getName());
 	}
 	
 	public void testShouldReturnNullIfQueryReturnedNoResultsCellById() throws Exception {
-		Cell auth = new CellDaoImpl().getCellById(5);
+		Cell auth = factory.getCellDao().getCellById(5);
 		Assert.assertNull(auth);
 	}
 	
 	public void testShouldRetrieveAllUthors() throws Exception {
-		List<Cell> cells = new CellDaoImpl().getAllCells();
+		List<Cell> cells = factory.getCellDao().getAllCells();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("cell"), actualData.getTable("cell"));
@@ -45,8 +47,8 @@ public class CellDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldDeleteCell() throws Exception {
-		Cell cell = new CellDaoImpl().getCellById(1);
-		new CellDaoImpl().deleteCell(cell);
+		Cell cell = factory.getCellDao().getCellById(1);
+		factory.getCellDao().deleteCell(cell);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("cell"), actualData.getTable("cell"));
@@ -54,7 +56,7 @@ public class CellDaoTest extends DBUnitConfig {
 
 	public void testShouldCreateCell() throws Exception {
 		Cell drama = new Cell("cell D");
-		new CellDaoImpl().createCell(drama);
+		factory.getCellDao().createCell(drama);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("cell"), 
@@ -63,9 +65,9 @@ public class CellDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateCell() throws Exception {
-		Cell updCell = new CellDaoImpl().getCellById(3);
+		Cell updCell = factory.getCellDao().getCellById(3);
 		updCell.setName("cell E");
-		new CellDaoImpl().updateCell(updCell);
+		factory.getCellDao().updateCell(updCell);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("cell"), 

@@ -1,6 +1,7 @@
 package com.nixsolutions.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 
 	@Override
 	public List<RentJournal> getAllRents() {
+		LOG.entry();
 		String sql = "SELECT * FROM rent_journal;";
 		List<RentJournal> rentJournals = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection();
@@ -35,16 +37,16 @@ public class RentJournalDaoImpl implements RentJournalDao {
 				rentJournal.setReturnDate(result.getDate("return_date"));
 				rentJournals.add(rentJournal);
 			}
-			LOG.trace("all the rentJournals were retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get rentJournals", e);
 			LOG.throwing(new DaoException("not able to get all rentJournals"));
 		}
-		return rentJournals;
+		return LOG.exit(rentJournals);
 	}
 
 	@Override
 	public RentJournal getRentById(int rentId) {
+		LOG.entry(rentId);
 		String sql = "SELECT * FROM rent_journal WHERE ticket_id = ?;";
 		RentJournal rentJournal = null;
 		try (Connection conn = H2ConnManager.getConnection();
@@ -59,17 +61,17 @@ public class RentJournalDaoImpl implements RentJournalDao {
 				rentJournal.setRentDate(result.getDate("rent_date"));
 				rentJournal.setReturnDate(result.getDate("return_date"));
 			}
-			LOG.trace("the rentJournal was retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get a rentJournal by Id", e);
 			LOG.throwing(
 					new DaoException("not able to get a rentJournal by Id"));
 		}
-		return rentJournal;
+		return LOG.exit(rentJournal);
 	}
 
 	@Override
 	public void createRent(RentJournal rentJournal) {
+		LOG.entry(rentJournal.toString());
 		String sql = "INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement statem = null;
@@ -79,11 +81,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.setAutoCommit(false);
 			statem.setInt(1, rentJournal.getBookId());
 			statem.setInt(2, rentJournal.getClientId());
-			statem.setDate(3, rentJournal.getRentDate());
-			statem.setDate(4, rentJournal.getReturnDate());
+			statem.setDate(3, (Date) rentJournal.getRentDate());
+			statem.setDate(4, (Date) rentJournal.getReturnDate());
 			statem.executeUpdate();
 			conn.commit();
-			LOG.trace("rentJournal was created");
+			LOG.exit("rentJournal was created");
 		} catch (SQLException e) {
 			LOG.error("not able to create an author", e);
 			LOG.throwing(new DaoException("not able to create an author"));
@@ -110,6 +112,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 
 	@Override
 	public void updateRent(RentJournal rentJournal) {
+		LOG.entry(rentJournal);
 		String sql = "UPDATE rent_journal SET book_id = ?, client_id = ?, rent_date = ?, return_date = ?  WHERE ticket_id = ?";
 		Connection conn = null;
 		PreparedStatement statem = null;
@@ -119,12 +122,12 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.setAutoCommit(false);
 			statem.setInt(1, rentJournal.getBookId());
 			statem.setInt(2, rentJournal.getClientId());
-			statem.setDate(3, rentJournal.getRentDate());
-			statem.setDate(4, rentJournal.getReturnDate());
+			statem.setDate(3, (Date) rentJournal.getRentDate());
+			statem.setDate(4, (Date) rentJournal.getReturnDate());
 			statem.setInt(5, rentJournal.getRentId());
 			statem.executeUpdate();
 			conn.commit();
-			LOG.trace("rentJournal was updated");
+			LOG.exit("rentJournal was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the author", e);
 			LOG.throwing(new DaoException("not able to update the author"));
@@ -151,6 +154,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 
 	@Override
 	public void deleteRent(RentJournal rentJournal) {
+		LOG.entry(rentJournal);
 		String sql = "DELETE FROM rent_journal WHERE ticket_id = ?";
 		Connection conn = null;
 		PreparedStatement statem = null;
@@ -161,6 +165,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			statem.setLong(1, rentJournal.getRentId());
 			statem.executeUpdate();
 			conn.commit();
+			LOG.exit("rent was deleted");
 		} catch (SQLException e) {
 			LOG.error("not able to delete the author", e);
 			LOG.throwing(new DaoException("not able to delete the author"));

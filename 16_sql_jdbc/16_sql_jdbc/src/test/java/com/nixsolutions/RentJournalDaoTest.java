@@ -9,11 +9,14 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
-import com.nixsolutions.dao.impl.RentJournalDaoImpl;
+
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.RentJournal;
 
 public class RentJournalDaoTest extends DBUnitConfig {
-
+	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+	
 	public RentJournalDaoTest(String name) {
 		super(name);
 	}
@@ -26,7 +29,7 @@ public class RentJournalDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldretrieveRentJournalById() throws Exception {
-		RentJournal rentJournal = new RentJournalDaoImpl().getRentById(1);
+		RentJournal rentJournal = factory.getRentJournalDao().getRentById(1);
 		Assert.assertEquals(new Integer(1), rentJournal.getRentId());
 		Assert.assertEquals(new Integer(1), rentJournal.getBookId());
 		Assert.assertEquals(new Integer(1), rentJournal.getClientId());
@@ -35,12 +38,12 @@ public class RentJournalDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldReturnNullIfQueryReturnedNoResultsRentJournalById() throws Exception {
-		RentJournal rentJournal = new RentJournalDaoImpl().getRentById(5);
+		RentJournal rentJournal = factory.getRentJournalDao().getRentById(5);
 		Assert.assertNull(rentJournal);
 	}
 	
 	public void testShouldRetrieveAllRentJournals() throws Exception {
-		List<RentJournal> rentJournals = new RentJournalDaoImpl().getAllRents();
+		List<RentJournal> rentJournals = factory.getRentJournalDao().getAllRents();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/rentJournal/RentJournalInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("rent_journal"), actualData.getTable("rent_journal"));
@@ -48,8 +51,8 @@ public class RentJournalDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldDeleteRentJournal() throws Exception {
-		RentJournal rentJournal = new RentJournalDaoImpl().getRentById(1);
-		new RentJournalDaoImpl().deleteRent(rentJournal);
+		RentJournal rentJournal = factory.getRentJournalDao().getRentById(1);
+		factory.getRentJournalDao().deleteRent(rentJournal);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/rentJournal/RentJournalDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("rent_journal"), actualData.getTable("rent_journal"));
@@ -61,7 +64,7 @@ public class RentJournalDaoTest extends DBUnitConfig {
 		rentJournal.setClientId(1);
 		rentJournal.setRentDate(Date.valueOf("2015-08-21"));
 		rentJournal.setReturnDate(null);
-		new RentJournalDaoImpl().createRent(rentJournal);
+		factory.getRentJournalDao().createRent(rentJournal);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/rentJournal/RentJournalCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("rent_journal"), 
@@ -70,10 +73,11 @@ public class RentJournalDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateRentJournal() throws Exception {
-		RentJournal rentJournal = new RentJournalDaoImpl().getRentById(4);
+		RentJournal rentJournal = factory.getRentJournalDao().getRentById(4);
 		rentJournal.setBookId(5);
 		rentJournal.setClientId(1);
-		new RentJournalDaoImpl().updateRent(rentJournal);
+		rentJournal.setRentDate(Date.valueOf("2015-06-11"));
+		factory.getRentJournalDao().updateRent(rentJournal);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/rentJournal/RentJournalUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 	    Assertion.assertEquals(expectedData.getTable("rent_journal"), actualData.getTable("rent_journal"));

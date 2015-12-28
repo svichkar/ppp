@@ -8,11 +8,14 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
-import com.nixsolutions.dao.impl.AuthorDaoImpl;
+
+import com.nixsolutions.dao.DaoFactory;
+import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Author;
 
 public class AuthorDaoTest extends DBUnitConfig {
-
+	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+	
 	public AuthorDaoTest(String name) {
 		super(name);
 	}
@@ -25,19 +28,19 @@ public class AuthorDaoTest extends DBUnitConfig {
 	}
 	
 	public void testShouldretrieveAuthorById() throws Exception {
-		Author auth = new AuthorDaoImpl().getAuthorById(1);
+		Author auth = factory.getAuthorDao().getAuthorById(1);
 		Assert.assertEquals(new Integer(1), auth.getAuthorId());
 		Assert.assertEquals("Stephen", auth.getFirstName());
 		Assert.assertEquals("King", auth.getSecondName());
 	}
 	
 	public void testShouldReturnNullIfQueryReturnedNoResultsAuthorById() throws Exception {
-		Author auth = new AuthorDaoImpl().getAuthorById(5);
+		Author auth = factory.getAuthorDao().getAuthorById(5);
 		Assert.assertNull(auth);
 	}
 	
 	public void testShouldRetrieveAllUthors() throws Exception {
-		List<Author> authors = new AuthorDaoImpl().getAllAuthors();
+		List<Author> authors = factory.getAuthorDao().getAllAuthors();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("author"), actualData.getTable("author"));
@@ -45,8 +48,8 @@ public class AuthorDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldDeleteAuthor() throws Exception {
-		Author author = new AuthorDaoImpl().getAuthorById(1);
-		new AuthorDaoImpl().deleteAuthor(author);
+		Author author = factory.getAuthorDao().getAuthorById(1);
+		factory.getAuthorDao().deleteAuthor(author);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("author"), actualData.getTable("author"));
@@ -56,7 +59,7 @@ public class AuthorDaoTest extends DBUnitConfig {
 		Author authMiha = new Author();
 		authMiha.setFirstName("Michail");
 		authMiha.setSecondName("Lelyakov");
-		new AuthorDaoImpl().createAuthor(authMiha);
+		factory.getAuthorDao().createAuthor(authMiha);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("author"), 
@@ -65,10 +68,10 @@ public class AuthorDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateAuthor() throws Exception {
-		Author updAuth = new AuthorDaoImpl().getAuthorById(3);
+		Author updAuth = factory.getAuthorDao().getAuthorById(3);
 		updAuth.setFirstName("Michail");
 		updAuth.setSecondName("Lelyakov");
-		new AuthorDaoImpl().updateAuthor(updAuth);
+		factory.getAuthorDao().updateAuthor(updAuth);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/author/AuthorUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("author"), 

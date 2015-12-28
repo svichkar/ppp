@@ -37,5 +37,10 @@ public class Author {
 	public void setSecondName(String secondName) {
 		this.secondName = secondName;
 	}
+	
+	public String toString() {
+		return "author with Id: " + this.authorId + "; firstName: " + this.firstName + "; lastName: " + this.secondName;
+
+	}
 
 }

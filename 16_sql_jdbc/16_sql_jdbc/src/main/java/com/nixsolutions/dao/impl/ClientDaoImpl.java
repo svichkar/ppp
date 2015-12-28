@@ -21,6 +21,7 @@ public class ClientDaoImpl implements ClientDao {
 	
 	@Override
 	public List<Client> getAllClients() {
+		LOG.entry();
 		String sql = "SELECT * FROM client;";
 		List<Client> clients = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
@@ -33,18 +34,18 @@ public class ClientDaoImpl implements ClientDao {
 				client.setPhone(result.getString("phone"));
 				client.setEmail(result.getString("email"));
 				clients.add(client);
-				// need to insert assertion - if transaction was done
 			}
 			LOG.trace("all the clients were retrieved");
 		} catch (SQLException e) {
 			LOG.error("not able to get clients", e);
 			LOG.throwing(new DaoException("not able to get all clients"));
 		}
-		return clients;
+		return LOG.exit(clients);
 	}
 
 	@Override
 	public Client getClientById(int clientId) {
+		LOG.entry(clientId);
 		String sql = "SELECT * FROM client WHERE client_id = ?;";
 		Client client = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
@@ -63,11 +64,12 @@ public class ClientDaoImpl implements ClientDao {
 			LOG.error("not able to get a client by Id", e);
 			LOG.throwing(new DaoException("not able to get a client by Id"));
 		}
-		return client;
+		return LOG.exit(client);
 	}
 
 	@Override
 	public void createClient(Client client) {
+		LOG.entry(client);
 		String sql = "INSERT INTO client (first_name, last_name, phone, email) VALUES (?, ?, ?, ?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, client.getFirstName());
@@ -75,8 +77,7 @@ public class ClientDaoImpl implements ClientDao {
 			statem.setString(3, client.getPhone());
 			statem.setString(4, client.getEmail());
 			statem.executeUpdate();
-			LOG.trace("client was created");
-			// need to insert assertion - if transaction was done
+			LOG.exit("client was created");
 		} catch (SQLException e) {
 			LOG.error("not able to create an author", e);
 			LOG.throwing(new DaoException("not able to create an author"));
@@ -85,6 +86,7 @@ public class ClientDaoImpl implements ClientDao {
 
 	@Override
 	public void updateClient(Client client) {
+		LOG.entry(client);
 		String sql = "UPDATE client SET first_name = ?, last_name = ?, phone=?, email=?  WHERE client_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, client.getFirstName());
@@ -93,8 +95,7 @@ public class ClientDaoImpl implements ClientDao {
 			statem.setString(4, client.getEmail());
 			statem.setLong(5, client.getClientId());
 			statem.executeUpdate();
-			LOG.trace("client with id: " + client.getClientId() + " was updated");
-			// need to insert assertion - if transaction was done
+			LOG.exit("client with id: " + client.getClientId() + " was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the author", e);
 			LOG.throwing(new DaoException("not able to update the author"));
@@ -103,11 +104,12 @@ public class ClientDaoImpl implements ClientDao {
 
 	@Override
 	public void deleteClient(Client client) {
+		LOG.entry(client);
 		String sql = "DELETE FROM client WHERE client_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setLong(1, client.getClientId());
 			statem.executeUpdate();
-			// need to insert assertion - if transaction was done
+			LOG.exit("client with id: " + client.getClientId() + " was deleted");
 		} catch (SQLException e) {
 			LOG.error("not able to delete the author", e);
 			LOG.throwing(new DaoException("not able to delete the author"));

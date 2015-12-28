@@ -1,6 +1,6 @@
 package com.nixsolutions.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class RentJournal {
 	private Integer rentId;
@@ -10,14 +10,10 @@ public class RentJournal {
 	private Date returnDate;
 
 	/*
-	public RentJournal(int rentId, int bookId, int clientId, Date rentDate) {
-		super();
-		this.rentId = rentId;
-		this.bookId = bookId;
-		this.clientId = clientId;
-		this.rentDate = rentDate;
-	}
-*/
+	 * public RentJournal(int rentId, int bookId, int clientId, Date rentDate) {
+	 * super(); this.rentId = rentId; this.bookId = bookId; this.clientId =
+	 * clientId; this.rentDate = rentDate; }
+	 */
 	public Integer getRentId() {
 		return rentId;
 	}
@@ -56,5 +52,10 @@ public class RentJournal {
 
 	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
+	}
+
+	public String toString() {
+		return "rent with rentId: " + this.rentId + "; bookId: " + this.bookId + "; clientId: " + this.clientId + "; rentDate: " + this.rentDate;
+
 	}
 }

@@ -24,4 +24,9 @@ public class Cell {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String toString() {
+		return "Cell with cellId: " + this.cellId + "; name: " + this.name;
+
+	}
 }

@@ -49,13 +49,9 @@ public class Book {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-/*
-	public Integer getAuthorId() {
-		return authorId;
+	
+	public String toString() {
+		return "book with bookId: " + this.bookId + "; name: " + this.name;
 	}
 
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
-	}
-*/
 }

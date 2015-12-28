@@ -21,6 +21,7 @@ public class CellDaoImpl implements CellDao{
 
 	@Override
 	public List<Cell> getAllCells() {
+		LOG.entry();
 		String sql = "SELECT * FROM cell;";
 		List<Cell> cells = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
@@ -36,11 +37,12 @@ public class CellDaoImpl implements CellDao{
 			LOG.error("not able to get cells", e);
 			LOG.throwing(new DaoException("not able to get all cells"));
 		}
-		return cells;
+		return LOG.exit(cells);
 	}
 
 	@Override
 	public Cell getCellById(int cellId) {
+		LOG.entry(cellId);
 		String sql = "SELECT * FROM cell WHERE cell_id = ?;";
 		Cell cell = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
@@ -55,17 +57,17 @@ public class CellDaoImpl implements CellDao{
 			LOG.error("not able to get a cell by Id", e);
 			LOG.throwing(new DaoException("not able to get a cell by Id"));
 		}
-		return cell;
+		return LOG.exit(cell);
 	}
 
 	@Override
 	public void createCell(Cell cell) {
+		LOG.entry(cell);
 		String sql = "INSERT INTO cell (name) VALUES (?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, cell.getName());
 			statem.executeUpdate();
-			LOG.trace("cell was created");
-			// need to insert assertion - if transaction was done
+			LOG.exit("cell was created");
 		} catch (SQLException e) {
 			LOG.error("not able to create a cell", e);
 			LOG.throwing(new DaoException("not able to create a cell"));
@@ -74,13 +76,13 @@ public class CellDaoImpl implements CellDao{
 
 	@Override
 	public void updateCell(Cell cell) {
+		LOG.entry(cell);
 		String sql = "UPDATE cell SET name = ? WHERE cell_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, cell.getName());
 			statem.setLong(2, cell.getCellId());
 			statem.executeUpdate();
-			LOG.trace("cell with id: " + cell.getCellId() + " was updated");
-			// need to insert assertion - if transaction was done
+			LOG.exit("cell with id: " + cell.getCellId() + " was updated");
 		} catch (SQLException e) {
 			LOG.error("not able to update the cell", e);
 			LOG.throwing(new DaoException("not able to update the cell"));
@@ -89,11 +91,12 @@ public class CellDaoImpl implements CellDao{
 
 	@Override
 	public void deleteCell(Cell cell) {
+		LOG.entry(cell);
 		String sql = "DELETE FROM cell WHERE cell_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setLong(1, cell.getCellId());
 			statem.executeUpdate();
-			// need to insert assertion - if transaction was done
+			LOG.exit("cell with id: " + cell.getCellId() + " was deleted");
 		} catch (SQLException e) {
 			LOG.error("not able to delete the cell", e);
 			LOG.throwing(new DaoException("not able to delete the cell"));

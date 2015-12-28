@@ -1,6 +1,5 @@
 package com.nixsolutions.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.nixsolutions.entity.OrderInWork;
@@ -9,55 +8,55 @@ public interface OrderInWorkDao extends DBTables {
 
 	/**
 	 * get all orders
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public List<OrderInWork> getAllOrders() throws SQLException;
+	public List<OrderInWork> getAllOrders() ;
 
 	/**
 	 * get order by sqllab.car 
 	 * 
-	 * @param reg_number
-	 *            reg_number
+	 * @param regNumber
+	 *            regNumber
 	 * @return Order_in_work object
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public OrderInWork getOrderInWorkByCar(String reg_number) throws SQLException;
+	public OrderInWork getOrderInWorkByCar(String regNumber) ;
 
 	/**
 	 * get order by customer
 	 * 
-	 * @param last_name
-	 *            sqllab.customer last_name
-	 * @param first_name
-	 *            sqllab.customer first_name *
+	 * @param lastName
+	 *            sqllab.customer lastName
+	 * @param firstName
+	 *            sqllab.customer firstName *
 	 * @return Order_in_work object
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public OrderInWork getOrderInWorkByCustomer(String last_name, String first_name) throws SQLException;
+	public OrderInWork getOrderInWorkByCustomer(String lastName, String firstName) ;
 
 	/**
 	 * get order by order id
 	 * 
-	 * @param order_id
+	 * @param orderId
 	 * @return Order_in_work object
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public OrderInWork getOrderByID(Integer order_id) throws SQLException;
+	public OrderInWork getOrderByID(Integer orderId) ;
 
 	/**
 	 * create new order
 	 * 
-	 * @param  car_id
-	 *             car_id
+	 * @param  carId
+	 *             carId
 	 * @param description
 	 *            order description
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public void createNewOrder(Integer  car_id, String description) throws SQLException;
+	public void createNewOrder(Integer  carId, String description) ;
 
 	/**
 	 * change order status
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public void changeOrderStatusByOrderID(Integer order_id, Integer order_status_id) throws SQLException;
+	public void changeOrderStatusByOrderID(Integer orderId, Integer orderStatusId) ;
 }

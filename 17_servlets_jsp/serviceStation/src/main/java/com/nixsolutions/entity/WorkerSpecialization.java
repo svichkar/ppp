@@ -1,24 +1,34 @@
 package com.nixsolutions.entity;
 
 public class WorkerSpecialization {
-	private Integer specialization_id;
-	private String specialization_name;
-	public WorkerSpecialization(Integer specialization_id, String specialization_name) {
-		this.specialization_id = specialization_id;
-		this.specialization_name = specialization_name;
+	private Integer specializationId;
+	private String specializationName;
+
+	public WorkerSpecialization(Integer specializationId, String specializationName) {
+		this.specializationId = specializationId;
+		this.specializationName = specializationName;
 	}
-	public Integer getSpecialization_id() {
-		return specialization_id;
+
+	public Integer getSpecializationId() {
+		return specializationId;
 	}
-	public void setSpecialization_id(Integer specialization_id) {
-		this.specialization_id = specialization_id;
+
+	public void setSpecializationId(Integer specializationId) {
+		this.specializationId = specializationId;
 	}
+
 	public String getSpecialization_name() {
-		return specialization_name;
+		return specializationName;
 	}
-	public void setSpecialization_name(String specialization_name) {
-		this.specialization_name = specialization_name;
+
+	public void setSpecialization_name(String specializationName) {
+		this.specializationName = specializationName;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "WorkerSpecialization [specializationId=" + specializationId + ", specializationName="
+				+ specializationName + "]";
+	}
 
 }

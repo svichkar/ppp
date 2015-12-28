@@ -3,63 +3,76 @@ package com.nixsolutions.entity;
 import java.util.Date;
 
 public class OrderInWork {
-	private Integer order_id;
-	private String order_description;
-	private Date datetime_start;
-	private Date datetime_finish;
-	private Integer order_status_id;
-	private Integer  car_id;
-	public OrderInWork(Integer order_id, String order_description, Date datetime_start, Date datetime_finish,
-			Integer order_status_id, Integer  car_id) {
-		this.order_id = order_id;
-		this.order_description = order_description;
-		this.datetime_start = datetime_start;
-		this.datetime_finish = datetime_finish;
-		this.order_status_id = order_status_id;
-		this.car_id =  car_id;
+	private Integer orderId;
+	private String orderDescription;
+	private Date datetimeStart;
+	private Date datetimeFinish;
+	private Integer orderStatusId;
+	private Integer carId;
+
+	public OrderInWork(Integer orderId, String orderDescription, Date datetimeStart, Date datetimeFinish,
+			Integer orderStatusId, Integer carId) {
+		this.orderId = orderId;
+		this.orderDescription = orderDescription;
+		this.datetimeStart = datetimeStart;
+		this.datetimeFinish = datetimeFinish;
+		this.orderStatusId = orderStatusId;
+		this.carId = carId;
 	}
-	public Integer getOrder_id() {
-		return order_id;
+
+	public Integer getOrderId() {
+		return orderId;
 	}
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
-	public String getOrder_description() {
-		return order_description;
+
+	public String getOrderDescription() {
+		return orderDescription;
 	}
-	public void setOrder_description(String order_description) {
-		this.order_description = order_description;
+
+	public void setOrderDescription(String orderDescription) {
+		this.orderDescription = orderDescription;
 	}
-	public Date getDatetime_start() {
-		return datetime_start;
+
+	public Date getDatetimeStart() {
+		return datetimeStart;
 	}
-	public void setDatetime_start(Date datetime_start) {
-		this.datetime_start = datetime_start;
+
+	public void setDatetimeStart(Date datetimeStart) {
+		this.datetimeStart = datetimeStart;
 	}
-	public Date getDatetime_finish() {
-		return datetime_finish;
+
+	public Date getDatetimeFinish() {
+		return datetimeFinish;
 	}
-	public void setDatetime_finish(Date datetime_finish) {
-		this.datetime_finish = datetime_finish;
+
+	public void setDatetimeFinish(Date datetimeFinish) {
+		this.datetimeFinish = datetimeFinish;
 	}
-	public Integer getOrder_status_id() {
-		return order_status_id;
+
+	public Integer getOrderStatusId() {
+		return orderStatusId;
 	}
-	public void setOrder_status_id(Integer order_status_id) {
-		this.order_status_id = order_status_id;
+
+	public void setOrderStatusId(Integer orderStatusId) {
+		this.orderStatusId = orderStatusId;
 	}
-	public Integer getCar_id() {
-		return  car_id;
+
+	public Integer getCarId() {
+		return carId;
 	}
-	public void setCar_id(Integer  car_id) {
-		this.car_id =  car_id;
+
+	public void setCarId(Integer carId) {
+		this.carId = carId;
 	}
+
 	@Override
 	public String toString() {
-		return "Order_in_work [order_id=" + order_id + ", order_description=" + order_description + ", datetime_start="
-				+ datetime_start + ", datetime_finish=" + datetime_finish + ", order_status_id=" + order_status_id
-				+ ",  car_id=" +  car_id + "]";
+		return "Order_in_work [order_id=" + orderId + ", orderDescription=" + orderDescription + ", datetimeStart="
+				+ datetimeStart + ", datetimeFinish=" + datetimeFinish + ", orderStatusId=" + orderStatusId
+				+ ",  carId=" + carId + "]";
 	}
-	
-	
+
 }

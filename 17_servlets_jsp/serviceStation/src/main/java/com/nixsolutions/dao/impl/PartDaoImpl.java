@@ -23,150 +23,95 @@ import com.nixsolutions.util.ConnectionManager;
  */
 public class PartDaoImpl implements PartDao {
 
-	private final static Logger logger = LogManager.getLogger();
+	private final static Logger LOGGER = LogManager.getLogger();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dbCommon.DBTables#createNewTable()
-	 */
 	@Override
-	public void createNewTable() throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
-			String query = "CREATE TABLE sqllab.part( " + "part_id INT IDENTITY, " + "part_name VARCHAR(128) NOT NULL, "
-					+ "vendor VARCHAR(128) NOT NULL, " + "amount TINYINT);";
-			logger.trace("Send query \"" + query + "\"");
+	public void createNewTable() {
+		try (Connection connection = ConnectionManager.getConnection()) {
+			String query = "CREATE TABLE sqllab.part( " + 
+					"part_id INT IDENTITY, " + 
+					"part_name VARCHAR(128) NOT NULL, "+
+					"vendor VARCHAR(128) NOT NULL, " + 
+					"amount TINYINT);";
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("Table sqllab.part was created");
+				LOGGER.trace("Table sqllab.part was created");
 			else
-				logger.debug("Table sqllab.part was not created");
+				LOGGER.debug("Table sqllab.part was not created");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.serviceStation.dbCommon.DBTables#deleteTableWithAllData(
-	 * )
-	 */
 	@Override
-	public void deleteTableWithAllData() throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void deleteTableWithAllData() {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "DROP TABLE sqllab.part;";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace(" table sqllab.part was deleted");
+				LOGGER.trace(" table sqllab.part was deleted");
 			else
-				logger.debug("table sqllab.part was not deleted");
+				LOGGER.debug("table sqllab.part was not deleted");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dAOFabrica.PartDao#getAllParts()
-	 */
 	@Override
-	public List<Part> getAllParts() throws SQLException {
+	public List<Part> getAllParts() {
 		List<Part> parts = new ArrayList<Part>();
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "SELECT * FROM sqllab.part";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			ResultSet set = stmt.executeQuery();
-			logger.trace("Generate list of the sqllab.part objects");
+			LOGGER.trace("Generate list of the sqllab.part objects");
 			while (set.next()) {
-				parts.add(new Part(set.getInt("part_id"), set.getString("part_name"), set.getString("vendor"),
+				parts.add(new Part(set.getInt("part_id"), set.getString("partName"), set.getString("vendor"),
 						set.getInt("amount")));
 			}
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 		return parts;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.serviceStation.dAOFabrica.PartDao#getPart(java.lang.
-	 * String, java.lang.String)
-	 */
 	@Override
-	public Part getPart(String partName, String vendor) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
-			String query = "SELECT * FROM sqllab.part WHERE part_name=? AND vendor=?;";
-			logger.trace("Send query \"" + query + "\"");
+	public Part getPart(String partName, String vendor) {
+		try (Connection connection = ConnectionManager.getConnection()) {
+			String query = "SELECT * FROM sqllab.part WHERE partName=? AND vendor=?;";
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, partName);
 			stmt.setString(2, vendor);
 			ResultSet set = stmt.executeQuery();
 			while (set.next()) {
-				return new Part(set.getInt("part_id"), set.getString("part_name"), set.getString("vendor"),
+				return new Part(set.getInt("part_id"), set.getString("partName"), set.getString("vendor"),
 						set.getInt("amount"));
 			}
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.serviceStation.dAOFabrica.PartDao#addNewPart(java.lang.
-	 * String, java.lang.String, java.lang.Integer)
-	 */
 	@Override
-	public void addNewPart(String partName, String vendor, Integer amount) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void addNewPart(String partName, String vendor, Integer amount) {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "INSERT INTO sqllab.part (part_name  ,vendor ,amount)" + "VALUES(?,?,?);";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, partName);
@@ -174,82 +119,53 @@ public class PartDaoImpl implements PartDao {
 			stmt.setInt(3, amount);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("New sqllab.part was created");
+				LOGGER.trace("New sqllab.part was created");
 			else
-				logger.debug("New sqllab.part was not created");
+				LOGGER.debug("New sqllab.part was not created");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.serviceStation.dAOFabrica.PartDao#deletePartByID(java.
-	 * lang.Integer)
-	 */
 	@Override
-	public void deletePartByID(Integer part_id) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void deletePartByID(Integer part_id) {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "DELETE FROM sqllab.part WHERE part_id=?";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setInt(1, part_id);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("part was deleted");
+				LOGGER.trace("part was deleted");
 			else
-				logger.debug("part was not deleted");
+				LOGGER.debug("part was not deleted");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.dao.PartDao#updateExistingPart(com.nixsolutions.entity.
-	 * Part)
-	 */
 	@Override
-	public void updateExistingPart(Part part) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
-			String query = "UPDATE sqllab.part " + "SET part_name=?, vendor =?, amount =? where part_id =?;";
-			logger.trace("Send query \"" + query + "\"");
+	public void updateExistingPart(Part part) {
+		try (Connection connection = ConnectionManager.getConnection()) {
+			String query = "UPDATE sqllab.part " + "SET partName=?, vendor =?, amount =? where part_id =?;";
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
-			stmt.setString(1, part.getPart_name());
+			stmt.setString(1, part.getPartName());
 			stmt.setString(2, part.getVendor());
 			stmt.setInt(3, part.getAmount());
-			stmt.setInt(4, part.getPart_id());
+			stmt.setInt(4, part.getPartId());
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("New sqllab.part was created");
+				LOGGER.trace("New sqllab.part was created");
 			else
-				logger.debug("New sqllab.part was not created");
+				LOGGER.debug("New sqllab.part was not created");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 }

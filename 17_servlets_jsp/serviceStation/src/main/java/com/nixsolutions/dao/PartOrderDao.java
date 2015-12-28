@@ -3,7 +3,6 @@
  */
 package com.nixsolutions.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.nixsolutions.entity.PartOrder;
@@ -18,34 +17,34 @@ public interface PartOrderDao extends DBTables {
 	 * getAllParts
 	 * 
 	 * @return list of the all parts
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public List<PartOrder> getAllParts() throws SQLException;
+	public List<PartOrder> getAllParts() ;
 
 	/**
 	 * get Parts By Order Id
 	 * 
-	 * @param order_id
-	 *            order_id
-	 * @throws SQLException 
+	 * @param orderId
+	 *            orderId
+	 * @ 
 	 */
-	public List<PartOrder> getPartsByOrderId(Integer order_id) throws SQLException;
+	public List<PartOrder> getPartsByOrderId(Integer orderId) ;
 
 	/**
 	 * set sqllab.part to order
 	 * 
-	 * @param order_id
+	 * @param orderId
 	 * @param part_id
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public void setPartToOrder(Integer order_id, Integer part_id, Integer amount) throws SQLException;
+	public void setPartToOrder(Integer orderId, Integer part_id, Integer amount) ;
 
 	/**
 	 * delete Part From Order
 	 * 
-	 * @param order_id
+	 * @param orderId
 	 * @param part_id
-	 * @throws SQLException 
+	 * @ 
 	 */
-	public void deletePartFromOrder(Integer order_id, Integer part_id) throws SQLException;
+	public void deletePartFromOrder(Integer orderId, Integer part_id) ;
 }

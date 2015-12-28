@@ -8,45 +8,53 @@ package com.nixsolutions.entity;
  *
  */
 public class Part {
-	private Integer part_id;
-	private String part_name;
+	private Integer partId;
+	private String partName;
 	private String vendor;
 	private Integer amount;
-	public Part(Integer part_id, String part_name, String vendor, Integer amount) {
-		this.part_id = part_id;
-		this.part_name = part_name;
+
+	public Part(Integer partId, String partName, String vendor, Integer amount) {
+		this.partId = partId;
+		this.partName = partName;
 		this.vendor = vendor;
 		this.amount = amount;
 	}
-	public Integer getPart_id() {
-		return part_id;
+
+	public Integer getPartId() {
+		return partId;
 	}
-	public void setPart_id(Integer part_id) {
-		this.part_id = part_id;
+
+	public void setPartId(Integer partId) {
+		this.partId = partId;
 	}
-	public String getPart_name() {
-		return part_name;
+
+	public String getPartName() {
+		return partName;
 	}
-	public void setPart_name(String part_name) {
-		this.part_name = part_name;
+
+	public void setPartName(String partName) {
+		this.partName = partName;
 	}
+
 	public String getVendor() {
 		return vendor;
 	}
+
 	public void setVendor(String vendor) {
 		this.vendor = vendor;
 	}
+
 	public Integer getAmount() {
 		return amount;
 	}
+
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
+
 	@Override
 	public String toString() {
-		return "Part [part_id=" + part_id + ", part_name=" + part_name + ", vendor=" + vendor + ", amount=" + amount
-				+ "]";
+		return "Part [partId=" + partId + ", partName=" + partName + ", vendor=" + vendor + ", amount=" + amount + "]";
 	}
 
-	
 }

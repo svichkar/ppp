@@ -19,20 +19,20 @@ import com.nixsolutions.util.ConnectionManager;
 public class CreateDB {
 	private final static Logger logger = LogManager.getLogger();
 
-	public CreateDB() throws ClassNotFoundException, SQLException {
+	public CreateDB() {
 		createDB();
 	}
 
 	/**
 	 * @param args
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
+	 * @ @throws
+	 *       ClassNotFoundException
 	 */
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+	public static void main(String[] args) {
 		createDB();
 	}
 
-	public static void createDB() throws SQLException, ClassNotFoundException {
+	public static void createDB() {
 
 		Connection conn = null;
 		try {
@@ -52,14 +52,10 @@ public class CreateDB {
 					+ "first_name VARCHAR(128) NOT NULL, " + "last_name VARCHAR(128) NOT NULL, " + "phone VARCHAR(32),"
 					+ "user_id INT NOT NULL," + "FOREIGN KEY (user_id) REFERENCES  sqllab.user(user_id))");
 			// create sqllab.car table
-			stmt.addBatch("CREATE TABLE sqllab.car( " 
-			+ "car_id INT IDENTITY, " 
-					+ "car_model VARCHAR(128) NOT NULL, "
-					+ "vin_number VARCHAR(17) NOT NULL UNIQUE, " 
-					+ "car_description VARCHAR(256), "
+			stmt.addBatch("CREATE TABLE sqllab.car( " + "car_id INT IDENTITY, " + "car_model VARCHAR(128) NOT NULL, "
+					+ "vin_number VARCHAR(17) NOT NULL UNIQUE, " + "car_description VARCHAR(256), "
 					+ "reg_number VARCHAR(17) NOT NULL UNIQUE);");
-			stmt.addBatch("ALTER TABLE sqllab.car " 
-					+ "ADD COLUMN customer_id INT NOT NULL;");
+			stmt.addBatch("ALTER TABLE sqllab.car " + "ADD COLUMN customer_id INT NOT NULL;");
 			stmt.addBatch("ALTER TABLE sqllab.car "
 					+ "ADD FOREIGN KEY(customer_id ) REFERENCES sqllab.customer (customer_id );");
 			stmt.addBatch(
@@ -91,22 +87,19 @@ public class CreateDB {
 			stmt.addBatch("ALTER TABLE sqllab.order_in_work " + "ADD COLUMN  car_id INT NOT NULL;");
 			stmt.addBatch(
 					"ALTER TABLE sqllab.order_in_work " + "ADD FOREIGN KEY(car_id ) REFERENCES sqllab.car (car_id );");
-			/*
-			 * stmt.addBatch("ALTER TABLE sqllab.user " +
-			 * "ADD COLUMN user_role_id INT NOT NULL;"); stmt.addBatch(
-			 * "ALTER TABLE sqllab.user " +
-			 * "ADD FOREIGN KEY(user_role_id) REFERENCES sqllab.user_role (user_role_id);"
-			 * );
-			 */
+			
 			stmt.executeBatch();
 			stmt.close();
 			logger.trace("db was created");
 
 		} catch (SQLException ex) {
 			logger.error(ex);
-			throw new SQLException(ex);
 		} finally {
-			conn.close();
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
 		}
 
 	}

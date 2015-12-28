@@ -3,46 +3,48 @@
  */
 package com.nixsolutions.entity;
 
-/**
- * @author ������
- *
- */
 public class User {
-	private Integer user_id;
-	private String user_login;
-	private String user_password;
-	private Integer user_role_id;
 
-	public Integer getUser_id() {
-		return user_id;
+	private Integer userId;
+	private String userLogin;
+	private String userPassword;
+	private Integer userRoleId;
+
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public String getUser_login() {
-		return user_login;
+	public String getUserLogin() {
+		return userLogin;
 	}
 
-	public void setUser_login(String user_login) {
-		this.user_login = user_login;
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
 	}
 
-	public String getUser_password() {
-		return user_password;
+	public String getUserPassword() {
+		return userPassword;
 	}
 
-	public void setUser_password(String user_password) {
-		this.user_password = user_password;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
 
-	public Integer getUser_role_id() {
-		return user_role_id;
+	public Integer getUserRoleId() {
+		return userRoleId;
 	}
 
-	public void setUser_role_id(Integer user_role_id) {
-		this.user_role_id = user_role_id;
+	public void setUserRoleId(Integer userRoleId) {
+		this.userRoleId = userRoleId;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userLogin=" + userLogin + ", userPassword=" + userPassword
+				+ ", userRoleId=" + userRoleId + "]";
+	}
 }

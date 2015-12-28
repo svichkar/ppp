@@ -1,85 +1,85 @@
 package com.nixsolutions.entity;
 
 public class Car {
-	private Integer car_id;
-	private String car_model;
-	private String vin_number;
-	private String reg_number;
-	private String car_description;
-	private Integer customer_id;
+	private Integer carId;
+	private String carModel;
+	private String vinNumber;
+	private String regNumber;
+	private String carDescription;
+	private Integer customerId;
 
-	public Car(String car_model, String vin_number, String reg_number, String car_description, Integer customer_id) {
+	public Car(String carModel, String vinNumber, String regNumber, String carDescription, Integer customerId) {
 		super();
-		this.car_model = car_model;
-		this.vin_number = vin_number;
-		this.reg_number = reg_number;
-		this.car_description = car_description;
-		this.customer_id = customer_id;
+		this.carModel = carModel;
+		this.vinNumber = vinNumber;
+		this.regNumber = regNumber;
+		this.carDescription = carDescription;
+		this.customerId = customerId;
 	}
 
-	public Car(Integer car_id, String car_model, String vin_number, String reg_number, String car_description,
-			Integer customer_id) {
+	public Car(Integer carId, String carModel, String vinNumber, String regNumber, String carDescription,
+			Integer customerId) {
 		super();
-		this.car_id = car_id;
-		this.car_model = car_model;
-		this.vin_number = vin_number;
-		this.reg_number = reg_number;
-		this.car_description = car_description;
-		this.customer_id = customer_id;
+		this.carId = carId;
+		this.carModel = carModel;
+		this.vinNumber = vinNumber;
+		this.regNumber = regNumber;
+		this.carDescription = carDescription;
+		this.customerId = customerId;
 	}
 
-	public Integer getCar_id() {
-		return car_id;
+	public Integer getCarId() {
+		return carId;
 	}
 
-	public void setCar_id(Integer car_id) {
-		this.car_id = car_id;
+	public void setCarId(Integer carId) {
+		this.carId = carId;
 	}
 
-	public String getCar_model() {
-		return car_model;
+	public String getCarModel() {
+		return carModel;
 	}
 
-	public void setCar_model(String car_model) {
-		this.car_model = car_model;
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
 	}
 
-	public String getVin_number() {
-		return vin_number;
+	public String getVinNumber() {
+		return vinNumber;
 	}
 
-	public void setVin_number(String vin_number) {
-		this.vin_number = vin_number;
+	public void setVinNumber(String vinNumber) {
+		this.vinNumber = vinNumber;
 	}
 
-	public String getReg_number() {
-		return reg_number;
+	public String getRegNumber() {
+		return regNumber;
 	}
 
-	public void setReg_number(String reg_number) {
-		this.reg_number = reg_number;
+	public void setRegNumber(String regNumber) {
+		this.regNumber = regNumber;
 	}
 
-	public String getCar_description() {
-		return car_description;
+	public String getCarDescription() {
+		return carDescription;
 	}
 
-	public void setCar_description(String car_description) {
-		this.car_description = car_description;
+	public void setCarDescription(String carDescription) {
+		this.carDescription = carDescription;
 	}
 
-	public Integer getCustomer_id() {
-		return customer_id;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer_id(Integer customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	@Override
 	public String toString() {
-		return "Car [car_model=" + car_model + ", vin_number=" + vin_number + ", reg_number=" + reg_number
-				+ ", car_description=" + car_description + ", customer_id=" + customer_id + "]";
+		return "Car [carModel=" + carModel + ", vinNumber=" + vinNumber + ", regNumber=" + regNumber
+				+ ", carDescription=" + carDescription + ", customerId=" + customerId + "]";
 	}
 
 }

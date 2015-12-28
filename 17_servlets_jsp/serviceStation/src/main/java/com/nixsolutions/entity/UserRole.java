@@ -8,23 +8,28 @@ package com.nixsolutions.entity;
  *
  */
 public class UserRole {
-	private Integer user_role_id;
-	private String user_role_name;
+	private Integer userRoleId;
+	private String userRoleName;
 
-	public Integer getUser_role_id() {
-		return user_role_id;
+	public Integer getUserRoleId() {
+		return userRoleId;
 	}
 
-	public void setUser_role_id(Integer user_role_id) {
-		this.user_role_id = user_role_id;
+	public void setUserRoleId(Integer userRoleId) {
+		this.userRoleId = userRoleId;
 	}
 
-	public String getUser_role_name() {
-		return user_role_name;
+	public String getUserRoleName() {
+		return userRoleName;
 	}
 
-	public void setUser_role_name(String user_role_name) {
-		this.user_role_name = user_role_name;
+	public void setUserRoleName(String userRoleName) {
+		this.userRoleName = userRoleName;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRole [userRoleId=" + userRoleId + ", userRoleName=" + userRoleName + "]";
 	}
 
 }

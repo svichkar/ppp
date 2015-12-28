@@ -1,9 +1,6 @@
 
 package com.nixsolutions.dao;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.nixsolutions.dao.impl.CarDaoImpl;
 import com.nixsolutions.dao.impl.CustomerDaoImpl;
 import com.nixsolutions.dao.impl.OrderInWorkDaoImpl;
@@ -22,53 +19,52 @@ import com.nixsolutions.dao.impl.WorkerStatusDaoImpl;
  *
  */
 public class DaoFactory {
-	private final static Logger logger = LogManager.getLogger();
 
-	public static CarDaoImpl getCarDaoImpl() {
+	public static CarDao getCarDao() {
 		return new CarDaoImpl();
 	}
 
-	public static CustomerDaoImpl getCustomerDaoImpl() {
+	public static CustomerDao getCustomerDao() {
 		return new CustomerDaoImpl();
 	}
 
-	public static OrderInWorkDaoImpl getOrderInWorkDaoImpl() {
+	public static OrderInWorkDao getOrderInWorkDao() {
 		return new OrderInWorkDaoImpl();
 	}
 
-	public static OrderStatusDaoImpl getOrderStatusDaoImpl() {
+	public static OrderStatusDao getOrderStatusDao() {
 		return new OrderStatusDaoImpl();
 	}
 
-	public static OrderWorkerDaoImpl getOrderWorkerDaoImpl() {
+	public static OrderWorkerDao getOrderWorkerDao() {
 		return new OrderWorkerDaoImpl();
 	}
 
-	public static PartDaoImpl getPartDaoImpl() {
+	public static PartDao getPartDao() {
 		return new PartDaoImpl();
 	}
 
-	public static PartOrderDaoImpl getPartOrderDaoImpl() {
+	public static PartOrderDao getPartOrderDao() {
 		return new PartOrderDaoImpl();
 	}
 
-	public static WorkerDaoImpl getWorkerDaoImpl() {
+	public static WorkerDao getWorkerDao() {
 		return new WorkerDaoImpl();
 	}
 
-	public static WorkerSpecializationDaoImpl getWorkerSpecializationDaoImpl() {
+	public static WorkerSpecializationDao getWorkerSpecializationDao() {
 		return new WorkerSpecializationDaoImpl();
 	}
 
-	public static WorkerStatusDaoImpl getWorkerStatusDaoImpl() {
+	public static WorkerStatusDao getWorkerStatusDao() {
 		return new WorkerStatusDaoImpl();
 	}
 
-	public static UserDaoImpl getUserDaoImpl() {
+	public static UserDao getUserDao() {
 		return new UserDaoImpl();
 	}
 
-	public static UserRoleDaoImpl getUserRoleDaoImpl() {
+	public static UserRoleDao getUserRoleDao() {
 		return new UserRoleDaoImpl();
 	}
 }

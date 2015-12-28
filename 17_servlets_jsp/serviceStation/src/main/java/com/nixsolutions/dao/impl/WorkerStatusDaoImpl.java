@@ -22,185 +22,120 @@ import com.nixsolutions.util.ConnectionManager;
  *
  */
 public class WorkerStatusDaoImpl implements WorkerStatusDao {
-	private final static Logger logger = LogManager.getLogger();
+	private final static Logger LOGGER = LogManager.getLogger();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.serviceStation.dbCommon.DBTables#createNewTable()
-	 */
 	@Override
-	public void createNewTable() throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void createNewTable() {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "CREATE TABLE sqllab.worker_status( " + "worker_status_id INT IDENTITY, "
 					+ "worker_status_name VARCHAR(128) NOT NULL); ";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			int set = stmt.executeUpdate();
 			if (set == 0)
-				logger.trace("Table sqllab.worker_status was created");
+				LOGGER.trace("Table sqllab.worker_status was created");
 			else
-				logger.debug("Table sqllab.worker_status was not created");
+				LOGGER.debug("Table sqllab.worker_status was not created");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.serviceStation.dbCommon.DBTables#deleteTableWithAllData(
-	 * )
-	 */
 	@Override
-	public void deleteTableWithAllData() throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void deleteTableWithAllData() {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "DROP TABLE sqllab.worker_status ;";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			int set = stmt.executeUpdate();
 			if (set == 0)
-				logger.trace(" table sqllab.worker_status was deleted");
+				LOGGER.trace(" table sqllab.worker_status was deleted");
 			else
-				logger.debug("table sqllab.worker_status was not deleted");
+				LOGGER.debug("table sqllab.worker_status was not deleted");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.nixsolutions.dao.WorkerStatusDao#getAllWorker_statuses()
-	 */
 	@Override
-	public List<WorkerStatus> getAllWorker_statuses() throws SQLException {
+	public List<WorkerStatus> getAllWorker_statuses() {
 		List<WorkerStatus> workerStatus = new ArrayList<WorkerStatus>();
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "SELECT * FROM sqllab.worker_status;";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			ResultSet set = stmt.executeQuery();
-			logger.trace("Generate list of the sqllab.worker_status objects");
+			LOGGER.trace("Generate list of the sqllab.worker_status objects");
 			while (set.next()) {
 				workerStatus.add(new WorkerStatus(set.getInt("worker_status_id"), set.getString("worker_status_name")));
 			}
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 		return workerStatus;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.nixsolutions.dao.WorkerStatusDao#getWorkerStatus(java.lang.Integer)
-	 */
 	@Override
-	public WorkerStatus getWorkerStatus(Integer worker_status_id) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public WorkerStatus getWorkerStatus(Integer worker_status_id) {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "SELECT * FROM sqllab.worker_status WHERE worker_status_id=?;";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setInt(1, worker_status_id);
 			ResultSet set = stmt.executeQuery();
-			logger.trace("Generate the worker_status object");
+			LOGGER.trace("Generate the worker_status object");
 			while (set.next()) {
 				return new WorkerStatus(set.getInt("worker_status_id"), set.getString("worker_status_name"));
 			}
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.nixsolutions.dao.WorkerStatusDao#createNewStatus(java.lang.String)
-	 */
 	@Override
-	public void createNewStatus(String statusName) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void createNewStatus(String statusName) {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "INSERT INTO sqllab.worker_status (worker_status_name)VALUES(?);";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("New sqllab.worker_status was created");
+				LOGGER.trace("New sqllab.worker_status was created");
 			else
-				logger.debug("New sqllab.worker_status was not created");
+				LOGGER.debug("New sqllab.worker_status was not created");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.nixsolutions.dao.WorkerStatusDao#deleteStatusByName(java.lang.String)
-	 */
 	@Override
-	public void deleteStatusByName(String statusName) throws SQLException {
-		Connection connection = null;
-		try {
-			logger.debug("Create DB connector");
-			connection = ConnectionManager.getConnection();
+	public void deleteStatusByName(String statusName) {
+		try (Connection connection = ConnectionManager.getConnection()) {
 			String query = "DELETE FROM sqllab.worker_status WHERE worker_status_name=?";
-			logger.trace("Send query \"" + query + "\"");
+			LOGGER.trace("Send query \"" + query + "\"");
 
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, statusName);
 			int set = stmt.executeUpdate();
 			if (set == 1)
-				logger.trace("worker_status was deleted");
+				LOGGER.trace("worker_status was deleted");
 			else
-				logger.debug("worker_status was not deleted");
+				LOGGER.debug("worker_status was not deleted");
 			stmt.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (connection != null)
-				connection.close();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 }

@@ -20,23 +20,20 @@ public class DropDB {
 	private final static Logger logger = LogManager.getLogger();
 
 	public DropDB() {
-		try {
-			dropDB();
-		} catch (ClassNotFoundException | SQLException e) {
-		}
+		dropDB();
 	}
 
 	/**
 	 * @param args
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
+	 * @ @throws
+	 *       ClassNotFoundException
 	 */
-	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+	public static void main(String[] args) {
 		dropDB();
 
 	}
 
-	public static void dropDB() throws SQLException, ClassNotFoundException {
+	public static void dropDB() {
 
 		Connection conn = null;
 		try {
@@ -63,7 +60,11 @@ public class DropDB {
 		} catch (SQLException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
-			conn.close();
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
 		}
 	}
 

@@ -1,30 +1,30 @@
 package com.nixsolutions.entity;
 
 public class OrderStatus {
-	private Integer status_id;
-	 private String status_name;
+	private Integer statusId;
+	 private String statusName;
 	 
-	public OrderStatus(Integer status_id, String status_name) {
+	public OrderStatus(Integer statusId, String statusName) {
 		super();
-		this.status_id = status_id;
-		this.status_name = status_name;
+		this.statusId = statusId;
+		this.statusName = statusName;
 	}
-	public Integer getStatus_id() {
-		return status_id;
+	public Integer getStatusId() {
+		return statusId;
 	}
-	public void setStatus_id(Integer status_id) {
-		this.status_id = status_id;
+	public void setStatusId(Integer status_id) {
+		this.statusId = status_id;
 	}
-	public String getStatus_name() {
-		return status_name;
+	public String getStatusName() {
+		return statusName;
 	}
-	public void setStatus_name(String status_name) {
-		this.status_name = status_name;
+	public void setStatusName(String status_name) {
+		this.statusName = status_name;
 	}
 	
 	@Override
 	public String toString() {
-		return "Status [status_id=" + status_id + ", status_name=" + status_name + "]";
+		return "Status [statusId=" + statusId + ", statusName=" + statusName + "]";
 	}
 	
 	

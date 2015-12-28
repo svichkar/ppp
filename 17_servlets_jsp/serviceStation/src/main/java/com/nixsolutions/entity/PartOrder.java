@@ -8,30 +8,30 @@ package com.nixsolutions.entity;
  *
  */
 public class PartOrder {
-	private Integer order_id;
-	private Integer part_id;
+	private Integer orderId;
+	private Integer partId;
 	private Integer amount;
 
-	public PartOrder(Integer order_id, Integer part_id, Integer amount) {
-		this.order_id = order_id;
-		this.part_id = part_id;
+	public PartOrder(Integer orderId, Integer partId, Integer amount) {
+		this.orderId = orderId;
+		this.partId = partId;
 		this.amount = amount;
 	}
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
-	public Integer getPart_id() {
-		return part_id;
+	public Integer getPartId() {
+		return partId;
 	}
 
-	public void setPart_id(Integer part_id) {
-		this.part_id = part_id;
+	public void setPartId(Integer partId) {
+		this.partId = partId;
 	}
 
 	public Integer getAmount() {
@@ -44,7 +44,7 @@ public class PartOrder {
 
 	@Override
 	public String toString() {
-		return "Part_order [order_id=" + order_id + ", part_id=" + part_id + ", amount=" + amount + "]";
+		return "Part_order [order_id=" + orderId + ", partId=" + partId + ", amount=" + amount + "]";
 	}
 
 }

@@ -8,87 +8,86 @@ package com.nixsolutions.entity;
  *
  */
 public class Worker {
-	private Integer worker_id;
-	private Integer specialization_id;
-	private String first_name;
-	private String last_name;
-	private Integer worker_status_id;
-	private Integer user_id;
-	
-	public Worker(Integer worker_id, Integer specialization_id, String last_name, String first_name,
-			Integer worker_status_id, Integer user_id) {
+	private Integer workerId;
+	private Integer specializationId;
+	private String firstName;
+	private String lastName;
+	private Integer workerStatusId;
+	private Integer userId;
+
+	public Worker(Integer workerId, Integer specializationId, String lastName, String firstName, Integer workerStatusId,
+			Integer userId) {
 		super();
-		this.worker_id = worker_id;
-		this.specialization_id = specialization_id;
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.worker_status_id = worker_status_id;
-		this.user_id=user_id;
-	}
-	
-	public Integer getUser_id() {
-		return user_id;
+		this.workerId = workerId;
+		this.specializationId = specializationId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.workerStatusId = workerStatusId;
+		this.userId = userId;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public Worker(Integer specialization_id, String last_name, String first_name,
-			Integer worker_status_id, Integer user_id) {
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public Worker(Integer specializationId, String lastName, String firstName, Integer workerStatusId,
+			Integer userId) {
 		super();
-		this.specialization_id = specialization_id;
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.worker_status_id = worker_status_id;
-		this.user_id=user_id;
-}
-	public Integer getWorker_id() {
-		return worker_id;
+		this.specializationId = specializationId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.workerStatusId = workerStatusId;
+		this.userId = userId;
 	}
 
-	public void setWorker_id(Integer worker_id) {
-		this.worker_id = worker_id;
+	public Integer getWorkerId() {
+		return workerId;
 	}
 
-	public Integer getSpecialization_id() {
-		return specialization_id;
+	public void setWorkerId(Integer workerId) {
+		this.workerId = workerId;
 	}
 
-	public void setSpecialization_id(Integer specialization_id) {
-		this.specialization_id = specialization_id;
+	public Integer getSpecializationId() {
+		return specializationId;
 	}
 
-	public String getFirst_name() {
-		return first_name;
+	public void setSpecializationId(Integer specializationId) {
+		this.specializationId = specializationId;
 	}
 
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public String getLast_name() {
-		return last_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public Integer getWorker_status_id() {
-		return worker_status_id;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public void setWorker_status_id(Integer worker_status_id) {
-		this.worker_status_id = worker_status_id;
+	public Integer getWorkerStatusId() {
+		return workerStatusId;
+	}
+
+	public void setWorkerStatusId(Integer workerStatusId) {
+		this.workerStatusId = workerStatusId;
 	}
 
 	@Override
 	public String toString() {
-		return "Worker [worker_id=" + worker_id + ", specialization_id=" + specialization_id + ", first_name="
-				+ first_name + ", last_name=" + last_name + ", worker_status_id=" + worker_status_id + "]";
+		return "Worker [workerId=" + workerId + ", specializationId=" + specializationId + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", workerStatusId=" + workerStatusId + "]";
 	}
-	
-	
-	
+
 }

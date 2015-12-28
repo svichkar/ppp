@@ -8,30 +8,30 @@ package com.nixsolutions.entity;
  *
  */
 public class OrderWorker {
-	private Integer order_id;
-	private Integer worker_id;
+	private Integer orderId;
+	private Integer workerId;
 	private boolean isCompleted;
 	
-	public OrderWorker(Integer order_id, Integer worker_id, boolean isCompleted) {
-		this.order_id = order_id;
-		this.worker_id = worker_id;
+	public OrderWorker(Integer orderId, Integer workerId, boolean isCompleted) {
+		this.orderId = orderId;
+		this.workerId = workerId;
 		this.isCompleted = isCompleted;
 	}
 
-	public Integer getOrder_id() {
-		return order_id;
+	public Integer getOrderId() {
+		return orderId;
 	}
 
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
-	public Integer getWorker_id() {
-		return worker_id;
+	public Integer getWorkerId() {
+		return workerId;
 	}
 
-	public void setWorker_id(Integer worker_id) {
-		this.worker_id = worker_id;
+	public void setWorkerId(Integer worker_id) {
+		this.workerId = worker_id;
 	}
 
 	public boolean isCompleted() {
@@ -44,7 +44,7 @@ public class OrderWorker {
 
 	@Override
 	public String toString() {
-		return "Order_worker [order_id=" + order_id + ", worker_id=" + worker_id + ", isCompleted=" + isCompleted + "]";
+		return "Order_worker [order_id=" + orderId + ", workerId=" + workerId + ", isCompleted=" + isCompleted + "]";
 	}
 
 	

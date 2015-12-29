@@ -18,4 +18,9 @@ public interface UserDao {
     public List<User> findAll();
 
     public User findById(int id);
+
+    public User findByLoginOrEmail(String login);
+
+    public User findByLoginAndPassword(String login, String password);
+
 }

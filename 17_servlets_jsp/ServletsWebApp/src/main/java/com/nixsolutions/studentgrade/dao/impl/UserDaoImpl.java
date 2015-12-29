@@ -28,4 +28,12 @@ public class UserDaoImpl implements UserDao {
     public User findById(int id) {
         return null;
     }
+
+    public User findByLoginOrEmail(String login) {
+        return null;
+    }
+
+    public User findByLoginAndPassword(String login, String password) {
+        return null;
+    }
 }

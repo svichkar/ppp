@@ -90,7 +90,7 @@ public class CreateDB {
                     ");");
 
             statement.executeBatch();
-
+            statement.close();
         } catch (SQLException e) {
             LOGGER.error(e.getErrorCode() + "\t" + e.getMessage());
         } finally {

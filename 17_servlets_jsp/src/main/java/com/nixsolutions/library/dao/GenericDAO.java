@@ -1,5 +1,7 @@
 package com.nixsolutions.library.dao;
 
+import com.nixsolutions.library.entity.User;
+
 import java.util.List;
 
 /**
@@ -16,4 +18,6 @@ public interface GenericDAO<E> {
     public E findByID(Integer id);
 
     public List<E> findAll();
+
+    E findByLogin(String login);
 }

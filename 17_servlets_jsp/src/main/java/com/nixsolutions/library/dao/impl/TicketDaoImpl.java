@@ -117,4 +117,9 @@ public class TicketDaoImpl implements TicketDAO {
             return null;
         }
     }
+
+    @Override
+    public Ticket findByLogin(String login) {
+        return null;
+    }
 }

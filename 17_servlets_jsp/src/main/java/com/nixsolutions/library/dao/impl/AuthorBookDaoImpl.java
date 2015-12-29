@@ -112,4 +112,9 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
             return null;
         }
     }
+
+    @Override
+    public AuthorBook findByLogin(String login) {
+        return null;
+    }
 }

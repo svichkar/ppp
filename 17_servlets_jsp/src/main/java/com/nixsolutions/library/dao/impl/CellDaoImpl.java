@@ -111,4 +111,9 @@ public class CellDaoImpl implements CellDAO{
             return null;
         }
     }
+
+    @Override
+    public Cell findByLogin(String login) {
+        return null;
+    }
 }

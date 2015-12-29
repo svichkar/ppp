@@ -111,4 +111,9 @@ public class RoleDaoImpl implements RoleDAO {
             return null;
         }
     }
+
+    @Override
+    public Role findByLogin(String login) {
+        return null;
+    }
 }

@@ -21,7 +21,8 @@ import java.io.PrintWriter;
  */
 
 @WebServlet("/main")
-public class LoginProcess extends HttpServlet{
+public class MainPage extends HttpServlet {
+    private static HttpSession session;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,7 +50,25 @@ public class LoginProcess extends HttpServlet{
             RoleDAO roleDAO = daoFactory.getRoleDAO();
             Role role = roleDAO.findByID(user.getRoleId());
             if (user.getPassword().equals(req.getParameter("password"))) {
-                req.getRequestDispatcher("/guestPage").forward(req, resp);
+                session = req.getSession(true);
+                out.println("<html>\n" +
+                        "<head>\n" +
+                        "<title>login page</title>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<p>You enter login " + req.getParameter("login") + "</p>\r\n" +
+                        "<p>Your user id " + user.getUserId() + "</p>\n" +
+                        "<p>Your role " + role.getName() + "</p>\n");
+                if (role.getName().equals("admin")) {
+                    session.setAttribute("isAdmin", true);
+                    out.println("<form action=\"adminPage\" method=\"post\">" +
+                            "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
+                            "<input type=\"submit\" name=\"go to administration page\" value=\"go to administration page\"></form></td>");
+                } else {
+                    session.setAttribute("isAdmin", false);
+                }
+                out.println("</body>\n" +
+                        "</html>");
             } else {
                 out.println("<html>\n" +
                         "<head>\n" +

@@ -25,7 +25,7 @@ public class EditPage extends HttpServlet {
         DaoFactory daoFactory = new DaoFactoryImpl();
         UserDAO dao = daoFactory.getUserDAO();
         RoleDAO roleDAO = daoFactory.getRoleDAO();
-        if (LoginProcess.getSession() != null) {
+        if (req.getSession().getAttribute("isAdmin").equals(true)) {
             if (req.getParameter("edit") != null) {
                 Integer id = Integer.parseInt(req.getParameter("id"));
                 User user = dao.findByID(id);
@@ -47,6 +47,8 @@ public class EditPage extends HttpServlet {
                 out.println("</html>");
             }
             out.close();
+        } else {
+            out.println("Sorry you are not admin");
         }
     }
 }

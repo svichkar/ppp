@@ -24,7 +24,7 @@ public class AdminPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        if (req.getSession(true).getAttribute("isAdmin") != null) {
+        if (req.getSession(true).getAttribute("isAdmin").equals(true)) {
             out.println("You are admin");
         } else {
             out.println("You are not login as admin");
@@ -38,22 +38,22 @@ public class AdminPage extends HttpServlet {
         DaoFactory daoFactory = new DaoFactoryImpl();
         UserDAO dao = daoFactory.getUserDAO();
         RoleDAO roleDAO = daoFactory.getRoleDAO();
-        if (req.getSession(true).getAttribute("isAdmin") != null) {
+        if (req.getSession().getAttribute("isAdmin").equals(true)) {
             if (req.getParameter("delete") != null) {
                 Integer id = Integer.parseInt(req.getParameter("id"));
                 dao.delete(dao.findByID(id));
             }
-            if (req.getParameter("edit") != null){
+            if (req.getParameter("edit") != null) {
                 Integer id = Integer.parseInt(req.getParameter("userId"));
                 if (roleDAO.findByName(req.getParameter("role").toLowerCase()) == null) {
                     Role role = new Role(req.getParameter("role").toLowerCase());
                     roleDAO.create(role);
                 }
                 Integer roleId = roleDAO.findByName(req.getParameter("role")).getRoleId();
-                if (req.getParameter("userName").equals(dao.findByID(id).getLogin())){
+                if (req.getParameter("userName").equals(dao.findByID(id).getLogin())) {
                     User user = new User(id, req.getParameter("userName").toLowerCase(), req.getParameter("password"), roleId);
                     dao.update(user);
-                } else if (dao.findByLogin(req.getParameter("userName").toLowerCase()) == null){
+                } else if (dao.findByLogin(req.getParameter("userName").toLowerCase()) == null) {
                     User user = new User(id, req.getParameter("userName").toLowerCase(), req.getParameter("password"), roleId);
                     dao.update(user);
                 } else {
@@ -72,7 +72,7 @@ public class AdminPage extends HttpServlet {
                     Role role = new Role(req.getParameter("userRole").toLowerCase());
                     roleDAO.create(role);
                 }
-                if (dao.findByLogin(req.getParameter("userName").toLowerCase()) == null){
+                if (dao.findByLogin(req.getParameter("userName").toLowerCase()) == null) {
                     User user = new User(req.getParameter("userName").toLowerCase(), req.getParameter("userPassword"),
                             roleDAO.findByName(req.getParameter("userRole")).getRoleId());
                     dao.create(user);

@@ -117,9 +117,4 @@ public class ClientDaoImpl implements ClientDAO {
             return null;
         }
     }
-
-    @Override
-    public Client findByLogin(String login) {
-        return null;
-    }
 }

@@ -18,6 +18,4 @@ public interface GenericDAO<E> {
     public E findByID(Integer id);
 
     public List<E> findAll();
-
-    E findByLogin(String login);
 }

@@ -4,6 +4,7 @@ import com.nixsolutions.library.dao.DaoFactory;
 import com.nixsolutions.library.dao.RoleDAO;
 import com.nixsolutions.library.dao.UserDAO;
 import com.nixsolutions.library.dao.impl.DaoFactoryImpl;
+import com.nixsolutions.library.entity.Role;
 import com.nixsolutions.library.entity.User;
 
 import javax.servlet.ServletException;
@@ -42,6 +43,16 @@ public class AdminPage extends HttpServlet {
                 Integer id = Integer.parseInt(req.getParameter("id"));
                 dao.delete(dao.findByID(id));
             }
+            if (req.getParameter("edit") != null){
+                Integer id = Integer.parseInt(req.getParameter("userId"));
+                if (roleDAO.findByName(req.getParameter("role")) == null) {
+                    Role role = new Role(req.getParameter("role"));
+                    roleDAO.create(role);
+                }
+                Integer roleId = roleDAO.findByName(req.getParameter("role")).getRoleId();
+                User user = new User(id, req.getParameter("userName"), req.getParameter("password"), roleId);
+                dao.update(user);
+            }
             List<User> result = dao.findAll();
             out.println("<html>");
             out.println("<head>");
@@ -49,21 +60,36 @@ public class AdminPage extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<p>Welcome " + req.getParameter("login") + "</p>");
-            out.println("<table border=\"1px\"><tr><td>User_ID</td><td>name</td><td>Role</td></tr>");
+            out.println("<table border=\"1px\"><tr><td>User_ID</td><td>name</td><td>password</td><td>Role</td></tr>");
             for (int i = 0; i < result.size(); i++) {
                 User resultUser = result.get(i);
                 if (resultUser.getLogin().equals(req.getParameter("login"))) {
-                    out.println("<tr><td>" + resultUser.getUserId() + "</td><td>" + resultUser.getLogin() + "</td><td>" +
-                            roleDAO.findByID(resultUser.getRoleId()).getName() +
-                            "</td><td><form><input type=\"button\" value=\"edit\"></form></td></tr>");
-                } else {
-                    out.println("<tr><td>" + resultUser.getUserId() + "</td><td>" + resultUser.getLogin() + "</td><td>" +
-                            roleDAO.findByID(resultUser.getRoleId()).getName() +
-                            "</td><td><form action=\"adminPage\" method=\"post\">" +
+                    out.println("<tr><td>" + resultUser.getUserId() + "</td>" +
+                            "<td>" + resultUser.getLogin() + "</td>" +
+                            "<td>" + resultUser.getPassword() + "</td>" +
+                            "<td>" + roleDAO.findByID(resultUser.getRoleId()).getName() + "</td>" +
+                            "<td><form action=\"editPage\" method=\"post\">" +
                             "<input type=\"hidden\" name=\"id\" value=\"" + resultUser.getUserId() + "\">" +
                             "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
-                            "<input type=\"submit\" name=\"delete\" value=\"delete\">" +
-                            "</form></td><td><form><input type=\"button\" value=\"edit\"></form></td></tr>");
+                            "<input type=\"submit\" name=\"edit\" value=\"edit\"></form></td>" +
+                            "</tr>");
+                } else {
+                    out.println("<tr><td>" + resultUser.getUserId() + "</td>" +
+                            "<td>" + resultUser.getLogin() + "</td>" +
+                            "<td>" + resultUser.getPassword() + "</td>" +
+                            "<td>" + roleDAO.findByID(resultUser.getRoleId()).getName() + "</td>" +
+
+                            "<td><form action=\"editPage\" method=\"post\">" +
+                            "<input type=\"hidden\" name=\"id\" value=\"" + resultUser.getUserId() + "\">" +
+                            "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
+                            "<input type=\"submit\" name=\"edit\" value=\"edit\"></form></td>" +
+
+                            "<td><form action=\"adminPage\" method=\"post\">" +
+                            "<input type=\"hidden\" name=\"id\" value=\"" + resultUser.getUserId() + "\">" +
+                            "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
+                            "<input type=\"submit\" name=\"delete\" value=\"delete\"></form></td>" +
+
+                            "</tr>");
                 }
             }
             out.println("</table>");

@@ -113,9 +113,4 @@ public class BookDaoImpl implements BookDAO {
             return null;
         }
     }
-
-    @Override
-    public Book findByLogin(String login) {
-        return null;
-    }
 }

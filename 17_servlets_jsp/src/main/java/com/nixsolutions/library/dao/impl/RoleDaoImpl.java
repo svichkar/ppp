@@ -113,7 +113,20 @@ public class RoleDaoImpl implements RoleDAO {
     }
 
     @Override
-    public Role findByLogin(String login) {
-        return null;
+    public Role findByName(String name) {
+        try (Connection connection = CustomConnectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM role WHERE name = '" + name.toLowerCase() + "';");
+            if (resultSet.next()) {
+                Role entity = new Role(resultSet.getInt("role_id"), resultSet.getString("name"));
+                return entity;
+            } else {
+                LOGGER.trace("name " + name + " not found in user table");
+                return null;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
     }
 }

@@ -119,13 +119,13 @@ public class UserDaoImpl implements UserDAO {
     public User findByLogin(String login) {
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login = '" + login + "';");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login = '" + login.toLowerCase() + "';");
             if (resultSet.next()) {
                 User entity = new User(resultSet.getInt("user_id"), resultSet.getString("login"),
                         resultSet.getString("password"), resultSet.getInt("role_id"));
                 return entity;
             } else {
-                LOGGER.trace("id " + login + " not found in user table");
+                LOGGER.trace("login " + login + " not found in user table");
                 return null;
             }
         } catch (SQLException e) {

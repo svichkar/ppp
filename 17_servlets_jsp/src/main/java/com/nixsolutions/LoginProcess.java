@@ -48,7 +48,7 @@ public class LoginProcess extends HttpServlet{
         PrintWriter out = resp.getWriter();
         DaoFactory daoFactory = new DaoFactoryImpl();
         UserDAO dao = daoFactory.getUserDAO();
-        User user = dao.findByLogin(req.getParameter("login"));
+        User user = dao.findByLogin(req.getParameter("login").toLowerCase());
 
         if (user != null) {
             RoleDAO roleDAO = daoFactory.getRoleDAO();

@@ -112,9 +112,4 @@ public class CategoryDaoImpl implements CategoryDAO {
             return null;
         }
     }
-
-    @Override
-    public Category findByLogin(String login) {
-        return null;
-    }
 }

@@ -53,6 +53,15 @@ public class AdminPage extends HttpServlet {
                 User user = new User(id, req.getParameter("userName"), req.getParameter("password"), roleId);
                 dao.update(user);
             }
+            if (req.getParameter("create") != null) {
+                if (roleDAO.findByName(req.getParameter("userRole")) == null) {
+                    Role role = new Role(req.getParameter("userRole"));
+                    roleDAO.create(role);
+                }
+                User user = new User(req.getParameter("userName"), req.getParameter("userPassword"),
+                        roleDAO.findByName(req.getParameter("userRole")).getRoleId());
+                dao.create(user);
+            }
             List<User> result = dao.findAll();
             out.println("<html>");
             out.println("<head>");
@@ -88,10 +97,18 @@ public class AdminPage extends HttpServlet {
                             "<input type=\"hidden\" name=\"id\" value=\"" + resultUser.getUserId() + "\">" +
                             "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
                             "<input type=\"submit\" name=\"delete\" value=\"delete\"></form></td>" +
-
                             "</tr>");
                 }
             }
+            out.println("<tr><td><form action=\"adminPage\" method=\"post\"" +
+                    "<input type=\"text\" readonly name=\"userId\"></td>" +
+                    "<td><input type=\"text\" name=\"userName\"></td>" +
+                    "<td><input type=\"text\" name=\"userPassword\"></td>" +
+                    "<td><input type=\"text\" name=\"userRole\"></td>" +
+                    "<td><input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\"></td>" +
+                    "<td><input type=\"submit\" name=\"create\" value=\"create\"></form></td>" +
+                    "</tr>"
+            );
             out.println("</table>");
             out.println("</body>");
             out.println("</html>");

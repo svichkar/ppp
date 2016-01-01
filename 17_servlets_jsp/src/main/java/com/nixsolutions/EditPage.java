@@ -4,7 +4,6 @@ import com.nixsolutions.library.dao.DaoFactory;
 import com.nixsolutions.library.dao.RoleDAO;
 import com.nixsolutions.library.dao.UserDAO;
 import com.nixsolutions.library.dao.impl.DaoFactoryImpl;
-import com.nixsolutions.library.entity.Role;
 import com.nixsolutions.library.entity.User;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * Created by Serko on 01.01.2016.

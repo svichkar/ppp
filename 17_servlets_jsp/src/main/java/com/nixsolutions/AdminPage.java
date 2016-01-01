@@ -24,10 +24,10 @@ public class AdminPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        if (GuestPage.getSession().equals(req.getSession())) {
+        if (req.getSession(true).getAttribute("isAdmin") != null) {
             out.println("You are admin");
         } else {
-            out.println("You are not login");
+            out.println("You are not login as admin");
         }
         out.close();
     }
@@ -38,7 +38,7 @@ public class AdminPage extends HttpServlet {
         DaoFactory daoFactory = new DaoFactoryImpl();
         UserDAO dao = daoFactory.getUserDAO();
         RoleDAO roleDAO = daoFactory.getRoleDAO();
-        if (GuestPage.getSession().equals(req.getSession())) {
+        if (req.getSession(true).getAttribute("isAdmin") != null) {
             if (req.getParameter("delete") != null) {
                 Integer id = Integer.parseInt(req.getParameter("id"));
                 dao.delete(dao.findByID(id));

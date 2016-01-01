@@ -34,6 +34,7 @@ public class GuestPage extends HttpServlet {
         User user = dao.findByLogin(req.getParameter("login"));
         RoleDAO roleDAO = daoFactory.getRoleDAO();
         Role role = roleDAO.findByID(user.getRoleId());
+        session = req.getSession(true);
         out.println("<html>\n" +
                 "<head>\n" +
                 "<title>login page</title>\n" +
@@ -43,7 +44,7 @@ public class GuestPage extends HttpServlet {
                 "<p>Your user id " + user.getUserId() + "</p>\n" +
                 "<p>Your role " + role.getName() + "</p>\n");
         if (role.getName().equals("admin")) {
-            session = req.getSession(true);
+            session.setAttribute("isAdmin", true);
             out.println("<form action=\"adminPage\" method=\"post\">" +
                     "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
                     "<input type=\"submit\" name=\"go to administration page\" value=\"go to administration page\"></form></td>" );

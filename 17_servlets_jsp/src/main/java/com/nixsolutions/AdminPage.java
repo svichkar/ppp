@@ -45,22 +45,47 @@ public class AdminPage extends HttpServlet {
             }
             if (req.getParameter("edit") != null){
                 Integer id = Integer.parseInt(req.getParameter("userId"));
-                if (roleDAO.findByName(req.getParameter("role")) == null) {
-                    Role role = new Role(req.getParameter("role"));
+                if (roleDAO.findByName(req.getParameter("role").toLowerCase()) == null) {
+                    Role role = new Role(req.getParameter("role").toLowerCase());
                     roleDAO.create(role);
                 }
                 Integer roleId = roleDAO.findByName(req.getParameter("role")).getRoleId();
-                User user = new User(id, req.getParameter("userName"), req.getParameter("password"), roleId);
-                dao.update(user);
+                if (req.getParameter("userName").equals(dao.findByID(id).getLogin())){
+                    User user = new User(id, req.getParameter("userName").toLowerCase(), req.getParameter("password"), roleId);
+                    dao.update(user);
+                } else if (dao.findByLogin(req.getParameter("userName").toLowerCase()) == null){
+                    User user = new User(id, req.getParameter("userName").toLowerCase(), req.getParameter("password"), roleId);
+                    dao.update(user);
+                } else {
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>admin page</title>");
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println("<p>name already exist<p>");
+                    out.println("</body>");
+                    out.println("</html>");
+                }
             }
             if (req.getParameter("create") != null) {
-                if (roleDAO.findByName(req.getParameter("userRole")) == null) {
-                    Role role = new Role(req.getParameter("userRole"));
+                if (roleDAO.findByName(req.getParameter("userRole").toLowerCase()) == null) {
+                    Role role = new Role(req.getParameter("userRole").toLowerCase());
                     roleDAO.create(role);
                 }
-                User user = new User(req.getParameter("userName"), req.getParameter("userPassword"),
-                        roleDAO.findByName(req.getParameter("userRole")).getRoleId());
-                dao.create(user);
+                if (dao.findByLogin(req.getParameter("userName").toLowerCase()) == null){
+                    User user = new User(req.getParameter("userName").toLowerCase(), req.getParameter("userPassword"),
+                            roleDAO.findByName(req.getParameter("userRole")).getRoleId());
+                    dao.create(user);
+                } else {
+                    out.println("<html>");
+                    out.println("<head>");
+                    out.println("<title>admin page</title>");
+                    out.println("</head>");
+                    out.println("<body>");
+                    out.println("<p>User already exist<p>");
+                    out.println("</body>");
+                    out.println("</html>");
+                }
             }
             List<User> result = dao.findAll();
             out.println("<html>");

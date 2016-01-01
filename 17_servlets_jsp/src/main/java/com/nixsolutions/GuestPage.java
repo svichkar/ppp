@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -20,6 +21,11 @@ import java.io.PrintWriter;
  */
 @WebServlet("/guestPage")
 public class GuestPage extends HttpServlet {
+    private static HttpSession session;
+
+    public static HttpSession getSession() {
+        return session;
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
@@ -35,8 +41,14 @@ public class GuestPage extends HttpServlet {
                 "<body>\n" +
                 "<p>You enter login " + req.getParameter("login") + "</p>\r\n" +
                 "<p>Your user id " + user.getUserId() + "</p>\n" +
-                "<p>Your role " + role.getName() + "</p>\n" +
-                "</body>\n" +
+                "<p>Your role " + role.getName() + "</p>\n");
+        if (role.getName().equals("admin")) {
+            session = req.getSession(true);
+            out.println("<form action=\"adminPage\" method=\"post\">" +
+                    "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
+                    "<input type=\"submit\" name=\"go to administration page\" value=\"go to administration page\"></form></td>" );
+        }
+        out.println("</body>\n" +
                 "</html>");
         out.close();
     }

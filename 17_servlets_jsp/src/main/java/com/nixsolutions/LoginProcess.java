@@ -22,11 +22,6 @@ import java.io.PrintWriter;
 
 @WebServlet("/main")
 public class LoginProcess extends HttpServlet{
-    private static HttpSession session;
-
-    public static HttpSession getSession() {
-        return session;
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -54,12 +49,7 @@ public class LoginProcess extends HttpServlet{
             RoleDAO roleDAO = daoFactory.getRoleDAO();
             Role role = roleDAO.findByID(user.getRoleId());
             if (user.getPassword().equals(req.getParameter("password"))) {
-                if (role.getName().equals("admin")) {
-                    session = req.getSession(true);
-                    req.getRequestDispatcher("/adminPage").forward(req, resp);
-                } else{
-                    req.getRequestDispatcher("/guestPage").forward(req, resp);
-                }
+                req.getRequestDispatcher("/guestPage").forward(req, resp);
             } else {
                 out.println("<html>\n" +
                         "<head>\n" +

@@ -18,7 +18,7 @@ public class GradeDaoImpl implements GradeDao {
     private static final Logger LOG = LogManager.getLogger(GradeDaoImpl.class);
 
     @Override
-    public boolean create(Grade grade) {
+    public Grade create(Grade grade) {
 
         String sql = "INSERT INTO grade(grade_id, grade_name) VALUES ( ? , ? )";
 
@@ -28,15 +28,15 @@ public class GradeDaoImpl implements GradeDao {
             statement.setInt(1, grade.getGradeId());
             statement.setString(2, grade.getGradeName());
             statement.executeUpdate();
-            return true;
+            return grade;
         } catch (SQLException e) {
             LOG.error(e);
-            throw new RuntimeException(e);
+            return null;
         }
     }
 
     @Override
-    public int update(Grade grade) {
+    public boolean update(Grade grade) {
 
         String sql = "UPDATE grade SET grade_name = ? WHERE grade_id = ?";
 
@@ -45,29 +45,28 @@ public class GradeDaoImpl implements GradeDao {
 
             statement.setString(1, grade.getGradeName());
             statement.setInt(2, grade.getGradeId());
-
-            return statement.executeUpdate();
-
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
     @Override
-    public int delete(Grade grade) {
+    public boolean delete(Grade grade) {
 
-        String sql = "DELETE FROM grade WHERE grade_id = ? AND grade_name = ?";
+        String sql = "DELETE FROM grade WHERE grade_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, grade.getGradeId());
-            statement.setString(2, grade.getGradeName());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -88,10 +87,11 @@ public class GradeDaoImpl implements GradeDao {
                 grade.setGradeName(rs.getString("grade_name"));
                 list.add(grade);
             }
+            return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -108,9 +108,10 @@ public class GradeDaoImpl implements GradeDao {
                 result.setGradeId(rs.getInt("grade_id"));
                 result.setGradeName(rs.getString("grade_name"));
             }
+            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

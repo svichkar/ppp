@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.StudentGroupDao;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ import java.util.List;
  */
 public class StudentGroupDaoImpl implements StudentGroupDao {
 
+    private static final Logger LOG = LogManager.getLogger(StudentGroupDaoImpl.class);
+
     @Override
-    public boolean create(StudentGroup group) {
+    public StudentGroup create(StudentGroup group) {
 
         String sql = "INSERT INTO student_group (group_id, group_name) VALUES ( ? , ? )";
 
@@ -24,15 +28,15 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
             statement.setInt(1, group.getGroupId());
             statement.setString(2, group.getGroupName());
             statement.executeUpdate();
-            return true;
+            return group;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            LOG.error(e);
+            return null;
         }
     }
 
     @Override
-    public int update(StudentGroup group) {
+    public boolean update(StudentGroup group) {
 
         String sql = "UPDATE student_group SET group_name = ? WHERE group_id = ?";
 
@@ -41,29 +45,28 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
             statement.setString(1, group.getGroupName());
             statement.setInt(2, group.getGroupId());
-            return statement.executeUpdate();
-
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
     @Override
-    public int delete(StudentGroup group) {
+    public boolean delete(StudentGroup group) {
 
-        String sql = "DELETE FROM student_group WHERE group_id = ? AND group_name = ?";
+        String sql = "DELETE FROM student_group WHERE group_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, group.getGroupId());
-            statement.setString(2, group.getGroupName());
-            return statement.executeUpdate();
-
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -74,7 +77,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         List<StudentGroup> list = new ArrayList<>();
 
         try (Connection connection = M2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+             Statement statement = connection.createStatement()) {
 
             ResultSet rs = statement.executeQuery(sql);
 
@@ -84,10 +87,11 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
                 group.setGroupName(rs.getString("group_name"));
                 list.add(group);
             }
+            return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -100,13 +104,15 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
+
             while (rs.next()) {
                 result.setGroupId(rs.getInt("group_id"));
                 result.setGroupName(rs.getString("group_name"));
             }
+            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

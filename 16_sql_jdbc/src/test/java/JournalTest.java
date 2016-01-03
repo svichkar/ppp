@@ -20,7 +20,7 @@ public class JournalTest {
         try  {
             JournalDao dao = daoFactory.getJournalDao();
 
-            Journal journal = new Journal(1, 5, 4);
+            Journal journal = new Journal(123, 1, 5, 4);
             dao.create(journal);
             Journal journal2 = new Journal(103, 5, 1, 5);
             dao.create(journal2);

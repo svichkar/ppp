@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.JournalDao;
 import com.nixsolutions.studentgrade.entity.Journal;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ import java.util.List;
  */
 public class JournalDaoImpl implements JournalDao {
 
+    private static final Logger LOG = LogManager.getLogger(JournalDaoImpl.class);
+
     @Override
-    public boolean create(Journal journal) {
+    public Journal create(Journal journal) {
 
         String sql = "INSERT INTO journal(student_id, subject_id, grade_id) VALUES ( ?, ?, ? )";
 
@@ -25,16 +29,15 @@ public class JournalDaoImpl implements JournalDao {
             statement.setInt(2, journal.getSubjectId());
             statement.setInt(3, journal.getGradeId());
             statement.executeUpdate();
-
-            return true;
+            return journal;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            LOG.error(e);
+            return null;
         }
     }
 
     @Override
-    public int update(Journal journal) {
+    public boolean update(Journal journal) {
 
         String sql = "UPDATE journal SET student_id = ?, subject_id = ?, grade_id = ? WHERE journal_id = ?";
 
@@ -45,31 +48,30 @@ public class JournalDaoImpl implements JournalDao {
             statement.setInt(2, journal.getSubjectId());
             statement.setInt(3, journal.getGradeId());
             statement.setInt(4, journal.getJournalId());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
     @Override
-    public int delete(Journal journal) {
+    public boolean delete(Journal journal) {
 
-        String sql = "DELETE FROM journal WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
+        String sql = "DELETE FROM journal WHERE journal_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, journal.getJournalId());
-            statement.setInt(2, journal.getStudentId());
-            statement.setInt(3, journal.getSubjectId());
-            statement.setInt(4, journal.getGradeId());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -92,10 +94,11 @@ public class JournalDaoImpl implements JournalDao {
                 journal.setGradeId(rs.getInt("grade_id"));
                 list.add(journal);
             }
+            return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -114,9 +117,10 @@ public class JournalDaoImpl implements JournalDao {
                 result.setSubjectId(rs.getInt("subject_id"));
                 result.setGradeId(rs.getInt("grade_id"));
             }
+            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

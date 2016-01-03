@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.StatusDao;
 import com.nixsolutions.studentgrade.entity.Status;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +15,11 @@ import java.util.List;
  */
 public class StatusDaoImpl implements StatusDao {
 
+    private static final Logger LOG = LogManager.getLogger(StatusDaoImpl.class);
+
     @Override
-    public boolean create(Status status) {
+    public Status create(Status status) {
+
         String sql = "INSERT INTO status(status_id, status_name) VALUES ( ? , ? )";
 
         try (Connection connection = M2ConnectionManager.getConnection();
@@ -23,15 +28,15 @@ public class StatusDaoImpl implements StatusDao {
             statement.setInt(1, status.getStatusId());
             statement.setString(2, status.getStatusName());
             statement.executeUpdate();
-            return true;
+            return status;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            LOG.error(e);
+            return null;
         }
     }
 
     @Override
-    public int update(Status status) {
+    public boolean update(Status status) {
 
         String sql = "UPDATE status SET status_name = ? WHERE status_id = ?";
 
@@ -40,28 +45,28 @@ public class StatusDaoImpl implements StatusDao {
 
             statement.setString(1, status.getStatusName());
             statement.setInt(2, status.getStatusId());
-            return statement.executeUpdate();
-
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
     @Override
-    public int delete(Status status) {
+    public boolean delete(Status status) {
 
-        String sql = "DELETE FROM status WHERE status_id = ? AND status_name = ?";
+        String sql = "DELETE FROM status WHERE status_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, status.getStatusId());
-            statement.setString(2, status.getStatusName());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -82,10 +87,11 @@ public class StatusDaoImpl implements StatusDao {
                 status.setStatusName(rs.getString("status_name"));
                 list.add(status);
             }
+            return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -102,9 +108,10 @@ public class StatusDaoImpl implements StatusDao {
                 result.setStatusId(rs.getInt("status_id"));
                 result.setStatusName(rs.getString("status_name"));
             }
+            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

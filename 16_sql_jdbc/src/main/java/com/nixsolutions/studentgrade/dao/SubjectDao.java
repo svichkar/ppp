@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface SubjectDao {
 
-    public boolean create(Subject subject);
+    public Subject create(Subject subject);
 
-    public int update(Subject subject);
+    public boolean update(Subject subject);
 
-    public int delete(Subject subject);
+    public boolean delete(Subject subject);
 
     public List<Subject> findAll();
 

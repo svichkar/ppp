@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.TermDao;
 import com.nixsolutions.studentgrade.entity.Term;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,26 +15,47 @@ import java.util.List;
  */
 public class TermDaoImpl implements TermDao {
 
+    private static final Logger LOG = LogManager.getLogger(TermDaoImpl.class);
+
     @Override
-    public boolean create(Term term) {
+    public Term create(Term term) {
+
+        Connection connection = null;
+        PreparedStatement statement = null;
 
         String sql = "INSERT INTO term(term_id, term_name) VALUES ( ? , ? )";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
+        try {
+            connection = M2ConnectionManager.getConnection();
+            statement = connection.prepareStatement(sql);
+            connection.setAutoCommit(false);
             statement.setInt(1, term.getTermId());
             statement.setString(2, term.getTermName());
             statement.executeUpdate();
-            return true;
+            connection.commit();
+            return term;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            LOG.error(e);
+            try {
+                connection.rollback();
+            } catch (SQLException error) {
+                LOG.error(error);
+            }
+            return null;
+        } finally {
+            try {
+                if (statement != null)
+                    statement.close();
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                LOG.error(e);
+            }
         }
     }
 
     @Override
-    public int update(Term term) {
+    public boolean update(Term term) {
 
         String sql = "UPDATE term SET term_name = ? WHERE term_id = ?";
 
@@ -41,28 +64,28 @@ public class TermDaoImpl implements TermDao {
 
             statement.setString(1, term.getTermName());
             statement.setInt(2, term.getTermId());
-            return statement.executeUpdate();
-
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
     @Override
-    public int delete(Term term) {
+    public boolean delete(Term term) {
 
-        String sql = "DELETE FROM term WHERE term_id = ? AND term_name = ?";
+        String sql = "DELETE FROM term WHERE term_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, term.getTermId());
-            statement.setString(2, term.getTermName());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -82,10 +105,11 @@ public class TermDaoImpl implements TermDao {
                 term.setTermName(rs.getString("term_name"));
                 list.add(term);
             }
+            return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -102,9 +126,10 @@ public class TermDaoImpl implements TermDao {
                 result.setTermId(rs.getInt("term_id"));
                 result.setTermName(rs.getString("term_name"));
             }
+            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

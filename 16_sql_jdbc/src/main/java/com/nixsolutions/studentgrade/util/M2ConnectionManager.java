@@ -17,7 +17,6 @@ public class M2ConnectionManager {
     private static final Logger LOG = LogManager.getLogger(M2ConnectionManager.class);
     public static JdbcConnectionPool connectionPool;
 
-
     public static Connection getConnection() {
 
         if (connectionPool == null) {

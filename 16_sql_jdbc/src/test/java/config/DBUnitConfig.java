@@ -1,5 +1,7 @@
 package config;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.dbunit.DBTestCase;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
@@ -15,6 +17,8 @@ import java.util.Properties;
  * Created by konstantin on 12/22/2015.
  */
 public class DBUnitConfig extends DBTestCase {
+
+    private static final Logger LOG = LogManager.getLogger(DBUnitConfig.class);
 
     protected IDatabaseTester tester;
     private Properties prop;
@@ -34,7 +38,7 @@ public class DBUnitConfig extends DBTestCase {
         try {
             prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties"));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e);
         }
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, prop.getProperty("jdbc.driver"));
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, prop.getProperty("jdbc.url"));

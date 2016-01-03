@@ -23,6 +23,7 @@ public class TermTest {
             dao.create(term);
             Term term2 = new Term(4, "another");
             dao.create(term2);
+            term2.setTermName("fffff");
             dao.update(term2);
             dao.delete(term);
             list = dao.findAll();

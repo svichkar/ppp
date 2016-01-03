@@ -22,7 +22,7 @@ public class StudentTest {
         try  {
             StudentDao dao = daoFactory.getStudentDao();
 
-            Student student = new Student("S", "K", 5, new Date(2015 - 1900,9,25), 1, 2);
+            Student student = new Student(1, "S", "K", 5, new Date(2015 - 1900,9,25), 1, 2);
             dao.create(student);
             Student student2 = new Student(130, "student2", "student2", 2, new Date(2015 - 1900,9,25), 1, 2);
             dao.create(student2);

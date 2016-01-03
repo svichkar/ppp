@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.StudentDao;
 import com.nixsolutions.studentgrade.entity.Student;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ import java.util.List;
  */
 public class StudentDaoImpl implements StudentDao {
 
+    private static final Logger LOG = LogManager.getLogger(StudentDaoImpl.class);
+
     @Override
-    public boolean create(Student student) {
+    public Student create(Student student) {
 
         String sql = "INSERT INTO student(first_name, last_name, group_id, admission_date, status_id, term_id) " +
                 "VALUES ( ?, ? , ?, ? , ?, ? )";
@@ -29,16 +33,15 @@ public class StudentDaoImpl implements StudentDao {
             statement.setInt(5, student.getStatusId());
             statement.setInt(6, student.getTermId());
             statement.executeUpdate();
-
-            return true;
+            return student;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            LOG.error(e);
+            return null;
         }
     }
 
     @Override
-    public int update(Student student) {
+    public boolean update(Student student) {
         String sql = "UPDATE student SET first_name = ?, last_name = ?, group_id = ?, admission_date = ?, " +
                 "status_id = ?, term_id = ? WHERE student_id = ?";
 
@@ -52,35 +55,29 @@ public class StudentDaoImpl implements StudentDao {
             statement.setInt(5, student.getStatusId());
             statement.setInt(6, student.getTermId());
             statement.setInt(7, student.getStudentId());
-
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
     @Override
-    public int delete(Student student) {
+    public boolean delete(Student student) {
 
-        String sql = "DELETE FROM student WHERE student_id = ? AND first_name = ? AND last_name = ? " +
-                "AND group_id = ? AND admission_date = ? AND  status_id = ? AND term_id = ?";
+        String sql = "DELETE FROM student WHERE student_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, student.getStudentId());
-            statement.setString(2, student.getFirstName());
-            statement.setString(3, student.getLastName());
-            statement.setInt(4, student.getGroupId());
-            statement.setDate(5, student.getAdmissionDate());
-            statement.setInt(6, student.getStatusId());
-            statement.setInt(7, student.getTermId());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return 0;
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -104,13 +101,13 @@ public class StudentDaoImpl implements StudentDao {
                 student.setAdmissionDate(rs.getDate("admission_date"));
                 student.setStatusId(rs.getInt("status_id"));
                 student.setTermId(rs.getInt("term_id"));
-
                 list.add(student);
             }
+            return list;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -133,9 +130,10 @@ public class StudentDaoImpl implements StudentDao {
                 result.setStatusId(rs.getInt("status_id"));
                 result.setTermId(rs.getInt("term_id"));
             }
+            return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

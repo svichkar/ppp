@@ -8,6 +8,9 @@ public class CarType {
     private String brand;
     private String modelName;
 
+    public CarType(){
+    }
+
     public CarType(String brand, String modelName) {
         this.brand = brand;
         this.modelName = modelName;

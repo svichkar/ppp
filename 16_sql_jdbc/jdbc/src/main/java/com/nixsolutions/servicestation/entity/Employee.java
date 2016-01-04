@@ -6,12 +6,15 @@ package com.nixsolutions.servicestation.entity;
 public class Employee {
     private Integer employeeId;
     private String firstName;
-    private String secondName;
+    private String lastName;
     private Integer employeeCategoryId;
+
+    public Employee() {
+    }
 
     public Employee(String firstName, String secondName, Integer employeeCategoryId) {
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = secondName;
         this.employeeCategoryId = employeeCategoryId;
     }
 
@@ -31,12 +34,12 @@ public class Employee {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String secondName) {
+        this.lastName = secondName;
     }
 
     public Integer getEmployeeCategoryId() {

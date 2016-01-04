@@ -7,6 +7,9 @@ public class EmployeeCategory {
     private Integer employeeCategoryId;
     private String name;
 
+    public EmployeeCategory() {
+    }
+
     public EmployeeCategory(String name) {
         this.name = name;
     }

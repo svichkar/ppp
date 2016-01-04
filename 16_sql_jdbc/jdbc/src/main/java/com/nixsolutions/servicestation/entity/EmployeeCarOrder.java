@@ -7,6 +7,9 @@ public class EmployeeCarOrder {
     private Integer employeeId;
     private Integer carOrderId;
 
+    public EmployeeCarOrder() {
+    }
+
     public EmployeeCarOrder(Integer employeeId, Integer carOrderId) {
         this.employeeId = employeeId;
         this.carOrderId = carOrderId;

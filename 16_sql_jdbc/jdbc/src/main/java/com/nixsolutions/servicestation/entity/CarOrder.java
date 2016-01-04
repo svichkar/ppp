@@ -12,6 +12,9 @@ public class CarOrder {
     private Date startDate;
     private Date endDate;
 
+    public CarOrder() {
+    }
+
     public CarOrder(Integer carId, Integer carOrderStatusId, Date startDate) {
         this.carId = carId;
         this.carOrderStatusId = carOrderStatusId;

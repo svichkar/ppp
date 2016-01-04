@@ -7,6 +7,9 @@ public class CarOrderStatus {
     private Integer carOrderStatusId;
     private String name;
 
+    public CarOrderStatus() {
+    }
+
     public CarOrderStatus(String name) {
         this.name = name;
     }

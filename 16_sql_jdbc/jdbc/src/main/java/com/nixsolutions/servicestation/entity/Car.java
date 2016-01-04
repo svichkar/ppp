@@ -9,6 +9,9 @@ public class Car {
     private Integer carTypeId;
     private Integer clientId;
 
+    public Car() {
+    }
+
     public Car(Integer carId, String serialId, Integer carTypeId, Integer clientId) {
         this.carId = carId;
         this.serialId = serialId;

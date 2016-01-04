@@ -17,6 +17,7 @@ import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
 
+
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
 
@@ -38,8 +39,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 				rentJournals.add(rentJournal);
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get rentJournals", e);
-			LOG.throwing(new DaoException("not able to get all rentJournals"));
+			LOG.throwing(new DaoException("not able to get all rentJournals", e));
 		}
 		return LOG.exit(rentJournals);
 	}
@@ -62,9 +62,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 				rentJournal.setReturnDate(result.getDate("return_date"));
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get a rentJournal by Id", e);
 			LOG.throwing(
-					new DaoException("not able to get a rentJournal by Id"));
+					new DaoException("not able to get a rentJournal by Id", e));
 		}
 		return LOG.exit(rentJournal);
 	}
@@ -87,8 +86,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.commit();
 			LOG.exit("rentJournal was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create an author", e);
-			LOG.throwing(new DaoException("not able to create an author"));
+			LOG.throwing(new DaoException("not able to create an author", e));
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -129,8 +127,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.commit();
 			LOG.exit("rentJournal was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the author", e);
-			LOG.throwing(new DaoException("not able to update the author"));
+			LOG.throwing(new DaoException("not able to update the author", e));
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -167,8 +164,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.commit();
 			LOG.exit("rent was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the author", e);
-			LOG.throwing(new DaoException("not able to delete the author"));
+			LOG.throwing(new DaoException("not able to delete the author", e));
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {

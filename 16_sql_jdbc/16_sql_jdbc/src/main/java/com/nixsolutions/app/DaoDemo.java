@@ -29,7 +29,6 @@ public class DaoDemo {
 		Author authBulgak = new Author();
 		authBulgak.setFirstName("Michail");
 		authBulgak.setSecondName("Bulgakov");
-
 		
 		factory.getAuthorDao().createAuthor(authMiha);
 		factory.getAuthorDao().createAuthor(authKing);

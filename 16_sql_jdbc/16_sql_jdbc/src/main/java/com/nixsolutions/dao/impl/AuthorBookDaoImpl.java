@@ -32,8 +32,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 				authorBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get a authorBook by Id", e);
-			LOG.throwing(new DaoException("not able to get a authorBook by Id"));
+			LOG.throwing(new DaoException("not able to get a authorBook by Id", e));
 		}
 		return LOG.exit(authorBook);
 	}
@@ -50,8 +49,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 				authorBooks.add(authBook);
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get authorBooks", e);
-			LOG.throwing(new DaoException("not able to get all authorBooks"));
+			LOG.throwing(new DaoException("not able to get authorBooks", e));
 		}
 		return LOG.exit(authorBooks);
 	}
@@ -69,8 +67,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 				authorBooks.add(authBook);
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get authorBooks", e);
-			LOG.throwing(new DaoException("not able to get all authorBooks"));
+			LOG.throwing(new DaoException("not able to get all authorBooks", e));
 		}
 		return LOG.exit(authorBooks);
 	}
@@ -85,8 +82,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			statem.executeUpdate();
 			LOG.exit("authorBook entry was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create the authorBook", e);
-			LOG.throwing(new DaoException("not able to create the authorBook"));
+			LOG.throwing(new DaoException("not able to create the authorBook", e));
 		}
 	}
 
@@ -102,8 +98,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			statem.executeUpdate();
 			LOG.exit("authorBook was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the authorBook", e);
-			LOG.throwing(new DaoException("not able to update the authorBook"));
+			LOG.throwing(new DaoException("not able to update the authorBook", e));
 		}
 	}
 
@@ -117,8 +112,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 			statem.executeUpdate();
 			LOG.exit("authorBook was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the authorBook", e);
-			LOG.throwing(new DaoException("not able to delete the authorBook"));
+			LOG.throwing(new DaoException("not able to delete the authorBook", e));
 		}
 
 	}

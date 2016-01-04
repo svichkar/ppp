@@ -32,7 +32,7 @@ public class DeleteTables {
 			name = prop.getProperty("login");
 			pswd = prop.getProperty("password");
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	}
 
@@ -51,9 +51,9 @@ public class DeleteTables {
 
 			LOG.info("all the tables were deleted");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	}
 }

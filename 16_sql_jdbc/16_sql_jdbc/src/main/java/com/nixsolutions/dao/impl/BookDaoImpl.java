@@ -36,8 +36,7 @@ public class BookDaoImpl implements BookDao {
 			}
 			LOG.trace("all the books were retrieved");
 		} catch (SQLException e) {
-			LOG.error("not able to get books", e);
-			LOG.throwing(new DaoException("not able to get all books"));
+			LOG.throwing(new DaoException("not able to get all books", e));
 		}
 		return LOG.exit(books);
 	}
@@ -58,8 +57,7 @@ public class BookDaoImpl implements BookDao {
 				book.setCellId(result.getInt("cell_id"));
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get a book by Id", e);
-			LOG.throwing(new DaoException("not able to get a book by Id"));
+			LOG.throwing(new DaoException("not able to get a book by Id", e));
 		}
 		return LOG.exit(book);
 	}
@@ -75,8 +73,7 @@ public class BookDaoImpl implements BookDao {
 			statem.executeUpdate();
 			LOG.exit("book was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create an book", e);
-			LOG.throwing(new DaoException("not able to create an book"));
+			LOG.throwing(new DaoException("not able to create an book", e));
 		}
 	}
 
@@ -92,8 +89,7 @@ public class BookDaoImpl implements BookDao {
 			statem.executeUpdate();
 			LOG.exit("book was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the book", e);
-			LOG.throwing(new DaoException("not able to update the book"));
+			LOG.throwing(new DaoException("not able to update the book", e));
 		}
 	}
 
@@ -106,8 +102,7 @@ public class BookDaoImpl implements BookDao {
 			statem.executeUpdate();
 			LOG.exit("book was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the book", e);
-			LOG.throwing(new DaoException("not able to delete the book"));
+			LOG.throwing(new DaoException("not able to delete the book", e));
 
 		}
 	}

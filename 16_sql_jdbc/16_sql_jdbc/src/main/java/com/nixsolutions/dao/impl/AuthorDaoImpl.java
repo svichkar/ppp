@@ -34,8 +34,7 @@ public class AuthorDaoImpl implements AuthorDao {
 				authors.add(auth);
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get authors", e);
-			LOG.throwing(new DaoException("not able to get all authors"));
+			LOG.throwing(new DaoException("not able to get all authors", e));
 		}
 		return LOG.exit(authors);
 	}
@@ -55,8 +54,7 @@ public class AuthorDaoImpl implements AuthorDao {
 				author.setSecondName(result.getString("last_name"));
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get an author by Id", e);
-			LOG.throwing(new DaoException("not able to get an author by Id"));
+			LOG.throwing(new DaoException("not able to get an author by Id", e));
 		}
 		return LOG.exit(author);
 	}
@@ -71,8 +69,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			statem.executeUpdate();
 			LOG.exit("author was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create an author", e);
-			LOG.throwing(new DaoException("not able to create an author"));
+			LOG.throwing(new DaoException("not able to create an author", e));
 		}
 	}
 
@@ -87,8 +84,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			statem.executeUpdate();
 			LOG.exit("author was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the author", e);
-			LOG.throwing(new DaoException("not able to update the author"));
+			LOG.throwing(new DaoException("not able to update the author", e));
 		}
 	}
 
@@ -101,8 +97,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			statem.executeUpdate();
 			LOG.exit("author was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the author", e);
-			LOG.throwing(new DaoException("not able to delete the author"));
+			LOG.throwing(new DaoException("not able to delete the author", e));
 		}
 	}
 }

@@ -41,47 +41,48 @@ public class CreateTables {
 				Statement statem = conn.createStatement()){
 			Class.forName("org.h2.Driver");
 	
-			statem.executeUpdate("CREATE TABLE author "
+			statem.addBatch("CREATE TABLE author "
 					+ "(author_id INT IDENTITY, "
 					+ "first_name VARCHAR(256) NOT NULL, "
 					+ "last_name VARCHAR(256) NOT NULL)");
-			statem.executeUpdate("CREATE TABLE cell "
+			statem.addBatch("CREATE TABLE cell "
 					+ "(cell_id IDENTITY, "
 					+ "name VARCHAR(256) NOT NULL)");
-			statem.executeUpdate("CREATE TABLE category"
+			statem.addBatch("CREATE TABLE category"
 					+ "(category_id IDENTITY,"
 					+ "name VARCHAR(256) NOT NULL)");
-			statem.executeUpdate("CREATE TABLE client"
+			statem.addBatch("CREATE TABLE client"
 					+ "(client_id IDENTITY,"
 					+ "first_name VARCHAR(256) NOT NULL,"
 					+ "last_name VARCHAR(256) NOT NULL,"
 					+ "phone VARCHAR(256),"
 					+ "email VARCHAR(256))");
-			statem.executeUpdate("CREATE TABLE book"
+			statem.addBatch("CREATE TABLE book"
 					+ "(book_id IDENTITY,"
 					+ "name VARCHAR(256) NOT NULL,"
 					+ "cell_id BIGINT NOT NULL,"
 					+ "category_id BIGINT NOT NULL,"
 					+ "FOREIGN KEY (cell_id) REFERENCES cell (cell_id),"
 					+ "FOREIGN KEY (category_id) REFERENCES category (category_id))");
-			statem.executeUpdate("CREATE TABLE author_book("
+			statem.addBatch("CREATE TABLE author_book("
 					+ "author_id BIGINT NOT NULL,"
 					+ "book_id BIGINT NOT NULL,"
 					+ "FOREIGN KEY (author_id) REFERENCES author (author_id),"
 					+ "FOREIGN KEY (book_id) REFERENCES book (book_id))");
-			statem.executeUpdate("CREATE TABLE rent_journal"
+			statem.addBatch("CREATE TABLE rent_journal"
 					+ "(ticket_id IDENTITY,"
 					+ "client_id BIGINT NOT NULL,"
 					+ "book_id BIGINT NOT NULL,"
 					+ "rent_date DATE NOT NULL,"
 					+ "return_date DATE,FOREIGN KEY (client_id) REFERENCES client (client_id),"
 					+ "FOREIGN KEY (book_id) REFERENCES book (book_id))");
+			statem.executeBatch();
 			
 			LOG.info("all the tables were created");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		} 
 	}
 }

@@ -30,12 +30,10 @@ public class CellDaoImpl implements CellDao{
 				Cell cell = new Cell(result.getString("name"));
 				cell.setCellId(result.getInt("cell_id"));
 				cells.add(cell);
-				// need to insert assertion - if transaction was done
 			}
 			LOG.trace("all the cells were retrieved");
 		} catch (SQLException e) {
-			LOG.error("not able to get cells", e);
-			LOG.throwing(new DaoException("not able to get all cells"));
+			LOG.throwing(new DaoException("not able to get all cells", e));
 		}
 		return LOG.exit(cells);
 	}
@@ -54,8 +52,7 @@ public class CellDaoImpl implements CellDao{
 			}
 			LOG.trace("the cell was retrieved");
 		} catch (SQLException e) {
-			LOG.error("not able to get a cell by Id", e);
-			LOG.throwing(new DaoException("not able to get a cell by Id"));
+			LOG.throwing(new DaoException("not able to get a cell by Id", e));
 		}
 		return LOG.exit(cell);
 	}
@@ -69,8 +66,7 @@ public class CellDaoImpl implements CellDao{
 			statem.executeUpdate();
 			LOG.exit("cell was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create a cell", e);
-			LOG.throwing(new DaoException("not able to create a cell"));
+			LOG.throwing(new DaoException("not able to create a cell", e));
 		}
 	}
 
@@ -84,8 +80,7 @@ public class CellDaoImpl implements CellDao{
 			statem.executeUpdate();
 			LOG.exit("cell with id: " + cell.getCellId() + " was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the cell", e);
-			LOG.throwing(new DaoException("not able to update the cell"));
+			LOG.throwing(new DaoException("not able to update the cell", e));
 		}
 	}
 
@@ -98,8 +93,7 @@ public class CellDaoImpl implements CellDao{
 			statem.executeUpdate();
 			LOG.exit("cell with id: " + cell.getCellId() + " was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the cell", e);
-			LOG.throwing(new DaoException("not able to delete the cell"));
+			LOG.throwing(new DaoException("not able to delete the cell", e));
 		}
 	}
 

@@ -64,18 +64,5 @@ public class AuthorBookDaoTest extends DBUnitConfig {
 	            expectedData.getTable("author_book").getTableMetaData().getColumns());
 	    Assertion.assertEquals(expectedData.getTable("author_book"), filteredTable); 
 	}
-/*
-	public void testShouldUpdateAuthorBook() throws Exception {
-		AuthorBook updAuthorBook = new AuthorBookDaoImpl().getAuthorBookById(3, 4); 
-		updAuthorBook.setAuthorId(2);
-		updAuthorBook.setBookId(7);
-		new AuthorBookDaoImpl().updateAuthorBook(updAuthorBook);
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/authorBook/AuthorBookUpdate.xml");
-		IDataSet actualData = tester.getConnection().createDataSet();
-		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("author_book"), 
-	            expectedData.getTable("author_book").getTableMetaData().getColumns());
-	    Assertion.assertEquals(expectedData.getTable("author_book"), filteredTable);
-	}
-	*/
 }
 

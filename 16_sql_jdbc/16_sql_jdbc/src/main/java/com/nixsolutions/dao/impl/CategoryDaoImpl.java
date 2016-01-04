@@ -32,8 +32,7 @@ public class CategoryDaoImpl implements CategoryDao {
 				categories.add(category);
 			}
 		} catch (SQLException e) {
-			LOG.error("not able to get categorys", e);
-			LOG.throwing(new DaoException("not able to get all categorys"));
+			LOG.throwing(new DaoException("not able to get all categorys", e));
 		}
 		return LOG.exit(categories);
 	}
@@ -52,8 +51,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			}
 			LOG.trace("the category was retrieved");
 		} catch (SQLException e) {
-			LOG.error("not able to get a category by Id", e);
-			LOG.throwing(new DaoException("not able to get a category by Id"));
+			LOG.throwing(new DaoException("not able to get a category by Id", e ));
 		}
 		return LOG.exit(category);
 	}
@@ -67,8 +65,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			statem.executeUpdate();
 			LOG.exit("category was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create a category", e);
-			LOG.throwing(new DaoException("not able to create a category"));
+			LOG.throwing(new DaoException("not able to create a category", e));
 		}
 	}
 
@@ -82,8 +79,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			statem.executeUpdate();
 			LOG.exit("category with id: " + category.getCategoryId() + " was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the category", e);
-			LOG.throwing(new DaoException("not able to update the category"));
+			LOG.throwing(new DaoException("not able to update the category", e));
 		}
 	}
 
@@ -96,10 +92,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			statem.executeUpdate();
 			LOG.exit("category with id: " + category.getCategoryId() + " was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the category", e);
-			LOG.throwing(new DaoException("not able to delete the category"));
+			LOG.throwing(new DaoException("not able to delete the category", e));
 		}
-
 	}
-
 }

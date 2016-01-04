@@ -37,8 +37,7 @@ public class ClientDaoImpl implements ClientDao {
 			}
 			LOG.trace("all the clients were retrieved");
 		} catch (SQLException e) {
-			LOG.error("not able to get clients", e);
-			LOG.throwing(new DaoException("not able to get all clients"));
+			LOG.throwing(new DaoException("not able to get all clients", e));
 		}
 		return LOG.exit(clients);
 	}
@@ -61,8 +60,7 @@ public class ClientDaoImpl implements ClientDao {
 			}
 			LOG.trace("the client was retrieved");
 		} catch (SQLException e) {
-			LOG.error("not able to get a client by Id", e);
-			LOG.throwing(new DaoException("not able to get a client by Id"));
+			LOG.throwing(new DaoException("not able to get a client by Id", e));
 		}
 		return LOG.exit(client);
 	}
@@ -79,8 +77,7 @@ public class ClientDaoImpl implements ClientDao {
 			statem.executeUpdate();
 			LOG.exit("client was created");
 		} catch (SQLException e) {
-			LOG.error("not able to create an author", e);
-			LOG.throwing(new DaoException("not able to create an author"));
+			LOG.throwing(new DaoException("not able to create an author", e));
 		}
 	}
 
@@ -97,8 +94,7 @@ public class ClientDaoImpl implements ClientDao {
 			statem.executeUpdate();
 			LOG.exit("client with id: " + client.getClientId() + " was updated");
 		} catch (SQLException e) {
-			LOG.error("not able to update the author", e);
-			LOG.throwing(new DaoException("not able to update the author"));
+			LOG.throwing(new DaoException("not able to update the author", e));
 		}
 	}
 
@@ -111,8 +107,7 @@ public class ClientDaoImpl implements ClientDao {
 			statem.executeUpdate();
 			LOG.exit("client with id: " + client.getClientId() + " was deleted");
 		} catch (SQLException e) {
-			LOG.error("not able to delete the author", e);
-			LOG.throwing(new DaoException("not able to delete the author"));
+			LOG.throwing(new DaoException("not able to delete the author", e));
 		}
 
 	}

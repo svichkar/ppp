@@ -39,7 +39,7 @@ public class H2ConnManager {
 			name = prop.getProperty("login");
 			pswd = prop.getProperty("password");
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 	}
 }

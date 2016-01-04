@@ -7,10 +7,10 @@ INSERT INTO subject (subject_id, subject_name, term_id) VALUES (1, 'Java', 2),
 					(2, 'Mathematics', 1),
 					(3, 'Physics', 1),
 					(4, 'Computing science', 2),
-					(5, 'Telecomunications', 1),
+					(5, 'Telecommunications', 1),
 					(6, 'Databases', 2),
 					(7, 'Security', 1),
-					(8, 'Web tehnologies', 2),
+					(8, 'Web technologies', 2),
 					(9, 'Chemistry', 1),
 					(10, 'Theory of everything', 1);
 					

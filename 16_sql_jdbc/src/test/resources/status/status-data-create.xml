@@ -1,0 +1,7 @@
+<dataset>
+    <status status_id="1" status_name="active"/>
+    <status status_id="2" status_name="academic vacation"/>
+    <status status_id="3" status_name="expelled"/>
+    <status status_id="4" status_name="graduated"/>
+    <status status_id="5" status_name="other"/>
+</dataset>

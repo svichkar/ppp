@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+		</Console>
+		<File name="File" fileName="testing_logger.log">
+			<PatternLayout pattern="%d %p %C{1.} [%t] %m%n" />
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="com.nixsolutions" level="trace"
+			additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="File" />
+		</Logger>
+		<Root level="ERROR">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

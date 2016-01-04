@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface TermDao {
 
-    public boolean create(Term status);
+    public Term create(Term status);
 
-    public int update(Term term, Term newTerm);
+    public boolean update(Term term);
 
-    public int delete(Term term);
+    public boolean delete(Term term);
 
     public List<Term> findAll();
 

@@ -41,25 +41,6 @@ public class Student {
         this.termId = termId;
     }
 
-    /**
-     * Constructor without studentId parameter
-     * @param firstName
-     * @param lastName
-     * @param groupId
-     * @param admissionDate
-     * @param statusId
-     * @param termId
-     */
-    public Student(String firstName, String lastName, int groupId, Date admissionDate, int statusId, int termId) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.groupId = groupId;
-        this.admissionDate = admissionDate;
-        this.statusId = statusId;
-        this.termId = termId;
-    }
-
     public int getStudentId() {
         return studentId;
     }

@@ -3,12 +3,4 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 <web-app>
   <display-name>Web App on Servlets</display-name>
-  <servlet-mapping>
-    <servlet-name>GuestPageServlet</servlet-name>
-    <url-pattern>ServletsWebApp/guest</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AdminPageServlet</servlet-name>
-    <url-pattern>ServletsWebApp/admin</url-pattern>
-  </servlet-mapping>
 </web-app>

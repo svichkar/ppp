@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.SubjectDao;
 import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ import java.util.List;
  */
 public class SubjectDaoImpl implements SubjectDao {
 
+    private static final Logger LOG = LogManager.getLogger(SubjectDaoImpl.class);
+
     @Override
-    public boolean create(Subject subject) {
+    public Subject create(Subject subject) {
 
         String sql = "INSERT INTO subject(subject_id, subject_name, term_id) VALUES ( ? , ? , ?)";
 
@@ -25,52 +29,47 @@ public class SubjectDaoImpl implements SubjectDao {
             statement.setString(2, subject.getSubjectName());
             statement.setInt(3, subject.getTermId());
             statement.executeUpdate();
+            return subject;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean update(Subject subject) {
+
+        String sql = "UPDATE subject SET subject_name = ?, term_id = ? " +
+                "WHERE subject_id = ?";
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, subject.getSubjectName());
+            statement.setInt(2, subject.getTermId());
+            statement.setInt(3, subject.getSubjectId());
+            statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            LOG.error(e);
             return false;
         }
     }
 
     @Override
-    public int update(Subject subject, Subject newSubject) {
+    public boolean delete(Subject subject) {
 
-        String sql = "UPDATE subject SET subject_id = ?, subject_name = ?, term_id = ? " +
-                "WHERE subject_id = ? AND subject_name = ? AND term_id = ?";
-
-        try (Connection connection = M2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setInt(1, newSubject.getSubjectId());
-            statement.setString(2, newSubject.getSubjectName());
-            statement.setInt(3, newSubject.getTermId());
-            statement.setInt(4, subject.getSubjectId());
-            statement.setString(5, subject.getSubjectName());
-            statement.setInt(6, subject.getTermId());
-            return statement.executeUpdate();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    @Override
-    public int delete(Subject subject) {
-
-        String sql = "DELETE FROM subject WHERE subject_id = ? AND subject_name = ? AND term_id = ?";
+        String sql = "DELETE FROM subject WHERE subject_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, subject.getSubjectId());
-            statement.setString(2, subject.getSubjectName());
-            statement.setInt(3, subject.getTermId());
-            return statement.executeUpdate();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -92,16 +91,17 @@ public class SubjectDaoImpl implements SubjectDao {
                 subject.setTermId(rs.getInt("term_id"));
                 list.add(subject);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return list;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
     public Subject findById(int id) {
 
-        String sql = String.format("SELECT subject_id, subject_name FROM subject WHERE subject_id = %d", id);
+        String sql = String.format("SELECT subject_id, subject_name, term_id FROM subject WHERE subject_id = %d", id);
         Subject result = new Subject();
 
         try (Connection connection = M2ConnectionManager.getConnection();
@@ -113,9 +113,10 @@ public class SubjectDaoImpl implements SubjectDao {
                 result.setSubjectName(rs.getString("subject_name"));
                 result.setTermId(rs.getInt("term_id"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

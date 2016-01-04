@@ -32,7 +32,4 @@ public class Status {
         this.statusName = statusName;
     }
 
-
-
-
 }

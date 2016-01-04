@@ -26,13 +26,8 @@ public class MainPageServlet extends HttpServlet {
     private String pageHtml;
 
 
-    public MainPageServlet() {
-        super();
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
         request.getParameter("password");
         request.getParameter("login");
@@ -44,7 +39,6 @@ public class MainPageServlet extends HttpServlet {
             if (true){}
         }
 */
-
         if (true) {
             pageHtml = "admin";
         } else {
@@ -55,6 +49,15 @@ public class MainPageServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.println("HELLO, " + pageHtml);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        pageHtml = "OK";
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("Main page to login" + pageHtml);
     }
 
     protected boolean isUserPresent(String input) {
@@ -70,7 +73,7 @@ public class MainPageServlet extends HttpServlet {
         return result;
     }
 
-    protected User getUserByLoginAndPassword (String login, String password) {
+    protected User getUserByLoginAndPassword(String login, String password) {
 
         StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
         UserDao userDao = daoFactory.getUserDao();

@@ -3,6 +3,8 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.JournalDao;
 import com.nixsolutions.studentgrade.entity.Journal;
 import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,101 +15,63 @@ import java.util.List;
  */
 public class JournalDaoImpl implements JournalDao {
 
+    private static final Logger LOG = LogManager.getLogger(JournalDaoImpl.class);
+
     @Override
-    public boolean create(Journal journal) {
+    public Journal create(Journal journal) {
 
-        String sql;
-
-        if (journal.getJournalId() == 0) {
-            sql = "INSERT INTO journal(student_id, subject_id, grade_id) VALUES ( ?, ?, ? )";
-        } else {
-            sql = "INSERT INTO journal(journal_id, student_id, subject_id, grade_id) VALUES ( ?, ?, ?, ? )";
-        }
+        String sql = "INSERT INTO journal(student_id, subject_id, grade_id) VALUES ( ?, ?, ? )";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            if (journal.getJournalId() == 0) {
-                statement.setInt(1, journal.getStudentId());
-                statement.setInt(2, journal.getSubjectId());
-                statement.setInt(3, journal.getGradeId());
-            } else {
-                statement.setInt(1, journal.getJournalId());
-                statement.setInt(2, journal.getStudentId());
-                statement.setInt(3, journal.getSubjectId());
-                statement.setInt(4, journal.getGradeId());
-            }
+            statement.setInt(1, journal.getStudentId());
+            statement.setInt(2, journal.getSubjectId());
+            statement.setInt(3, journal.getGradeId());
+            statement.executeUpdate();
+            return journal;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean update(Journal journal) {
+
+        String sql = "UPDATE journal SET student_id = ?, subject_id = ?, grade_id = ? WHERE journal_id = ?";
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, journal.getStudentId());
+            statement.setInt(2, journal.getSubjectId());
+            statement.setInt(3, journal.getGradeId());
+            statement.setInt(4, journal.getJournalId());
             statement.executeUpdate();
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+
+        } catch (SQLException e) {
+            LOG.error(e);
             return false;
         }
     }
 
     @Override
-    public int update(Journal journal, Journal newJournal) {
+    public boolean delete(Journal journal) {
 
-        String sql;
-        if (newJournal.getJournalId() == 0) {
-            sql = "UPDATE journal SET student_id = ?, subject_id = ?, grade_id = ? " +
-                    "WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
-        } else {
-            sql = "UPDATE journal SET journal_id = ?, student_id = ?, subject_id = ?, grade_id = ? " +
-                    "WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
-        }
-
-        try (Connection connection = M2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            if (newJournal.getJournalId() == 0) {
-                //SET closure:
-                statement.setInt(1, newJournal.getStudentId());
-                statement.setInt(2, newJournal.getSubjectId());
-                statement.setInt(3, newJournal.getGradeId());
-                //WHERE closure:
-                statement.setInt(4, journal.getJournalId());
-                statement.setInt(5, journal.getStudentId());
-                statement.setInt(6, journal.getSubjectId());
-                statement.setInt(7, journal.getGradeId());
-            } else {
-                //SET closure:
-                statement.setInt(1, newJournal.getJournalId());
-                statement.setInt(2, newJournal.getStudentId());
-                statement.setInt(3, newJournal.getSubjectId());
-                statement.setInt(4, newJournal.getGradeId());
-                //WHERE closure:
-                statement.setInt(5, journal.getJournalId());
-                statement.setInt(6, journal.getStudentId());
-                statement.setInt(7, journal.getSubjectId());
-                statement.setInt(8, journal.getGradeId());
-            }
-
-            return statement.executeUpdate();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    @Override
-    public int delete(Journal journal) {
-
-        String sql = "DELETE FROM journal WHERE journal_id = ? AND student_id = ? AND subject_id = ? AND grade_id = ?";
+        String sql = "DELETE FROM journal WHERE journal_id = ?";
 
         try (Connection connection = M2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, journal.getJournalId());
-            statement.setInt(2, journal.getStudentId());
-            statement.setInt(3, journal.getSubjectId());
-            statement.setInt(4, journal.getGradeId());
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return true;
 
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return 0;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return false;
         }
     }
 
@@ -130,10 +94,11 @@ public class JournalDaoImpl implements JournalDao {
                 journal.setGradeId(rs.getInt("grade_id"));
                 list.add(journal);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return list;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
         }
-        return list;
     }
 
     @Override
@@ -152,9 +117,10 @@ public class JournalDaoImpl implements JournalDao {
                 result.setSubjectId(rs.getInt("subject_id"));
                 result.setGradeId(rs.getInt("grade_id"));
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
         }
-        return result;
     }
 }

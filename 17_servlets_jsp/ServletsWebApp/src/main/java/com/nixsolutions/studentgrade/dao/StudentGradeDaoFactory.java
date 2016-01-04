@@ -42,5 +42,4 @@ public class StudentGradeDaoFactory {
     public RoleDao getRoleDao() {
         return new RoleDaoImpl();
     }
-
 }

@@ -32,19 +32,6 @@ public class Journal {
         this.gradeId = gradeId;
     }
 
-    /**
-     * Constructor with all parameters except journalId
-     *
-     * @param studentId
-     * @param subjectId
-     * @param gradeId
-     */
-    public Journal(int studentId, int subjectId, int gradeId) {
-        this.studentId = studentId;
-        this.subjectId = subjectId;
-        this.gradeId = gradeId;
-    }
-
     public int getJournalId() {
         return journalId;
     }

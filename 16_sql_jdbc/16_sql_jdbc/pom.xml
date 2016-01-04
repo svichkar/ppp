@@ -15,7 +15,9 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.version>4.12</junit.version>
+		<dbunit.version>2.5.1</dbunit.version>
 		<log4j.version>2.4</log4j.version>
+		<h2database.version>1.4.190</h2database.version>
 	</properties>
 
 	<dependencies>
@@ -28,7 +30,7 @@
 		<dependency>
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
-			<version>2.5.1</version>
+			<version>${dbunit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -48,7 +50,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.190</version>
+			<version>${h2database.version}</version>
 		</dependency>
 	</dependencies>
 </project>

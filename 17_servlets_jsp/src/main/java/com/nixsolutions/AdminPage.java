@@ -63,14 +63,14 @@ public class AdminPage extends HttpServlet {
                         User user = new User(id, req.getParameter("userName").toLowerCase(), req.getParameter("password"), roleId);
                         dao.update(user);
                     } else {
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>admin page</title>");
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println("<p>name already exist<p>");
-                        out.println("</body>");
-                        out.println("</html>");
+                        out.println("<html>" +
+                                "<head>" +
+                                "<title>admin page</title>" +
+                                "</head>" +
+                                "<body>" +
+                                "<p>name already exist<p>" +
+                                "</body>" +
+                                "</html>");
                     }
                 }
                 if (req.getParameter("create") != null) {
@@ -83,24 +83,24 @@ public class AdminPage extends HttpServlet {
                                 roleDAO.findByName(req.getParameter("userRole")).getRoleId());
                         dao.create(user);
                     } else {
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>admin page</title>");
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println("<p>User already exist<p>");
-                        out.println("</body>");
-                        out.println("</html>");
+                        out.println("<html>" +
+                                "<head>" +
+                                "<title>admin page</title>" +
+                                "</head>" +
+                                "<body>" +
+                                "<p>User already exist<p>" +
+                                "</body>" +
+                                "</html>");
                     }
                 }
                 List<User> result = dao.findAll();
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>admin page</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<p>Welcome " + req.getParameter("login") + "</p>");
-                out.println("<table border=\"1px\"><tr><td>User_ID</td><td>name</td><td>password</td><td>Role</td></tr>");
+                out.println("<html>" +
+                        "<head>" +
+                        "<title>admin page</title>" +
+                        "</head>" +
+                        "<body>" +
+                        "<p>Welcome " + req.getParameter("login") + "</p>" +
+                        "<table border=\"1px\"><tr><td>User_ID</td><td>name</td><td>password</td><td>Role</td></tr>");
                 for (int i = 0; i < result.size(); i++) {
                     User resultUser = result.get(i);
                     if (resultUser.getLogin().equals(req.getParameter("login"))) {
@@ -140,9 +140,9 @@ public class AdminPage extends HttpServlet {
                         "<td><input type=\"submit\" name=\"create\" value=\"create\"></form></td>" +
                         "</tr>"
                 );
-                out.println("</table>");
-                out.println("</body>");
-                out.println("</html>");
+                out.println("</table>" +
+                        "</body>" +
+                        "</html>");
             } else {
                 out.println("Sorry you are not admin");
             }

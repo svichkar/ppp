@@ -33,22 +33,22 @@ public class EditPage extends HttpServlet {
                 if (req.getParameter("edit") != null) {
                     Integer id = Integer.parseInt(req.getParameter("id"));
                     User user = dao.findByID(id);
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>admin page</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<p>Welcome " + req.getParameter("login") + "</p>");
-                    out.println("<form action=\"adminPage\" method=\"post\">" +
+                    out.println("<html>" +
+                            "<head>" +
+                            "<title>admin page</title>" +
+                            "</head>" +
+                            "<body>" +
+                            "<p>Welcome " + req.getParameter("login") + "</p>" +
+                            "<form action=\"adminPage\" method=\"post\">" +
                             "UserID: <input type=\"text\" readonly name=\"userId\" value=\"" + user.getUserId() + "\">" +
                             "Login: <input type=\"text\" name=\"userName\" value=\"" + user.getLogin() + "\">" +
                             "Password: <input type=\"text\" name=\"password\" value=\"" + user.getPassword() + "\">" +
                             "Role: <input type=\"text\" name=\"role\" value=\"" + roleDAO.findByID(user.getRoleId()).getName() + "\">" +
                             "<input type=\"hidden\" name=\"edit\" value=\"edit\">" +
                             "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
-                            "<input type=\"submit\" value=\"save\"></form>");
-                    out.println("</body>");
-                    out.println("</html>");
+                            "<input type=\"submit\" value=\"save\"></form>" +
+                            "</body>" +
+                            "</html>");
                 }
                 out.close();
             } else {

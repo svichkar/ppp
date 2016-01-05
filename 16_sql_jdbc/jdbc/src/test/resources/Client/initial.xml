@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <client client_id="100" first_name="Homer" last_name="Simpson"/>
+    <client client_id="101" first_name="Bart" last_name="Simpson"/>
+</dataset>

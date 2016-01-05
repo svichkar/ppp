@@ -1,3 +1,5 @@
+package com.nixsolutions.servicestation.util;
+
 import com.nixsolutions.servicestation.dao.FactoryDAO;
 import com.nixsolutions.servicestation.dao.impl.ImplFactoryDAO;
 import org.apache.logging.log4j.LogManager;
@@ -15,14 +17,14 @@ import java.util.Properties;
 /**
  * Created by rybkinrolla on 04.01.2016.
  */
-public class TestJointConfig extends DBTestCase{
-    public static Logger LOGGER = LogManager.getLogger(TestJointConfig.class.getName());
-    protected IDatabaseTester actualResult;
+public class TestJointUtil extends DBTestCase{
+    public static Logger LOGGER = LogManager.getLogger(TestJointUtil.class.getName());
+    protected IDatabaseTester tester;
     private Properties properties;
-    protected IDataSet expectedResult;
+    protected IDataSet preCondition;
     protected FactoryDAO factoryDAO = new ImplFactoryDAO();
 
-    public TestJointConfig(String name) {
+    public TestJointUtil(String name) {
         super(name);
         properties = new Properties();
         try {
@@ -38,7 +40,7 @@ public class TestJointConfig extends DBTestCase{
     }
 
     public void setUp() throws Exception {
-        actualResult = new JdbcDatabaseTester(properties.getProperty("DRIVER"),
+        tester = new JdbcDatabaseTester(properties.getProperty("DRIVER"),
                 properties.getProperty("JDBC_URL"),
                 properties.getProperty("USER"),
                 properties.getProperty("PASSWORD"));
@@ -51,6 +53,6 @@ public class TestJointConfig extends DBTestCase{
 
     @Override
     protected IDataSet getDataSet() throws Exception {
-        return expectedResult;
+        return preCondition;
     }
 }

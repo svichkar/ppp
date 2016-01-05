@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <car car_id="10001" serial_id="aabbffff" car_type_id="1" client_id="1"/>
+    <car car_id="10002" serial_id="xxzz" car_type_id="2" client_id="2"/>
+</dataset>

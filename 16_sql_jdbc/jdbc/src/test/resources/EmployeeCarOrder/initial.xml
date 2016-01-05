@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <employee_category employee_category_id="1" name="electricity"/>
+    <employee_category employee_category_id="2" name="engine"/>
+    <employee employee_id="10" first_name="John" last_name="Johnson" employee_category_id="1"/>
+    <employee employee_id="11" first_name="Jack" last_name="Jackson" employee_category_id="2"/>
+    <car_type car_type_id="1" brand="Honda" model_name="Accord"/>
+    <car_type car_type_id="2" brand="VAZ" model_name="2101"/>
+    <client client_id="1" first_name="Homer" last_name="Simpson"/>
+    <client client_id="2" first_name="Bart" last_name="Simpson"/>
+    <car car_id="10001" serial_id="aabb" car_type_id="1" client_id="1"/>
+    <car car_id="10002" serial_id="xxzz" car_type_id="2" client_id="2"/>
+    <car_order_status car_order_status_id="1" name="Complete"/>
+    <car_order_status car_order_status_id="2" name="In Progress"/>
+    <car_order car_order_id="1" car_id="10001" car_order_status_id="1" start_date="2015-12-31"/>
+    <car_order car_order_id="2" car_id="10002" car_order_status_id="2" start_date="2016-01-01"/>
+    <employee_car_order identifier="500" employee_id="10" car_order_id="1"/>
+    <employee_car_order identifier="501" employee_id="11" car_order_id="2"/>
+</dataset>

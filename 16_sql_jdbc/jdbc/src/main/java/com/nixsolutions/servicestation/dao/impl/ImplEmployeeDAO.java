@@ -18,26 +18,25 @@ import java.util.List;
  * Created by rybkinrolla on 04.01.2016.
  */
 public class ImplEmployeeDAO implements EmployeeDAO{
-    public static Logger LOGGER = LogManager.getLogger(ImplCarOrderStatusDAO.class.getName());
+    public static Logger LOGGER = LogManager.getLogger(ImplEmployeeDAO.class.getName());
 
     @Override
-    public boolean create(Employee entity) {
+    public void create(Employee entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO employee " +
-                     "(first_name, last_name,  employee_category_id) VALUES (?, ? ,?);")) {
+                     "(first_name, last_name,  employee_category_id) VALUES (?, ?, ?);")) {
             pStatement.setString(1, entity.getFirstName());
             pStatement.setString(2, entity.getLastName());
             pStatement.setInt(3, entity.getEmployeeCategoryId());
+            pStatement.execute();
             LOGGER.trace("Row in employee was created");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean update(Employee entity) {
+    public void update(Employee entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE employee " +
                      "SET first_name=?, last_name=?, employee_category_id=? WHERE employee_id=?;")) {
@@ -45,26 +44,24 @@ public class ImplEmployeeDAO implements EmployeeDAO{
             pStatement.setString(2, entity.getLastName());
             pStatement.setInt(3, entity.getEmployeeCategoryId());
             pStatement.setInt(4,entity.getEmployeeId());
+            pStatement.execute();
             LOGGER.trace("Row in employee with id = " + entity.getEmployeeId() + " was updated");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean delete(Employee entity) {
+    public void delete(Employee entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("DELETE FROM employee " +
                      "WHERE employee_id=?;")) {
             pStatement.setInt(1, entity.getEmployeeId());
+            pStatement.execute();
             LOGGER.trace("Row in employee with id = " + entity.getEmployeeId() + " was deleted");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
@@ -99,7 +96,7 @@ public class ImplEmployeeDAO implements EmployeeDAO{
             ResultSet rSet = pStatement.executeQuery();
             while (rSet.next()) {
                 Employee employee = new Employee();
-                employee.setEmployeeCategoryId(rSet.getInt("employee_id"));
+                employee.setEmployeeId(rSet.getInt("employee_id"));
                 employee.setFirstName(rSet.getString("first_name"));
                 employee.setLastName(rSet.getString("last_name"));
                 employee.setEmployeeCategoryId(rSet.getInt("employee_category_id"));
@@ -109,7 +106,7 @@ public class ImplEmployeeDAO implements EmployeeDAO{
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        LOGGER.trace(i + " rows in employee_category were found");
+        LOGGER.trace(i + " rows in employee were found");
         return employees;
     }
 }

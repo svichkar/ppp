@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <car_order car_id="10001" car_order_status_id="1" start_date="2015-12-31"/>
+    <car_order car_id="10002" car_order_status_id="2" start_date="2016-01-01"/>
+    <car_order car_id="10001" car_order_status_id="2" start_date="2016-01-04"/>
+</dataset>

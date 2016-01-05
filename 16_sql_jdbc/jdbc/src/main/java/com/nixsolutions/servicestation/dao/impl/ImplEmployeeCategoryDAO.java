@@ -18,48 +18,45 @@ import java.util.List;
  * Created by rybkinrolla on 04.01.2016.
  */
 public class ImplEmployeeCategoryDAO implements EmployeeCategoryDAO{
-    public static Logger LOGGER = LogManager.getLogger(ImplCarOrderStatusDAO.class.getName());
+    public static Logger LOGGER = LogManager.getLogger(ImplEmployeeCategoryDAO.class.getName());
 
     @Override
-    public boolean create(EmployeeCategory entity) {
+    public void create(EmployeeCategory entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO employee_category (name) VALUES (?);")) {
             pStatement.setString(1, entity.getName());
+            pStatement.execute();
             LOGGER.trace("Row in employee_category was created");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean update(EmployeeCategory entity) {
+    public void update(EmployeeCategory entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE employee_category " +
                      "SET name=? WHERE employee_category_id=?;")) {
             pStatement.setString(1, entity.getName());
             pStatement.setInt(2, entity.getEmployeeCategoryId());
+            pStatement.execute();
             LOGGER.trace("Row in employee_category with id = " + entity.getEmployeeCategoryId() + " was updated");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean delete(EmployeeCategory entity) {
+    public void delete(EmployeeCategory entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("DELETE FROM employee_category " +
                      "WHERE employee_category_id=?;")) {
             pStatement.setInt(1, entity.getEmployeeCategoryId());
+            pStatement.execute();
             LOGGER.trace("Row in employee_category with id = " + entity.getEmployeeCategoryId() + " was deleted");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override

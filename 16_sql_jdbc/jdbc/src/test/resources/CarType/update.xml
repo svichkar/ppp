@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <car_type brand="Honda" model_name="Civic"/>
+    <car_type brand="VAZ" model_name="2101"/>
+</dataset>

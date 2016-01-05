@@ -23,47 +23,44 @@ public class ImplClientDAO implements ClientDAO {
     private PreparedStatement pStatement2;
 
     @Override
-    public boolean create(Client entity) {
+    public void create(Client entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO client " +
-                     "(firs_name, last_name) VALUES (?, ?);")) {
+                     "(first_name, last_name) VALUES (?, ?);")) {
             pStatement.setString(1, entity.getFirstName());
             pStatement.setString(2, entity.getLastName());
+            pStatement.execute();
             LOGGER.trace("Row in client was created");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean update(Client entity) {
+    public void update(Client entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE client " +
                      "SET first_name=?, last_name=? WHERE client_id=?;")) {
             pStatement.setString(1, entity.getFirstName());
             pStatement.setString(2, entity.getLastName());
             pStatement.setInt(3, entity.getClientId());
+            pStatement.execute();
             LOGGER.trace("Row in client with id = " + entity.getClientId() + " was updated");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean delete(Client entity) {
+    public void delete(Client entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("DELETE FROM client WHERE client_id=?;")) {
             pStatement.setInt(1, entity.getClientId());
-            LOGGER.trace("Row in car_type with id = " + entity.getClientId() + " was deleted");
-            return pStatement.execute();
+            pStatement.execute();
+            LOGGER.trace("Row in client with id = " + entity.getClientId() + " was deleted");
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override

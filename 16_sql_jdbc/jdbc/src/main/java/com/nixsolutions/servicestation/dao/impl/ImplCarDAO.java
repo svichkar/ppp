@@ -21,49 +21,46 @@ public class ImplCarDAO implements CarDAO {
     public static Logger LOGGER = LogManager.getLogger(ImplCarDAO.class.getName());
 
     @Override
-    public boolean create(Car entity) {
+    public void create(Car entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (?, ?, ? ,?);")) {
             pStatement.setInt(1, entity.getCarId());
             pStatement.setString(2, entity.getSerialId());
             pStatement.setInt(3, entity.getCarTypeId());
             pStatement.setInt(4, entity.getClientId());
+            pStatement.execute();
             LOGGER.trace("Row in car was created");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean update(Car entity) {
+    public void update(Car entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE car SET car_id=?, serial_id=?, car_type_id=?, client_id=? WHERE car_id=?;")) {
             pStatement.setInt(1, entity.getCarId());
             pStatement.setString(2, entity.getSerialId());
             pStatement.setInt(3, entity.getCarTypeId());
             pStatement.setInt(4, entity.getClientId());
-            pStatement.setInt(5, entity.getCarTypeId());
+            pStatement.setInt(5, entity.getCarId());
+            pStatement.execute();
             LOGGER.trace("Row in car with id = " + entity.getCarId() + " was updated");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean delete(Car entity) {
+    public void delete(Car entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("DELETE FROM car WHERE car_id=?;")) {
             pStatement.setInt(1, entity.getCarId());
+            pStatement.execute();
             LOGGER.trace("Row in car with id = " + entity.getCarId() + " was deleted");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override

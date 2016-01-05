@@ -71,6 +71,7 @@ public class JDBCCreateTables {
                     "ADD FOREIGN KEY (car_order_status_id)" +
                     "REFERENCES car_order_status (car_order_status_id);");
             statement.addBatch("CREATE TABLE employee_car_order (" +
+                    "identifier INT PRIMARY KEY,"+
                     "employee_id INT," +
                     "car_order_id BIGINT," +
                     "FOREIGN KEY (employee_id) REFERENCES employee (employee_id)," +

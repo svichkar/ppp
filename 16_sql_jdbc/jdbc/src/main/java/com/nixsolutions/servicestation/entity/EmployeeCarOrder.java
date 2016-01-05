@@ -4,13 +4,15 @@ package com.nixsolutions.servicestation.entity;
  * Created by rybkinrolla on 29.12.2015.
  */
 public class EmployeeCarOrder {
+    private Integer identifier;
     private Integer employeeId;
     private Integer carOrderId;
 
     public EmployeeCarOrder() {
     }
 
-    public EmployeeCarOrder(Integer employeeId, Integer carOrderId) {
+    public EmployeeCarOrder(Integer identifier, Integer employeeId, Integer carOrderId) {
+        this.identifier = identifier;
         this.employeeId = employeeId;
         this.carOrderId = carOrderId;
     }
@@ -29,5 +31,13 @@ public class EmployeeCarOrder {
 
     public void setCarOrderId(Integer carOrderId) {
         this.carOrderId = carOrderId;
+    }
+
+    public Integer getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(Integer identifier) {
+        this.identifier = identifier;
     }
 }

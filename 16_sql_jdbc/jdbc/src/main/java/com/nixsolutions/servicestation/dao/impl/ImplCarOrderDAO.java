@@ -18,50 +18,51 @@ public class ImplCarOrderDAO implements CarOrderDAO {
     public static Logger LOGGER = LogManager.getLogger(ImplCarOrderDAO.class.getName());
 
     @Override
-    public boolean create(CarOrder entity) {
+    public void create(CarOrder entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO car_order " +
                      "(car_id, car_order_status_id, start_date) VALUES (?, ?, ?);")) {
             pStatement.setInt(1, entity.getCarId());
             pStatement.setInt(2, entity.getCarOrderStatusId());
             pStatement.setDate(3, new Date(entity.getStartDate().getTime()));
+            pStatement.execute();
             LOGGER.trace("Row in car_order was created");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean update(CarOrder entity) {
+    public void update(CarOrder entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE car_order " +
                      "SET car_id=?, car_order_status_id=?, start_date=?, end_date=? WHERE car_order_id=?;")) {
             pStatement.setInt(1, entity.getCarId());
             pStatement.setInt(2, entity.getCarOrderStatusId());
             pStatement.setDate(3, new Date(entity.getStartDate().getTime()));
+            if(entity.getEndDate() != null){
             pStatement.setDate(4, new Date(entity.getEndDate().getTime()));
+            } else {
+                pStatement.setDate(4, null);
+            }
             pStatement.setInt(5, entity.getCarOrderId());
+            pStatement.execute();
             LOGGER.trace("Row in car_order with id = " + entity.getCarOrderId() + " was updated");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean delete(CarOrder entity) {
+    public void delete(CarOrder entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("DELETE FROM car_order WHERE car_order_id=?;")) {
             pStatement.setInt(1, entity.getCarOrderId());
+            pStatement.execute();
             LOGGER.trace("Row in car_order with id = " + entity.getCarOrderId() + " was deleted");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override

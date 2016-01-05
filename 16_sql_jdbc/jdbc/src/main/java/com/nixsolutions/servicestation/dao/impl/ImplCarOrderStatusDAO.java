@@ -18,45 +18,42 @@ public class ImplCarOrderStatusDAO implements CarOrderStatusDAO{
     public static Logger LOGGER = LogManager.getLogger(ImplCarOrderStatusDAO.class.getName());
 
     @Override
-    public boolean create(CarOrderStatus entity) {
+    public void create(CarOrderStatus entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO car_order_status (name) VALUES (?);")) {
             pStatement.setString(1, entity.getName());
+            pStatement.execute();
             LOGGER.trace("Row in car_order_status was created");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean update(CarOrderStatus entity) {
+    public void update(CarOrderStatus entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE car_order_status " +
                      "SET name=? WHERE car_order_status_id=?;")) {
             pStatement.setString(1, entity.getName());
             pStatement.setInt(2, entity.getCarOrderStatusId());
+            pStatement.execute();
             LOGGER.trace("Row in car_order_status with id = " + entity.getCarOrderStatusId() + " was updated");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override
-    public boolean delete(CarOrderStatus entity) {
+    public void delete(CarOrderStatus entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("DELETE FROM car_order_status " +
                      "WHERE car_order_status_id=?;")) {
             pStatement.setInt(1, entity.getCarOrderStatusId());
+            pStatement.execute();
             LOGGER.trace("Row in car_order_status with id = " + entity.getCarOrderStatusId() + " was deleted");
-            return pStatement.execute();
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }
-        return false;
     }
 
     @Override

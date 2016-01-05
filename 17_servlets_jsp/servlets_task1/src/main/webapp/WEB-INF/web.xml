@@ -13,6 +13,10 @@
 <servlet-name>admin</servlet-name>
 <servlet-class>com.nixsolutions.servlets.AdminServlet</servlet-class>
 </servlet>
+<servlet>
+<servlet-name>createupdate</servlet-name>
+<servlet-class>com.nixsolutions.servlets.CreateUpdateServlet</servlet-class>
+</servlet>
 
 <servlet-mapping>
 <servlet-name>auth</servlet-name>
@@ -21,6 +25,10 @@
 <servlet-mapping>
 <servlet-name>admin</servlet-name>
 <url-pattern>/admin</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>createupdate</servlet-name>
+<url-pattern>/createupdate</url-pattern>
 </servlet-mapping>
 
 </web-app>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <cell cell_id="1" name="A"/>
+    <cell cell_id="2" name="B"/>
+    <category category_id="1" name="comedy"/>
+    <category category_id="2" name="tragedy"/>
+    <book book_id="1" name="bard tales" cell_id="1" category_id="1"/>
+    <book book_id="2" name="stories" cell_id="2" category_id="2"/>
+</dataset>

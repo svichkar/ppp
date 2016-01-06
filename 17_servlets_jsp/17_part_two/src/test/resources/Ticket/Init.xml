@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <cell cell_id="1" name="A"/>
+    <category category_id="1" name="comedy"/>
+    <book book_id="1" name="tests" cell_id="1" category_id="1"/>
+    <book book_id="2" name="tests" cell_id="1" category_id="1"/>
+    <client client_id="1" first_name="Petr" last_name="Ivanov" phone="111-45-78" email="simple@mail.com"/>
+    <client client_id="2" first_name="Ivan" last_name="Petrov" phone="175-54-67" email="test@mail.com"/>
+    <rent_journal ticket_id="1" book_id="1" client_id="1" rent_date="2015-12-26" expired_date="2015-12-26" return_date="2015-12-26"/>
+    <rent_journal ticket_id="2" book_id="2" client_id="2" rent_date="2015-12-26" expired_date="2015-12-26" return_date="2015-12-26"/>
+</dataset>

@@ -14,14 +14,16 @@ public class LogoutPageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		request.getSession().invalidate();
 		out.println("<html>"
 				+ "<head><title>Logout Page</title></head>"
 				+ "<body>"
-				+ "<p>You are successfully logged out!</p>"
+				+ "<p>You are successfully logged out! Please log in back to application to continue work.</p>"
+				+ "<p><a href=\"index.html\">Login Page</a></p>"
 				+ "</body>"
 				+ "</html>");
 		out.close();

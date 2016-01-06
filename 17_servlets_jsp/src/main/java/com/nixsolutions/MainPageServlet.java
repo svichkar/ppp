@@ -78,11 +78,11 @@ public class MainPageServlet extends HttpServlet {
 				+ "<head><title>Main Page</title></head>"
 				+ "<body>"
 				+ "<p>You are logged in as <strong>" + role.getRoleName() + "</strong> user.</p>"
-				+ "<form action=\"logout\" method=\"post\">"
+				+ "<form action=\"logout\" method=\"get\">"
 				+ "<input type=\"submit\" name=\"Log out\" value=\"Log out\"></form>");
 		if (role.getRoleName().equals("admin"))
 			out.println("<p>Please go to admin page.</p>"
-					+ "<form action=\"admin\" method=\"post\">"
+					+ "<form action=\"admin\" method=\"get\">"
 					+ "<input type=\"submit\" name=\"Go to Admin Page\" value=\"Go to Admin Page\">"
 					+ "</form>");
 		out.println("<h2>Journal</h2>"

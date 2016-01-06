@@ -26,6 +26,10 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     public Role findById(int id) {
-        return null;
+        if (id == 1) {
+            return new Role(1, "admin");
+        }            else {
+            return new Role(2, "guest");
+        }
     }
 }

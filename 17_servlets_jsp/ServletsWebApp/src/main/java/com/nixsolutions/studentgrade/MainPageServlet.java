@@ -1,14 +1,18 @@
 package com.nixsolutions.studentgrade;
 
+import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
 import com.nixsolutions.studentgrade.dao.UserDao;
+import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -16,39 +20,71 @@ import java.io.PrintWriter;
  * Created by svichkar on 12/24/2015.
  */
 
-@WebServlet(name = "Login Page",
+@WebServlet(name = "LoginPage",
         description = "This is my first annotated servlet",
-        urlPatterns = "/login",
-        loadOnStartup = 1)
+        value = "/login")
 public class MainPageServlet extends HttpServlet {
 
     private boolean isAdmin;
+    private HttpSession session;
     private String pageHtml;
 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getParameter("password");
-        request.getParameter("login");
-/*
-        if (isUserPresent(request.getParameter("login"))== false) {
-
-            pageHtml = "User with current login/email doesn't exist";
-        } else {
-            if (true){}
-        }
-*/
-        if (true) {
-            pageHtml = "admin";
-        } else {
-            pageHtml = "guest";
-        }
+        String login = request.getParameter("login");
+        String pass = request.getParameter("password");
 
         response.setContentType("text/html");
-
         PrintWriter out = response.getWriter();
-        out.println("HELLO, " + pageHtml);
+
+        StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+        UserDao userDao = daoFactory.getUserDao();
+
+        if (userDao.validateUser(login)) {
+
+            User user = userDao.getUserByLoginAndPassword(login, pass);
+
+            if (user != null) {
+
+                RoleDao roleDao = daoFactory.getRoleDao();
+                Role role = roleDao.findById(user.getRoleId());
+                session = request.getSession(true);
+
+                if (role.getRoleName().equals("admin")) {
+
+                    session.setAttribute("isAdmin", true);
+                    pageHtml = "You are logged with Admin rights.";
+                    out.println(pageHtml);
+                    //response.sendRedirect("admin");
+
+                } else {
+
+                    session.setAttribute("isAdmin", false);
+                    pageHtml = "You are logged with Guest rights.";
+                    out.println(pageHtml);
+                    //response.sendRedirect("guest");
+
+                }
+
+            } else {
+
+                pageHtml = "Password is not valid. Please try again.";
+                out.println(pageHtml);
+                RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                rd.include(request, response);
+            }
+
+        } else {
+
+            pageHtml = "User doesn't exist. Please contact admin to add new user.";
+            out.println(pageHtml);
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
+            rd.include(request, response);
+        }
+
+        out.close();
     }
 
     @Override
@@ -57,37 +93,6 @@ public class MainPageServlet extends HttpServlet {
         pageHtml = "OK";
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("Main page to login" + pageHtml);
+        out.println("Main page to login: " + pageHtml);
     }
-
-    protected boolean isUserPresent(String input) {
-
-        boolean result = false;
-        StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
-        UserDao userDao = daoFactory.getUserDao();
-
-        User user = userDao.findByLoginOrEmail(input);
-        if (user != null) {
-            result = true;
-        }
-        return result;
-    }
-
-    protected User getUserByLoginAndPassword(String login, String password) {
-
-        StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
-        UserDao userDao = daoFactory.getUserDao();
-        User user = userDao.findByLoginAndPassword(login, password);
-        return user;
-    }
-
-    protected boolean isUserAdmin(User user) {
-
-        boolean result = false;
-        if (user.getUserId() == 1) {
-            result = true;
-        }
-        return result;
-    }
-
 }

@@ -12,7 +12,7 @@ import java.io.PrintWriter;
  * Created by svichkar on 12/29/2015.
  */
 
-@WebServlet(name = "Admin Page",
+@WebServlet(name = "AdminPage",
         description = "Admin page for creating/updating users",
         urlPatterns = "/admin",
         loadOnStartup = 0)

@@ -6,12 +6,12 @@ package com.nixsolutions.studentgrade.entity;
 public class Role {
 
     private int roleId;
-    private int roleName;
+    private String roleName;
 
     public Role() {
     }
 
-    public Role(int roleId, int roleName) {
+    public Role(int roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
@@ -24,11 +24,11 @@ public class Role {
         this.roleId = roleId;
     }
 
-    public int getRoleName() {
+    public String getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(int roleName) {
+    public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 }

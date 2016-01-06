@@ -17,10 +17,7 @@ public interface UserDao {
 
     public List<User> findAll();
 
-    public User findById(int id);
+    public boolean validateUser(String user);
 
-    public User findByLoginOrEmail(String login);
-
-    public User findByLoginAndPassword(String login, String password);
-
+    public User getUserByLoginAndPassword(String login, String pass);
 }

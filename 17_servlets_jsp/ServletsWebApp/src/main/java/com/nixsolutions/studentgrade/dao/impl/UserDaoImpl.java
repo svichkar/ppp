@@ -29,11 +29,23 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
-    public User findByLoginOrEmail(String login) {
-        return null;
+    public boolean validateUser(String user) {
+        if (user.equals("kos") || user.equals("qwe"))
+            return true;
+        return false;
     }
 
-    public User findByLoginAndPassword(String login, String password) {
-        return null;
+    public User getUserByLoginAndPassword(String user, String pass) {
+
+        if (user.equals("kos") && pass.equals("123")) {
+            return new User(1, "Konstantin", "Svichkar", "123", "kos", "2012kostyan@gmail.com", 1);
+        }
+        else if (user.equals("qwe") && pass.equals("123")){
+            return new User (2, "Guest", "Nov", "123", "qwe", "123kostyan@gmail.com", 2);
+        }
+        else {
+            return null;
+        }
     }
+
 }

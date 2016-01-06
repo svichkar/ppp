@@ -5,19 +5,7 @@ public class Book {
 	private String name;
 	private Integer cellId;
 	private Integer categoryId;
-	//private Integer authorId;
 
-	/*
-	public Book(int bookId, String name, int cellId, int categoryId,
-			int authorId) {
-		super();
-		this.bookId = bookId;
-		this.name = name;
-		this.cellId = cellId;
-		this.categoryId = categoryId;
-		this.authorId = authorId;
-	}
-*/
 	public Integer getBookId() {
 		return bookId;
 	}

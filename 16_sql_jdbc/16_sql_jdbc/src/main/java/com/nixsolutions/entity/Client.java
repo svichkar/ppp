@@ -7,14 +7,6 @@ public class Client {
 	private String phone;
 	private String email;
 
-	/*
-	public Client(int clientId, String firstName, String secondName) {
-		super();
-		this.clientId = clientId;
-		this.firstName = firstName;
-		this.secondName = secondName;
-	}
-*/
 	public Integer getClientId() {
 		return clientId;
 	}
@@ -54,9 +46,10 @@ public class Client {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String toString() {
-		return "client with clientId: " + this.clientId + "; firstName: " + this.firstName + "; lastName: " + this.secondName;
+		return "client with clientId: " + this.clientId + "; firstName: "
+				+ this.firstName + "; lastName: " + this.secondName;
 
 	}
 

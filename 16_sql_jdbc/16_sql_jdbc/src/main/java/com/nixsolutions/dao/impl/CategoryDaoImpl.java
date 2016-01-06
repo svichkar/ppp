@@ -11,9 +11,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.app.H2ConnManager;
 import com.nixsolutions.dao.CategoryDao;
 import com.nixsolutions.dao.DaoException;
+import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.entity.Category;
 
 public class CategoryDaoImpl implements CategoryDao {
@@ -24,7 +24,8 @@ public class CategoryDaoImpl implements CategoryDao {
 		LOG.entry();
 		String sql = "SELECT * FROM category;";
 		List<Category> categories = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
+		try (Connection conn = H2ConnManager.getConnection();
+				Statement statem = conn.createStatement()) {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Category category = new Category(result.getString("name"));
@@ -42,7 +43,8 @@ public class CategoryDaoImpl implements CategoryDao {
 		LOG.entry(categoryId);
 		String sql = "SELECT * FROM category WHERE category_id = ?;";
 		Category category = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, categoryId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
@@ -51,7 +53,8 @@ public class CategoryDaoImpl implements CategoryDao {
 			}
 			LOG.trace("the category was retrieved");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a category by Id", e ));
+			LOG.throwing(
+					new DaoException("not able to get a category by Id", e));
 		}
 		return LOG.exit(category);
 	}
@@ -60,7 +63,8 @@ public class CategoryDaoImpl implements CategoryDao {
 	public void createCategory(Category category) {
 		LOG.entry(category);
 		String sql = "INSERT INTO category (name) VALUES (?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, category.getName());
 			statem.executeUpdate();
 			LOG.exit("category was created");
@@ -73,13 +77,16 @@ public class CategoryDaoImpl implements CategoryDao {
 	public void updateCategory(Category category) {
 		LOG.entry(category);
 		String sql = "UPDATE category SET name = ? WHERE category_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, category.getName());
 			statem.setLong(2, category.getCategoryId());
 			statem.executeUpdate();
-			LOG.exit("category with id: " + category.getCategoryId() + " was updated");
+			LOG.exit("category with id: " + category.getCategoryId()
+					+ " was updated");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to update the category", e));
+			LOG.throwing(
+					new DaoException("not able to update the category", e));
 		}
 	}
 
@@ -87,12 +94,15 @@ public class CategoryDaoImpl implements CategoryDao {
 	public void deleteCategory(Category category) {
 		LOG.entry(category);
 		String sql = "DELETE FROM category WHERE category_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setLong(1, category.getCategoryId());
 			statem.executeUpdate();
-			LOG.exit("category with id: " + category.getCategoryId() + " was deleted");
+			LOG.exit("category with id: " + category.getCategoryId()
+					+ " was deleted");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to delete the category", e));
+			LOG.throwing(
+					new DaoException("not able to delete the category", e));
 		}
 	}
 }

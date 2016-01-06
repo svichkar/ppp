@@ -11,9 +11,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.app.H2ConnManager;
 import com.nixsolutions.dao.BookDao;
 import com.nixsolutions.dao.DaoException;
+import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.entity.Book;
 
 public class BookDaoImpl implements BookDao {
@@ -24,7 +24,8 @@ public class BookDaoImpl implements BookDao {
 		LOG.entry();
 		String sql = "SELECT * FROM book;";
 		List<Book> books = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
+		try (Connection conn = H2ConnManager.getConnection();
+				Statement statem = conn.createStatement()) {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Book book = new Book();
@@ -46,7 +47,8 @@ public class BookDaoImpl implements BookDao {
 		LOG.entry(bookId);
 		String sql = "SELECT * FROM book WHERE book_id = ?;";
 		Book book = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, bookId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
@@ -66,7 +68,8 @@ public class BookDaoImpl implements BookDao {
 	public void createBook(Book book) {
 		LOG.entry(book);
 		String sql = "INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?);";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, book.getName());
 			statem.setInt(2, book.getCategoryId());
 			statem.setInt(3, book.getCellId());
@@ -81,7 +84,8 @@ public class BookDaoImpl implements BookDao {
 	public void updateBook(Book book) {
 		LOG.entry(book);
 		String sql = "UPDATE book SET name = ?, category_id = ?, cell_id=?  WHERE book_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, book.getName());
 			statem.setInt(2, book.getCategoryId());
 			statem.setInt(3, book.getCellId());
@@ -97,7 +101,8 @@ public class BookDaoImpl implements BookDao {
 	public void deleteBook(Book book) {
 		LOG.entry(book);
 		String sql = "DELETE FROM book WHERE book_id = ?;";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, book.getBookId());
 			statem.executeUpdate();
 			LOG.exit("book was deleted");

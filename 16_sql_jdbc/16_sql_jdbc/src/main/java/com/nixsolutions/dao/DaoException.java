@@ -11,8 +11,4 @@ public class DaoException extends RuntimeException {
 		super(string, e);
 	}
 
-	
-	
-
-
 }

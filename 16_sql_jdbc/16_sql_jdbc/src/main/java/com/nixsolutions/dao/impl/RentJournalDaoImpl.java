@@ -12,11 +12,10 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.app.H2ConnManager;
 import com.nixsolutions.dao.DaoException;
+import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
-
 
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
@@ -39,7 +38,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 				rentJournals.add(rentJournal);
 			}
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get all rentJournals", e));
+			LOG.throwing(
+					new DaoException("not able to get all rentJournals", e));
 		}
 		return LOG.exit(rentJournals);
 	}
@@ -71,7 +71,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public void createRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal.toString());
-		String sql = "INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO rent_journal (book_id, client_id, rent_date, "
+				+ "return_date) VALUES (?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement statem = null;
 		try {
@@ -111,7 +112,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		String sql = "UPDATE rent_journal SET book_id = ?, client_id = ?, rent_date = ?, return_date = ?  WHERE ticket_id = ?";
+		String sql = "UPDATE rent_journal SET book_id = ?, client_id = ?, "
+				+ "rent_date = ?, return_date = ?  WHERE ticket_id = ?";
 		Connection conn = null;
 		PreparedStatement statem = null;
 		try {

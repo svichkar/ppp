@@ -9,11 +9,6 @@ public class RentJournal {
 	private Date rentDate;
 	private Date returnDate;
 
-	/*
-	 * public RentJournal(int rentId, int bookId, int clientId, Date rentDate) {
-	 * super(); this.rentId = rentId; this.bookId = bookId; this.clientId =
-	 * clientId; this.rentDate = rentDate; }
-	 */
 	public Integer getRentId() {
 		return rentId;
 	}
@@ -55,7 +50,9 @@ public class RentJournal {
 	}
 
 	public String toString() {
-		return "rent with rentId: " + this.rentId + "; bookId: " + this.bookId + "; clientId: " + this.clientId + "; rentDate: " + this.rentDate;
+		return "rent with rentId: " + this.rentId + "; bookId: " + this.bookId
+				+ "; clientId: " + this.clientId + "; rentDate: "
+				+ this.rentDate;
 
 	}
 }

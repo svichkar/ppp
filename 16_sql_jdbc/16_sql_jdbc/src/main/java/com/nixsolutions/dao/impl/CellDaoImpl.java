@@ -11,12 +11,12 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.app.H2ConnManager;
 import com.nixsolutions.dao.CellDao;
 import com.nixsolutions.dao.DaoException;
+import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.entity.Cell;
 
-public class CellDaoImpl implements CellDao{
+public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
 
 	@Override
@@ -24,7 +24,8 @@ public class CellDaoImpl implements CellDao{
 		LOG.entry();
 		String sql = "SELECT * FROM cell;";
 		List<Cell> cells = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
+		try (Connection conn = H2ConnManager.getConnection();
+				Statement statem = conn.createStatement()) {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Cell cell = new Cell(result.getString("name"));
@@ -43,7 +44,8 @@ public class CellDaoImpl implements CellDao{
 		LOG.entry(cellId);
 		String sql = "SELECT * FROM cell WHERE cell_id = ?;";
 		Cell cell = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setInt(1, cellId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
@@ -61,7 +63,8 @@ public class CellDaoImpl implements CellDao{
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
 		String sql = "INSERT INTO cell (name) VALUES (?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, cell.getName());
 			statem.executeUpdate();
 			LOG.exit("cell was created");
@@ -74,7 +77,8 @@ public class CellDaoImpl implements CellDao{
 	public void updateCell(Cell cell) {
 		LOG.entry(cell);
 		String sql = "UPDATE cell SET name = ? WHERE cell_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, cell.getName());
 			statem.setLong(2, cell.getCellId());
 			statem.executeUpdate();
@@ -88,7 +92,8 @@ public class CellDaoImpl implements CellDao{
 	public void deleteCell(Cell cell) {
 		LOG.entry(cell);
 		String sql = "DELETE FROM cell WHERE cell_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection();
+				PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setLong(1, cell.getCellId());
 			statem.executeUpdate();
 			LOG.exit("cell with id: " + cell.getCellId() + " was deleted");

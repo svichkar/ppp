@@ -1,4 +1,4 @@
-package com.nixsolutions.app;
+package com.nixsolutions.dao;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -9,6 +9,5 @@ public interface AuthorBookDao {
 	public List<AuthorBook> getBooksIdByAuthorId(int authorId);
 	public AuthorBook getAuthorBookById(int authorId, int bookId);
 	public void createAuthorBook(AuthorBook authorBook);
-	public void updateAuthorBook(AuthorBook authorBook);
 	public void deleteAuthorBook(AuthorBook authorBook);
 }

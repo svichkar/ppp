@@ -27,7 +27,7 @@ public class RoleDaoImpl implements RoleDao{
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
-				Role role = new Role(result.getString("name"));
+				Role role = new Role(result.getString("role_name"));
 				role.setRoleId(result.getInt("role_id"));
 				roles.add(role);
 			}
@@ -57,6 +57,27 @@ public class RoleDaoImpl implements RoleDao{
 		return LOG.exit(role);
 	}
 
+	@Override
+	public Role getRoleByName(String name) {
+		LOG.entry(name);
+		String sql = "SELECT * FROM role WHERE role_name = ?;";
+		Role role = null;
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, name);
+			ResultSet result = statem.executeQuery();
+			if (result.next()) {
+				Integer roleId = result.getInt("role_id");
+				String roleName = result.getString("role_name");
+				role = new Role(roleName);
+				role.setRoleId(roleId);
+			}
+			LOG.trace("the role was retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get the role by name", e));
+		}
+		return LOG.exit(role);
+	}
+	
 	@Override
 	public void createRole(Role role) {
 		LOG.entry(role);

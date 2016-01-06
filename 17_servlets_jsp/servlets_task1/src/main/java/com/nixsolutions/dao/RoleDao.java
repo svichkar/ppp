@@ -3,6 +3,7 @@ package com.nixsolutions.dao;
 import java.util.List;
 
 import com.nixsolutions.entity.Role;
+import com.nixsolutions.entity.User;
 
 public interface RoleDao {
 	public List<Role> getAllRoles();
@@ -10,4 +11,5 @@ public interface RoleDao {
 	public void createRole(Role role);
 	public void updateRole(Role role);
 	public void deleteRole(Role role);
+	public Role getRoleByName(String name);
 }

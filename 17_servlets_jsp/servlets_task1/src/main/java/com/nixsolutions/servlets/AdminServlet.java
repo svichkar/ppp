@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
+import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 
 @SuppressWarnings("serial")
@@ -22,15 +23,16 @@ public class AdminServlet extends HttpServlet{
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		PrintWriter out = response.getWriter();
-		//out.println("welcome, " + request.getParameter("username") + " on the admin page");
+		List<User> users = factory.getUserDao().getAllUsers();
+		List<Role> allRoles = factory.getRoleDao().getAllRoles();
+		String updateButton = "<td><input type=submit value=\"edit user\" name=\"button\"></td>";
+		String createButton = "<td><input type=submit value=\"create user\" name=\"button\"></td>";
 		response.setContentType("text/html");
-		//out.println("<!DOCTYPE html>");
-       // out.println("<html><head>");
-      //  out.println("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
-       // out.println("<title>Auth page</title></head>");
-		
-		String start = "<html><body>"
-				+ "<h1>welcome, " + request.getParameter("username") + " on the admin page</h1>"
+		StringBuilder usersTable = new StringBuilder();
+
+		usersTable.append("<head><title>Admin page</title></head>"
+				+ "<body>"
+				+ "<h1>Welcome to the Admin page</h1>"
 				+ "<table>"
 				+ "<tr>"
 				+ "<td>user_id</td>"
@@ -38,20 +40,23 @@ public class AdminServlet extends HttpServlet{
 				+ "<td>user_password</td>"
 				+ "<td>user_role</td>"
 				+ "<td>action</td>"
-				+ "</tr>";
-		String updateButton = "<td><input type=submit value=\"edit user\" name=\"button\"></td>";
-		String createButton = "<td><input type=submit value=\"create user\" name=\"button\"></td>";
-		
-		List<User> users = factory.getUserDao().getAllUsers();
-		
-		StringBuilder usersTable = new StringBuilder(start);
+				+ "</tr>");		
 		for (User user : users) {
+			Role userRole = factory.getRoleDao().getRoleById(user.getRoleId());
 			usersTable.append("<tr>");
 			usersTable.append("<form id=\"update\" action=\"createupdate\" method=\"post\">");
 			usersTable.append("<td><input type=\"text\" name=\"userid\" value=\"" + user.getUserId() + "\" readonly/></td>");
 			usersTable.append("<td><input type=\"text\" name=\"username\" value=\""+ user.getUserName() + "\"/></td>");
 			usersTable.append("<td><input type=\"text\" name=\"password\" value=\""+ user.getUserPassword() + "\"/></td>");
-			usersTable.append("<td><input type=\"text\" name=\"roleid\" value=\""+ user.getRoleId() + "\"/></td>");
+			usersTable.append("<td><select name=\"selectrole\">");
+			for (Role role : allRoles) {
+				if(userRole.getName().equals(role.getName())){	
+					usersTable.append("<option selected value=\"" + role.getName() +"\">"+ role.getName()+ "</option>");
+				} else {
+					usersTable.append("<option value=\"" + role.getName() +"\">"+ role.getName()+ "</option>");
+				}
+			}
+			usersTable.append("</select></td>");
 			usersTable.append(updateButton);
 			usersTable.append("</form></tr>");
 		}
@@ -59,11 +64,15 @@ public class AdminServlet extends HttpServlet{
 				+ "<tr>"
 				+ "<td></td>"
 				+ "<td><input type=\"text\" name=\"username\"/></td>"
-				+ "<td><input type=\"text\" name=\"password\"/></td>"
-				+ "<td><input type=\"text\" name=\"roleid\"/></td>" 
-				+ createButton
-				+ "</tr></form>");
-		usersTable.append("</table></body></html>");
+				+ "<td><input type=\"text\" name=\"password\"/></td>");
+		usersTable.append("<td><select name=\"selectrole\">");
+		usersTable.append("<option disabled selected>choose</option>");
+		for (Role role : allRoles) {
+			usersTable.append("<option value=\"" + role.getName() +"\">"+ role.getName()+ "</option>");
+		}
+		usersTable.append("</select></td>");
+		usersTable.append(createButton
+				+ "</tr></form></table></body>");
 		out.print(usersTable.toString());
 	}
 

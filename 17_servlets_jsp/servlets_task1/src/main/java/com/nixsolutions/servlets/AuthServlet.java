@@ -22,7 +22,6 @@ public class AuthServlet extends HttpServlet {
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("userpass");
 		PrintWriter out = response.getWriter();
@@ -36,9 +35,8 @@ public class AuthServlet extends HttpServlet {
 			} else {
 				out.print("welcome regular");
 			}
-
 		} else {
-			out.print("you have typed incorrect user name or password");
+			out.print("<p style=\"color:red\">you have entered incorrect user name or password</p>");
 			RequestDispatcher rd = request.getRequestDispatcher("index.html");
 			rd.include(request, response);
 		}

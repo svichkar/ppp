@@ -66,7 +66,7 @@ public class MainPage extends HttpServlet {
                             "<p>Your role " + role.getName() + "</p>\n");
                     if (role.getName().equals("admin")) {
                         session.setAttribute("isAdmin", true);
-                        out.println("<form action=\"adminPage\" method=\"post\">" +
+                        out.println("<form action=\"adminPage\" method=\"get\">" +
                                 "<input type=\"hidden\" name=\"login\" value=\"" + req.getParameter("login") + "\">" +
                                 "<input type=\"submit\" name=\"go to administration page\" value=\"go to administration page\"></form></td>");
                     } else {

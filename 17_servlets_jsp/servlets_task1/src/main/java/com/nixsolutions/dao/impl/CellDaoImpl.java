@@ -11,9 +11,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.nixsolutions.app.H2ConnManager;
 import com.nixsolutions.dao.CellDao;
 import com.nixsolutions.dao.DaoException;
+import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.entity.Cell;
 
 public class CellDaoImpl implements CellDao{

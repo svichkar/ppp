@@ -3,7 +3,6 @@ package com.nixsolutions.dao;
 import java.util.List;
 
 import com.nixsolutions.entity.Role;
-import com.nixsolutions.entity.User;
 
 public interface RoleDao {
 	public List<Role> getAllRoles();

@@ -17,6 +17,10 @@
 <servlet-name>createupdate</servlet-name>
 <servlet-class>com.nixsolutions.servlets.CreateUpdateServlet</servlet-class>
 </servlet>
+<servlet>
+<servlet-name>librarian</servlet-name>
+<servlet-class>com.nixsolutions.servlets.LibrarianServlet</servlet-class>
+</servlet>
 
 <servlet-mapping>
 <servlet-name>auth</servlet-name>
@@ -29,6 +33,10 @@
 <servlet-mapping>
 <servlet-name>createupdate</servlet-name>
 <url-pattern>/createupdate</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>librarian</servlet-name>
+<url-pattern>/librarian</url-pattern>
 </servlet-mapping>
 
 </web-app>

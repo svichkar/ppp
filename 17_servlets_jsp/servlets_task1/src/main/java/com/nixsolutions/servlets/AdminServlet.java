@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,18 +22,32 @@ public class AdminServlet extends HttpServlet{
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 	
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+		LOG.entry(request.getSession().getAttribute("usrRole"));
 		PrintWriter out = response.getWriter();
-		List<User> users = factory.getUserDao().getAllUsers();
+		List<User> users;
 		List<Role> allRoles = factory.getRoleDao().getAllRoles();
 		String updateButton = "<td><input type=submit value=\"edit user\" name=\"button\"></td>";
 		String createButton = "<td><input type=submit value=\"create user\" name=\"button\"></td>";
+		String deleteButton = "<td><input type=submit value=\"delete user\" name=\"button\"></td>";
+
+if (request.getSession(false) == null
+|| request.getSession().getAttribute("usrRole") == null
+|| !request.getSession().getAttribute("usrRole")
+		.equals("admin")){
+			out.print(
+					"<p style=\"color:red\">you are not authorized to be here</p>"); 
+			RequestDispatcher rd = request.getRequestDispatcher("index.html");
+			rd.include(request, response);
+		}else{
+			users = factory.getUserDao().getAllUsers();
 		response.setContentType("text/html");
 		StringBuilder usersTable = new StringBuilder();
-
+		users = factory.getUserDao().getAllUsers();
 		usersTable.append("<head><title>Admin page</title></head>"
 				+ "<body>"
 				+ "<h1>Welcome to the Admin page</h1>"
+				+ "<p> Hi, " +request.getSession().getAttribute("usrName") +"!</p>"
 				+ "<table>"
 				+ "<tr>"
 				+ "<td>user_id</td>"
@@ -48,6 +63,9 @@ public class AdminServlet extends HttpServlet{
 			usersTable.append("<td><input type=\"text\" name=\"userid\" value=\"" + user.getUserId() + "\" readonly/></td>");
 			usersTable.append("<td><input type=\"text\" name=\"username\" value=\""+ user.getUserName() + "\"/></td>");
 			usersTable.append("<td><input type=\"text\" name=\"password\" value=\""+ user.getUserPassword() + "\"/></td>");
+			if(userRole.getName().equals("admin")){
+				usersTable.append("<td>admin</td>");
+			}else{
 			usersTable.append("<td><select name=\"selectrole\">");
 			for (Role role : allRoles) {
 				if(userRole.getName().equals(role.getName())){	
@@ -57,7 +75,12 @@ public class AdminServlet extends HttpServlet{
 				}
 			}
 			usersTable.append("</select></td>");
-			usersTable.append(updateButton);
+			}
+			if(userRole.getName().equals("regular")){
+				usersTable.append(updateButton + deleteButton);
+			}	else {
+				usersTable.append(updateButton);
+			}
 			usersTable.append("</form></tr>");
 		}
 		usersTable.append("<form id=\"create\" action=\"createupdate\" method=\"post\">"
@@ -75,5 +98,5 @@ public class AdminServlet extends HttpServlet{
 				+ "</tr></form></table></body>");
 		out.print(usersTable.toString());
 	}
-
+	}
 }

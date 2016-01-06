@@ -87,7 +87,8 @@ public class BookDaoImpl implements BookDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE book_id = '" + id + "';");
             if (resultSet.next()) {
-                Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id"));
+                Book entity = new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"),
+                        resultSet.getInt("category_id"));
                 return entity;
             } else {
                 LOGGER.trace("id " + id + " not found in book table");
@@ -106,7 +107,8 @@ public class BookDaoImpl implements BookDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM book;");
             while (resultSet.next())
-                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id")));
+                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"),
+                        resultSet.getInt("category_id")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);
@@ -121,29 +123,31 @@ public class BookDaoImpl implements BookDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE name='" + name + ";");
             while (resultSet.next())
-                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id")));
+                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"),
+                        resultSet.getInt("category_id")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;
         }
     }
-/*
+
     @Override
     public List<Book> findByAuthor(String author) {
         List<Book> list = new ArrayList<>();
         try (Connection connection = CustomConnectionManager.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE name='" + name + ";");
+            ResultSet resultSet = statement.executeQuery("SELECT book_id,name FROM book WHERE book_id IN (SELECT book_id FROM author_book WHERE author_id IN (SELECT author_id FROM author WHERE last_name='" +author + "'));");
             while (resultSet.next())
-                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id")));
+                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"),
+                        resultSet.getInt("category_id")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);
             return null;
         }
     }
-*/
+
     @Override
     public List<Book> findByCategory(String category) {
         List<Book> list = new ArrayList<>();
@@ -151,7 +155,8 @@ public class BookDaoImpl implements BookDAO {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM book WHERE category_id='" +category + ";");
             while (resultSet.next())
-                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"), resultSet.getInt("category_id")));
+                list.add(new Book(resultSet.getInt("book_id"), resultSet.getString("name"), resultSet.getInt("cell_id"),
+                        resultSet.getInt("category_id")));
             return list;
         } catch (SQLException e) {
             LOGGER.error(e);

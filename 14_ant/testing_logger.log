@@ -1,0 +1,7 @@
+2015-12-17 10:22:33,121 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 0 facement: 1
+2015-12-17 10:22:33,143 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 0 facement: 1
+2015-12-17 10:22:33,143 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 2
+2015-12-17 10:22:33,144 DEBUG c.n.j.m.Robot [main] xAxis= 3; yAxis= 1 facement: 1
+2015-12-17 10:22:33,144 DEBUG c.n.j.m.Robot [main] xAxis= 2; yAxis= 1 facement: 3
+2015-12-17 10:22:33,145 DEBUG c.n.j.m.Robot [main] xAxis= 1; yAxis= 1 facement: 3
+2015-12-17 10:22:33,146 DEBUG c.n.j.m.Robot [main] xAxis= 0; yAxis= 1 facement: 3

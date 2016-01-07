@@ -24,8 +24,13 @@ public class UserDaoImpl implements UserDao{
 		LOG.entry();
 		String sql = "SELECT * FROM user;";
 		List<User> users = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
-			ResultSet result = statem.executeQuery(sql);
+		Connection conn = null;
+		Statement statem = null;
+		ResultSet result = null;
+		try {
+		conn = H2ConnManager.getConnection(); 
+		statem = conn.createStatement();
+		result = statem.executeQuery(sql);
 			while (result.next()) {
 				String name = result.getString("user_name");
 				String pswd = result.getString("user_password");
@@ -37,7 +42,11 @@ public class UserDaoImpl implements UserDao{
 			LOG.trace("all the users were retrieved");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get all users", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 		return LOG.exit(users);
 	}
 	
@@ -46,14 +55,23 @@ public class UserDaoImpl implements UserDao{
 		LOG.entry(name, pswd);
 		String sql = "SELECT * FROM user WHERE user_name = ? AND user_password = ?;";
 		boolean status = false;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		ResultSet result = null;
+		try {
+			conn = H2ConnManager.getConnection(); 
+			statem = conn.prepareStatement(sql);
 			statem.setString(1, name);
 			statem.setString(2, pswd);
-			ResultSet result = statem.executeQuery();
+			result = statem.executeQuery();
 			status = result.next();
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get a user by name and password", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 		return LOG.exit(status);
 	}
 	
@@ -62,10 +80,15 @@ public class UserDaoImpl implements UserDao{
 		LOG.entry(name, pswd);
 		String sql = "SELECT * FROM user WHERE user_name = ? AND user_password = ?;";
 		User user = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		ResultSet result = null;
+		try {
+			conn = H2ConnManager.getConnection(); 
+			statem = conn.prepareStatement(sql);
 			statem.setString(1, name);
 			statem.setString(2, pswd);
-			ResultSet result = statem.executeQuery();
+			result = statem.executeQuery();
 			if (result.next()) {
 				Integer id = result.getInt("user_id");
 				Integer role = result.getInt("role_id");
@@ -74,7 +97,11 @@ public class UserDaoImpl implements UserDao{
 			LOG.trace("the user was retrieved");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get a user by Id", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 		return LOG.exit(user);
 	}
 	
@@ -83,9 +110,14 @@ public class UserDaoImpl implements UserDao{
 		LOG.entry(userId);
 		String sql = "SELECT * FROM user WHERE user_id = ?;";
 		User user = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		ResultSet result = null;
+		try {
+			conn = H2ConnManager.getConnection(); 
+			statem = conn.prepareStatement(sql);
 			statem.setInt(1, userId);
-			ResultSet result = statem.executeQuery();
+			result = statem.executeQuery();
 			if (result.next()) {
 				String name = result.getString("user_name");
 				String pswd = result.getString("user_password");
@@ -96,7 +128,11 @@ public class UserDaoImpl implements UserDao{
 			LOG.trace("the user was retrieved");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get a user by Id", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 		return LOG.exit(user);
 	}
 
@@ -104,7 +140,11 @@ public class UserDaoImpl implements UserDao{
 	public void createUser(User user) {
 		LOG.entry(user);
 		String sql = "INSERT INTO user (user_name, user_password, role_id) VALUES (?, ?, ?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		try {
+			conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
 			statem.setString(1, user.getUserName());
 			statem.setString(2, user.getUserPassword());
 			statem.setInt(3, user.getRoleId());
@@ -112,14 +152,21 @@ public class UserDaoImpl implements UserDao{
 			LOG.exit("user was created");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to create an author", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 	}
 
 	@Override
 	public void updateUser(User user) {
 		LOG.entry(user);
 		String sql = "UPDATE user SET user_name = ?, user_password = ?, role_id=?  WHERE user_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		try {
+			conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
 			statem.setString(1, user.getUserName());
 			statem.setString(2, user.getUserPassword());
 			statem.setInt(3, user.getRoleId());
@@ -128,20 +175,30 @@ public class UserDaoImpl implements UserDao{
 			LOG.exit("user with id: " + user.getUserId() + " was updated");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to update the author", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 	}
 
 	@Override
 	public void deleteUser(User user) {
 		LOG.entry(user);
 		String sql = "DELETE FROM user WHERE user_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		try {
+			conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
 			statem.setLong(1, user.getUserId());
 			statem.executeUpdate();
 			LOG.exit("user with id: " + user.getUserId() + " was deleted");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to delete the author", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 	}
 
 }

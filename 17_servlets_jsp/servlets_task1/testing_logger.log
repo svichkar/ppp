@@ -1,0 +1,123 @@
+2016-01-06 07:37:46,404 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-06 07:37:46,414 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-06 07:37:46,414 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 1; authorId: 1)
+2016-01-06 07:37:46,415 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook was deleted)
+2016-01-06 07:37:46,492 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-06 07:37:46,494 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-06 07:37:46,530 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-06 07:37:46,531 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1])
+2016-01-06 07:37:46,569 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-06 07:37:46,572 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1, book Id: 3; authorId: 2, book Id: 4; authorId: 3])
+2016-01-06 07:37:46,625 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-06 07:37:46,626 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook entry was created)
+2016-01-06 07:37:46,676 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-06 07:37:46,677 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-06 07:37:46,688 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-06 07:37:46,690 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 3; firstName: Brian; lastName: Vaughan)
+2016-01-06 07:37:46,690 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 3; firstName: Michail; lastName: Lelyakov)
+2016-01-06 07:37:46,691 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was updated)
+2016-01-06 07:37:46,710 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-06 07:37:46,711 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-06 07:37:46,711 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-06 07:37:46,712 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was deleted)
+2016-01-06 07:37:46,752 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-06 07:37:46,753 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-06 07:37:46,765 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-06 07:37:46,766 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([author with Id: 1; firstName: Stephen; lastName: King, author with Id: 2; firstName: Michail; lastName: Bulgakov, author with Id: 3; firstName: Brian; lastName: Vaughan])
+2016-01-06 07:37:46,795 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-06 07:37:46,797 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-06 07:37:46,887 TRACE c.n.d.i.BookDaoImpl [main] entry params(5)
+2016-01-06 07:37:46,888 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-06 07:37:46,931 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: null; name: book5)
+2016-01-06 07:37:46,932 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was created)
+2016-01-06 07:37:46,980 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-06 07:37:46,981 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-06 07:37:46,983 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 1; name: book1)
+2016-01-06 07:37:46,984 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was deleted)
+2016-01-06 07:37:47,029 TRACE c.n.d.i.BookDaoImpl [main] entry
+2016-01-06 07:37:47,030 TRACE c.n.d.i.BookDaoImpl [main] all the books were retrieved
+2016-01-06 07:37:47,030 TRACE c.n.d.i.BookDaoImpl [main] exit with([book with bookId: 1; name: book1, book with bookId: 2; name: book2, book with bookId: 3; name: book3, book with bookId: 4; name: book4])
+2016-01-06 07:37:47,065 TRACE c.n.d.i.BookDaoImpl [main] entry params(4)
+2016-01-06 07:37:47,066 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 4; name: book4)
+2016-01-06 07:37:47,066 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 4; name: book5)
+2016-01-06 07:37:47,067 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was updated)
+2016-01-06 07:37:47,110 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,111 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-06 07:37:47,133 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,134 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-06 07:37:47,134 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-06 07:37:47,144 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(3)
+2016-01-06 07:37:47,145 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-06 07:37:47,146 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 3; name: Comedy)
+2016-01-06 07:37:47,146 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 3; name: SciFi)
+2016-01-06 07:37:47,147 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 3 was updated)
+2016-01-06 07:37:47,170 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: null; name: Drama)
+2016-01-06 07:37:47,170 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category was created)
+2016-01-06 07:37:47,186 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(5)
+2016-01-06 07:37:47,187 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-06 07:37:47,187 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-06 07:37:47,199 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,199 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-06 07:37:47,200 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-06 07:37:47,200 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 1; name: Horror)
+2016-01-06 07:37:47,201 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 1 was deleted)
+2016-01-06 07:37:47,218 TRACE c.n.d.i.CategoryDaoImpl [main] entry
+2016-01-06 07:37:47,219 TRACE c.n.d.i.CategoryDaoImpl [main] exit with([category with Id: 1; name: Horror, category with Id: 2; name: Action, category with Id: 3; name: Comedy])
+2016-01-06 07:37:47,242 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,244 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-06 07:37:47,245 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-06 07:37:47,261 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: null; name: cell D)
+2016-01-06 07:37:47,262 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell was created)
+2016-01-06 07:37:47,279 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,279 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-06 07:37:47,280 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-06 07:37:47,280 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 1; name: cell A)
+2016-01-06 07:37:47,280 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 1 was deleted)
+2016-01-06 07:37:47,297 TRACE c.n.d.i.CellDaoImpl [main] entry params(5)
+2016-01-06 07:37:47,298 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-06 07:37:47,299 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-06 07:37:47,313 TRACE c.n.d.i.CellDaoImpl [main] entry
+2016-01-06 07:37:47,314 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2016-01-06 07:37:47,315 TRACE c.n.d.i.CellDaoImpl [main] exit with([Cell with cellId: 1; name: cell A, Cell with cellId: 2; name: cell B, Cell with cellId: 3; name: cell C])
+2016-01-06 07:37:47,334 TRACE c.n.d.i.CellDaoImpl [main] entry params(3)
+2016-01-06 07:37:47,334 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-06 07:37:47,335 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 3; name: cell C)
+2016-01-06 07:37:47,335 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 3; name: cell E)
+2016-01-06 07:37:47,336 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 3 was updated)
+2016-01-06 07:37:47,368 TRACE c.n.d.i.ClientDaoImpl [main] entry params(3)
+2016-01-06 07:37:47,370 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-06 07:37:47,370 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 3; firstName: Yriy; lastName: Golod)
+2016-01-06 07:37:47,370 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 3; firstName: Max; lastName: Kulishov)
+2016-01-06 07:37:47,371 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 3 was updated)
+2016-01-06 07:37:47,389 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,390 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-06 07:37:47,390 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-06 07:37:47,390 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-06 07:37:47,391 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 1 was deleted)
+2016-01-06 07:37:47,411 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,412 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-06 07:37:47,413 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-06 07:37:47,425 TRACE c.n.d.i.ClientDaoImpl [main] entry params(5)
+2016-01-06 07:37:47,425 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-06 07:37:47,426 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-06 07:37:47,437 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: null; firstName: Vitaliy; lastName: Rybkin)
+2016-01-06 07:37:47,438 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client was created)
+2016-01-06 07:37:47,462 TRACE c.n.d.i.ClientDaoImpl [main] entry
+2016-01-06 07:37:47,466 TRACE c.n.d.i.ClientDaoImpl [main] all the clients were retrieved
+2016-01-06 07:37:47,467 TRACE c.n.d.i.ClientDaoImpl [main] exit with([client with clientId: 1; firstName: Evgeniy; lastName: Fomin, client with clientId: 2; firstName: Alexandra; lastName: Adusheva, client with clientId: 3; firstName: Yriy; lastName: Golod])
+2016-01-06 07:37:47,508 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,510 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-06 07:37:47,542 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(4)
+2016-01-06 07:37:47,543 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22)
+2016-01-06 07:37:47,543 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 4; bookId: 5; clientId: 1; rentDate: 2015-06-11)
+2016-01-06 07:37:47,544 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was updated)
+2016-01-06 07:37:47,588 TRACE c.n.d.i.RentJournalDaoImpl [main] entry
+2016-01-06 07:37:47,589 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with([rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25, rent with rentId: 2; bookId: 2; clientId: 2; rentDate: 2015-11-24, rent with rentId: 3; bookId: 3; clientId: 3; rentDate: 2015-10-23, rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22])
+2016-01-06 07:37:47,635 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-06 07:37:47,636 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-06 07:37:47,636 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-06 07:37:47,637 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent was deleted)
+2016-01-06 07:37:47,679 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(5)
+2016-01-06 07:37:47,680 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-06 07:37:47,712 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: null; bookId: 5; clientId: 1; rentDate: 2015-08-21)
+2016-01-06 07:37:47,713 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was created)

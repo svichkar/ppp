@@ -64,7 +64,7 @@ if (request.getSession(false) == null
 			usersTable.append("<td><input type=\"text\" name=\"username\" value=\""+ user.getUserName() + "\"/></td>");
 			usersTable.append("<td><input type=\"text\" name=\"password\" value=\""+ user.getUserPassword() + "\"/></td>");
 			if(userRole.getName().equals("admin")){
-				usersTable.append("<td>admin</td>");
+				usersTable.append("<td><input type=\"text\" name=\"selectrole\" value=\"admin\" readonly/></td>");
 			}else{
 			usersTable.append("<td><select name=\"selectrole\">");
 			for (Role role : allRoles) {

@@ -25,10 +25,14 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public List<RentJournal> getAllRents() {
 		LOG.entry();
 		String sql = "SELECT * FROM rent_journal;";
+		Connection conn = null;
+		Statement statem = null;
+		ResultSet result = null;
 		List<RentJournal> rentJournals = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection();
-				Statement statem = conn.createStatement()) {
-			ResultSet result = statem.executeQuery(sql);
+		try {
+			conn = H2ConnManager.getConnection();
+			statem = conn.createStatement();
+			result = statem.executeQuery(sql);
 			while (result.next()) {
 				RentJournal rentJournal = new RentJournal();
 				rentJournal.setRentId(result.getInt("ticket_id"));
@@ -40,7 +44,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			}
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get all rentJournals", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 		return LOG.exit(rentJournals);
 	}
 
@@ -49,10 +57,13 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		LOG.entry(rentId);
 		String sql = "SELECT * FROM rent_journal WHERE ticket_id = ?;";
 		RentJournal rentJournal = null;
-		try (Connection conn = H2ConnManager.getConnection();
-				PreparedStatement statem = conn.prepareStatement(sql)) {
+		Connection conn = null;
+		PreparedStatement statem = null;
+		ResultSet result = null;
+		try {conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
 			statem.setInt(1, rentId);
-			ResultSet result = statem.executeQuery();
+			result = statem.executeQuery();
 			if (result.next()) {
 				rentJournal = new RentJournal();
 				rentJournal.setRentId(result.getInt("ticket_id"));
@@ -64,7 +75,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		} catch (SQLException e) {
 			LOG.throwing(
 					new DaoException("not able to get a rentJournal by Id", e));
-		}
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
 		return LOG.exit(rentJournal);
 	}
 
@@ -87,26 +102,12 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			LOG.exit("rentJournal was created");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to create an author", e));
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			H2ConnManager.rollbackQuitely(conn);
 		} finally {
-			if (statem != null) {
-				try {
-					statem.close();
-				} catch (SQLException e1) {// no need to trace it
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e1) {// no need to trace it
-				}
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
 			}
 		}
-	}
 
 	@Override
 	public void updateRent(RentJournal rentJournal) {
@@ -127,26 +128,12 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.commit();
 			LOG.exit("rentJournal was updated");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to update the author", e));
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			LOG.throwing(new DaoException("not able to create an author", e));
+			H2ConnManager.rollbackQuitely(conn);
 		} finally {
-			if (statem != null) {
-				try {
-					statem.close();
-				} catch (SQLException e1) {// no need to trace it
-				}
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e1) {// no need to trace it
-				}
-			}
-		}
 	}
 
 	@Override
@@ -164,25 +151,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn.commit();
 			LOG.exit("rent was deleted");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to delete the author", e));
-			try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			LOG.throwing(new DaoException("not able to create an author", e));
+			H2ConnManager.rollbackQuitely(conn);
 		} finally {
-			if (statem != null) {
-				try {
-					statem.close();
-				} catch (SQLException e1) {// no need to trace it
-				}
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
 			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e1) {// no need to trace it
-				}
-			}
-		}
 	}
 }

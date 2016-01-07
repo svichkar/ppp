@@ -1,0 +1,7 @@
+/bin/
+/libs/
+/.idea
+/.settings
+.project
+.classpath
+javappp.iml

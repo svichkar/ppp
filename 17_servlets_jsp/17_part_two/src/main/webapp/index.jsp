@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <t:template title="Library welcome page">
@@ -32,13 +33,8 @@
         </form>
     </jsp:attribute>
     <jsp:attribute name="message_area">
-        <c:chose>
-            <c:when test="{empty param.message}">
-                <p><c:out value="param.message not found"/></p>
-            </c:when>
-            <c:otherwise>
-                <p><c:out value="${param.message}"/></p>
-            </c:otherwise>
-        </c:chose>
+        <c:if test="${not empty param.message}">
+            <p align="center"><c:out value="Login or Password is empty. Please fill them and try again"/></p>
+        </c:if>
     </jsp:attribute>
 </t:template>

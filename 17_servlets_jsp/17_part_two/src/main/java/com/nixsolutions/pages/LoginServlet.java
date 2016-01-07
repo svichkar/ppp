@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
         User user = userDAO.findByLogin(req.getParameter("userName").toLowerCase());
         try (PrintWriter out = resp.getWriter()) {
             if (req.getParameter("userName").equals("") | req.getParameter("userPassword").equals("")) {
-                resp.sendRedirect("index.jsp?message=Login or Password is empty. Please fill them and try again");
+                resp.sendRedirect("index.jsp?message=fail");
                 /*req.setAttribute("message", "Login or Password is empty. Please fill them and try again");
                 req.getRequestDispatcher("index.jsp").forward(req,resp);*/
             }

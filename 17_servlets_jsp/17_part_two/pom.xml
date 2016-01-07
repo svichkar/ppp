@@ -55,6 +55,11 @@
         <version>2.0</version>
         <scope>provided</scope>
     </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>17_servlets_jsp_part_two</finalName>

@@ -36,7 +36,7 @@ public class MainPage extends HttpServlet {
                     "</head>\n" +
                     "<body>\n" +
                     "<p>You are not login. Please go to login form</p>\n" +
-                    "<p><a href=\"index.html\">login form</a></p>\n" +
+                    "<p><a href=\"index.jsp\">login form</a></p>\n" +
                     "</body>\n" +
                     "</html>");
         } catch (IOException | NullPointerException e) {
@@ -81,7 +81,7 @@ public class MainPage extends HttpServlet {
                             "</head>\n" +
                             "<body>\n" +
                             "<p>WrongPassword</p>\r\n" +
-                            "<p><a href=\"index.html\">return to login form</a></p>" +
+                            "<p><a href=\"index.jsp\">return to login form</a></p>" +
                             "</body>\n" +
                             "</html>");
                 }
@@ -92,7 +92,7 @@ public class MainPage extends HttpServlet {
                         "</head>\n" +
                         "<body>\n" +
                         "<p>User not found</p>\r\n" +
-                        "<p><a href=\"index.html\">return to login form</a></p>" +
+                        "<p><a href=\"index.jsp\">return to login form</a></p>" +
                         "</body>\n" +
                         "</html>");
             }

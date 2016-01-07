@@ -3,7 +3,9 @@ package com.nixsolutions.dao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,7 +28,7 @@ public class H2ConnManager {
 			pool = JdbcConnectionPool.create(url, name, pswd);
 		}
 		Connection connect = pool.getConnection();
-		return connect;
+		return LOG.exit(connect);
 	}
 
 	private static void setProperties() {
@@ -40,6 +42,46 @@ public class H2ConnManager {
 			pswd = prop.getProperty("password");
 		} catch (IOException e) {
 			LOG.error(e);
+		}
+	}
+	
+	public static void closeQuitely(Connection conn){
+		if(conn != null){
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				LOG.error(e);
+			}
+		}
+	}
+	
+	public static void closeQuitely(ResultSet rs){
+		if(rs != null){
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				LOG.error(e);
+			}
+		}
+	}
+	
+	public static void closeQuitely(Statement st){
+		if(st != null){
+			try {
+				st.close();
+			} catch (SQLException e) {
+				LOG.error(e);
+			}
+		}
+	}
+	
+	public static void rollbackQuitely(Connection conn){
+		if(conn != null){
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				LOG.error(e);
+			}
 		}
 	}
 }

@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by kozlovskij on 12/28/2015.
  */
-/*public class TestRole extends DBUnitConfig {
+public class TestRole extends DBUnitConfig {
     private Role role;
 
     public TestRole(String name) {
@@ -82,4 +82,4 @@ import java.util.List;
         Assert.assertEquals(new Integer(2), roleList.get(1).getRoleId());
         Assert.assertEquals("customer", roleList.get(1).getName());
     }
-}*/
+}

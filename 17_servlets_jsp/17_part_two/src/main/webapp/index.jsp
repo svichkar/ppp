@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <t:template title="Library welcome page">
     <jsp:attribute name="content_area">
-        <form action="login" method="post">
+        <form action="mainPage" method="post">
             <div id="loginForm" align="center">
                 <table class="table" border="1" width="30%" cellpadding="3">
                     <thead>

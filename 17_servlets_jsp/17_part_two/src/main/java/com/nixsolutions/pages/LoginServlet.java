@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 /**
  * Created by Serko on 07.01.2016.
  */
-@WebServlet("/login")
+@WebServlet("/mainPage")
 public class LoginServlet extends HttpServlet {
     private static UserDAO userDAO;
     private static RoleDAO roleDAO;
@@ -47,14 +47,18 @@ public class LoginServlet extends HttpServlet {
             if (req.getParameter("login") != null) {
                 if (user != null) {
                     if (user.getPassword().equals(req.getParameter("userPassword"))) {
-                        req.getRequestDispatcher("/WEB-INF/jsp/mainPage.jsp").forward(req, resp);
+                        req.getSession().setAttribute("role", roleDAO.findByID(user.getRoleId()).getName());
+                        req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                     } else {
                         resp.sendRedirect("index.jsp?message=Login or password are wrong");
                     }
                 }
             } else if (req.getParameter("registration") != null) {
                 if (user == null) {
-                    req.getRequestDispatcher("/WEB-INF/jsp/mainPage.jsp").forward(req, resp);
+                    userDAO.create(new User(req.getParameter("userName"), req.getParameter("userPassword"),
+                            roleDAO.findByName("LIBRARIAN").getRoleId()));
+                    req.getSession().setAttribute("role", "LIBRARIAN");
+                    req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                 } else {
                     resp.sendRedirect("index.jsp?message=User already exist choose another");
                 }

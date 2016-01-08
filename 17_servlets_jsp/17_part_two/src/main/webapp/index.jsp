@@ -34,7 +34,7 @@
     </jsp:attribute>
     <jsp:attribute name="message_area">
         <c:if test="${not empty param.message}">
-            <p align="center"><c:out value="Login or Password is empty. Please fill them and try again"/></p>
+            <p align="center"><c:out value="${param.message}"/></p>
         </c:if>
     </jsp:attribute>
 </t:template>

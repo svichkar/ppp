@@ -1,6 +1,7 @@
 package com.nixsolutions.pages;
 
 import com.nixsolutions.library.dao.DaoFactory;
+import com.nixsolutions.library.dao.RoleDAO;
 import com.nixsolutions.library.dao.UserDAO;
 import com.nixsolutions.library.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.library.entity.User;
@@ -20,34 +21,47 @@ import java.io.PrintWriter;
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    public static Logger LOGGER = LogManager.getLogger(MainPage.class.getName());
-    private DaoFactory daoFactory = new DaoFactoryImpl();
-    private UserDAO userDAO = daoFactory.getUserDAO();
+    private static UserDAO userDAO;
+    private static RoleDAO roleDAO;
+
+    @Override
+    public void init() throws ServletException {
+        DaoFactory daoFactory = new DaoFactoryImpl();
+        userDAO = daoFactory.getUserDAO();
+        roleDAO = daoFactory.getRoleDAO();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("index.jsp");
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         User user = userDAO.findByLogin(req.getParameter("userName").toLowerCase());
-        try (PrintWriter out = resp.getWriter()) {
-            if (req.getParameter("userName").equals("") | req.getParameter("userPassword").equals("")) {
-                resp.sendRedirect("index.jsp?message=fail");
-                /*req.setAttribute("message", "Login or Password is empty. Please fill them and try again");
-                req.getRequestDispatcher("index.jsp").forward(req,resp);*/
-            }
+
+        if (req.getParameter("userName").equals("") | req.getParameter("userPassword").equals("")) {
+            resp.sendRedirect("index.jsp?message=Please fill login and password");
+        } else {
             if (req.getParameter("login") != null) {
-                out.println("You are click on login button");
+                if (user != null) {
+                    if (user.getPassword().equals(req.getParameter("userPassword"))) {
+                        req.getRequestDispatcher("/WEB-INF/jsp/mainPage.jsp").forward(req, resp);
+                    } else {
+                        resp.sendRedirect("index.jsp?message=Login or password are wrong");
+                    }
+                }
             } else if (req.getParameter("registration") != null) {
-                out.println("You are click on registration button");
+                if (user == null) {
+                    req.getRequestDispatcher("/WEB-INF/jsp/mainPage.jsp").forward(req, resp);
+                } else {
+                    resp.sendRedirect("index.jsp?message=User already exist choose another");
+                }
             } else {
-                out.println("Hi, how you doing?");
+                resp.sendRedirect("index.jsp");
             }
-            if (user != null) {
-                out.println("your id is: " + user.getUserId());
-            } else {
-                out.println("user not found");
-            }
-        } catch (IOException | NullPointerException e) {
-            LOGGER.error(e);
         }
     }
 }
+

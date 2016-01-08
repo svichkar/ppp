@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by kozlovskij on 12/28/2015.
  */
-public class TestUser extends DBUnitConfig {
+/*public class TestUser extends DBUnitConfig {
     private User user;
 
     public TestUser(String name) {
@@ -88,4 +88,4 @@ public class TestUser extends DBUnitConfig {
         Assert.assertEquals("321", userList.get(1).getPassword());
         Assert.assertEquals(new Integer(2), userList.get(1).getRoleId());
     }
-}
+}*/

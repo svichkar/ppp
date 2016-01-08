@@ -1,1 +1,0 @@
-Читать тут: https://drive.google.com/open?id=1pSc3ZfcsZ8z3FM_MH44LU6ygVo5Cvb01hzmogBqWQfI&authuser=0

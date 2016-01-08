@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="dist">
+
+	<property file="project.properties" />
+	<property name="src.dir" location="src" />
+	<property name="test.dir" location="test" />
+	<property name="lib.dir" location="lib" />
+	<property name="report.dir" location="${build.dir}/report" />
+	<property name="build.dir" value="build" />
+	<property name="build.java" location="${build.dir}/java" />
+	<property name="build.test" location="${build.dir}/test" />
+	<property name="build.jar" value="${build.dir}/dist" />
+	<property name="build.javadoc" value="${build.dir}/javadoc" />
+	
+	<tstamp>
+		<format property="build.tstamp" pattern="yyyy_MM_dd_HH_mm" />
+	</tstamp>
+
+	<macrodef name="echotimestamp">
+		<text name="text" />
+		<sequential>
+			<local name="timestamp" />
+			<tstamp>
+				<format property="timestamp" pattern="[yyyy-MM-dd HH:mm:ss]" />
+			</tstamp>
+			<echo>${timestamp} @{text}</echo>
+		</sequential>
+	</macrodef>
+
+	<path id="class.path">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${build.java}" />
+		<pathelement location="${build.test}" />
+	</path>
+
+	<target name="init" depends="clean" description="creates needed directories">
+		<input message="Please scpecify the build's name or press ENTER to use default name:" addproperty="build.name" defaultvalue="build_${build.tstamp}" />
+		<echotimestamp>creating directories structure...</echotimestamp>
+		<mkdir dir="${build.dir}" description="temporary dir" />
+		<mkdir dir="${build.java}" description="for compiled programm classes" />
+		<mkdir dir="${build.test}" description="for compiled test classes" />
+		<mkdir dir="${report.dir}" description="for junit report" />
+		<mkdir dir="${build.jar}" description="for jar file" />
+		<echotimestamp>all the dirs were created</echotimestamp>
+	</target>
+
+	<target name="compile" depends="init" description="compiles java files">
+		<echotimestamp>compiling classes...</echotimestamp>
+		<javac destdir="${build.java}" includeantruntime="false" debug="on" classpathref="class.path">
+			<src path="${src.dir}" />
+			<include name="**/*.java" />
+		</javac>
+		<echo>the programm classes were compiled here: ${build.java}</echo>
+		<javac destdir="${build.test}" includeantruntime="false" debug="on" classpathref="class.path">
+			<src path="${test.dir}" />
+			<include name="**/*.java" />
+		</javac>
+		<echotimestamp>the test classes were compiled here: ${build.test}</echotimestamp>
+	</target>
+
+	<target name="test" depends="compile" description="runs junit testing">
+		<echotimestamp>conducting testing...</echotimestamp>
+		<junit printsummary="yes" haltonfailure="yes">
+			<classpath refid="class.path" />
+			<formatter type="plain" />
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="${test.dir}">
+					<include name="**/*Test*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<echotimestamp>tests were conducted</echotimestamp>
+	</target>
+
+	<target name="dist" depends="test" description="makes jar file">
+		<echotimestamp>creating jar file</echotimestamp>
+		<jar destfile="${build.jar}/${build.name}.jar">
+			<fileset dir="${build.java}">
+				<include name="**/*.class" />
+				<exclude name="**/*Test*.class" />
+			</fileset>
+		</jar>
+		<echotimestamp>the jar file was created here: ${build.jar}/robot.jar</echotimestamp>
+		<zip destfile="${build.dir}/${build.name}.zip" basedir="${build.dir}" />
+		<echotimestamp>the build was archived here: ${build.name}/project.zip</echotimestamp>
+	</target>
+
+	<target name="clean" description="deletes temporary dirs">
+		<echotimestamp>cleanin build diretories: ${build.dir}...</echotimestamp>
+		<delete dir="${build.dir}" />
+		<echotimestamp>the ${build.dir} was deleted</echotimestamp>
+	</target>
+
+	<target name="javadoc">
+		<echotimestamp>Making JavaDoc from source</echotimestamp>
+		<mkdir dir="${build.javadoc}" />
+		<javadoc sourcepath="${src.dir}" destdir="${build.javadoc}" classpathref="class.path">
+		</javadoc>
+	</target>
+</project>

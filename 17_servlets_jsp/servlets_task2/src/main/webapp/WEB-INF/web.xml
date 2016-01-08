@@ -1,0 +1,58 @@
+<web-app version="2.4"
+    xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+<!-- ====servlets===== -->
+<servlet>
+<servlet-name>auth</servlet-name>
+<servlet-class>com.nixsolutions.servlets.AuthServlet</servlet-class>
+</servlet>
+<servlet>
+<servlet-name>admin</servlet-name>
+<servlet-class>com.nixsolutions.servlets.AdminServlet</servlet-class>
+</servlet>
+<servlet>
+<servlet-name>createupdate</servlet-name>
+<servlet-class>com.nixsolutions.servlets.CreateUpdateServlet</servlet-class>
+</servlet>
+<servlet>
+<servlet-name>librarian</servlet-name>
+<servlet-class>com.nixsolutions.servlets.LibrarianServlet</servlet-class>
+</servlet>
+
+<!-- servlets mapping -->
+<servlet-mapping>
+<servlet-name>auth</servlet-name>
+<url-pattern>/auth</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>admin</servlet-name>
+<url-pattern>/admin</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>createupdate</servlet-name>
+<url-pattern>/createupdate</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>librarian</servlet-name>
+<url-pattern>/librarian</url-pattern>
+</servlet-mapping>
+
+<!-- ====filters===== -->
+<filter>
+<filter-name>adminAuth</filter-name>
+<filter-class>com.nixsolutions.servlets.AuthFilter</filter-class>
+<init-param>
+<param-name>active</param-name>
+<param-value>true</param-value>
+</init-param>
+</filter>
+
+<!-- filters mapping -->
+<filter-mapping>
+<filter-name>adminAuth</filter-name>
+<servlet-name>auth</servlet-name>
+</filter-mapping>
+
+</web-app>

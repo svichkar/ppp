@@ -6,13 +6,9 @@
      font-weight: bold;
      border: 2px solid #666;}
 .button:hover
-{ background-color: #000;
+{background-color: #000;
      color: #fff;
      border: 2px solid #bbb;}
-.sidebar
-{ float: left;
-  width: 190px;
-  padding: 0 15px 20px 15px;}
 #message
 {height: 50px;
 width: 100%;}

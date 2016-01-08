@@ -1,0 +1,1321 @@
+2016-01-08 11:01:24,349 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:01:24,387 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 11:01:24,916 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:01:24,954 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:01:24,954 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(null)
+2016-01-08 11:01:24,955 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:01:25,159 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:01:25,160 TRACE c.n.d.H2ConnManager [main] exit with(conn6: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:01:25,160 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:01:25,280 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 11:01:25,281 TRACE c.n.d.H2ConnManager [main] exit with(conn9: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:01:25,281 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:01:25,406 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 11:01:25,406 TRACE c.n.d.H2ConnManager [main] exit with(conn12: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:01:25,408 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:01:25,588 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 11:01:25,588 TRACE c.n.d.H2ConnManager [main] exit with(conn16: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:01:25,592 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:85) [classes/:?]
+	at com.nixsolutions.AuthorBookDaoTest.testShouldCreateAuthorBook(AuthorBookDaoTest.java:60) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (1)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:82) ~[classes/:?]
+	... 20 more
+2016-01-08 11:04:52,910 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:04:52,912 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 11:04:53,078 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,086 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:04:53,086 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(null)
+2016-01-08 11:04:53,087 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,210 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:04:53,210 TRACE c.n.d.H2ConnManager [main] exit with(conn6: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,211 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:04:53,288 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 11:04:53,289 TRACE c.n.d.H2ConnManager [main] exit with(conn9: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,289 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:04:53,399 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 11:04:53,399 TRACE c.n.d.H2ConnManager [main] exit with(conn12: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,400 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:04:53,499 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 11:04:53,500 TRACE c.n.d.H2ConnManager [main] exit with(conn16: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,504 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:85) [classes/:?]
+	at com.nixsolutions.AuthorBookDaoTest.testShouldCreateAuthorBook(AuthorBookDaoTest.java:60) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) [surefire-junit4-2.12.4.jar:2.12.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) [surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) [surefire-booter-2.12.4.jar:2.12.4]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (1)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:82) ~[classes/:?]
+	... 26 more
+2016-01-08 11:04:53,588 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-08 11:04:53,588 TRACE c.n.d.H2ConnManager [main] exit with(conn20: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,589 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:04:53,626 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-08 11:04:53,627 TRACE c.n.d.H2ConnManager [main] exit with(conn23: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,627 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:04:53,653 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:04:53,654 TRACE c.n.d.H2ConnManager [main] exit with(conn26: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,654 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:04:53,655 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(null)
+2016-01-08 11:04:53,655 TRACE c.n.d.H2ConnManager [main] exit with(conn27: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,674 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:04:53,674 TRACE c.n.d.H2ConnManager [main] exit with(conn30: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,675 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:04:53,707 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-08 11:04:53,707 TRACE c.n.d.H2ConnManager [main] exit with(conn33: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,708 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([])
+2016-01-08 11:04:53,743 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-08 11:04:53,743 TRACE c.n.d.H2ConnManager [main] exit with(conn37: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,745 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-08 11:04:53,894 TRACE c.n.d.i.BookDaoImpl [main] entry params(5)
+2016-01-08 11:04:53,894 TRACE c.n.d.H2ConnManager [main] exit with(conn41: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,895 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:04:53,974 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: null; name: book5)
+2016-01-08 11:04:53,974 TRACE c.n.d.H2ConnManager [main] exit with(conn44: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:53,976 ERROR c.n.d.i.BookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an book
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:76) [classes/:?]
+	at com.nixsolutions.BookDaoTest.testShouldCreateBook(BookDaoTest.java:64) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) [surefire-junit4-2.12.4.jar:2.12.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) [surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) [surefire-booter-2.12.4.jar:2.12.4]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_1F3: PUBLIC.BOOK FOREIGN KEY(CELL_ID) REFERENCES PUBLIC.CELL(CELL_ID) (2)"; SQL statement:
+INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?); [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:73) ~[classes/:?]
+	... 26 more
+2016-01-08 11:04:54,041 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,043 TRACE c.n.d.H2ConnManager [main] exit with(conn48: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,044 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:04:54,045 TRACE c.n.d.i.BookDaoImpl [main] entry params(null)
+2016-01-08 11:04:54,045 TRACE c.n.d.H2ConnManager [main] exit with(conn49: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,120 TRACE c.n.d.i.BookDaoImpl [main] entry
+2016-01-08 11:04:54,120 TRACE c.n.d.H2ConnManager [main] exit with(conn52: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,120 TRACE c.n.d.i.BookDaoImpl [main] all the books were retrieved
+2016-01-08 11:04:54,121 TRACE c.n.d.i.BookDaoImpl [main] exit with([])
+2016-01-08 11:04:54,189 TRACE c.n.d.i.BookDaoImpl [main] entry params(4)
+2016-01-08 11:04:54,190 TRACE c.n.d.H2ConnManager [main] exit with(conn56: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,190 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:04:54,243 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,244 TRACE c.n.d.H2ConnManager [main] exit with(conn59: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,244 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:04:54,276 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,276 TRACE c.n.d.H2ConnManager [main] exit with(conn62: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,277 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:04:54,277 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:04:54,294 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(3)
+2016-01-08 11:04:54,294 TRACE c.n.d.H2ConnManager [main] exit with(conn65: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,294 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:04:54,295 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:04:54,314 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: null; name: Drama)
+2016-01-08 11:04:54,314 TRACE c.n.d.H2ConnManager [main] exit with(conn68: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,315 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category was created)
+2016-01-08 11:04:54,437 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(5)
+2016-01-08 11:04:54,438 TRACE c.n.d.H2ConnManager [main] exit with(conn72: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,439 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:04:54,439 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:04:54,476 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,476 TRACE c.n.d.H2ConnManager [main] exit with(conn75: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,476 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:04:54,477 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:04:54,477 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(null)
+2016-01-08 11:04:54,477 TRACE c.n.d.H2ConnManager [main] exit with(conn76: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,519 TRACE c.n.d.i.CategoryDaoImpl [main] entry
+2016-01-08 11:04:54,519 TRACE c.n.d.H2ConnManager [main] exit with(conn79: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,521 TRACE c.n.d.i.CategoryDaoImpl [main] exit with([category with Id: 8; name: Drama])
+2016-01-08 11:04:54,562 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,562 TRACE c.n.d.H2ConnManager [main] exit with(conn83: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,563 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:04:54,563 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:04:54,647 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: null; name: cell D)
+2016-01-08 11:04:54,647 TRACE c.n.d.H2ConnManager [main] exit with(conn86: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,648 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell was created)
+2016-01-08 11:04:54,705 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,705 TRACE c.n.d.H2ConnManager [main] exit with(conn90: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,706 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:04:54,706 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:04:54,706 TRACE c.n.d.i.CellDaoImpl [main] entry params(null)
+2016-01-08 11:04:54,706 TRACE c.n.d.H2ConnManager [main] exit with(conn91: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,735 TRACE c.n.d.i.CellDaoImpl [main] entry params(5)
+2016-01-08 11:04:54,735 TRACE c.n.d.H2ConnManager [main] exit with(conn94: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,736 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:04:54,736 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:04:54,758 TRACE c.n.d.i.CellDaoImpl [main] entry
+2016-01-08 11:04:54,759 TRACE c.n.d.H2ConnManager [main] exit with(conn97: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,759 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2016-01-08 11:04:54,760 TRACE c.n.d.i.CellDaoImpl [main] exit with([Cell with cellId: 8; name: cell D])
+2016-01-08 11:04:54,796 TRACE c.n.d.i.CellDaoImpl [main] entry params(3)
+2016-01-08 11:04:54,796 TRACE c.n.d.H2ConnManager [main] exit with(conn101: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,797 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:04:54,797 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:04:54,842 TRACE c.n.d.i.ClientDaoImpl [main] entry params(3)
+2016-01-08 11:04:54,843 TRACE c.n.d.H2ConnManager [main] exit with(conn104: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,843 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:04:54,843 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:04:54,941 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,942 TRACE c.n.d.H2ConnManager [main] exit with(conn107: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,942 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:04:54,942 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:04:54,943 TRACE c.n.d.i.ClientDaoImpl [main] entry params(null)
+2016-01-08 11:04:54,943 TRACE c.n.d.H2ConnManager [main] exit with(conn108: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,964 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 11:04:54,965 TRACE c.n.d.H2ConnManager [main] exit with(conn111: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,965 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:04:54,965 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:04:54,994 TRACE c.n.d.i.ClientDaoImpl [main] entry params(5)
+2016-01-08 11:04:54,994 TRACE c.n.d.H2ConnManager [main] exit with(conn114: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:54,995 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:04:54,995 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:04:55,014 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: null; firstName: Vitaliy; lastName: Rybkin)
+2016-01-08 11:04:55,014 TRACE c.n.d.H2ConnManager [main] exit with(conn117: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,015 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client was created)
+2016-01-08 11:04:55,063 TRACE c.n.d.i.ClientDaoImpl [main] entry
+2016-01-08 11:04:55,063 TRACE c.n.d.H2ConnManager [main] exit with(conn121: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,065 TRACE c.n.d.i.ClientDaoImpl [main] all the clients were retrieved
+2016-01-08 11:04:55,066 TRACE c.n.d.i.ClientDaoImpl [main] exit with([client with clientId: 9; firstName: Vitaliy; lastName: Rybkin])
+2016-01-08 11:04:55,163 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 11:04:55,163 TRACE c.n.d.H2ConnManager [main] exit with(conn125: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,164 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:04:55,216 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(4)
+2016-01-08 11:04:55,216 TRACE c.n.d.H2ConnManager [main] exit with(conn128: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,217 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:04:55,264 TRACE c.n.d.i.RentJournalDaoImpl [main] entry
+2016-01-08 11:04:55,264 TRACE c.n.d.H2ConnManager [main] exit with(conn131: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,265 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with([])
+2016-01-08 11:04:55,367 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 11:04:55,368 TRACE c.n.d.H2ConnManager [main] exit with(conn135: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,371 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:04:55,371 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(null)
+2016-01-08 11:04:55,372 TRACE c.n.d.H2ConnManager [main] exit with(conn136: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,423 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(5)
+2016-01-08 11:04:55,423 TRACE c.n.d.H2ConnManager [main] exit with(conn139: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,423 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:04:55,465 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: null; bookId: 5; clientId: 1; rentDate: 2015-08-21)
+2016-01-08 11:04:55,466 TRACE c.n.d.H2ConnManager [main] exit with(conn142: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:04:55,467 ERROR c.n.d.i.RentJournalDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:104) [classes/:?]
+	at com.nixsolutions.RentJournalDaoTest.testShouldCreateRentJournal(RentJournalDaoTest.java:67) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) [surefire-junit4-2.12.4.jar:2.12.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) [surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) [surefire-booter-2.12.4.jar:2.12.4]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_101: PUBLIC.RENT_JOURNAL FOREIGN KEY(CLIENT_ID) REFERENCES PUBLIC.CLIENT(CLIENT_ID) (1)"; SQL statement:
+INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:100) ~[classes/:?]
+	... 26 more
+2016-01-08 11:07:40,186 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:07:40,192 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 11:07:40,208 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,247 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 11:07:40,247 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 1; authorId: 1)
+2016-01-08 11:07:40,248 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,249 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook was deleted)
+2016-01-08 11:07:40,341 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:07:40,342 TRACE c.n.d.H2ConnManager [main] exit with(conn7: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,343 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 11:07:40,388 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 11:07:40,389 TRACE c.n.d.H2ConnManager [main] exit with(conn10: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,390 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1])
+2016-01-08 11:07:40,464 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 11:07:40,465 TRACE c.n.d.H2ConnManager [main] exit with(conn13: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,470 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1, book Id: 3; authorId: 2, book Id: 4; authorId: 3])
+2016-01-08 11:07:40,519 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 11:07:40,521 TRACE c.n.d.H2ConnManager [main] exit with(conn17: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,522 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook entry was created)
+2016-01-08 11:07:40,575 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-08 11:07:40,575 TRACE c.n.d.H2ConnManager [main] exit with(conn21: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,576 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:07:40,612 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-08 11:07:40,612 TRACE c.n.d.H2ConnManager [main] exit with(conn24: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,614 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 3; firstName: Brian; lastName: Vaughan)
+2016-01-08 11:07:40,614 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 3; firstName: Michail; lastName: Lelyakov)
+2016-01-08 11:07:40,614 TRACE c.n.d.H2ConnManager [main] exit with(conn25: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,616 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was updated)
+2016-01-08 11:07:40,649 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:07:40,650 TRACE c.n.d.H2ConnManager [main] exit with(conn29: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,650 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 11:07:40,651 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 11:07:40,651 TRACE c.n.d.H2ConnManager [main] exit with(conn30: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,652 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was deleted)
+2016-01-08 11:07:40,676 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:07:40,677 TRACE c.n.d.H2ConnManager [main] exit with(conn34: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,677 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 11:07:40,695 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-08 11:07:40,696 TRACE c.n.d.H2ConnManager [main] exit with(conn37: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,697 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([author with Id: 1; firstName: Stephen; lastName: King, author with Id: 2; firstName: Michail; lastName: Bulgakov, author with Id: 3; firstName: Brian; lastName: Vaughan])
+2016-01-08 11:07:40,729 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-08 11:07:40,729 TRACE c.n.d.H2ConnManager [main] exit with(conn41: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,730 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-08 11:07:40,841 TRACE c.n.d.i.BookDaoImpl [main] entry params(5)
+2016-01-08 11:07:40,842 TRACE c.n.d.H2ConnManager [main] exit with(conn45: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,843 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:07:40,897 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: null; name: book5)
+2016-01-08 11:07:40,897 TRACE c.n.d.H2ConnManager [main] exit with(conn48: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,898 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was created)
+2016-01-08 11:07:40,957 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 11:07:40,957 TRACE c.n.d.H2ConnManager [main] exit with(conn52: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,958 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-08 11:07:40,959 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 1; name: book1)
+2016-01-08 11:07:40,959 TRACE c.n.d.H2ConnManager [main] exit with(conn53: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:40,960 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was deleted)
+2016-01-08 11:07:41,017 TRACE c.n.d.i.BookDaoImpl [main] entry
+2016-01-08 11:07:41,018 TRACE c.n.d.H2ConnManager [main] exit with(conn57: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,018 TRACE c.n.d.i.BookDaoImpl [main] all the books were retrieved
+2016-01-08 11:07:41,019 TRACE c.n.d.i.BookDaoImpl [main] exit with([book with bookId: 1; name: book1, book with bookId: 2; name: book2, book with bookId: 3; name: book3, book with bookId: 4; name: book4])
+2016-01-08 11:07:41,066 TRACE c.n.d.i.BookDaoImpl [main] entry params(4)
+2016-01-08 11:07:41,067 TRACE c.n.d.H2ConnManager [main] exit with(conn61: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,068 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 4; name: book4)
+2016-01-08 11:07:41,077 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 4; name: book5)
+2016-01-08 11:07:41,078 TRACE c.n.d.H2ConnManager [main] exit with(conn62: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,079 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was updated)
+2016-01-08 11:07:41,130 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,130 TRACE c.n.d.H2ConnManager [main] exit with(conn66: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,131 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-08 11:07:41,157 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,157 TRACE c.n.d.H2ConnManager [main] exit with(conn69: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,158 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:07:41,159 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-08 11:07:41,171 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(3)
+2016-01-08 11:07:41,172 TRACE c.n.d.H2ConnManager [main] exit with(conn72: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,173 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:07:41,174 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 3; name: Comedy)
+2016-01-08 11:07:41,174 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 3; name: SciFi)
+2016-01-08 11:07:41,174 TRACE c.n.d.H2ConnManager [main] exit with(conn73: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,175 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 3 was updated)
+2016-01-08 11:07:41,203 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: null; name: Drama)
+2016-01-08 11:07:41,204 TRACE c.n.d.H2ConnManager [main] exit with(conn77: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,204 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category was created)
+2016-01-08 11:07:41,229 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(5)
+2016-01-08 11:07:41,230 TRACE c.n.d.H2ConnManager [main] exit with(conn81: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,230 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:07:41,231 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:07:41,247 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,247 TRACE c.n.d.H2ConnManager [main] exit with(conn84: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,248 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:07:41,248 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-08 11:07:41,248 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 1; name: Horror)
+2016-01-08 11:07:41,249 TRACE c.n.d.H2ConnManager [main] exit with(conn85: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,249 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 1 was deleted)
+2016-01-08 11:07:41,269 TRACE c.n.d.i.CategoryDaoImpl [main] entry
+2016-01-08 11:07:41,269 TRACE c.n.d.H2ConnManager [main] exit with(conn89: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,270 TRACE c.n.d.i.CategoryDaoImpl [main] exit with([category with Id: 1; name: Horror, category with Id: 2; name: Action, category with Id: 3; name: Comedy])
+2016-01-08 11:07:41,305 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,306 TRACE c.n.d.H2ConnManager [main] exit with(conn93: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,307 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:07:41,308 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-08 11:07:41,323 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: null; name: cell D)
+2016-01-08 11:07:41,324 TRACE c.n.d.H2ConnManager [main] exit with(conn96: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,325 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell was created)
+2016-01-08 11:07:41,346 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,346 TRACE c.n.d.H2ConnManager [main] exit with(conn100: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,347 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:07:41,347 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-08 11:07:41,348 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 1; name: cell A)
+2016-01-08 11:07:41,349 TRACE c.n.d.H2ConnManager [main] exit with(conn101: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,350 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 1 was deleted)
+2016-01-08 11:07:41,373 TRACE c.n.d.i.CellDaoImpl [main] entry params(5)
+2016-01-08 11:07:41,374 TRACE c.n.d.H2ConnManager [main] exit with(conn105: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,374 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:07:41,374 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:07:41,390 TRACE c.n.d.i.CellDaoImpl [main] entry
+2016-01-08 11:07:41,391 TRACE c.n.d.H2ConnManager [main] exit with(conn108: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,391 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2016-01-08 11:07:41,392 TRACE c.n.d.i.CellDaoImpl [main] exit with([Cell with cellId: 1; name: cell A, Cell with cellId: 2; name: cell B, Cell with cellId: 3; name: cell C])
+2016-01-08 11:07:41,432 TRACE c.n.d.i.CellDaoImpl [main] entry params(3)
+2016-01-08 11:07:41,433 TRACE c.n.d.H2ConnManager [main] exit with(conn112: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,433 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:07:41,433 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 3; name: cell C)
+2016-01-08 11:07:41,434 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 3; name: cell E)
+2016-01-08 11:07:41,434 TRACE c.n.d.H2ConnManager [main] exit with(conn113: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,434 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 3 was updated)
+2016-01-08 11:07:41,480 TRACE c.n.d.i.ClientDaoImpl [main] entry params(3)
+2016-01-08 11:07:41,481 TRACE c.n.d.H2ConnManager [main] exit with(conn117: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,482 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:07:41,483 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 3; firstName: Yriy; lastName: Golod)
+2016-01-08 11:07:41,484 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 3; firstName: Max; lastName: Kulishov)
+2016-01-08 11:07:41,484 TRACE c.n.d.H2ConnManager [main] exit with(conn118: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,485 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 3 was updated)
+2016-01-08 11:07:41,509 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,510 TRACE c.n.d.H2ConnManager [main] exit with(conn122: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,510 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:07:41,511 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 11:07:41,511 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 11:07:41,511 TRACE c.n.d.H2ConnManager [main] exit with(conn123: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,512 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 1 was deleted)
+2016-01-08 11:07:41,532 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,533 TRACE c.n.d.H2ConnManager [main] exit with(conn127: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,533 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:07:41,534 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 11:07:41,551 TRACE c.n.d.i.ClientDaoImpl [main] entry params(5)
+2016-01-08 11:07:41,552 TRACE c.n.d.H2ConnManager [main] exit with(conn130: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,552 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:07:41,552 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:07:41,568 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: null; firstName: Vitaliy; lastName: Rybkin)
+2016-01-08 11:07:41,573 TRACE c.n.d.H2ConnManager [main] exit with(conn133: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,574 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client was created)
+2016-01-08 11:07:41,605 TRACE c.n.d.i.ClientDaoImpl [main] entry
+2016-01-08 11:07:41,606 TRACE c.n.d.H2ConnManager [main] exit with(conn137: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,607 TRACE c.n.d.i.ClientDaoImpl [main] all the clients were retrieved
+2016-01-08 11:07:41,607 TRACE c.n.d.i.ClientDaoImpl [main] exit with([client with clientId: 1; firstName: Evgeniy; lastName: Fomin, client with clientId: 2; firstName: Alexandra; lastName: Adusheva, client with clientId: 3; firstName: Yriy; lastName: Golod])
+2016-01-08 11:07:41,699 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,699 TRACE c.n.d.H2ConnManager [main] exit with(conn141: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,704 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 11:07:41,754 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(4)
+2016-01-08 11:07:41,755 TRACE c.n.d.H2ConnManager [main] exit with(conn144: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,756 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22)
+2016-01-08 11:07:41,757 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 4; bookId: 5; clientId: 1; rentDate: 2015-06-11)
+2016-01-08 11:07:41,757 TRACE c.n.d.H2ConnManager [main] exit with(conn145: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,758 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was updated)
+2016-01-08 11:07:41,830 TRACE c.n.d.i.RentJournalDaoImpl [main] entry
+2016-01-08 11:07:41,831 TRACE c.n.d.H2ConnManager [main] exit with(conn149: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,832 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with([rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25, rent with rentId: 2; bookId: 2; clientId: 2; rentDate: 2015-11-24, rent with rentId: 3; bookId: 3; clientId: 3; rentDate: 2015-10-23, rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22])
+2016-01-08 11:07:41,891 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 11:07:41,891 TRACE c.n.d.H2ConnManager [main] exit with(conn153: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,892 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 11:07:41,893 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 11:07:41,893 TRACE c.n.d.H2ConnManager [main] exit with(conn154: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,894 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent was deleted)
+2016-01-08 11:07:41,947 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(5)
+2016-01-08 11:07:41,948 TRACE c.n.d.H2ConnManager [main] exit with(conn158: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,948 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:07:41,990 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: null; bookId: 5; clientId: 1; rentDate: 2015-08-21)
+2016-01-08 11:07:41,990 TRACE c.n.d.H2ConnManager [main] exit with(conn161: url=jdbc:h2:tcp://localhost/~/sqllab user=SA)
+2016-01-08 11:07:41,991 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was created)
+2016-01-08 11:42:11,878 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:42:11,881 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 11:42:12,061 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,069 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:42:12,069 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(null)
+2016-01-08 11:42:12,070 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,187 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:42:12,187 TRACE c.n.d.H2ConnManager [main] exit with(conn6: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,188 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:42:12,244 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 11:42:12,244 TRACE c.n.d.H2ConnManager [main] exit with(conn9: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,245 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:42:12,301 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 11:42:12,302 TRACE c.n.d.H2ConnManager [main] exit with(conn12: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,302 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:42:12,399 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 11:42:12,399 TRACE c.n.d.H2ConnManager [main] exit with(conn16: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,403 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:85) [classes/:?]
+	at com.nixsolutions.AuthorBookDaoTest.testShouldCreateAuthorBook(AuthorBookDaoTest.java:60) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) [surefire-junit4-2.12.4.jar:2.12.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[?:1.8.0_65]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) [surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) [surefire-booter-2.12.4.jar:2.12.4]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (1)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:82) ~[classes/:?]
+	... 26 more
+2016-01-08 11:42:12,494 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-08 11:42:12,495 TRACE c.n.d.H2ConnManager [main] exit with(conn20: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,496 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:42:12,533 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-08 11:42:12,533 TRACE c.n.d.H2ConnManager [main] exit with(conn23: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,533 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:42:12,552 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:42:12,552 TRACE c.n.d.H2ConnManager [main] exit with(conn26: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,553 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:42:12,553 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(null)
+2016-01-08 11:42:12,554 TRACE c.n.d.H2ConnManager [main] exit with(conn27: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,578 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:42:12,578 TRACE c.n.d.H2ConnManager [main] exit with(conn30: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,578 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:42:12,597 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-08 11:42:12,597 TRACE c.n.d.H2ConnManager [main] exit with(conn33: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,598 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([])
+2016-01-08 11:42:12,622 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-08 11:42:12,622 TRACE c.n.d.H2ConnManager [main] exit with(conn37: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,624 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-08 11:42:12,721 TRACE c.n.d.i.BookDaoImpl [main] entry params(5)
+2016-01-08 11:42:12,722 TRACE c.n.d.H2ConnManager [main] exit with(conn41: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,722 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:42:12,834 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: null; name: book5)
+2016-01-08 11:42:12,834 TRACE c.n.d.H2ConnManager [main] exit with(conn44: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,836 ERROR c.n.d.i.BookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an book
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:76) [classes/:?]
+	at com.nixsolutions.BookDaoTest.testShouldCreateBook(BookDaoTest.java:64) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) [surefire-junit4-2.12.4.jar:2.12.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[?:1.8.0_65]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) [surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) [surefire-booter-2.12.4.jar:2.12.4]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_1F3: PUBLIC.BOOK FOREIGN KEY(CELL_ID) REFERENCES PUBLIC.CELL(CELL_ID) (2)"; SQL statement:
+INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?); [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.BookDaoImpl.createBook(BookDaoImpl.java:73) ~[classes/:?]
+	... 26 more
+2016-01-08 11:42:12,913 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 11:42:12,913 TRACE c.n.d.H2ConnManager [main] exit with(conn48: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,914 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:42:12,915 TRACE c.n.d.i.BookDaoImpl [main] entry params(null)
+2016-01-08 11:42:12,916 TRACE c.n.d.H2ConnManager [main] exit with(conn49: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,978 TRACE c.n.d.i.BookDaoImpl [main] entry
+2016-01-08 11:42:12,978 TRACE c.n.d.H2ConnManager [main] exit with(conn52: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:12,979 TRACE c.n.d.i.BookDaoImpl [main] all the books were retrieved
+2016-01-08 11:42:12,979 TRACE c.n.d.i.BookDaoImpl [main] exit with([])
+2016-01-08 11:42:13,039 TRACE c.n.d.i.BookDaoImpl [main] entry params(4)
+2016-01-08 11:42:13,040 TRACE c.n.d.H2ConnManager [main] exit with(conn56: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,040 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:42:13,080 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,081 TRACE c.n.d.H2ConnManager [main] exit with(conn59: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,081 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 11:42:13,107 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,107 TRACE c.n.d.H2ConnManager [main] exit with(conn62: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,108 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:42:13,109 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:42:13,154 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(3)
+2016-01-08 11:42:13,154 TRACE c.n.d.H2ConnManager [main] exit with(conn65: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,155 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:42:13,155 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:42:13,192 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: null; name: Drama)
+2016-01-08 11:42:13,192 TRACE c.n.d.H2ConnManager [main] exit with(conn68: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,193 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category was created)
+2016-01-08 11:42:13,288 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(5)
+2016-01-08 11:42:13,288 TRACE c.n.d.H2ConnManager [main] exit with(conn72: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,289 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:42:13,290 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:42:13,317 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,317 TRACE c.n.d.H2ConnManager [main] exit with(conn75: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,318 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 11:42:13,318 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 11:42:13,318 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(null)
+2016-01-08 11:42:13,319 TRACE c.n.d.H2ConnManager [main] exit with(conn76: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,333 TRACE c.n.d.i.CategoryDaoImpl [main] entry
+2016-01-08 11:42:13,334 TRACE c.n.d.H2ConnManager [main] exit with(conn79: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,334 TRACE c.n.d.i.CategoryDaoImpl [main] exit with([category with Id: 8; name: Drama])
+2016-01-08 11:42:13,378 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,379 TRACE c.n.d.H2ConnManager [main] exit with(conn83: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,379 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:42:13,380 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:42:13,505 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: null; name: cell D)
+2016-01-08 11:42:13,505 TRACE c.n.d.H2ConnManager [main] exit with(conn86: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,507 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell was created)
+2016-01-08 11:42:13,537 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,538 TRACE c.n.d.H2ConnManager [main] exit with(conn90: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,538 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:42:13,538 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:42:13,539 TRACE c.n.d.i.CellDaoImpl [main] entry params(null)
+2016-01-08 11:42:13,539 TRACE c.n.d.H2ConnManager [main] exit with(conn91: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,556 TRACE c.n.d.i.CellDaoImpl [main] entry params(5)
+2016-01-08 11:42:13,556 TRACE c.n.d.H2ConnManager [main] exit with(conn94: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,557 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:42:13,557 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:42:13,572 TRACE c.n.d.i.CellDaoImpl [main] entry
+2016-01-08 11:42:13,572 TRACE c.n.d.H2ConnManager [main] exit with(conn97: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,573 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2016-01-08 11:42:13,573 TRACE c.n.d.i.CellDaoImpl [main] exit with([Cell with cellId: 8; name: cell D])
+2016-01-08 11:42:13,600 TRACE c.n.d.i.CellDaoImpl [main] entry params(3)
+2016-01-08 11:42:13,601 TRACE c.n.d.H2ConnManager [main] exit with(conn101: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,602 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 11:42:13,602 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 11:42:13,654 TRACE c.n.d.i.ClientDaoImpl [main] entry params(3)
+2016-01-08 11:42:13,655 TRACE c.n.d.H2ConnManager [main] exit with(conn104: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,655 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:42:13,655 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:42:13,696 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,696 TRACE c.n.d.H2ConnManager [main] exit with(conn107: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,696 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:42:13,697 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:42:13,697 TRACE c.n.d.i.ClientDaoImpl [main] entry params(null)
+2016-01-08 11:42:13,697 TRACE c.n.d.H2ConnManager [main] exit with(conn108: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,730 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,730 TRACE c.n.d.H2ConnManager [main] exit with(conn111: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,730 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:42:13,731 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:42:13,763 TRACE c.n.d.i.ClientDaoImpl [main] entry params(5)
+2016-01-08 11:42:13,764 TRACE c.n.d.H2ConnManager [main] exit with(conn114: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,764 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 11:42:13,764 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 11:42:13,782 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: null; firstName: Vitaliy; lastName: Rybkin)
+2016-01-08 11:42:13,783 TRACE c.n.d.H2ConnManager [main] exit with(conn117: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,784 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client was created)
+2016-01-08 11:42:13,814 TRACE c.n.d.i.ClientDaoImpl [main] entry
+2016-01-08 11:42:13,815 TRACE c.n.d.H2ConnManager [main] exit with(conn121: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,816 TRACE c.n.d.i.ClientDaoImpl [main] all the clients were retrieved
+2016-01-08 11:42:13,817 TRACE c.n.d.i.ClientDaoImpl [main] exit with([client with clientId: 9; firstName: Vitaliy; lastName: Rybkin])
+2016-01-08 11:42:13,885 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 11:42:13,886 TRACE c.n.d.H2ConnManager [main] exit with(conn125: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,886 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:42:13,928 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(4)
+2016-01-08 11:42:13,928 TRACE c.n.d.H2ConnManager [main] exit with(conn128: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,928 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:42:13,978 TRACE c.n.d.i.RentJournalDaoImpl [main] entry
+2016-01-08 11:42:13,978 TRACE c.n.d.H2ConnManager [main] exit with(conn131: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:13,979 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with([])
+2016-01-08 11:42:14,043 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 11:42:14,044 TRACE c.n.d.H2ConnManager [main] exit with(conn135: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:14,044 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:42:14,044 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(null)
+2016-01-08 11:42:14,044 TRACE c.n.d.H2ConnManager [main] exit with(conn136: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:14,087 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(5)
+2016-01-08 11:42:14,088 TRACE c.n.d.H2ConnManager [main] exit with(conn139: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:14,088 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 11:42:14,137 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: null; bookId: 5; clientId: 1; rentDate: 2015-08-21)
+2016-01-08 11:42:14,138 TRACE c.n.d.H2ConnManager [main] exit with(conn142: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:42:14,140 ERROR c.n.d.i.RentJournalDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create an author
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:104) [classes/:?]
+	at com.nixsolutions.RentJournalDaoTest.testShouldCreateRentJournal(RentJournalDaoTest.java:67) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141) [surefire-junit4-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112) [surefire-junit4-2.12.4.jar:2.12.4]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[?:1.8.0_65]
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189) [surefire-api-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115) [surefire-booter-2.12.4.jar:2.12.4]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75) [surefire-booter-2.12.4.jar:2.12.4]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_101: PUBLIC.RENT_JOURNAL FOREIGN KEY(CLIENT_ID) REFERENCES PUBLIC.CLIENT(CLIENT_ID) (1)"; SQL statement:
+INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (?, ?, ?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.RentJournalDaoImpl.createRent(RentJournalDaoImpl.java:100) ~[classes/:?]
+	... 26 more
+2016-01-08 11:43:05,836 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:43:05,842 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 11:43:06,130 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:43:06,139 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:43:06,140 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(null)
+2016-01-08 11:43:06,140 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:43:06,337 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 11:43:06,337 TRACE c.n.d.H2ConnManager [main] exit with(conn6: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:43:06,338 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 11:43:06,396 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 11:43:06,397 TRACE c.n.d.H2ConnManager [main] exit with(conn9: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:43:06,397 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:43:06,467 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 11:43:06,468 TRACE c.n.d.H2ConnManager [main] exit with(conn12: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:43:06,468 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 11:43:06,550 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 11:43:06,550 TRACE c.n.d.H2ConnManager [main] exit with(conn16: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:43:06,555 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:85) [classes/:?]
+	at com.nixsolutions.AuthorBookDaoTest.testShouldCreateAuthorBook(AuthorBookDaoTest.java:60) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (1)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:82) ~[classes/:?]
+	... 20 more
+2016-01-08 11:44:16,905 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-08 11:44:16,907 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 11:44:17,113 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,122 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:44:17,175 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-08 11:44:17,176 TRACE c.n.d.H2ConnManager [main] exit with(conn5: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,176 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:44:17,225 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:44:17,225 TRACE c.n.d.H2ConnManager [main] exit with(conn8: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,226 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:44:17,226 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(null)
+2016-01-08 11:44:17,226 TRACE c.n.d.H2ConnManager [main] exit with(conn9: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,284 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 11:44:17,284 TRACE c.n.d.H2ConnManager [main] exit with(conn12: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,285 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 11:44:17,323 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-08 11:44:17,323 TRACE c.n.d.H2ConnManager [main] exit with(conn15: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,324 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([author with Id: 8; firstName: Michail; lastName: Lelyakov])
+2016-01-08 11:44:17,369 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-08 11:44:17,370 TRACE c.n.d.H2ConnManager [main] exit with(conn19: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 11:44:17,373 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-08 18:17:10,603 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:17:10,605 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 18:17:10,842 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:17:10,851 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 18:17:10,851 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(null)
+2016-01-08 18:17:10,852 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:17:11,070 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:17:11,070 TRACE c.n.d.H2ConnManager [main] exit with(conn6: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:17:11,071 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit
+2016-01-08 18:17:11,134 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 18:17:11,134 TRACE c.n.d.H2ConnManager [main] exit with(conn9: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:17:11,135 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 18:17:11,233 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 18:17:11,233 TRACE c.n.d.H2ConnManager [main] exit with(conn12: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:17:11,234 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([])
+2016-01-08 18:17:11,373 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 18:17:11,374 TRACE c.n.d.H2ConnManager [main] exit with(conn16: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:17:11,378 ERROR c.n.d.i.AuthorBookDaoImpl [main] throwing
+com.nixsolutions.dao.DaoException: not able to create the authorBook
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:85) [classes/:?]
+	at com.nixsolutions.AuthorBookDaoTest.testShouldCreateAuthorBook(AuthorBookDaoTest.java:60) [test-classes/:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[?:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Unknown Source) ~[?:1.8.0_65]
+	at junit.framework.TestCase.runTest(TestCase.java:176) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.runBare(TestCase.java:141) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult$1.protect(TestResult.java:122) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.runProtected(TestResult.java:142) [junit-4.12.jar:4.12]
+	at junit.framework.TestResult.run(TestResult.java:125) [junit-4.12.jar:4.12]
+	at junit.framework.TestCase.run(TestCase.java:129) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.runTest(TestSuite.java:252) [junit-4.12.jar:4.12]
+	at junit.framework.TestSuite.run(TestSuite.java:247) [junit-4.12.jar:4.12]
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86) [junit-4.12.jar:4.12]
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382) [.cp/:?]
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192) [.cp/:?]
+Caused by: org.h2.jdbc.JdbcSQLException: Referential integrity constraint violation: "CONSTRAINT_A: PUBLIC.AUTHOR_BOOK FOREIGN KEY(AUTHOR_ID) REFERENCES PUBLIC.AUTHOR(AUTHOR_ID) (1)"; SQL statement:
+INSERT INTO author_book (author_id, book_id) VALUES (?, ?) [23506-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:179) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.message.DbException.get(DbException.java:155) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRowOwnTable(ConstraintReferential.java:372) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.constraint.ConstraintReferential.checkRow(ConstraintReferential.java:314) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireConstraints(Table.java:932) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.table.Table.fireAfterRow(Table.java:950) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.insertRows(Insert.java:161) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.dml.Insert.update(Insert.java:114) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.command.Command.executeUpdate(Command.java:253) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:157) ~[h2-1.4.190.jar:1.4.190]
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:143) ~[h2-1.4.190.jar:1.4.190]
+	at com.nixsolutions.dao.impl.AuthorBookDaoImpl.createAuthorBook(AuthorBookDaoImpl.java:82) ~[classes/:?]
+	... 20 more
+2016-01-08 18:34:00,843 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:34:00,846 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 18:34:00,892 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:34:00,895 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 18:34:00,895 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 1; authorId: 1)
+2016-01-08 18:34:00,896 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:34:00,898 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook was deleted)
+2016-01-08 18:34:01,086 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:34:01,087 TRACE c.n.d.H2ConnManager [main] exit with(conn7: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:34:01,088 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 18:34:01,191 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 18:34:01,192 TRACE c.n.d.H2ConnManager [main] exit with(conn10: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:34:01,193 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1])
+2016-01-08 18:34:01,242 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 18:34:01,242 TRACE c.n.d.H2ConnManager [main] exit with(conn13: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:34:01,243 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1, book Id: 3; authorId: 2, book Id: 4; authorId: 3])
+2016-01-08 18:34:01,278 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 18:34:01,279 TRACE c.n.d.H2ConnManager [main] exit with(conn17: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:34:01,279 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook entry was created)
+2016-01-08 18:46:05,719 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:46:05,722 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 18:46:05,761 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:05,778 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 18:46:05,778 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 1; authorId: 1)
+2016-01-08 18:46:05,779 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:05,781 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook was deleted)
+2016-01-08 18:46:05,934 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:46:05,935 TRACE c.n.d.H2ConnManager [main] exit with(conn7: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:05,936 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 18:46:06,047 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 18:46:06,047 TRACE c.n.d.H2ConnManager [main] exit with(conn10: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,048 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1])
+2016-01-08 18:46:06,227 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 18:46:06,227 TRACE c.n.d.H2ConnManager [main] exit with(conn13: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,228 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1, book Id: 3; authorId: 2, book Id: 4; authorId: 3])
+2016-01-08 18:46:06,356 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 18:46:06,356 TRACE c.n.d.H2ConnManager [main] exit with(conn17: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,357 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook entry was created)
+2016-01-08 18:46:06,489 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-08 18:46:06,490 TRACE c.n.d.H2ConnManager [main] exit with(conn21: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,491 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 18:46:06,552 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-08 18:46:06,553 TRACE c.n.d.H2ConnManager [main] exit with(conn24: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,554 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 3; firstName: Brian; lastName: Vaughan)
+2016-01-08 18:46:06,554 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 3; firstName: Michail; lastName: Lelyakov)
+2016-01-08 18:46:06,554 TRACE c.n.d.H2ConnManager [main] exit with(conn25: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,556 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was updated)
+2016-01-08 18:46:06,634 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 18:46:06,635 TRACE c.n.d.H2ConnManager [main] exit with(conn29: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,636 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 18:46:06,636 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 18:46:06,636 TRACE c.n.d.H2ConnManager [main] exit with(conn30: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,641 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was deleted)
+2016-01-08 18:46:06,690 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 18:46:06,691 TRACE c.n.d.H2ConnManager [main] exit with(conn34: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,691 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 18:46:06,741 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-08 18:46:06,742 TRACE c.n.d.H2ConnManager [main] exit with(conn37: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,744 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([author with Id: 1; firstName: Stephen; lastName: King, author with Id: 2; firstName: Michail; lastName: Bulgakov, author with Id: 3; firstName: Brian; lastName: Vaughan])
+2016-01-08 18:46:06,790 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-08 18:46:06,791 TRACE c.n.d.H2ConnManager [main] exit with(conn41: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,794 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-08 18:46:06,932 TRACE c.n.d.i.BookDaoImpl [main] entry params(5)
+2016-01-08 18:46:06,933 TRACE c.n.d.H2ConnManager [main] exit with(conn45: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:06,934 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 18:46:07,089 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: null; name: book5)
+2016-01-08 18:46:07,090 TRACE c.n.d.H2ConnManager [main] exit with(conn48: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,092 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was created)
+2016-01-08 18:46:07,188 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,188 TRACE c.n.d.H2ConnManager [main] exit with(conn52: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,191 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-08 18:46:07,191 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 1; name: book1)
+2016-01-08 18:46:07,192 TRACE c.n.d.H2ConnManager [main] exit with(conn53: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,192 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was deleted)
+2016-01-08 18:46:07,259 TRACE c.n.d.i.BookDaoImpl [main] entry
+2016-01-08 18:46:07,259 TRACE c.n.d.H2ConnManager [main] exit with(conn57: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,260 TRACE c.n.d.i.BookDaoImpl [main] all the books were retrieved
+2016-01-08 18:46:07,260 TRACE c.n.d.i.BookDaoImpl [main] exit with([book with bookId: 1; name: book1, book with bookId: 2; name: book2, book with bookId: 3; name: book3, book with bookId: 4; name: book4])
+2016-01-08 18:46:07,286 TRACE c.n.d.i.BookDaoImpl [main] entry params(4)
+2016-01-08 18:46:07,286 TRACE c.n.d.H2ConnManager [main] exit with(conn61: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,287 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 4; name: book4)
+2016-01-08 18:46:07,287 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 4; name: book5)
+2016-01-08 18:46:07,287 TRACE c.n.d.H2ConnManager [main] exit with(conn62: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,288 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was updated)
+2016-01-08 18:46:07,314 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,315 TRACE c.n.d.H2ConnManager [main] exit with(conn66: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,315 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-08 18:46:07,342 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,343 TRACE c.n.d.H2ConnManager [main] exit with(conn69: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,344 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:46:07,345 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-08 18:46:07,358 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(3)
+2016-01-08 18:46:07,359 TRACE c.n.d.H2ConnManager [main] exit with(conn72: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,360 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:46:07,361 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 3; name: Comedy)
+2016-01-08 18:46:07,361 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 3; name: SciFi)
+2016-01-08 18:46:07,362 TRACE c.n.d.H2ConnManager [main] exit with(conn73: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,363 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 3 was updated)
+2016-01-08 18:46:07,388 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: null; name: Drama)
+2016-01-08 18:46:07,389 TRACE c.n.d.H2ConnManager [main] exit with(conn77: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,390 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category was created)
+2016-01-08 18:46:07,418 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(5)
+2016-01-08 18:46:07,418 TRACE c.n.d.H2ConnManager [main] exit with(conn81: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,418 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:46:07,419 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 18:46:07,433 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,433 TRACE c.n.d.H2ConnManager [main] exit with(conn84: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,442 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:46:07,442 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-08 18:46:07,442 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 1; name: Horror)
+2016-01-08 18:46:07,443 TRACE c.n.d.H2ConnManager [main] exit with(conn85: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,443 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 1 was deleted)
+2016-01-08 18:46:07,455 TRACE c.n.d.i.CategoryDaoImpl [main] entry
+2016-01-08 18:46:07,456 TRACE c.n.d.H2ConnManager [main] exit with(conn89: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,457 TRACE c.n.d.i.CategoryDaoImpl [main] exit with([category with Id: 1; name: Horror, category with Id: 2; name: Action, category with Id: 3; name: Comedy])
+2016-01-08 18:46:07,497 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,497 TRACE c.n.d.H2ConnManager [main] exit with(conn93: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,498 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:46:07,499 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-08 18:46:07,507 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: null; name: cell D)
+2016-01-08 18:46:07,507 TRACE c.n.d.H2ConnManager [main] exit with(conn96: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,508 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell was created)
+2016-01-08 18:46:07,523 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,524 TRACE c.n.d.H2ConnManager [main] exit with(conn100: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,524 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:46:07,524 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-08 18:46:07,525 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 1; name: cell A)
+2016-01-08 18:46:07,525 TRACE c.n.d.H2ConnManager [main] exit with(conn101: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,525 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 1 was deleted)
+2016-01-08 18:46:07,548 TRACE c.n.d.i.CellDaoImpl [main] entry params(5)
+2016-01-08 18:46:07,549 TRACE c.n.d.H2ConnManager [main] exit with(conn105: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,549 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:46:07,549 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 18:46:07,565 TRACE c.n.d.i.CellDaoImpl [main] entry
+2016-01-08 18:46:07,566 TRACE c.n.d.H2ConnManager [main] exit with(conn108: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,570 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2016-01-08 18:46:07,573 TRACE c.n.d.i.CellDaoImpl [main] exit with([Cell with cellId: 1; name: cell A, Cell with cellId: 2; name: cell B, Cell with cellId: 3; name: cell C])
+2016-01-08 18:46:07,600 TRACE c.n.d.i.CellDaoImpl [main] entry params(3)
+2016-01-08 18:46:07,600 TRACE c.n.d.H2ConnManager [main] exit with(conn112: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,601 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:46:07,601 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 3; name: cell C)
+2016-01-08 18:46:07,601 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 3; name: cell E)
+2016-01-08 18:46:07,602 TRACE c.n.d.H2ConnManager [main] exit with(conn113: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,602 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 3 was updated)
+2016-01-08 18:46:07,643 TRACE c.n.d.i.ClientDaoImpl [main] entry params(3)
+2016-01-08 18:46:07,643 TRACE c.n.d.H2ConnManager [main] exit with(conn117: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,645 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:46:07,645 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 3; firstName: Yriy; lastName: Golod)
+2016-01-08 18:46:07,651 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 3; firstName: Max; lastName: Kulishov)
+2016-01-08 18:46:07,652 TRACE c.n.d.H2ConnManager [main] exit with(conn118: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,653 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 3 was updated)
+2016-01-08 18:46:07,667 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,667 TRACE c.n.d.H2ConnManager [main] exit with(conn122: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,667 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:46:07,667 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 18:46:07,668 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 18:46:07,668 TRACE c.n.d.H2ConnManager [main] exit with(conn123: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,668 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 1 was deleted)
+2016-01-08 18:46:07,698 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,699 TRACE c.n.d.H2ConnManager [main] exit with(conn127: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,699 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:46:07,699 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 18:46:07,711 TRACE c.n.d.i.ClientDaoImpl [main] entry params(5)
+2016-01-08 18:46:07,711 TRACE c.n.d.H2ConnManager [main] exit with(conn130: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,711 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:46:07,712 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 18:46:07,721 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: null; firstName: Vitaliy; lastName: Rybkin)
+2016-01-08 18:46:07,722 TRACE c.n.d.H2ConnManager [main] exit with(conn133: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,723 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client was created)
+2016-01-08 18:46:07,735 TRACE c.n.d.i.ClientDaoImpl [main] entry
+2016-01-08 18:46:07,736 TRACE c.n.d.H2ConnManager [main] exit with(conn137: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,736 TRACE c.n.d.i.ClientDaoImpl [main] all the clients were retrieved
+2016-01-08 18:46:07,737 TRACE c.n.d.i.ClientDaoImpl [main] exit with([client with clientId: 1; firstName: Evgeniy; lastName: Fomin, client with clientId: 2; firstName: Alexandra; lastName: Adusheva, client with clientId: 3; firstName: Yriy; lastName: Golod])
+2016-01-08 18:46:07,779 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,779 TRACE c.n.d.H2ConnManager [main] exit with(conn141: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,781 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 18:46:07,822 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(4)
+2016-01-08 18:46:07,822 TRACE c.n.d.H2ConnManager [main] exit with(conn144: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,823 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22)
+2016-01-08 18:46:07,823 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 4; bookId: 5; clientId: 1; rentDate: 2015-06-11)
+2016-01-08 18:46:07,823 TRACE c.n.d.H2ConnManager [main] exit with(conn145: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,824 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was updated)
+2016-01-08 18:46:07,868 TRACE c.n.d.i.RentJournalDaoImpl [main] entry
+2016-01-08 18:46:07,869 TRACE c.n.d.H2ConnManager [main] exit with(conn149: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,871 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with([rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25, rent with rentId: 2; bookId: 2; clientId: 2; rentDate: 2015-11-24, rent with rentId: 3; bookId: 3; clientId: 3; rentDate: 2015-10-23, rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22])
+2016-01-08 18:46:07,930 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 18:46:07,931 TRACE c.n.d.H2ConnManager [main] exit with(conn153: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,931 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 18:46:07,931 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 18:46:07,932 TRACE c.n.d.H2ConnManager [main] exit with(conn154: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,932 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent was deleted)
+2016-01-08 18:46:07,980 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(5)
+2016-01-08 18:46:07,980 TRACE c.n.d.H2ConnManager [main] exit with(conn158: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:07,981 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 18:46:08,010 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: null; bookId: 5; clientId: 1; rentDate: 2015-08-21)
+2016-01-08 18:46:08,011 TRACE c.n.d.H2ConnManager [main] exit with(conn161: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:46:08,013 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was created)
+2016-01-08 18:49:33,771 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:49:33,773 TRACE c.n.d.H2ConnManager [main] D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes
+2016-01-08 18:49:33,812 TRACE c.n.d.H2ConnManager [main] exit with(conn2: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:33,814 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 18:49:33,814 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 1; authorId: 1)
+2016-01-08 18:49:33,817 TRACE c.n.d.H2ConnManager [main] exit with(conn3: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:33,818 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook was deleted)
+2016-01-08 18:49:34,016 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1, 1)
+2016-01-08 18:49:34,017 TRACE c.n.d.H2ConnManager [main] exit with(conn7: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,018 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(book Id: 1; authorId: 1)
+2016-01-08 18:49:34,123 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(1)
+2016-01-08 18:49:34,124 TRACE c.n.d.H2ConnManager [main] exit with(conn10: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,124 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1])
+2016-01-08 18:49:34,151 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry
+2016-01-08 18:49:34,152 TRACE c.n.d.H2ConnManager [main] exit with(conn13: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,152 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with([book Id: 1; authorId: 1, book Id: 2; authorId: 1, book Id: 3; authorId: 2, book Id: 4; authorId: 3])
+2016-01-08 18:49:34,212 TRACE c.n.d.i.AuthorBookDaoImpl [main] entry params(book Id: 6; authorId: 1)
+2016-01-08 18:49:34,212 TRACE c.n.d.H2ConnManager [main] exit with(conn17: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,213 TRACE c.n.d.i.AuthorBookDaoImpl [main] exit with(authorBook entry was created)
+2016-01-08 18:49:34,244 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(5)
+2016-01-08 18:49:34,244 TRACE c.n.d.H2ConnManager [main] exit with(conn21: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,245 TRACE c.n.d.i.AuthorDaoImpl [main] exit
+2016-01-08 18:49:34,256 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(3)
+2016-01-08 18:49:34,256 TRACE c.n.d.H2ConnManager [main] exit with(conn24: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,257 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 3; firstName: Brian; lastName: Vaughan)
+2016-01-08 18:49:34,258 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 3; firstName: Michail; lastName: Lelyakov)
+2016-01-08 18:49:34,258 TRACE c.n.d.H2ConnManager [main] exit with(conn25: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,260 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was updated)
+2016-01-08 18:49:34,318 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 18:49:34,319 TRACE c.n.d.H2ConnManager [main] exit with(conn29: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,320 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 18:49:34,320 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 18:49:34,320 TRACE c.n.d.H2ConnManager [main] exit with(conn30: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,321 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was deleted)
+2016-01-08 18:49:34,409 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(1)
+2016-01-08 18:49:34,410 TRACE c.n.d.H2ConnManager [main] exit with(conn34: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,410 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author with Id: 1; firstName: Stephen; lastName: King)
+2016-01-08 18:49:34,449 TRACE c.n.d.i.AuthorDaoImpl [main] entry
+2016-01-08 18:49:34,455 TRACE c.n.d.H2ConnManager [main] exit with(conn37: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,456 TRACE c.n.d.i.AuthorDaoImpl [main] exit with([author with Id: 1; firstName: Stephen; lastName: King, author with Id: 2; firstName: Michail; lastName: Bulgakov, author with Id: 3; firstName: Brian; lastName: Vaughan])
+2016-01-08 18:49:34,504 TRACE c.n.d.i.AuthorDaoImpl [main] entry params(author with Id: null; firstName: Michail; lastName: Lelyakov)
+2016-01-08 18:49:34,505 TRACE c.n.d.H2ConnManager [main] exit with(conn41: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,506 TRACE c.n.d.i.AuthorDaoImpl [main] exit with(author was created)
+2016-01-08 18:49:34,649 TRACE c.n.d.i.BookDaoImpl [main] entry params(5)
+2016-01-08 18:49:34,650 TRACE c.n.d.H2ConnManager [main] exit with(conn45: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,651 TRACE c.n.d.i.BookDaoImpl [main] exit
+2016-01-08 18:49:34,725 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: null; name: book5)
+2016-01-08 18:49:34,725 TRACE c.n.d.H2ConnManager [main] exit with(conn48: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,727 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was created)
+2016-01-08 18:49:34,832 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 18:49:34,832 TRACE c.n.d.H2ConnManager [main] exit with(conn52: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,833 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-08 18:49:34,833 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 1; name: book1)
+2016-01-08 18:49:34,833 TRACE c.n.d.H2ConnManager [main] exit with(conn53: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,834 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was deleted)
+2016-01-08 18:49:34,905 TRACE c.n.d.i.BookDaoImpl [main] entry
+2016-01-08 18:49:34,906 TRACE c.n.d.H2ConnManager [main] exit with(conn57: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,906 TRACE c.n.d.i.BookDaoImpl [main] all the books were retrieved
+2016-01-08 18:49:34,907 TRACE c.n.d.i.BookDaoImpl [main] exit with([book with bookId: 1; name: book1, book with bookId: 2; name: book2, book with bookId: 3; name: book3, book with bookId: 4; name: book4])
+2016-01-08 18:49:34,945 TRACE c.n.d.i.BookDaoImpl [main] entry params(4)
+2016-01-08 18:49:34,945 TRACE c.n.d.H2ConnManager [main] exit with(conn61: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,946 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 4; name: book4)
+2016-01-08 18:49:34,947 TRACE c.n.d.i.BookDaoImpl [main] entry params(book with bookId: 4; name: book5)
+2016-01-08 18:49:34,947 TRACE c.n.d.H2ConnManager [main] exit with(conn62: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:34,948 TRACE c.n.d.i.BookDaoImpl [main] exit with(book was updated)
+2016-01-08 18:49:34,999 TRACE c.n.d.i.BookDaoImpl [main] entry params(1)
+2016-01-08 18:49:34,999 TRACE c.n.d.H2ConnManager [main] exit with(conn66: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,000 TRACE c.n.d.i.BookDaoImpl [main] exit with(book with bookId: 1; name: book1)
+2016-01-08 18:49:35,023 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,024 TRACE c.n.d.H2ConnManager [main] exit with(conn69: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,025 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:49:35,026 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-08 18:49:35,034 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(3)
+2016-01-08 18:49:35,034 TRACE c.n.d.H2ConnManager [main] exit with(conn72: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,035 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:49:35,035 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 3; name: Comedy)
+2016-01-08 18:49:35,035 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 3; name: SciFi)
+2016-01-08 18:49:35,036 TRACE c.n.d.H2ConnManager [main] exit with(conn73: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,036 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 3 was updated)
+2016-01-08 18:49:35,061 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: null; name: Drama)
+2016-01-08 18:49:35,061 TRACE c.n.d.H2ConnManager [main] exit with(conn77: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,062 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category was created)
+2016-01-08 18:49:35,076 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(5)
+2016-01-08 18:49:35,077 TRACE c.n.d.H2ConnManager [main] exit with(conn81: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,077 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:49:35,077 TRACE c.n.d.i.CategoryDaoImpl [main] exit
+2016-01-08 18:49:35,103 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,104 TRACE c.n.d.H2ConnManager [main] exit with(conn84: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,105 TRACE c.n.d.i.CategoryDaoImpl [main] the category was retrieved
+2016-01-08 18:49:35,105 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with Id: 1; name: Horror)
+2016-01-08 18:49:35,105 TRACE c.n.d.i.CategoryDaoImpl [main] entry params(category with Id: 1; name: Horror)
+2016-01-08 18:49:35,106 TRACE c.n.d.H2ConnManager [main] exit with(conn85: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,106 TRACE c.n.d.i.CategoryDaoImpl [main] exit with(category with id: 1 was deleted)
+2016-01-08 18:49:35,122 TRACE c.n.d.i.CategoryDaoImpl [main] entry
+2016-01-08 18:49:35,122 TRACE c.n.d.H2ConnManager [main] exit with(conn89: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,124 TRACE c.n.d.i.CategoryDaoImpl [main] exit with([category with Id: 1; name: Horror, category with Id: 2; name: Action, category with Id: 3; name: Comedy])
+2016-01-08 18:49:35,153 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,154 TRACE c.n.d.H2ConnManager [main] exit with(conn93: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,156 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:49:35,156 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-08 18:49:35,178 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: null; name: cell D)
+2016-01-08 18:49:35,179 TRACE c.n.d.H2ConnManager [main] exit with(conn96: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,179 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell was created)
+2016-01-08 18:49:35,192 TRACE c.n.d.i.CellDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,193 TRACE c.n.d.H2ConnManager [main] exit with(conn100: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,193 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:49:35,193 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 1; name: cell A)
+2016-01-08 18:49:35,193 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 1; name: cell A)
+2016-01-08 18:49:35,194 TRACE c.n.d.H2ConnManager [main] exit with(conn101: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,194 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 1 was deleted)
+2016-01-08 18:49:35,208 TRACE c.n.d.i.CellDaoImpl [main] entry params(5)
+2016-01-08 18:49:35,208 TRACE c.n.d.H2ConnManager [main] exit with(conn105: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,209 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:49:35,209 TRACE c.n.d.i.CellDaoImpl [main] exit
+2016-01-08 18:49:35,216 TRACE c.n.d.i.CellDaoImpl [main] entry
+2016-01-08 18:49:35,216 TRACE c.n.d.H2ConnManager [main] exit with(conn108: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,217 TRACE c.n.d.i.CellDaoImpl [main] all the cells were retrieved
+2016-01-08 18:49:35,217 TRACE c.n.d.i.CellDaoImpl [main] exit with([Cell with cellId: 1; name: cell A, Cell with cellId: 2; name: cell B, Cell with cellId: 3; name: cell C])
+2016-01-08 18:49:35,250 TRACE c.n.d.i.CellDaoImpl [main] entry params(3)
+2016-01-08 18:49:35,250 TRACE c.n.d.H2ConnManager [main] exit with(conn112: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,251 TRACE c.n.d.i.CellDaoImpl [main] the cell was retrieved
+2016-01-08 18:49:35,251 TRACE c.n.d.i.CellDaoImpl [main] exit with(Cell with cellId: 3; name: cell C)
+2016-01-08 18:49:35,251 TRACE c.n.d.i.CellDaoImpl [main] entry params(Cell with cellId: 3; name: cell E)
+2016-01-08 18:49:35,252 TRACE c.n.d.H2ConnManager [main] exit with(conn113: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,252 TRACE c.n.d.i.CellDaoImpl [main] exit with(cell with id: 3 was updated)
+2016-01-08 18:49:35,283 TRACE c.n.d.i.ClientDaoImpl [main] entry params(3)
+2016-01-08 18:49:35,283 TRACE c.n.d.H2ConnManager [main] exit with(conn117: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,284 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:49:35,285 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 3; firstName: Yriy; lastName: Golod)
+2016-01-08 18:49:35,285 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 3; firstName: Max; lastName: Kulishov)
+2016-01-08 18:49:35,285 TRACE c.n.d.H2ConnManager [main] exit with(conn118: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,286 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 3 was updated)
+2016-01-08 18:49:35,305 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,306 TRACE c.n.d.H2ConnManager [main] exit with(conn122: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,306 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:49:35,306 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 18:49:35,307 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 18:49:35,307 TRACE c.n.d.H2ConnManager [main] exit with(conn123: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,307 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with id: 1 was deleted)
+2016-01-08 18:49:35,319 TRACE c.n.d.i.ClientDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,319 TRACE c.n.d.H2ConnManager [main] exit with(conn127: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,320 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:49:35,320 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client with clientId: 1; firstName: Evgeniy; lastName: Fomin)
+2016-01-08 18:49:35,344 TRACE c.n.d.i.ClientDaoImpl [main] entry params(5)
+2016-01-08 18:49:35,344 TRACE c.n.d.H2ConnManager [main] exit with(conn130: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,344 TRACE c.n.d.i.ClientDaoImpl [main] the client was retrieved
+2016-01-08 18:49:35,345 TRACE c.n.d.i.ClientDaoImpl [main] exit
+2016-01-08 18:49:35,355 TRACE c.n.d.i.ClientDaoImpl [main] entry params(client with clientId: null; firstName: Vitaliy; lastName: Rybkin)
+2016-01-08 18:49:35,355 TRACE c.n.d.H2ConnManager [main] exit with(conn133: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,356 TRACE c.n.d.i.ClientDaoImpl [main] exit with(client was created)
+2016-01-08 18:49:35,373 TRACE c.n.d.i.ClientDaoImpl [main] entry
+2016-01-08 18:49:35,374 TRACE c.n.d.H2ConnManager [main] exit with(conn137: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,374 TRACE c.n.d.i.ClientDaoImpl [main] all the clients were retrieved
+2016-01-08 18:49:35,374 TRACE c.n.d.i.ClientDaoImpl [main] exit with([client with clientId: 1; firstName: Evgeniy; lastName: Fomin, client with clientId: 2; firstName: Alexandra; lastName: Adusheva, client with clientId: 3; firstName: Yriy; lastName: Golod])
+2016-01-08 18:49:35,427 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,427 TRACE c.n.d.H2ConnManager [main] exit with(conn141: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,428 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 18:49:35,462 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(4)
+2016-01-08 18:49:35,463 TRACE c.n.d.H2ConnManager [main] exit with(conn144: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,463 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22)
+2016-01-08 18:49:35,464 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 4; bookId: 5; clientId: 1; rentDate: 2015-06-11)
+2016-01-08 18:49:35,464 TRACE c.n.d.H2ConnManager [main] exit with(conn145: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,464 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was updated)
+2016-01-08 18:49:35,514 TRACE c.n.d.i.RentJournalDaoImpl [main] entry
+2016-01-08 18:49:35,514 TRACE c.n.d.H2ConnManager [main] exit with(conn149: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,518 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with([rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25, rent with rentId: 2; bookId: 2; clientId: 2; rentDate: 2015-11-24, rent with rentId: 3; bookId: 3; clientId: 3; rentDate: 2015-10-23, rent with rentId: 4; bookId: 4; clientId: 4; rentDate: 2015-09-22])
+2016-01-08 18:49:35,565 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(1)
+2016-01-08 18:49:35,566 TRACE c.n.d.H2ConnManager [main] exit with(conn153: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,566 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 18:49:35,566 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: 1; bookId: 1; clientId: 1; rentDate: 2015-12-25)
+2016-01-08 18:49:35,567 TRACE c.n.d.H2ConnManager [main] exit with(conn154: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,567 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rent was deleted)
+2016-01-08 18:49:35,628 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(5)
+2016-01-08 18:49:35,628 TRACE c.n.d.H2ConnManager [main] exit with(conn158: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,629 TRACE c.n.d.i.RentJournalDaoImpl [main] exit
+2016-01-08 18:49:35,693 TRACE c.n.d.i.RentJournalDaoImpl [main] entry params(rent with rentId: null; bookId: 5; clientId: 1; rentDate: 2015-08-21)
+2016-01-08 18:49:35,694 TRACE c.n.d.H2ConnManager [main] exit with(conn161: url=jdbc:h2:file:D:\java_training\javappp\17_servlets_jsp\servlets_task1\target\classes/sqllab user=SA)
+2016-01-08 18:49:35,695 TRACE c.n.d.i.RentJournalDaoImpl [main] exit with(rentJournal was created)

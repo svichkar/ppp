@@ -22,12 +22,13 @@ public class ClientDaoImpl implements ClientDAO {
     @Override
     public Client create(Client entity) {
         Connection connection = null;
+        Statement statement = null;
         Client newEntity = null;
         try {
             connection = CustomConnectionManager.getConnection();
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO client (first_name, last_name, phone, email) VALUES ('" +
                     entity.getFirstName() + "', '" + entity.getLastName() + "', '" + entity.getPhone()+ "', '" +
                     entity.getEmail() + "');");
@@ -47,6 +48,13 @@ public class ClientDaoImpl implements ClientDAO {
                 LOGGER.error(ex);
             }
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -60,8 +68,7 @@ public class ClientDaoImpl implements ClientDAO {
 
     @Override
     public void update(Client entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("UPDATE client SET first_name='" + entity.getFirstName() + "', last_name='" +
                     entity.getLastName() + "', phone='" + entity.getPhone() + "', email='" +
                     entity.getEmail() + "' WHERE client_id='" +
@@ -74,8 +81,7 @@ public class ClientDaoImpl implements ClientDAO {
 
     @Override
     public void delete(Client entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM client WHERE client_id='" + entity.getClientId() + "';");
             LOGGER.trace("deleted line in client table, with id:" + entity.getClientId());
         } catch (SQLException e) {
@@ -85,8 +91,7 @@ public class ClientDaoImpl implements ClientDAO {
 
     @Override
     public Client findByID(Integer id) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM client WHERE client_id = '" + id + "';");
             if (resultSet.next()) {
                 Client entity = new Client(resultSet.getInt("client_id"), resultSet.getString("first_name"),
@@ -105,8 +110,7 @@ public class ClientDaoImpl implements ClientDAO {
     @Override
     public List<Client> findAll() {
         List<Client> list = new ArrayList<>();
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM client;");
             while (resultSet.next())
                 list.add(new Client (resultSet.getInt("client_id"), resultSet.getString("first_name"),

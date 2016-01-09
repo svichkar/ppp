@@ -22,12 +22,13 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
     @Override
     public AuthorBook create(AuthorBook entity) {
         Connection connection = null;
+        Statement statement = null;
         AuthorBook newEntity = null;
         try {
             connection = CustomConnectionManager.getConnection();
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO author_book (author_id, book_id) VALUES ('" + entity.getAuthorId() +
                     "' ,'" + entity.getBookId() + "');");
             ResultSet keys = statement.getGeneratedKeys();
@@ -46,6 +47,13 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
                 LOGGER.error(ex);
             }
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -59,8 +67,7 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
 
     @Override
     public void update(AuthorBook entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("UPDATE author_book SET author_id='" + entity.getAuthorId() + "', book_id='" +
                     entity.getBookId() + "' WHERE id='" + entity.getId() + "';");
             LOGGER.trace("updated line in author_book table, with id:" + entity.getId());
@@ -71,8 +78,7 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
 
     @Override
     public void delete(AuthorBook entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM author_book WHERE id='" + entity.getId() + "';");
             LOGGER.trace("deleted line in author_book table, with id:" + entity.getId());
         } catch (SQLException e) {
@@ -82,8 +88,7 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
 
     @Override
     public AuthorBook findByID(Integer id) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author_book WHERE id = '" + id + "';");
             if (resultSet.next()) {
                 AuthorBook entity = new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_id"));
@@ -97,12 +102,23 @@ public class AuthorBookDaoImpl implements AuthorBookDAO {
             return null;
         }
     }
+    public List<AuthorBook> findByBookID(Integer id) {
+        List<AuthorBook> list = new ArrayList<>();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM author_book WHERE book_id = '" + id + "';");
+            while (resultSet.next())
+                list.add(new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_id")));
+            return list;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 
     @Override
     public List<AuthorBook> findAll() {
         List<AuthorBook> list = new ArrayList<>();
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author_book;");
             while (resultSet.next())
                 list.add(new AuthorBook(resultSet.getInt("id"), resultSet.getInt("author_id"), resultSet.getInt("book_id")));

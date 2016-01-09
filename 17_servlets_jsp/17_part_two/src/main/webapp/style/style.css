@@ -12,3 +12,15 @@
 #message
 {height: 50px;
 width: 100%;}
+#sidebar{
+    float: left
+    width:20%;
+}
+#content{
+    text-align: left;
+    width:80%;
+    float:right;
+}
+#footer {
+    clear:both;
+}

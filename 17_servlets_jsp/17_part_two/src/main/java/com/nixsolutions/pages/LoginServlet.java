@@ -1,12 +1,12 @@
 package com.nixsolutions.pages;
 
-import com.nixsolutions.library.dao.DaoFactory;
-import com.nixsolutions.library.dao.RoleDAO;
-import com.nixsolutions.library.dao.UserDAO;
+import com.nixsolutions.library.bean.OverdueBook;
+import com.nixsolutions.library.dao.*;
 import com.nixsolutions.library.dao.impl.DaoFactoryImpl;
+import com.nixsolutions.library.entity.Book;
+import com.nixsolutions.library.entity.Client;
+import com.nixsolutions.library.entity.Ticket;
 import com.nixsolutions.library.entity.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Serko on 07.01.2016.
@@ -23,12 +25,19 @@ import java.io.PrintWriter;
 public class LoginServlet extends HttpServlet {
     private static UserDAO userDAO;
     private static RoleDAO roleDAO;
+    private static BookDAO bookDAO;
+    private static TicketDAO ticketDAO;
+    private static ClientDAO clientDAO;
+
 
     @Override
     public void init() throws ServletException {
         DaoFactory daoFactory = new DaoFactoryImpl();
         userDAO = daoFactory.getUserDAO();
         roleDAO = daoFactory.getRoleDAO();
+        ticketDAO = daoFactory.getTicketDAO();
+        bookDAO = daoFactory.getBookDAO();
+        clientDAO = daoFactory.getClientDAO();
     }
 
     @Override
@@ -48,6 +57,7 @@ public class LoginServlet extends HttpServlet {
                 if (user != null) {
                     if (user.getPassword().equals(req.getParameter("userPassword"))) {
                         req.getSession().setAttribute("role", roleDAO.findByID(user.getRoleId()).getName());
+                        req.setAttribute("overdueBooks", this.displayOverdueBook());
                         req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                     } else {
                         resp.sendRedirect("index.jsp?message=Login or password are wrong");
@@ -58,6 +68,7 @@ public class LoginServlet extends HttpServlet {
                     userDAO.create(new User(req.getParameter("userName"), req.getParameter("userPassword"),
                             roleDAO.findByName("LIBRARIAN").getRoleId()));
                     req.getSession().setAttribute("role", "LIBRARIAN");
+                    req.setAttribute("overdueBooks", this.displayOverdueBook());
                     req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                 } else {
                     resp.sendRedirect("index.jsp?message=User already exist choose another");
@@ -66,6 +77,21 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect("index.jsp");
             }
         }
+    }
+    private List<OverdueBook> displayOverdueBook (){
+        List<OverdueBook> overdueBookList = new ArrayList<>();
+        List<Ticket> tickets = ticketDAO.findAll();
+        for (int i = 0; i < tickets.size(); i++) {
+            Ticket ticket =  tickets.get(i);
+            if (ticket.getExpiredDate().before(new Date(System.currentTimeMillis())) && ticket.getReturnDate() == null) {
+                OverdueBook overdueBook = new OverdueBook();
+                overdueBook.setTicket(ticket);
+                overdueBook.setClient(clientDAO.findByID(ticket.getClientId()));
+                overdueBook.setBook(bookDAO.findByID(ticket.getBookId()));
+                overdueBookList.add(overdueBook);
+            }
+        }
+        return overdueBookList;
     }
 }
 

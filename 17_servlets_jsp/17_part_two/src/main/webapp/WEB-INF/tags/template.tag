@@ -17,19 +17,19 @@
 </head>
 <body>
     <div id="site_content">
-        <div class="sidebar">
-            <jsp:invoke fragment="sidebar_area" />
-        </div>
-        <div id="content">
+        <article id="content">
             <jsp:invoke fragment="content_area" />
-        </div>
+        </article>
+        <aside id="sidebar">
+                <jsp:invoke fragment="sidebar_area" />
+             </aside>
         <div id="message">
             <jsp:invoke fragment="message_area" />
         </div>
     </div>
-    <div id="footer" align="center">
-        Copyright &copy; 2016 | All Rights Reserved
-    </div>
+    <footer id="footer" align="right">
+        <img src="webContent/images/Footer.png">
+    </footer>
   </div>
 </body>
 </html>

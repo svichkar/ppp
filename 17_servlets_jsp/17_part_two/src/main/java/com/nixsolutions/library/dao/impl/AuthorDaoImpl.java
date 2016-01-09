@@ -22,12 +22,13 @@ public class AuthorDaoImpl implements AuthorDAO {
     @Override
     public Author create(Author entity) {
         Connection connection = null;
+        Statement statement = null;
         Author newEntity = null;
         try {
             connection = CustomConnectionManager.getConnection();
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO author (first_name, last_name) VALUES ('" + entity.getFirstName() +
                     "' ,'" + entity.getLastName() + "');");
             ResultSet keys = statement.getGeneratedKeys();
@@ -46,6 +47,13 @@ public class AuthorDaoImpl implements AuthorDAO {
                 LOGGER.error(ex);
             }
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -59,8 +67,7 @@ public class AuthorDaoImpl implements AuthorDAO {
 
     @Override
     public void update(Author entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("UPDATE author SET first_name='" + entity.getFirstName() + "', last_name='" +
                     entity.getLastName() + "' WHERE author_id='" + entity.getAuthorId() + "';");
             LOGGER.trace("updated line in author table, with id:" + entity.getAuthorId());
@@ -71,8 +78,7 @@ public class AuthorDaoImpl implements AuthorDAO {
 
     @Override
     public void delete(Author entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM author WHERE author_id='" + entity.getAuthorId() + "';");
             LOGGER.trace("deleted line in author table, with id:" + entity.getAuthorId());
         } catch (SQLException e) {
@@ -82,8 +88,7 @@ public class AuthorDaoImpl implements AuthorDAO {
 
     @Override
     public Author findByID(Integer id) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {;
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author WHERE author_id = '" + id + "';");
             if (resultSet.next()) {
                 Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
@@ -101,8 +106,7 @@ public class AuthorDaoImpl implements AuthorDAO {
     @Override
     public List<Author> findAll() {
         List<Author> list = new ArrayList<>();
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM author;");
             while (resultSet.next())
             list.add(new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name")));

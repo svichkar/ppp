@@ -23,12 +23,13 @@ public class UserDaoImpl implements UserDAO {
     @Override
     public User create(User entity) {
         Connection connection = null;
+        Statement statement = null;
         User newEntity = null;
         try {
             connection = CustomConnectionManager.getConnection();
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
-            Statement statement = connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO user (login, password, role_id) VALUES ('" +
                     entity.getLogin() + "', '" + entity.getPassword() + "', '" + entity.getRoleId() + "');");
             ResultSet keys = statement.getGeneratedKeys();
@@ -47,6 +48,13 @@ public class UserDaoImpl implements UserDAO {
                 LOGGER.error(ex);
             }
         } finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    LOGGER.error(e);
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -60,8 +68,7 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public void update(User entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("UPDATE user SET login='" + entity.getLogin() + "', password='" +
                     entity.getPassword() + "', role_id='" + entity.getRoleId() + "' WHERE user_id='" +
                     entity.getUserId() + "';");
@@ -73,8 +80,7 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public void delete(User entity) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM user WHERE user_id='" + entity.getUserId() + "';");
             LOGGER.trace("deleted line in user table, with id:" + entity.getUserId());
         } catch (SQLException e) {
@@ -84,8 +90,7 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public User findByID(Integer id) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE user_id = '" + id + "';");
             if (resultSet.next()) {
                 User entity = new User(resultSet.getInt("user_id"), resultSet.getString("login"),
@@ -104,8 +109,7 @@ public class UserDaoImpl implements UserDAO {
     @Override
     public List<User> findAll() {
         List<User> list = new ArrayList<>();
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user;");
             while (resultSet.next())
                 list.add(new User (resultSet.getInt("user_id"), resultSet.getString("login"),
@@ -117,8 +121,7 @@ public class UserDaoImpl implements UserDAO {
         }
     }
     public User findByLogin(String login) {
-        try (Connection connection = CustomConnectionManager.getConnection()) {
-            Statement statement = connection.createStatement();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM user WHERE login = '" + login.toLowerCase() + "';");
             if (resultSet.next()) {
                 User entity = new User(resultSet.getInt("user_id"), resultSet.getString("login"),

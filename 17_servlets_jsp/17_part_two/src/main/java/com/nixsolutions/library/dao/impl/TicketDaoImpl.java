@@ -121,4 +121,20 @@ public class TicketDaoImpl implements TicketDAO {
             return null;
         }
     }
+
+    @Override
+    public List<Ticket> findByBookID(Integer id) {
+        List<Ticket> list = new ArrayList<>();
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM rent_journal WHERE book_id = '" + id + "';");
+            while (resultSet.next())
+                list.add(new Ticket (resultSet.getInt("ticket_id"), resultSet.getInt("book_id"),
+                        resultSet.getInt("client_id"), resultSet.getDate("rent_date"), resultSet.getDate("expired_date"),
+                        resultSet.getDate("return_date")));
+            return list;
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 }

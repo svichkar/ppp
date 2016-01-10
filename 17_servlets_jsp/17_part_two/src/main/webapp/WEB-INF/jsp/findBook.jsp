@@ -15,16 +15,31 @@
         </c:if>
     </jsp:attribute>
     <jsp:attribute name="content_area">
-        <c:choose>
-            <c:when test="${not empty books}">
+        <form action="bookManagement" method="post">
+             <p><input type="radio" checked name="searchCriteria" value="all">Find all<p>
+             <p><input type="radio" name="searchCriteria" value="name">By name<p>
+             <p><input type="radio" name="searchCriteria" value="author">By author<p>
+             <p><input type="radio" name="searchCriteria" value="category">By category<p>
+             <p><input type="text" name="searchWord"></p>
+             <p><input type="submit" value="Search"></p>
+        </form>
+            <c:if test="${not empty books}">
+
                 <table border="1">
-                           <thead>
-                               <tr><th>bookId</th><th>bookName</th><th>category</th><th>cell</th><th>author</th><th>ticket id if in rent</th></tr>
-                           </thead>
-                           <tbody>
-                           <c:forEach var="book" items="${books}">
+                     <thead>
+                         <tr><th></th><th>bookId</th><th>bookName</th><th>category</th><th>cell</th><th>author</th><th>ticket id if book in rent</th></tr>
+                     </thead>
+                     <tbody>
+                            <form action="loanManagement" method="post" name="giveBook">
+                                         <input type="submit" value="Get checked books to client">
+                            <c:forEach var="book" items="${books}">
                                <tr>
-                                   <td><c:out value="${book.book.bookId}"/></td>
+                                   <td>
+                                        <c:if test="${empty book.ticket}">
+                                            <input type="checkbox" name="bookId_${book.book.bookId}">
+                                        </c:if>
+                                   </td>
+                                   <td><label for="bookId_${book.book.bookId}"value="${book.book.bookId}"><c:out value="${book.book.bookId}"/></label></td>
                                    <td><c:out value="${book.book.name} "/></td>
                                    <td><c:out value="${book.category.name}"/></td>
                                    <td><c:out value="${book.cell.name}"/></td>
@@ -42,20 +57,10 @@
                                    </td>
                                </tr>
                            </c:forEach>
-                           </tbody>
-                       </table>
-            </c:when>
-            <c:otherwise>
-                <form action="bookManagement" method="post">
-                            <p><input type="radio" checked name="searchCriteria" value="all">Find all<p>
-                            <p><input type="radio" name="searchCriteria" value="name">By name<p>
-                            <p><input type="radio" name="searchCriteria" value="author">By author<p>
-                            <p><input type="radio" name="searchCriteria" value="category">By category<p>
-                            <p><input type="text" name="searchWord"></p>
-                            <p><input type="submit" value="Search"></p>
-                        </form>
-            </c:otherwise>
-        </c:choose>
+                         <form>
+                     </tbody>
+                </table>
+            </c:if>
     </jsp:attribute>
     <jsp:attribute name="message_area">
         <c:if test="${not empty param.message}">

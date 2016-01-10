@@ -116,4 +116,21 @@ public class CategoryDaoImpl implements CategoryDAO {
             return null;
         }
     }
+
+    @Override
+    public Category findByName(String name) {
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM category WHERE name = '" + name + "';");
+            if (resultSet.next()) {
+                Category entity = new Category(resultSet.getInt("category_id"), resultSet.getString("name"));
+                return entity;
+            } else {
+                LOGGER.trace("name " + name + " not found in category table");
+                return null;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 }

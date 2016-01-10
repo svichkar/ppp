@@ -10,5 +10,5 @@ import java.util.List;
 public interface BookDAO extends GenericDAO<Book> {
     List<Book> findByName (String name);
     List<Book> findByAuthor (String author);
-    List<Book> findByCategory (String category);
+    List<Book> findByCategory (Integer categoryId);
 }

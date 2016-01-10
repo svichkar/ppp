@@ -3,10 +3,7 @@ package com.nixsolutions.pages;
 import com.nixsolutions.library.bean.BeanBook;
 import com.nixsolutions.library.dao.*;
 import com.nixsolutions.library.dao.impl.DaoFactoryImpl;
-import com.nixsolutions.library.entity.Author;
-import com.nixsolutions.library.entity.AuthorBook;
-import com.nixsolutions.library.entity.Book;
-import com.nixsolutions.library.entity.Ticket;
+import com.nixsolutions.library.entity.*;
 
 
 import javax.servlet.ServletException;
@@ -48,45 +45,58 @@ public class BookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Book> books = null;
         switch (req.getParameter("searchCriteria")) {
             case "all":
-                List<Ticket> tickets = ticketDAO.findAll();
-                List<BeanBook> beanBooks = new ArrayList<>();
-                List<Book> books = bookDAO.findAll();
-                for (int i = 0; i < books.size(); i++) {
-                    List<Author> authors = new ArrayList<>();
-                    Book book =  books.get(i);
-                    BeanBook beanBook = new BeanBook();
-                    beanBook.setBook(book);
-                    beanBook.setCategory(categoryDAO.findByID(book.getCategoryId()));
-                    beanBook.setCell(cellDAO.findByID(book.getCellId()));
-                    for (int j = 0; j < tickets.size(); j++) {
-                        Ticket ticket =  tickets.get(j);
-                        if (ticket.getBookId().equals(book.getBookId()) && ticket.getReturnDate() == null){
-                            beanBook.setTicket(ticket);
-                        }
-                    }
-
-                    List<AuthorBook> authorsBooks = authorBookDAO.findByBookID(book.getBookId());
-                    for (int j = 0; j < authorsBooks.size(); j++) {
-                        AuthorBook authorBook =  authorsBooks.get(j);
-                        authors.add(authorDAO.findByID(authorBook.getAuthorId()));
-                    }
-                    beanBook.setAuthors(authors);
-
-                    beanBooks.add(beanBook);
-                }
-                req.setAttribute("books", beanBooks);
-                req.getRequestDispatcher("/WEB-INF/jsp/findBook.jsp").forward(req, resp);
+                books = bookDAO.findAll();
                 break;
             case "name":
+                books = bookDAO.findByName(req.getParameter("searchWord"));
                 break;
             case "author":
+                books = bookDAO.findByAuthor(req.getParameter("searchWord"));
                 break;
             case "category":
+                Category category = categoryDAO.findByName(req.getParameter("searchWord"));
+                if (category != null) {
+                    books = bookDAO.findByCategory(category.getCategoryId());
+                }
                 break;
             default:
                 break;
+        }
+        if (books != null && books.size() > 0) {
+            List<BeanBook> beanBooks = new ArrayList<>();
+            for (int i = 0; i < books.size(); i++) {
+                List<Author> authors = new ArrayList<>();
+                Book book =  books.get(i);
+                BeanBook beanBook = new BeanBook();
+                beanBook.setBook(book);
+                beanBook.setCategory(categoryDAO.findByID(book.getCategoryId()));
+                beanBook.setCell(cellDAO.findByID(book.getCellId()));
+                List<Ticket> tickets = ticketDAO.findByBookID(book.getBookId());
+                if (tickets != null) {
+                    for (int j = 0; j < tickets.size(); j++) {
+                        Ticket ticket =  tickets.get(j);
+                        if (ticket.getReturnDate() == null){
+                            beanBook.setTicket(ticket);
+                        }
+                    }
+                }
+
+                List<AuthorBook> authorsBooks = authorBookDAO.findByBookID(book.getBookId());
+                for (int j = 0; j < authorsBooks.size(); j++) {
+                    AuthorBook authorBook =  authorsBooks.get(j);
+                    authors.add(authorDAO.findByID(authorBook.getAuthorId()));
+                }
+                beanBook.setAuthors(authors);
+
+                beanBooks.add(beanBook);
+            }
+            req.setAttribute("books", beanBooks);
+            req.getRequestDispatcher("/WEB-INF/jsp/findBook.jsp").forward(req, resp);
+        } else {
+            resp.sendRedirect("bookManagement?message=Sorry, not found");
         }
     }
 }

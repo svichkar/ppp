@@ -115,4 +115,21 @@ public class CellDaoImpl implements CellDAO{
             return null;
         }
     }
+
+    @Override
+    public Cell findByName(String name) {
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM cell WHERE name = '" + name + "';");
+            if (resultSet.next()) {
+                Cell entity = new Cell(resultSet.getInt("cell_id"), resultSet.getString("name"));
+                return entity;
+            } else {
+                LOGGER.trace("name " + name + " not found in cell table");
+                return null;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 }

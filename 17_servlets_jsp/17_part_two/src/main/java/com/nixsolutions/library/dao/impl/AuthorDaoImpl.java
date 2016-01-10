@@ -116,4 +116,21 @@ public class AuthorDaoImpl implements AuthorDAO {
             return null;
         }
     }
+
+    @Override
+    public Author findByName(String name) {
+        try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {;
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM author WHERE last_name = '" + name + "';");
+            if (resultSet.next()) {
+                Author entity = new Author(resultSet.getInt("author_id"), resultSet.getString("first_name"), resultSet.getString("last_name"));
+                return entity;
+            } else {
+                LOGGER.trace("name " + name + " not found in author table");
+                return null;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
 }

@@ -6,7 +6,7 @@
         <p>Welcome</p>
         <p>Your role is: <c:out value="${sessionScope.role}"/><p>
         <p><a href="bookManagement">Find book</a></p>
-        <p><a href="/WEB-INF/jsp/addBook.jsp">Add book</a></p>
+        <p><a href="addBook">Add book</a></p>
         <p><a href="/WEB-INF/jsp/addReader.jsp">Add reader</a></p>
         <p><a href="/WEB-INF/jsp/loanBook.jsp">Loan book</a></p>
         <c:if test="${sessionScope.role=='ADMIN'}">

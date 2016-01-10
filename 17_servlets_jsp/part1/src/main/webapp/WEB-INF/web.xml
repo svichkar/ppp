@@ -1,0 +1,27 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>Landing</servlet-name>
+		<display-name>Landing</display-name>
+		<description></description>
+		<servlet-class>com.nixsolutions.web.Landing</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Perform</servlet-name>
+		<display-name>Perform</display-name>
+		<description></description>
+		<servlet-class>com.nixsolutions.web.Perform</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Landing</servlet-name>
+		<url-pattern>/landing</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Perform</servlet-name>
+		<url-pattern>/perform</url-pattern>
+	</servlet-mapping>
+</web-app>

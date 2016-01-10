@@ -2,48 +2,148 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.User;
+import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by svichkar on 12/23/2015.
  */
 public class UserDaoImpl implements UserDao {
-    public boolean create(User user) {
-        return false;
+
+    private static final Logger LOG = LogManager.getLogger(UserDaoImpl.class);
+
+    public User create(User user) {
+
+        String sql = "INSERT INTO user (first_name, last_name, email, login, password, role_id) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?)";
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getLogin());
+            statement.setString(5, user.getUserPassword());
+            statement.setInt(6, user.getRoleId());
+            statement.executeUpdate();
+            return user;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
     }
 
-    public int update(User user, User newUser) {
-        return 0;
+    public boolean update(User user) {
+
+        String sql = "UPDATE user SET first_name = ?, last_name = ?, email = ?, login = ?, password = ?, " +
+                "role_id = ? WHERE user_id = ?";
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getLogin());
+            statement.setString(5, user.getUserPassword());
+            statement.setInt(6, user.getRoleId());
+            statement.setInt(7, user.getUserId());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return false;
+        }
     }
 
-    public int delete(User use) {
-        return 0;
+    public boolean delete(User user) {
+
+        String sql = "DELETE FROM user WHERE user_id = ?";
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, user.getUserId());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return false;
+        }
     }
 
     public List<User> findAll() {
-        return null;
-    }
 
-    public User findById(int id) {
-        return null;
+        String sql = "SELECT * FROM user";
+        List<User> list = new ArrayList<>();
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                User user = new User();
+                user.setUserId(rs.getInt("user_id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setLogin(rs.getString("login"));
+                user.setUserPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                user.setRoleId(rs.getInt("role_id"));
+                list.add(user);
+            }
+            return list;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
     }
 
     public boolean validateUser(String user) {
-        if (user.equals("kos") || user.equals("qwe"))
-            return true;
-        return false;
+
+        String sql = String.format("SELECT user_id FROM user WHERE login = '%s'", user);
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            return rs.first();
+        } catch (SQLException e) {
+            LOG.error(e);
+            return false;
+        }
     }
 
     public User getUserByLoginAndPassword(String user, String pass) {
 
-        if (user.equals("kos") && pass.equals("123")) {
-            return new User(1, "Konstantin", "Svichkar", "123", "kos", "2012kostyan@gmail.com", 1);
-        }
-        else if (user.equals("qwe") && pass.equals("123")){
-            return new User (2, "Guest", "Nov", "123", "qwe", "123kostyan@gmail.com", 2);
-        }
-        else {
+        String sql = String.format("SELECT * FROM user " +
+                "WHERE login = '%s' AND password = '%s'", user, pass);
+
+        try (Connection connection = M2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("user_id");
+                String name = rs.getString("first_name");
+                String last = rs.getString("last_name");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                int role = rs.getInt("role_id");
+                return new User(id, name, last, password, login, email, role);
+            }
+            return null;
+        } catch (SQLException e) {
+            LOG.error(e);
             return null;
         }
     }

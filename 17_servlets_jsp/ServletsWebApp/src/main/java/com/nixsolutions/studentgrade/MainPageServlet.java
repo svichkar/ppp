@@ -57,20 +57,20 @@ public class MainPageServlet extends HttpServlet {
                     session.setAttribute("isAdmin", true);
                     pageHtml = "You are logged with Admin rights.";
                     out.println(pageHtml);
-                    //response.sendRedirect("admin");
+                    response.sendRedirect("admin");
 
                 } else {
 
                     session.setAttribute("isAdmin", false);
                     pageHtml = "You are logged with Guest rights.";
                     out.println(pageHtml);
-                    //response.sendRedirect("guest");
+                    response.sendRedirect("guest");
 
                 }
 
             } else {
 
-                pageHtml = "Password is not valid. Please try again.";
+                pageHtml = "<h5>Password is not valid. Please try again.</h5>";
                 out.println(pageHtml);
                 RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.include(request, response);
@@ -78,8 +78,10 @@ public class MainPageServlet extends HttpServlet {
 
         } else {
 
-            pageHtml = "User doesn't exist. Please contact admin to add new user.";
-            out.println(pageHtml);
+            if (login.isEmpty() == false) {
+                pageHtml = "<h5>User doesn't exist. Please contact admin to add new user.</h5>";
+                out.println(pageHtml);
+            }
             RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.include(request, response);
         }
@@ -90,9 +92,7 @@ public class MainPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        pageHtml = "OK";
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("Main page to login: " + pageHtml);
+        RequestDispatcher rd = request.getRequestDispatcher("index.html");
+        rd.forward(request, response);
     }
 }

@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface RoleDao {
 
-    public boolean create(Role role);
+    public Role create(Role role);
 
-    public int update(Role role, Role newRole);
+    public boolean update(Role role);
 
-    public int delete(Role role);
+    public boolean delete(Role role);
 
     public List<Role> findAll();
 
     public Role findById(int id);
 
-
+    public Role findByName(String role);
 }

@@ -69,7 +69,7 @@ public class RoleDaoImpl implements RoleDao {
 
     public List<Role> findAll() {
 
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM role";
         List<Role> list = new ArrayList<>();
 
         try (Connection connection = M2ConnectionManager.getConnection();

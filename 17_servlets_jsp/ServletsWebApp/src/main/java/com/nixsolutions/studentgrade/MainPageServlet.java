@@ -25,7 +25,6 @@ import java.io.PrintWriter;
         value = "/login")
 public class MainPageServlet extends HttpServlet {
 
-    private boolean isAdmin;
     private HttpSession session;
     private String pageHtml;
 
@@ -51,22 +50,44 @@ public class MainPageServlet extends HttpServlet {
                 RoleDao roleDao = daoFactory.getRoleDao();
                 Role role = roleDao.findById(user.getRoleId());
                 session = request.getSession(true);
+                session.setAttribute("pageOwner",  user.getLogin());
+
+                String userInfo =  String.format("%s %s, </br>you are logged in with <b>%s</b> rights.",
+                        user.getFirstName(),
+                        user.getLastName(),
+                        role.getRoleName());
+                String adminLink = "";
 
                 if (role.getRoleName().equals("admin")) {
 
                     session.setAttribute("isAdmin", true);
-                    pageHtml = "You are logged with Admin rights.";
-                    out.println(pageHtml);
-                    response.sendRedirect("admin");
+                    adminLink = "<a href=\"admin\" style=\"font-family: 'Courier New', Courier, monospace;" +
+                            "font-weight: bold;font-size: 13px;text-align: left;\">Navigate to User Administration</a>";
 
                 } else {
 
                     session.setAttribute("isAdmin", false);
-                    pageHtml = "You are logged with Guest rights.";
-                    out.println(pageHtml);
-                    response.sendRedirect("guest");
-
                 }
+
+                response.setContentType("text/html");
+                pageHtml = "<!DOCTYPE html>\n" +
+                        "<html>\n" +
+                        "<head>\n" +
+                        "<meta charset=\"UTF-8\">\n" +
+                        "<title>Java Servlets App</title>\n" +
+                        "<link href=\"favicon.png\" rel=\"shortcut icon\" type=\"shortcut/ico\">\n" +
+                        "<link rel=\"stylesheet\" href=\"css/style.css\">\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<div class=\"login-card\">\n" +
+                        "<h1>Welcome to Student Grade App!</h1></br></br></br>\n" +
+                        "<h3>" + userInfo + "</h3></br>\n" +
+                         adminLink +
+                        "</div>\n" +
+                        "</body>\n" +
+                        "</html>";
+                out = response.getWriter();
+                out.println(pageHtml);
 
             } else {
 

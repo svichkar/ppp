@@ -6,11 +6,13 @@ import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,151 +25,124 @@ import java.util.List;
         description = "Admin page for creating/updating users",
         urlPatterns = "/admin",
         loadOnStartup = 0)
-public class AdminPageServlet  extends HttpServlet {
+public class AdminPageServlet extends HttpServlet {
 
     private String pageHtml;
+    private HttpSession session;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        session = request.getSession(true);
+        if (session.getAttribute("isAdmin").equals(true)) {
+            StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
 
-        StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+            RoleDao roleDao = daoFactory.getRoleDao();
+            List<Role> roles = roleDao.findAll();
+            List<User> users = daoFactory.getUserDao().findAll();
 
-        RoleDao roleDao = daoFactory.getRoleDao();
-        List<Role> roles = roleDao.findAll();
+            StringBuilder updateUser = new StringBuilder();
+            for (User u : users) {
 
-        StringBuilder role = new StringBuilder("<td>\n" +
-                "<select name=\"role\" required style=\"width:100%;border: none;\">\n" +
-                "<option selected disabled></option>\n");
-        for (Role r : roles) {
-            role.append("<option>" + r.getRoleName() + "</option>");
+                updateUser.append("<form action=\"admin\" method=\"post\">\n" +
+                        "        <tr class=\"rows\">\n" +
+                        "<td>\n" +
+                        "<input type=\"submit\" name=\"operation\" value=\"Update\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
+                        "<input type=\"submit\" name=\"operation\" value=\"Delete\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
+                        "</td>\n");
+
+                updateUser.append("<td><input type=\"text\" name=\"id\" value=\"" + u.getUserId() + "\" readonly/></td>\n");
+                updateUser.append("<td><input type=\"text\" name=\"fisrt_name\" value=\"" + u.getFirstName() + "\" maxlength=\"30\" pattern=\"[A-Za-z]{3,30}\" required/></td>\n");
+                updateUser.append("<td><input type=\"text\" name=\"last_name\" value=\"" + u.getLastName() + "\" maxlength=\"30\" pattern=\"[A-Za-z]{3,30}\" required/></td>\n");
+                updateUser.append("<td><input type=\"text\" name=\"login\" value=\"" + u.getLogin() + "\" maxlength=\"20\" pattern=\"[^А-Яа-яёЁ]{3,20}\" required/></td>\n");
+                updateUser.append("<td><input type=\"text\" name=\"pass\" value=\"" + u.getUserPassword() + "\" maxlength=\"20\" pattern=\"[^А-Яа-яёЁ]{3,20}\" required/></td>\n");
+                updateUser.append("<td><input type=\"text\" name=\"email\" value=\"" + u.getEmail() + "\" maxlength=\"50\" pattern=\"\\S+@[a-z]+.[a-z]+\" required/></td>\n");
+
+                StringBuilder updateRole = new StringBuilder("<td>\n" +
+                        "<select name=\"role\" required style=\"width:100%;border: none;\">\n");
+                for (Role r : roles) {
+                    if (u.getRoleId() == r.getRoleId()) {
+                        updateRole.append("<option selected>" + r.getRoleName() + "</option>\n");
+                    } else {
+                        updateRole.append("<option>" + r.getRoleName() + "</option>\n");
+                    }
+                }
+                updateRole.append("</select>\n" +
+                        "</td>");
+                updateUser.append(updateRole);
+                updateUser.append("</tr>\n" +
+                        "</form>\n");
+            }
+
+            StringBuilder newUser = new StringBuilder("<form action=\"admin\" method=\"post\">\n" +
+                    "<tr class=\"rows\">\n" +
+                    "<td>\n" +
+                    "<input type=\"submit\" name=\"operation\" value=\"Add\" style=\"width:100%;height:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
+                    "</td>\n" +
+                    "<td><input type=\"text\" name=\"id\" hidden placeholder=\"id\"></input></td>\n" +
+                    "<td><input type=\"text\" name=\"fisrt_name\" pattern=\"[A-Za-z]{3,30}\" required placeholder=\"first name\"></input></td>\n" +
+                    "<td><input type=\"text\" name=\"last_name\" pattern=\"[A-Za-z]{3,30}\" required placeholder=\"second name\"></input></td>\n" +
+                    "<td><input type=\"text\" name=\"login\" pattern=\"[^А-Яа-яёЁ]{3,20}\" required placeholder=\"login\"></input></td>\n" +
+                    "<td><input type=\"text\" name=\"pass\" pattern=\"[^А-Яа-яёЁ]{3,20}\" required placeholder=\"password\"></input></td>\n" +
+                    "<td><input type=\"text\" name=\"email\" pattern=\"\\S+@[a-z]+.[a-z]+\" required placeholder=\"e-mail\"></input></td>");
+
+            StringBuilder newRole = new StringBuilder("<td>\n" +
+                    "<select name=\"role\" required style=\"width:100%;border: none;\">\n" +
+                    "<option selected disabled></option>\n");
+            for (Role r : roles) {
+                newRole.append("<option>" + r.getRoleName() + "</option>\n");
+            }
+            newUser.append(newRole);
+            newUser.append("</tr>\n" +
+                    "</form>\n");
+
+
+            StringBuilder pageHtml = new StringBuilder();
+            pageHtml.append("<!DOCTYPE html>\n" +
+                    "<html >\n" +
+                    "<head>\n" +
+                    "<meta charset=\"UTF-8\">\n" +
+                    "<title>Admin page</title>   \n" +
+                    "<link href=\"favicon.png\" rel=\"shortcut icon\" type=\"shortcut/ico\">\n" +
+                    "<link rel=\"stylesheet\" href=\"css/style.css\">  \n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<h1>User Administration</h1>\n" +
+                    "<div class=\"divTable\">\n" +
+                    "<table>\n" +
+                    "<tr>\n" +
+                    "<td width=\"1%\">COMMANDS</td>\n" +
+                    "<td width=\"5%\">USER ID</td>\n" +
+                    "<td width=\"18%\">FIRST NAME</td>\n" +
+                    "<td width=\"18%\">LAST NAME</td>\n" +
+                    "<td width=\"15%\">LOGIN</td>\n" +
+                    "<td width=\"15%\">PASSWORD</td>\n" +
+                    "<td width=\"20%\">E-MAIL</td>\n" +
+                    "<td width=\"7%\">ROLE</td>\n" +
+                    "</tr>");
+            pageHtml.append(updateUser);
+            pageHtml.append(newUser);
+            pageHtml.append("</table>\n" +
+                    "</div>\n" +
+                    "</br></br></br>\n" +
+                    "<tr><h5>" + session.getAttribute("isAdmin") + session.getAttribute("pageOwner") + "</h5></tr>\n" +
+                    "</body>\n" +
+                    "</html>");
+
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println(pageHtml.toString());
+            out.close();
+        } else {
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("You are not admin");
+            //response.sendRedirect("login");
+
+            RequestDispatcher rd = request.getRequestDispatcher("login");
+            rd.include(request, response);
+            out.close();
         }
-        role.append("</select>\n" +
-                "</td>");
-
-
-
-        UserDao userDao = daoFactory.getUserDao();
-        User user = new User();
-
-
-
-        response.setContentType("text/html");
-        //pageHtml = "<b><p>GET: Admin page</p></b>";
-        pageHtml = "<!DOCTYPE html>\n" +
-                "<html >\n" +
-                "  <head>\n" +
-                "    <meta charset=\"UTF-8\">\n" +
-                "    <title>Admin page</title>   \n" +
-                "\t<link href=\"favicon.png\" rel=\"shortcut icon\" type=\"shortcut/ico\">\n" +
-                "<link rel=\"stylesheet\" href=\"css/style.css\">  \n" +
-                "  </head>\n" +
-                "  <body>\n" +
-                "  <h1>User Administration</h1>\n" +
-                "   <div class=\"divTable\">\n" +
-                "    <table>\n" +
-                "        <tr>\n" +
-                "\t\t\t<td width=\"1%\">COMMANDS</td>\t\n" +
-                "            <td width=\"5%\">USER ID</td>\n" +
-                "            <td width=\"18%\">FIRST NAME</td>\n" +
-                "\t\t\t<td width=\"18%\">LAST NAME</td>\n" +
-                "\t\t\t<td width=\"15%\">LOGIN</td>\n" +
-                "\t\t\t<td width=\"15%\">PASSWORD</td>\n" +
-                "\t\t\t<td width=\"20%\">E-MAIL</td>\n" +
-                "\t\t\t<td width=\"7%\">ROLE</td>\n" +
-                "        </tr>\n" +
-                "\t\t\n" +
-                "\t\t<form action=\"admin\" method=\"post\" id=\"update\">\n" +
-                "        <tr class=\"rows\">\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Update\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Delete\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t</td>\n" +
-                "            <td><input type=\"text\" name=\"id\" value=\"1\" readonly/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"fisrt_name\" value=\"Svichkar\" maxlength=\"30\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"last_name\" value=\"Konstantin\" maxlength=\"30\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"login\" value=\"kos\" maxlength=\"20\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"pass\" value=\"123\" maxlength=\"20\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"email\" value=\"konstantin.svichkar@nixsolutions.com\" maxlength=\"50\" required/></td>\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<select name=\"role\" required style=\"width:100%;border: none;\">\n" +
-                "\t\t\t\t\t<option>admin</option>\n" +
-                "\t\t\t\t\t<option>guest</option>\n" +
-                "\t\t\t\t</select>\n" +
-                "\t\t\t</td>\n" +
-                "        </tr>\n" +
-                "\t\t</form>\n" +
-                "\n" +
-                "\t\t<form action=\"admin\" method=\"post\" id=\"update\">\n" +
-                "        <tr class=\"rows\">\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Update\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Delete\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t</td>\n" +
-                "            <td><input type=\"text\" name=\"id\" value=\"2\" readonly/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"fisrt_name\" value=\"Ivanov\" maxlength=\"30\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"last_name\" value=\"Serg\" maxlength=\"30\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"login\" value=\"serg\" maxlength=\"20\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"pass\" value=\"321\" maxlength=\"20\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"email\" value=\"serg@nixsolutions.com\" maxlength=\"50\" required/></td>\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<select name=\"role\" required style=\"width:100%;border: none;\">\n" +
-                "\t\t\t\t\t<option>admin</option>\n" +
-                "\t\t\t\t\t<option>guest</option>\n" +
-                "\t\t\t\t</select>\n" +
-                "\t\t\t</td>\n" +
-                "        </tr>\n" +
-                "\t\t</form>\t\n" +
-                "\n" +
-                "\t\t<form action=\"admin\" method=\"post\" id=\"update\">\n" +
-                "        <tr class=\"rows\">\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Update\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Delete\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t</td>\n" +
-                "            <td><input type=\"text\" name=\"id\" value=\"3\" readonly/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"fisrt_name\" value=\"Petrov\" maxlength=\"30\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"last_name\" value=\"Oleg\" maxlength=\"30\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"login\" value=\"oleg\" maxlength=\"20\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"pass\" value=\"789\" maxlength=\"20\" required/></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"email\" value=\"oleg@nixsolutions.com\" maxlength=\"50\" required/></td>\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<select name=\"role\" required style=\"width:100%;border: none;\">\n" +
-                "\t\t\t\t\t<option>admin</option>\n" +
-                "\t\t\t\t\t<option>guest</option>\n" +
-                "\t\t\t\t</select>\n" +
-                "\t\t\t</td>\n" +
-                "        </tr>\n" +
-                "\t\t</form>\t\n" +
-                "\t\t\n" +
-                "\t\t<form action=\"admin\" method=\"post\" id=\"newUser\">\n" +
-                "\t\t<tr class=\"rows\">\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<input type=\"submit\" name=\"operation\" value=\"Add\" style=\"width:100%;height:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                "\t\t\t</td>\n" +
-                "            <td><input type=\"text\" name=\"id\" hidden placeholder=\"id\"></input></td>\n" +
-                "            <td><input type=\"text\" name=\"fisrt_name\" required placeholder=\"first name\"></input></td>\n" +
-                "            <td><input type=\"text\" name=\"last_name\" required placeholder=\"second name\"></input></td>\n" +
-                "            <td><input type=\"text\" name=\"login\" required placeholder=\"login\"></input></td>\n" +
-                "            <td><input type=\"text\" name=\"pass\" required placeholder=\"password\"></input></td>\n" +
-                "\t\t\t<td><input type=\"text\" name=\"email\" required placeholder=\"e-mail\"></input></td>\n" +
-                "\t\t\t<td>\n" +
-                "\t\t\t\t<select name=\"role\" required style=\"width:100%;border: none;\">\n" +
-                "\t\t\t\t\t<option selected disabled></option>\n" +
-                "\t\t\t\t\t<option>admin</option>\n" +
-                "\t\t\t\t\t<option>guest</option>\n" +
-                "\t\t\t\t</select>\n" +
-                "\t\t\t</td>\n" +
-                "        </tr>\n" +
-                "\t\t</form>\n" +
-                "\t\t\n" +
-                "    </table>\n" +
-                "</div>\n" +
-                "</br>\n" +
-                " </body>\n" +
-                "</html>";
-        PrintWriter out = response.getWriter();
-        out.println(pageHtml);
     }
 
     @Override
@@ -181,7 +156,7 @@ public class AdminPageServlet  extends HttpServlet {
         UserDao userDao = daoFactory.getUserDao();
         User user = new User();
 
-        if(request.getParameter("id") != null) {
+        if (request.getParameter("id") != null && request.getParameter("id") != "") {
             user.setUserId(Integer.valueOf(request.getParameter("id")));
         }
         user.setFirstName(request.getParameter("fisrt_name"));
@@ -195,29 +170,32 @@ public class AdminPageServlet  extends HttpServlet {
 
             case "Add": {
                 userDao.create(user);
-                pageHtml ="added";
+                pageHtml = "added";
             }
             break;
 
             case "Update": {
-                userDao.update(user);
-                pageHtml ="updated";
+                if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
+                    userDao.update(user);
+                    request.setAttribute("message", "Success");
+                } else {
+                    request.setAttribute("message", "User can't be updated by himself.");
+                }
             }
             break;
 
             case "Delete": {
-                userDao.delete(user);
-                pageHtml = "deleted";
+                if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
+                    userDao.delete(user);
+                    request.setAttribute("message", "Success");
+
+                } else {
+                    request.setAttribute("message", "User can't be deleted by himself.");
+                }
             }
             break;
         }
 
-
-
-        response.setContentType("text/html");
-        //pageHtml = "<b><p>POST: Admin page</p></b>";
-        //pageHtml = request.getParameter("operation");
-        PrintWriter out = response.getWriter();
-        out.println(pageHtml);
+        doGet(request, response);
     }
 }

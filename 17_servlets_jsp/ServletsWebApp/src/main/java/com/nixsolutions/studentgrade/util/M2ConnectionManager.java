@@ -35,6 +35,7 @@ public class M2ConnectionManager {
             connectionPool = JdbcConnectionPool.create(url, user, password);
             connectionPool.setMaxConnections(25);
             connectionPool.setLoginTimeout(120);
+            prop.clear();
         }
 
         try {

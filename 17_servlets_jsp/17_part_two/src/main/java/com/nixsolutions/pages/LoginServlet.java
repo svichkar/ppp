@@ -57,6 +57,7 @@ public class LoginServlet extends HttpServlet {
                 if (user != null) {
                     if (user.getPassword().equals(req.getParameter("userPassword"))) {
                         req.getSession().setAttribute("role", roleDAO.findByID(user.getRoleId()).getName());
+                        req.getSession().setAttribute("currentUserId", user.getUserId());
                         req.setAttribute("overdueBooks", this.displayOverdueBook());
                         req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                     } else {
@@ -65,9 +66,10 @@ public class LoginServlet extends HttpServlet {
                 }
             } else if (req.getParameter("registration") != null) {
                 if (user == null) {
-                    userDAO.create(new User(req.getParameter("userName"), req.getParameter("userPassword"),
+                    user = userDAO.create(new User(req.getParameter("userName"), req.getParameter("userPassword"),
                             roleDAO.findByName("LIBRARIAN").getRoleId()));
                     req.getSession().setAttribute("role", "LIBRARIAN");
+                    req.getSession().setAttribute("currentUserId", user.getUserId());
                     req.setAttribute("overdueBooks", this.displayOverdueBook());
                     req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                 } else {

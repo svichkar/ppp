@@ -61,9 +61,15 @@ public class UserServlet extends HttpServlet {
                 resp.sendRedirect("userManagement?message=User and Password should be filled");
             }
         } else if (req.getParameter("edit") != null) {
-
+            User user = new User(Integer.valueOf(req.getParameter("userId")), req.getParameter("userLogin"),
+                    req.getParameter("userPassword"), Integer.valueOf(req.getParameter("userRole")));
+            userDAO.update(user);
+            resp.sendRedirect("userManagement?message=User updated with id " + user.getUserId());
         } else if (req.getParameter("delete") != null) {
-
+            User user = new User(Integer.valueOf(req.getParameter("userId")), req.getParameter("userLogin"),
+                    req.getParameter("userPassword"), Integer.valueOf(req.getParameter("userRole")));
+            userDAO.delete(user);
+            resp.sendRedirect("userManagement?message=User deleted with id " + user.getUserId());
         } else {
             resp.sendRedirect("userManagement");
         }

@@ -26,7 +26,11 @@
                                                     </select>
                                                 </td>
                                                 <td><input type="submit" value="edit" name="edit"></td>
-                                                <td><input type="submit" value="delete" name="delete"></td>
+                                                <td>
+                                                    <c:if test="${sessionScope.currentUserId != user.user.userId}">
+                                                        <input type="submit" value="delete" name="delete">
+                                                    </c:if>
+                                                </td>
                                             </form>
                                        </tr>
                                    </c:forEach>

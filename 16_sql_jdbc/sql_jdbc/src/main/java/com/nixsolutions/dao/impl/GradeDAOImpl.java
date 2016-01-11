@@ -16,43 +16,104 @@ import com.nixsolutions.util.ConnectionManager;
 
 public class GradeDAOImpl implements GradeDAO {
 	private static Logger LOG = LogManager.getLogger(GradeDAOImpl.class.getName());
+	private Connection conn = null;
+	private PreparedStatement ps = null;
 
 	@Override
 	public void createGrade(Grade grade) {
-		try (Connection conn = ConnectionManager.getConnection()) {
-			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO grade VALUES( ?, ?)")) {
-				ps.setInt(1, grade.getGradeId());
-				ps.setString(2, grade.getGradeName());
-				ps.executeUpdate();
-			}
+		try {
+			conn = ConnectionManager.getConnection();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement("INSERT INTO grade VALUES( ?, ?)");
+			ps.setInt(1, grade.getGradeId());
+			ps.setString(2, grade.getGradeName());
+			ps.executeUpdate();
+			conn.commit();
 		} catch (SQLException e) {
 			LOG.error(e);
+			try {
+				conn.rollback();
+			} catch (SQLException ex) {
+				LOG.error(ex);
+			}
+		} finally {
+			if (ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOG.error(e);
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					LOG.error(e);
+				}
 		}
 	}
 
 	@Override
 	public void updateGrade(Grade grade) {
-		try (Connection conn = ConnectionManager.getConnection()) {
-			try (PreparedStatement ps = conn.prepareStatement("UPDATE grade SET grade_name = ? WHERE grade_id = ?")) {
-				ps.setString(1, grade.getGradeName());
-				ps.setInt(2, grade.getGradeId());
-				ps.executeUpdate();
-			}
+		try {
+			conn = ConnectionManager.getConnection();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement("UPDATE grade SET grade_name = ? WHERE grade_id = ?");
+			ps.setString(1, grade.getGradeName());
+			ps.setInt(2, grade.getGradeId());
+			ps.executeUpdate();
+			conn.commit();
 		} catch (SQLException e) {
 			LOG.error(e);
+			try {
+				conn.rollback();
+			} catch (SQLException ex) {
+				LOG.error(ex);
+			}
+		} finally {
+			if (ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOG.error(e);
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					LOG.error(e);
+				}
 		}
-
 	}
 
 	@Override
 	public void deleteGrade(Grade grade) {
-		try (Connection conn = ConnectionManager.getConnection()) {
-			try (PreparedStatement ps = conn.prepareStatement("DELETE from grade WHERE grade_id = ?")) {
+		try {
+			conn = ConnectionManager.getConnection();
+			conn.setAutoCommit(false);
+			ps = conn.prepareStatement("DELETE from grade WHERE grade_id = ?");
 				ps.setInt(1, grade.getGradeId());
 				ps.executeUpdate();
-			}
+				conn.commit();
 		} catch (SQLException e) {
 			LOG.error(e);
+			try {
+				conn.rollback();
+			} catch (SQLException ex) {
+				LOG.error(ex);
+			}
+		} finally {
+			if (ps != null)
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOG.error(e);
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					LOG.error(e);
+				}
 		}
 	}
 
@@ -68,7 +129,7 @@ public class GradeDAOImpl implements GradeDAO {
 		} catch (SQLException e) {
 			LOG.error(e);
 			return null;
-		}
+		} 
 	}
 
 	@Override

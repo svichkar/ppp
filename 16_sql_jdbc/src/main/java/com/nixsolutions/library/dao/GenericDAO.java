@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface GenericDAO<E> {
 
-    public E create (E entity);
+    public E create(E entity);
 
     public void update(E entity);
 

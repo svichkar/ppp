@@ -101,3 +101,29 @@ CREATE TABLE car_type(car_type_id INT IDENTITY,brand VARCHAR(255),MODEL VARCHAR(
 21:05:13.439 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE employee_category ADD CONSTRAINT unique_employee_category_name UNIQUE(name);
 21:05:13.439 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car ADD CONSTRAINT unique_car_serial_id UNIQUE(serial_id);
 21:05:13.439 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:49 - DB structure is created
+17:41:52.392 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:52 - org.h2.jdbc.JdbcSQLException: Invalid value "1" for parameter "parameterIndex" [90008-176]
+17:43:39.036 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:52 - org.h2.jdbc.JdbcSQLException: Column "car_type_id" not found [42122-176]
+17:44:59.859 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:52 - org.h2.jdbc.JdbcSQLException: Column "CAR_TYPE_ID" not found [42122-176]
+17:48:21.885 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:52 - org.h2.jdbc.JdbcSQLException: Column "CAR_TYPE_ID" not found [42122-176]
+17:55:57.012 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:56 - org.h2.jdbc.JdbcSQLException: Column "CAR_TYPE_ID" not found [42122-176]
+18:09:34.099 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:56 - org.h2.jdbc.JdbcSQLException: Column "car_type_id" not found [42122-176]
+18:22:45.460 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDao.create:58 - org.h2.jdbc.JdbcSQLException: Unique index or primary key violation: "UNIQUE_BRAND_MODEL_INDEX_2 ON PUBLIC.CAR_TYPE(BRAND, MODEL) VALUES ( /* key:17 */ null, 'Tesla', 'X')"; SQL statement:
+INSERT INTO car_type (brand,model)VALUES (?,?) [23505-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.index.BaseIndex.getDuplicateKeyException(BaseIndex.java:103)
+	at org.h2.index.PageBtree.find(PageBtree.java:121)
+	at org.h2.index.PageBtreeLeaf.addRow(PageBtreeLeaf.java:151)
+	at org.h2.index.PageBtreeLeaf.addRowTry(PageBtreeLeaf.java:104)
+	at org.h2.index.PageBtreeIndex.addRow(PageBtreeIndex.java:97)
+	at org.h2.index.PageBtreeIndex.add(PageBtreeIndex.java:88)
+	at org.h2.table.RegularTable.addRow(RegularTable.java:120)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:157)
+	at org.h2.command.dml.Insert.update(Insert.java:115)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:79)
+	at org.h2.command.Command.executeUpdate(Command.java:254)
+	at org.h2.server.TcpServerThread.process(TcpServerThread.java:346)
+	at org.h2.server.TcpServerThread.run(TcpServerThread.java:160)
+	at java.lang.Thread.run(Unknown Source)
+

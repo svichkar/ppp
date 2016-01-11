@@ -7,7 +7,6 @@ package nix.jdbcworkshop.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.sql.ConnectionPoolDataSource;
 import org.h2.jdbcx.JdbcConnectionPool;
 
 /**
@@ -23,5 +22,9 @@ public class ConnectionManagerH2 {
             connectionPool = JdbcConnectionPool.create(connectionString, username, password);
         }
         return connectionPool.getConnection();
+    }
+
+    public static void closeConnections() {
+        connectionPool.dispose();
     }
 }

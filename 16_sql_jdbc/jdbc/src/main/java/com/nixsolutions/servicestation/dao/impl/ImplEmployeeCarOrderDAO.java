@@ -73,10 +73,13 @@ public class ImplEmployeeCarOrderDAO implements EmployeeCarOrderDAO {
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             employeeCarOrder = new EmployeeCarOrder();
-            rSet.next();
-            employeeCarOrder.setIdentifier(rSet.getInt("identifier"));
-            employeeCarOrder.setEmployeeId(rSet.getInt("employee_id"));
-            employeeCarOrder.setCarOrderId(rSet.getInt("car_order_id"));
+            if(rSet.next()) {
+                employeeCarOrder.setIdentifier(rSet.getInt("identifier"));
+                employeeCarOrder.setEmployeeId(rSet.getInt("employee_id"));
+                employeeCarOrder.setCarOrderId(rSet.getInt("car_order_id"));
+            } else {
+                employeeCarOrder=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

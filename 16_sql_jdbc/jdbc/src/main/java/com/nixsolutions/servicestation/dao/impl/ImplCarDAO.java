@@ -71,11 +71,14 @@ public class ImplCarDAO implements CarDAO {
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             car = new Car();
-            rSet.next();
-            car.setCarId(rSet.getInt("car_id"));
-            car.setSerialId(rSet.getString("serial_id"));
-            car.setCarTypeId(rSet.getInt("car_type_id"));
-            car.setClientId(rSet.getInt("client_id"));
+            if(rSet.next()) {
+                car.setCarId(rSet.getInt("car_id"));
+                car.setSerialId(rSet.getString("serial_id"));
+                car.setCarTypeId(rSet.getInt("car_type_id"));
+                car.setClientId(rSet.getInt("client_id"));
+            } else {
+                car=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

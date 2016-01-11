@@ -65,9 +65,12 @@ public class ImplCarOrderStatusDAO implements CarOrderStatusDAO{
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             carOrderStatus = new CarOrderStatus();
-            rSet.next();
-            carOrderStatus.setCarOrderStatusId(rSet.getInt("car_order_status_id"));
-            carOrderStatus.setName(rSet.getString("name"));
+            if(rSet.next()) {
+                carOrderStatus.setCarOrderStatusId(rSet.getInt("car_order_status_id"));
+                carOrderStatus.setName(rSet.getString("name"));
+            } else {
+                carOrderStatus=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

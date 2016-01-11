@@ -71,10 +71,13 @@ public class ImplClientDAO implements ClientDAO {
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             client = new Client();
-            rSet.next();
-            client.setClientId(rSet.getInt("client_id"));
-            client.setFirstName(rSet.getString("first_name"));
-            client.setLastName(rSet.getString("last_name"));
+            if(rSet.next()) {
+                client.setClientId(rSet.getInt("client_id"));
+                client.setFirstName(rSet.getString("first_name"));
+                client.setLastName(rSet.getString("last_name"));
+            } else {
+                client=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

@@ -70,10 +70,13 @@ public class ImplCarTypeDAO implements CarTypeDAO {
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             carType = new CarType();
-            rSet.next();
-            carType.setCarTypeId(rSet.getInt("car_type_id"));
-            carType.setBrand(rSet.getString("brand"));
-            carType.setModelName(rSet.getString("model_name"));
+            if(rSet.next()) {
+                carType.setCarTypeId(rSet.getInt("car_type_id"));
+                carType.setBrand(rSet.getString("brand"));
+                carType.setModelName(rSet.getString("model_name"));
+            } else {
+                carType=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

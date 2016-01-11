@@ -73,12 +73,15 @@ public class ImplCarOrderDAO implements CarOrderDAO {
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             carOrder = new CarOrder();
-            rSet.next();
-            carOrder.setCarOrderId(rSet.getInt("car_order_id"));
-            carOrder.setCarId(rSet.getInt("car_id"));
-            carOrder.setCarOrderStatusId(rSet.getInt("car_order_status_id"));
-            carOrder.setStartDate(rSet.getDate("start_date"));
-            carOrder.setEndDate(rSet.getDate("end_date"));
+            if(rSet.next()) {
+                carOrder.setCarOrderId(rSet.getInt("car_order_id"));
+                carOrder.setCarId(rSet.getInt("car_id"));
+                carOrder.setCarOrderStatusId(rSet.getInt("car_order_status_id"));
+                carOrder.setStartDate(rSet.getDate("start_date"));
+                carOrder.setEndDate(rSet.getDate("end_date"));
+            } else {
+                carOrder=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

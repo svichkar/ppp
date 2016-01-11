@@ -73,11 +73,14 @@ public class ImplEmployeeDAO implements EmployeeDAO{
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             employee = new Employee();
-            rSet.next();
-            employee.setEmployeeCategoryId(rSet.getInt("employee_id"));
-            employee.setFirstName(rSet.getString("first_name"));
-            employee.setLastName(rSet.getString("last_name"));
-            employee.setEmployeeCategoryId(rSet.getInt("employee_category_id"));
+            if(rSet.next()) {
+                employee.setEmployeeCategoryId(rSet.getInt("employee_id"));
+                employee.setFirstName(rSet.getString("first_name"));
+                employee.setLastName(rSet.getString("last_name"));
+                employee.setEmployeeCategoryId(rSet.getInt("employee_category_id"));
+            } else {
+                employee=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

@@ -17,14 +17,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.GradeDAOImpl;
+import com.nixsolutions.dao.GradeDAO;
 import com.nixsolutions.entity.Grade;
 import com.nixsolutions.util.ConnectionManager;
 
 public class GradeDAOTest {
 	private Connection conn;
 	private IDatabaseConnection iconn;
-	private GradeDAOImpl grade;
+	private GradeDAO grade;
 
 	@Before
 	public void setUp() throws DatabaseUnitException {
@@ -41,7 +41,8 @@ public class GradeDAOTest {
 
 	@Test
 	public void shouldCreateGrade() throws DataSetException {
-		Grade gradeNew = grade.createGrade(6, "Super");
+		Grade gradeNew = new Grade(6, "Super");
+		grade.createGrade(gradeNew);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("grade", "SELECT * FROM grade");
 		IDataSet ds = qDataSet;
@@ -52,7 +53,7 @@ public class GradeDAOTest {
 
 	@Test
 	public void shouldUpdateGrade() throws DataSetException {
-		grade.createGrade(6, "Super");
+		grade.createGrade(new Grade(6, "Super"));
 		Grade gradeUpdate = new Grade(6, "SuperUpdated");
 		grade.updateGrade(gradeUpdate);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
@@ -65,7 +66,8 @@ public class GradeDAOTest {
 
 	@Test
 	public void shouldDeleteGrade() throws DataSetException {
-		Grade gradeDelete = grade.createGrade(6, "Super");
+		Grade gradeDelete = new Grade(6, "Super");
+		grade.createGrade(gradeDelete);
 		QueryDataSet qDataSetBefore = new QueryDataSet(iconn);
 		qDataSetBefore.addTable("grade", "SELECT * FROM grade");
 		IDataSet dataSetBefore = qDataSetBefore;

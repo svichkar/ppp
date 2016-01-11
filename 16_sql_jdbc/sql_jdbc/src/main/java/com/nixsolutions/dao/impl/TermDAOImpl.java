@@ -18,17 +18,16 @@ public class TermDAOImpl implements TermDAO {
 	private static Logger LOG = LogManager.getLogger(TermDAOImpl.class.getName());
 
 	@Override
-	public Term createTerm(int termId, String termName) {
+	public void createTerm(Term term) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO term VALUES( ?, ?)")) {
-				ps.setInt(1, termId);
-				ps.setString(2, termName);
+				ps.setLong(1, term.getTermId());
+				ps.setString(2, term.getTermName());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
 		}
-		return new Term(termId, termName);
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class TermDAOImpl implements TermDAO {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("UPDATE term SET term_name = ? WHERE term_id = ?")) {
 				ps.setString(1, term.getTermName());
-				ps.setInt(2, term.getTermId());
+				ps.setLong(2, term.getTermId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -49,7 +48,7 @@ public class TermDAOImpl implements TermDAO {
 	public void deleteTerm(Term term) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("DELETE from term WHERE term_id = ?")) {
-				ps.setInt(1, term.getTermId());
+				ps.setLong(1, term.getTermId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -58,13 +57,13 @@ public class TermDAOImpl implements TermDAO {
 	}
 
 	@Override
-	public Term findTermById(int termId) {
+	public Term findTermById(long termId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM term WHERE term_id = ?")) {
-				ps.setInt(1, termId);
+				ps.setLong(1, termId);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				return new Term(rs.getInt("term_id"), rs.getString("term_name"));
+				return new Term(rs.getLong("term_id"), rs.getString("term_name"));
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
@@ -81,7 +80,7 @@ public class TermDAOImpl implements TermDAO {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Term term = new Term();
-					term.setTermId(rs.getInt("term_id"));
+					term.setTermId(rs.getLong("term_id"));
 					term.setTermName(rs.getString("term_name"));
 					result.add(term);
 				}

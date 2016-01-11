@@ -17,14 +17,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.TermDAOImpl;
+import com.nixsolutions.dao.TermDAO;
 import com.nixsolutions.entity.Term;
 import com.nixsolutions.util.ConnectionManager;
 
 public class TermDAOTest {
 	private Connection conn;
 	private IDatabaseConnection iconn;
-	private TermDAOImpl term;
+	private TermDAO term;
 
 	@Before
 	public void setUp() throws DatabaseUnitException {
@@ -41,31 +41,33 @@ public class TermDAOTest {
 
 	@Test
 	public void shouldCreateTerm() throws DataSetException {
-		Term termNew = term.createTerm(5, "Autumn-2016");
+		Term termNew = new Term((long) 5, "Autumn-2016");
+		term.createTerm(termNew);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("term", "SELECT * FROM term");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("term");
-		Assert.assertEquals(termNew.getTermName(), table.getValue(termNew.getTermId() - 1, "term_name"));
+		Assert.assertEquals(termNew.getTermName(), table.getValue((int) (termNew.getTermId() - 1), "term_name"));
 		term.deleteTerm(termNew);
 	}
 
 	@Test
 	public void shouldUpdateTerm() throws DataSetException {
-		term.createTerm(5, "Autumn-2016");
-		Term termUpdate = new Term(5, "Autumn-2017");
+		term.createTerm(new Term((long) 5, "Autumn-2016"));
+		Term termUpdate = new Term((long) 5, "Autumn-2017");
 		term.updateTerm(termUpdate);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("term", "SELECT * FROM term");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("term");
-		Assert.assertEquals(termUpdate.getTermName(), table.getValue(termUpdate.getTermId() - 1, "term_name"));
+		Assert.assertEquals(termUpdate.getTermName(), table.getValue((int) (termUpdate.getTermId() - 1), "term_name"));
 		term.deleteTerm(termUpdate);
 	}
 
 	@Test
 	public void shouldDeleteTerm() throws DataSetException {
-		Term termDelete = term.createTerm(5, "Autumn-2016");
+		Term termDelete = new Term((long) 5, "Autumn-2016");
+		term.createTerm(termDelete);
 		QueryDataSet qDataSetBefore = new QueryDataSet(iconn);
 		qDataSetBefore.addTable("term", "SELECT * FROM term");
 		IDataSet dataSetBefore = qDataSetBefore;
@@ -97,6 +99,6 @@ public class TermDAOTest {
 		qDataSet.addTable("term", "SELECT * FROM term");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("term");
-		Assert.assertEquals(table.getValue(termTest.getTermId() - 1, "term_name"), termTest.getTermName());
+		Assert.assertEquals(table.getValue((int) (termTest.getTermId() - 1), "term_name"), termTest.getTermName());
 	}
 }

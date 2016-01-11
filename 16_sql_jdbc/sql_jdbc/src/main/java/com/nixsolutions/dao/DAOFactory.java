@@ -10,31 +10,31 @@ import com.nixsolutions.dao.impl.TermDAOImpl;
 
 public class DAOFactory {
 
-	public static GradeDAOImpl getGrade() {
+	public static GradeDAO getGrade() {
 		return new GradeDAOImpl();
 	}
 
-	public static JournalDAOImpl getJournal() {
+	public static JournalDAO getJournal() {
 		return new JournalDAOImpl();
 	}
 
-	public static StatusDAOImpl getStatus() {
+	public static StatusDAO getStatus() {
 		return new StatusDAOImpl();
 	}
 
-	public static StudentDAOImpl getStudent() {
+	public static StudentDAO getStudent() {
 		return new StudentDAOImpl();
 	}
 
-	public static StudentGroupDAOImpl getStudentGroup() {
+	public static StudentGroupDAO getStudentGroup() {
 		return new StudentGroupDAOImpl();
 	}
 
-	public static SubjectDAOImpl getSubject() {
+	public static SubjectDAO getSubject() {
 		return new SubjectDAOImpl();
 	}
 
-	public static TermDAOImpl getTerm() {
+	public static TermDAO getTerm() {
 		return new TermDAOImpl();
 	}
 }

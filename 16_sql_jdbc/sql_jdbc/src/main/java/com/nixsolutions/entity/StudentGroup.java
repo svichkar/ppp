@@ -1,23 +1,22 @@
 package com.nixsolutions.entity;
 
 public class StudentGroup {
-	private int groupId;
+	private Long groupId;
 	private String groupName;
 
-	public StudentGroup(int groupId, String groupName) {
+	public StudentGroup(Long groupId, String groupName) {
 		this.groupId = groupId;
 		this.groupName = groupName;
 	}
 
 	public StudentGroup() {
-		this(0, "default");
 	}
 
-	public int getGroupId() {
+	public Long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(int groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
 

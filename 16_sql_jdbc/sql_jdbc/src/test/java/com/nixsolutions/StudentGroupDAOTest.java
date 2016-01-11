@@ -17,55 +17,58 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.StudentGroupDAOImpl;
+import com.nixsolutions.dao.StudentGroupDAO;
 import com.nixsolutions.entity.StudentGroup;
 import com.nixsolutions.util.ConnectionManager;
 
 public class StudentGroupDAOTest {
 	private Connection conn;
 	private IDatabaseConnection iconn;
-	private StudentGroupDAOImpl group;
-	
+	private StudentGroupDAO group;
+
 	@Before
-	public void setUp() throws DatabaseUnitException  {
+	public void setUp() throws DatabaseUnitException {
 		conn = ConnectionManager.getConnection();
 		iconn = new DatabaseConnection(conn);
 		group = DAOFactory.getStudentGroup();
 	}
 
 	@After
-	public void tearDown() throws SQLException  {
+	public void tearDown() throws SQLException {
 		conn.close();
 		iconn.close();
 	}
 
 	@Test
 	public void shouldCreateStudentGroup() throws DataSetException {
-		StudentGroup groupNew = group.createStudentGroup(4, "KI-2016");
+		StudentGroup groupNew = new StudentGroup((long) 4, "KI-2016");
+		group.createStudentGroup(groupNew);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("student_group", "SELECT * FROM student_group");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("student_group");
-		Assert.assertEquals(groupNew.getGroupName(), table.getValue(groupNew.getGroupId() - 1, "group_name"));
+		Assert.assertEquals(groupNew.getGroupName(), table.getValue((int) (groupNew.getGroupId() - 1), "group_name"));
 		group.deleteStudentGroup(groupNew);
 	}
 
 	@Test
 	public void shouldUpdateStudentGroup() throws DataSetException {
-		group.createStudentGroup(4, "KI-2016");
-		StudentGroup groupUpdate = new StudentGroup(4, "KI-2017");
+		group.createStudentGroup(new StudentGroup((long) 4, "KI-2016"));
+		StudentGroup groupUpdate = new StudentGroup((long) 4, "KI-2017");
 		group.updateStudentGroup(groupUpdate);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("student_group", "SELECT * FROM student_group");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("student_group");
-		Assert.assertEquals(groupUpdate.getGroupName(), table.getValue(groupUpdate.getGroupId() - 1, "group_name"));
+		Assert.assertEquals(groupUpdate.getGroupName(),
+				table.getValue((int) (groupUpdate.getGroupId() - 1), "group_name"));
 		group.deleteStudentGroup(groupUpdate);
 	}
 
 	@Test
 	public void shouldDeleteStudentGroup() throws DataSetException {
-		StudentGroup groupDelete = group.createStudentGroup(4, "KI-2016");
+		StudentGroup groupDelete = new StudentGroup((long) 4, "KI-2016");
+		group.createStudentGroup(groupDelete);
 		QueryDataSet qDataSetBefore = new QueryDataSet(iconn);
 		qDataSetBefore.addTable("student_group", "SELECT * FROM student_group");
 		IDataSet dataSetBefore = qDataSetBefore;
@@ -97,7 +100,7 @@ public class StudentGroupDAOTest {
 		qDataSet.addTable("student_group", "SELECT * FROM student_group");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("student_group");
-		Assert.assertEquals(table.getValue(groupTest.getGroupId() - 1, "group_name"), groupTest.getGroupName());
+		Assert.assertEquals(table.getValue((int) (groupTest.getGroupId() - 1), "group_name"), groupTest.getGroupName());
 	}
 
 }

@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Grade;
 
 public interface GradeDAO {
 	
-	public Grade createGrade(int gradeId, String gradeName);
+	public void createGrade(Grade grade);
 
 	public void updateGrade(Grade grade);
 

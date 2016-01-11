@@ -6,13 +6,13 @@ import com.nixsolutions.entity.Term;
 
 public interface TermDAO {
 
-	public Term createTerm(int termId, String termName);
+	public void createTerm(Term term);
 
 	public void updateTerm(Term term);
 
 	public void deleteTerm(Term term);
 
-	public Term findTermById(int termId);
+	public Term findTermById(long termId);
 
 	public List<Term> findAllTerms();
 

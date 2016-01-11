@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Status;
 
 public interface StatusDAO {
 
-	public Status createStatus(int statusId, String statusName);
+	public void createStatus(Status status);
 
 	public void updateStatus(Status status);
 

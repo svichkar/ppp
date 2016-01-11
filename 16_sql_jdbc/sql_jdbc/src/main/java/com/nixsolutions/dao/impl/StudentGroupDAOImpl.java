@@ -19,17 +19,16 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 	private static Logger LOG = LogManager.getLogger(StudentGroupDAOImpl.class.getName());
 
 	@Override
-	public StudentGroup createStudentGroup(int groupId, String groupName) {
+	public void createStudentGroup(StudentGroup group) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO student_group VALUES( ?, ?)")) {
-				ps.setInt(1, groupId);
-				ps.setString(2, groupName);
+				ps.setLong(1, group.getGroupId());
+				ps.setString(2, group.getGroupName());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
 		}
-		return new StudentGroup(groupId, groupName);
 
 	}
 
@@ -39,7 +38,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 			try (PreparedStatement ps = conn
 					.prepareStatement("UPDATE student_group SET group_name = ? WHERE group_id = ?")) {
 				ps.setString(1, group.getGroupName());
-				ps.setInt(2, group.getGroupId());
+				ps.setLong(2, group.getGroupId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -52,7 +51,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 	public void deleteStudentGroup(StudentGroup group) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("DELETE from student_group WHERE group_id = ?")) {
-				ps.setInt(1, group.getGroupId());
+				ps.setLong(1, group.getGroupId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -61,13 +60,13 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 	}
 
 	@Override
-	public StudentGroup findStudentGroupById(int groupId) {
+	public StudentGroup findStudentGroupById(long groupId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM student_group WHERE group_id = ?")) {
-				ps.setInt(1, groupId);
+				ps.setLong(1, groupId);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				return new StudentGroup(rs.getInt("group_id"), rs.getString("group_name"));
+				return new StudentGroup(rs.getLong("group_id"), rs.getString("group_name"));
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
@@ -84,7 +83,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					StudentGroup group = new StudentGroup();
-					group.setGroupId(rs.getInt("group_id"));
+					group.setGroupId(rs.getLong("group_id"));
 					group.setGroupName(rs.getString("group_name"));
 					result.add(group);
 				}

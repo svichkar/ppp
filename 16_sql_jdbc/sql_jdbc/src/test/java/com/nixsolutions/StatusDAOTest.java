@@ -17,14 +17,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.StatusDAOImpl;
+import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.entity.Status;
 import com.nixsolutions.util.ConnectionManager;
 
 public class StatusDAOTest {
 	private Connection conn;
 	private IDatabaseConnection iconn;
-	private StatusDAOImpl status;
+	private StatusDAO status;
 
 	@Before
 	public void setUp() throws DatabaseUnitException {
@@ -41,7 +41,8 @@ public class StatusDAOTest {
 
 	@Test
 	public void shouldCreateStatus() throws DataSetException {
-		Status statusNew = status.createStatus(4, "Non-active");
+		Status statusNew = new Status(4, "Non-active");
+		status.createStatus(statusNew);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("status", "SELECT * FROM status");
 		IDataSet ds = qDataSet;
@@ -52,7 +53,7 @@ public class StatusDAOTest {
 
 	@Test
 	public void shouldUpdateStatus() throws DataSetException {
-		status.createStatus(4, "Non-active");
+		status.createStatus(new Status(4, "Non-active"));
 		Status statusUpdate = new Status(4, "Non-active Test");
 		status.updateStatus(statusUpdate);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
@@ -66,7 +67,8 @@ public class StatusDAOTest {
 
 	@Test
 	public void shouldDeleteStatus() throws DataSetException {
-		Status statusDelete = status.createStatus(4, "Non-active");
+		Status statusDelete = new Status(4, "Non-active");
+		status.createStatus(statusDelete);
 		QueryDataSet qDataSetBefore = new QueryDataSet(iconn);
 		qDataSetBefore.addTable("status", "SELECT * FROM status");
 		IDataSet dataSetBefore = qDataSetBefore;

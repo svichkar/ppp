@@ -3,16 +3,16 @@ package com.nixsolutions.entity;
 import java.sql.Date;
 
 public class Student {
-	private int studentId;
+	private Long studentId;
 	private String firstName;
 	private String lastName;
-	private int groupId;
+	private Long groupId;
 	private Date admissionDate;
 	private int statusId;
-	private int termId;
+	private Long termId;
 
-	public Student(int studentId, String firstName, String lastName, int groupId, Date admissionDate, int statusId,
-			int termId) {
+	public Student(Long studentId, String firstName, String lastName, Long groupId, Date admissionDate, int statusId,
+			Long termId) {
 		this.studentId = studentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -23,14 +23,13 @@ public class Student {
 	}
 
 	public Student() {
-		this(0, "default", "default", 0, Date.valueOf("1970-01-01"), 0, 0);
 	}
 
-	public int getStudentId() {
+	public Long getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
+	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
 
@@ -50,11 +49,11 @@ public class Student {
 		this.lastName = lastName;
 	}
 
-	public int getGroupId() {
+	public Long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(int groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
 
@@ -74,11 +73,11 @@ public class Student {
 		this.statusId = statusId;
 	}
 
-	public int getTermId() {
+	public Long getTermId() {
 		return termId;
 	}
 
-	public void setTermId(int termId) {
+	public void setTermId(Long termId) {
 		this.termId = termId;
 	}
 }

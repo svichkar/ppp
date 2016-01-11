@@ -6,13 +6,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.GradeDAOImpl;
-import com.nixsolutions.dao.impl.JournalDAOImpl;
-import com.nixsolutions.dao.impl.StatusDAOImpl;
-import com.nixsolutions.dao.impl.StudentDAOImpl;
-import com.nixsolutions.dao.impl.StudentGroupDAOImpl;
-import com.nixsolutions.dao.impl.SubjectDAOImpl;
-import com.nixsolutions.dao.impl.TermDAOImpl;
+import com.nixsolutions.dao.GradeDAO;
+import com.nixsolutions.dao.JournalDAO;
+import com.nixsolutions.dao.StatusDAO;
+import com.nixsolutions.dao.StudentDAO;
+import com.nixsolutions.dao.StudentGroupDAO;
+import com.nixsolutions.dao.SubjectDAO;
+import com.nixsolutions.dao.TermDAO;
 import com.nixsolutions.entity.Grade;
 import com.nixsolutions.entity.Journal;
 import com.nixsolutions.entity.Status;
@@ -26,13 +26,15 @@ public class DAOApp {
 	private final static Logger LOG = LogManager.getLogger(DAOApp.class.getName());
 
 	public static void main(String[] args) {
-		GradeDAOImpl grade = DAOFactory.getGrade();
-		grade.createGrade(1, "Fail");
-		grade.createGrade(2, "Unsatisfactory");
-		grade.createGrade(3, "Satisfactory");
-		grade.createGrade(4, "Good");
-		grade.createGrade(5, "Excellent");
-		grade.createGrade(6, "Super");
+		GradeDAO grade = DAOFactory.getGrade();
+		Grade [] gradeArray = new Grade[] {new Grade (1, "Fail"),
+				new Grade (2, "Unsatisfactory"),
+				new Grade (3, "Satisfactory"),
+				new Grade (4, "Good"),
+				new Grade (5, "Excellent"),
+				new Grade (6, "Super")};
+		for (Grade g : gradeArray)
+		grade.createGrade(g);
 		Grade gradeTest = new Grade(6, "Test");
 		grade.updateGrade(gradeTest);
 		grade.deleteGrade(gradeTest);
@@ -42,12 +44,14 @@ public class DAOApp {
 		for (Grade g : grade.findAllGrades())
 			LOG.debug(g.getGradeId() + " " + g.getGradeName());
 
-		StudentGroupDAOImpl group = DAOFactory.getStudentGroup();
-		group.createStudentGroup(1, "KI-2014");
-		group.createStudentGroup(2, "PI-2015");
-		group.createStudentGroup(3, "KI-2015");
-		group.createStudentGroup(4, "KI-2016");
-		StudentGroup groupTest = new StudentGroup(4, "Test");
+		StudentGroupDAO group = DAOFactory.getStudentGroup();
+		StudentGroup [] groupArray = new StudentGroup[] {new StudentGroup ((long) 1, "KI-2014"),
+				new StudentGroup ((long) 2, "PI-2015"),
+				new StudentGroup ((long) 3, "KI-2015"),
+				new StudentGroup ((long) 4, "KI-2016")};
+		for (StudentGroup sg : groupArray)
+			group.createStudentGroup(sg);
+		StudentGroup groupTest = new StudentGroup((long) 4, "Test");
 		group.updateStudentGroup(groupTest);
 		group.deleteStudentGroup(groupTest);
 		LOG.info("=====Table student_group is filled=====");
@@ -56,11 +60,13 @@ public class DAOApp {
 		for (StudentGroup sg : group.findAllStudentGroups())
 			LOG.debug(sg.getGroupId() + " " + sg.getGroupName());
 
-		StatusDAOImpl status = DAOFactory.getStatus();
-		status.createStatus(1, "Active");
-		status.createStatus(2, "Academic leave");
-		status.createStatus(3, "Expelled");
-		status.createStatus(4, "Non-active");
+		StatusDAO status = DAOFactory.getStatus();
+		Status [] statusArray = new Status[] {new Status (1, "Active"),
+				new Status (2, "Academic leave"),
+				new Status (3, "Expelled"),
+				new Status (4, "Non-active")};
+		for (Status s : statusArray)
+			status.createStatus(s);
 		Status statusTest = new Status(4, "Test");
 		status.updateStatus(statusTest);
 		status.deleteStatus(statusTest);
@@ -70,13 +76,15 @@ public class DAOApp {
 		for (Status s : status.findAllStatuses())
 			LOG.debug(s.getStatusId() + " " + s.getStatusName());
 
-		TermDAOImpl term = DAOFactory.getTerm();
-		term.createTerm(1, "Autumn-2014");
-		term.createTerm(2, "Spring-2015");
-		term.createTerm(3, "Autumn-2015");
-		term.createTerm(4, "Spring-2016");
-		term.createTerm(5, "Autumn-2016");
-		Term termTest = new Term(5, "Test");
+		TermDAO term = DAOFactory.getTerm();
+		Term [] termArray = new Term[] {new Term ((long) 1, "Autumn-2014"),
+				new Term ((long) 2, "Spring-2015"),
+				new Term ((long) 3, "Autumn-2015"),
+				new Term ((long) 4, "Spring-2016"),
+				new Term ((long) 5, "Autumn-2016")};
+		for (Term t : termArray)
+			term.createTerm(t);
+		Term termTest = new Term((long) 5, "Test");
 		term.updateTerm(termTest);
 		term.deleteTerm(termTest);
 		LOG.info("=====Table term is filled=====");
@@ -85,18 +93,20 @@ public class DAOApp {
 		for (Term t : term.findAllTerms())
 			LOG.debug(t.getTermId() + " " + t.getTermName());
 
-		SubjectDAOImpl subject = DAOFactory.getSubject();
-		subject.createSubject(1, "Mathematics", 1);
-		subject.createSubject(2, "Engineering", 1);
-		subject.createSubject(3, "Ethics", 1);
-		subject.createSubject(4, "Philosophy", 2);
-		subject.createSubject(5, "Information Systems", 2);
-		subject.createSubject(6, "Software Engineering", 2);
-		subject.createSubject(7, "Statistics", 3);
-		subject.createSubject(8, "Computer Science", 3);
-		subject.createSubject(9, "Electrical and Electronic Engineering", 3);
-		subject.createSubject(10, "Psychology", 3);
-		Subject subjectTest = new Subject(10, "Test", 3);
+		SubjectDAO subject = DAOFactory.getSubject();
+		Subject [] subjectArray = new Subject[] {new Subject ((long) 1, "Mathematics", (long) 1),
+				new Subject ((long) 2, "Engineering", (long) 1),
+				new Subject ((long) 3, "Ethics", (long) 1),
+				new Subject ((long) 4, "Philosophy", (long) 2),
+				new Subject ((long) 5, "Information Systems", (long) 2),
+				new Subject ((long) 6, "Software Engineering", (long) 2),
+				new Subject ((long) 7, "Statistics", (long) 3),
+				new Subject ((long) 8, "Computer Science", (long) 3),
+				new Subject ((long) 9, "Electrical and Electronic Engineering", (long) 3),
+				new Subject ((long) 10, "Psychology", (long) 3)};
+		for (Subject sub : subjectArray)
+			subject.createSubject(sub);
+		Subject subjectTest = new Subject((long) 10, "Test", (long) 3);
 		subject.updateSubject(subjectTest);
 		subject.deleteSubject(subjectTest);
 		LOG.info("=====Table subject is filled=====");
@@ -105,16 +115,18 @@ public class DAOApp {
 		for (Subject sub : subject.findAllSubjects())
 			LOG.debug(sub.getSubjectId() + " " + sub.getSubjectName() + " " + sub.getTermId());
 
-		StudentDAOImpl student = DAOFactory.getStudent();
-		student.createStudent(1, "John", "Smith", 1, Date.valueOf("2014-09-01"), 1, 1);
-		student.createStudent(2, "Tom", "Foster", 1, Date.valueOf("2014-09-01"), 2, 1);
-		student.createStudent(3, "Kate", "McLain", 1, Date.valueOf("2014-09-01"), 3, 1);
-		student.createStudent(4, "Julie", "West", 1, Date.valueOf("2014-09-01"), 1, 2);
-		student.createStudent(5, "Jane", "Reid", 1, Date.valueOf("2014-09-01"), 1, 2);
-		student.createStudent(6, "Craig", "Cambell", 1, Date.valueOf("2015-09-01"), 1, 3);
-		student.createStudent(7, "Steve", "Edwards", 1, Date.valueOf("2015-09-01"), 1, 3);
-		student.createStudent(8, "Mark", "Grey", 1, Date.valueOf("2014-09-01"), 1, 2);
-		Student studentTest = new Student(8, "Mark", "Test", 1, Date.valueOf("2014-09-01"), 1, 2);
+		StudentDAO student = DAOFactory.getStudent();
+		Student [] studentArray = new Student[] {new Student ((long) 1, "John", "Smith", (long) 1, Date.valueOf("2014-09-01"), 1, (long) 1),
+				new Student ((long) 2, "Tom", "Foster", (long) 1, Date.valueOf("2014-09-01"), 2, (long) 1),
+				new Student ((long) 3, "Kate", "McLain", (long) 1, Date.valueOf("2014-09-01"), 3, (long) 1),
+				new Student ((long) 4, "Julie", "West", (long) 2, Date.valueOf("2014-09-01"), 1, (long) 2),
+				new Student ((long) 5, "Jane", "Reid", (long) 2, Date.valueOf("2014-09-01"), 1, (long) 2),
+				new Student ((long) 6, "Craig", "Cambell", (long) 3, Date.valueOf("2015-09-01"), 1, (long) 3),
+				new Student ((long) 7, "Steve", "Edwards", (long) 3, Date.valueOf("2015-09-01"), 1, (long) 3),
+				new Student ((long) 8, "Mark", "Grey", (long) 1, Date.valueOf("2014-09-01"), 1, (long) 2)};
+		for (Student st : studentArray)
+			student.createStudent(st);
+		Student studentTest = new Student((long) 8, "Mark", "Test", (long) 1, Date.valueOf("2014-09-01"), 1, (long) 2);
 		student.updateStudent(studentTest);
 		student.deleteStudent(studentTest);
 		LOG.info("=====Table student is filled=====");
@@ -125,30 +137,32 @@ public class DAOApp {
 			LOG.debug(st.getStudentId() + " " + st.getFirstName() + " " + st.getLastName() + " " + st.getGroupId() + " "
 					+ st.getAdmissionDate() + " " + st.getStatusId() + " " + st.getTermId());
 
-		JournalDAOImpl journal = DAOFactory.getJournal();
-		journal.createJournal(1, 1, 1, 5);
-		journal.createJournal(2, 1, 2, 5);
-		journal.createJournal(3, 1, 3, 4);
-		journal.createJournal(4, 2, 1, 4);
-		journal.createJournal(5, 2, 2, 5);
-		journal.createJournal(6, 2, 3, 4);
-		journal.createJournal(7, 3, 1, 2);
-		journal.createJournal(8, 3, 2, 1);
-		journal.createJournal(9, 3, 3, 1);
-		journal.createJournal(10, 4, 4, 5);
-		journal.createJournal(11, 4, 5, 4);
-		journal.createJournal(12, 4, 6, 3);
-		journal.createJournal(13, 5, 4, 4);
-		journal.createJournal(14, 5, 5, 4);
-		journal.createJournal(15, 5, 6, 5);
-		journal.createJournal(16, 6, 7, 4);
-		journal.createJournal(17, 6, 8, 3);
-		journal.createJournal(18, 6, 9, 4);
-		journal.createJournal(19, 7, 7, 5);
-		journal.createJournal(20, 7, 8, 5);
-		journal.createJournal(21, 7, 9, 5);
-		journal.createJournal(22, 7, 6, 4);
-		Journal journalTest = new Journal(22, 7, 6, 5);
+		JournalDAO journal = DAOFactory.getJournal();
+		Journal [] journalArray = new Journal[] {new Journal ((long) 1, (long) 1, (long) 1, 5),
+				new Journal ((long) 2, (long) 1, (long) 2, 5),
+				new Journal ((long) 3, (long) 1, (long) 3, 4),
+				new Journal ((long) 4, (long) 2, (long) 1, 4),
+				new Journal ((long) 5, (long) 2, (long) 2, 5),
+				new Journal ((long) 6, (long) 2, (long) 3, 4),
+				new Journal ((long) 7, (long) 3, (long) 1, 2),
+				new Journal ((long) 8, (long) 3, (long) 2, 1),
+				new Journal ((long) 9, (long) 3, (long) 3, 1),
+				new Journal ((long) 10, (long) 4, (long) 4, 5),
+				new Journal ((long) 11, (long) 4, (long) 5, 4),
+				new Journal ((long) 12, (long) 4, (long) 6, 3),
+				new Journal ((long) 13, (long) 5, (long) 4, 4),
+				new Journal ((long) 14, (long) 5, (long) 5, 4),
+				new Journal ((long) 15, (long) 5, (long) 6, 5),
+				new Journal ((long) 16, (long) 6, (long) 7, 4),
+				new Journal ((long) 17, (long) 6, (long) 8, 3),
+				new Journal ((long) 18, (long) 6, (long) 9, 4),
+				new Journal ((long) 19, (long) 7, (long) 7, 5),
+				new Journal ((long) 20, (long) 7, (long) 8, 5),
+				new Journal ((long) 21, (long) 7, (long) 9, 5),
+				new Journal ((long) 22, (long) 7, (long) 6, 4)};
+		for (Journal j : journalArray)
+			journal.createJournal(j);
+		Journal journalTest = new Journal((long) 22, (long) 7, (long) 6, 5);
 		journal.updateJournal(journalTest);
 		journal.deleteJournal(journalTest);
 		LOG.info("=====Table journal is filled=====");
@@ -158,7 +172,6 @@ public class DAOApp {
 		LOG.debug("List of journals:");
 		for (Journal j : journal.findAllJournals())
 			LOG.debug(j.getJournalId() + " " + j.getStudentId() + " " + j.getSubjectId() + " " + j.getGradeId());
-
 	}
 
 }

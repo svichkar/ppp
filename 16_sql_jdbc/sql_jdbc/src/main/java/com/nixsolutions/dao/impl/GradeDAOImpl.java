@@ -18,17 +18,16 @@ public class GradeDAOImpl implements GradeDAO {
 	private static Logger LOG = LogManager.getLogger(GradeDAOImpl.class.getName());
 
 	@Override
-	public Grade createGrade(int gradeId, String gradeName) {
+	public void createGrade(Grade grade) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO grade VALUES( ?, ?)")) {
-				ps.setInt(1, gradeId);
-				ps.setString(2, gradeName);
+				ps.setInt(1, grade.getGradeId());
+				ps.setString(2, grade.getGradeName());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
 		}
-		return new Grade(gradeId, gradeName);
 	}
 
 	@Override

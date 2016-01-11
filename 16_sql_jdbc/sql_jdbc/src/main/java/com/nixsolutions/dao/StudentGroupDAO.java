@@ -6,13 +6,13 @@ import com.nixsolutions.entity.StudentGroup;
 
 public interface StudentGroupDAO {
 
-	public StudentGroup createStudentGroup(int groupId, String groupName);
+	public void createStudentGroup(StudentGroup group);
 
 	public void updateStudentGroup(StudentGroup group);
 
 	public void deleteStudentGroup(StudentGroup group);
 
-	public StudentGroup findStudentGroupById(int groupId);
+	public StudentGroup findStudentGroupById(long groupId);
 
 	public List<StudentGroup> findAllStudentGroups();
 

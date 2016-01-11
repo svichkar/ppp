@@ -6,13 +6,13 @@ import com.nixsolutions.entity.Subject;
 
 public interface SubjectDAO {
 
-	public Subject createSubject(int subjectId, String subjectName, int termId);
+	public void createSubject(Subject subject);
 
 	public void updateSubject(Subject subject);
 
 	public void deleteSubject(Subject subject);
 
-	public Subject findSubjectById(int subjectId);
+	public Subject findSubjectById(long subjectId);
 
 	public List<Subject> findAllSubjects();
 

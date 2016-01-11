@@ -6,13 +6,13 @@ import com.nixsolutions.entity.Journal;
 
 public interface JournalDAO {
 
-	public Journal createJournal(int journalId, int studentId, int subjectId, int gradeId);
+	public void createJournal(Journal journal);
 
 	public void updateJournal(Journal journal);
 
 	public void deleteJournal(Journal journal);
 
-	public Journal findJournalById(int journalId);
+	public Journal findJournalById(long journalId);
 
 	public List<Journal> findAllJournals();
 }

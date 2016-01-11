@@ -10,7 +10,6 @@ public class Status {
 	}
 
 	public Status() {
-		this(0, "default");
 	}
 
 	public int getStatusId() {

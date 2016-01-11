@@ -1,12 +1,12 @@
 package com.nixsolutions.entity;
 
 public class Journal {
-	private int journalId;
-	private int studentId;
-	private int subjectId;
+	private Long journalId;
+	private Long studentId;
+	private Long subjectId;
 	private int gradeId;
 
-	public Journal(int journalId, int studentId, int subjectId, int gradeId) {
+	public Journal(Long journalId, Long studentId, Long subjectId, int gradeId) {
 		this.journalId = journalId;
 		this.studentId = studentId;
 		this.subjectId = subjectId;
@@ -14,30 +14,29 @@ public class Journal {
 	}
 
 	public Journal() {
-		this(0, 0, 0, 0);
 	}
 
-	public int getJournalId() {
+	public Long getJournalId() {
 		return journalId;
 	}
 
-	public void setJournalId(int journalId) {
+	public void setJournalId(Long journalId) {
 		this.journalId = journalId;
 	}
 
-	public int getStudentId() {
+	public Long getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
+	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
 
-	public int getSubjectId() {
+	public Long getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
 	}
 

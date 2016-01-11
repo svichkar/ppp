@@ -17,14 +17,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.JournalDAOImpl;
+import com.nixsolutions.dao.JournalDAO;
 import com.nixsolutions.entity.Journal;
 import com.nixsolutions.util.ConnectionManager;
 
 public class JournalDAOTest {
 	private Connection conn;
 	private IDatabaseConnection iconn;
-	private JournalDAOImpl journal;
+	private JournalDAO journal;
 
 	@Before
 	public void setUp() throws DatabaseUnitException {
@@ -41,41 +41,44 @@ public class JournalDAOTest {
 
 	@Test
 	public void shouldCreateJournal() throws DataSetException {
-		Journal journalNew = journal.createJournal(22, 7, 6, 4);
+		Journal journalNew = new Journal((long) 22, (long) 7, (long) 6, 4);
+		journal.createJournal(journalNew);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("journal", "SELECT * FROM journal");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("journal");
-		Assert.assertTrue(journalNew.getStudentId() == Integer
-				.valueOf(table.getValue(journalNew.getJournalId() - 1, "student_id").toString()));
-		Assert.assertTrue(journalNew.getSubjectId() == Integer
-				.valueOf(table.getValue(journalNew.getJournalId() - 1, "subject_id").toString()));
+		Assert.assertTrue((long) 7 == Long.valueOf(table.getValue(21, "student_id").toString()));
+		Assert.assertTrue(journalNew.getStudentId() == Long
+				.valueOf(table.getValue((int) (journalNew.getJournalId() - 1), "student_id").toString()));
+		Assert.assertTrue(journalNew.getSubjectId() == Long
+				.valueOf(table.getValue((int) (journalNew.getJournalId() - 1), "subject_id").toString()));
 		Assert.assertTrue(journalNew.getGradeId() == Integer
-				.valueOf(table.getValue(journalNew.getJournalId() - 1, "grade_id").toString()));
+				.valueOf(table.getValue((int) (journalNew.getJournalId() - 1), "grade_id").toString()));
 		journal.deleteJournal(journalNew);
 	}
 
 	@Test
 	public void shouldUpdateJournal() throws DataSetException {
-		journal.createJournal(22, 7, 6, 4);
-		Journal journalUpdate = new Journal(22, 7, 6, 5);
+		journal.createJournal(new Journal((long) 22, (long) 7, (long) 6, 4));
+		Journal journalUpdate = new Journal((long) 22, (long) 7, (long) 6, 5);
 		journal.updateJournal(journalUpdate);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("journal", "SELECT * FROM journal");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("journal");
-		Assert.assertTrue(journalUpdate.getStudentId() == Integer
-				.valueOf(table.getValue(journalUpdate.getJournalId() - 1, "student_id").toString()));
-		Assert.assertTrue(journalUpdate.getSubjectId() == Integer
-				.valueOf(table.getValue(journalUpdate.getJournalId() - 1, "subject_id").toString()));
+		Assert.assertTrue(journalUpdate.getStudentId() == Long
+				.valueOf(table.getValue((int) (journalUpdate.getJournalId() - 1), "student_id").toString()));
+		Assert.assertTrue(journalUpdate.getSubjectId() == Long
+				.valueOf(table.getValue((int) (journalUpdate.getJournalId() - 1), "subject_id").toString()));
 		Assert.assertTrue(journalUpdate.getGradeId() == Integer
-				.valueOf(table.getValue(journalUpdate.getJournalId() - 1, "grade_id").toString()));
+				.valueOf(table.getValue((int) (journalUpdate.getJournalId() - 1), "grade_id").toString()));
 		journal.deleteJournal(journalUpdate);
 	}
 
 	@Test
 	public void shouldDeleteJournal() throws DataSetException {
-		Journal journalDelete = journal.createJournal(22, 7, 6, 4);
+		Journal journalDelete = new Journal((long) 22, (long) 7, (long) 6, 4);
+		journal.createJournal(journalDelete);
 		QueryDataSet qDataSetBefore = new QueryDataSet(iconn);
 		qDataSetBefore.addTable("journal", "SELECT * FROM journal");
 		IDataSet dataSetBefore = qDataSetBefore;
@@ -107,10 +110,12 @@ public class JournalDAOTest {
 		qDataSet.addTable("journal", "SELECT * FROM journal");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("journal");
-		Assert.assertTrue(Integer.valueOf(
-				table.getValue(journalTest.getJournalId() - 1, "student_id").toString()) == journalTest.getStudentId());
-		Assert.assertTrue(Integer.valueOf(
-				table.getValue(journalTest.getSubjectId() - 1, "subject_id").toString()) == journalTest.getSubjectId());
+		Assert.assertTrue(Long
+				.valueOf(table.getValue((int) (journalTest.getJournalId() - 1), "student_id").toString()) == journalTest
+						.getStudentId());
+		Assert.assertTrue(Long
+				.valueOf(table.getValue((int) (journalTest.getSubjectId() - 1), "subject_id").toString()) == journalTest
+						.getSubjectId());
 		Assert.assertTrue(Integer.valueOf(
 				table.getValue(journalTest.getGradeId() - 1, "grade_id").toString()) == journalTest.getGradeId());
 	}

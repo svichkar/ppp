@@ -1,23 +1,22 @@
 package com.nixsolutions.entity;
 
 public class Term {
-	private int termId;
+	private Long termId;
 	private String termName;
 
-	public Term(int termId, String termName) {
+	public Term(Long termId, String termName) {
 		this.termId = termId;
 		this.termName = termName;
 	}
 
 	public Term() {
-		this(0, "default");
 	}
 
-	public int getTermId() {
+	public Long getTermId() {
 		return termId;
 	}
 
-	public void setTermId(int termId) {
+	public void setTermId(Long termId) {
 		this.termId = termId;
 	}
 

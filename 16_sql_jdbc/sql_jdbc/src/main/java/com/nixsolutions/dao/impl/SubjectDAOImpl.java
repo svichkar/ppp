@@ -18,18 +18,17 @@ public class SubjectDAOImpl implements SubjectDAO {
 	private static Logger LOG = LogManager.getLogger(SubjectDAOImpl.class.getName());
 
 	@Override
-	public Subject createSubject(int subjectId, String subjectName, int termId) {
+	public void createSubject(Subject subject) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO subject VALUES( ?, ?, ?)")) {
-				ps.setInt(1, subjectId);
-				ps.setString(2, subjectName);
-				ps.setInt(3, termId);
+				ps.setLong(1, subject.getSubjectId());
+				ps.setString(2, subject.getSubjectName());
+				ps.setLong(3, subject.getTermId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
 		}
-		return new Subject(subjectId, subjectName, termId);
 	}
 
 	@Override
@@ -38,8 +37,8 @@ public class SubjectDAOImpl implements SubjectDAO {
 			try (PreparedStatement ps = conn
 					.prepareStatement("UPDATE subject SET subject_name = ?, term_id=? WHERE subject_id = ?")) {
 				ps.setString(1, subject.getSubjectName());
-				ps.setInt(2, subject.getTermId());
-				ps.setInt(3, subject.getSubjectId());
+				ps.setLong(2, subject.getTermId());
+				ps.setLong(3, subject.getSubjectId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -51,7 +50,7 @@ public class SubjectDAOImpl implements SubjectDAO {
 	public void deleteSubject(Subject subject) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("DELETE from subject WHERE subject_id = ?")) {
-				ps.setInt(1, subject.getSubjectId());
+				ps.setLong(1, subject.getSubjectId());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -60,13 +59,13 @@ public class SubjectDAOImpl implements SubjectDAO {
 	}
 
 	@Override
-	public Subject findSubjectById(int subjectId) {
+	public Subject findSubjectById(long subjectId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM subject WHERE subject_id = ?")) {
-				ps.setInt(1, subjectId);
+				ps.setLong(1, subjectId);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				return new Subject(rs.getInt("subject_id"), rs.getString("subject_name"), rs.getInt("term_id"));
+				return new Subject(rs.getLong("subject_id"), rs.getString("subject_name"), rs.getLong("term_id"));
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
@@ -83,9 +82,9 @@ public class SubjectDAOImpl implements SubjectDAO {
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					Subject subject = new Subject();
-					subject.setSubjectId(rs.getInt("subject_id"));
+					subject.setSubjectId(rs.getLong("subject_id"));
 					subject.setSubjectName(rs.getString("subject_name"));
-					subject.setTermId(rs.getInt("term_id"));
+					subject.setTermId(rs.getLong("term_id"));
 					result.add(subject);
 				}
 				return result;

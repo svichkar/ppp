@@ -18,14 +18,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.nixsolutions.dao.DAOFactory;
-import com.nixsolutions.dao.impl.StudentDAOImpl;
+import com.nixsolutions.dao.StudentDAO;
 import com.nixsolutions.entity.Student;
 import com.nixsolutions.util.ConnectionManager;
 
 public class StudentDAOTest {
 	private Connection conn;
 	private IDatabaseConnection iconn;
-	private StudentDAOImpl student;
+	private StudentDAO student;
 
 	@Before
 	public void setUp() throws DatabaseUnitException {
@@ -42,33 +42,41 @@ public class StudentDAOTest {
 
 	@Test
 	public void shouldCreateStudent() throws DataSetException {
-		Student studentNew = student.createStudent(8, "Mark", "Grey", 1, Date.valueOf("2014-09-01"), 1, 2);
+		Student studentNew = new Student((long) 8, "Mark", "Grey", (long) 1, Date.valueOf("2014-09-01"), 1, (long) 2);
+		student.createStudent(studentNew);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("student", "SELECT * FROM student");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("student");
-		Assert.assertEquals(studentNew.getFirstName(), table.getValue(studentNew.getStudentId() - 1, "first_name"));
-		Assert.assertEquals(studentNew.getLastName(), table.getValue(studentNew.getStudentId() - 1, "last_name"));
+		Assert.assertEquals(studentNew.getFirstName(),
+				table.getValue((int) (studentNew.getStudentId() - 1), "first_name"));
+		Assert.assertEquals(studentNew.getLastName(),
+				table.getValue((int) (studentNew.getStudentId() - 1), "last_name"));
 		student.deleteStudent(studentNew);
 	}
 
 	@Test
 	public void shouldUpdateStudent() throws DataSetException {
-		student.createStudent(8, "Mark", "Grey", 1, Date.valueOf("2014-09-01"), 1, 2);
-		Student studentUpdate = new Student(8, "Mark", "Test", 1, Date.valueOf("2014-09-01"), 1, 2);
+		student.createStudent(new Student((long) 8, "Mark", "Grey", (long) 1, Date.valueOf("2014-09-01"), 1, (long) 2));
+		Student studentUpdate = new Student((long) 8, "Mark", "Test", (long) 1, Date.valueOf("2014-09-01"), 1,
+				(long) 2);
 		student.updateStudent(studentUpdate);
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("student", "SELECT * FROM student");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("student");
-		Assert.assertEquals(studentUpdate.getFirstName(), table.getValue(studentUpdate.getStudentId() - 1, "first_name"));
-		Assert.assertEquals(studentUpdate.getLastName(), table.getValue(studentUpdate.getStudentId() - 1, "last_name"));
+		Assert.assertEquals(studentUpdate.getFirstName(),
+				table.getValue((int) (studentUpdate.getStudentId() - 1), "first_name"));
+		Assert.assertEquals(studentUpdate.getLastName(),
+				table.getValue((int) (studentUpdate.getStudentId() - 1), "last_name"));
 		student.deleteStudent(studentUpdate);
 	}
 
 	@Test
 	public void shouldDeleteStudent() throws DataSetException {
-		Student studentDelete = student.createStudent(8, "Mark", "Grey", 1, Date.valueOf("2014-09-01"), 1, 2);
+		Student studentDelete = new Student((long) 8, "Mark", "Grey", (long) 1, Date.valueOf("2014-09-01"), 1,
+				(long) 2);
+		student.createStudent(studentDelete);
 		QueryDataSet qDataSetBefore = new QueryDataSet(iconn);
 		qDataSetBefore.addTable("student", "SELECT * FROM student");
 		IDataSet dataSetBefore = qDataSetBefore;
@@ -100,7 +108,9 @@ public class StudentDAOTest {
 		qDataSet.addTable("student", "SELECT * FROM student");
 		IDataSet ds = qDataSet;
 		ITable table = ds.getTable("student");
-		Assert.assertEquals(table.getValue(studentTest.getStudentId() - 1, "first_name"), studentTest.getFirstName());
-		Assert.assertEquals(table.getValue(studentTest.getStudentId() - 1, "last_name"), studentTest.getLastName());		
+		Assert.assertEquals(table.getValue((int) (studentTest.getStudentId() - 1), "first_name"),
+				studentTest.getFirstName());
+		Assert.assertEquals(table.getValue((int) (studentTest.getStudentId() - 1), "last_name"),
+				studentTest.getLastName());
 	}
 }

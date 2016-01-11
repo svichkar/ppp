@@ -19,17 +19,16 @@ public class StatusDAOImpl implements StatusDAO {
 	private static Logger LOG = LogManager.getLogger(StatusDAOImpl.class.getName());
 
 	@Override
-	public Status createStatus(int statusId, String statusName) {
+	public void createStatus(Status status) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("INSERT INTO status VALUES( ?, ?)")) {
-				ps.setInt(1, statusId);
-				ps.setString(2, statusName);
+				ps.setInt(1, status.getStatusId());
+				ps.setString(2, status.getStatusName());
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
 			LOG.error(e);
 		}
-		return new Status(statusId, statusName);
 	}
 
 	@Override

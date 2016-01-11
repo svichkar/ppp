@@ -10,7 +10,6 @@ public class Grade {
 	}
 
 	public Grade() {
-		this(0, "default");
 	}
 
 	public int getGradeId() {

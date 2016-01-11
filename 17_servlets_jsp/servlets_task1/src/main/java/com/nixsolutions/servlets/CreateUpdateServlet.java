@@ -28,8 +28,7 @@ public class CreateUpdateServlet extends HttpServlet {
 				|| request.getSession().getAttribute("usrRole") == null
 				|| !request.getSession().getAttribute("usrRole")
 						.equals("admin")) {
-			out.print(
-					"<p style=\"color:red\">you are not authorized to be here</p>");
+			out.print("<p style=\"color:red\">you are not authorized to be here</p>");
 		} else {
 			String usr = request.getParameter("username");
 			String pswd = request.getParameter("password");

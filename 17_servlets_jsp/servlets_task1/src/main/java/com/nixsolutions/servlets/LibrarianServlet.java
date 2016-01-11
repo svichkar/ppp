@@ -22,10 +22,8 @@ public class LibrarianServlet extends HttpServlet {
 		
 		if (request.getSession(false) == null
 				|| request.getSession().getAttribute("usrRole") == null
-				|| !request.getSession().getAttribute("usrRole")
-						.equals("regular")) {
-			out.print(
-					"<p style=\"color:red\">you are not authorized to be here</p>");
+				|| !request.getSession().getAttribute("usrRole").equals("regular")) {
+			out.print("<p style=\"color:red\">you are not authorized to be here</p>");
 		} else {
 			response.setContentType("text/html");
 			StringBuilder usersTable = new StringBuilder();

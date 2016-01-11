@@ -34,23 +34,24 @@ public class H2ConnManager {
 
 	private static void setProperties() {
 		Properties prop = new Properties();
-		InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream("jdbc.properties");
-		String dbPath = new File(Thread.currentThread().getContextClassLoader().getResource("sqllab.mv.db").getPath())
-				.getParentFile().getPath();
+		InputStream input = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream("jdbc.properties");
+		String dbPath = new File(Thread.currentThread().getContextClassLoader()
+				.getResource("sqllab.mv.db").getPath()).getParentFile().getPath();
 		LOG.trace(dbPath);
 		try {
 			prop.load(input);
 			url = "jdbc:h2:file:" + dbPath + "/sqllab;FILE_LOCK=NO";
-			//url = prop.getProperty("host");
+			// url = prop.getProperty("host");
 			name = prop.getProperty("login");
 			pswd = prop.getProperty("password");
 		} catch (IOException e) {
 			LOG.error(e);
 		}
 	}
-	
-	public static void closeQuitely(Connection conn){
-		if(conn != null){
+
+	public static void closeQuitely(Connection conn) {
+		if (conn != null) {
 			try {
 				conn.close();
 			} catch (SQLException e) {
@@ -58,9 +59,9 @@ public class H2ConnManager {
 			}
 		}
 	}
-	
-	public static void closeQuitely(ResultSet rs){
-		if(rs != null){
+
+	public static void closeQuitely(ResultSet rs) {
+		if (rs != null) {
 			try {
 				rs.close();
 			} catch (SQLException e) {
@@ -68,9 +69,9 @@ public class H2ConnManager {
 			}
 		}
 	}
-	
-	public static void closeQuitely(Statement st){
-		if(st != null){
+
+	public static void closeQuitely(Statement st) {
+		if (st != null) {
 			try {
 				st.close();
 			} catch (SQLException e) {
@@ -78,9 +79,9 @@ public class H2ConnManager {
 			}
 		}
 	}
-	
-	public static void rollbackQuitely(Connection conn){
-		if(conn != null){
+
+	public static void rollbackQuitely(Connection conn) {
+		if (conn != null) {
 			try {
 				conn.close();
 			} catch (SQLException e) {

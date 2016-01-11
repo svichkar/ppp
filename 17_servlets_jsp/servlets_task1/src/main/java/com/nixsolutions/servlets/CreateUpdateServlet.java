@@ -48,8 +48,6 @@ public class CreateUpdateServlet extends HttpServlet {
 				updUser.setUserName(usr);
 				updUser.setUserPassword(pswd);
 				factory.getUserDao().updateUser(updUser);
-				out.println("<p style=\"color:green\">[" + usr
-						+ "] user was updated</p>");
 				response.sendRedirect("admin");
 			}
 
@@ -57,27 +55,15 @@ public class CreateUpdateServlet extends HttpServlet {
 				User delUser = factory.getUserDao().getUserById(
 						Integer.parseInt(request.getParameter("userid")));
 				factory.getUserDao().deleteUser(delUser);
-				out.println("<p style=\"color:green\">[" + usr
-						+ "] user was deleted</p>");
 				response.sendRedirect("admin");
 			}
 
 			if (request.getParameter("button").equals("create user")) {
-				if (role == null) {
-					out.println("<p><form id=\"update\" action=\"admin\" method=\"get\">"
-							+ "<p style=\"color:red\">not able to create the user [" + usr
-							+ "], please choose a role and try again</p>"
-							+ "<input type=submit value=\"back to admin page\" name=\"button\"></form></p>");
-					LOG.trace(request.getAttribute("errorMsg"));
-				} else {
 				User createUser = new User(usr, pswd, role.getRoleId());
 				factory.getUserDao().createUser(createUser);
-				out.println("<p style=\"color:green\">[" + usr
-						+ "] user was created</p>");
 				response.sendRedirect("admin");
 				}
 			}
-		}
 		out.close();
 	}
 }

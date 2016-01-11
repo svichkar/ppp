@@ -22,8 +22,7 @@ public class AuthServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		LOG.entry(request.getParameter("username"), request.getParameter("userpass"));
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("userpass");
@@ -43,10 +42,10 @@ public class AuthServlet extends HttpServlet {
 				response.sendRedirect("librarian");
 			}
 		} else {
-			out.print(
-					"<p style=\"color:red\">you have entered incorrect user name or password</p>");
+			out.print("<p style=\"color:red\">you have entered incorrect user name or password</p>");
 			RequestDispatcher rd = request.getRequestDispatcher("index.html");
 			rd.include(request, response);
 		}
+		out.close();
 	}
 }

@@ -23,8 +23,7 @@ public class CreateUpdateServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		PrintWriter out = response.getWriter(); // Always close the output
-												// writer
+		PrintWriter out = response.getWriter(); 
 		if (request.getSession(false) == null
 				|| request.getSession().getAttribute("usrRole") == null
 				|| !request.getSession().getAttribute("usrRole")
@@ -69,9 +68,7 @@ public class CreateUpdateServlet extends HttpServlet {
 							+ "<p style=\"color:red\">not able to create the user [" + usr
 							+ "], please choose a role and try again</p>"
 							+ "<input type=submit value=\"back to admin page\" name=\"button\"></form></p>");
-					//RequestDispatcher rd = request.getRequestDispatcher("admin");
-					//rd.include(request, response);
-					//response.sendRedirect("admin");
+					LOG.trace(request.getAttribute("errorMsg"));
 				} else {
 				User createUser = new User(usr, pswd, role.getRoleId());
 				factory.getUserDao().createUser(createUser);
@@ -81,5 +78,6 @@ public class CreateUpdateServlet extends HttpServlet {
 				}
 			}
 		}
+		out.close();
 	}
 }

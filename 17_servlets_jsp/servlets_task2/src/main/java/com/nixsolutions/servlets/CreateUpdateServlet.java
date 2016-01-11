@@ -2,6 +2,8 @@ package com.nixsolutions.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +26,7 @@ public class CreateUpdateServlet extends HttpServlet {
 			throws IOException, ServletException {
 		PrintWriter out = response.getWriter(); // Always close the output
 												// writer
-		if (request.getSession(false) == null
-				|| request.getSession().getAttribute("usrRole") == null
-				|| !request.getSession().getAttribute("usrRole")
-						.equals("admin")) {
-			out.print(
-					"<p style=\"color:red\">you are not authorized to be here</p>");
-		} else {
+
 			String usr = request.getParameter("username");
 			String pswd = request.getParameter("password");
 			String roleName = request.getParameter("selectrole");
@@ -63,12 +59,27 @@ public class CreateUpdateServlet extends HttpServlet {
 			}
 
 			if (request.getParameter("button").equals("create user")) {
+				if (role == null) {
+					out.println("<p><form id=\"update\" action=\"admin\" method=\"get\">"
+							+ "<p style=\"color:red\">not able to create the user [" + usr
+							+ "], please choose a role and try again</p>"
+							+ "<input type=submit value=\"back to admin page\" name=\"button\"></form></p>");
+					
+					
+					request.setAttribute("errorMsg", "Everything is bad");
+					LOG.trace(request.getAttribute("errorMsg"));
+					RequestDispatcher rd = request.getRequestDispatcher("admin");
+					rd.forward(request, response);
+					
+					//response.sendRedirect("admin");
+				} else {
 				User createUser = new User(usr, pswd, role.getRoleId());
 				factory.getUserDao().createUser(createUser);
 				out.println("<p style=\"color:green\">[" + usr
 						+ "] user was created</p>");
 				response.sendRedirect("admin");
+				}
 			}
 		}
 	}
-}
+

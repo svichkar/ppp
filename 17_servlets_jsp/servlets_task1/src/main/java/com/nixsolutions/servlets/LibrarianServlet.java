@@ -35,5 +35,6 @@ public class LibrarianServlet extends HttpServlet {
 					+ "!</p>" + "</body>");
 			out.print(usersTable.toString());
 		}
+		out.close();
 	}
 }

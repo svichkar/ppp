@@ -1,58 +1,65 @@
-<web-app version="2.4"
-    xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="Your_WebApp_ID" version="2.5">
 
-<!-- ====servlets===== -->
-<servlet>
-<servlet-name>auth</servlet-name>
-<servlet-class>com.nixsolutions.servlets.AuthServlet</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>admin</servlet-name>
-<servlet-class>com.nixsolutions.servlets.AdminServlet</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>createupdate</servlet-name>
-<servlet-class>com.nixsolutions.servlets.CreateUpdateServlet</servlet-class>
-</servlet>
-<servlet>
-<servlet-name>librarian</servlet-name>
-<servlet-class>com.nixsolutions.servlets.LibrarianServlet</servlet-class>
-</servlet>
 
-<!-- servlets mapping -->
-<servlet-mapping>
-<servlet-name>auth</servlet-name>
-<url-pattern>/auth</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>admin</servlet-name>
-<url-pattern>/admin</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>createupdate</servlet-name>
-<url-pattern>/createupdate</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>librarian</servlet-name>
-<url-pattern>/librarian</url-pattern>
-</servlet-mapping>
+	<display-name>Archetype Created Web Application</display-name>
 
-<!-- ====filters===== -->
-<filter>
-<filter-name>adminAuth</filter-name>
-<filter-class>com.nixsolutions.servlets.AuthFilter</filter-class>
-<init-param>
-<param-name>active</param-name>
-<param-value>true</param-value>
-</init-param>
-</filter>
+	<servlet>
+		<servlet-name>auth</servlet-name>
+		<servlet-class>com.nixsolutions.servlets.AuthServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>com.nixsolutions.servlets.AdminServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>createupdate</servlet-name>
+		<servlet-class>com.nixsolutions.servlets.CreateUpdateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>librarian</servlet-name>
+		<servlet-class>com.nixsolutions.servlets.LibrarianServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>test</servlet-name>
+		<servlet-class>com.nixsolutions.servlets.TestServlet</servlet-class>
+	</servlet>
 
-<!-- filters mapping -->
-<filter-mapping>
-<filter-name>adminAuth</filter-name>
-<servlet-name>auth</servlet-name>
-</filter-mapping>
+	<filter>
+		<filter-name>adminAuth</filter-name>
+		<filter-class>com.nixsolutions.filters.AdminAuth</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>adminAuth</filter-name>
+		<url-pattern>/admin</url-pattern>
+	</filter-mapping>
+		<filter-mapping>
+		<filter-name>adminAuth</filter-name>
+		<url-pattern>/createupdate</url-pattern>
+	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>test</servlet-name>
+		<url-pattern>/test</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>auth</servlet-name>
+		<url-pattern>/auth</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>createupdate</servlet-name>
+		<url-pattern>/createupdate</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>librarian</servlet-name>
+		<url-pattern>/librarian</url-pattern>
+	</servlet-mapping>
 
 </web-app>

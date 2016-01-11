@@ -151,7 +151,7 @@ public class UserDaoImpl implements UserDao{
 			statem.executeUpdate();
 			LOG.exit("user was created");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create an author", e));
+			LOG.throwing(new DaoException("not able to create an user", e));
 		}finally {
 			H2ConnManager.closeQuitely(statem);
 			H2ConnManager.closeQuitely(conn);
@@ -174,7 +174,7 @@ public class UserDaoImpl implements UserDao{
 			statem.executeUpdate();
 			LOG.exit("user with id: " + user.getUserId() + " was updated");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to update the author", e));
+			LOG.throwing(new DaoException("not able to update the user", e));
 		}finally {
 			H2ConnManager.closeQuitely(statem);
 			H2ConnManager.closeQuitely(conn);
@@ -194,7 +194,7 @@ public class UserDaoImpl implements UserDao{
 			statem.executeUpdate();
 			LOG.exit("user with id: " + user.getUserId() + " was deleted");
 		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to delete the author", e));
+			LOG.throwing(new DaoException("not able to delete the user", e));
 		}finally {
 			H2ConnManager.closeQuitely(statem);
 			H2ConnManager.closeQuitely(conn);

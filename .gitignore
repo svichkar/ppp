@@ -1,3 +1,5 @@
+# Created by https://www.gitignore.io/api/eclipse,intellij,maven,gradle
+
 ### Eclipse ###
 *.pydevproject
 .metadata
@@ -92,7 +94,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
-Add a comment to this line
 
 
 ### Maven ###
@@ -107,7 +108,7 @@ buildNumber.properties
 .mvn/timing.properties
 
 
-+### Gradle ###
+### Gradle ###
 .gradle
 build/
 
@@ -119,3 +120,14 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+=======
+/bin/
+/libs/
+/.idea
+/.settings/
+.project
+.classpath
+javappp.iml
+testing_logger.log
+

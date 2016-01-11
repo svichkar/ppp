@@ -73,11 +73,14 @@ public class ImplUserDAO implements UserDAO{
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             user = new User();
-            rSet.next();
-            user.setUserId(rSet.getInt("user_id"));
-            user.setLogin(rSet.getString("login"));
-            user.setPassword(rSet.getString("password"));
-            user.setRoleId(rSet.getInt("role_id"));
+            if (rSet.next()) {
+                user.setUserId(rSet.getInt("user_id"));
+                user.setLogin(rSet.getString("login"));
+                user.setPassword(rSet.getString("password"));
+                user.setRoleId(rSet.getInt("role_id"));
+            } else {
+                user=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

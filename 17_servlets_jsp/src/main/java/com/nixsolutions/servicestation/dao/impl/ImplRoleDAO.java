@@ -70,9 +70,12 @@ public class ImplRoleDAO implements RoleDAO {
             pStatement.setInt(1, id);
             ResultSet rSet = pStatement.executeQuery();
             role = new Role();
-            rSet.next();
-            role.setRoleId(rSet.getInt("role_id"));
-            role.setRoleName(rSet.getString("role_name"));
+            if (rSet.next()) {
+                role.setRoleId(rSet.getInt("role_id"));
+                role.setRoleName(rSet.getString("role_name"));
+            } else {
+                role=null;
+            }
         } catch (SQLException | IOException e) {
             LOGGER.error(e);
         }

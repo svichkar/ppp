@@ -47,8 +47,8 @@ public class AdminPageServlet extends HttpServlet {
                 updateUser.append("<form action=\"admin\" method=\"post\">\n" +
                         "        <tr class=\"rows\">\n" +
                         "<td>\n" +
-                        "<input type=\"submit\" name=\"operation\" value=\"Update\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
-                        "<input type=\"submit\" name=\"operation\" value=\"Delete\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
+                        "<input type=\"submit\" name=\"operation\" value=\"update\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
+                        "<input type=\"submit\" name=\"operation\" value=\"delete\" style=\"width:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
                         "</td>\n");
 
                 updateUser.append("<td><input type=\"text\" name=\"id\" value=\"" + u.getUserId() + "\" readonly/></td>\n");
@@ -77,7 +77,7 @@ public class AdminPageServlet extends HttpServlet {
             StringBuilder newUser = new StringBuilder("<form action=\"admin\" method=\"post\">\n" +
                     "<tr class=\"rows\">\n" +
                     "<td>\n" +
-                    "<input type=\"submit\" name=\"operation\" value=\"Add\" style=\"width:100%;height:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
+                    "<input type=\"submit\" name=\"operation\" value=\"add\" style=\"width:100%;height:100%;color:#fffff;background-color: #e5ffff;\"/>\n" +
                     "</td>\n" +
                     "<td><input type=\"text\" name=\"id\" hidden placeholder=\"id\"></input></td>\n" +
                     "<td><input type=\"text\" name=\"fisrt_name\" pattern=\"[A-Za-z]{3,30}\" required placeholder=\"first name\"></input></td>\n" +
@@ -104,9 +104,10 @@ public class AdminPageServlet extends HttpServlet {
                     "<meta charset=\"UTF-8\">\n" +
                     "<title>Admin page</title>   \n" +
                     "<link href=\"favicon.png\" rel=\"shortcut icon\" type=\"shortcut/ico\">\n" +
-                    "<link rel=\"stylesheet\" href=\"css/style.css\">  \n" +
+                    "<link rel=\"stylesheet\" href=\"css/style.css\">\n" +
                     "</head>\n" +
                     "<body>\n" +
+                    "<p class=\"link-login\" align=\"right\"><a href=\"index.html\">Logout</a></p>" +
                     "<h1>User Administration</h1>\n" +
                     "<div class=\"divTable\">\n" +
                     "<table>\n" +
@@ -124,8 +125,6 @@ public class AdminPageServlet extends HttpServlet {
             pageHtml.append(newUser);
             pageHtml.append("</table>\n" +
                     "</div>\n" +
-                    "</br></br></br>\n" +
-                    "<tr><h5>" + session.getAttribute("isAdmin") + session.getAttribute("pageOwner") + "</h5></tr>\n" +
                     "</body>\n" +
                     "</html>");
 
@@ -148,54 +147,93 @@ public class AdminPageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+        session = request.getSession(true);
+        if (session.getAttribute("isAdmin").equals(true)) {
+            StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
 
-        RoleDao roleDao = daoFactory.getRoleDao();
-        Role role = roleDao.findByName(request.getParameter("role"));
+            RoleDao roleDao = daoFactory.getRoleDao();
+            Role role = roleDao.findByName(request.getParameter("role"));
 
-        UserDao userDao = daoFactory.getUserDao();
-        User user = new User();
+            UserDao userDao = daoFactory.getUserDao();
+            User user = new User();
 
-        if (request.getParameter("id") != null && request.getParameter("id") != "") {
-            user.setUserId(Integer.valueOf(request.getParameter("id")));
-        }
-        user.setFirstName(request.getParameter("fisrt_name"));
-        user.setLastName(request.getParameter("last_name"));
-        user.setLogin(request.getParameter("login"));
-        user.setUserPassword(request.getParameter("pass"));
-        user.setEmail(request.getParameter("email"));
-        user.setRoleId(role.getRoleId());
-
-        switch (request.getParameter("operation")) {
-
-            case "Add": {
-                userDao.create(user);
-                pageHtml = "added";
+            if (request.getParameter("id") != null && request.getParameter("id") != "") {
+                user.setUserId(Integer.valueOf(request.getParameter("id")));
             }
-            break;
+            user.setFirstName(request.getParameter("fisrt_name"));
+            user.setLastName(request.getParameter("last_name"));
+            user.setLogin(request.getParameter("login"));
+            user.setUserPassword(request.getParameter("pass"));
+            user.setEmail(request.getParameter("email"));
+            user.setRoleId(role.getRoleId());
 
-            case "Update": {
-                if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
-                    userDao.update(user);
-                    request.setAttribute("message", "Success");
-                } else {
-                    request.setAttribute("message", "User can't be updated by himself.");
+            String message = "";
+
+            switch (request.getParameter("operation")) {
+
+                case "add": {
+
+                    boolean isUnique = true;
+                    for (User u : userDao.findAll()) {
+
+                        if (user.getLogin().equals(u.getLogin())) {
+                         isUnique = false;
+                        }
+                    }
+
+                    if(isUnique) {
+                        userDao.create(user);
+                        message = "Success";
+                    } else {
+
+                        request.setAttribute("message", String.format("User with <b>%s</b> login already exists.", user.getLogin()));
+
+                        message = String.format("User with <b>%s</b> login already exists.", user.getLogin());
+                    }
                 }
-            }
-            break;
+                break;
 
-            case "Delete": {
-                if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
-                    userDao.delete(user);
-                    request.setAttribute("message", "Success");
-
-                } else {
-                    request.setAttribute("message", "User can't be deleted by himself.");
+                case "update": {
+                    if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
+                        userDao.update(user);
+                        request.setAttribute("message", "Success");
+                        message = "Success";
+                    } else {
+                        request.setAttribute("message", "User can't be updated by himself.");
+                        message = "User can't be updated by himself.";
+                    }
                 }
-            }
-            break;
-        }
+                break;
 
-        doGet(request, response);
+                case "delete": {
+                    if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
+                        userDao.delete(user);
+                        request.setAttribute("message", "Success");
+                        message = "Success";
+
+                    } else {
+                        request.setAttribute("message", "User can't be deleted by himself.");
+                        message = "User can't be deleted by himself.";
+                    }
+                }
+                break;
+            }
+
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<p><h5>" + message + "</h5></p>");
+
+            doGet(request, response);
+
+        }  else  {
+
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<p><h5>You can't access to admin page! Please login again!</h5></p>");
+
+            RequestDispatcher rd = request.getRequestDispatcher("login");
+            rd.forward(request, response);
+            out.close();
+        }
     }
 }

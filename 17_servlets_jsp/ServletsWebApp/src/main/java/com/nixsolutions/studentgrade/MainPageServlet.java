@@ -62,7 +62,9 @@ public class MainPageServlet extends HttpServlet {
 
                     session.setAttribute("isAdmin", true);
                     adminLink = "<a href=\"admin\" style=\"font-family: 'Courier New', Courier, monospace;" +
-                            "font-weight: bold;font-size: 13px;text-align: left;\">Navigate to User Administration</a>";
+                            "font-weight: bold;font-size: 12px;text-align: left;\">Navigate to User Administration Page</a>";
+
+
 
                 } else {
 
@@ -80,7 +82,8 @@ public class MainPageServlet extends HttpServlet {
                         "</head>\n" +
                         "<body>\n" +
                         "<div class=\"login-card\">\n" +
-                        "<h1>Welcome to Student Grade App!</h1></br></br></br>\n" +
+                        "<p class=\"link-login\" align=\"right\"><a href=\"index.html\">Logout</a></p>" +
+                        "<h1>Welcome to Student Grade App!</h1></br></br>\n" +
                         "<h3>" + userInfo + "</h3></br>\n" +
                          adminLink +
                         "</div>\n" +
@@ -114,6 +117,6 @@ public class MainPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         RequestDispatcher rd = request.getRequestDispatcher("index.html");
-        rd.forward(request, response);
+        rd.include(request, response);
     }
 }

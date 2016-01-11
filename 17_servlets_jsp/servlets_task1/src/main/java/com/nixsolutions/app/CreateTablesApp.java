@@ -11,14 +11,14 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CreateTables {
+public class CreateTablesApp {
 	public static final Logger LOG = LogManager.getLogger();
 	private String url;
 	private String name;
 	private String pswd;
 	
-	public static void main(String[] args) throws SQLException {
-		CreateTables create = new CreateTables();
+	public static void main(String[] args){
+		CreateTablesApp create = new CreateTablesApp();
 		create.setProperties();
 		create.createTables();
 	}

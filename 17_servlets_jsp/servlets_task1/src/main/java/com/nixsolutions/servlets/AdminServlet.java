@@ -26,13 +26,7 @@ public class AdminServlet extends HttpServlet {
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 		PrintWriter out = response.getWriter();
-		List<User> users;
-		List<Role> allRoles = factory.getRoleDao().getAllRoles();
-
-		// Buttons on the page
-		String updateButton = "<td><input type=submit value=\"edit user\" name=\"button\"></td>";
-		String createButton = "<td><input type=submit value=\"create user\" name=\"button\"></td>";
-		String deleteButton = "<td><input type=submit value=\"delete user\" name=\"button\"></td>";
+		String adminPage;
 
 		// check for correct role
 		if (request.getSession(false) == null
@@ -44,66 +38,125 @@ public class AdminServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("index.html");
 			rd.include(request, response);
 		} else {
-			users = factory.getUserDao().getAllUsers();
-			response.setContentType("text/html");
-			StringBuilder usersTable = new StringBuilder();
-			users = factory.getUserDao().getAllUsers();
-			// page structure
-			usersTable.append("<head><title>Admin page</title></head>"
-					+ "<body>" + "<h1>Welcome to the Admin page</h1>"
-					+ "<p> Hi, " + request.getSession().getAttribute("usrName")
-					+ "!</p>" + "<table>" + "<tr>" + "<td>user_id</td>"
-					+ "<td>user_name</td>" + "<td>user_password</td>"
-					+ "<td>user_role</td>" + "<td>action</td>" + "</tr>");
-			for (User user : users) {
-				Role userRole = factory.getRoleDao().getRoleById(user.getRoleId());
-				usersTable.append("<tr>");
-				usersTable.append("<form id=\"update\" action=\"createupdate\" method=\"post\">");
-				usersTable.append("<td><input type=\"text\" name=\"userid\" value=\""
-								+ user.getUserId() + "\" readonly/></td>");
-				usersTable.append("<td><input type=\"text\" name=\"username\" value=\""
-								+ user.getUserName() + "\"/></td>");
-				usersTable.append("<td><input type=\"text\" name=\"password\" value=\""
-								+ user.getUserPassword() + "\"/></td>");
-				if (userRole.getName().equals("admin")) {
-					usersTable.append("<td><input type=\"text\" name=\"selectrole\" "
-								+ "value=\"admin\" readonly/></td>");
-				} else {
-					usersTable.append("<td><select name=\"selectrole\">");
-					for (Role role : allRoles) {
-						if (userRole.getName().equals(role.getName())) {
-							usersTable.append("<option selected value=\""
-									+ role.getName() + "\">" + role.getName()
-									+ "</option>");
-						} else {
-							usersTable.append(
-									"<option value=\"" + role.getName() + "\">"
-											+ role.getName() + "</option>");
-						}
-					}
-					usersTable.append("</select></td>");
-				}
-				if (userRole.getName().equals("regular")) {
-					usersTable.append(updateButton + deleteButton);
-				} else {
-					usersTable.append(updateButton);
-				}
-				usersTable.append("</form></tr>");
-			}
-			usersTable.append("<form id=\"create\" action=\"createupdate\" method=\"post\">"
-							+ "<tr>" + "<td></td>"
-							+ "<td><input type=\"text\" name=\"username\" required></td>"
-							+ "<td><input type=\"text\" name=\"password\" required></td>");
-			usersTable.append("<td><select name=\"selectrole\" required>");
-			usersTable.append("<option selected disabled value=\"\">choose</option>");
-			for (Role role : allRoles) {
-				usersTable.append("<option value=\""+ role.getName() + "\">"
-						+ role.getName() + "</option>");
-			}
-			usersTable.append("</select></td>");
-			usersTable.append(createButton + "</tr></form></table></body>");
-			out.print(usersTable.toString());
+			adminPage = requestBuilder(request, response);
+			out.print(adminPage);
 		}
 		out.close();
+	}
+	
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		PrintWriter out = response.getWriter(); 
+		if (request.getSession(false) == null
+				|| request.getSession().getAttribute("usrRole") == null
+				|| !request.getSession().getAttribute("usrRole")
+						.equals("admin")) {
+			out.print("<p style=\"color:red\">you are not authorized to be here</p>");
+		} else {
+			String usr = request.getParameter("username");
+			String pswd = request.getParameter("password");
+			String roleName = request.getParameter("selectrole");
+			String userId = request.getParameter("userid");
+			String buttnName = request.getParameter("button");
+			Role role = factory.getRoleDao().getRoleByName(roleName);
+			LOG.debug("User name: " + usr + "; pass: " + pswd + "; role: "
+					+ roleName + "; usrId: " + userId + "; button: "
+					+ buttnName);
+
+			if (request.getParameter("button").equals("edit user")) {
+				User updUser = factory.getUserDao().getUserById(
+						Integer.parseInt(request.getParameter("userid")));
+				updUser.setRoleId(role.getRoleId());
+				updUser.setUserName(usr);
+				updUser.setUserPassword(pswd);
+				factory.getUserDao().updateUser(updUser);
+				response.sendRedirect("admin");
+			}
+
+			if (request.getParameter("button").equals("delete user")) {
+				User delUser = factory.getUserDao().getUserById(
+						Integer.parseInt(request.getParameter("userid")));
+				factory.getUserDao().deleteUser(delUser);
+				response.sendRedirect("admin");
+			}
+
+			if (request.getParameter("button").equals("create user")) {
+				User createUser = new User(usr, pswd, role.getRoleId());
+				factory.getUserDao().createUser(createUser);
+				response.sendRedirect("admin");
+				}
+			}
+		out.close();
+	}
+	
+	private String requestBuilder(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		LOG.entry(request.getSession().getAttribute("usrRole"));
+
+		List<Role> allRoles = factory.getRoleDao().getAllRoles();
+		List<User> users = factory.getUserDao().getAllUsers();
+		response.setContentType("text/html");
+		StringBuilder usersTable = new StringBuilder();
+		
+		// Buttons on the page
+		String updateButton = "<td><input type=submit value=\"edit user\" name=\"button\"></td>";
+		String createButton = "<td><input type=submit value=\"create user\" name=\"button\"></td>";
+		String deleteButton = "<td><input type=submit value=\"delete user\" name=\"button\"></td>";
+		
+		// page structure
+		usersTable.append("<head><title>Admin page</title></head>"
+				+ "<body>" + "<h1>Welcome to the Admin page</h1>"
+				+ "<p> Hi, " + request.getSession().getAttribute("usrName")
+				+ "!</p>" + "<table>" + "<tr>" + "<td>user_id</td>"
+				+ "<td>user_name</td>" + "<td>user_password</td>"
+				+ "<td>user_role</td>" + "<td>action</td>" + "</tr>");
+		for (User user : users) {
+			Role userRole = factory.getRoleDao().getRoleById(user.getRoleId());
+			usersTable.append("<tr>");
+			usersTable.append("<form id=\"update\" action=\"admin\" method=\"post\">");
+			usersTable.append("<td><input type=\"text\" name=\"userid\" value=\""
+							+ user.getUserId() + "\" readonly/></td>");
+			usersTable.append("<td><input type=\"text\" name=\"username\" value=\""
+							+ user.getUserName() + "\"/></td>");
+			usersTable.append("<td><input type=\"text\" name=\"password\" value=\""
+							+ user.getUserPassword() + "\"/></td>");
+			if (userRole.getName().equals("admin")) {
+				usersTable.append("<td><input type=\"text\" name=\"selectrole\" "
+							+ "value=\"admin\" readonly/></td>");
+			} else {
+				usersTable.append("<td><select name=\"selectrole\">");
+				for (Role role : allRoles) {
+					if (userRole.getName().equals(role.getName())) {
+						usersTable.append("<option selected value=\""
+								+ role.getName() + "\">" + role.getName()
+								+ "</option>");
+					} else {
+						usersTable.append("<option value=\"" + role.getName() + "\">"
+								+ role.getName() + "</option>");
+					}
+				}
+				usersTable.append("</select></td>");
+			}
+			if (userRole.getName().equals("regular")) {
+				usersTable.append(updateButton + deleteButton);
+			} else {
+				usersTable.append(updateButton);
+			}
+			usersTable.append("</form></tr>");
+		}
+		usersTable.append("<form id=\"create\" action=\"admin\" method=\"post\">"
+						+ "<tr>" + "<td></td>"
+						+ "<td><input type=\"text\" name=\"username\" required></td>"
+						+ "<td><input type=\"text\" name=\"password\" required></td>");
+		usersTable.append("<td><select name=\"selectrole\" required>");
+		usersTable.append("<option selected disabled value=\"\">choose</option>");
+		for (Role role : allRoles) {
+			usersTable.append("<option value=\""+ role.getName() + "\">"
+					+ role.getName() + "</option>");
+		}
+		usersTable.append("</select></td>");
+		usersTable.append(createButton + "</tr></form></table></body>");
+		
+		return usersTable.toString();
+		
 	}
 }

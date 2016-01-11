@@ -14,6 +14,9 @@ public class Ticket {
     private Date expiredDate;
     private Date returnDate;
 
+    public Ticket() {
+    }
+
     public Ticket(Integer ticketId, Integer bookId, Integer clientId, Date rentDate, Date expiredDate, Date returnDate) {
         this.ticketId = ticketId;
         this.bookId = bookId;

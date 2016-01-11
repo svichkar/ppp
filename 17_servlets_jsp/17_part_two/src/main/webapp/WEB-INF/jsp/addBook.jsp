@@ -2,18 +2,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <t:template title="Find book">
-    <jsp:attribute name="sidebar_area">
-        <p>Welcome</p>
-        <p>Your role is: <c:out value="${sessionScope.role}"/><p>
-        <p><a href="bookManagement">Find book</a></p>
-        <p><a href="addBook">Add book</a></p>
-        <p><a href="/WEB-INF/jsp/addReader.jsp">Add reader</a></p>
-        <p><a href="/WEB-INF/jsp/loanBook.jsp">Loan book</a></p>
-        <c:if test="${sessionScope.role=='ADMIN'}">
-            <p><a href="/WEB-INF/jsp/addUser.jsp">Add user</a></p>
-            <p><a href="/WEB-INF/jsp/addCategory.jsp">Add Category</a></p>
-        </c:if>
-    </jsp:attribute>
     <jsp:attribute name="content_area">
         <form action="addBook" method="post">
             <table>
@@ -30,16 +18,16 @@
                     <tr>
                         <td><input type="text" name="bookName" required></td>
                         <td>
-                            <select size="1" name="bookCategory" required>
-                                <option selected disabled>Choose category</option>
+                            <select size="1" name="bookCategory" required="">
+                                <option value="" selected disabled>Choose category</option>
                                 <c:forEach var="category" items="${categories}">
                                     <option><c:out value="${category.name}"/></option>
                                 </c:forEach>
                             </select>
                         </td>
                         <td>
-                            <select size="1" name="bookCell" required>
-                                <option selected disabled>Choose cell</option>
+                            <select size="1" name="bookCell" required="">
+                                <option value="" selected disabled>Choose cell</option>
                                 <c:forEach var="cell" items="${cells}">
                                     <option><c:out value="${cell.name}"/></option>
                                  </c:forEach>

@@ -32,7 +32,7 @@ public class CustomConnectionManager {
             /*h2ConnectionPool = JdbcConnectionPool.create(properties.getProperty("DB_URL"),
                     properties.getProperty("DB_USER"), properties.getProperty("DB_PASSWORD"));*/
             h2ConnectionPool.setMaxConnections(50);
-            h2ConnectionPool.setLoginTimeout(50);
+            h2ConnectionPool.setLoginTimeout(10);
         }
         return h2ConnectionPool.getConnection();
     }

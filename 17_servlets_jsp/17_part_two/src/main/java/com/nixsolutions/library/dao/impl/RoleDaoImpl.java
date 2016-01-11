@@ -119,7 +119,7 @@ public class RoleDaoImpl implements RoleDAO {
     @Override
     public Role findByName(String name) {
         try (Connection connection = CustomConnectionManager.getConnection(); Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM role WHERE name = '" + name.toLowerCase() + "';");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM role WHERE name = '" + name + "';");
             if (resultSet.next()) {
                 Role entity = new Role(resultSet.getInt("role_id"), resultSet.getString("name"));
                 return entity;

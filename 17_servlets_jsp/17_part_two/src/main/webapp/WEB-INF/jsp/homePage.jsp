@@ -2,18 +2,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <t:template title="Main page">
-    <jsp:attribute name="sidebar_area">
-        <p>Welcome</p>
-        <p>Your role is: <c:out value="${sessionScope.role}"/><p>
-        <p><a href="bookManagement">Find book</a></p>
-        <p><a href="addBook">Add book</a></p>
-        <p><a href="/WEB-INF/jsp/addReader.jsp">Add reader</a></p>
-        <p><a href="/WEB-INF/jsp/loanBook.jsp">Loan book</a></p>
-        <c:if test="${sessionScope.role=='ADMIN'}">
-            <p><a href="/WEB-INF/jsp/addUser.jsp">Add user</a></p>
-            <p><a href="/WEB-INF/jsp/addCategory.jsp">Add Category</a></p>
-        </c:if>
-    </jsp:attribute>
     <jsp:attribute name="content_area">
         <table border="1">
             <thead>

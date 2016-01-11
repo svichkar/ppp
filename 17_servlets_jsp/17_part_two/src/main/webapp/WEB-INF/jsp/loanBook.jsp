@@ -1,0 +1,53 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<t:template title="Find book">
+    <jsp:attribute name="content_area">
+        <p><a href="bookManagement">Choose book</a></p>
+        <c:if test="${not empty param.bookId}">
+            <table border="1">
+                     <thead>
+                         <tr><th>Give to client</th><th>bookId</th><th>bookName</th><th>category</th><th>cell</th><th>author</th></tr>
+                     </thead>
+                     <tbody>
+                            <form action="loanManagement" method="post" name="createTicket">
+                            <c:forEach var="book" items="${books}">
+                               <tr>
+                                   <td><input type="checkbox" name="bookId" value="${book.book.bookId}"></td>
+                                   <td><c:out value="${book.book.bookId}"/></td>
+                                   <td><c:out value="${book.book.name} "/></td>
+                                   <td><c:out value="${book.category.name}"/></td>
+                                   <td><c:out value="${book.cell.name}"/></td>
+                                   <td>
+                                        <c:if test="${not empty book.authors}">
+                                            <c:forEach var="author" items="${book.authors}">
+                                                <c:out value="${author.firstName} "/><c:out value="${author.lastName}"/><br>
+                                            </c:forEach>
+                                        </c:if>
+                                   </td>
+                               </tr>
+                           </c:forEach>
+                           <tr>
+                                <td>Choose Client</td>
+                                <td colspan="2">
+                                    <select size="1" name="client" required>
+                                        <option value="" selected disabled>Choose client</option>>
+                                        <c:forEach var="client" items="${clients}">
+                                            <option value="${client.clientId}"><c:out value="${client.lastName} ${client.firstName}"/></option>
+                                    </c:forEach>
+                             </select>
+                                </td>
+                                <td colspan="3"><input type="submit" value="Get checked books to client" name="giveTicket"></td>
+                           </tr>
+
+                         <form>
+                     </tbody>
+                </table>
+        </c:if>
+    </jsp:attribute>
+    <jsp:attribute name="message_area">
+        <c:if test="${not empty param.message}">
+            <p align="center"><c:out value="${param.message}"/></p>
+        </c:if>
+    </jsp:attribute>
+</t:template>

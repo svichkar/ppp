@@ -22,6 +22,16 @@
         </article>
         <aside id="sidebar">
                 <jsp:invoke fragment="sidebar_area" />
+                <p>Welcome</p>
+                                    <p>Your role is: <c:out value="${sessionScope.role}"/><p>
+                                    <p><a href="bookManagement">Find book</a></p>
+                                    <p><a href="addBook">Add book</a></p>
+                                    <p><a href="addReader">Add reader</a></p>
+                                    <p><a href="loanManagement">Loan book</a></p>
+                                    <c:if test="${sessionScope.role=='ADMIN'}">
+                                        <p><a href="userManagement">Add user</a></p>
+                                        <p><a href="categoryManagement">Add Category</a></p>
+                                    </c:if>
              </aside>
         <div id="message">
             <jsp:invoke fragment="message_area" />

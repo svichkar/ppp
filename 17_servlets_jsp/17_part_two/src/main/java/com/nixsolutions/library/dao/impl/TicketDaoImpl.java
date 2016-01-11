@@ -26,10 +26,10 @@ public class TicketDaoImpl implements TicketDAO {
             connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO rent_journal (book_id, client_id, rent_date, expired_date, return_date) VALUES ('" +
+            statement.executeUpdate("INSERT INTO rent_journal (book_id, client_id, rent_date, expired_date) VALUES ('" +
                     entity.getBookId() + "', '" + entity.getClientId() + "', '" +
                     new Date(entity.getRentDate().getTime()) + "', '" + new Date(entity.getExpiredDate().getTime()) +
-                    "', '" + new Date(entity.getReturnDate().getTime()) + "');");
+                    "');");
             ResultSet keys = statement.getGeneratedKeys();
             connection.commit();
             keys.next();

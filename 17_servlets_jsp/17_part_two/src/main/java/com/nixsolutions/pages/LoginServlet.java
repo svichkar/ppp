@@ -63,6 +63,8 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         resp.sendRedirect("index.jsp?message=Login or password are wrong");
                     }
+                } else {
+                    resp.sendRedirect("index.jsp?message=Login or password are wrong");
                 }
             } else if (req.getParameter("registration") != null) {
                 if (user == null) {

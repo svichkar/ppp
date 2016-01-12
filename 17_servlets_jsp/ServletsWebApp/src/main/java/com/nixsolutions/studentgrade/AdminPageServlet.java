@@ -133,12 +133,12 @@ public class AdminPageServlet extends HttpServlet {
             out.println(pageHtml.toString());
             out.close();
         } else {
+
             response.setContentType("text/html");
             PrintWriter out = response.getWriter();
-            out.println("You are not admin");
-            //response.sendRedirect("login");
+            out.println("<p><h5>You can't access to admin page! Please login again!</h5></p>");
 
-            RequestDispatcher rd = request.getRequestDispatcher("login");
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.include(request, response);
             out.close();
         }
@@ -186,9 +186,7 @@ public class AdminPageServlet extends HttpServlet {
                         message = "Success";
                     } else {
 
-                        request.setAttribute("message", String.format("User with <b>%s</b> login already exists.", user.getLogin()));
-
-                        message = String.format("User with <b>%s</b> login already exists.", user.getLogin());
+                        message = String.format("User with '<b>%s</b>' login already exists.", user.getLogin());
                     }
                 }
                 break;
@@ -196,10 +194,10 @@ public class AdminPageServlet extends HttpServlet {
                 case "update": {
                     if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
                         userDao.update(user);
-                        request.setAttribute("message", "Success");
                         message = "Success";
+
                     } else {
-                        request.setAttribute("message", "User can't be updated by himself.");
+
                         message = "User can't be updated by himself.";
                     }
                 }
@@ -208,11 +206,9 @@ public class AdminPageServlet extends HttpServlet {
                 case "delete": {
                     if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
                         userDao.delete(user);
-                        request.setAttribute("message", "Success");
                         message = "Success";
 
                     } else {
-                        request.setAttribute("message", "User can't be deleted by himself.");
                         message = "User can't be deleted by himself.";
                     }
                 }
@@ -231,7 +227,7 @@ public class AdminPageServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println("<p><h5>You can't access to admin page! Please login again!</h5></p>");
 
-            RequestDispatcher rd = request.getRequestDispatcher("login");
+            RequestDispatcher rd = request.getRequestDispatcher("index.html");
             rd.forward(request, response);
             out.close();
         }

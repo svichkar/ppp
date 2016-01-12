@@ -20,9 +20,9 @@ import java.io.PrintWriter;
  * Created by svichkar on 12/24/2015.
  */
 
-@WebServlet(name = "LoginPage",
+@WebServlet(name = "MainPage",
         description = "This is my first annotated servlet",
-        value = "/login")
+        value = "/main")
 public class MainPageServlet extends HttpServlet {
 
     private HttpSession session;
@@ -61,10 +61,8 @@ public class MainPageServlet extends HttpServlet {
                 if (role.getRoleName().equals("admin")) {
 
                     session.setAttribute("isAdmin", true);
-                    adminLink = "<a href=\"admin\" style=\"font-family: 'Courier New', Courier, monospace;" +
-                            "font-weight: bold;font-size: 12px;text-align: left;\">Navigate to User Administration Page</a>";
-
-
+                    adminLink = "<p align=\"center\"><a href=\"admin\" style=\"font-family: 'Courier New', Courier, monospace;" +
+                            "font-weight: bold;font-size: 12px;text-align: left;\">Navigate to User Administration Page</a></p>";
 
                 } else {
 

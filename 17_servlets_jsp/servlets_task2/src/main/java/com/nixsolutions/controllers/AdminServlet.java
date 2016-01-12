@@ -1,6 +1,7 @@
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,8 +32,53 @@ import com.nixsolutions.entity.User;
 			request.setAttribute("users", users);
 			request.setAttribute("roles", allRoles);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AdminPage.jsp");
 			rd.forward(request, response);
+		}
+		
+		public void doPost(HttpServletRequest request, HttpServletResponse response)
+				throws IOException, ServletException {
+			PrintWriter out = response.getWriter(); 
+			if (request.getSession(false) == null
+					|| request.getSession().getAttribute("usrRole") == null
+					|| !request.getSession().getAttribute("usrRole")
+							.equals("admin")) {
+				out.print("<p style=\"color:red\">you are not authorized to be here</p>");
+			} else {
+				String usr = request.getParameter("username");
+				String pswd = request.getParameter("password");
+				String roleName = request.getParameter("selectrole");
+				String userId = request.getParameter("userid");
+				String buttnName = request.getParameter("button");
+				Role role = factory.getRoleDao().getRoleByName(roleName);
+				LOG.debug("User name: " + usr + "; pass: " + pswd + "; role: "
+						+ roleName + "; usrId: " + userId + "; button: "
+						+ buttnName);
+
+				if (request.getParameter("button").equals("edit user")) {
+					User updUser = factory.getUserDao().getUserById(
+							Integer.parseInt(request.getParameter("userid")));
+					updUser.setRoleId(role.getRoleId());
+					updUser.setUserName(usr);
+					updUser.setUserPassword(pswd);
+					factory.getUserDao().updateUser(updUser);
+					response.sendRedirect("admin");
+				}
+
+				if (request.getParameter("button").equals("delete user")) {
+					User delUser = factory.getUserDao().getUserById(
+							Integer.parseInt(request.getParameter("userid")));
+					factory.getUserDao().deleteUser(delUser);
+					response.sendRedirect("admin");
+				}
+
+				if (request.getParameter("button").equals("create user")) {
+					User createUser = new User(usr, pswd, role.getRoleId());
+					factory.getUserDao().createUser(createUser);
+					response.sendRedirect("admin");
+					}
+				}
+			out.close();
 		}
 	
 }

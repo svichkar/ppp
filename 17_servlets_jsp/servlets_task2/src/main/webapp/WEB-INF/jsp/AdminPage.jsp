@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:admin_template title="admin page">
+<t:general_template title="admin page">
     <jsp:attribute name="content_area">
 <h2>Manage users</h2>
 	<table>
@@ -16,7 +16,7 @@
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<form id="update" action="createupdate" method="post">
+				<form id="update" action="admin" method="post">
 					<td><input type="text" name="userid" value="${user.userId}"
 						readonly /></td>
 					<td><input type="text" name="username"
@@ -55,13 +55,13 @@
 				</form>
 			</tr>
 		</c:forEach>
-		<form id="create" action="createupdate" method="post">
+		<form id="create" action="admin" method="post">
 			<tr>
 				<td></td>
-				<td><input type="text" name="username" /></td>
-				<td><input type="text" name="password" /></td>
-				<td><select name="selectrole">
-						<option disabled selected>choose</option>
+				<td><input type="text" name="username" required/></td>
+				<td><input type="text" name="password" required/></td>
+				<td><select name="selectrole" required>
+						<option selected disabled value="">choose</option>
 						<c:forEach var="role" items="${roles}">
 							<option value="${role.name}">${role.name}</option>
 						</c:forEach>
@@ -71,4 +71,4 @@
 		</form>
 	</table>
 	</jsp:attribute>
-</t:admin_template>
+</t:general_template>

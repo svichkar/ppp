@@ -1,7 +1,6 @@
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,7 +30,7 @@ public class LibrarianServlet extends HttpServlet {
 		request.setAttribute("users", users);
 		request.setAttribute("roles", allRoles);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("LibrarianPage.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/LibrarianPage.jsp");
 		rd.forward(request, response);
 	}
 }

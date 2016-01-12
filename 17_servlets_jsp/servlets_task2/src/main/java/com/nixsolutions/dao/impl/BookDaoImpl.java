@@ -106,4 +106,22 @@ public class BookDaoImpl implements BookDao {
 
 		}
 	}
+
+	@Override
+	public List<Book> getBooksbyAuthor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Book> getBooksbyCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Book> getBooksbyName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -127,3 +127,57 @@ INSERT INTO car_type (brand,model)VALUES (?,?) [23505-176]
 	at org.h2.server.TcpServerThread.run(TcpServerThread.java:160)
 	at java.lang.Thread.run(Unknown Source)
 
+14:49:00.115 [main] ERROR nix.jdbcworkshop.dao.impl.CarTypeDaoH2.create:55 - org.h2.jdbc.JdbcSQLException: Unique index or primary key violation: "UNIQUE_BRAND_MODEL_INDEX_2 ON PUBLIC.CAR_TYPE(BRAND, MODEL) VALUES ( /* key:19 */ null, 'Tesla', 'M')"; SQL statement:
+INSERT INTO car_type (brand,model)VALUES (?,?) [23505-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.index.BaseIndex.getDuplicateKeyException(BaseIndex.java:103)
+	at org.h2.index.PageBtree.find(PageBtree.java:121)
+	at org.h2.index.PageBtreeLeaf.addRow(PageBtreeLeaf.java:151)
+	at org.h2.index.PageBtreeLeaf.addRowTry(PageBtreeLeaf.java:104)
+	at org.h2.index.PageBtreeIndex.addRow(PageBtreeIndex.java:97)
+	at org.h2.index.PageBtreeIndex.add(PageBtreeIndex.java:88)
+	at org.h2.table.RegularTable.addRow(RegularTable.java:120)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:157)
+	at org.h2.command.dml.Insert.update(Insert.java:115)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:79)
+	at org.h2.command.Command.executeUpdate(Command.java:254)
+	at org.h2.server.TcpServerThread.process(TcpServerThread.java:346)
+	at org.h2.server.TcpServerThread.run(TcpServerThread.java:160)
+	at java.lang.Thread.run(Unknown Source)
+
+16:43:08.256 [main] INFO  nix.jdbcworkshop.app.DeleteTables.main:46 - Tables are deleted
+16:43:15.530 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car_type(car_type_id INT IDENTITY,brand VARCHAR(255),MODEL VARCHAR(255));
+16:43:15.545 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_type ALTER COLUMN brand VARCHAR(255) NOT NULL;
+16:43:15.548 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_type ALTER COLUMN model VARCHAR(255) NOT NULL;
+16:43:15.549 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_type ADD CONSTRAINT unique_brand_model UNIQUE(brand, model);
+16:43:15.550 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE client(client_id bigint IDENTITY,first_name VARCHAR(255) NOT NULL,last_name VARCHAR(255) NOT NULL);
+16:43:15.553 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car(car_id bigint PRIMARY KEY,serial_id varchar_ignorecase(255) NOT NULL,car_type_id INT NOT NULL,client_id bigint NOT NULL,FOREIGN KEY (car_type_id) REFERENCES car_type(car_type_id),FOREIGN KEY (client_id) REFERENCES client(client_id));
+16:43:15.554 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car_order_status(car_order_status_id TINYINT IDENTITY,name VARCHAR(255) NOT NULL);
+16:43:15.556 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car_order(car_order_id BIGINT IDENTITY,car_id BIGINT NOT NULL,car_order_status_id TINYINT NOT NULL,start_date TIMESTAMP NOT NULL,end_date TIMESTAMP,FOREIGN KEY (car_order_status_id) REFERENCES car_order_status (car_order_status_id),FOREIGN KEY (car_id) REFERENCES car(car_id));
+16:43:15.558 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE employee_category(employee_category_id TINYINT IDENTITY,name VARCHAR (255) NOT NULL);
+16:43:15.560 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE employee(employee_id INT IDENTITY,first_name VARCHAR(255) NOT NULL,last_name VARCHAR(255) NOT NULL,employee_category_id TINYINT NOT NULL,FOREIGN KEY (employee_category_id) REFERENCES employee_category(employee_category_id));
+16:43:15.562 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE employee_car_order(employee_id INT NOT NULL,car_order_id BIGINT NOT NULL,PRIMARY KEY (employee_id,car_order_id),FOREIGN KEY (employee_id) REFERENCES employee(employee_id),FOREIGN KEY (car_order_id) REFERENCES car_order(car_order_id));
+16:43:15.570 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car ALTER COLUMN car_id bigint AUTO_INCREMENT;
+16:43:15.571 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_order_status ADD CONSTRAINT unique_car_order_status_name UNIQUE(name);
+16:43:15.572 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE employee_category ADD CONSTRAINT unique_employee_category_name UNIQUE(name);
+16:43:15.572 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car ADD CONSTRAINT unique_car_serial_id UNIQUE(serial_id);
+16:43:15.573 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:49 - DB structure is created
+16:45:56.417 [main] INFO  nix.jdbcworkshop.app.DeleteTables.main:46 - Tables are deleted
+16:49:08.261 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car_type(car_type_id INT IDENTITY,brand VARCHAR(255),MODEL VARCHAR(255));
+16:49:08.264 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_type ALTER COLUMN brand VARCHAR(255) NOT NULL;
+16:49:08.267 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_type ALTER COLUMN model VARCHAR(255) NOT NULL;
+16:49:08.268 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_type ADD CONSTRAINT unique_brand_model UNIQUE(brand, model);
+16:49:08.269 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE client(client_id bigint IDENTITY,first_name VARCHAR(255) NOT NULL,last_name VARCHAR(255) NOT NULL);
+16:49:08.271 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car(car_id bigint PRIMARY KEY,serial_id varchar_ignorecase(255) NOT NULL,car_type_id INT NOT NULL,client_id bigint NOT NULL,FOREIGN KEY (car_type_id) REFERENCES car_type(car_type_id),FOREIGN KEY (client_id) REFERENCES client(client_id));
+16:49:08.271 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car_order_status(car_order_status_id TINYINT IDENTITY,name VARCHAR(255) NOT NULL);
+16:49:08.274 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE car_order(car_order_id BIGINT IDENTITY,car_id BIGINT NOT NULL,car_order_status_id TINYINT NOT NULL,start_date TIMESTAMP NOT NULL,end_date TIMESTAMP,FOREIGN KEY (car_order_status_id) REFERENCES car_order_status (car_order_status_id),FOREIGN KEY (car_id) REFERENCES car(car_id));
+16:49:08.275 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE employee_category(employee_category_id TINYINT IDENTITY,name VARCHAR (255) NOT NULL);
+16:49:08.277 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE employee(employee_id INT IDENTITY,first_name VARCHAR(255) NOT NULL,last_name VARCHAR(255) NOT NULL,employee_category_id TINYINT NOT NULL,FOREIGN KEY (employee_category_id) REFERENCES employee_category(employee_category_id));
+16:49:08.279 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: CREATE TABLE employee_car_order(employee_id INT NOT NULL,car_order_id BIGINT NOT NULL,PRIMARY KEY (employee_id,car_order_id),FOREIGN KEY (employee_id) REFERENCES employee(employee_id),FOREIGN KEY (car_order_id) REFERENCES car_order(car_order_id));
+16:49:08.284 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car ALTER COLUMN car_id bigint AUTO_INCREMENT;
+16:49:08.286 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car_order_status ADD CONSTRAINT unique_car_order_status_name UNIQUE(name);
+16:49:08.286 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE employee_category ADD CONSTRAINT unique_employee_category_name UNIQUE(name);
+16:49:08.288 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:47 - Success: ALTER TABLE car ADD CONSTRAINT unique_car_serial_id UNIQUE(serial_id);
+16:49:08.288 [main] INFO  nix.jdbcworkshop.app.CreateTables.main:49 - DB structure is created

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import nix.jdbcworkshop.dao.impl.CarTypeDao;
+import nix.jdbcworkshop.dao.impl.CarTypeDaoH2;
 import nix.jdbcworkshop.entities.CarType;
 import nix.jdbcworkshop.utils.ConnectionManagerH2;
 import org.apache.commons.configuration.Configuration;
@@ -53,7 +53,19 @@ public class DaoDemo {
         } catch (SQLException | IOException | RuntimeException ex) {
             LOGGER.error(ex);
         }*/
-        new CarTypeDao().create(new CarType(null,"Tesla","M"));                
+        CarTypeDaoH2 myCarTypeDao = new CarTypeDaoH2();
+        CarType cooperMini = new CarType(null, "Cooper", "Mini");
+        
+        myCarTypeDao.create(cooperMini);
+        cooperMini.setModel("Mini2");
+        myCarTypeDao.update(cooperMini);
+        myCarTypeDao.delete(cooperMini);
+        CarType toyota = myCarTypeDao.findCarById(5);
+        
+        
+        
+        
+
     }
 
 }

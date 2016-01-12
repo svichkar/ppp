@@ -42,13 +42,12 @@ public class CreateTables {
             conn.setAutoCommit(false);
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             for (String sqlStatement
-                    : FileUtils.readLines(new File(classLoader.getResource(jdbcConfig.getString("jdbc.dml.file")).getFile()))) {
+                    : FileUtils.readLines(new File(classLoader.getResource(jdbcConfig.getString("jdbc.ddl.file")).getFile()))) {
                 conn.createStatement().executeUpdate(sqlStatement);
                 LOGGER.info("Success: "+sqlStatement);
             }
             LOGGER.info("DB structure is created");
             System.out.println("DB structure is created");
-            conn.close();
         } catch (SQLException | IOException ex) {
             LOGGER.error(ex);
         }

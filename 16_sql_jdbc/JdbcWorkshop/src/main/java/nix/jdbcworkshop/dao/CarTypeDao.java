@@ -12,9 +12,9 @@ import nix.jdbcworkshop.entities.CarType;
  *
  * @author mednorcom
  */
-public interface GeneralCarTypeDao {
+public interface CarTypeDao {
     public void create(CarType carType);
     public void update(CarType carType);
     public void delete(CarType carType);
-    public List<CarType> findCar(String brand, String model);
+    public CarType findCarById(long carTypeId);
 }

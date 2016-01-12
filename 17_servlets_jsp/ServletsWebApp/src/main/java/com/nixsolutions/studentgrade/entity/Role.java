@@ -5,22 +5,26 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class Role {
 
-    private int roleId;
+    private Long roleId;
     private String roleName;
 
     public Role() {
     }
 
-    public Role(int roleId, String roleName) {
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Role(Long roleId, String roleName) {
         this.roleId = roleId;
         this.roleName = roleName;
     }
 
-    public int getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface GradeDao {
 
-    public Grade create(Grade grade);
+    public boolean create(Grade grade);
 
     public boolean update(Grade grade);
 
@@ -17,5 +17,5 @@ public interface GradeDao {
 
     public List<Grade> findAll();
 
-    public Grade findById(int id);
+    public Grade findById(Long id);
 }

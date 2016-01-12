@@ -5,62 +5,49 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class Journal {
 
-    private int journalId;
-    private int studentId;
-    private int subjectId;
-    private int gradeId;
+    private Long journalId;
+    private Long studentId;
+    private Long subjectId;
+    private Long gradeId;
 
-    /**
-     * Default constructor
-     */
     public Journal() {
-
     }
 
-    /**
-     * Constructor with all parameters
-     *
-     * @param journalId
-     * @param studentId
-     * @param subjectId
-     * @param gradeId
-     */
-    public Journal(int journalId, int studentId, int subjectId, int gradeId) {
-        this.journalId = journalId;
+    public Journal(Long studentId, Long subjectId, Long gradeId) {
         this.studentId = studentId;
         this.subjectId = subjectId;
         this.gradeId = gradeId;
     }
 
-    public int getJournalId() {
+    public Long getJournalId() {
         return journalId;
     }
 
-    public void setJournalId(int journalId) {
+    public void setJournalId(Long journalId) {
         this.journalId = journalId;
     }
 
-    public int getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
-    public int getSubjectId() {
+    public Long getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
     }
 
-    public int getGradeId() {
+    public Long getGradeId() {
         return gradeId;
     }
 
-    public void setGradeId(int gradeId) {
+    public void setGradeId(Long gradeId) {
         this.gradeId = gradeId;
     }
 }

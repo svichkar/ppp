@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface SubjectDao {
 
-    public Subject create(Subject subject);
+    public boolean create(Subject subject);
 
     public boolean update(Subject subject);
 
@@ -17,5 +17,5 @@ public interface SubjectDao {
 
     public List<Subject> findAll();
 
-    public Subject findById(int id);
+    public Subject findById(Long id);
 }

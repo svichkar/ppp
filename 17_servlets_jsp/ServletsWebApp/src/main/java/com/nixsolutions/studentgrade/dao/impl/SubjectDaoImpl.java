@@ -2,7 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.SubjectDao;
 import com.nixsolutions.studentgrade.entity.Subject;
-import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import com.nixsolutions.studentgrade.util.H2ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,21 +18,20 @@ public class SubjectDaoImpl implements SubjectDao {
     private static final Logger LOG = LogManager.getLogger(SubjectDaoImpl.class);
 
     @Override
-    public Subject create(Subject subject) {
+    public boolean create(Subject subject) {
 
-        String sql = "INSERT INTO subject(subject_id, subject_name, term_id) VALUES ( ? , ? , ?)";
+        String sql = "INSERT INTO subject(subject_name, term_id) VALUES ( ? , ?)";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, subject.getSubjectId());
-            statement.setString(2, subject.getSubjectName());
-            statement.setInt(3, subject.getTermId());
+            statement.setString(1, subject.getSubjectName());
+            statement.setLong(2, subject.getTermId());
             statement.executeUpdate();
-            return subject;
+            return true;
         } catch (SQLException e) {
             LOG.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -42,12 +41,12 @@ public class SubjectDaoImpl implements SubjectDao {
         String sql = "UPDATE subject SET subject_name = ?, term_id = ? " +
                 "WHERE subject_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, subject.getSubjectName());
-            statement.setInt(2, subject.getTermId());
-            statement.setInt(3, subject.getSubjectId());
+            statement.setLong(2, subject.getTermId());
+            statement.setLong(3, subject.getSubjectId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -61,10 +60,10 @@ public class SubjectDaoImpl implements SubjectDao {
 
         String sql = "DELETE FROM subject WHERE subject_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, subject.getSubjectId());
+            statement.setLong(1, subject.getSubjectId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -79,16 +78,16 @@ public class SubjectDaoImpl implements SubjectDao {
         String sql = "SELECT * FROM subject";
         List<Subject> list = new ArrayList<>();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 Subject subject = new Subject();
-                subject.setSubjectId(rs.getInt("subject_id"));
+                subject.setSubjectId(rs.getLong("subject_id"));
                 subject.setSubjectName(rs.getString("subject_name"));
-                subject.setTermId(rs.getInt("term_id"));
+                subject.setTermId(rs.getLong("term_id"));
                 list.add(subject);
             }
             return list;
@@ -99,19 +98,19 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
-    public Subject findById(int id) {
+    public Subject findById(Long id) {
 
         String sql = String.format("SELECT subject_id, subject_name, term_id FROM subject WHERE subject_id = %d", id);
         Subject result = new Subject();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                result.setSubjectId(rs.getInt("subject_id"));
+                result.setSubjectId(rs.getLong("subject_id"));
                 result.setSubjectName(rs.getString("subject_name"));
-                result.setTermId(rs.getInt("term_id"));
+                result.setTermId(rs.getLong("term_id"));
             }
             return result;
         } catch (SQLException e) {

@@ -2,7 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.entity.Role;
-import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import com.nixsolutions.studentgrade.util.H2ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,20 +17,20 @@ public class RoleDaoImpl implements RoleDao {
 
     private static final Logger LOG = LogManager.getLogger(RoleDaoImpl.class);
 
-    public Role create(Role role) {
+    public boolean create(Role role) {
 
         String sql = "INSERT INTO role (role_id, role_name) VALUES ( ?, ?)";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, role.getRoleId());
+            statement.setLong(1, role.getRoleId());
             statement.setString(2, role.getRoleName());
             statement.executeUpdate();
-            return role;
+            return true;
         } catch (SQLException e) {
             LOG.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -38,11 +38,11 @@ public class RoleDaoImpl implements RoleDao {
 
         String sql = "UPDATE role SET role_name = ? WHERE role_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, role.getRoleName());
-            statement.setInt(2, role.getRoleId());
+            statement.setLong(2, role.getRoleId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -55,10 +55,10 @@ public class RoleDaoImpl implements RoleDao {
 
         String sql = "DELETE FROM role WHERE role_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, role.getRoleId());
+            statement.setLong(1, role.getRoleId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -72,14 +72,14 @@ public class RoleDaoImpl implements RoleDao {
         String sql = "SELECT * FROM role";
         List<Role> list = new ArrayList<>();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 Role role = new Role();
-                role.setRoleId(rs.getInt("role_id"));
+                role.setRoleId(rs.getLong("role_id"));
                 role.setRoleName(rs.getString("role_name"));
                 list.add(role);
             }
@@ -90,17 +90,17 @@ public class RoleDaoImpl implements RoleDao {
         }
     }
 
-    public Role findById(int id) {
+    public Role findById(Long id) {
 
         String sql = String.format("SELECT role_id, role_name FROM role WHERE role_id = %d", id);
         Role result = new Role();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                int roleId = rs.getInt("role_id");
+                Long roleId = rs.getLong("role_id");
                 String roleName = rs.getString("role_name");
                 return new Role(roleId, roleName);
             }
@@ -114,12 +114,12 @@ public class RoleDaoImpl implements RoleDao {
 
         String sql = String.format("SELECT role_id, role_name FROM role WHERE role_name = '%s'", role);
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                int roleId = rs.getInt("role_id");
+                Long roleId = rs.getLong("role_id");
                 String roleName = rs.getString("role_name");
                 return new Role(roleId, roleName);
             }

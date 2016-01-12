@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface StudentGroupDao {
 
-    public StudentGroup create(StudentGroup group);
+    public boolean create(StudentGroup group);
 
     public boolean update(StudentGroup group);
 
@@ -17,5 +17,5 @@ public interface StudentGroupDao {
 
     public List<StudentGroup> findAll();
 
-    public StudentGroup findById(int id);
+    public StudentGroup findById(Long id);
 }

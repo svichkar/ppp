@@ -2,7 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.GradeDao;
 import com.nixsolutions.studentgrade.entity.Grade;
-import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import com.nixsolutions.studentgrade.util.H2ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,20 +18,19 @@ public class GradeDaoImpl implements GradeDao {
     private static final Logger LOG = LogManager.getLogger(GradeDaoImpl.class);
 
     @Override
-    public Grade create(Grade grade) {
+    public boolean create(Grade grade) {
 
-        String sql = "INSERT INTO grade(grade_id, grade_name) VALUES ( ? , ? )";
+        String sql = "INSERT INTO grade(grade_name) VALUES ( ? )";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, grade.getGradeId());
-            statement.setString(2, grade.getGradeName());
+            statement.setString(1, grade.getGradeName());
             statement.executeUpdate();
-            return grade;
+            return true;
         } catch (SQLException e) {
             LOG.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -40,11 +39,11 @@ public class GradeDaoImpl implements GradeDao {
 
         String sql = "UPDATE grade SET grade_name = ? WHERE grade_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, grade.getGradeName());
-            statement.setInt(2, grade.getGradeId());
+            statement.setLong(2, grade.getGradeId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -58,10 +57,10 @@ public class GradeDaoImpl implements GradeDao {
 
         String sql = "DELETE FROM grade WHERE grade_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, grade.getGradeId());
+            statement.setLong(1, grade.getGradeId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -76,14 +75,14 @@ public class GradeDaoImpl implements GradeDao {
         String sql = "SELECT * FROM grade";
         List<Grade> list = new ArrayList<>();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 Grade grade = new Grade();
-                grade.setGradeId(rs.getInt("grade_id"));
+                grade.setGradeId(rs.getLong("grade_id"));
                 grade.setGradeName(rs.getString("grade_name"));
                 list.add(grade);
             }
@@ -95,17 +94,17 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
-    public Grade findById(int id) {
+    public Grade findById(Long id) {
 
         String sql = String.format("SELECT grade_id, grade_name FROM grade WHERE grade_id = %d", id);
         Grade result = new Grade();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                result.setGradeId(rs.getInt("grade_id"));
+                result.setGradeId(rs.getLong("grade_id"));
                 result.setGradeName(rs.getString("grade_name"));
             }
             return result;

@@ -1,7 +1,7 @@
 package com.nixsolutions.studentgrade;
 
 import com.nixsolutions.studentgrade.dao.RoleDao;
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
@@ -38,7 +38,7 @@ public class MainPageServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+        DaoFactory daoFactory = new DaoFactory();
         UserDao userDao = daoFactory.getUserDao();
 
         if (userDao.validateUser(login)) {

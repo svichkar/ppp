@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface RoleDao {
 
-    public Role create(Role role);
+    public boolean create(Role role);
 
     public boolean update(Role role);
 
@@ -17,7 +17,7 @@ public interface RoleDao {
 
     public List<Role> findAll();
 
-    public Role findById(int id);
+    public Role findById(Long id);
 
     public Role findByName(String role);
 }

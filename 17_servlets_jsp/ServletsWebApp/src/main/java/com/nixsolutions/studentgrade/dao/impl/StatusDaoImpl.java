@@ -2,7 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StatusDao;
 import com.nixsolutions.studentgrade.entity.Status;
-import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import com.nixsolutions.studentgrade.util.H2ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,20 +18,19 @@ public class StatusDaoImpl implements StatusDao {
     private static final Logger LOG = LogManager.getLogger(StatusDaoImpl.class);
 
     @Override
-    public Status create(Status status) {
+    public boolean create(Status status) {
 
-        String sql = "INSERT INTO status(status_id, status_name) VALUES ( ? , ? )";
+        String sql = "INSERT INTO status(status_name) VALUES ( ? )";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, status.getStatusId());
-            statement.setString(2, status.getStatusName());
+            statement.setString(1, status.getStatusName());
             statement.executeUpdate();
-            return status;
+            return true;
         } catch (SQLException e) {
             LOG.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -40,11 +39,11 @@ public class StatusDaoImpl implements StatusDao {
 
         String sql = "UPDATE status SET status_name = ? WHERE status_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, status.getStatusName());
-            statement.setInt(2, status.getStatusId());
+            statement.setLong(2, status.getStatusId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -58,10 +57,10 @@ public class StatusDaoImpl implements StatusDao {
 
         String sql = "DELETE FROM status WHERE status_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, status.getStatusId());
+            statement.setLong(1, status.getStatusId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -76,14 +75,14 @@ public class StatusDaoImpl implements StatusDao {
         String sql = "SELECT * FROM status";
         List<Status> list = new ArrayList<>();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 Status status = new Status();
-                status.setStatusId(rs.getInt("status_id"));
+                status.setStatusId(rs.getLong("status_id"));
                 status.setStatusName(rs.getString("status_name"));
                 list.add(status);
             }
@@ -95,17 +94,17 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public Status findById(int id) {
+    public Status findById(Long id) {
 
         String sql = String.format("SELECT status_id, status_name FROM status WHERE status_id = %d", id);
         Status result = new Status();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                result.setStatusId(rs.getInt("status_id"));
+                result.setStatusId(rs.getLong("status_id"));
                 result.setStatusName(rs.getString("status_name"));
             }
             return result;

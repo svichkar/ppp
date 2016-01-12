@@ -1,7 +1,7 @@
 package com.nixsolutions.studentgrade;
 
 import com.nixsolutions.studentgrade.dao.RoleDao;
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
@@ -35,7 +35,7 @@ public class AdminPageServlet extends HttpServlet {
 
         session = request.getSession(true);
         if (session.getAttribute("isAdmin").equals(true)) {
-            StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+            DaoFactory daoFactory = new DaoFactory();
 
             RoleDao roleDao = daoFactory.getRoleDao();
             List<Role> roles = roleDao.findAll();
@@ -149,7 +149,7 @@ public class AdminPageServlet extends HttpServlet {
 
         session = request.getSession(true);
         if (session.getAttribute("isAdmin").equals(true)) {
-            StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+            DaoFactory daoFactory = new DaoFactory();
 
             RoleDao roleDao = daoFactory.getRoleDao();
             Role role = roleDao.findByName(request.getParameter("role"));
@@ -158,7 +158,7 @@ public class AdminPageServlet extends HttpServlet {
             User user = new User();
 
             if (request.getParameter("id") != null && request.getParameter("id") != "") {
-                user.setUserId(Integer.valueOf(request.getParameter("id")));
+                user.setUserId(Long.valueOf(request.getParameter("id")));
             }
             user.setFirstName(request.getParameter("fisrt_name"));
             user.setLastName(request.getParameter("last_name"));
@@ -176,7 +176,7 @@ public class AdminPageServlet extends HttpServlet {
                     boolean isUnique = true;
                     for (User u : userDao.findAll()) {
 
-                        if (user.getLogin().equals(u.getLogin())) {
+                        if (user.getLogin().equals(u.getLogin()) || user.getEmail().equals(u.getEmail())) {
                          isUnique = false;
                         }
                     }
@@ -186,7 +186,7 @@ public class AdminPageServlet extends HttpServlet {
                         message = "Success";
                     } else {
 
-                        message = String.format("User with '<b>%s</b>' login already exists.", user.getLogin());
+                        message = String.format("User with specified login OR e-mail already exists.", user.getLogin());
                     }
                 }
                 break;

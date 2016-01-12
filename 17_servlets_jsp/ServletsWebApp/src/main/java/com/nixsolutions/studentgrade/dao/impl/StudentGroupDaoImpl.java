@@ -2,7 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StudentGroupDao;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
-import com.nixsolutions.studentgrade.util.M2ConnectionManager;
+import com.nixsolutions.studentgrade.util.H2ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,20 +18,19 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
     private static final Logger LOG = LogManager.getLogger(StudentGroupDaoImpl.class);
 
     @Override
-    public StudentGroup create(StudentGroup group) {
+    public boolean create(StudentGroup group) {
 
-        String sql = "INSERT INTO student_group (group_id, group_name) VALUES ( ? , ? )";
+        String sql = "INSERT INTO student_group (group_name) VALUES ( ? )";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, group.getGroupId());
-            statement.setString(2, group.getGroupName());
+            statement.setString(1, group.getGroupName());
             statement.executeUpdate();
-            return group;
+            return true;
         } catch (SQLException e) {
             LOG.error(e);
-            return null;
+            return false;
         }
     }
 
@@ -40,11 +39,11 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
         String sql = "UPDATE student_group SET group_name = ? WHERE group_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, group.getGroupName());
-            statement.setInt(2, group.getGroupId());
+            statement.setLong(2, group.getGroupId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -58,10 +57,10 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
         String sql = "DELETE FROM student_group WHERE group_id = ?";
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, group.getGroupId());
+            statement.setLong(1, group.getGroupId());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -76,14 +75,14 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         String sql = "SELECT * FROM student_group";
         List<StudentGroup> list = new ArrayList<>();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement()) {
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 StudentGroup group = new StudentGroup();
-                group.setGroupId(rs.getInt("group_id"));
+                group.setGroupId(rs.getLong("group_id"));
                 group.setGroupName(rs.getString("group_name"));
                 list.add(group);
             }
@@ -95,18 +94,18 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
     }
 
     @Override
-    public StudentGroup findById(int id) {
+    public StudentGroup findById(Long id) {
 
         String sql = String.format("SELECT group_id, group_name FROM student_group WHERE group_id = %d", id);
         StudentGroup result = new StudentGroup();
 
-        try (Connection connection = M2ConnectionManager.getConnection();
+        try (Connection connection = H2ConnectionManager.getConnection();
              Statement statement = connection.createStatement();) {
 
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                result.setGroupId(rs.getInt("group_id"));
+                result.setGroupId(rs.getLong("group_id"));
                 result.setGroupName(rs.getString("group_name"));
             }
             return result;

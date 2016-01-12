@@ -5,22 +5,21 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class Term {
 
-    private int termId;
+    private Long termId;
     private String termName;
 
     public Term() {
     }
 
-    public Term(int termId, String termName) {
-        this.termId = termId;
+    public Term(String termName) {
         this.termName = termName;
     }
 
-    public int getTermId() {
+    public Long getTermId() {
         return termId;
     }
 
-    public void setTermId(int termId) {
+    public void setTermId(Long termId) {
         this.termId = termId;
     }
 

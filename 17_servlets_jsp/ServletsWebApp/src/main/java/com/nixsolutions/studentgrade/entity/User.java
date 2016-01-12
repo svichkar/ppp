@@ -5,18 +5,27 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class User {
 
-    private int userId;
+    private Long userId;
     private String firstName;
     private String lastName;
     private String login;
     private String userPassword;
     private String email;
-    private int roleId;
+    private Long roleId;
 
     public User() {
     }
 
-    public User(int userId, String firstName, String lastName, String userPassword,  String login, String email, int roleId) {
+    public User(String firstName, String lastName, String login, String userPassword, String email, Long roleId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.userPassword = userPassword;
+        this.email = email;
+        this.roleId = roleId;
+    }
+
+    public User(Long userId, String firstName, String lastName, String login, String userPassword, String email, Long roleId) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,11 +35,11 @@ public class User {
         this.roleId = roleId;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -49,7 +58,6 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
 
     public String getLogin() {
         return login;
@@ -75,11 +83,11 @@ public class User {
         this.email = email;
     }
 
-    public int getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 }

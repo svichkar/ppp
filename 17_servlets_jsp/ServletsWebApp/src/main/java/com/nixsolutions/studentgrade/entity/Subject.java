@@ -5,24 +5,23 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class Subject {
 
-    private int subjectId;
+    private Long subjectId;
     private String subjectName;
-    private int termId;
+    private Long termId;
 
     public Subject() {
     }
 
-    public Subject(int subjectId, String subjectName, int termId) {
-        this.subjectId = subjectId;
+    public Subject(String subjectName, Long termId) {
         this.subjectName = subjectName;
         this.termId = termId;
     }
 
-    public int getSubjectId() {
+    public Long getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
     }
 
@@ -34,11 +33,11 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public int getTermId() {
+    public Long getTermId() {
         return termId;
     }
 
-    public void setTermId(int termId) {
+    public void setTermId(Long termId) {
         this.termId = termId;
     }
 }

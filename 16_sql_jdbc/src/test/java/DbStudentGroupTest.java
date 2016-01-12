@@ -1,4 +1,4 @@
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.StudentGroupDao;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
 import config.DBUnitConfig;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DbStudentGroupTest extends DBUnitConfig {
 
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     StudentGroupDao groupDao = daoFactory.getStudentGroupDao();
 
     @Before
@@ -51,7 +51,7 @@ public class DbStudentGroupTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        StudentGroup newTerm = new StudentGroup(6, "java 16-1");
+        StudentGroup newTerm = new StudentGroup("java 16-1");
         groupDao.create(newTerm);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -59,13 +59,14 @@ public class DbStudentGroupTest extends DBUnitConfig {
         ITable expTable = expected.getTable("student_group");
 
         ITable actTable = tester.getConnection().createTable("student_group");
-        Assertion.assertEquals(expTable, actTable);
+        String[] ignore = new String[]{"group_id"};
+        Assertion.assertEqualsIgnoreCols(expTable, actTable, ignore);
     }
 
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        StudentGroup update = new StudentGroup(4, "java 15-4");
+        StudentGroup update = groupDao.findById(new Long(4));
         update.setGroupName("java 16-2");
         groupDao.update(update);
 
@@ -81,7 +82,7 @@ public class DbStudentGroupTest extends DBUnitConfig {
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        StudentGroup delete = new StudentGroup(4, "java 15-4");
+        StudentGroup delete = groupDao.findById(new Long(4));
         groupDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -95,7 +96,7 @@ public class DbStudentGroupTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int groupId = 5;
+        Long groupId = new Long(5);
         StudentGroup foundTerm = groupDao.findById(groupId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()

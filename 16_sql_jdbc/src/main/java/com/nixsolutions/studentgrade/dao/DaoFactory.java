@@ -5,7 +5,7 @@ import com.nixsolutions.studentgrade.dao.impl.*;
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class StudentGradeDaoFactory {
+public class DaoFactory {
 
     public GradeDao getGradeDao() {
         return new GradeDaoImpl();

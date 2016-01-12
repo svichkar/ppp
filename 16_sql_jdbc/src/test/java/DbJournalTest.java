@@ -1,4 +1,4 @@
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.JournalDao;
 import com.nixsolutions.studentgrade.entity.Journal;
 import config.DBUnitConfig;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DbJournalTest extends DBUnitConfig {
 
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     JournalDao journalDao = daoFactory.getJournalDao();
 
     @Before
@@ -51,7 +51,7 @@ public class DbJournalTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        Journal newJournal = new Journal(8, 3, 4, 3);
+        Journal newJournal = new Journal (new Long(3), new Long(4), new Long(3));
         journalDao.create(newJournal);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -66,8 +66,8 @@ public class DbJournalTest extends DBUnitConfig {
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Journal update = new Journal(4, 2, 2, 2);
-        update.setGradeId(4);
+        Journal update = journalDao.findById(new Long(4));
+        update.setGradeId(new Long(4));
         journalDao.update(update);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -76,13 +76,13 @@ public class DbJournalTest extends DBUnitConfig {
 
         ITable actTable = tester.getConnection().createTable("journal");
         Assertion.assertEquals(expTable, actTable);
-        Assert.assertEquals(update.getGradeId(), actTable.getValue(3, "grade_id"));
+        Assert.assertEquals(update.getGradeId().toString(), actTable.getValue(3, "grade_id").toString());
     }
 
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Journal delete = new Journal(5, 1, 4, 4);
+        Journal delete = journalDao.findById(new Long(5));
         journalDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -96,7 +96,7 @@ public class DbJournalTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int journalId = 7;
+        Long journalId = new Long(7);
         Journal foundJournal = journalDao.findById(journalId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -104,7 +104,7 @@ public class DbJournalTest extends DBUnitConfig {
         ITable expTable = expected.getTable("journal");
 
         String sqlQuery = String.format("SELECT * FROM journal WHERE journal_id = %d", journalId);
-        String[] ignore = new String[0];
+        String[] ignore = new String[]{"journal_id"};
         Assertion.assertEqualsByQuery(expTable, getConnection(), "journal", sqlQuery, ignore);
         Assert.assertEquals(expTable.getValue(0, "student_id"), String.valueOf(foundJournal.getStudentId()));
         Assert.assertEquals(expTable.getValue(0, "subject_id"), String.valueOf(foundJournal.getSubjectId()));

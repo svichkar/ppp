@@ -7,32 +7,18 @@ import java.sql.Date;
  */
 public class Student {
 
-    private int studentId;
+    private Long studentId;
     private String firstName;
     private String lastName;
-    private int groupId;
+    private Long groupId;
     private Date admissionDate;
-    private int statusId;
-    private int termId;
+    private Long statusId;
+    private Long termId;
 
-    /**
-     * Default constructor
-     */
     public Student() {
     }
 
-    /**
-     * Constructor with all fields
-     * @param studentId
-     * @param firstName
-     * @param lastName
-     * @param groupId
-     * @param admissionDate
-     * @param statusId
-     * @param termId
-     */
-    public Student(int studentId, String firstName, String lastName, int groupId, Date admissionDate, int statusId, int termId) {
-        this.studentId = studentId;
+    public Student(String firstName, String lastName, Long groupId, Date admissionDate, Long statusId, Long termId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.groupId = groupId;
@@ -41,11 +27,11 @@ public class Student {
         this.termId = termId;
     }
 
-    public int getStudentId() {
+    public Long getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
+    public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
 
@@ -65,11 +51,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public int getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 
@@ -81,19 +67,19 @@ public class Student {
         this.admissionDate = admissionDate;
     }
 
-    public int getStatusId() {
+    public Long getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(int statusId) {
+    public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
 
-    public int getTermId() {
+    public Long getTermId() {
         return termId;
     }
 
-    public void setTermId(int termId) {
+    public void setTermId(Long termId) {
         this.termId = termId;
     }
 }

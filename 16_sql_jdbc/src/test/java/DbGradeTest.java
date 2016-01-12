@@ -1,5 +1,5 @@
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.GradeDao;
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
 import com.nixsolutions.studentgrade.entity.Grade;
 import config.DBUnitConfig;
 import org.dbunit.Assertion;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DbGradeTest extends DBUnitConfig {
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     GradeDao gradeDao = daoFactory.getGradeDao();
 
     @Before
@@ -50,7 +50,7 @@ public class DbGradeTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        Grade newGrade = new Grade(6, "wunderkinder");
+        Grade newGrade = new Grade("wunderkinder");
         gradeDao.create(newGrade);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -58,13 +58,14 @@ public class DbGradeTest extends DBUnitConfig {
         ITable expTable = expected.getTable("grade");
 
         ITable actTable = tester.getConnection().createTable("grade");
-        Assertion.assertEquals(expTable, actTable);
+        String[] ignore = new String[]{"grade_id"};
+        Assertion.assertEqualsIgnoreCols(expTable, actTable, ignore);
     }
 
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Grade update = new Grade(4, "good");
+        Grade update = gradeDao.findById(new Long(4));
         update.setGradeName("not bad, man!");
         gradeDao.update(update);
 
@@ -80,7 +81,7 @@ public class DbGradeTest extends DBUnitConfig {
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Grade delete = new Grade(4, "good");
+        Grade delete = gradeDao.findById(new Long(4));
         gradeDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -94,7 +95,7 @@ public class DbGradeTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int gradeId = 2;
+        Long gradeId = new Long(2);
         Grade foundGrade = gradeDao.findById(gradeId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()

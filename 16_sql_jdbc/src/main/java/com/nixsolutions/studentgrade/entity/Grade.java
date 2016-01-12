@@ -5,23 +5,22 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class Grade {
 
-    private int gradeId;
+    private Long gradeId;
     private String gradeName;
 
     public Grade() {
 
     }
 
-    public Grade(int gradeId, String gradeName) {
-        this.gradeId = gradeId;
+    public Grade(String gradeName) {
         this.gradeName = gradeName;
     }
 
-    public int getGradeId() {
+    public Long getGradeId() {
         return gradeId;
     }
 
-    public void setGradeId(int gradeId) {
+    public void setGradeId(Long gradeId) {
         this.gradeId = gradeId;
     }
 

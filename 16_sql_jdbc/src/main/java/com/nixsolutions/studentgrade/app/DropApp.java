@@ -13,10 +13,11 @@ import java.util.Properties;
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class Delete {
+public class DropApp {
 
-    private static final Logger LOG = LogManager.getLogger(Delete.class);
+    private static final Logger LOG = LogManager.getLogger(DropApp.class);
     private static Connection connection;
+    private static Statement statement;
 
     public static void main(String args[]) {
 
@@ -54,15 +55,26 @@ public class Delete {
             LOG.info("Table 'student' has been dropped.");
             statement.executeUpdate("DROP TABLE IF EXISTS journal;");
             LOG.info("Table 'journal' has been dropped.");
-
+            LOG.info("All tables dropped from database.");
         } catch (ClassNotFoundException e) {
             LOG.error(e);
-            throw new RuntimeException(e);
         } catch (SQLException e) {
             LOG.error(e);
-            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    LOG.error(e);
+                }
+            }
+            if (statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    LOG.error(e);
+                }
+            }
         }
-
-        LOG.info("All tables dropped from database.");
     }
 }

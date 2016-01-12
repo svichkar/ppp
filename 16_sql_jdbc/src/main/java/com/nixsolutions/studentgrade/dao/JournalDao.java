@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface JournalDao {
 
-    public Journal create(Journal journal);
+    public boolean create(Journal journal);
 
     public boolean update(Journal journal);
 
@@ -17,5 +17,5 @@ public interface JournalDao {
 
     public List<Journal> findAll();
 
-    public Journal findById(int id);
+    public Journal findById(Long id);
 }

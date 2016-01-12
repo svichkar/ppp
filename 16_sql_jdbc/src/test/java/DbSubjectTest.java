@@ -1,4 +1,4 @@
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.SubjectDao;
 import com.nixsolutions.studentgrade.entity.Subject;
 import config.DBUnitConfig;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DbSubjectTest extends DBUnitConfig {
 
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     SubjectDao subjectDao = daoFactory.getSubjectDao();
 
     @Before
@@ -51,7 +51,7 @@ public class DbSubjectTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        Subject newSubject = new Subject(6, "Chemistry", 2);
+        Subject newSubject = new Subject("Chemistry", new Long(2));
         subjectDao.create(newSubject);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -59,14 +59,15 @@ public class DbSubjectTest extends DBUnitConfig {
         ITable expTable = expected.getTable("subject");
 
         ITable actTable = tester.getConnection().createTable("subject");
-        Assertion.assertEquals(expTable, actTable);
+        String[] ignore = new String[]{"subject_id"};
+        Assertion.assertEqualsIgnoreCols(expTable, actTable, ignore);
     }
 
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Subject update = new Subject(1, "Java", 1);
-        update.setTermId(2);
+        Subject update = subjectDao.findById(new Long(1));
+        update.setTermId(new Long(2));
         subjectDao.update(update);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -81,7 +82,7 @@ public class DbSubjectTest extends DBUnitConfig {
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Subject delete = new Subject(3, "Physics", 2);
+        Subject delete = subjectDao.findById(new Long(3));
         subjectDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -95,7 +96,7 @@ public class DbSubjectTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int subjectId = 4;
+        Long subjectId =  new Long(4);
         Subject foundSubject = subjectDao.findById(subjectId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()

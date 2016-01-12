@@ -1,4 +1,4 @@
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.StatusDao;
 import com.nixsolutions.studentgrade.entity.Status;
 import config.DBUnitConfig;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DbStatusTest extends DBUnitConfig {
 
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     StatusDao statusDao = daoFactory.getStatusDao();
 
     @Before
@@ -51,7 +51,7 @@ public class DbStatusTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        Status newStatus = new Status(5, "other");
+        Status newStatus = new Status("other");
         statusDao.create(newStatus);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -59,13 +59,14 @@ public class DbStatusTest extends DBUnitConfig {
         ITable expTable = expected.getTable("status");
 
         ITable actTable = tester.getConnection().createTable("status");
-        Assertion.assertEquals(expTable, actTable);
+        String[] ignore = new String[]{"status_id"};
+        Assertion.assertEqualsIgnoreCols(expTable, actTable, ignore);
     }
 
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Status update = new Status(2, "academic vacation");
+        Status update = statusDao.findById(new Long(2));
         update.setStatusName("waiting");
         statusDao.update(update);
 
@@ -81,7 +82,7 @@ public class DbStatusTest extends DBUnitConfig {
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Status delete = new Status(2, "academic vacation");
+        Status delete = statusDao.findById(new Long(2));
         statusDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -95,7 +96,7 @@ public class DbStatusTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int statusId = 3;
+        Long statusId = new Long(3);
         Status foundStatus = statusDao.findById(statusId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()

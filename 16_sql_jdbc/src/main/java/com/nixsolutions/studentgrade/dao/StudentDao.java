@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface StudentDao {
 
-    public Student create(Student student);
+    public boolean create(Student student);
 
     public boolean update(Student student);
 
@@ -17,5 +17,5 @@ public interface StudentDao {
 
     public List<Student> findAll();
 
-    public Student findById(int id);
+    public Student findById(Long id);
 }

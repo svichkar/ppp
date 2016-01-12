@@ -12,9 +12,9 @@ import java.util.Properties;
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class M2ConnectionManager {
+public class H2ConnectionManager {
 
-    private static final Logger LOG = LogManager.getLogger(M2ConnectionManager.class);
+    private static final Logger LOG = LogManager.getLogger(H2ConnectionManager.class);
     public static JdbcConnectionPool connectionPool;
 
     public static Connection getConnection() {

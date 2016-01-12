@@ -1,4 +1,4 @@
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.StudentDao;
 import com.nixsolutions.studentgrade.entity.Student;
 import config.DBUnitConfig;
@@ -19,7 +19,7 @@ import java.util.List;
 public class DbStudentTest extends DBUnitConfig {
 
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     StudentDao studentDao = daoFactory.getStudentDao();
 
     @Before
@@ -52,7 +52,7 @@ public class DbStudentTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        Student newStudent = new Student(6, "Mary", "Kane", 1, Date.valueOf("2015-06-02"), 1, 1);
+        Student newStudent = new Student("Mary", "Kane", new Long(1), Date.valueOf("2015-06-02"), new Long(1), new Long(1));
         studentDao.create(newStudent);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -67,8 +67,8 @@ public class DbStudentTest extends DBUnitConfig {
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Student update = new Student(1, "Alex", "Ross", 1, Date.valueOf("2015-03-25"), 1, 1);
-        update.setStatusId(4);
+        Student update = studentDao.findById(new Long(1));
+        update.setStatusId(new Long(4));
         studentDao.update(update);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -77,13 +77,13 @@ public class DbStudentTest extends DBUnitConfig {
 
         ITable actTable = tester.getConnection().createTable("student");
         Assertion.assertEquals(expTable, actTable);
-        Assert.assertEquals(update.getStatusId(), actTable.getValue(0, "status_id"));
+        Assert.assertEquals(update.getStatusId().toString(), actTable.getValue(0, "status_id").toString());
     }
 
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Student delete = new Student(3, "Andrew", "Galvan", 3, Date.valueOf("2015-05-10"), 1, 1);
+        Student delete = studentDao.findById(new Long(3));
         studentDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -97,7 +97,7 @@ public class DbStudentTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int studentId = 2;
+        Long studentId = new Long(2);
         Student foundStudent = studentDao.findById(studentId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()

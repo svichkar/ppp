@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface StatusDao {
 
-    public Status create(Status status);
+    public boolean create(Status status);
 
     public boolean update(Status status);
 
@@ -17,5 +17,5 @@ public interface StatusDao {
 
     public List<Status> findAll();
 
-    public Status findById(int id);
+    public Status findById(Long id);
 }

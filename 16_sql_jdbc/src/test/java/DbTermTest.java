@@ -1,4 +1,4 @@
-import com.nixsolutions.studentgrade.dao.StudentGradeDaoFactory;
+import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.TermDao;
 import com.nixsolutions.studentgrade.entity.Term;
 import config.DBUnitConfig;
@@ -18,7 +18,7 @@ import java.util.List;
 public class DbTermTest extends DBUnitConfig {
 
 
-    StudentGradeDaoFactory daoFactory = new StudentGradeDaoFactory();
+    DaoFactory daoFactory = new DaoFactory();
     TermDao termDao = daoFactory.getTermDao();
 
     @Before
@@ -51,7 +51,7 @@ public class DbTermTest extends DBUnitConfig {
     @Test
     public void testCreateShouldAddNewEntity() throws Exception {
 
-        Term newTerm = new Term(3, "external");
+        Term newTerm = new Term("external");
         termDao.create(newTerm);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -59,13 +59,14 @@ public class DbTermTest extends DBUnitConfig {
         ITable expTable = expected.getTable("term");
 
         ITable actTable = tester.getConnection().createTable("term");
-        Assertion.assertEquals(expTable, actTable);
+        String[] ignore = new String[]{"term_id"};
+        Assertion.assertEqualsIgnoreCols(expTable, actTable, ignore);
     }
 
     @Test
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Term update = new Term(1, "first");
+        Term update = termDao.findById(new Long(1));
         update.setTermName("spring");
         termDao.update(update);
 
@@ -81,7 +82,7 @@ public class DbTermTest extends DBUnitConfig {
     @Test
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Term delete = new Term(2, "second");
+        Term delete = termDao.findById(new Long(2));
         termDao.delete(delete);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -95,7 +96,7 @@ public class DbTermTest extends DBUnitConfig {
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        int termId = 1;
+        Long termId = new Long(1);
         Term foundTerm = termDao.findById(termId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
@@ -103,7 +104,7 @@ public class DbTermTest extends DBUnitConfig {
         ITable expTable = expected.getTable("term");
 
         String sqlQuery = String.format("SELECT * FROM term WHERE term_id = %d", termId);
-        String[] ignore = new String[0];
+        String[] ignore = new String[]{"term_id"};
         Assertion.assertEqualsByQuery(expTable, getConnection(), "term", sqlQuery, ignore);
         Assert.assertEquals(expTable.getValue(0, "term_name"), foundTerm.getTermName());
     }

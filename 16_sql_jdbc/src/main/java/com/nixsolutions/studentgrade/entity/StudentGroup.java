@@ -5,22 +5,21 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class StudentGroup {
 
-    private int groupId;
+    private Long groupId;
     private String groupName;
 
     public StudentGroup() {
     }
 
-    public StudentGroup(int groupId, String groupName) {
-        this.groupId = groupId;
+    public StudentGroup(String groupName) {
         this.groupName = groupName;
     }
 
-    public int getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 

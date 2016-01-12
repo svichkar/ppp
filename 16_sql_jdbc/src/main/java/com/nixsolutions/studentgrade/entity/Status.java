@@ -5,22 +5,21 @@ package com.nixsolutions.studentgrade.entity;
  */
 public class Status {
 
-    private int statusId;
+    private Long statusId;
     private String statusName;
 
     public Status() {
     }
 
-    public Status(int statusId, String statusName) {
-        this.statusId = statusId;
+    public Status(String statusName) {
         this.statusName = statusName;
     }
 
-    public int getStatusId() {
+    public Long getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(int statusId) {
+    public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
 
@@ -31,5 +30,4 @@ public class Status {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
-
 }

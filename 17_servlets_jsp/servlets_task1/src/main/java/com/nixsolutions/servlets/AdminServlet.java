@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 
 @SuppressWarnings("serial")
+@WebServlet("/admin")
 public class AdminServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);

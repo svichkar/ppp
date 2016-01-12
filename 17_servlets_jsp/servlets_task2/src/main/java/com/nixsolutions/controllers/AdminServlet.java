@@ -1,4 +1,4 @@
-package com.nixsolutions.servlets;
+package com.nixsolutions.controllers;
 
 import java.io.IOException;
 import java.util.List;

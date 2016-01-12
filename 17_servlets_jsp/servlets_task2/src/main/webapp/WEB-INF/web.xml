@@ -8,28 +8,28 @@
 
 	<servlet>
 		<servlet-name>auth</servlet-name>
-		<servlet-class>com.nixsolutions.servlets.AuthServlet</servlet-class>
+		<servlet-class>com.nixsolutions.controllers.AuthServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>admin</servlet-name>
-		<servlet-class>com.nixsolutions.servlets.AdminServlet</servlet-class>
+		<servlet-class>com.nixsolutions.controllers.AdminServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>createupdate</servlet-name>
-		<servlet-class>com.nixsolutions.servlets.CreateUpdateServlet</servlet-class>
+		<servlet-class>com.nixsolutions.controllers.CreateUpdateServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>librarian</servlet-name>
-		<servlet-class>com.nixsolutions.servlets.LibrarianServlet</servlet-class>
+		<servlet-class>com.nixsolutions.controllers.LibrarianServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>test</servlet-name>
-		<servlet-class>com.nixsolutions.servlets.TestServlet</servlet-class>
+		<servlet-class>com.nixsolutions.controllers.TestServlet</servlet-class>
 	</servlet>
 
 	<filter>
 		<filter-name>adminAuth</filter-name>
-		<filter-class>com.nixsolutions.filters.AdminAuth</filter-class>
+		<filter-class>com.nixsolutions.filters.AdminAuthFilter</filter-class>
 	</filter>
 
 	<filter-mapping>

@@ -117,4 +117,22 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 
 	}
 
+	@Override
+	public List<AuthorBook> getAuthorIdByBookId(int bookId) {
+		LOG.entry(bookId);
+		String sql = "SELECT * FROM author_book WHERE book_id = ?;";
+		List<AuthorBook> authorBooks = new ArrayList<>();
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setInt(1, bookId);
+			ResultSet result = statem.executeQuery();
+			while (result.next()) {
+				AuthorBook authBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
+				authorBooks.add(authBook);
+			}
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get all authorBooks", e));
+		}
+		return LOG.exit(authorBooks);
+	}
+
 }

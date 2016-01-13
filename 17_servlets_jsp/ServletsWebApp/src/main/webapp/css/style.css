@@ -151,14 +151,12 @@ border: none;
 }
 
 .rows select, .rows input[type=text]{
-box-sizing: border-width;
 font-family:'Courier New', Courier, monospace;
 font-size:14px;
 font-style:italic;
 width:100%;
 border: none;
 height:100%;
-padding-left:15px;
 }
 
 .rows td {

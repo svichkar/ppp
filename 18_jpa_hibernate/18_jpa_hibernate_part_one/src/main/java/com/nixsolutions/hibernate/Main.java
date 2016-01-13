@@ -8,5 +8,6 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 public class Main {
     public static void main(String[] args) {
         HibernateUtil.getSessionFactory();
+        HibernateUtil.closeSessionFactory();
     }
 }

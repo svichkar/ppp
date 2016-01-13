@@ -19,6 +19,9 @@ public class HibernateUtil {
         SessionFactory sf = cf.buildSessionFactory(sr);
         return sf;
     }
+    public static void closeSessionFactory(){
+        sessionFactory.close();
+    }
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;

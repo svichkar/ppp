@@ -20,4 +20,8 @@ public class HiberUtil {
     public static SessionFactory getSessionFactory() {
         return sFactory;
     }
+
+    public static void closeSessionFactory(){
+        sFactory.close();
+    }
 }

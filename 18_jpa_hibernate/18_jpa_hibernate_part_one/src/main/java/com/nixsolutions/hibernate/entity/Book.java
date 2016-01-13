@@ -11,24 +11,24 @@ import java.util.List;
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BOOK_ID")
+    @Column(name = "book_id")
     private Long bookId;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String bookName;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CELL_ID", referencedColumnName = "CELL_ID")
+    @JoinColumn(name = "cell_id", referencedColumnName = "cell_id")
     private Cell cell;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
 
     @ManyToMany
-    @JoinTable(name = "AUTHOR_BOOK",
-            joinColumns = { @JoinColumn(name = "BOOK_ID")},
-            inverseJoinColumns = { @JoinColumn(name = "AUTHOR_ID")})
+    @JoinTable(name = "author_book",
+            joinColumns = { @JoinColumn(name = "book_id")},
+            inverseJoinColumns = { @JoinColumn(name = "author_id")})
     private List<Author> authors;
 
     public Long getBookId() {

@@ -11,14 +11,14 @@ import java.util.List;
 public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROLE_ID")
+    @Column(name = "role_id")
     private Long roleId;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String roleName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private List<User> users;
 
     public Long getRoleId() {

@@ -12,14 +12,14 @@ public class Cell implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CELL_ID")
+    @Column(name = "cell_id")
     private Long cellId;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String cellName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CELL_ID", referencedColumnName = "CELL_ID")
+    @JoinColumn(name = "cell_id", referencedColumnName = "cell_id")
     private List<Book> books;
 
     public Long getCellId() {

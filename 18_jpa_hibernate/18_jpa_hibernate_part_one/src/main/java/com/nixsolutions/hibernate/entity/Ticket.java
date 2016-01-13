@@ -12,32 +12,32 @@ import java.util.List;
 public class Ticket implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TICKET_ID")
+    @Column(name = "ticket_id")
     private Long ticketId;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")
+    @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     private Book book;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
-    @Column(name = "RENT_DATE", nullable = false)
+    @Column(name = "rent_date", nullable = false)
     private Date rentDate;
 
-    @Column(name = "EXPIRED_DATE", nullable = false)
+    @Column(name = "expired_date", nullable = false)
     private Date expiredDate;
 
-    @Column(name = "RETURN_DATE")
+    @Column(name = "return_date")
     private Date returnDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")
+    @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     private List<Book> books;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private List<Client> clients;
 
     @Transient

@@ -10,19 +10,19 @@ import java.io.Serializable;
 public class Client implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CLIENT_ID")
+    @Column(name = "client_id")
     private Long clientId;
 
-    @Column(name = "FIRST_NAME", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String clientFirstName;
 
-    @Column(name = "LAST_NAME", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String clientLastName;
 
-    @Column(name = "PHONE")
+    @Column(name = "phone")
     private String clientPhone;
 
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String clientEmail;
 
     @Transient

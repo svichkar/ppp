@@ -11,19 +11,19 @@ import java.util.List;
 public class Author implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AUTHOR_ID")
+    @Column(name = "author_id")
     private Long authorId;
 
-    @Column(name = "FIRST_NAME", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String authorFirstName;
 
-    @Column(name = "LAST_NAME", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String authorLastName;
 
     @ManyToMany
-    @JoinTable(name = "AUTHOR_BOOK",
-            joinColumns = { @JoinColumn(name = "AUTHOR_ID")},
-            inverseJoinColumns = { @JoinColumn(name = "BOOK_ID")})
+    @JoinTable(name = "author_book",
+            joinColumns = { @JoinColumn(name = "author_id")},
+            inverseJoinColumns = { @JoinColumn(name = "bok_id")})
     private List<Book> books;
 
     @Transient

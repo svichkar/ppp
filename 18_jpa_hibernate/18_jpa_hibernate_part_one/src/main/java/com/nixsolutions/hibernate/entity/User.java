@@ -11,17 +11,17 @@ public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "LOGIN", nullable = false)
+    @Column(name = "login", nullable = false)
     private String login;
 
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private Role role;
 
     public Long getUserId() {

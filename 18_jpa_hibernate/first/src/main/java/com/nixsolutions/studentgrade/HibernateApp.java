@@ -148,8 +148,9 @@ public class HibernateApp {
         session.save(j3);
 
         session.close();
+        sessionFactory.close();
 
         LOG.info("Demo Hibernate Program finished.");
-        System.exit(-1);
+
     }
 }

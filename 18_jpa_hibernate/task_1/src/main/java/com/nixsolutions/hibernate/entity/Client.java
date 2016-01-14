@@ -1,5 +1,6 @@
 package com.nixsolutions.hibernate.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,15 +16,17 @@ import javax.persistence.OneToMany;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
-public class Client {
-	
+public class Client implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CLIENT_ID", unique=true, nullable=false)
+	@Column(name = "CLIENT_ID", unique = true, nullable = false)
 	private Long clientId;
-	@Column(name = "FIRST_NAME", nullable=false)
+	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
-	@Column(name = "LAST_NAME", nullable=false)
+	@Column(name = "LAST_NAME", nullable = false)
 	private String secondName;
 	@Column(name = "PHONE")
 	private String phone;
@@ -74,9 +77,10 @@ public class Client {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String toString() {
-		return "client with clientId: " + this.clientId + "; firstName: " + this.firstName + "; lastName: " + this.secondName;
+		return "client with clientId: " + this.clientId + "; firstName: " + this.firstName
+				+ "; lastName: " + this.secondName;
 
 	}
 

@@ -1,5 +1,6 @@
 package com.nixsolutions.hibernate.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,12 +14,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "rent_journal")
-public class RentJournal {
+public class RentJournal implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TICKET_ID", unique=true, nullable=false)
+	@Column(name = "TICKET_ID", unique = true, nullable = false)
 	private Long rentId;
-	@Column(name = "RENT_DATE", nullable=false)
+	@Column(name = "RENT_DATE", nullable = false)
 	private Date rentDate;
 	@Column(name = "RETURN_DATE")
 	private Date returnDate;
@@ -29,7 +33,7 @@ public class RentJournal {
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
 	private Client client;
-	
+
 	public Long getRentId() {
 		return rentId;
 	}
@@ -71,7 +75,8 @@ public class RentJournal {
 	}
 
 	public String toString() {
-		return "rent with rentId: " + this.rentId + "; bookId: " + this.book + "; clientId: " + this.client + "; rentDate: " + this.rentDate;
+		return "rent with rentId: " + this.rentId + "; bookId: " + this.book + "; clientId: "
+				+ this.client + "; rentDate: " + this.rentDate;
 
 	}
 }

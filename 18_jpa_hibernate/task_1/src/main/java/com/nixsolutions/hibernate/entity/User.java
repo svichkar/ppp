@@ -1,5 +1,7 @@
 package com.nixsolutions.hibernate.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,14 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NotFound;
-
 @Entity
-public class User {
-	
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_ID", unique=true, nullable=false)
+	@Column(name = "USER_ID", unique = true, nullable = false)
 	private Long userId;
 	@NotNull
 	@Size(min = 3, max = 10)
@@ -29,10 +31,13 @@ public class User {
 	@Size(min = 4, max = 12)
 	@Column(name = "USER_PASSWORD")
 	private String userPassword;
-	
+
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
 	private Role role;
+
+	public User() {
+	}
 
 	public User(String userName, String userPassword, Role role) {
 		this.userName = userName;
@@ -80,8 +85,8 @@ public class User {
 	}
 
 	public String toString() {
-		return "[User with userId: " + this.userId + "; name: " + this.userName + "; password: " + this.userPassword
-				+ "; role: " + this.role + "]";
+		return "[User with userId: " + this.userId + "; name: " + this.userName + "; password: "
+				+ this.userPassword + "; role: " + this.role + "]";
 
 	}
 }

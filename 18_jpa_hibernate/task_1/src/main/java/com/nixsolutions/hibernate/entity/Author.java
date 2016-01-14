@@ -1,5 +1,6 @@
 package com.nixsolutions.hibernate.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,23 +13,24 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Author {
+public class Author implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "AUTHOR_ID", unique=true, nullable=false)
+	@Column(name = "AUTHOR_ID", unique = true, nullable = false)
 	private Long authorId;
-	@Column(name = "FIRST_NAME", nullable=false)
+	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
-	@Column(name = "LAST_NAME", nullable=false)
+	@Column(name = "LAST_NAME", nullable = false)
 	private String secondName;
 
 	@ManyToMany
-	@JoinTable(name = "author_book",
-				joinColumns = {@JoinColumn(name = "AUTHOR_ID")},
-				inverseJoinColumns = {@JoinColumn(name = "BOOK_ID")})
+	@JoinTable(name = "author_book", joinColumns = { @JoinColumn(name = "AUTHOR_ID") },
+			inverseJoinColumns = { @JoinColumn(name = "BOOK_ID") })
 	private Set<Book> books;
-	
+
 	public Long getAuthorId() {
 		return authorId;
 	}
@@ -52,10 +54,10 @@ public class Author {
 	public void setSecondName(String secondName) {
 		this.secondName = secondName;
 	}
-	
-	public String toString() {
-		return "author with Id: " + this.authorId + "; firstName: " + this.firstName + "; lastName: " + this.secondName;
 
+	public String toString() {
+		return "author with Id: " + this.authorId + "; firstName: " + this.firstName
+				+ "; lastName: " + this.secondName;
 	}
 
 }

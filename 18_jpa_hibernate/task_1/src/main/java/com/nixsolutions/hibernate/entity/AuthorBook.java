@@ -10,9 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "author_book")
 public class AuthorBook implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "AUTHOR_ID", nullable=false)

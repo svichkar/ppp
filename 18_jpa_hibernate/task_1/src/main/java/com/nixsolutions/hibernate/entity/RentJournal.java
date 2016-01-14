@@ -6,16 +6,19 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name = "rent_journal")
 public class RentJournal {
 	@Id
-	@Column(name = "TICKET_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "TICKET_ID", unique=true, nullable=false)
 	private Long rentId;
-	@Column(name = "RENT_DATE")
+	@Column(name = "RENT_DATE", nullable=false)
 	private Date rentDate;
 	@Column(name = "RETURN_DATE")
 	private Date returnDate;

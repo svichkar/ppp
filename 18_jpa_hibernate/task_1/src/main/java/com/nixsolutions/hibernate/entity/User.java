@@ -4,23 +4,34 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.NotFound;
 
 @Entity
 public class User {
 	
 	@Id
-	@Column(name = "USER_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "USER_ID", unique=true, nullable=false)
 	private Long userId;
+	@NotNull
+	@Size(min = 3, max = 10)
 	@Column(name = "USER_NAME")
 	private String userName;
+	@NotNull
+	@Size(min = 4, max = 12)
 	@Column(name = "USER_PASSWORD")
 	private String userPassword;
 	
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
+	@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
 	private Role role;
 
 	public User(String userName, String userPassword, Role role) {

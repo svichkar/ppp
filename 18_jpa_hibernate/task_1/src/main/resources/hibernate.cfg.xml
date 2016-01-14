@@ -1,4 +1,7 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
     <session-factory>
@@ -16,8 +19,8 @@
         <mapping class="com.nixsolutions.hibernate.entity.Cell" />
         <mapping class="com.nixsolutions.hibernate.entity.Client" />  
         <mapping class="com.nixsolutions.hibernate.entity.RentJournal" />
-        <mapping class="com.nixsolutions.hibernate.entity.Role" />  
-        <mapping class="com.nixsolutions.hibernate.entity.User" />
+        <mapping class="com.nixsolutions.hibernate.entity.Role" />   
+        <mapping class="com.nixsolutions.hibernate.entity.User" />  
  
     </session-factory>
 </hibernate-configuration>

@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,9 +18,10 @@ import javax.persistence.ManyToOne;
 public class Book {
 	
 	@Id
-	@Column(name = "BOOK_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "BOOK_ID", unique=true, nullable=false)
 	private Long bookId;
-	@Column(name = "NAME")
+	@Column(name = "NAME", nullable=false)
 	private String name;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CELL_ID", referencedColumnName = "CELL_ID")

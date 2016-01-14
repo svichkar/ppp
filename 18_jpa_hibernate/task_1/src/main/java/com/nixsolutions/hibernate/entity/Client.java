@@ -6,22 +6,28 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class Client {
 	
 	@Id
-	@Column(name = "CLIENT_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CLIENT_ID", unique=true, nullable=false)
 	private Long clientId;
-	@Column(name = "FIRST_NAME")
+	@Column(name = "FIRST_NAME", nullable=false)
 	private String firstName;
-	@Column(name = "LAST_NAME")
+	@Column(name = "LAST_NAME", nullable=false)
 	private String secondName;
 	@Column(name = "PHONE")
 	private String phone;
+	@Email
 	@Column(name = "EMAIL")
 	private String email;
 

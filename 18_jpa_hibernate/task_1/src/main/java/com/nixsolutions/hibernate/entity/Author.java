@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -13,11 +15,12 @@ import javax.persistence.ManyToMany;
 public class Author {
 	
 	@Id
-	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "AUTHOR_ID", unique=true, nullable=false)
 	private Long authorId;
-	@Column
+	@Column(name = "FIRST_NAME", nullable=false)
 	private String firstName;
-	@Column
+	@Column(name = "LAST_NAME", nullable=false)
 	private String secondName;
 
 	@ManyToMany

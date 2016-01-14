@@ -4,7 +4,7 @@
 <%@attribute name="content_area" fragment="true"%>
 <%@attribute name="sidebar_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl"/>
-<c:url value="/images/logo.jpg" var="logoUrl"/>
+<c:url value="/images/financial.jpg" var="logoUrl"/>
 <html>
 
 <head>
@@ -17,7 +17,13 @@
 </head>
 
 <body>
-<div class="logo" style="margin:10px 10px 10px 10px; background-image: url(${logoUrl});background-repeat: no-repeat;float: none;width: inherit;height: 100;"></div>
+<header>
+ <div class="header-bg">
+  <!--img src="${logoUrl}" alt="Student Grade Management"-->
+<p style="background-image: url(/student-grades/images/financial.jpg);background-repeat: round;" align="center">Student Grade Management</p>
+ </div>
+</header>
+<!--div class="logo" style="margin:10px 10px 10px 10px; background-image: url(${logoUrl});background-repeat: no-repeat;float: none;width: inherit;height: 100;"></div-->
   <div id="main">
     <div id="header">
       <div id="logo">
@@ -31,7 +37,7 @@
         <ul id="menu">
           <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
           <li class="selected"><a href="index.html">Home</a></li>
-          <li><a href="<c:url value="/examples"/>">Examples</a></li>
+          <li><a href="<c:url value="/examples"/>">Students</a></li>
           <li><a href="<c:url value="/apage"/>">A Page</a></li>
           <li><a href="<c:url value="/anotherpage"/>">Another Page</a></li>
           <li><a href="<c:url value="/contactus"/>">Contact Us</a></li>

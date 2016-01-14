@@ -5,17 +5,12 @@
  */
 package nix.jdbcworkshop.app;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -31,8 +26,10 @@ public class DeleteTables {
      */
     public static void main(String[] args) {
         Configuration jdbcConfig = null;
+        Configuration dbunitConfig = null;
         try {
             jdbcConfig = new PropertiesConfiguration("jdbc.properties");
+            dbunitConfig = new PropertiesConfiguration("dbunit.properties");
             Class.forName(jdbcConfig.getString("jdbc.driver"));
         } catch (ClassNotFoundException | ConfigurationException ex) {
             LOGGER.error(ex);
@@ -40,12 +37,19 @@ public class DeleteTables {
         try (Connection conn
                 = DriverManager.getConnection(jdbcConfig.getString("jdbc.connection.string"),
                         jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"))) {
+                        jdbcConfig.getString("jdbc.password"));              
+                Connection testConnection
+                = DriverManager.getConnection(dbunitConfig.getString("dbunit.connection.string"),
+                        dbunitConfig.getString("dbunit.username"),
+                        dbunitConfig.getString("dbunit.password"))) {
             conn.setAutoCommit(false);
+            testConnection.setAutoCommit(false);
             conn.createStatement().executeUpdate("DROP ALL OBJECTS;");
             LOGGER.info("Tables are deleted");
             System.out.println("Tables are deleted");
-            conn.close();
+            testConnection.createStatement().executeUpdate("DROP ALL OBJECTS;");
+            LOGGER.info("Test tables are deleted");
+            System.out.println("Test tables are deleted");
         } catch (SQLException ex) {
             LOGGER.error(ex);
         }

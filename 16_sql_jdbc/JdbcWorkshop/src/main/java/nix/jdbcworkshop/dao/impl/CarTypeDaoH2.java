@@ -9,11 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import nix.jdbcworkshop.entities.CarType;
 import nix.jdbcworkshop.utils.ConnectionManagerH2;
 import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.logging.log4j.LogManager;
 import nix.jdbcworkshop.dao.CarTypeDao;
 
@@ -27,20 +27,12 @@ public class CarTypeDaoH2 implements CarTypeDao {
     private Configuration jdbcConfig;
 
     public CarTypeDaoH2() {
-        try {
-            jdbcConfig = new PropertiesConfiguration("jdbc.properties");
-            Class.forName(jdbcConfig.getString("jdbc.driver"));
-        } catch (ClassNotFoundException | ConfigurationException | RuntimeException ex) {
-            LOGGER.error(ex);
-        }
     }
 
     @Override
     public void create(CarType carType) {
         try (Connection conn
-                = ConnectionManagerH2.getConnection(jdbcConfig.getString("jdbc.connection.string"),
-                        jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"))) {
+                = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarType
                     = conn.prepareStatement("INSERT INTO car_type (brand,model)VALUES (?,?)");
             newCarType.setString(1, carType.getBrand());
@@ -59,9 +51,7 @@ public class CarTypeDaoH2 implements CarTypeDao {
     @Override
     public void update(CarType carType) {
         try (Connection conn
-                = ConnectionManagerH2.getConnection(jdbcConfig.getString("jdbc.connection.string"),
-                        jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"))) {
+                = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarType = conn.prepareStatement(
                     "UPDATE car_type SET brand = ?, model = ? WHERE car_type_id = ?");
             newCarType.setString(1, carType.getBrand());
@@ -77,9 +67,7 @@ public class CarTypeDaoH2 implements CarTypeDao {
     @Override
     public void delete(CarType carType) {
         try (Connection conn
-                = ConnectionManagerH2.getConnection(jdbcConfig.getString("jdbc.connection.string"),
-                        jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"))) {
+                = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarType = conn.prepareStatement(
                     "DELETE FROM car_type WHERE car_type_id = ?");
             newCarType.setLong(1, carType.getCarTypeId());
@@ -94,9 +82,7 @@ public class CarTypeDaoH2 implements CarTypeDao {
     public CarType findCarById(long carTypeId) {
         CarType searchedCarType = null;
         try (Connection conn
-                = ConnectionManagerH2.getConnection(jdbcConfig.getString("jdbc.connection.string"),
-                        jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"))) {
+                = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarType
                     = conn.prepareStatement("SELECT * FROM car_type WHERE car_type_id = ?");
             newCarType.setLong(1, carTypeId);
@@ -116,6 +102,40 @@ public class CarTypeDaoH2 implements CarTypeDao {
             LOGGER.error(ex);
         }
         return searchedCarType;
+    }
+
+    @Override
+    public List<CarType> getCarTypeList() {
+        return getCarTypeList(0, -1);
+    }
+
+    @Override
+    public List<CarType> getCarTypeList(int limit) {
+        return getCarTypeList(0, limit);
+    }
+
+    @Override
+    public List<CarType> getCarTypeList(int offset, int limit) {
+        List<CarType> results = new ArrayList<>();
+        try (Connection conn
+                = ConnectionManagerH2.getConnection()) {
+            PreparedStatement newCarType
+                    = conn.prepareStatement("SELECT * FROM car_type LIMIT ? OFFSET ?");
+            newCarType.setInt(1, limit);
+            newCarType.setInt(2, offset);
+            ResultSet searchResults = newCarType.executeQuery();
+            while (searchResults.next()) {
+                CarType searchedCarType = new CarType();
+                searchedCarType.setCarTypeId(searchResults.getLong("car_type_id"));
+                searchedCarType.setBrand(searchResults.getString("brand"));
+                searchedCarType.setModel(searchResults.getString("model"));
+                results.add(searchedCarType);
+            }
+            searchResults.close();
+        } catch (SQLException | RuntimeException ex) {
+            LOGGER.error(ex);
+        }
+        return results;
     }
 
 }

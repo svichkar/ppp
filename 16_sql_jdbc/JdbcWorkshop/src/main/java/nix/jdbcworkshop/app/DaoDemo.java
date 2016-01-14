@@ -57,10 +57,10 @@ public class DaoDemo {
         CarType cooperMini = new CarType(null, "Cooper", "Mini");
         
         myCarTypeDao.create(cooperMini);
-        cooperMini.setModel("Mini2");
+ /*       cooperMini.setModel("Mini2");
         myCarTypeDao.update(cooperMini);
         myCarTypeDao.delete(cooperMini);
-        CarType toyota = myCarTypeDao.findCarById(5);
+        CarType toyota = myCarTypeDao.findCarById(5);*/
         
         
         

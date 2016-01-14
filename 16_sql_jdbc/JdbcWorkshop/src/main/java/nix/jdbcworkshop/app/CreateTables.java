@@ -29,8 +29,10 @@ public class CreateTables {
      */
     public static void main(String[] args) {
         Configuration jdbcConfig = null;
+        Configuration dbunitConfig = null;
         try {
             jdbcConfig = new PropertiesConfiguration("jdbc.properties");
+            dbunitConfig = new PropertiesConfiguration("dbunit.properties");
             Class.forName(jdbcConfig.getString("jdbc.driver"));
         } catch (ClassNotFoundException | ConfigurationException ex) {
             LOGGER.error(ex);
@@ -38,18 +40,39 @@ public class CreateTables {
         try (Connection conn
                 = DriverManager.getConnection(jdbcConfig.getString("jdbc.connection.string"),
                         jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"))) {
+                        jdbcConfig.getString("jdbc.password"));) {
             conn.setAutoCommit(false);
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             for (String sqlStatement
-                    : FileUtils.readLines(new File(classLoader.getResource(jdbcConfig.getString("jdbc.ddl.file")).getFile()))) {
+                    : FileUtils.readLines(new File(classLoader.getResource(
+                            jdbcConfig.getString("jdbc.ddl.file")).getFile()))) {
                 conn.createStatement().executeUpdate(sqlStatement);
-                LOGGER.info("Success: "+sqlStatement);
+                LOGGER.info("Success: " + sqlStatement);
             }
             LOGGER.info("DB structure is created");
             System.out.println("DB structure is created");
         } catch (SQLException | IOException ex) {
             LOGGER.error(ex);
+        }
+        if (!jdbcConfig.getString("jdbc.connection.string")
+                .equals(dbunitConfig.getString("dbunit.connection.string"))) {
+            try (Connection testConnection = DriverManager.getConnection(
+                    dbunitConfig.getString("dbunit.connection.string"),
+                    dbunitConfig.getString("dbunit.username"),
+                    dbunitConfig.getString("dbunit.password"))) {
+                testConnection.setAutoCommit(false);
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                for (String sqlStatement
+                        : FileUtils.readLines(new File(classLoader.getResource(
+                                jdbcConfig.getString("jdbc.ddl.file")).getFile()))) {
+                    testConnection.createStatement().executeUpdate(sqlStatement);
+                    LOGGER.info("Success: " + sqlStatement);
+                }
+                LOGGER.info("Test DB structure is created");
+                System.out.println("Test DB structure is created");
+            } catch (SQLException | IOException ex) {
+                LOGGER.error(ex);
+            }
         }
 
     }

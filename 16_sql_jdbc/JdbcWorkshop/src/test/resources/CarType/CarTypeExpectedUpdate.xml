@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <car_type brand="Honda" model="Civic"/>
+    <car_type brand="Honda" model="CR-V"/>
+    <car_type brand="Lada" model="Kalina"/>
+    <car_type brand="Hyundai" model="i30"/>
+    <car_type brand="Toyota" model="Corolla"/>
+    <car_type brand="Tesla" model="S"/>
+</dataset>

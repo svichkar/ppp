@@ -12,7 +12,7 @@ public interface JournalDAO {
 
 	public void deleteJournal(Journal journal);
 
-	public Journal findJournalById(long journalId);
+	public Journal findJournalById(Long journalId);
 
 	public List<Journal> findAllJournals();
 }

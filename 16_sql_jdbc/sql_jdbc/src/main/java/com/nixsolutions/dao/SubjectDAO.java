@@ -12,7 +12,7 @@ public interface SubjectDAO {
 
 	public void deleteSubject(Subject subject);
 
-	public Subject findSubjectById(long subjectId);
+	public Subject findSubjectById(Long subjectId);
 
 	public List<Subject> findAllSubjects();
 

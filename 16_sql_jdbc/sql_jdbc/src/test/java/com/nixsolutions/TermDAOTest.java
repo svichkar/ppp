@@ -94,7 +94,7 @@ public class TermDAOTest {
 
 	@Test
 	public void shouldFindTermById() throws DataSetException {
-		Term termTest = term.findTermById(3);
+		Term termTest = term.findTermById(Long.valueOf(3));
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("term", "SELECT * FROM term");
 		IDataSet ds = qDataSet;

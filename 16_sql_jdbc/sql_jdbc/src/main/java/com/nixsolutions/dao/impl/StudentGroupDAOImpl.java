@@ -60,7 +60,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 	}
 
 	@Override
-	public StudentGroup findStudentGroupById(long groupId) {
+	public StudentGroup findStudentGroupById(Long groupId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM student_group WHERE group_id = ?")) {
 				ps.setLong(1, groupId);

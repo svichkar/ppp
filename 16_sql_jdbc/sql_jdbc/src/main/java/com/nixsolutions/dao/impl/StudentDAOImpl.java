@@ -69,7 +69,7 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public Student findStudentById(long studentId) {
+	public Student findStudentById(Long studentId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM student WHERE student_id = ?")) {
 				ps.setLong(1, studentId);

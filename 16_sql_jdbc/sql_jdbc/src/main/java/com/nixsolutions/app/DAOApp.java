@@ -55,7 +55,7 @@ public class DAOApp {
 		group.updateStudentGroup(groupTest);
 		group.deleteStudentGroup(groupTest);
 		LOG.info("=====Table student_group is filled=====");
-		LOG.debug("Group with id 3 is " + group.findStudentGroupById(3).getGroupName());
+		LOG.debug("Group with id 3 is " + group.findStudentGroupById(Long.valueOf(3)).getGroupName());
 		LOG.debug("List of groups:");
 		for (StudentGroup sg : group.findAllStudentGroups())
 			LOG.debug(sg.getGroupId() + " " + sg.getGroupName());
@@ -88,7 +88,7 @@ public class DAOApp {
 		term.updateTerm(termTest);
 		term.deleteTerm(termTest);
 		LOG.info("=====Table term is filled=====");
-		LOG.debug("Term with id 3 is " + term.findTermById(3).getTermName());
+		LOG.debug("Term with id 3 is " + term.findTermById(Long.valueOf(3)).getTermName());
 		LOG.debug("List of terms:");
 		for (Term t : term.findAllTerms())
 			LOG.debug(t.getTermId() + " " + t.getTermName());
@@ -110,7 +110,7 @@ public class DAOApp {
 		subject.updateSubject(subjectTest);
 		subject.deleteSubject(subjectTest);
 		LOG.info("=====Table subject is filled=====");
-		LOG.debug("Subject with id 7 is " + subject.findSubjectById(7).getSubjectName());
+		LOG.debug("Subject with id 7 is " + subject.findSubjectById(Long.valueOf(7)).getSubjectName());
 		LOG.debug("List of subjects:");
 		for (Subject sub : subject.findAllSubjects())
 			LOG.debug(sub.getSubjectId() + " " + sub.getSubjectName() + " " + sub.getTermId());
@@ -130,8 +130,8 @@ public class DAOApp {
 		student.updateStudent(studentTest);
 		student.deleteStudent(studentTest);
 		LOG.info("=====Table student is filled=====");
-		LOG.debug("Student with id 7 is " + student.findStudentById(7).getFirstName() + " "
-				+ student.findStudentById(7).getLastName());
+		LOG.debug("Student with id 7 is " + student.findStudentById(Long.valueOf(7)).getFirstName() + " "
+				+ student.findStudentById(Long.valueOf(7)).getLastName());
 		LOG.debug("List of students:");
 		for (Student st : student.findAllStudents())
 			LOG.debug(st.getStudentId() + " " + st.getFirstName() + " " + st.getLastName() + " " + st.getGroupId() + " "
@@ -166,9 +166,9 @@ public class DAOApp {
 		journal.updateJournal(journalTest);
 		journal.deleteJournal(journalTest);
 		LOG.info("=====Table journal is filled=====");
-		LOG.debug("Journal with id 10 is: student_id=" + journal.findJournalById(10).getStudentId() + ", subject_id="
-				+ journal.findJournalById(10).getSubjectId() + ", grade_id="
-				+ +journal.findJournalById(10).getGradeId());
+		LOG.debug("Journal with id 10 is: student_id=" + journal.findJournalById(Long.valueOf(10)).getStudentId() + ", subject_id="
+				+ journal.findJournalById(Long.valueOf(10)).getSubjectId() + ", grade_id="
+				+ +journal.findJournalById(Long.valueOf(10)).getGradeId());
 		LOG.debug("List of journals:");
 		for (Journal j : journal.findAllJournals())
 			LOG.debug(j.getJournalId() + " " + j.getStudentId() + " " + j.getSubjectId() + " " + j.getGradeId());

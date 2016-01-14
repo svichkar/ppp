@@ -105,7 +105,7 @@ public class JournalDAOTest {
 
 	@Test
 	public void shouldFindJournalById() throws DataSetException {
-		Journal journalTest = journal.findJournalById(5);
+		Journal journalTest = journal.findJournalById(Long.valueOf(5));
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("journal", "SELECT * FROM journal");
 		IDataSet ds = qDataSet;

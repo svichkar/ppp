@@ -12,7 +12,7 @@ public interface TermDAO {
 
 	public void deleteTerm(Term term);
 
-	public Term findTermById(long termId);
+	public Term findTermById(Long termId);
 
 	public List<Term> findAllTerms();
 

@@ -62,7 +62,7 @@ public class JournalDAOImpl implements JournalDAO {
 	}
 
 	@Override
-	public Journal findJournalById(long journalId) {
+	public Journal findJournalById(Long journalId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM journal WHERE journal_id = ?")) {
 				ps.setLong(1, journalId);

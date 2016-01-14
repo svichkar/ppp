@@ -95,7 +95,7 @@ public class StudentGroupDAOTest {
 
 	@Test
 	public void shouldFindStudentGroupById() throws DataSetException {
-		StudentGroup groupTest = group.findStudentGroupById(3);
+		StudentGroup groupTest = group.findStudentGroupById(Long.valueOf(3));
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("student_group", "SELECT * FROM student_group");
 		IDataSet ds = qDataSet;

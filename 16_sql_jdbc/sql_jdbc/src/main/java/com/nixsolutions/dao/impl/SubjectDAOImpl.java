@@ -59,7 +59,7 @@ public class SubjectDAOImpl implements SubjectDAO {
 	}
 
 	@Override
-	public Subject findSubjectById(long subjectId) {
+	public Subject findSubjectById(Long subjectId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM subject WHERE subject_id = ?")) {
 				ps.setLong(1, subjectId);

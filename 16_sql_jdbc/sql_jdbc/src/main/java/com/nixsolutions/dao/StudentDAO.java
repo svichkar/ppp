@@ -12,7 +12,7 @@ public interface StudentDAO {
 
 	public void deleteStudent(Student student);
 
-	public Student findStudentById(long studentId);
+	public Student findStudentById(Long studentId);
 
 	public List<Student> findAllStudents();
 

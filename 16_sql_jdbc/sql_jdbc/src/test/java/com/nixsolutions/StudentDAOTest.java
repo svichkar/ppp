@@ -103,7 +103,7 @@ public class StudentDAOTest {
 
 	@Test
 	public void shouldFindStudentById() throws DataSetException {
-		Student studentTest = student.findStudentById(5);
+		Student studentTest = student.findStudentById(Long.valueOf(5));
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("student", "SELECT * FROM student");
 		IDataSet ds = qDataSet;

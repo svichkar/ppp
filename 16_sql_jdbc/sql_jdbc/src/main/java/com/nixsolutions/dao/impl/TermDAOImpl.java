@@ -57,7 +57,7 @@ public class TermDAOImpl implements TermDAO {
 	}
 
 	@Override
-	public Term findTermById(long termId) {
+	public Term findTermById(Long termId) {
 		try (Connection conn = ConnectionManager.getConnection()) {
 			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM term WHERE term_id = ?")) {
 				ps.setLong(1, termId);

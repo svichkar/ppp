@@ -96,7 +96,7 @@ public class SubjectDAOTest {
 
 	@Test
 	public void shouldFindSubjectById() throws DataSetException {
-		Subject subjectTest = subject.findSubjectById(5);
+		Subject subjectTest = subject.findSubjectById(Long.valueOf(5));
 		QueryDataSet qDataSet = new QueryDataSet(iconn);
 		qDataSet.addTable("subject", "SELECT * FROM subject");
 		IDataSet ds = qDataSet;

@@ -14,28 +14,29 @@
 						<option value="author">author</option>
 						<option value="category">category</option>
 				</select>
-				<input type="text" name="search criteria" required />
+				<input type="text" name="search criteria" />
 				<input type=submit value="search" name="button">			
 		</form>
-	<c:if test="results not null">
+	<jsp:useBean id="book" class="com.nixsolutions.model.BookBean" />
+		<c:if test="${not empty allBooks}">
 		<table>
 			<tr>
 				<td>book_id</td>
 				<td>book_name</td>
 				<td>cell</td>
 				<td>category</td>
+				<td>author</td>
 			</tr>
-			<c:forEach var="user" items="${users}">
+			
+			<c:forEach var="book" items="${allBooks}">
 				<tr>
-					<td><input type="text" name="userid" value="${user.userId}"
-							readonly /></td>
-					<td><input type="text" name="username"
-							value="${user.userName}" /></td>
-					<td><input type="text" name="password"
-							value="${user.userPassword}" /></td>
+					<td>${book.book.bookId}</td>
+					<td>${book.book.name}</td>
+					<td>${book.cell.name}</td>
+					<td>${book.category.name}</td>
 				</tr>
 			</c:forEach>
 		</table>
-	</c:if>
+</c:if>
 		</jsp:attribute>
 </t:general_template>

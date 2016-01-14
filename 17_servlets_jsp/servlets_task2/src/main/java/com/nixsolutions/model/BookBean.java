@@ -3,6 +3,9 @@ package com.nixsolutions.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Author;
@@ -12,7 +15,7 @@ import com.nixsolutions.entity.Category;
 import com.nixsolutions.entity.Cell;
 
 public class BookBean {
-
+	public static final Logger LOG = LogManager.getLogger();
 	private Book book;
 	private List<Author> authors;
 	private Category category;
@@ -108,7 +111,7 @@ public class BookBean {
 			allBookBeans.add(bookBean);
 		}
 			
-		return allBookBeans;
+		return LOG.exit(allBookBeans);
 
 	}
 

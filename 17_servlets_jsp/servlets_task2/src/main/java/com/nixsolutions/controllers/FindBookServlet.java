@@ -1,7 +1,6 @@
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Book;
-import com.nixsolutions.entity.Role;
-import com.nixsolutions.entity.User;
+import com.nixsolutions.model.BookBean;
 
 @SuppressWarnings("serial")
 public class FindBookServlet extends HttpServlet{
@@ -27,10 +25,10 @@ public class FindBookServlet extends HttpServlet{
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
 		LOG.entry(request.getSession().getAttribute("usrRole"));
-		List<Book> books = factory.getBookDao().getAllBooks();
+		//List<Book> books = factory.getBookDao().getAllBooks();
 	//	List<Role> allRoles = factory.getRoleDao().getAllRoles();
 		
-		request.setAttribute("books", books);
+		//request.setAttribute("books", books);
 	//	request.setAttribute("roles", allRoles);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
@@ -39,11 +37,17 @@ public class FindBookServlet extends HttpServlet{
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		LOG.entry(request.getParameter("button"), request.getParameter("search criteria"));
 
 		//all books
-			if (request.getParameter("button").equals("edit user")) {
+			if (request.getParameter("button").equals("search") && request.getParameter("search criteria").equals("all")) {
 				books = factory.getBookDao().getAllBooks();
-				response.sendRedirect("findbooks");
+				
+				List<BookBean> allBooks = BookBean.getAllBookBeans();
+				request.setAttribute("allBooks", allBooks);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
+				rd.forward(request, response);
 			}
 
 			//by name

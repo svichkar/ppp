@@ -1,0 +1,98 @@
+Library application
+
+Requirements
+
+1) 	Two roles of users: ADMIN and LIBRARIAN;
+
+2) 	All possible actions:
+	a)  Find book by:
+	   1) name;
+	   2) author;	
+	   3) category;
+	   4) all;
+	b)  Add new book;
+	c)  Add new reader;
+	d)  Manage users;
+	e)  Manage categories;
+	f)  Manage book loans;
+	g) Authentication.
+
+
+3) 	Authentication
+
+	Starting page is used for authentication. It should contain two text boxes(Login and Password), buttons (Login, Register), link to password retrieval page.
+	After pressing on register button
+1) If one or more fields is empty – error “Login or Password is empty. Please fill them to register.” should be returned;
+2) If there is already user with entered name – error “Please choose another name, this one is already taken”;
+3) If there is no user with such name – then new user is created with Librarian role and is authenticated.
+	After pressing on loging button:
+1) If there is such user and passwords match user enters home page.
+2) Otherwise error “Login or Password is wrong. Please enter correct one”.
+
+4) 	Home page
+	
+	Home page should contain local navigation links to pages which correspond to following pages:
+
+1) Find book;
+2) Add book;
+3) Add reader
+4) Loan book;
+5) Add user;
+6) Add category.
+
+5th and 6th pages should be avaliable only to user with admin role.
+
+Main content column will contain information needed for librarians, such as books overdue etc
+Local navigation links stay the same while user is working on site. Only main column changes.
+
+
+5)	 Find book;
+	
+	This page is available only to user with role librarian.
+In main content column should be form with list box with types of search (all, name, author, category), text box for search value and button to start search.
+After pressing on button “Search”
+1) If such result exist in DB form with table which contains search results appears below form with search parameters with it's own scroll. It\s width should be the same as main content column and it`s height should be all available place from end of search parameters form to the end of the screen
+2) Else below search paramters form should appear text “Sorry but there is no such book in our library. Perhaps you should change search paramters”.
+3) After pressing one more time on button search text about missing book should disappear
+
+Table with search results:
+Book name. Author, Category, Number of such books in library and their addresses inside library – near to each result should be checkbox.
+Between search paremeters form and results table form should be button which will send results checked by checkbox to “Manage loans” page and open that page
+
+6)	Add book
+
+	This page is avaliable only to user with role librarian
+In main content column should be form with 6 text boxes(name, author, publisher, bookcaseNum, shelfNum, cellNum), listbox with categories and button “Add book”.
+All fields are mandatory.
+After presssing on “Add book” button:
+1) If all fields are filled – book is added to DB;
+2) Else error “Some fields are not filled. Please fill them” is returned.
+
+7)	Add reader
+
+	This page is avaliable only to user with role librarian
+In main content column should be form with 2 text boxes(name, address) and button “Add reader”.
+All fields are mandatory.
+After presssing on “Add reader” button:
+1) If all fields are filled – reader is added to DB;
+2) Else error “Some fields are not filled. Please fill them” is returned.
+
+8)	Manage loans
+	This page is avaliable only to user with role librarian
+In main content column should be search bar – after reader name input result list appears below
+After click on user in result list - list of all unreturned books by current user is returned.
+List should contain book name and loan start date, the topmost result should be listbox where book name should be put. It should be possible to input all checked books from search or choose one in descended list from test box if name or part of the name was input manually.  To the right of list box should be button which is used to submit the loan
+All fields are mandatory.
+
+9)	Manage categories
+	This page is avaliable only to user with role admin
+In main content column should be form with 2 text boxes(name, address) and button “Add category”.
+All fields are mandatory.
+After presssing on “Add category” button:
+1) If all fields are filled – category is added to DB;
+2) Else error “Some fields are not filled. Please fill them” is returned.
+
+10)	Manage users
+	This page is avaliable only to user with role admin
+In main content column should be search bar – which will return list of users which has input value in their login.
+After search result list should be returned. It should contain two text boxes(name, password), check box with user type(checked – admin, unchecked librarian) and button(delete). The user which is using application right now should not be avaliable for deletion 

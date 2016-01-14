@@ -40,7 +40,7 @@ public class H2ConnManager {
 		LOG.trace(dbPath);
 		try {
 			prop.load(input);
-			url = "jdbc:h2:file:" + dbPath + "/sqllab;FILE_LOCK=NO";
+			url = "jdbc:h2:file:" + dbPath + "/sqllab;FILE_LOCK=NO;IFEXISTS=TRUE";
 			//url = prop.getProperty("host");
 			name = prop.getProperty("login");
 			pswd = prop.getProperty("password");

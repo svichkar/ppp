@@ -1,0 +1,176 @@
+/**
+ * 
+ */
+package com.nixsolutions.dao.impl;
+
+//import java.util.Calendar;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.nixsolutions.dao.OrderInWorkDao;
+import com.nixsolutions.entity.OrderInWork;
+
+/**
+ * @author mixeyes
+ *
+ */
+@Repository("orderInWorkDao")
+@Transactional
+public class OrderInWorkDaoImpl implements OrderInWorkDao {
+	private final static Logger logger = LogManager.getLogger();
+	@Autowired
+	SessionFactory sessionFactory;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nixsolutions.serviceStation.dAOFabrica.Order_in_workDao#getAllOrders(
+	 * )
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderInWork> getAllOrders() {
+		List<OrderInWork> orderInWorks = null;
+		try {
+			orderInWorks = sessionFactory.getCurrentSession().createCriteria(OrderInWork.class).list();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return orderInWorks;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nixsolutions.serviceStation.dAOFabrica.Order_in_workDao#getOrderByCar
+	 * ()
+	 */
+	@Override
+	public OrderInWork getOrderInWorkByCar(String regNumber) {
+		OrderInWork orderInWork = new OrderInWork();
+		try {
+			orderInWork = (OrderInWork) sessionFactory.getCurrentSession().createCriteria(OrderInWork.class, "order")
+					.createAlias("order.car", "car").createAlias("order.orderStatus", "orderStatus")
+					.add(Restrictions.eq("car.reg_number", regNumber))
+					.add(Restrictions.disjunction().add(Restrictions.eq("orderStatus.order_status_name", "in work"))
+							.add(Restrictions.eq("orderStatus.order_status_name", "waiting")))
+					.uniqueResult();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return orderInWork;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.nixsolutions.serviceStation.dAOFabrica.Order_in_workDao#
+	 * getOrderByCustomer()
+	 */
+	@Override
+	public OrderInWork getOrderInWorkByCustomer(String lastName, String firstName) {
+		OrderInWork orderInWork = null;
+		try {
+			orderInWork = (OrderInWork) sessionFactory.getCurrentSession().createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("customer.last_name", lastName))
+					.add(Restrictions.eq("customer.first_name", firstName))
+					.add(Restrictions.eq("order_status.order_status_name", "in work")).uniqueResult();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return orderInWork;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nixsolutions.serviceStation.dAOFabrica.Order_in_workDao#getOrderByID(
+	 * )
+	 */
+	@Override
+	public OrderInWork getOrderByID(Integer orderId) {
+		try {
+			return (OrderInWork) sessionFactory.getCurrentSession().createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("orderId", orderId)).uniqueResult();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nixsolutions.dao.OrderInWorkDao#createNewOrder(java.lang.Integer,
+	 * java.lang.String)
+	 */
+	@Override
+	public void createNewOrder(OrderInWork orderInWork) {
+		try {
+			sessionFactory.getCurrentSession().save(orderInWork);
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nixsolutions.dao.OrderInWorkDao#changeOrderStatusByOrderID(java.lang.
+	 * Integer, java.lang.Integer)
+	 */
+	@Override
+	public void updateOrder(OrderInWork orderInWork) {
+		try {
+			sessionFactory.getCurrentSession().saveOrUpdate(orderInWork);
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.nixsolutions.dao.OrderInWorkDao#changeOrderStatusByOrderID(java.lang.
+	 * Integer, java.lang.Integer)
+	 */
+	@Override
+	public boolean deleteOrderByID(Integer orderId) {
+		OrderInWork orderInWork = getOrderByID(orderId);
+		try {
+			sessionFactory.getCurrentSession().delete(orderInWork);
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		orderInWork = getOrderByID(orderId);
+		return orderInWork == null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<OrderInWork> getOrdersByUserName(String userName) {
+		List<OrderInWork> orderInWorks = null;
+		try {
+			orderInWorks = sessionFactory.getCurrentSession().createCriteria(OrderInWork.class, "order")
+					.createAlias("order.car", "car").createAlias("car.customer", "customer")
+					.createAlias("customer.user", "user").add(Restrictions.eq("user.userLogin", userName)).list();
+		} catch (Exception ex) {
+			logger.error(ex);
+		}
+		return orderInWorks;
+	}
+}

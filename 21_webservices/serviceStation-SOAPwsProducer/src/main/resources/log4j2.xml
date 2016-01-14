@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="debug">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+		<File name="File-log" fileName="log/serviceStation.log"
+			bufferedIO="false">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="Only_errors" level="warn">
+			<AppenderRef ref="File-log" />
+		</Logger>
+		<Root level="All" additivity="false">
+			<AppenderRef ref="Console" />
+		</Root>
+	</Loggers>
+</Configuration>

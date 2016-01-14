@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://localhost:8080/serviceStation/soapws"
+	xmlns:tns="http://localhost:8080/serviceStation/soapws"
+	elementFormDefault="qualified">
+
+<xs:element name="createNewWorkerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="worker" type="tns:WorkerService"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="createNewWorkerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="xs:string"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateWorkerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="worker" type="tns:WorkerService"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateWorkerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="xs:string"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="createNewCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customer" type="tns:CustomerService"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="createNewCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="xs:string"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateCustomerRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="customer" type="tns:CustomerService"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="updateCustomerResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="result" type="xs:string"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="CustomerService">
+		<xs:sequence>
+			<xs:element name="customerId" type="xs:integer"></xs:element>
+			<xs:element name="lastName" type="xs:string"></xs:element>
+			<xs:element name="firstName" type="xs:string"></xs:element>
+			<xs:element name="phone" type="xs:string"></xs:element>
+			<xs:element name="user" type="tns:UserService"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UserService">
+		<xs:sequence>
+			<xs:element name="userId" type="xs:integer"></xs:element>
+			<xs:element name="login" type="xs:string"></xs:element>
+			<xs:element name="password" type="xs:string"></xs:element>
+			<xs:element name="userRole" type="tns:UserRoleService"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UserRoleService">
+		<xs:sequence>
+			<xs:element name="userRoleId" type="xs:integer"></xs:element>
+			<xs:element name="userRoleName" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="WorkerService">
+		<xs:sequence>
+			<xs:element name="workerId" type="xs:integer"></xs:element>
+			<xs:element name="lastName" type="xs:string"></xs:element>
+			<xs:element name="firstName" type="xs:string"></xs:element>
+			<xs:element name="phone" type="xs:string"></xs:element>
+			<xs:element name="user" type="tns:UserService"></xs:element>
+			<xs:element name="workerSpecialization" type="tns:WorkerSpecializationService"></xs:element>
+			<xs:element name="workerStatus" type="tns:WorkerStatusService"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="WorkerSpecializationService">
+		<xs:sequence>
+			<xs:element name="workerSpecializationId" type="xs:integer"></xs:element>
+			<xs:element name="workerSpecializationName" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="WorkerStatusService">
+		<xs:sequence>
+			<xs:element name="workerStatusId" type="xs:integer"></xs:element>
+			<xs:element name="workerStatusName" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

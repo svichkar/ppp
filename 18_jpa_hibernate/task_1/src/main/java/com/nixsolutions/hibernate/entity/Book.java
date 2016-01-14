@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Book implements Serializable{
@@ -24,6 +26,8 @@ public class Book implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BOOK_ID", unique=true, nullable=false)
 	private Long bookId;
+	@NotNull
+	@Size(min = 3)
 	@Column(name = "NAME", nullable=false)
 	private String name;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Author implements Serializable{
@@ -21,8 +23,12 @@ public class Author implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AUTHOR_ID", unique = true, nullable = false)
 	private Long authorId;
+	@NotNull
+	@Size(min = 3, max = 20)
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
+	@NotNull
+	@Size(min = 3, max = 20)
 	@Column(name = "LAST_NAME", nullable = false)
 	private String secondName;
 

@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Category implements Serializable{
@@ -22,6 +24,8 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CATEGORY_ID", unique=true, nullable=false)
 	private Long categoryId;
+	@NotNull
+	@Size(min = 3, max = 20)
 	@Column(name = "NAME", nullable=false)
 	private String name;
 	

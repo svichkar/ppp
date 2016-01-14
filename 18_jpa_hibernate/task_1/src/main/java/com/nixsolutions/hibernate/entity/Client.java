@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -24,8 +26,12 @@ public class Client implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CLIENT_ID", unique = true, nullable = false)
 	private Long clientId;
+	@NotNull
+	@Size(min = 3, max = 20)
 	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
+	@NotNull
+	@Size(min = 3, max = 20)
 	@Column(name = "LAST_NAME", nullable = false)
 	private String secondName;
 	@Column(name = "PHONE")

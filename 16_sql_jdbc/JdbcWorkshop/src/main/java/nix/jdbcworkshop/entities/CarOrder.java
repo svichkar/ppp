@@ -13,33 +13,44 @@ import java.util.Date;
  */
 public class CarOrder {
 
-    private long carOrderId;
-    private long carId;
-    private int carOrderStatusId;
+    private Long carOrderId;
+    private Long carId;
+    private Short carOrderStatusId;
     private Date startDate;
-    private Date enddate;
+    private Date endDate;
 
-    public long getCarOrderId() {
+    public CarOrder() {
+    }
+
+    public CarOrder(Long carOrderId, Long carId, Short carOrderStatusId, Date startDate, Date endDate) {
+        this.carOrderId = carOrderId;
+        this.carId = carId;
+        this.carOrderStatusId = carOrderStatusId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Long getCarOrderId() {
         return carOrderId;
     }
 
-    public void setCarOrderId(long carOrderId) {
+    public void setCarOrderId(Long carOrderId) {
         this.carOrderId = carOrderId;
     }
 
-    public long getCarId() {
+    public Long getCarId() {
         return carId;
     }
 
-    public void setCarId(long carId) {
+    public void setCarId(Long carId) {
         this.carId = carId;
     }
 
-    public int getCarOrderStatusId() {
+    public Short getCarOrderStatusId() {
         return carOrderStatusId;
     }
 
-    public void setCarOrderStatusId(int carOrderStatusId) {
+    public void setCarOrderStatusId(Short carOrderStatusId) {
         this.carOrderStatusId = carOrderStatusId;
     }
 
@@ -51,12 +62,12 @@ public class CarOrder {
         this.startDate = startDate;
     }
 
-    public Date getEnddate() {
-        return enddate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnddate(Date enddate) {
-        this.enddate = enddate;
+    public void setEndDate(Date enddate) {
+        this.endDate = enddate;
     }
 
 }

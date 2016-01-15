@@ -28,7 +28,7 @@ public class CarTypeDaoH2Test extends AbstractDaoH2Test {
     @Override
     protected IDataSet getDataSet() throws Exception {
         return new FlatXmlDataSet(
-                getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.type.inital")));
+                getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.type.initial")));
     }
 
     public void setUp() throws Exception {

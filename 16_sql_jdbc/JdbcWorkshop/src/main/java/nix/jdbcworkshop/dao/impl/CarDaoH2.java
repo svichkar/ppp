@@ -30,18 +30,18 @@ public class CarDaoH2 implements CarDao {
     }
 
     @Override
-    public void create(Car carType) {
+    public void create(Car car) {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCar = conn.prepareStatement(
                     "INSERT INTO car (serial_id,car_type_id,client_id)VALUES (?,?,?)");
-            newCar.setString(1, carType.getSerialId());
-            newCar.setLong(2, carType.getCarTypeId());
-            newCar.setLong(3, carType.getClientId());
+            newCar.setString(1, car.getSerialId());
+            newCar.setLong(2, car.getCarTypeId());
+            newCar.setLong(3, car.getClientId());
             newCar.executeUpdate();
             ResultSet counters = newCar.getGeneratedKeys();
             if (counters.next()) {
-                carType.setCarId(counters.getInt(1));
+                car.setCarId(counters.getInt(1));
             }
             counters.close();
         } catch (SQLException | RuntimeException ex) {
@@ -50,15 +50,15 @@ public class CarDaoH2 implements CarDao {
     }
 
     @Override
-    public void update(Car carType) {
+    public void update(Car car) {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCar = conn.prepareStatement(
                     "UPDATE car SET serial_id = ?, car_type_id = ?, client_id = ? WHERE car_id = ?");
-            newCar.setString(1, carType.getSerialId());
-            newCar.setLong(2, carType.getCarTypeId());
-            newCar.setLong(3, carType.getClientId());
-            newCar.setLong(4, carType.getCarId());
+            newCar.setString(1, car.getSerialId());
+            newCar.setLong(2, car.getCarTypeId());
+            newCar.setLong(3, car.getClientId());
+            newCar.setLong(4, car.getCarId());
             newCar.executeUpdate();
             newCar.close();
         } catch (SQLException | RuntimeException ex) {
@@ -67,12 +67,12 @@ public class CarDaoH2 implements CarDao {
     }
 
     @Override
-    public void delete(Car carType) {
+    public void delete(Car car) {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCar = conn.prepareStatement(
                     "DELETE FROM car WHERE car_id = ?");
-            newCar.setLong(1, carType.getCarId());
+            newCar.setLong(1, car.getCarId());
             newCar.executeUpdate();
             newCar.close();
         } catch (SQLException | RuntimeException ex) {
@@ -123,7 +123,7 @@ public class CarDaoH2 implements CarDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCar
-                    = conn.prepareStatement("SELECT * FROM car_type LIMIT ? OFFSET ?");
+                    = conn.prepareStatement("SELECT * FROM car LIMIT ? OFFSET ?");
             newCar.setInt(1, limit);
             newCar.setInt(2, offset);
             ResultSet searchResults = newCar.executeQuery();

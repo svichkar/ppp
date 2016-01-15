@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <employee_category employee_category_id="1" name="Engine" />
+    <employee_category employee_category_id="2" name="Suspension" />
+    <employee_category employee_category_id="3" name="Transmission" />
+</dataset>

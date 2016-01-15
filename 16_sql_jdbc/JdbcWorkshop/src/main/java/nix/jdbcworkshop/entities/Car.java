@@ -15,7 +15,17 @@ public class Car {
     private String serialId;
     private Long carTypeId;
     private Long clientId;
-    
+
+    public Car() {
+    }
+
+    public Car(Long carId, String serialId, Long carTypeId, Long clientId) {
+        this.carId = carId;
+        this.serialId = serialId;
+        this.carTypeId = carTypeId;
+        this.clientId = clientId;
+    }
+
     public long getCarId() {
         return carId;
     }

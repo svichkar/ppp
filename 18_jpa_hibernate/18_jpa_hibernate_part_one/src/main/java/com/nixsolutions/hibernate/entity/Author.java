@@ -23,7 +23,7 @@ public class Author implements Serializable{
     @ManyToMany
     @JoinTable(name = "author_book",
             joinColumns = { @JoinColumn(name = "author_id")},
-            inverseJoinColumns = { @JoinColumn(name = "bok_id")})
+            inverseJoinColumns = { @JoinColumn(name = "book_id")})
     private List<Book> books;
 
     @Transient

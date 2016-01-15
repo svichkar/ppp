@@ -29,7 +29,7 @@ public class Student implements Serializable {
 	private Term term;
 	@Transient
 	@OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-	@JoinColumn(name = "journal_id", referencedColumnName = "journal_id")
+	@JoinColumn(name = "student_id", referencedColumnName = "student_id")
 	private List<Journal> journalList;
 
 	public Student() {

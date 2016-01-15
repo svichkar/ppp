@@ -6,9 +6,9 @@ import com.nixsolutions.entity.Book;
 
 public interface BookDao {
 	public List<Book> getAllBooks();
-	public List<Book> getBooksbyAuthor();
-	public List<Book> getBooksbyCategory();
-	public List<Book> getBooksbyName();
+	public List<Book> getBooksByAuthor(String name);
+	public List<Book> getBooksByCategory(String name);
+	public List<Book> getBooksByName(String name);
 	public Book getBookById(int bookId);
 	public void createBook(Book book);
 	public void updateBook(Book book);

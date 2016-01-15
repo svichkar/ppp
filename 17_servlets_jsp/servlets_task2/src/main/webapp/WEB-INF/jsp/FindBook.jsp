@@ -14,7 +14,7 @@
 						<option value="author">author</option>
 						<option value="category">category</option>
 				</select>
-				<input type="text" name="search criteria" />
+				<input type="text" name="search input" />
 				<input type=submit value="search" name="button">			
 		</form>
 	<jsp:useBean id="book" class="com.nixsolutions.model.BookBean" />
@@ -34,6 +34,7 @@
 					<td>${book.book.name}</td>
 					<td>${book.cell.name}</td>
 					<td>${book.category.name}</td>
+					<td>${book.authors}</td>
 				</tr>
 			</c:forEach>
 		</table>

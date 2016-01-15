@@ -108,20 +108,79 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public List<Book> getBooksbyAuthor() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book> getBooksByAuthor(String name) {
+		LOG.entry(name);
+		String sql = "SELECT * FROM author_book AS ab INNER JOIN author AS a  "
+				+ "ON ab.author_id = a.author_id and a.last_name = ? "
+				+ "INNER JOIN book as b ON ab.book_id = b.book_id;";
+		List<Book> books = new ArrayList<>();
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, name);
+			
+			ResultSet result = statem.executeQuery();
+			while (result.next()) {
+				Book book = new Book();
+				book.setBookId(result.getInt("book_id"));
+				book.setName(result.getString("name"));
+				book.setCategoryId(result.getInt("category_id"));
+				book.setCellId(result.getInt("cell_id"));
+				books.add(book);
+			}
+			LOG.trace("all the books were retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get all books", e));
+		}
+		return LOG.exit(books);
 	}
 
 	@Override
-	public List<Book> getBooksbyCategory() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book> getBooksByCategory(String name) {
+		LOG.entry(name);
+		String sql = "SELECT * FROM book AS b "
+				+ "INNER JOIN category AS c ON b.category_id = c.category_id "
+				+ "WHERE c.name = ?;";
+		List<Book> books = new ArrayList<>();
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, name);
+			
+			ResultSet result = statem.executeQuery();
+			while (result.next()) {
+				Book book = new Book();
+				book.setBookId(result.getInt("book_id"));
+				book.setName(result.getString("name"));
+				book.setCategoryId(result.getInt("category_id"));
+				book.setCellId(result.getInt("cell_id"));
+				books.add(book);
+			}
+			LOG.trace("all the books were retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get all books", e));
+		}
+		return LOG.exit(books);
 	}
 
 	@Override
-	public List<Book> getBooksbyName() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book> getBooksByName(String name) {
+		LOG.entry(name);
+		name = "%"+name+"%";
+		String sql = "SELECT * FROM book WHERE name LIKE ?;";
+		List<Book> books = new ArrayList<>();
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, name);
+			
+			ResultSet result = statem.executeQuery();
+			while (result.next()) {
+				Book book = new Book();
+				book.setBookId(result.getInt("book_id"));
+				book.setName(result.getString("name"));
+				book.setCategoryId(result.getInt("category_id"));
+				book.setCellId(result.getInt("cell_id"));
+				books.add(book);
+			}
+			LOG.trace("all the books were retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get all books", e));
+		}
+		return LOG.exit(books);
 	}
 }

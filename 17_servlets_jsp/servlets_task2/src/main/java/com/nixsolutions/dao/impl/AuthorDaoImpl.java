@@ -38,6 +38,28 @@ public class AuthorDaoImpl implements AuthorDao {
 		}
 		return LOG.exit(authors);
 	}
+	
+	@Override
+	public List<Author> getAuthorsByName(String name) {
+		LOG.entry(name);
+		String sql = "SELECT * FROM author WHERE FIRST_NAME = ? OR LAST_NAME = ?;";
+		List<Author> authors = new ArrayList<>();
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, name);
+			statem.setString(2, name);
+			ResultSet result = statem.executeQuery();
+			while (result.next()) {
+				Author auth = new Author();
+				auth.setAuthorId(result.getInt("author_id"));
+				auth.setFirstName(result.getString("first_name"));
+				auth.setSecondName(result.getString("last_name"));
+				authors.add(auth);
+			}
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get all authors", e));
+		}
+		return LOG.exit(authors);
+	}
 
 	@Override
 	public Author getAuthorById(int authorId) {

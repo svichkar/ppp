@@ -20,16 +20,16 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 	public static final Logger LOG = LogManager.getLogger();
 
 	@Override
-	public AuthorBook getAuthorBookById(int authorId, int bookId) {
+	public AuthorBook getAuthorBookById(Long authorId, Long bookId) {
 		LOG.entry(authorId, bookId);
 		String sql = "SELECT * FROM author_book WHERE author_id = ? and book_id = ?;";
 		AuthorBook authorBook = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, authorId);
-			statem.setInt(2, bookId);
+			statem.setLong(1, authorId);
+			statem.setLong(2, bookId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
-				authorBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
+				authorBook = new AuthorBook(result.getLong("author_id"), result.getLong("book_id"));
 			}
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get a authorBook by Id", e));
@@ -45,7 +45,7 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
-				AuthorBook authBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
+				AuthorBook authBook = new AuthorBook(result.getLong("author_id"), result.getLong("book_id"));
 				authorBooks.add(authBook);
 			}
 		} catch (SQLException e) {
@@ -55,15 +55,15 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 	}
 
 	@Override
-	public List<AuthorBook> getBooksIdByAuthorId(int authorId) {
+	public List<AuthorBook> getBooksIdByAuthorId(Long authorId) {
 		LOG.entry(authorId);
 		String sql = "SELECT * FROM author_book WHERE author_id = ?;";
 		List<AuthorBook> authorBooks = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, authorId);
+			statem.setLong(1, authorId);
 			ResultSet result = statem.executeQuery();
 			while (result.next()) {
-				AuthorBook authBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
+				AuthorBook authBook = new AuthorBook(result.getLong("author_id"), result.getLong("book_id"));
 				authorBooks.add(authBook);
 			}
 		} catch (SQLException e) {
@@ -77,8 +77,8 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 		LOG.entry(authorBook);
 		String sql = "INSERT INTO author_book (author_id, book_id) VALUES (?, ?)";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, authorBook.getAuthorId());
-			statem.setInt(2, authorBook.getBookId());
+			statem.setLong(1, authorBook.getAuthorId());
+			statem.setLong(2, authorBook.getBookId());
 			statem.executeUpdate();
 			LOG.exit("authorBook entry was created");
 		} catch (SQLException e) {
@@ -91,10 +91,10 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 		LOG.entry(authorBook);
 		String sql = "UPDATE author_book SET author_id = ?, book_id = ? WHERE author_id = ? AND book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, authorBook.getAuthorId());
-			statem.setInt(2, authorBook.getBookId());
-			statem.setInt(1, authorBook.getAuthorId());
-			statem.setInt(2, authorBook.getBookId());
+			statem.setLong(1, authorBook.getAuthorId());
+			statem.setLong(2, authorBook.getBookId());
+			statem.setLong(1, authorBook.getAuthorId());
+			statem.setLong(2, authorBook.getBookId());
 			statem.executeUpdate();
 			LOG.exit("authorBook was updated");
 		} catch (SQLException e) {
@@ -107,8 +107,8 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 		LOG.entry(authorBook);
 		String sql = "DELETE FROM author_book WHERE author_id = ? AND book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, authorBook.getAuthorId());
-			statem.setInt(2, authorBook.getBookId());
+			statem.setLong(1, authorBook.getAuthorId());
+			statem.setLong(2, authorBook.getBookId());
 			statem.executeUpdate();
 			LOG.exit("authorBook was deleted");
 		} catch (SQLException e) {
@@ -118,15 +118,15 @@ public class AuthorBookDaoImpl implements AuthorBookDao {
 	}
 
 	@Override
-	public List<AuthorBook> getAuthorIdByBookId(int bookId) {
+	public List<AuthorBook> getAuthorIdByBookId(Long bookId) {
 		LOG.entry(bookId);
 		String sql = "SELECT * FROM author_book WHERE book_id = ?;";
 		List<AuthorBook> authorBooks = new ArrayList<>();
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, bookId);
+			statem.setLong(1, bookId);
 			ResultSet result = statem.executeQuery();
 			while (result.next()) {
-				AuthorBook authBook = new AuthorBook(result.getInt("author_id"), result.getInt("book_id"));
+				AuthorBook authBook = new AuthorBook(result.getLong("author_id"), result.getLong("book_id"));
 				authorBooks.add(authBook);
 			}
 		} catch (SQLException e) {

@@ -98,9 +98,9 @@ public class DaoDemo {
 		factory.getBookDao().createBook(book3);
 
 		// creation of the author_book table entry
-		AuthorBook authBook1 = new AuthorBook(1, 1);
-		AuthorBook authBook2 = new AuthorBook(2, 2);
-		AuthorBook authBook3 = new AuthorBook(3, 3);
+		AuthorBook authBook1 = new AuthorBook(1l, 1l);
+		AuthorBook authBook2 = new AuthorBook(2l, 2l);
+		AuthorBook authBook3 = new AuthorBook(3l, 3l);
 
 		factory.getAuthorBookDao().createAuthorBook(authBook1);
 		factory.getAuthorBookDao().createAuthorBook(authBook2);

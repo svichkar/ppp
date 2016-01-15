@@ -28,7 +28,7 @@ public class BookDaoImpl implements BookDao {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Book book = new Book();
-				book.setBookId(result.getInt("book_id"));
+				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getInt("category_id"));
 				book.setCellId(result.getInt("cell_id"));
@@ -51,7 +51,7 @@ public class BookDaoImpl implements BookDao {
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				book = new Book();
-				book.setBookId(result.getInt("book_id"));
+				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getInt("category_id"));
 				book.setCellId(result.getInt("cell_id"));
@@ -63,18 +63,25 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public void createBook(Book book) {
+	public Book createBook(Book book) {
 		LOG.entry(book);
 		String sql = "INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?);";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			statem.setString(1, book.getName());
 			statem.setInt(2, book.getCategoryId());
 			statem.setInt(3, book.getCellId());
 			statem.executeUpdate();
+			ResultSet generatedKeys = statem.getGeneratedKeys();
+			 if (generatedKeys.next()) {
+				 book.setBookId(generatedKeys.getLong(1));
+	            } else {
+	            	LOG.throwing(new DaoException("Creating book failed, no ID obtained."));
+	            }
 			LOG.exit("book was created");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to create an book", e));
 		}
+		return book;
 	}
 
 	@Override
@@ -98,7 +105,7 @@ public class BookDaoImpl implements BookDao {
 		LOG.entry(book);
 		String sql = "DELETE FROM book WHERE book_id = ?;";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, book.getBookId());
+			statem.setLong(1, book.getBookId());
 			statem.executeUpdate();
 			LOG.exit("book was deleted");
 		} catch (SQLException e) {
@@ -120,7 +127,7 @@ public class BookDaoImpl implements BookDao {
 			ResultSet result = statem.executeQuery();
 			while (result.next()) {
 				Book book = new Book();
-				book.setBookId(result.getInt("book_id"));
+				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getInt("category_id"));
 				book.setCellId(result.getInt("cell_id"));
@@ -146,7 +153,7 @@ public class BookDaoImpl implements BookDao {
 			ResultSet result = statem.executeQuery();
 			while (result.next()) {
 				Book book = new Book();
-				book.setBookId(result.getInt("book_id"));
+				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getInt("category_id"));
 				book.setCellId(result.getInt("cell_id"));
@@ -171,7 +178,7 @@ public class BookDaoImpl implements BookDao {
 			ResultSet result = statem.executeQuery();
 			while (result.next()) {
 				Book book = new Book();
-				book.setBookId(result.getInt("book_id"));
+				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getInt("category_id"));
 				book.setCellId(result.getInt("cell_id"));

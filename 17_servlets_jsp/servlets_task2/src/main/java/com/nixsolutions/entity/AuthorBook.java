@@ -1,28 +1,28 @@
 package com.nixsolutions.entity;
 
 public class AuthorBook {
-	private Integer authorId;
-	private Integer bookId;
+	private Long authorId;
+	private Long bookId;
 
-	public AuthorBook(int authorId, int bookId) {
+	public AuthorBook(Long authorId, Long bookId) {
 		super();
 		this.authorId = authorId;
 		this.bookId = bookId;
 	}
 
-	public Integer getAuthorId() {
+	public Long getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(int authorId) {
+	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
 	}
 
-	public Integer getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 	

@@ -55,6 +55,25 @@ public class CategoryDaoImpl implements CategoryDao {
 		}
 		return LOG.exit(category);
 	}
+	
+	@Override
+	public Category getCategoryByName(String categoryName) {
+		LOG.entry(categoryName);
+		String sql = "SELECT * FROM category WHERE name = ?;";
+		Category category = null;
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, categoryName);
+			ResultSet result = statem.executeQuery();
+			if (result.next()) {
+				category = new Category(result.getString("name"));
+				category.setCategoryId(result.getInt("category_id"));
+			}
+			LOG.trace("the category was retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get a category by Id", e ));
+		}
+		return LOG.exit(category);
+	}
 
 	@Override
 	public void createCategory(Category category) {

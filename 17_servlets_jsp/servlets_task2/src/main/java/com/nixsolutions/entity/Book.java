@@ -1,7 +1,7 @@
 package com.nixsolutions.entity;
 
 public class Book {
-	private Integer bookId;
+	private Long bookId;
 	private String name;
 	private Integer cellId;
 	private Integer categoryId;
@@ -18,11 +18,11 @@ public class Book {
 		this.authorId = authorId;
 	}
 */
-	public Integer getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 

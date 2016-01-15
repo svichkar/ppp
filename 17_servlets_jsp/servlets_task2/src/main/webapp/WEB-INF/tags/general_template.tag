@@ -24,12 +24,12 @@
 		<li><a class="active">Hi, ${usrName}!</a></li>
 		<li><a href="admin">Home</a></li>
 		<li><a href="findbook">Find book</a></li>
-		<li><a href="#Add book">Add book</a></li>
-		<li><a href="#Add reader">Add reader</a></li>
+		<li><a href="addbook">Add book</a></li>
+		<li><a href="addreader">Add reader</a></li>
 		<li><a href="#Loan book">Loan book</a></li>
 		<c:if test="${usrRole == 'admin'}">
 			<li><a href="admin">Add user</a></li>
-			<li><a href="#Add category">Add category</a></li>
+			<li><a href="addcategory">Add category</a></li>
 		</c:if>
 	</ul>
 

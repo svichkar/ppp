@@ -58,6 +58,25 @@ public class CellDaoImpl implements CellDao{
 	}
 
 	@Override
+	public Cell getCellByName(String celltName) {
+		LOG.entry(celltName);
+		String sql = "SELECT * FROM cell WHERE name = ?;";
+		Cell cell = null;
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, celltName);
+			ResultSet result = statem.executeQuery();
+			if (result.next()) {
+				cell = new Cell(result.getString("name"));
+				cell.setCellId(result.getInt("cell_id"));
+			}
+			LOG.trace("the cell was retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get a cell by Id", e));
+		}
+		return LOG.exit(cell);
+	}
+	
+	@Override
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
 		String sql = "INSERT INTO cell (name) VALUES (?)";
@@ -96,5 +115,4 @@ public class CellDaoImpl implements CellDao{
 			LOG.throwing(new DaoException("not able to delete the cell", e));
 		}
 	}
-
 }

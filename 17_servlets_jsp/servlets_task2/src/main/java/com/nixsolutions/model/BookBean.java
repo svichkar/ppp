@@ -3,6 +3,8 @@ package com.nixsolutions.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,30 +22,6 @@ public class BookBean {
 	private List<Author> authors;
 	private Category category;
 	private Cell cell;
-
-	/*
-	 * public static BookBean getBookBean(int id){ H2DaoFactory factory =
-	 * DaoFactory.getDAOFactory(DaoFactory.H2); BookBean bookBean = new
-	 * BookBean(); List<AuthorBook> authBook;
-	 * bookBean.setBook(factory.getBookDao().getBookById(id)); cell =
-	 * factory.getCellDao().getCellById(book.getCellId()); category =
-	 * factory.getCategoryDao().getCategoryById(book.getCategoryId()); authBook
-	 * = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId()); for
-	 * (AuthorBook authorBook : authBook) {
-	 * authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()
-	 * )); } return bookBean; }
-	 */
-	/*
-	 * public BookBean(int id){ H2DaoFactory factory =
-	 * DaoFactory.getDAOFactory(DaoFactory.H2); List<AuthorBook> authBook; book
-	 * = factory.getBookDao().getBookById(id); cell =
-	 * factory.getCellDao().getCellById(book.getCellId()); category =
-	 * factory.getCategoryDao().getCategoryById(book.getCategoryId()); authBook
-	 * = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId()); for
-	 * (AuthorBook authorBook : authBook) {
-	 * authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()
-	 * )); } };
-	 */
 
 	public Book getBook() {
 		return book;
@@ -94,48 +72,19 @@ public class BookBean {
 		List<Book> books = factory.getBookDao().getAllBooks();	
 		
 		for (Book book : books) {
-			List<Author> authors = new ArrayList<Author>();
-			List<AuthorBook> authBook;
-			BookBean bookBean = new BookBean();
-			bookBean.setBook(book);
-			bookBean.setCell(factory.getCellDao().getCellById(book.getCellId()));
-			bookBean.setCategory(factory.getCategoryDao().getCategoryById(book.getCategoryId()));
-			
-			authBook = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId());
-			for (AuthorBook authorBook : authBook) {
-				authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()));
-			}
-			
-			bookBean.setAuthors(authors);
-			
-			allBookBeans.add(bookBean);
+			allBookBeans.add(getBookBean(book));
 		}
-			
+				
 		return LOG.exit(allBookBeans);
-
 	}
 
 	public static List<BookBean> getBookBeansByName(String name) {
 		H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 		List<BookBean> allBookBeans = new ArrayList<>();
 		List<Book> books = factory.getBookDao().getBooksByName(name);
-		
+
 		for (Book book : books) {
-			List<Author> authors = new ArrayList<Author>();
-			List<AuthorBook> authBook;
-			BookBean bookBean = new BookBean();
-			bookBean.setBook(book);
-			bookBean.setCell(factory.getCellDao().getCellById(book.getCellId()));
-			bookBean.setCategory(factory.getCategoryDao().getCategoryById(book.getCategoryId()));
-			
-			authBook = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId());
-			for (AuthorBook authorBook : authBook) {
-				authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()));
-			}
-			
-			bookBean.setAuthors(authors);
-			
-			allBookBeans.add(bookBean);
+			allBookBeans.add(getBookBean(book));
 		}
 			
 		return LOG.exit(allBookBeans);
@@ -143,31 +92,11 @@ public class BookBean {
 
 	public static List<BookBean> getBookBeansByAuthor(String name) {
 		H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
-		//1 check if author exists in author table (get its id) - what will happen if we have two authors?
-		//2 in author_book get all book id's related to author
-		//3 create list of author by set of id's
-		
-		
-		
 		List<BookBean> allBookBeans = new ArrayList<>();
 		List<Book> books = factory.getBookDao().getBooksByAuthor(name);
 		
 		for (Book book : books) {
-			List<Author> authors = new ArrayList<Author>();
-			List<AuthorBook> authBook;
-			BookBean bookBean = new BookBean();
-			bookBean.setBook(book);
-			bookBean.setCell(factory.getCellDao().getCellById(book.getCellId()));
-			bookBean.setCategory(factory.getCategoryDao().getCategoryById(book.getCategoryId()));
-			
-			authBook = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId());
-			for (AuthorBook authorBook : authBook) {
-				authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()));
-			}
-			
-			bookBean.setAuthors(authors);
-			
-			allBookBeans.add(bookBean);
+			allBookBeans.add(getBookBean(book));
 		}
 			
 		return LOG.exit(allBookBeans);
@@ -179,24 +108,86 @@ public class BookBean {
 		List<Book> books = factory.getBookDao().getBooksByCategory(name);
 		
 		for (Book book : books) {
-			List<Author> authors = new ArrayList<Author>();
-			List<AuthorBook> authBook;
-			BookBean bookBean = new BookBean();
-			bookBean.setBook(book);
-			bookBean.setCell(factory.getCellDao().getCellById(book.getCellId()));
-			bookBean.setCategory(factory.getCategoryDao().getCategoryById(book.getCategoryId()));
-			
-			authBook = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId());
-			for (AuthorBook authorBook : authBook) {
-				authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()));
-			}
-			
-			bookBean.setAuthors(authors);
-			
-			allBookBeans.add(bookBean);
+			allBookBeans.add(getBookBean(book));
 		}
 			
 		return LOG.exit(allBookBeans);
+	}
+
+	public static void saveBookBean(BookBean bookBean){
+		H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+		
+		//1 if author new - save it
+		
+		//2 save book
+		
+		//3 save author_book info (auth id and book id)
+		
+	}
+	
+	public BookBean createBookBean(HttpServletRequest request) {
+		H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+		String bookName = request.getParameter("bookname");
+		String authorFirstName = request.getParameter("authorfirstname");
+		String authorLastName = request.getParameter("authorlastname");
+		String cell = request.getParameter("selectcell");
+		String category = request.getParameter("selectcategory");
+		
+		BookBean bookBean = new BookBean();
+		
+		//category from list
+		bookBean.setCategory(factory.getCategoryDao().getCategoryByName(category));
+		
+		//cell from list
+		bookBean.setCell(factory.getCellDao().getCellByName(cell));
+		
+		//new or existing author
+		List<Author> listAuth = new ArrayList<>();
+		Author auth = new Author();
+		auth.setFirstName(authorFirstName);
+		auth.setSecondName(authorLastName);
+		listAuth.add(auth);
+		bookBean.setAuthors(listAuth);
+		
+		/*List<Author> listAuth = factory.getAuthorDao().getAuthorsByName(authorLastName);
+
+		if(listAuth != null){
+			bookBean.setAuthors(listAuth);
+		}else{
+		Author auth = new Author();
+		auth.setFirstName(authorFirstName);
+		auth.setSecondName(authorLastName);
+		factory.getAuthorDao().createAuthor(auth);
+		listAuth = factory.getAuthorDao().getAuthorsByName(authorLastName);
+		bookBean.setAuthors(listAuth);
+		}*/
+				
+		//new book
+		Book book = new Book();
+		book.setName(bookName);
+		book.setCellId(bookBean.getCell().getCellId());
+		book.setCategoryId(bookBean.getCategory().getCategoryId());
+		
+		return bookBean;
+
+	}
+	
+	public static BookBean getBookBean(Book book){
+		H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+		List<Author> authors = new ArrayList<Author>();
+		List<AuthorBook> authBook;
+		BookBean bookBean = new BookBean();
+		bookBean.setBook(book);
+		bookBean.setCell(factory.getCellDao().getCellById(book.getCellId()));
+		bookBean.setCategory(factory.getCategoryDao().getCategoryById(book.getCategoryId()));
+		
+		authBook = factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId());
+		for (AuthorBook authorBook : authBook) {
+			authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()));
+		}
+		
+		bookBean.setAuthors(authors);
+		return bookBean;
 	}
 
 }

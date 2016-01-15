@@ -28,7 +28,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Author auth = new Author();
-				auth.setAuthorId(result.getInt("author_id"));
+				auth.setAuthorId(result.getLong("author_id"));
 				auth.setFirstName(result.getString("first_name"));
 				auth.setSecondName(result.getString("last_name"));
 				authors.add(auth);
@@ -50,7 +50,7 @@ public class AuthorDaoImpl implements AuthorDao {
 			ResultSet result = statem.executeQuery();
 			while (result.next()) {
 				Author auth = new Author();
-				auth.setAuthorId(result.getInt("author_id"));
+				auth.setAuthorId(result.getLong("author_id"));
 				auth.setFirstName(result.getString("first_name"));
 				auth.setSecondName(result.getString("last_name"));
 				authors.add(auth);
@@ -62,16 +62,16 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 
 	@Override
-	public Author getAuthorById(int authorId) {
+	public Author getAuthorById(Long authorId) {
 		LOG.entry(authorId);
 		String sql = "SELECT * FROM author WHERE author_id = ?;";
 		Author author = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, authorId);
+			statem.setLong(1, authorId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				author = new Author();
-				author.setAuthorId(result.getInt("author_id"));
+				author.setAuthorId(result.getLong("author_id"));
 				author.setFirstName(result.getString("first_name"));
 				author.setSecondName(result.getString("last_name"));
 			}
@@ -82,17 +82,24 @@ public class AuthorDaoImpl implements AuthorDao {
 	}
 
 	@Override
-	public void createAuthor(Author author) {
+	public Author createAuthor(Author author) {
 		LOG.entry(author);
 		String sql = "INSERT INTO author (first_name, last_name) VALUES (?, ?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			statem.setString(1, author.getFirstName());
 			statem.setString(2, author.getSecondName());
 			statem.executeUpdate();
+			ResultSet generatedKeys = statem.getGeneratedKeys();
+			 if (generatedKeys.next()) {
+				 author.setAuthorId(generatedKeys.getLong(1));
+	            } else {
+	            	LOG.throwing(new DaoException("Creating author failed, no ID obtained."));
+	            }
 			LOG.exit("author was created");
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to create an author", e));
 		}
+		return author;
 	}
 
 	@Override

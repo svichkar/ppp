@@ -48,6 +48,9 @@ body
 form{
     display:inline-block;
 }
-a.customLink:link {
+a:link {
+    color: white;
+}
+a:visited {
     color: white;
 }

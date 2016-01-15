@@ -2,12 +2,11 @@ package com.nixsolutions.servicestation.dao.impl;
 
 import com.nixsolutions.servicestation.dao.CarOrderDAO;
 import com.nixsolutions.servicestation.entity.CarOrder;
-import com.nixsolutions.servicestation.entity.extendedentity.UserCarOrder;
+import com.nixsolutions.servicestation.entity.extendedentity.UserCarOrderBean;
 import com.nixsolutions.servicestation.util.CustomConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,8 +115,8 @@ public class ImplCarOrderDAO implements CarOrderDAO {
         return carOrders;
     }
 
-    public List<UserCarOrder> getUserCarOrders(String login) {
-        List<UserCarOrder> userCarOrders = new ArrayList<>();
+    public List<UserCarOrderBean> getUserCarOrders(String login) {
+        List<UserCarOrderBean> userCarOrderBeans = new ArrayList<>();
         int i=0;
         String sql = "SELECT co.car_order_id, cos.name, car.serial_id, ct.brand, ct.model_name FROM user u " +
                 "INNER JOIN client c ON u.user_id = c.user_id " +
@@ -131,26 +130,26 @@ public class ImplCarOrderDAO implements CarOrderDAO {
             pStatement.setString(1, login);
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
-                UserCarOrder uco = new UserCarOrder();
-                uco.setCarOrderId(rs.getInt("CAR_ORDER_ID"));
-                uco.setCarOrderStatus(rs.getString("NAME"));
-                uco.setSerialId(rs.getString("SERIAL_ID"));
-                uco.setCarModel(rs.getString("BRAND") + " " + rs.getString("MODEL_NAME"));
+                UserCarOrderBean uco = new UserCarOrderBean();
+                uco.setCarOrderId(rs.getInt("car_order_id"));
+                uco.setCarOrderStatus(rs.getString("name"));
+                uco.setSerialId(rs.getString("serial_id"));
+                uco.setCarModel(rs.getString("brand") + " " + rs.getString("model_name"));
                 uco.setUserLogin(login);
-                userCarOrders.add(uco);
+                userCarOrderBeans.add(uco);
                 i++;
             }
         } catch (SQLException e) {
             LOGGER.error(e);
         }
-        if (userCarOrders != null) {
+        if (userCarOrderBeans != null) {
             LOGGER.trace(i + " rows by getUserCarOrders were found");
         }
-        return userCarOrders;
+        return userCarOrderBeans;
     }
 
-    public List<UserCarOrder> getUserCarOrders() {
-        List<UserCarOrder> userCarOrders = new ArrayList<>();
+    public List<UserCarOrderBean> getUserCarOrders() {
+        List<UserCarOrderBean> userCarOrderBeans = new ArrayList<>();
         int i = 0;
         String sql = "SELECT u.login, co.car_order_id, cos.name, car.serial_id, ct.brand, ct.model_name FROM user u " +
                 "INNER JOIN client c ON u.user_id = c.user_id " +
@@ -162,21 +161,21 @@ public class ImplCarOrderDAO implements CarOrderDAO {
              PreparedStatement pStatement = conn.prepareStatement(sql)) {
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
-                UserCarOrder uco = new UserCarOrder();
+                UserCarOrderBean uco = new UserCarOrderBean();
                 uco.setUserLogin(rs.getString("login"));
                 uco.setCarOrderId(rs.getInt("car_order_id"));
                 uco.setCarOrderStatus(rs.getString("name"));
                 uco.setSerialId(rs.getString("serial_id"));
                 uco.setCarModel(rs.getString("brand") + " " + rs.getString("model_name"));
-                userCarOrders.add(uco);
+                userCarOrderBeans.add(uco);
                 i++;
             }
         } catch (SQLException e) {
             LOGGER.error(e);
         }
-        if (userCarOrders != null) {
+        if (userCarOrderBeans != null) {
             LOGGER.trace(i + " rows by getUserCarOrders were found");
         }
-        return userCarOrders;
+        return userCarOrderBeans;
     }
 }

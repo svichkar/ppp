@@ -2,6 +2,8 @@ package com.nixsolutions.servicestation.dao.impl;
 
 import com.nixsolutions.servicestation.dao.CarDAO;
 import com.nixsolutions.servicestation.entity.Car;
+import com.nixsolutions.servicestation.entity.extendedentity.CarBean;
+import com.nixsolutions.servicestation.entity.extendedentity.UserCarOrderBean;
 import com.nixsolutions.servicestation.util.CustomConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -111,4 +113,32 @@ public class ImplCarDAO implements CarDAO {
         return cars;
     }
 
+    public List<CarBean> getUserCars(){
+        List<CarBean> carBeans = new ArrayList<>();
+        int i=0;
+        String sql = "SELECT u.login, c.first_name, c.last_name, ct.brand, ct.model_name, car.serial_id FROM user u " +
+                "INNER JOIN client c ON u.user_id = c.user_id " +
+                "INNER JOIN car ON c.client_id = car.client_id " +
+                "INNER JOIN car_type ct ON car.car_type_id = ct.car_type_id ORDER BY u.login";
+        try (Connection conn = CustomConnectionManager.getConnection();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
+            ResultSet rs = pStatement.executeQuery();
+            while (rs.next()) {
+                CarBean cb = new CarBean();
+                cb.setLogin(rs.getString("login"));
+                cb.setClientFSName(rs.getString("first_name") + " " + rs.getString("last_name"));
+                cb.setCarBrand((rs.getString("brand")));
+                cb.setCarBrand((rs.getString("model_name")));
+                cb.setCarVIN(rs.getString("serial_id"));
+                carBeans.add(cb);
+                i++;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        if (carBeans != null) {
+            LOGGER.trace(i + " rows by getUserCars were found");
+        }
+        return carBeans;
+    }
 }

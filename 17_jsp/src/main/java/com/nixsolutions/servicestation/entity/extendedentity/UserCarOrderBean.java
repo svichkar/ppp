@@ -3,7 +3,7 @@ package com.nixsolutions.servicestation.entity.extendedentity;
 /**
  * Created by rybkinrolla on 12.01.2016.
  */
-public class UserCarOrder {
+public class UserCarOrderBean {
     private Integer carOrderId;
     private String carOrderStatus;
     private String serialId;

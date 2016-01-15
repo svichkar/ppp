@@ -2,6 +2,7 @@ package com.nixsolutions.hibernate.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by kozlovskij on 1/13/2016.
@@ -24,6 +25,10 @@ public class Client implements Serializable{
 
     @Column(name = "email")
     private String clientEmail;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
+    private List<Ticket> tickets;
 
     @Transient
     public String clientFullName () {
@@ -70,4 +75,11 @@ public class Client implements Serializable{
         this.clientEmail = clientEmail;
     }
 
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 }

@@ -32,14 +32,6 @@ public class Ticket implements Serializable{
     @Column(name = "return_date")
     private Date returnDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id", referencedColumnName = "book_id")
-    private List<Book> books;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id", referencedColumnName = "client_id")
-    private List<Client> clients;
-
     @Transient
     public Boolean isExpired(){
         return expiredDate.before(new Date(System.currentTimeMillis()));
@@ -98,19 +90,4 @@ public class Ticket implements Serializable{
         this.returnDate = returnDate;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-    public List<Client> getClients() {
-        return clients;
-    }
-
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
-    }
 }

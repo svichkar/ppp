@@ -17,7 +17,7 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false)
     private String categoryName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private List<Book> books;
 

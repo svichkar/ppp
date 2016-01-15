@@ -18,7 +18,7 @@ public class Cell implements Serializable{
     @Column(name = "name", nullable = false)
     private String cellName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cell_id", referencedColumnName = "cell_id")
     private List<Book> books;
 

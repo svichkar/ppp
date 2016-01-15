@@ -17,8 +17,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Role role = new Role();
-        role.setRoleName("Admin");
 
         Session session = null;
         Transaction transaction = null;
@@ -34,9 +32,10 @@ public class Main {
         Query query = session.createQuery("from Role");
         List <Role> list = query.list();
         transaction.commit();
-
+        System.out.println(list.size());
         for (int i = 0; i < list.size(); i++) {
-            role =  list.get(i);
+
+            Role role =  list.get(i);
             System.out.println("We have role: " + role.getRoleId() + "/" + role.getRoleName());
             System.out.print("This role have following users:");
             List <User> users = role.getUsers();

@@ -20,10 +20,13 @@ public class Main {
         Role role = new Role();
         role.setRoleName("Admin");
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+        Session session = null;
+        Transaction transaction = null;
+
+        /*session = sessionFactory.getCurrentSession()
+        transaction = session.beginTransaction();
         session.save(role);
-        transaction.commit();
+        transaction.commit();*/
 
 
         session = sessionFactory.getCurrentSession();
@@ -34,18 +37,14 @@ public class Main {
 
         for (int i = 0; i < list.size(); i++) {
             role =  list.get(i);
-            System.out.println(role.getRoleId() + "/" + role.getRoleName());
+            System.out.println("We have role: " + role.getRoleId() + "/" + role.getRoleName());
+            System.out.print("This role have following users:");
             List <User> users = role.getUsers();
             for (int j = 0; j <users.size() ; j++) {
                 User user = users.get(j);
                 System.out.println(user.getUserId() + "/" + user.getLogin());
             }
         }
-        session = sessionFactory.getCurrentSession();
-        transaction = session.beginTransaction();
-        Role newRole = (Role) session.get(Role.class, new Long(33));
-        transaction.commit();
-        System.out.println(newRole.getRoleId() + newRole.getRoleName() + newRole.getUsers().get(0).getLogin());
         HibernateUtil.closeSessionFactory();
 
     }

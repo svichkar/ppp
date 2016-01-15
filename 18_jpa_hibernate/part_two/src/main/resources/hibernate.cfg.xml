@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <property name="connection.url">jdbc:h2:file:./src/main/resources/sqllab;FILE_LOCK=NO;MV_STORE=FALSE;MVCC=FALSE</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        <property name="connection.pool_size">20</property>
+        <property name="hibernate.connection.autocomit">true</property>
+
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>
+        <property name="current_session_context_class">thread</property>
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">validate</property>
+
+        <mapping class="com.nixsolutions.hibernate.entity.User" />
+        <mapping class="com.nixsolutions.hibernate.entity.Role" />
+        <mapping class="com.nixsolutions.hibernate.entity.Author" />
+        <mapping class="com.nixsolutions.hibernate.entity.Cell" />
+        <mapping class="com.nixsolutions.hibernate.entity.Category" />
+        <mapping class="com.nixsolutions.hibernate.entity.Book" />
+        <mapping class="com.nixsolutions.hibernate.entity.Client" />
+        <mapping class="com.nixsolutions.hibernate.entity.Ticket" />
+
+    </session-factory>
+
+
+</hibernate-configuration>

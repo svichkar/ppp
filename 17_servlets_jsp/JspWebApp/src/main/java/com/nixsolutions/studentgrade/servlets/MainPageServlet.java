@@ -20,9 +20,9 @@ import java.io.PrintWriter;
  * Created by svichkar on 12/24/2015.
  */
 
-@WebServlet(name = "MainPage",
-        description = "This is my first annotated servlet",
-        value = "/main")
+@WebServlet(name = "LoginPage",
+        description = "login page",
+        value = "/login.html")
 public class MainPageServlet extends HttpServlet {
 
     private HttpSession session;
@@ -114,7 +114,7 @@ public class MainPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher rd = request.getRequestDispatcher("index.html");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
         rd.include(request, response);
     }
 }

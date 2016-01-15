@@ -2,8 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="Contact us">
+<t:general_template title="Students">
     <jsp:attribute name="content_area">
-        <h2>Contact us bla bla bla</h2>
+        <h2>Content area for students</h2>
+    </jsp:attribute>
+    <jsp:attribute name="sidebar_area">
+        <h2>Sidebar area students</h2>
     </jsp:attribute>
 </t:general_template>

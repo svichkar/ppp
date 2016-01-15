@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="Another Page">
+<t:general_template title="Subjects">
     <jsp:attribute name="content_area">
-        <h2>Another page content area</h2>
+        <h2>subject</h2>
     </jsp:attribute>
 </t:general_template>

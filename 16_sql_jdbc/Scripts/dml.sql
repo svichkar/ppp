@@ -57,7 +57,7 @@ INSERT INTO client (first_name,last_name,phone) VALUES ('Ivan','Petrov','788-3-0
 INSERT INTO client (first_name,last_name,phone) VALUES ('Alexandr','Rex','777-3-558');
 INSERT INTO client (first_name,last_name,email) VALUES ('John','Ivanov','john@mail.com');
 --rent_journal
-INSERT INTO rent_journal (book_id,client_id,rent_date,expired_date,return_date) VALUES ('1','1','2015-11-10','2015-11-15','2015-11-15');
-INSERT INTO rent_journal (book_id,client_id,rent_date,expired_date,return_date) VALUES ('2','1','2015-12-10','2015-12-15','2015-12-15');
-INSERT INTO rent_journal (book_id,client_id,rent_date,expired_date) VALUES ('3','2','2015-12-15','2015-12-20');
-INSERT INTO rent_journal (book_id,client_id,rent_date,expired_date) VALUES ('4','3','2015-12-15','2015-12-20');
+INSERT INTO ticket (book_id,client_id,rent_date,expired_date,return_date) VALUES ('1','1','2015-11-10','2015-11-15','2015-11-15');
+INSERT INTO ticket (book_id,client_id,rent_date,expired_date,return_date) VALUES ('2','1','2015-12-10','2015-12-15','2015-12-15');
+INSERT INTO ticket (book_id,client_id,rent_date,expired_date) VALUES ('3','2','2015-12-15','2015-12-20');
+INSERT INTO ticket (book_id,client_id,rent_date,expired_date) VALUES ('4','3','2015-12-15','2015-12-20');

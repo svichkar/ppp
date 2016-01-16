@@ -25,11 +25,10 @@ public class ImplCarDAO implements CarDAO {
     @Override
     public void create(Car entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement("INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (?, ?, ? ,?);")) {
-            pStatement.setInt(1, entity.getCarId());
-            pStatement.setString(2, entity.getSerialId());
-            pStatement.setInt(3, entity.getCarTypeId());
-            pStatement.setInt(4, entity.getClientId());
+             PreparedStatement pStatement = connection.prepareStatement("INSERT INTO car (serial_id, car_type_id, client_id) VALUES (?, ? ,?);")) {
+            pStatement.setString(1, entity.getSerialId());
+            pStatement.setInt(2, entity.getCarTypeId());
+            pStatement.setInt(3, entity.getClientId());
             pStatement.execute();
             LOGGER.trace("Row in car was created");
         } catch (SQLException e) {
@@ -40,12 +39,11 @@ public class ImplCarDAO implements CarDAO {
     @Override
     public void update(Car entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement("UPDATE car SET car_id=?, serial_id=?, car_type_id=?, client_id=? WHERE car_id=?;")) {
-            pStatement.setInt(1, entity.getCarId());
-            pStatement.setString(2, entity.getSerialId());
-            pStatement.setInt(3, entity.getCarTypeId());
-            pStatement.setInt(4, entity.getClientId());
-            pStatement.setInt(5, entity.getCarId());
+             PreparedStatement pStatement = connection.prepareStatement("UPDATE car SET serial_id=?, car_type_id=?, client_id=? WHERE car_id=?;")) {
+            pStatement.setString(1, entity.getSerialId());
+            pStatement.setInt(2, entity.getCarTypeId());
+            pStatement.setInt(3, entity.getClientId());
+            pStatement.setInt(4, entity.getCarId());
             pStatement.execute();
             LOGGER.trace("Row in car with id = " + entity.getCarId() + " was updated");
         } catch (SQLException e) {
@@ -116,7 +114,7 @@ public class ImplCarDAO implements CarDAO {
     public List<CarBean> getUserCars(){
         List<CarBean> carBeans = new ArrayList<>();
         int i=0;
-        String sql = "SELECT u.login, c.first_name, c.last_name, ct.brand, ct.model_name, car.serial_id FROM user u " +
+        String sql = "SELECT u.login, car.car_id, c.client_id, c.first_name, c.last_name, ct.brand, ct.model_name, car.serial_id FROM user u " +
                 "INNER JOIN client c ON u.user_id = c.user_id " +
                 "INNER JOIN car ON c.client_id = car.client_id " +
                 "INNER JOIN car_type ct ON car.car_type_id = ct.car_type_id ORDER BY u.login";
@@ -125,11 +123,13 @@ public class ImplCarDAO implements CarDAO {
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
                 CarBean cb = new CarBean();
+                cb.setCarId(rs.getInt("car_id"));
                 cb.setLogin(rs.getString("login"));
                 cb.setClientFSName(rs.getString("first_name") + " " + rs.getString("last_name"));
                 cb.setCarBrand((rs.getString("brand")));
-                cb.setCarBrand((rs.getString("model_name")));
+                cb.setCarModel((rs.getString("model_name")));
                 cb.setCarVIN(rs.getString("serial_id"));
+                cb.setClientId(rs.getInt("client_id"));
                 carBeans.add(cb);
                 i++;
             }

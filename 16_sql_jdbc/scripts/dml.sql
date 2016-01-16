@@ -24,11 +24,11 @@ INSERT INTO car_type (brand, model_name) VALUES ('BMW', '520');
 INSERT INTO car_type (brand, model_name) VALUES ('Plymouth', 'Valiant');
 INSERT INTO car_type (brand, model_name) VALUES ('Lincoln', 'Town Car');
 
-INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (10001,'55kkzz00', 8, 3);
-INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (10002,'5223ðk07660', 7, 5);
-INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (10003,'34rrdw34ghhj', 3, 6);
-INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (10004,'zcvsr34rdsasd', 4, 6);
-INSERT INTO car (car_id, serial_id, car_type_id, client_id) VALUES (10005,'235235343542j', 5, 4);
+INSERT INTO car (serial_id, car_type_id, client_id) VALUES ('55kkzz00', 8, 3);
+INSERT INTO car (serial_id, car_type_id, client_id) VALUES ('5223ðk07660', 7, 5);
+INSERT INTO car (serial_id, car_type_id, client_id) VALUES ('34rrdw34ghhj', 3, 6);
+INSERT INTO car (serial_id, car_type_id, client_id) VALUES ('zcvsr34rdsasd', 4, 6);
+INSERT INTO car (serial_id, car_type_id, client_id) VALUES ('235235343542j', 5, 4);
 
 INSERT INTO employee_category (name) VALUES ('electricity');
 INSERT INTO employee_category (name) VALUES ('engine');
@@ -46,11 +46,11 @@ INSERT INTO car_order_status (name) VALUES ('Complete');
 INSERT INTO car_order_status (name) VALUES ('In Progress');
 INSERT INTO car_order_status (name) VALUES ('Pending');
 
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(10001, 2, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(10002, 2, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(10003, 2, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(10005, 3, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(10004, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(1, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(2, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(3, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(4, 3, CURRENT_TIMESTAMP());
+INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(5, 2, CURRENT_TIMESTAMP());
 
 INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (50,1,2);
 INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (51,2,1);

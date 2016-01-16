@@ -4,7 +4,9 @@ package com.nixsolutions.servicestation.entity.extendedentity;
  * Created by rybkinrolla on 15.01.2016.
  */
 public class CarBean {
+    private Integer carId;
     private String login;
+    private Integer clientId;
     private String clientFSName;
     private String carBrand;
     private String carModel;
@@ -48,5 +50,21 @@ public class CarBean {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public Integer getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Integer carId) {
+        this.carId = carId;
+    }
+
+    public Integer getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 }

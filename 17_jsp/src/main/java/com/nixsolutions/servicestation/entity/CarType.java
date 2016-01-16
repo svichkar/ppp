@@ -39,4 +39,14 @@ public class CarType {
     public void setModelName(String modelName) {
         this.modelName = modelName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        CarType carType = (CarType) obj;
+        if(brand.equals(carType.brand) && modelName.equals(carType.modelName)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

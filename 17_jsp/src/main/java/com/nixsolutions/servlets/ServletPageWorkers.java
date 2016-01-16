@@ -22,7 +22,6 @@ import java.util.List;
  */
 @WebServlet("/workers")
 public class ServletPageWorkers extends HttpServlet {
-    public static Logger LOGGER = LogManager.getLogger(ServletPageWorkers.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

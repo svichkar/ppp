@@ -53,7 +53,7 @@ public class JDBCCreateTables {
                     "employee_category_id TINYINT IDENTITY," +
                     "name VARCHAR(256) NOT NULL);");
             statement.addBatch("CREATE TABLE car (" +
-                    "car_id BIGINT PRIMARY KEY," +
+                    "car_id BIGINT IDENTITY," +
                     "serial_id VARCHAR_IGNORECASE(256) NOT NULL," +
                     "car_type_id INT," +
                     "client_id BIGINT," +

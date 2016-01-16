@@ -1,5 +1,6 @@
 body 
     {
+    color: white;
     background-image:url('backg.jpg');
     }
 
@@ -53,4 +54,7 @@ a:link {
 }
 a:visited {
     color: white;
+}
+select{
+    width: 100%;
 }

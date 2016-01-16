@@ -156,7 +156,7 @@ public class ImplCarOrderDAO implements CarOrderDAO {
                 "INNER JOIN car ON c.client_id = car.client_id " +
                 "INNER JOIN car_type ct ON car.car_type_id = ct.car_type_id " +
                 "INNER JOIN car_order co ON car.car_id = co.car_id " +
-                "INNER JOIN car_order_status cos ON co.car_order_status_id = cos.car_order_status_id;";
+                "INNER JOIN car_order_status cos ON co.car_order_status_id = cos.car_order_status_id ORDER BY u.login;";
         try (Connection conn = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = conn.prepareStatement(sql)) {
             ResultSet rs = pStatement.executeQuery();

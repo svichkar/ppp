@@ -33,8 +33,8 @@
                                        <tr>
                                            <td><c:out value="${client.clientId}"/></td>
                                            <td><c:out value="${client.clientFullName()}"/></td>
-                                           <td><c:out value="${client.phone} "/></td>
-                                           <td><c:out value="${client.email}"/></td>
+                                           <td><c:out value="${client.clientPhone} "/></td>
+                                           <td><c:out value="${client.clientEmail}"/></td>
                                        </tr>
                                    </c:forEach>
                              </tbody>

@@ -56,8 +56,14 @@ INSERT INTO client (first_name,last_name,phone) VALUES ('Neo','Ivanov','777-3-55
 INSERT INTO client (first_name,last_name,phone) VALUES ('Ivan','Petrov','788-3-000');
 INSERT INTO client (first_name,last_name,phone) VALUES ('Alexandr','Rex','777-3-558');
 INSERT INTO client (first_name,last_name,email) VALUES ('John','Ivanov','john@mail.com');
---rent_journal
+--ticket
 INSERT INTO ticket (book_id,client_id,rent_date,expired_date,return_date) VALUES ('1','1','2015-11-10','2015-11-15','2015-11-15');
 INSERT INTO ticket (book_id,client_id,rent_date,expired_date,return_date) VALUES ('2','1','2015-12-10','2015-12-15','2015-12-15');
 INSERT INTO ticket (book_id,client_id,rent_date,expired_date) VALUES ('3','2','2015-12-15','2015-12-20');
 INSERT INTO ticket (book_id,client_id,rent_date,expired_date) VALUES ('4','3','2015-12-15','2015-12-20');
+--role
+INSERT INTO role (role_id,name) VALUES (1,'admin');
+INSERT INTO role (role_id,name) VALUES (2,'librarian');
+--user
+INSERT INTO user (user_id,login,password,role_id) VALUES (1,'admin','admin',1);
+INSERT INTO user (user_id,login,password,role_id) VALUES (2,'alina','alina',2);

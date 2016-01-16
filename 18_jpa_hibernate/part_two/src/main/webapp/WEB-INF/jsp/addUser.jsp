@@ -27,7 +27,7 @@
                                                 </td>
                                                 <td><input type="submit" value="edit" name="edit"></td>
                                                 <td>
-                                                    <c:if test="${sessionScope.currentUserId != user.user.userId}">
+                                                    <c:if test="${sessionScope.currentUserId != user.userId}">
                                                         <input type="submit" value="delete" name="delete">
                                                     </c:if>
                                                 </td>

@@ -21,7 +21,7 @@
                             <select size="1" name="categoryId" required="">
                                 <option value="" selected disabled>Choose category</option>
                                 <c:forEach var="category" items="${categories}">
-                                    <option value="<c:out value="${category.categoryId}"/>"><c:out value="${category.name}"/></option>
+                                    <option value="<c:out value="${category.categoryId}"/>"><c:out value="${category.categoryName}"/></option>
                                 </c:forEach>
                             </select>
                         </td>
@@ -29,7 +29,7 @@
                             <select size="1" name="cellId" required="">
                                 <option value="" selected disabled>Choose cell</option>
                                 <c:forEach var="cell" items="${cells}">
-                                    <option value="<c:out value="${cell.cellId}"/>"><c:out value="${cell.name}"/></option>
+                                    <option value="<c:out value="${cell.cellId}"/>"><c:out value="${cell.cellName}"/></option>
                                  </c:forEach>
                              </select>
                         </td>

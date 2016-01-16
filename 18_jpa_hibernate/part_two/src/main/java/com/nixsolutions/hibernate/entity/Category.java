@@ -1,5 +1,8 @@
 package com.nixsolutions.hibernate.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +20,8 @@ public class Category implements Serializable {
     @Column(name = "name", nullable = false)
     private String categoryName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private List<Book> books;
 

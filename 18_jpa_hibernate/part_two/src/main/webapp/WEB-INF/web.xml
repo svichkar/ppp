@@ -13,7 +13,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <!--<error-page>
+  <error-page>
     <location>/errorPage</location>
-  </error-page>-->
+  </error-page>
 </web-app>

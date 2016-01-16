@@ -17,13 +17,15 @@ import java.util.List;
  * Created by Serko on 30.12.2015.
  */
 @WebServlet("/bookManagement")
-public class BookServlet extends HttpServlet {
+public class FindBookServlet extends HttpServlet {
     private static BookDAO bookDAO;
+    private static TicketDAO ticketDAO;
 
     @Override
     public void init() throws ServletException {
         DaoFactory daoFactory = new DaoFactoryImpl();
         bookDAO = daoFactory.getBookDAO();
+        ticketDAO = daoFactory.getTicketDAO();
     }
 
     @Override

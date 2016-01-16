@@ -11,13 +11,14 @@
                      </thead>
                      <tbody>
                             <form action="loanManagement" method="post" name="createTicket">
+                            <input type="hidden" name="giveBook" value="true">
                             <c:forEach var="book" items="${books}">
                                <tr>
                                    <td><input type="checkbox" name="bookId" value="${book.bookId}"></td>
                                    <td><c:out value="${book.bookId}"/></td>
                                    <td><c:out value="${book.bookName} "/></td>
-                                   <td><c:out value="${book.category.name}"/></td>
-                                   <td><c:out value="${book.cell.name}"/></td>
+                                   <td><c:out value="${book.category.categoryName}"/></td>
+                                   <td><c:out value="${book.cell.cellName}"/></td>
                                    <td>
                                         <c:if test="${not empty book.authors}">
                                             <c:forEach var="author" items="${book.authors}">

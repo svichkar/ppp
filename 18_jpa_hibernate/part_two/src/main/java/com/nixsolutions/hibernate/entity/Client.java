@@ -1,5 +1,8 @@
 package com.nixsolutions.hibernate.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +29,8 @@ public class Client implements Serializable{
     @Column(name = "email")
     private String clientEmail;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private List<Ticket> tickets;
 

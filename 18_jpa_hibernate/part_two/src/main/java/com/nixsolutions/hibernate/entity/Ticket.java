@@ -2,6 +2,7 @@ package com.nixsolutions.hibernate.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -24,18 +25,13 @@ public class Ticket implements Serializable{
     private Client client;
 
     @Column(name = "rent_date", nullable = false)
-    private Date rentDate;
+    private Timestamp rentDate;
 
     @Column(name = "expired_date", nullable = false)
-    private Date expiredDate;
+    private Timestamp expiredDate;
 
     @Column(name = "return_date")
-    private Date returnDate;
-
-    @Transient
-    public Boolean isExpired(){
-        return expiredDate.before(new Date(System.currentTimeMillis())) && this.isReturned().equals(false);
-    }
+    private Timestamp returnDate;
 
     @Transient
     public Boolean isReturned(){
@@ -66,28 +62,27 @@ public class Ticket implements Serializable{
         this.client = client;
     }
 
-    public Date getRentDate() {
+    public Timestamp getRentDate() {
         return rentDate;
     }
 
-    public void setRentDate(Date rentDate) {
+    public void setRentDate(Timestamp rentDate) {
         this.rentDate = rentDate;
     }
 
-    public Date getExpiredDate() {
+    public Timestamp getExpiredDate() {
         return expiredDate;
     }
 
-    public void setExpiredDate(Date expiredDate) {
+    public void setExpiredDate(Timestamp expiredDate) {
         this.expiredDate = expiredDate;
     }
 
-    public Date getReturnDate() {
+    public Timestamp getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(Timestamp returnDate) {
         this.returnDate = returnDate;
     }
-
 }

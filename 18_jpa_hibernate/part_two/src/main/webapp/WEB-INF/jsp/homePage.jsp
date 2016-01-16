@@ -8,14 +8,14 @@
                 <tr><th>ticketId</th><th>clientName</th><th>clientPhone</th><th>clientEmail</th><th>bookName</th><th>expiredDate</th></tr>
             </thead>
             <tbody>
-            <c:forEach var="book" items="${overdueBooks}">
+            <c:forEach var="ticket" items="${overdueTickets}">
                 <tr>
-                    <td><c:out value="${book.ticket.ticketId}"/></td>
-                    <td><c:out value="${book.client.firstName} "/><c:out value="${book.client.lastName}"/></td>
-                    <td><c:out value="${book.client.phone}"/></td>
-                    <td><c:out value="${book.client.email}"/></td>
-                    <td><c:out value="${book.book.name}"/></td>
-                    <td><c:out value="${book.ticket.expiredDate}"/></td>
+                    <td><c:out value="${ticket.ticketId}"/></td>
+                    <td><c:out value="${ticket.client.clientFullName()}"/></td>
+                    <td><c:out value="${ticket.client.clientPhone}"/></td>
+                    <td><c:out value="${ticket.client.clientEmail}"/></td>
+                    <td><c:out value="${ticket.book.bookName}"/></td>
+                    <td><c:out value="${ticket.expiredDate}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

@@ -1,5 +1,8 @@
 package com.nixsolutions.hibernate.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -25,11 +28,13 @@ public class Book implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private Category category;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "book_id", referencedColumnName = "book_id")
     private List<Ticket> tickets;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "author_book",
             joinColumns = { @JoinColumn(name = "book_id")},
             inverseJoinColumns = { @JoinColumn(name = "author_id")})
@@ -42,6 +47,8 @@ public class Book implements Serializable {
             ticket = this.tickets.get(i);
             if (ticket.isReturned().equals(false)){
                 return ticket;
+            } else {
+                ticket = null;
             }
         }
         return ticket;

@@ -1,5 +1,8 @@
 package com.nixsolutions.hibernate.entity;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +24,7 @@ public class Author implements Serializable{
     private String authorLastName;
 
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "author_book",
             joinColumns = { @JoinColumn(name = "author_id")},
             inverseJoinColumns = { @JoinColumn(name = "book_id")})

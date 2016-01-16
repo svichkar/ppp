@@ -54,9 +54,9 @@ public class UserServlet extends HttpServlet {
             }
         } else if (req.getParameter("edit") != null) {
             User user = userDAO.findByID(Long.valueOf(req.getParameter("userId")));
-            user.setLogin(req.getParameter("newUserLogin"));
-            user.setPassword(req.getParameter("newUserPassword"));
-            user.setRole(roleDAO.findByID(Long.valueOf(req.getParameter("newUserRole"))));
+            user.setLogin(req.getParameter("userLogin"));
+            user.setPassword(req.getParameter("userPassword"));
+            user.setRole(roleDAO.findByID(Long.valueOf(req.getParameter("userRole"))));
             userDAO.update(user);
             resp.sendRedirect("userManagement?message=User updated with id " + user.getUserId());
         } else if (req.getParameter("delete") != null) {

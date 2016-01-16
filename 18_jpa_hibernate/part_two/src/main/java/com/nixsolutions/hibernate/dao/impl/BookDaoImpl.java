@@ -89,7 +89,10 @@ public class BookDaoImpl implements BookDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Book> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Book.class).add(Restrictions.eq("category.categoryName", categoryName)).list();
+        Criteria criteria = session.createCriteria(Book.class, "book");
+        criteria.createAlias("book.category", "category");
+        criteria.add(Restrictions.eq("category.categoryName", categoryName));
+        list = criteria.list();
         transaction.commit();
         return list;
     }

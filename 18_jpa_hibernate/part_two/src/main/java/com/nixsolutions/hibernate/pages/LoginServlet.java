@@ -31,7 +31,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("index.jsp");
+        req.setAttribute("overdueTickets", ticketDAO.findOverdueTicket());
+        req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
     }
 
     @Override
@@ -60,11 +61,11 @@ public class LoginServlet extends HttpServlet {
                     user = new User();
                     user.setLogin(req.getParameter("userName"));
                     user.setPassword(req.getParameter("userPassword"));
-                    user.setRole(roleDAO.findByName("LIBRARIAN"));
+                    user.setRole(roleDAO.findByName("librarian"));
                     userDAO.create(user);
                     req.getSession().setAttribute("role", "LIBRARIAN");
                     req.getSession().setAttribute("currentUserId", user.getUserId());
-                    req.setAttribute("overdueBooks", ticketDAO.findOverdueTicket());
+                    req.setAttribute("overdueTickets", ticketDAO.findOverdueTicket());
                     req.getRequestDispatcher("/WEB-INF/jsp/homePage.jsp").forward(req, resp);
                 } else {
                     resp.sendRedirect("index.jsp?message=User already exist choose another");

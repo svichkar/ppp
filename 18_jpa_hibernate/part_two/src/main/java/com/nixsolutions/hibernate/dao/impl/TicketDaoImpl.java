@@ -4,11 +4,13 @@ import com.nixsolutions.hibernate.dao.TicketDAO;
 import com.nixsolutions.hibernate.entity.Ticket;
 import com.nixsolutions.hibernate.entity.User;
 import com.nixsolutions.hibernate.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -66,8 +68,10 @@ public class TicketDaoImpl implements TicketDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Ticket> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Ticket.class).add(Restrictions.isNull("returnDate")).list();
-        transaction.commit();
+        Criteria criteria = session.createCriteria(Ticket.class);
+        criteria.add(Restrictions.isNull("returnDate"));
+        criteria.add(Restrictions.le("expiredDate", new Timestamp(System.currentTimeMillis())));
+        list = criteria.list();
         return list;
     }
 }

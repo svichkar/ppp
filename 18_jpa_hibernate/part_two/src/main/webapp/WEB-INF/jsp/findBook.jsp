@@ -27,15 +27,13 @@
                                         </c:if>
                                    </td>
                                    <td><c:out value="${book.bookId}"/></td>
-                                   <td><c:out value="${book.name} "/></td>
-                                   <td><c:out value="${book.category.name}"/></td>
-                                   <td><c:out value="${book.cell.name}"/></td>
+                                   <td><c:out value="${book.bookName} "/></td>
+                                   <td><c:out value="${book.category.categoryName}"/></td>
+                                   <td><c:out value="${book.cell.cellName}"/></td>
                                    <td>
-                                        <c:if test="${not empty book.authors}">
                                             <c:forEach var="author" items="${book.authors}">
                                                 <c:out value="${author.authorFullName()} "/><br>
                                             </c:forEach>
-                                        </c:if>
                                    </td>
                                    <td>
                                         <c:if test="${not empty book.getCurrentOpenTicket()}">

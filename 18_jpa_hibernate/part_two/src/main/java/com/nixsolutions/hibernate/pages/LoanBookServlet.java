@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +23,6 @@ import java.util.List;
 @WebServlet("/loanManagement")
 public class LoanBookServlet extends HttpServlet {
     private static BookDAO bookDAO;
-    private static CellDAO cellDAO;
-    private static CategoryDAO categoryDAO;
-    private static AuthorDAO authorDAO;
     private static ClientDAO clientDAO;
     private static TicketDAO ticketDAO;
 
@@ -32,34 +30,36 @@ public class LoanBookServlet extends HttpServlet {
     public void init() throws ServletException {
         DaoFactory daoFactory = new DaoFactoryImpl();
         bookDAO = daoFactory.getBookDAO();
-        cellDAO = daoFactory.getCellDAO();
-        categoryDAO = daoFactory.getCategoryDAO();
-        authorDAO = daoFactory.getAuthorDAO();
         clientDAO = daoFactory.getClientDAO();
         ticketDAO = daoFactory.getTicketDAO();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("clients", clientDAO.findAll());
         req.getRequestDispatcher("/WEB-INF/jsp/loanBook.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("giveBook") != null) {
-            if (req.getParameterValues("bookId") != null) {
+        if (req.getParameter("bookId") != null) {
+            if (req.getParameterValues("giveTicket") != null) {
                 for (String bookId : req.getParameterValues("bookId")) {
                     Ticket ticket = new Ticket();
                     ticket.setBook(bookDAO.findByID(Long.valueOf(bookId)));
                     ticket.setClient(clientDAO.findByID(Long.valueOf(req.getParameter("client"))));
-                    ticket.setRentDate(new Date(System.currentTimeMillis()));
-                    ticket.setExpiredDate(new Date(System.currentTimeMillis() + 345600000L));
+                    ticket.setRentDate(new Timestamp(System.currentTimeMillis()));
+                    ticket.setExpiredDate(new Timestamp(System.currentTimeMillis() + 345600000L));
                     ticketDAO.create(ticket);
-                    resp.sendRedirect("loanManagement?message=new ticket added");
                 }
+                resp.sendRedirect("loanManagement?message=new ticket added");
             } else {
-                resp.sendRedirect("loanManagement?message=please choose the client");
+                List<Book> books = new ArrayList<>();
+                for (String bookId:req.getParameterValues("bookId")) {
+                    books.add(bookDAO.findByID(Long.valueOf(bookId)));
+                }
+                req.setAttribute("books", books);
+                req.setAttribute("clients", clientDAO.findAll());
+                req.getRequestDispatcher("/WEB-INF/jsp/loanBook.jsp").forward(req, resp);
             }
         } else {
             resp.sendRedirect("loanManagement?message=any books chosen");

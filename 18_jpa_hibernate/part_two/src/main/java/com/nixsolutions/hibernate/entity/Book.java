@@ -35,6 +35,18 @@ public class Book implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "author_id")})
     private List<Author> authors;
 
+    @Transient
+    public Ticket getCurrentOpenTicket () {
+        Ticket ticket = null;
+        for (int i = 0; i <this.tickets.size() ; i++) {
+            ticket = this.tickets.get(i);
+            if (ticket.isReturned().equals(false)){
+                return ticket;
+            }
+        }
+        return ticket;
+    }
+
     public Long getBookId() {
         return bookId;
     }

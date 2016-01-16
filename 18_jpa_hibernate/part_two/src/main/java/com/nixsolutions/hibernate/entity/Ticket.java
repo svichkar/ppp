@@ -34,7 +34,7 @@ public class Ticket implements Serializable{
 
     @Transient
     public Boolean isExpired(){
-        return expiredDate.before(new Date(System.currentTimeMillis()));
+        return expiredDate.before(new Date(System.currentTimeMillis())) && this.isReturned().equals(false);
     }
 
     @Transient

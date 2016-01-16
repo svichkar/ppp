@@ -1,0 +1,26 @@
+#nelson {text-align: center;}
+#loginForm {text-align: center;}
+.button
+{background-color: #fff;
+     color: #000;
+     font-weight: bold;
+     border: 2px solid #666;}
+.button:hover
+{background-color: #000;
+     color: #fff;
+     border: 2px solid #bbb;}
+#message
+{height: 50px;
+width: 100%;}
+#sidebar{
+    float: left
+    width:20%;
+}
+#content{
+    text-align: left;
+    width:80%;
+    float:right;
+}
+#footer {
+    clear:both;
+}

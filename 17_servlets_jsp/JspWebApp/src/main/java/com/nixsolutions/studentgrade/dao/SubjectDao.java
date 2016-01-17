@@ -18,4 +18,10 @@ public interface SubjectDao {
     public List<Subject> findAll();
 
     public Subject findById(Long id);
+
+    public Subject findByName(String subjectName);
+
+    public Subject findByNameAndTermId(String subjectName, Long termId);
+
+    public List<Subject> findByTermId(Long termId);
 }

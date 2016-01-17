@@ -18,4 +18,6 @@ public interface GradeDao {
     public List<Grade> findAll();
 
     public Grade findById(Long id);
+
+    public Grade findByName(String gradeName);
 }

@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.servlets;
+package com.nixsolutions.studentgrade.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "home", urlPatterns = { "/index.html","/home"})
+@WebServlet(name = "home", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
 
     @Override

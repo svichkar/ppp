@@ -20,36 +20,17 @@ public class TermDaoImpl implements TermDao {
     @Override
     public boolean create(Term term) {
 
-        Connection connection = null;
-        PreparedStatement statement = null;
-
         String sql = "INSERT INTO term(term_name) VALUES ( ? )";
 
-        try {
-            connection = H2ConnectionManager.getConnection();
-            statement = connection.prepareStatement(sql);
-            connection.setAutoCommit(false);
+        try (Connection connection = H2ConnectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setString(1, term.getTermName());
             statement.executeUpdate();
-            connection.commit();
             return true;
         } catch (SQLException e) {
             LOG.error(e);
-            try {
-                connection.rollback();
-            } catch (SQLException error) {
-                LOG.error(error);
-            }
             return false;
-        } finally {
-            try {
-                if (statement != null)
-                    statement.close();
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                LOG.error(e);
-            }
         }
     }
 
@@ -115,6 +96,27 @@ public class TermDaoImpl implements TermDao {
     public Term findById(Long id) {
 
         String sql = String.format("SELECT term_id, term_name FROM term WHERE term_id = %d", id);
+        Term result = new Term();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                result.setTermId(rs.getLong("term_id"));
+                result.setTermName(rs.getString("term_name"));
+            }
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public Term findByName(String termName) {
+
+        String sql = String.format("SELECT term_id, term_name FROM term WHERE term_name = '%s'", termName);
         Term result = new Term();
 
         try (Connection connection = H2ConnectionManager.getConnection();

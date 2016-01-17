@@ -18,4 +18,6 @@ public interface StudentDao {
     public List<Student> findAll();
 
     public Student findById(Long id);
+
+    public Student findByNameAndLastName(String name, String lastName);
 }

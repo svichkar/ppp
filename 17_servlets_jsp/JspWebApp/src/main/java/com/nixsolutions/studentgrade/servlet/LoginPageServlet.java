@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.servlets;
+package com.nixsolutions.studentgrade.servlet;
 
 import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.dao.DaoFactory;
@@ -22,8 +22,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "LoginPage",
         description = "login page",
-        value = "/login.html")
-public class MainPageServlet extends HttpServlet {
+urlPatterns = {"/index.html", "/login"})
+public class LoginPageServlet extends HttpServlet {
 
     private HttpSession session;
     private String pageHtml;
@@ -50,9 +50,9 @@ public class MainPageServlet extends HttpServlet {
                 RoleDao roleDao = daoFactory.getRoleDao();
                 Role role = roleDao.findById(user.getRoleId());
                 session = request.getSession(true);
-                session.setAttribute("pageOwner",  user.getLogin());
+                session.setAttribute("pageOwner", user.getLogin());
 
-                String userInfo =  String.format("%s %s, </br>you are logged in with <b>%s</b> rights.",
+                String userInfo = String.format("%s %s, </br>you are logged in with <b>%s</b> rights.",
                         user.getFirstName(),
                         user.getLastName(),
                         role.getRoleName());
@@ -61,9 +61,9 @@ public class MainPageServlet extends HttpServlet {
                 if (role.getRoleName().equals("admin")) {
 
                     session.setAttribute("isAdmin", true);
-                    adminLink = "<p align=\"center\"><a href=\"admin\" style=\"font-family: 'Courier New', Courier, monospace;" +
+                   /* adminLink = "<p align=\"center\"><a href=\"admin\" style=\"font-family: 'Courier New', Courier, monospace;" +
                             "font-weight: bold;font-size: 12px;text-align: left;\">Navigate to User Administration Page</a></p>";
-
+*/
                 } else {
 
                     session.setAttribute("isAdmin", false);
@@ -83,7 +83,7 @@ public class MainPageServlet extends HttpServlet {
                         "<p class=\"link-login\" align=\"right\"><a href=\"index.html\">Logout</a></p>" +
                         "<h1>Welcome to Student Grade App!</h1></br></br>\n" +
                         "<h3>" + userInfo + "</h3></br>\n" +
-                         adminLink +
+                        adminLink +
                         "</div>\n" +
                         "</body>\n" +
                         "</html>";
@@ -94,7 +94,7 @@ public class MainPageServlet extends HttpServlet {
 
                 pageHtml = "<h5>Password is not valid. Please try again.</h5>";
                 out.println(pageHtml);
-                RequestDispatcher rd = request.getRequestDispatcher("index.html");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                 rd.include(request, response);
             }
 
@@ -104,7 +104,7 @@ public class MainPageServlet extends HttpServlet {
                 pageHtml = "<h5>User doesn't exist. Please contact admin to add new user.</h5>";
                 out.println(pageHtml);
             }
-            RequestDispatcher rd = request.getRequestDispatcher("index.html");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
             rd.include(request, response);
         }
 
@@ -115,6 +115,6 @@ public class MainPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-        rd.include(request, response);
+        rd.forward(request, response);
     }
 }

@@ -113,4 +113,25 @@ public class GradeDaoImpl implements GradeDao {
             return null;
         }
     }
+
+    @Override
+    public Grade findByName(String gradeName) {
+
+        String sql = String.format("SELECT grade_id, grade_name FROM grade WHERE grade_name = '%s'", gradeName);
+        Grade result = new Grade();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                result.setGradeId(rs.getLong("grade_id"));
+                result.setGradeName(rs.getString("grade_name"));
+            }
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
 }

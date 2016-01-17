@@ -40,4 +40,12 @@ public class Subject {
     public void setTermId(Long termId) {
         this.termId = termId;
     }
+
+    public boolean isEmpty() {
+        if (this.subjectId == null && this.subjectName == null && this.termId == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

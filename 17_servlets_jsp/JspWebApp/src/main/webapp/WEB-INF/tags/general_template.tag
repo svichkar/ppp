@@ -10,6 +10,7 @@
 <head>
   <title>${title}</title>
   <meta name="description" content="student grade management website" />
+  <link href="images/favicon.png" rel="shortcut icon" type="shortcut/ico">
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
 </head>
 
@@ -32,15 +33,12 @@
    </ul>
 </div>
 <div id="site_content">
-      <div class="sidebar">
-        <jsp:invoke fragment="sidebar_area" />
-      </div>
       <div id="content">
         <jsp:invoke fragment="content_area" />
       </div>
     </div>
     <div id="footer">
-        Copyright &copy; 2015 | All Rights Reserved
+        Copyright &copy; 2016 | All Rights Reserved
     </div>
   </div>
 </body>

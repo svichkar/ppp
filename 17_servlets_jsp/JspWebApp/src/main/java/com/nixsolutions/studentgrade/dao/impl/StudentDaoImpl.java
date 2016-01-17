@@ -136,4 +136,30 @@ public class StudentDaoImpl implements StudentDao {
             return null;
         }
     }
+
+    @Override
+    public Student findByNameAndLastName(String firsName, String lastName) {
+        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
+                "FROM student WHERE first_name = '%s' AND last_name = '%s'", firsName, lastName);
+        Student result = new Student();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                result.setStudentId(rs.getLong("student_id"));
+                result.setFirstName(rs.getString("first_name"));
+                result.setLastName(rs.getString("last_name"));
+                result.setGroupId(rs.getLong("group_id"));
+                result.setAdmissionDate(rs.getDate("admission_date"));
+                result.setStatusId(rs.getLong("status_id"));
+                result.setTermId(rs.getLong("term_id"));
+            }
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
 }

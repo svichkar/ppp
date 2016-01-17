@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface TermDao {
 
-    public boolean create(Term status);
+    public boolean create(Term term);
 
     public boolean update(Term term);
 
@@ -18,4 +18,6 @@ public interface TermDao {
     public List<Term> findAll();
 
     public Term findById(Long id);
+
+    public Term findByName(String termName);
 }

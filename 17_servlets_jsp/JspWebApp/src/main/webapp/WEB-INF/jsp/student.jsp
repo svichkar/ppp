@@ -6,7 +6,4 @@
     <jsp:attribute name="content_area">
         <h2>Content area for students</h2>
     </jsp:attribute>
-    <jsp:attribute name="sidebar_area">
-        <h2>Sidebar area students</h2>
-    </jsp:attribute>
 </t:general_template>

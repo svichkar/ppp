@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.servlets;
+package com.nixsolutions.studentgrade.servlet;
 
 import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.dao.DaoFactory;
@@ -102,9 +102,9 @@ public class AdminPageServlet extends HttpServlet {
                     "<html >\n" +
                     "<head>\n" +
                     "<meta charset=\"UTF-8\">\n" +
-                    "<title>Admin page</title>   \n" +
+                    "<title>Admin Page</title>   \n" +
                     "<link href=\"favicon.png\" rel=\"shortcut icon\" type=\"shortcut/ico\">\n" +
-                    "<link rel=\"stylesheet\" href=\"css/style.css\">\n" +
+                    "<link rel=\"stylesheet\" href=\"style/style.css\">\n" +
                     "</head>\n" +
                     "<body>\n" +
                     "<p class=\"link-login\" align=\"right\"><a href=\"index.html\">Logout</a></p>" +

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <employee employee_id="1" first_name="Name1" last_name="Sname1" category_id="1"/>
-    <employee employee_id="2" first_name="Name2" last_name="Sname2" category_id="2"/>
-    <employee employee_id="3" first_name="Name3" last_name="Sname3" category_id="3"/>
-    <employee employee_id="4" first_name="Name4" last_name="Sname4" category_id="1"/>
-    <employee employee_id="5" first_name="Name5" last_name="Sname5" category_id="2"/>
+    <employee employee_id="1" first_name="Name1" last_name="Sname1" employee_category_id="1"/>
+    <employee employee_id="2" first_name="Name2" last_name="Sname2" employee_category_id="2"/>
+    <employee employee_id="3" first_name="Name3" last_name="Sname3" employee_category_id="3"/>
+    <employee employee_id="4" first_name="Name4" last_name="Sname4" employee_category_id="1"/>
+    <employee employee_id="5" first_name="Name5" last_name="Sname5" employee_category_id="2"/>
 </dataset>

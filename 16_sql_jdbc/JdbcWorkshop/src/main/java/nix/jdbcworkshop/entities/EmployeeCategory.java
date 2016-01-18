@@ -11,6 +11,32 @@ package nix.jdbcworkshop.entities;
  */
 public class EmployeeCategory {
 
-    private int employeeCategoryId;
+    private Short employeeCategoryId;
     private String name;
+
+    public EmployeeCategory() {
+    }
+
+    public EmployeeCategory(Short employeeCategoryId, String name) {
+        this.employeeCategoryId = employeeCategoryId;
+        this.name = name;
+    }
+
+    public Short getEmployeeCategoryId() {
+        return employeeCategoryId;
+    }
+
+    public void setEmployeeCategoryId(Short employeeCategoryId) {
+        this.employeeCategoryId = employeeCategoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 }

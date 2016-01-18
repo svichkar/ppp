@@ -11,15 +11,25 @@ package nix.jdbcworkshop.entities;
  */
 public class Client {
 
-    private long clientId;
+    private Long clientId;
     private String firstName;
     private String lastName;
 
-    public long getClientId() {
+    public Client() {
+    }
+
+    public Client(Long clientId, String firstName, String lastName) {
+        this.clientId = clientId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

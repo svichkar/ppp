@@ -6,7 +6,6 @@
 package nix.jdbcworkshop.dao.impl;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;

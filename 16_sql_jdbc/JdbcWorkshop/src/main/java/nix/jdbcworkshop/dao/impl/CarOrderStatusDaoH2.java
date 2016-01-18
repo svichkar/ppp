@@ -52,8 +52,9 @@ public class CarOrderStatusDaoH2 implements CarOrderStatusDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarOrderStatus = conn.prepareStatement(
-                    "UPDATE car_order_status SET name = ?? WHERE car_order_status_id = ?");
+                    "UPDATE car_order_status SET name = ? WHERE car_order_status_id = ?");
             newCarOrderStatus.setString(1, carOrderStatus.getName());
+            newCarOrderStatus.setShort(2, carOrderStatus.getCarOrderStatusId());
             newCarOrderStatus.executeUpdate();
             newCarOrderStatus.close();
         } catch (SQLException | RuntimeException ex) {
@@ -116,7 +117,7 @@ public class CarOrderStatusDaoH2 implements CarOrderStatusDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarOrderStatus
-                    = conn.prepareStatement("SELECT * FROM carOrderStatus LIMIT ? OFFSET ?");
+                    = conn.prepareStatement("SELECT * FROM car_order_status LIMIT ? OFFSET ?");
             newCarOrderStatus.setInt(1, limit);
             newCarOrderStatus.setInt(2, offset);
             ResultSet searchResults = newCarOrderStatus.executeQuery();

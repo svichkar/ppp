@@ -11,14 +11,24 @@ package nix.jdbcworkshop.entities;
  */
 public class CarOrderStatus {
 
-    private short carOrderStatusId;
+    private Short carOrderStatusId;
     private String name;
 
-    public short getCarOrderStatusId() {
+    public CarOrderStatus() {
+    }
+
+    public CarOrderStatus(Short carOrderStatusId, String name) {
+        this.carOrderStatusId = carOrderStatusId;
+        this.name = name;
+    }
+    
+    
+
+    public Short getCarOrderStatusId() {
         return carOrderStatusId;
     }
 
-    public void setCarOrderStatusId(short carOrderStatusId) {
+    public void setCarOrderStatusId(Short carOrderStatusId) {
         this.carOrderStatusId = carOrderStatusId;
     }
 

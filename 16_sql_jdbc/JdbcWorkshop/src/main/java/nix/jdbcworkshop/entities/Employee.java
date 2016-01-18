@@ -11,16 +11,26 @@ package nix.jdbcworkshop.entities;
  */
 public class Employee {
 
-    private long employeeId;
+    private Long employeeId;
     private String firstName;
     private String lastName;
-    private int employeeCategoryId;
+    private Short employeeCategoryId;
 
-    public long getEmployeeId() {
+    public Employee() {
+    }
+
+    public Employee(Long employeeId, String firstName, String lastName, Short employeeCategoryId) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.employeeCategoryId = employeeCategoryId;
+    }
+    
+    public Long getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(long employeeId) {
+    public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -40,11 +50,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public int getEmployeeCategoryId() {
+    public Short getEmployeeCategoryId() {
         return employeeCategoryId;
     }
 
-    public void setEmployeeCategoryId(int employeeCategoryId) {
+    public void setEmployeeCategoryId(Short employeeCategoryId) {
         this.employeeCategoryId = employeeCategoryId;
     }
 

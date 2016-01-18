@@ -14,6 +14,14 @@ public class EmployeeCarOrder {
     private long employeeId;
     private long carOrderId;
 
+    public EmployeeCarOrder() {
+    }
+
+    public EmployeeCarOrder(long employeeId, long carOrderId) {
+        this.employeeId = employeeId;
+        this.carOrderId = carOrderId;
+    }
+
     public long getEmployeeId() {
         return employeeId;
     }

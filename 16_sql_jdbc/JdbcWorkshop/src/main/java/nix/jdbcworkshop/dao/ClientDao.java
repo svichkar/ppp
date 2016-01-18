@@ -17,7 +17,7 @@ public interface ClientDao {
     public void update(Client client);
     public void delete(Client client);
     public Client findClientById(long clientId);
-    public List<Client> getCarList();
-    public List<Client> getCarList(int limit);
-    public List<Client> getCarList(int offset, int limit);
+    public List<Client> getClientList();
+    public List<Client> getClientList(int limit);
+    public List<Client> getClientList(int offset, int limit);
 }

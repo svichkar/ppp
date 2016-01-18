@@ -113,4 +113,25 @@ public class StatusDaoImpl implements StatusDao {
             return null;
         }
     }
+
+    @Override
+    public Status findByName(String statusName) {
+
+        String sql = String.format("SELECT status_id, status_name FROM status WHERE status_name = '%s'", statusName);
+        Status result = new Status();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                result.setStatusId(rs.getLong("status_id"));
+                result.setStatusName(rs.getString("status_name"));
+            }
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
 }

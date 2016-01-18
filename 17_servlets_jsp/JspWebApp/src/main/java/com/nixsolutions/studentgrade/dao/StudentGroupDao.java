@@ -18,4 +18,6 @@ public interface StudentGroupDao {
     public List<StudentGroup> findAll();
 
     public StudentGroup findById(Long id);
+
+    public StudentGroup findByName(String group);
 }

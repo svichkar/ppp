@@ -125,11 +125,12 @@ public class SubjectServlet extends HttpServlet {
                 if (isUnique) {
                     Long termId = termDao.findByName(termName).getTermId();
                     dao.create(new Subject(subjectName, termId));
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">Success</h5></p>");
+                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h5></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">Subject already exists</h5></p>");
-
+                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                            "Subject already exists</h5></p>");
                 }
                 break;
             }
@@ -149,11 +150,12 @@ public class SubjectServlet extends HttpServlet {
 
                 if (isUnique) {
                     dao.update(subject);
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">Success</h5></p>");
+                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h5></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">Subject already exists</h5></p>");
-
+                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                            "Subject already exists</h5></p>");
                 }
                 break;
             }
@@ -163,10 +165,12 @@ public class SubjectServlet extends HttpServlet {
                 subject.setSubjectId(Long.valueOf(subjectId));
 
                 if (dao.delete(subject)) {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">Success</h5></p>");
+                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h5></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">Subject cannot be delete</h5></p>");
+                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                            "Subject cannot be delete</h5></p>");
                 }
                 break;
             }

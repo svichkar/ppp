@@ -122,4 +122,30 @@ public class JournalDaoImpl implements JournalDao {
             return null;
         }
     }
+
+    @Override
+    public List<Journal> findByStudentAndTerm(Long studentId, Long termId) {
+
+        String sql = String.format("SELECT journal_id, student_id, subject_id, grade_id FROM journal " +
+                "WHERE student_id = %d AND subject_id IN (SELECT subject_id FROM subject WHERE term_id = %d)", studentId, termId);
+        List<Journal> list = new ArrayList<>();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                Journal journal = new Journal();
+                journal.setJournalId(rs.getLong("journal_id"));
+                journal.setStudentId(rs.getLong("student_id"));
+                journal.setSubjectId(rs.getLong("subject_id"));
+                journal.setGradeId(rs.getLong("grade_id"));
+                list.add(journal);
+            }
+            return list;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
 }

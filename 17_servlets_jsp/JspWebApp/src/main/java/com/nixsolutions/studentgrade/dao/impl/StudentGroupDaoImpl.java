@@ -114,4 +114,26 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
             return null;
         }
     }
+
+    @Override
+    public StudentGroup findByName(String groupName) {
+
+        String sql = String.format("SELECT group_id, group_name FROM student_group WHERE group_name = '%s'", groupName);
+        StudentGroup result = new StudentGroup();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                result.setGroupId(rs.getLong("group_id"));
+                result.setGroupName(rs.getString("group_name"));
+            }
+            return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
 }

@@ -82,4 +82,19 @@ public class Student {
     public void setTermId(Long termId) {
         this.termId = termId;
     }
+
+    public boolean isEmpty() {
+
+        if (this.studentId == null
+                && this.firstName == null
+                && this.lastName == null
+                && this.groupId == null
+                && this.admissionDate == null
+                && this.statusId == null
+                && this.termId == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

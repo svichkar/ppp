@@ -140,7 +140,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student findByNameAndLastName(String firsName, String lastName) {
         String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
-                "FROM student WHERE first_name = '%s' AND last_name = '%s'", firsName, lastName);
+                "FROM student WHERE LOWER(first_name) = TRIM(LOWER('%s')) AND LOWER(last_name) = TRIM(LOWER('%s'))", firsName, lastName);
         Student result = new Student();
 
         try (Connection connection = H2ConnectionManager.getConnection();
@@ -157,6 +157,96 @@ public class StudentDaoImpl implements StudentDao {
                 result.setTermId(rs.getLong("term_id"));
             }
             return result;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Student> findByLastName(String lastName) {
+
+        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
+                "FROM student WHERE LOWER(last_name) = TRIM(LOWER('%s'))", lastName);
+        List<Student> list = new ArrayList<>();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                Student student = new Student();
+                student.setStudentId(rs.getLong("student_id"));
+                student.setFirstName(rs.getString("first_name"));
+                student.setLastName(rs.getString("last_name"));
+                student.setGroupId(rs.getLong("group_id"));
+                student.setAdmissionDate(rs.getDate("admission_date"));
+                student.setStatusId(rs.getLong("status_id"));
+                student.setTermId(rs.getLong("term_id"));
+                list.add(student);
+            }
+            return list;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Student> findByGroupId(Long groupId) {
+
+        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
+                "FROM student WHERE group_id = %d", groupId);
+        List<Student> list = new ArrayList<>();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                Student student = new Student();
+                student.setStudentId(rs.getLong("student_id"));
+                student.setFirstName(rs.getString("first_name"));
+                student.setLastName(rs.getString("last_name"));
+                student.setGroupId(rs.getLong("group_id"));
+                student.setAdmissionDate(rs.getDate("admission_date"));
+                student.setStatusId(rs.getLong("status_id"));
+                student.setTermId(rs.getLong("term_id"));
+                list.add(student);
+            }
+            return list;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
+    @Override
+    public List<Student> findByLastNameAndGroupId(String lastName, Long groupId) {
+
+        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
+                "FROM student WHERE LOWER(last_name) = TRIM(LOWER('%s')) AND group_id = %d", lastName, groupId);
+        List<Student> list = new ArrayList<>();
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                Student student = new Student();
+                student.setStudentId(rs.getLong("student_id"));
+                student.setFirstName(rs.getString("first_name"));
+                student.setLastName(rs.getString("last_name"));
+                student.setGroupId(rs.getLong("group_id"));
+                student.setAdmissionDate(rs.getDate("admission_date"));
+                student.setStatusId(rs.getLong("status_id"));
+                student.setTermId(rs.getLong("term_id"));
+                list.add(student);
+            }
+            return list;
         } catch (SQLException e) {
             LOG.error(e);
             return null;

@@ -22,20 +22,20 @@
  </thead>
  <tbody>
 
- <c:set var="count" value="0" scope="page" />
- <c:forEach var="current" items="${journals}">
- <c:set var="count" value="${count + 1}" scope="page"/>
- <form method="post" action="journal">
- <tr>
- <td>${count}</td>
- <td>
- <input type="text" name="id" value="${current.id}" hidden/>
- <input type="text" name="name" value="${current.name}" readOnly/>
- </td>
-  <td>
-  <input type="text" name="lastName" value="${current.lastName}" readOnly/>
-  </td>
- <td>
+<c:set var="count" value="0" scope="page" />
+<c:forEach var="current" items="${journals}">
+<c:set var="count" value="${count + 1}" scope="page"/>
+<form method="post" action="journal">
+<tr>
+<td>${count}</td>
+<td>
+<input type="text" name="id" value="${current.id}" hidden/>
+<input type="text" name="name" value="${current.name}" readOnly/>
+</td>
+<td>
+<input type="text" name="lastName" value="${current.lastName}" readOnly/>
+</td>
+<td>
 <input type="text" name="group" value="${current.group}" readOnly/>
  </td>
 <td>

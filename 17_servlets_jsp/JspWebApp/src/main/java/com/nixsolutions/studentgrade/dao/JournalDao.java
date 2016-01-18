@@ -18,4 +18,6 @@ public interface JournalDao {
     public List<Journal> findAll();
 
     public Journal findById(Long id);
+
+    public List<Journal> findByStudentAndTerm(Long studentId, Long termId);
 }

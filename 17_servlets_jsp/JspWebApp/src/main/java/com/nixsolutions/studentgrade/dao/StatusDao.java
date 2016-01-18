@@ -18,4 +18,6 @@ public interface StatusDao {
     public List<Status> findAll();
 
     public Status findById(Long id);
+
+    public Status findByName(String status);
 }

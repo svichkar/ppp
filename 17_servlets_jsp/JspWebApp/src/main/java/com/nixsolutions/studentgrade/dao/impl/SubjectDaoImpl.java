@@ -123,7 +123,7 @@ public class SubjectDaoImpl implements SubjectDao {
     public Subject findByName(String subjectName) {
 
         String sql = String.format("SELECT subject_id, subject_name, term_id " +
-                "FROM subject WHERE subject_name = '%s'", subjectName);
+                "FROM subject WHERE LOWER(subject_name) = TRIM(LOWER('%s'))", subjectName);
         Subject result = new Subject();
 
         try (Connection connection = H2ConnectionManager.getConnection();
@@ -146,7 +146,7 @@ public class SubjectDaoImpl implements SubjectDao {
     public Subject findByNameAndTermId(String subjectName, Long termId) {
 
         String sql = String.format("SELECT subject_id, subject_name, term_id " +
-                "FROM subject WHERE subject_name = '%s' AND term_id = %d", subjectName, termId);
+                "FROM subject WHERE LOWER(subject_name) = TRIM(LOWER('%s')) AND term_id = %d", subjectName, termId);
         Subject result = new Subject();
 
         try (Connection connection = H2ConnectionManager.getConnection();

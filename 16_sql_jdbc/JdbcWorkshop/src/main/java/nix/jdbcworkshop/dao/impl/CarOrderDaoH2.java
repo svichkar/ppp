@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import nix.jdbcworkshop.entities.CarOrder;
@@ -35,11 +36,17 @@ public class CarOrderDaoH2 implements CarOrderDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarOrder = conn.prepareStatement(
-                    "INSERT INTO car_order (car_id,car_order_status_id,start_date,end_date) VALUES (?,?,?,?)");
+                    "INSERT INTO car_order (car_id,car_order_status_id,start_date,end_date)"
+                            + " VALUES (?,?,?,?)");
             newCarOrder.setLong(1, carOrder.getCarId());
             newCarOrder.setShort(2, carOrder.getCarOrderStatusId());
             newCarOrder.setTimestamp(3, new Timestamp(carOrder.getStartDate().getTime()));
-            newCarOrder.setTimestamp(4, new Timestamp(carOrder.getEndDate().getTime()));
+            if (carOrder.getEndDate() != null) {
+                newCarOrder.setTimestamp(4, new Timestamp(carOrder.getEndDate().getTime()));
+            } else {
+                newCarOrder.setNull(4, Types.TIMESTAMP);
+            }
+
             newCarOrder.executeUpdate();
             ResultSet counters = newCarOrder.getGeneratedKeys();
             if (counters.next()) {

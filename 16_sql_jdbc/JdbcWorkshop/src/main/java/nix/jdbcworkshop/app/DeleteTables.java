@@ -37,7 +37,7 @@ public class DeleteTables {
         try (Connection conn
                 = DriverManager.getConnection(jdbcConfig.getString("jdbc.connection.string"),
                         jdbcConfig.getString("jdbc.username"),
-                        jdbcConfig.getString("jdbc.password"));              
+                        jdbcConfig.getString("jdbc.password"));
                 Connection testConnection
                 = DriverManager.getConnection(dbunitConfig.getString("dbunit.connection.string"),
                         dbunitConfig.getString("dbunit.username"),

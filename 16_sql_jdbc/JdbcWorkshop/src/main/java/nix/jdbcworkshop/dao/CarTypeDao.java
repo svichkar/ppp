@@ -13,11 +13,18 @@ import nix.jdbcworkshop.entities.CarType;
  * @author mednorcom
  */
 public interface CarTypeDao {
+
     public void create(CarType carType);
+
     public void update(CarType carType);
+
     public void delete(CarType carType);
+
     public CarType findCarById(long carTypeId);
+
     public List<CarType> getCarTypeList();
+
     public List<CarType> getCarTypeList(int limit);
+
     public List<CarType> getCarTypeList(int offset, int limit);
 }

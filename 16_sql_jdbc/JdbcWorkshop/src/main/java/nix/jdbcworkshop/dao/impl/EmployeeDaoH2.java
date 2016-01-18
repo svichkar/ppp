@@ -34,7 +34,8 @@ public class EmployeeDaoH2 implements EmployeeDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newEmployee = conn.prepareStatement(
-                    "INSERT INTO employee (first_name, last_name, employee_category_id) VALUES (?,?,?)");
+                    "INSERT INTO employee (first_name, last_name, employee_category_id) "
+                    + "VALUES (?,?,?)");
             newEmployee.setString(1, employee.getFirstName());
             newEmployee.setString(2, employee.getLastName());
             newEmployee.setShort(3, employee.getEmployeeCategoryId());
@@ -54,7 +55,8 @@ public class EmployeeDaoH2 implements EmployeeDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newEmployee = conn.prepareStatement(
-                    "UPDATE employee SET first_name = ?, last_name = ?, employee_category_id = ? WHERE employee_id = ?");
+                    "UPDATE employee SET first_name = ?, last_name = ?, employee_category_id = ? "
+                    + "WHERE employee_id = ?");
             newEmployee.setString(1, employee.getFirstName());
             newEmployee.setString(2, employee.getLastName());
             newEmployee.setShort(3, employee.getEmployeeCategoryId());
@@ -95,7 +97,8 @@ public class EmployeeDaoH2 implements EmployeeDao {
                 searchedEmployee.setEmployeeId(searchResults.getLong("employee_id"));
                 searchedEmployee.setFirstName(searchResults.getString("first_name"));
                 searchedEmployee.setLastName(searchResults.getString("last_name"));
-                searchedEmployee.setEmployeeCategoryId(searchResults.getShort("employee_category_id"));
+                searchedEmployee.setEmployeeCategoryId(
+                        searchResults.getShort("employee_category_id"));
             } else {
                 throw new SQLException("No results found");
             }
@@ -132,7 +135,8 @@ public class EmployeeDaoH2 implements EmployeeDao {
                 searchedEmployee.setEmployeeId(searchResults.getLong("employee_id"));
                 searchedEmployee.setFirstName(searchResults.getString("first_name"));
                 searchedEmployee.setLastName(searchResults.getString("last_name"));
-                searchedEmployee.setEmployeeCategoryId(searchResults.getShort("employee_category_id"));
+                searchedEmployee.setEmployeeCategoryId(
+                        searchResults.getShort("employee_category_id"));
                 results.add(searchedEmployee);
             }
             searchResults.close();

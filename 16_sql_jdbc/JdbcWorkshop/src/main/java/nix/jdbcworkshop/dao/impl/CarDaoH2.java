@@ -31,8 +31,10 @@ public class CarDaoH2 implements CarDao {
 
     @Override
     public void create(Car car) {
-        try (Connection conn
-                = ConnectionManagerH2.getConnection()) {
+        Connection conn = null;
+        try {
+            conn = ConnectionManagerH2.getConnection();
+            conn.setAutoCommit(false);
             PreparedStatement newCar = conn.prepareStatement(
                     "INSERT INTO car (serial_id,car_type_id,client_id)VALUES (?,?,?)");
             newCar.setString(1, car.getSerialId());
@@ -43,9 +45,21 @@ public class CarDaoH2 implements CarDao {
             if (counters.next()) {
                 car.setCarId(counters.getInt(1));
             }
+            conn.commit();
             counters.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                LOGGER.error(ex1);
+            }
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                LOGGER.error(ex);
+            }
         }
     }
 
@@ -53,8 +67,8 @@ public class CarDaoH2 implements CarDao {
     public void update(Car car) {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
-            PreparedStatement newCar = conn.prepareStatement(
-                    "UPDATE car SET serial_id = ?, car_type_id = ?, client_id = ? WHERE car_id = ?");
+            PreparedStatement newCar = conn.prepareStatement("UPDATE car "
+                    + "SET serial_id = ?, car_type_id = ?, client_id = ? WHERE car_id = ?");
             newCar.setString(1, car.getSerialId());
             newCar.setLong(2, car.getCarTypeId());
             newCar.setLong(3, car.getClientId());

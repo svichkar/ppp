@@ -64,7 +64,8 @@ public class EmployeeCarOrderDaoH2 implements EmployeeCarOrderDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newEmployeeCarOrder
-                    = conn.prepareStatement("SELECT * FROM employee_car_order WHERE car_order_id = ?");
+                    = conn.prepareStatement(
+                            "SELECT * FROM employee_car_order WHERE car_order_id = ?");
             newEmployeeCarOrder.setLong(1, carOrderId);
             ResultSet searchResults = newEmployeeCarOrder.executeQuery();
 
@@ -82,14 +83,15 @@ public class EmployeeCarOrderDaoH2 implements EmployeeCarOrderDao {
         }
         return searchedEmployeeCarOrder;
     }
-    
-        @Override
+
+    @Override
     public EmployeeCarOrder findEmployeeCarOrderByEmployeeId(long employeeId) {
         EmployeeCarOrder searchedEmployeeCarOrder = null;
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newEmployeeCarOrder
-                    = conn.prepareStatement("SELECT * FROM employee_car_order WHERE employee_id = ?");
+                    = conn.prepareStatement(
+                            "SELECT * FROM employee_car_order WHERE employee_id = ?");
             newEmployeeCarOrder.setLong(1, employeeId);
             ResultSet searchResults = newEmployeeCarOrder.executeQuery();
 

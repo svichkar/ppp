@@ -60,9 +60,11 @@ public class EmployeeCarOrderDaoH2Test extends AbstractDaoH2Test {
         employeeCarOrderDaoInstance.create(employeeCarOrder);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee_car_order");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.employee.car.order.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.employee.car.order.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("employee_car_order");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -75,33 +77,40 @@ public class EmployeeCarOrderDaoH2Test extends AbstractDaoH2Test {
         employeeCarOrderDaoInstance.delete(new EmployeeCarOrder(5, 5));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee_car_order");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.employee.car.order.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig
+                        .getString("dbunit.employee.car.order.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("employee_car_order");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
      * Test of findCarById method, of class EmployeeCarOrderDaoH2.
      */
     public void testFindEmployeeCarOrderByCarOrderId() {
-        EmployeeCarOrder employeeCarOrder = employeeCarOrderDaoInstance.findEmployeeCarOrderByCarOrderId(5);
+        EmployeeCarOrder employeeCarOrder 
+                = employeeCarOrderDaoInstance.findEmployeeCarOrderByCarOrderId(5);
         assertEquals(5, employeeCarOrder.getCarOrderId());
         assertEquals(5, employeeCarOrder.getEmployeeId());
     }
 
     public void testFindEmployeeCarOrderByEmployeeId() {
-        EmployeeCarOrder employeeCarOrder = employeeCarOrderDaoInstance.findEmployeeCarOrderByEmployeeId(5);
+        EmployeeCarOrder employeeCarOrder 
+                = employeeCarOrderDaoInstance.findEmployeeCarOrderByEmployeeId(5);
         assertEquals(5, employeeCarOrder.getCarOrderId());
         assertEquals(5, employeeCarOrder.getEmployeeId());
     }
 
     public void testGetEmployeeCarOrderList() {
-        List<EmployeeCarOrder> employeeCarOrderList = employeeCarOrderDaoInstance.getEmployeeCarOrderList();
+        List<EmployeeCarOrder> employeeCarOrderList 
+                = employeeCarOrderDaoInstance.getEmployeeCarOrderList();
         assertEquals(5, employeeCarOrderList.size());
     }
 
     public void testGetEmployeeCarOrderListLimit() {
-        List<EmployeeCarOrder> employeeCarOrderListLimit = employeeCarOrderDaoInstance.getEmployeeCarOrderList(4);
+        List<EmployeeCarOrder> employeeCarOrderListLimit 
+                = employeeCarOrderDaoInstance.getEmployeeCarOrderList(4);
         assertEquals(4, employeeCarOrderListLimit.size());
         assertEquals(1, employeeCarOrderListLimit.get(0).getCarOrderId());
         assertEquals(1, employeeCarOrderListLimit.get(0).getCarOrderId());
@@ -110,7 +119,8 @@ public class EmployeeCarOrderDaoH2Test extends AbstractDaoH2Test {
     }
 
     public void testGetEmployeeCarOrderListOffset() {
-        List<EmployeeCarOrder> employeeCarOrderListOffset = employeeCarOrderDaoInstance.getEmployeeCarOrderList(1, 4);
+        List<EmployeeCarOrder> employeeCarOrderListOffset 
+                = employeeCarOrderDaoInstance.getEmployeeCarOrderList(1, 4);
         assertEquals(4, employeeCarOrderListOffset.size());
         assertEquals(2, employeeCarOrderListOffset.get(0).getCarOrderId());
         assertEquals(2, employeeCarOrderListOffset.get(0).getCarOrderId());

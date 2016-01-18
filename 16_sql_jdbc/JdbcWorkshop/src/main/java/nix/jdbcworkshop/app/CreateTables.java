@@ -41,7 +41,6 @@ public class CreateTables {
                 = DriverManager.getConnection(jdbcConfig.getString("jdbc.connection.string"),
                         jdbcConfig.getString("jdbc.username"),
                         jdbcConfig.getString("jdbc.password"));) {
-            conn.setAutoCommit(false);
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             for (String sqlStatement
                     : FileUtils.readLines(new File(classLoader.getResource(
@@ -60,7 +59,6 @@ public class CreateTables {
                     dbunitConfig.getString("dbunit.connection.string"),
                     dbunitConfig.getString("dbunit.username"),
                     dbunitConfig.getString("dbunit.password"))) {
-                testConnection.setAutoCommit(false);
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 for (String sqlStatement
                         : FileUtils.readLines(new File(classLoader.getResource(

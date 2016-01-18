@@ -82,13 +82,15 @@ public class CarOrderStatusDaoH2 implements CarOrderStatusDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarOrderStatus
-                    = conn.prepareStatement("SELECT * FROM car_order_status WHERE car_order_status_id = ?");
+                    = conn.prepareStatement(
+                            "SELECT * FROM car_order_status WHERE car_order_status_id = ?");
             newCarOrderStatus.setLong(1, carOrderStatusId);
             ResultSet searchResults = newCarOrderStatus.executeQuery();
 
             if (searchResults.next()) {
                 searchedCarOrderStatus = new CarOrderStatus();
-                searchedCarOrderStatus.setCarOrderStatusId(searchResults.getShort("car_order_status_id"));
+                searchedCarOrderStatus.setCarOrderStatusId(
+                        searchResults.getShort("car_order_status_id"));
                 searchedCarOrderStatus.setName(searchResults.getString("name"));
             } else {
                 throw new SQLException("No results found");
@@ -123,7 +125,8 @@ public class CarOrderStatusDaoH2 implements CarOrderStatusDao {
             ResultSet searchResults = newCarOrderStatus.executeQuery();
             while (searchResults.next()) {
                 CarOrderStatus searchedCarOrderStatus = new CarOrderStatus();
-                searchedCarOrderStatus.setCarOrderStatusId(searchResults.getShort("car_order_status_id"));
+                searchedCarOrderStatus.setCarOrderStatusId(
+                        searchResults.getShort("car_order_status_id"));
                 searchedCarOrderStatus.setName(searchResults.getString("name"));
                 results.add(searchedCarOrderStatus);
             }

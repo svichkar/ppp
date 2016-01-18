@@ -22,7 +22,8 @@ public class CarOrder {
     public CarOrder() {
     }
 
-    public CarOrder(Long carOrderId, Long carId, Short carOrderStatusId, Date startDate, Date endDate) {
+    public CarOrder(Long carOrderId, Long carId, Short carOrderStatusId,
+            Date startDate, Date endDate) {
         this.carOrderId = carOrderId;
         this.carId = carId;
         this.carOrderStatusId = carOrderStatusId;

@@ -28,7 +28,8 @@ public class CarOrderStatusDaoH2Test extends AbstractDaoH2Test {
     @Override
     protected IDataSet getDataSet() throws Exception {
         return new FlatXmlDataSet(
-                getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.status.initial")));
+                getClass().getClassLoader().getResourceAsStream(
+                        dbunitConfig.getString("dbunit.car.order.status.initial")));
     }
 
     public void setUp() throws Exception {
@@ -44,9 +45,12 @@ public class CarOrderStatusDaoH2Test extends AbstractDaoH2Test {
         carOrderStatusDaoInstance.create(carOrderStatus);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_order_status");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.status.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig
+                        .getString("dbunit.car.order.status.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("car_order_status");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
         assertNotNull(carOrderStatus.getCarOrderStatusId());
     }
 
@@ -60,9 +64,12 @@ public class CarOrderStatusDaoH2Test extends AbstractDaoH2Test {
         carOrderStatusDaoInstance.update(carOrderStatus);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_order_status");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.status.expected.update")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig
+                        .getString("dbunit.car.order.status.expected.update")));
         ITable expectedTable = expectedDataSet.getTable("car_order_status");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
         //carOrderStatusDaoInstance.delete(carOrderStatus);
     }
 
@@ -73,12 +80,15 @@ public class CarOrderStatusDaoH2Test extends AbstractDaoH2Test {
         CarOrderStatus carOrderStatus = new CarOrderStatus(null, "Assigned");
         carOrderStatusDaoInstance.create(carOrderStatus);
         carOrderStatusDaoInstance.delete(carOrderStatus);
-        carOrderStatusDaoInstance.delete(new CarOrderStatus((short)3, null));
+        carOrderStatusDaoInstance.delete(new CarOrderStatus((short) 3, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_order_status");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.status.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig
+                        .getString("dbunit.car.order.status.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("car_order_status");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -86,28 +96,29 @@ public class CarOrderStatusDaoH2Test extends AbstractDaoH2Test {
      */
     public void testFindCarOrderStatusById() {
         CarOrderStatus carOrderStatus = carOrderStatusDaoInstance.findCarOrderStatusById(3);
-        assertEquals(new Short((short)3), carOrderStatus.getCarOrderStatusId());
+        assertEquals(new Short((short) 3), carOrderStatus.getCarOrderStatusId());
         assertEquals("In Progress", carOrderStatus.getName());
     }
 
-     public void testGetCarOrderStatusList() {
+    public void testGetCarOrderStatusList() {
         List<CarOrderStatus> carOrderStatusList = carOrderStatusDaoInstance.getCarOrderStatusList();
-        assertEquals(3, carOrderStatusList.size());       
+        assertEquals(3, carOrderStatusList.size());
     }
-     
-      public void testGetCarOrderStatusListLimit() {
-        List<CarOrderStatus> carOrderStatusListLimit = carOrderStatusDaoInstance.getCarOrderStatusList(2);    
+
+    public void testGetCarOrderStatusListLimit() {
+        List<CarOrderStatus> carOrderStatusListLimit =
+                carOrderStatusDaoInstance.getCarOrderStatusList(2);
         assertEquals(2, carOrderStatusListLimit.size());
-        assertEquals(new Short((short)1), carOrderStatusListLimit.get(0).getCarOrderStatusId());
-        assertEquals(new Short((short)2), carOrderStatusListLimit.get(1).getCarOrderStatusId());
+        assertEquals(new Short((short) 1), carOrderStatusListLimit.get(0).getCarOrderStatusId());
+        assertEquals(new Short((short) 2), carOrderStatusListLimit.get(1).getCarOrderStatusId());
     }
-    
-    
+
     public void testGetCarOrderStatusListOffset() {
-        List<CarOrderStatus> carOrderStatusListOffset = carOrderStatusDaoInstance.getCarOrderStatusList(1,2);
+        List<CarOrderStatus> carOrderStatusListOffset = 
+                carOrderStatusDaoInstance.getCarOrderStatusList(1, 2);
         assertEquals(2, carOrderStatusListOffset.size());
-        assertEquals(new Short((short)2), carOrderStatusListOffset.get(0).getCarOrderStatusId());
-        assertEquals(new Short((short)3), carOrderStatusListOffset.get(1).getCarOrderStatusId());
+        assertEquals(new Short((short) 2), carOrderStatusListOffset.get(0).getCarOrderStatusId());
+        assertEquals(new Short((short) 3), carOrderStatusListOffset.get(1).getCarOrderStatusId());
     }
 
 }

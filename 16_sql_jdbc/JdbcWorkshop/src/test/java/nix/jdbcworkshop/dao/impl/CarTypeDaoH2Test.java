@@ -28,7 +28,8 @@ public class CarTypeDaoH2Test extends AbstractDaoH2Test {
     @Override
     protected IDataSet getDataSet() throws Exception {
         return new FlatXmlDataSet(
-                getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.type.initial")));
+                getClass().getClassLoader().getResourceAsStream(
+                        dbunitConfig.getString("dbunit.car.type.initial")));
     }
 
     public void setUp() throws Exception {
@@ -44,9 +45,11 @@ public class CarTypeDaoH2Test extends AbstractDaoH2Test {
         carTypeDaoInstance.create(carType);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_type");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.type.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.type.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("car_type");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
         assertNotNull(carType.getCarTypeId());
         //carTypeDaoInstance.delete(carType);
     }
@@ -61,9 +64,11 @@ public class CarTypeDaoH2Test extends AbstractDaoH2Test {
         carTypeDaoInstance.update(carType);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_type");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.type.expected.update")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.type.expected.update")));
         ITable expectedTable = expectedDataSet.getTable("car_type");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
         //carTypeDaoInstance.delete(carType);
     }
 
@@ -77,9 +82,11 @@ public class CarTypeDaoH2Test extends AbstractDaoH2Test {
         carTypeDaoInstance.delete(new CarType(new Long(5), null, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_type");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.type.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.type.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("car_type");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -92,21 +99,20 @@ public class CarTypeDaoH2Test extends AbstractDaoH2Test {
         assertEquals("Corolla", carType.getModel());
     }
 
-     public void testGetCarTypeList() {
+    public void testGetCarTypeList() {
         List<CarType> carTypeList = carTypeDaoInstance.getCarTypeList();
-        assertEquals(5, carTypeList.size());       
+        assertEquals(5, carTypeList.size());
     }
-     
-      public void testGetCarTypeListLimit() {
-        List<CarType> carTypeListLimit = carTypeDaoInstance.getCarTypeList(4);    
+
+    public void testGetCarTypeListLimit() {
+        List<CarType> carTypeListLimit = carTypeDaoInstance.getCarTypeList(4);
         assertEquals(4, carTypeListLimit.size());
         assertEquals(1, carTypeListLimit.get(0).getCarTypeId());
         assertEquals(4, carTypeListLimit.get(3).getCarTypeId());
     }
-    
-    
+
     public void testGetCarTypeListOffset() {
-        List<CarType> carTypeListOffset = carTypeDaoInstance.getCarTypeList(1,4);
+        List<CarType> carTypeListOffset = carTypeDaoInstance.getCarTypeList(1, 4);
         assertEquals(4, carTypeListOffset.size());
         assertEquals(2, carTypeListOffset.get(0).getCarTypeId());
         assertEquals(5, carTypeListOffset.get(3).getCarTypeId());

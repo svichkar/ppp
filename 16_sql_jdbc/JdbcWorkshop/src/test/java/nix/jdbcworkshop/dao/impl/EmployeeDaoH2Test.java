@@ -49,9 +49,11 @@ public class EmployeeDaoH2Test extends AbstractDaoH2Test {
         employeeDaoInstance.create(employee);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.employee.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.employee.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("employee");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
         assertNotNull(employee.getEmployeeId());
     }
 
@@ -65,9 +67,11 @@ public class EmployeeDaoH2Test extends AbstractDaoH2Test {
         employeeDaoInstance.update(employee);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.employee.expected.update")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.employee.expected.update")));
         ITable expectedTable = expectedDataSet.getTable("employee");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -80,9 +84,11 @@ public class EmployeeDaoH2Test extends AbstractDaoH2Test {
         employeeDaoInstance.delete(new Employee((long) 5, null, null, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.employee.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.employee.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("employee");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**

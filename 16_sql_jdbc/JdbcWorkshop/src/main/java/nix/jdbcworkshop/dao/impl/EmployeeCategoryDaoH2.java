@@ -82,13 +82,15 @@ public class EmployeeCategoryDaoH2 implements EmployeeCategoryDao {
         try (Connection conn
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newEmployeeCategory
-                    = conn.prepareStatement("SELECT * FROM employee_category WHERE employee_category_id = ?");
+                    = conn.prepareStatement(
+                            "SELECT * FROM employee_category WHERE employee_category_id = ?");
             newEmployeeCategory.setLong(1, employeeCategoryId);
             ResultSet searchResults = newEmployeeCategory.executeQuery();
 
             if (searchResults.next()) {
                 searchedEmployeeCategory = new EmployeeCategory();
-                searchedEmployeeCategory.setEmployeeCategoryId(searchResults.getShort("employee_category_id"));
+                searchedEmployeeCategory.setEmployeeCategoryId(searchResults.getShort(
+                        "employee_category_id"));
                 searchedEmployeeCategory.setName(searchResults.getString("name"));
             } else {
                 throw new SQLException("No results found");
@@ -123,7 +125,8 @@ public class EmployeeCategoryDaoH2 implements EmployeeCategoryDao {
             ResultSet searchResults = newEmployeeCategory.executeQuery();
             while (searchResults.next()) {
                 EmployeeCategory searchedEmployeeCategory = new EmployeeCategory();
-                searchedEmployeeCategory.setEmployeeCategoryId(searchResults.getShort("employee_category_id"));
+                searchedEmployeeCategory.setEmployeeCategoryId(searchResults.getShort(
+                        "employee_category_id"));
                 searchedEmployeeCategory.setName(searchResults.getString("name"));
                 results.add(searchedEmployeeCategory);
             }

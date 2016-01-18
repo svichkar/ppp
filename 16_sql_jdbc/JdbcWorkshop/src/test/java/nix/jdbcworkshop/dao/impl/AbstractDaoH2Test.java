@@ -29,11 +29,11 @@ public abstract class AbstractDaoH2Test extends JdbcBasedDBTestCase {
         } catch (ConfigurationException | RuntimeException ex) {
             LOGGER.error(ex);
         }
-        ConnectionManagerH2.getJdbcConfig().setProperty("jdbc.connection.string", 
+        ConnectionManagerH2.getJdbcConfig().setProperty("jdbc.connection.string",
                 dbunitConfig.getString("dbunit.connection.string"));
-        ConnectionManagerH2.getJdbcConfig().setProperty("jdbc.username", 
+        ConnectionManagerH2.getJdbcConfig().setProperty("jdbc.username",
                 dbunitConfig.getString("dbunit.username"));
-        ConnectionManagerH2.getJdbcConfig().setProperty("jdbc.password", 
+        ConnectionManagerH2.getJdbcConfig().setProperty("jdbc.password",
                 dbunitConfig.getString("dbunit.password"));
     }
 
@@ -59,12 +59,12 @@ public abstract class AbstractDaoH2Test extends JdbcBasedDBTestCase {
 
     @Override
     protected DatabaseOperation getSetUpOperation() throws Exception {
-        return DatabaseOperation.CLEAN_INSERT; 
+        return DatabaseOperation.CLEAN_INSERT;
     }
 
     @Override
     protected DatabaseOperation getTearDownOperation() throws Exception {
-        return DatabaseOperation.DELETE_ALL; 
+        return DatabaseOperation.DELETE_ALL;
     }
 
 }

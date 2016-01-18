@@ -29,7 +29,8 @@ public class ClientDaoH2Test extends AbstractDaoH2Test {
     @Override
     protected IDataSet getDataSet() throws Exception {
         return new FlatXmlDataSet(
-                getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.client.initial")));
+                getClass().getClassLoader().getResourceAsStream(dbunitConfig
+                        .getString("dbunit.client.initial")));
     }
 
     public void setUp() throws Exception {
@@ -45,9 +46,11 @@ public class ClientDaoH2Test extends AbstractDaoH2Test {
         clientDaoInstance.create(client);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("client");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.client.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.client.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("client");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
         assertNotNull(client.getClientId());
     }
 
@@ -61,9 +64,11 @@ public class ClientDaoH2Test extends AbstractDaoH2Test {
         clientDaoInstance.update(client);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("client");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.client.expected.update")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.client.expected.update")));
         ITable expectedTable = expectedDataSet.getTable("client");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -76,9 +81,11 @@ public class ClientDaoH2Test extends AbstractDaoH2Test {
         clientDaoInstance.delete(new Client((long) 5, null, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("client");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.client.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.client.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("client");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(
+                actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**

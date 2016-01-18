@@ -45,13 +45,16 @@ public class CarOrderDaoH2Test extends AbstractDaoH2Test {
         Calendar endDate = Calendar.getInstance();
         endDate.set(2016, 00, 06, 19, 00, 00);
         endDate.set(Calendar.MILLISECOND, 0);
-        CarOrder carOrder = new CarOrder(null, new Long(1), new Short((short) 3), startDate.getTime(), endDate.getTime());
+        CarOrder carOrder = new CarOrder(null, new Long(1), new Short((short) 3),
+                startDate.getTime(), endDate.getTime());
         carOrderDaoInstance.create(carOrder);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_order");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.order.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("car_order");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
         assertNotNull(carOrder.getCarOrderId());
     }
 
@@ -65,15 +68,18 @@ public class CarOrderDaoH2Test extends AbstractDaoH2Test {
         Calendar endDate = Calendar.getInstance();
         endDate.set(2016, 00, 06, 19, 00, 00);
         endDate.set(Calendar.MILLISECOND, 0);
-        CarOrder carOrder = new CarOrder(null, new Long(1), new Short((short) 3), startDate.getTime(), endDate.getTime());
+        CarOrder carOrder = new CarOrder(null, new Long(1), new Short((short) 3), 
+                startDate.getTime(), endDate.getTime());
         carOrderDaoInstance.create(carOrder);
         carOrder.setCarOrderStatusId((short) (1));
         carOrderDaoInstance.update(carOrder);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_order");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.expected.update")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.order.expected.update")));
         ITable expectedTable = expectedDataSet.getTable("car_order");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -86,15 +92,18 @@ public class CarOrderDaoH2Test extends AbstractDaoH2Test {
         Calendar endDate = Calendar.getInstance();
         endDate.set(2016, 00, 06, 19, 00, 00);
         endDate.set(Calendar.MILLISECOND, 0);
-        CarOrder carOrder = new CarOrder(null, new Long(1), new Short((short) 3), startDate.getTime(), endDate.getTime());
+        CarOrder carOrder = new CarOrder(null, new Long(1), new Short((short) 3), 
+                startDate.getTime(), endDate.getTime());
         carOrderDaoInstance.create(carOrder);
         carOrderDaoInstance.delete(carOrder);
         carOrderDaoInstance.delete(new CarOrder(new Long(5), null, null, null, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car_order");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.order.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.order.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("car_order");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**

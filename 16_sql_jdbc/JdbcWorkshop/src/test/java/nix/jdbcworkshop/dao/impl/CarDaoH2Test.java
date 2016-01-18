@@ -9,17 +9,12 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 import nix.jdbcworkshop.entities.Car;
-import nix.jdbcworkshop.entities.Car;
 import org.dbunit.Assertion;
 import org.dbunit.dataset.CompositeDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -47,9 +42,11 @@ public class CarDaoH2Test extends AbstractDaoH2Test {
         carDaoInstance.create(car);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.expected.create")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().
+                getResourceAsStream(dbunitConfig.getString("dbunit.car.expected.create")));
         ITable expectedTable = expectedDataSet.getTable("car");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter.
+                includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
         assertNotNull(car.getCarId());
     }
 
@@ -63,9 +60,11 @@ public class CarDaoH2Test extends AbstractDaoH2Test {
         carDaoInstance.update(car);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.expected.update")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.expected.update")));
         ITable expectedTable = expectedDataSet.getTable("car");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**
@@ -78,9 +77,11 @@ public class CarDaoH2Test extends AbstractDaoH2Test {
         carDaoInstance.delete(new Car(new Long(5), null, null, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("car");
-        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader().getResourceAsStream(dbunitConfig.getString("dbunit.car.expected.delete")));
+        IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()
+                .getResourceAsStream(dbunitConfig.getString("dbunit.car.expected.delete")));
         ITable expectedTable = expectedDataSet.getTable("car");
-        Assertion.assertEquals(expectedTable, DefaultColumnFilter.includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
+        Assertion.assertEquals(expectedTable, DefaultColumnFilter
+                .includedColumnsTable(actualTable, expectedTable.getTableMetaData().getColumns()));
     }
 
     /**

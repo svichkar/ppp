@@ -4,7 +4,7 @@
     <jsp:attribute name="internal_content_area">
         <c:if test="${not empty employeeList}">
             <table border="1">
-                <caption>Current car orders</caption>
+                <caption>Workers</caption>
                     <tr>
                         <th>worker_id</th>
                         <th>first_name</th>

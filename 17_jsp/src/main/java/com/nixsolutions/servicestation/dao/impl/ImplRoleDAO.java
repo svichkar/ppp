@@ -23,10 +23,9 @@ public class ImplRoleDAO implements RoleDAO {
     @Override
     public void create(Role entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
-             PreparedStatement pStatement = connection.prepareStatement("INSERT INTO role (role_id, role_name) " +
-                     "VALUES (?, ?);")) {
-            pStatement.setInt(1, entity.getRoleId());
-            pStatement.setString(2, entity.getRoleName());
+             PreparedStatement pStatement = connection.prepareStatement("INSERT INTO role (role_name) " +
+                     "VALUES (?);")) {
+            pStatement.setString(1, entity.getRoleName());
             pStatement.execute();
             LOGGER.trace("Row in role was created");
         } catch (SQLException e) {

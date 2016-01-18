@@ -2,11 +2,11 @@ package com.nixsolutions.servicestation.dao.impl;
 
 import com.nixsolutions.servicestation.dao.UserDAO;
 import com.nixsolutions.servicestation.entity.User;
+import com.nixsolutions.servicestation.entity.extendedentity.UserClientBean;
 import com.nixsolutions.servicestation.util.CustomConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,11 +23,10 @@ public class ImplUserDAO implements UserDAO{
     public void create(User entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO user " +
-                     "(user_id, login, password, role_id) VALUES (?, ?, ?, ?);")) {
-            pStatement.setInt(1, entity.getUserId());
-            pStatement.setString(2, entity.getLogin());
-            pStatement.setString(3, entity.getPassword());
-            pStatement.setInt(4, entity.getRoleId());
+                     "(login, password, role_id) VALUES (?, ?, ?);")) {
+            pStatement.setString(1, entity.getLogin());
+            pStatement.setString(2, entity.getPassword());
+            pStatement.setInt(3, entity.getRoleId());
             pStatement.execute();
             LOGGER.trace("Row in user was created");
         } catch (SQLException e) {
@@ -137,5 +136,36 @@ public class ImplUserDAO implements UserDAO{
             LOGGER.trace("Row in user with login = " + user.getLogin() + " was found");
         }
         return user;
+    }
+
+    public List<UserClientBean> findClientsUsers() {
+        List<UserClientBean> ucbList = new ArrayList<>();
+        int i = 0;
+        try (Connection connection = CustomConnectionManager.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement("SELECT u.user_id, u.login, u.password, " +
+                     "c.client_id, c.first_name, c.last_name, r.role_name, r.role_id FROM user u " +
+                     "INNER JOIN client c ON u.user_id = c.user_id "+
+                     "INNER JOIN role r ON u.role_id = r.role_id;")) {
+            ResultSet rSet = pStatement.executeQuery();
+            while (rSet.next()) {
+                UserClientBean ucb = new UserClientBean();
+                ucb.setClientId(rSet.getInt("client_id"));
+                ucb.setClientFName(rSet.getString("first_name"));
+                ucb.setClientLName(rSet.getString("last_name"));
+                ucb.setUserId(rSet.getInt("user_id"));
+                ucb.setLogin(rSet.getString("login"));
+                ucb.setPassword(rSet.getString("password"));
+                ucb.setRole(rSet.getString("role_name"));
+                ucb.setRoleId(rSet.getString("role_id"));
+                ucbList.add(ucb);
+                i++;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        if (ucbList != null) {
+            LOGGER.trace(i + " rows by findClientsUsers were found");
+        }
+        return ucbList;
     }
 }

@@ -50,4 +50,14 @@ public class User {
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        User user = (User) obj;
+        if(login.equals(user.login)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

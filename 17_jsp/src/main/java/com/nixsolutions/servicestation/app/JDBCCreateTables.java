@@ -31,10 +31,10 @@ public class JDBCCreateTables {
                 properties.getProperty("USER"), properties.getProperty("PASSWORD"));
              Statement statement = connection.createStatement()) {
             statement.addBatch("CREATE TABLE role (" +
-                    "role_id INT PRIMARY KEY," +
+                    "role_id INT IDENTITY," +
                     "role_name VARCHAR(256) NOT NULL);");
             statement.addBatch("CREATE TABLE user (" +
-                    "user_id BIGINT PRIMARY KEY," +
+                    "user_id BIGINT IDENTITY," +
                     "login VARCHAR(256) NOT NULL," +
                     "password VARCHAR(256) NOT NULL," +
                     "role_id BIGINT," +

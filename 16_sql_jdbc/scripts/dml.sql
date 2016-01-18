@@ -1,12 +1,12 @@
-INSERT INTO role (role_id, role_name) VALUES (1, 'manager');
-INSERT INTO role (role_id, role_name) VALUES (2, 'client');
+INSERT INTO role (role_name) VALUES ('manager');
+INSERT INTO role (role_name) VALUES ('client');
 
-INSERT INTO user (user_id, login, password, role_id) VALUES (1, 'john', 'john',1);
-INSERT INTO user (user_id, login, password, role_id) VALUES (2, 'jack', 'jack',2);
-INSERT INTO user (user_id, login, password, role_id) VALUES (3, 'mich', 'mich',2);
-INSERT INTO user (user_id, login, password, role_id) VALUES (4, 'mor', 'mor',1);
-INSERT INTO user (user_id, login, password, role_id) VALUES (5, 'hom', 'hom',2);
-INSERT INTO user (user_id, login, password, role_id) VALUES (6, 'stan', 'stan',2);
+INSERT INTO user (login, password, role_id) VALUES ('john', 'john',1);
+INSERT INTO user (login, password, role_id) VALUES ('jack', 'jack',2);
+INSERT INTO user (login, password, role_id) VALUES ('mich', 'mich',2);
+INSERT INTO user (login, password, role_id) VALUES ('mor', 'mor',1);
+INSERT INTO user (login, password, role_id) VALUES ('hom', 'hom',2);
+INSERT INTO user (login, password, role_id) VALUES ('stan', 'stan',2);
 
 INSERT INTO client (first_name, last_name, user_id) VALUES ('John', 'Johnson',1);
 INSERT INTO client (first_name, last_name, user_id) VALUES ('John', 'Jackson',2);

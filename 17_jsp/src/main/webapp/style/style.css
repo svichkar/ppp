@@ -35,7 +35,7 @@ body
 
 #container {
     display: table;
-    width: 100%;
+    width:100%;
 }
 #content{
     color: white;
@@ -57,4 +57,7 @@ a:visited {
 }
 select{
     width: 100%;
+}
+input:read-only {
+    background-color: yellow;
 }

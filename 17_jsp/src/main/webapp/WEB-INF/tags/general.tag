@@ -20,10 +20,10 @@
 <div id=container>
     <div id="sidebar">
         <c:if test="${role == 'manager'}">
-            <p><a href="orders" class="customLink">Orders</a></p>
+            <p><a href="orders?login=<c:out value="${login}"/>" class="customLink">Orders</a></p>
             <p><a href="workers?login=<c:out value="${login}"/>" class="customLink">Workers</a></p>
-            <p><a href="cars" class="customLink">Cars</a></p>
-            <p><a href="clients" class="customLink">Clients</a></p>
+            <p><a href="cars?login=<c:out value="${login}"/>" class="customLink">Cars</a></p>
+            <p><a href="clients?login=<c:out value="${login}"/>" class="customLink">Clients</a></p>
             <jsp:invoke fragment="sidebar_area"/>
         </c:if>
     </div>

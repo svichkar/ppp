@@ -14,6 +14,8 @@ import org.dbunit.operation.DatabaseOperation;
 import java.io.IOException;
 import java.util.Properties;
 
+import static com.nixsolutions.hibernate.util.HibernateUtil.closeSessionFactory;
+
 /**
  * Created by kozlovskij on 12/24/2015.
  */
@@ -49,6 +51,11 @@ public class DBUnitConfig  extends DBTestCase{
     @Override
     protected DatabaseOperation getTearDownOperation() throws Exception {
         return DatabaseOperation.DELETE_ALL;
+    }
+
+    @Override
+    protected DatabaseOperation getSetUpOperation() throws Exception {
+        return DatabaseOperation.CLEAN_INSERT;
     }
 
     @Override

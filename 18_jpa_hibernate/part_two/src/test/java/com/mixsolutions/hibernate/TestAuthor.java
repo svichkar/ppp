@@ -4,10 +4,14 @@ import com.mixsolutions.hibernate.config.DBUnitConfig;
 import com.nixsolutions.hibernate.dao.AuthorDAO;
 
 import com.nixsolutions.hibernate.entity.Author;
+import com.nixsolutions.hibernate.util.HibernateUtil;
 import org.dbunit.Assertion;
+import org.dbunit.database.DatabaseConfig;
+import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
+import org.dbunit.ext.h2.H2DataTypeFactory;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
 

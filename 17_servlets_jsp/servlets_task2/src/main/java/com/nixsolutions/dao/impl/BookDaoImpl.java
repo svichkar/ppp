@@ -30,8 +30,8 @@ public class BookDaoImpl implements BookDao {
 				Book book = new Book();
 				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
-				book.setCategoryId(result.getInt("category_id"));
-				book.setCellId(result.getInt("cell_id"));
+				book.setCategoryId(result.getLong("category_id"));
+				book.setCellId(result.getLong("cell_id"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");
@@ -42,19 +42,19 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public Book getBookById(int bookId) {
+	public Book getBookById(Long bookId) {
 		LOG.entry(bookId);
 		String sql = "SELECT * FROM book WHERE book_id = ?;";
 		Book book = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, bookId);
+			statem.setLong(1, bookId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				book = new Book();
 				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
-				book.setCategoryId(result.getInt("category_id"));
-				book.setCellId(result.getInt("cell_id"));
+				book.setCategoryId(result.getLong("category_id"));
+				book.setCellId(result.getLong("cell_id"));
 			}
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get a book by Id", e));
@@ -68,8 +68,8 @@ public class BookDaoImpl implements BookDao {
 		String sql = "INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?);";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			statem.setString(1, book.getName());
-			statem.setInt(2, book.getCategoryId());
-			statem.setInt(3, book.getCellId());
+			statem.setLong(2, book.getCategoryId());
+			statem.setLong(3, book.getCellId());
 			statem.executeUpdate();
 			ResultSet generatedKeys = statem.getGeneratedKeys();
 			 if (generatedKeys.next()) {
@@ -90,8 +90,8 @@ public class BookDaoImpl implements BookDao {
 		String sql = "UPDATE book SET name = ?, category_id = ?, cell_id=?  WHERE book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, book.getName());
-			statem.setInt(2, book.getCategoryId());
-			statem.setInt(3, book.getCellId());
+			statem.setLong(2, book.getCategoryId());
+			statem.setLong(3, book.getCellId());
 			statem.setLong(4, book.getBookId());
 			statem.executeUpdate();
 			LOG.exit("book was updated");
@@ -129,8 +129,8 @@ public class BookDaoImpl implements BookDao {
 				Book book = new Book();
 				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
-				book.setCategoryId(result.getInt("category_id"));
-				book.setCellId(result.getInt("cell_id"));
+				book.setCategoryId(result.getLong("category_id"));
+				book.setCellId(result.getLong("cell_id"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");
@@ -155,8 +155,8 @@ public class BookDaoImpl implements BookDao {
 				Book book = new Book();
 				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
-				book.setCategoryId(result.getInt("category_id"));
-				book.setCellId(result.getInt("cell_id"));
+				book.setCategoryId(result.getLong("category_id"));
+				book.setCellId(result.getLong("cell_id"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");
@@ -180,8 +180,8 @@ public class BookDaoImpl implements BookDao {
 				Book book = new Book();
 				book.setBookId(result.getLong("book_id"));
 				book.setName(result.getString("name"));
-				book.setCategoryId(result.getInt("category_id"));
-				book.setCellId(result.getInt("cell_id"));
+				book.setCategoryId(result.getLong("category_id"));
+				book.setCellId(result.getLong("cell_id"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");

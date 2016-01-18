@@ -1,7 +1,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="Your_WebApp_ID" version="2.5">
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
 
 
 	<display-name>Archetype Created Web Application</display-name>
@@ -11,8 +11,8 @@
 		<servlet-class>com.nixsolutions.controllers.AuthServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>admin</servlet-name>
-		<servlet-class>com.nixsolutions.controllers.AdminServlet</servlet-class>
+		<servlet-name>manageusers</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.ManageUsersServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>librarian</servlet-name>
@@ -34,6 +34,19 @@
 		<servlet-name>addcategory</servlet-name>
 		<servlet-class>com.nixsolutions.controllers.AddCategoryServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>loans</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.LoansServlet</servlet-class>
+	</servlet>
+<servlet>
+		<servlet-name>error</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.ErrorServlet</servlet-class>
+	</servlet>
+<servlet>
+		<servlet-name>home</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.HomePageServlet</servlet-class>
+	</servlet>
+
 
 	<!-- Servlets mapping -->
 	<servlet-mapping>
@@ -41,8 +54,8 @@
 		<url-pattern>/auth</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>admin</servlet-name>
-		<url-pattern>/admin</url-pattern>
+		<servlet-name>manageusers</servlet-name>
+		<url-pattern>/manageusers</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>librarian</servlet-name>
@@ -64,6 +77,21 @@
 		<servlet-name>addcategory</servlet-name>
 		<url-pattern>/addcategory</url-pattern>
 	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>loans</servlet-name>
+		<url-pattern>/loans</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>error</servlet-name>
+		<url-pattern>/error-handler</url-pattern>
+	</servlet-mapping>
+
+		<servlet-mapping>
+		<servlet-name>home</servlet-name>
+		<url-pattern>/homepage</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Welcome page -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
@@ -80,4 +108,33 @@
 		<url-pattern>/admin</url-pattern>
 	</filter-mapping>
 
+<!-- Errors handling -->
+<error-page>
+<location>/error-handler</location>
+</error-page>
+
+<error-page>
+<error-code>404</error-code>
+<location>/error-handler</location>
+</error-page>
+
+<error-page>
+<exception-type>java.lang.UnsupportedOperationException</exception-type>
+<location>/error-handler</location>
+</error-page>
+
+<error-page>
+<exception-type>java.lang.IllegalStateException</exception-type>
+<location>/error-handler</location>
+</error-page>
+
+<error-page>
+<exception-type>java.nio.channels.OverlappingFileLockException</exception-type>
+<location>/error-handler</location>
+</error-page>
+
+<error-page>
+<exception-type>com.nixsolutions.dao.DaoException</exception-type>
+<location>/error-handler</location>
+</error-page>
 </web-app>

@@ -39,7 +39,7 @@ public class Author {
 	}
 	
 	public String toString() {
-		return "author with Id: " + this.authorId + "; firstName: " + this.firstName + "; lastName: " + this.secondName;
+		return this.firstName + " " + this.secondName;
 
 	}
 

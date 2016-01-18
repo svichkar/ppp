@@ -1,25 +1,24 @@
 package com.nixsolutions.entity;
 
 public class Client {
-	private Integer clientId;
+	private Long clientId;
 	private String firstName;
 	private String secondName;
+	private String name;
 	private String phone;
 	private String email;
 
-	/*
-	public Client(int clientId, String firstName, String secondName) {
-		super();
-		this.clientId = clientId;
-		this.firstName = firstName;
-		this.secondName = secondName;
+public Client(){
+	name = firstName + " " + secondName;
+}
+	public String getName(){
+		return name;
 	}
-*/
-	public Integer getClientId() {
+	public Long getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(int clientId) {
+	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
 
@@ -56,7 +55,7 @@ public class Client {
 	}
 	
 	public String toString() {
-		return "client with clientId: " + this.clientId + "; firstName: " + this.firstName + "; lastName: " + this.secondName;
+		return this.firstName + " " + this.secondName;
 
 	}
 

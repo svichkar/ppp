@@ -28,7 +28,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Category category = new Category(result.getString("name"));
-				category.setCategoryId(result.getInt("category_id"));
+				category.setCategoryId(result.getLong("category_id"));
 				categories.add(category);
 			}
 		} catch (SQLException e) {
@@ -38,16 +38,16 @@ public class CategoryDaoImpl implements CategoryDao {
 	}
 
 	@Override
-	public Category getCategoryById(int categoryId) {
+	public Category getCategoryById(Long categoryId) {
 		LOG.entry(categoryId);
 		String sql = "SELECT * FROM category WHERE category_id = ?;";
 		Category category = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, categoryId);
+			statem.setLong(1, categoryId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				category = new Category(result.getString("name"));
-				category.setCategoryId(result.getInt("category_id"));
+				category.setCategoryId(result.getLong("category_id"));
 			}
 			LOG.trace("the category was retrieved");
 		} catch (SQLException e) {
@@ -66,7 +66,7 @@ public class CategoryDaoImpl implements CategoryDao {
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				category = new Category(result.getString("name"));
-				category.setCategoryId(result.getInt("category_id"));
+				category.setCategoryId(result.getLong("category_id"));
 			}
 			LOG.trace("the category was retrieved");
 		} catch (SQLException e) {

@@ -28,7 +28,7 @@ public class CellDaoImpl implements CellDao{
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Cell cell = new Cell(result.getString("name"));
-				cell.setCellId(result.getInt("cell_id"));
+				cell.setCellId(result.getLong("cell_id"));
 				cells.add(cell);
 			}
 			LOG.trace("all the cells were retrieved");
@@ -39,16 +39,16 @@ public class CellDaoImpl implements CellDao{
 	}
 
 	@Override
-	public Cell getCellById(int cellId) {
+	public Cell getCellById(Long cellId) {
 		LOG.entry(cellId);
 		String sql = "SELECT * FROM cell WHERE cell_id = ?;";
 		Cell cell = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, cellId);
+			statem.setLong(1, cellId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				cell = new Cell(result.getString("name"));
-				cell.setCellId(result.getInt("cell_id"));
+				cell.setCellId(result.getLong("cell_id"));
 			}
 			LOG.trace("the cell was retrieved");
 		} catch (SQLException e) {
@@ -67,7 +67,7 @@ public class CellDaoImpl implements CellDao{
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				cell = new Cell(result.getString("name"));
-				cell.setCellId(result.getInt("cell_id"));
+				cell.setCellId(result.getLong("cell_id"));
 			}
 			LOG.trace("the cell was retrieved");
 		} catch (SQLException e) {

@@ -3,38 +3,33 @@ package com.nixsolutions.entity;
 import java.util.Date;
 
 public class RentJournal {
-	private Integer rentId;
-	private Integer bookId;
-	private Integer clientId;
+	private Long rentId;
+	private Long bookId;
+	private Long clientId;
 	private Date rentDate;
 	private Date returnDate;
 
-	/*
-	 * public RentJournal(int rentId, int bookId, int clientId, Date rentDate) {
-	 * super(); this.rentId = rentId; this.bookId = bookId; this.clientId =
-	 * clientId; this.rentDate = rentDate; }
-	 */
-	public Integer getRentId() {
+	public Long getRentId() {
 		return rentId;
 	}
 
-	public void setRentId(int rentId) {
+	public void setRentId(Long rentId) {
 		this.rentId = rentId;
 	}
 
-	public Integer getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 
-	public Integer getClientId() {
+	public Long getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(int clientId) {
+	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
 

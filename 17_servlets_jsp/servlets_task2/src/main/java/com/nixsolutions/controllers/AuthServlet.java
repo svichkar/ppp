@@ -31,16 +31,23 @@ public class AuthServlet extends HttpServlet {
 		User user = factory.getUserDao().getUserByNameAndPswd(usr, pswd);
 		HttpSession session = request.getSession();
 
+		LOG.debug("value of the auth button " + request.getParameter("button"));
+		String button = request.getParameter("button");
+		
+		//click on login
+		
+	if(button.equals("login")){
+		
 		response.setContentType("text/html");
 		if (user != null) {
 			if (user.getRoleId().equals(1)) {
 				session.setAttribute("usrRole", "admin");
 				session.setAttribute("usrName", usr);
-				response.sendRedirect("admin");
+				response.sendRedirect("homepage");
 			} else {
 				session.setAttribute("usrRole", "regular");
 				session.setAttribute("usrName", usr);
-				response.sendRedirect("librarian");
+				response.sendRedirect("homepage");
 			}
 		} else {
 			out.print(
@@ -48,5 +55,30 @@ public class AuthServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("index.html");
 			rd.include(request, response);
 		}
+		}
+		
+		//click on registration
+	if(button.equals("register")){
+		
+		
+		if(factory.getUserDao().getUserByNameAndPswd(usr, pswd) == null){
+			User createUser = new User(usr, pswd, 2);
+			factory.getUserDao().createUser(createUser);
+			out.print(
+					"<p style=\"color:red\">user created, you can login now</p>");
+			RequestDispatcher rd = request.getRequestDispatcher("index.html");
+			rd.include(request, response);
+			
+		} else {
+			out.print(
+					"<p style=\"color:red\">Please choose another name, this one is already taken</p>");
+			RequestDispatcher rd = request.getRequestDispatcher("index.html");
+			rd.include(request, response);
+		}
+		
+		
+		
+	}
+		
 	}
 }

@@ -1,7 +1,7 @@
 package com.nixsolutions.entity;
 
 public class Cell {
-	private Integer cellId;
+	private Long cellId;
 	private String name;
 
 	public Cell(String name) {
@@ -9,11 +9,11 @@ public class Cell {
 		this.name = name;
 	}
 
-	public Integer getCellId() {
+	public Long getCellId() {
 		return cellId;
 	}
 
-	public void setCellId(int cellId) {
+	public void setCellId(Long cellId) {
 		this.cellId = cellId;
 	}
 

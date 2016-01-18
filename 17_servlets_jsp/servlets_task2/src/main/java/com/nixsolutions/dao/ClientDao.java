@@ -6,8 +6,9 @@ import com.nixsolutions.entity.Client;
 
 public interface ClientDao {
 	public List<Client> getAllClients();
-	public Client getClientById(int clientId);
+	public Client getClientById(Long clientId);
 	public void createClient(Client client);
 	public void updateClient(Client client);
 	public void deleteClient(Client client);
+	public Client getClientByName(String readerName);
 }

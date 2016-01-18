@@ -80,18 +80,18 @@ public class DaoDemo {
 		// creation of the book table entry
 		Book book1 = new Book();
 		book1.setName("book1");
-		book1.setCategoryId(1);
-		book1.setCellId(1);
+		book1.setCategoryId(1l);
+		book1.setCellId(1l);
 
 		Book book2 = new Book();
 		book2.setName("book2");
-		book2.setCategoryId(2);
-		book2.setCellId(2);
+		book2.setCategoryId(2l);
+		book2.setCellId(2l);
 
 		Book book3 = new Book();
 		book3.setName("book3");
-		book3.setCategoryId(2);
-		book3.setCellId(2);
+		book3.setCategoryId(2l);
+		book3.setCellId(2l);
 
 		factory.getBookDao().createBook(book1);
 		factory.getBookDao().createBook(book2);
@@ -108,20 +108,20 @@ public class DaoDemo {
 
 		// creation of the rent_journal entry
 		RentJournal rentJournal1 = new RentJournal();
-		rentJournal1.setBookId(1);
-		rentJournal1.setClientId(1);
+		rentJournal1.setBookId(1l);
+		rentJournal1.setClientId(1l);
 		rentJournal1.setRentDate(Date.valueOf("2015-08-21"));
 		rentJournal1.setReturnDate(null);
 
 		RentJournal rentJournal2 = new RentJournal();
-		rentJournal2.setBookId(2);
-		rentJournal2.setClientId(1);
+		rentJournal2.setBookId(2l);
+		rentJournal2.setClientId(1l);
 		rentJournal2.setRentDate(Date.valueOf("2015-08-21"));
 		rentJournal2.setReturnDate(null);
 
 		RentJournal rentJournal3 = new RentJournal();
-		rentJournal3.setBookId(3);
-		rentJournal3.setClientId(3);
+		rentJournal3.setBookId(3l);
+		rentJournal3.setClientId(3l);
 		rentJournal3.setRentDate(Date.valueOf("2015-08-21"));
 		rentJournal3.setReturnDate(Date.valueOf("2015-08-22"));
 
@@ -130,7 +130,7 @@ public class DaoDemo {
 		factory.getRentJournalDao().createRent(rentJournal3);
 
 		// get a client and update of the client's information
-		Client client = factory.getClientDao().getClientById(1);
+		Client client = factory.getClientDao().getClientById(1l);
 		System.out.println("name before update: " + client.getFirstName()
 				+ "; lastname before update: " + client.getSecondName()
 				+ "; client email before update: " + client.getEmail());
@@ -140,7 +140,7 @@ public class DaoDemo {
 		client.setEmail("oleg@mail.com");
 		
 		factory.getClientDao().updateClient(client);
-		client = factory.getClientDao().getClientById(1);
+		client = factory.getClientDao().getClientById(1l);
 		System.out.println("name after update: " + client.getFirstName()
 		+ "; lastname after update: " + client.getSecondName()
 		+ "; client email after update: " + client.getEmail());

@@ -28,7 +28,7 @@ public class ClientDaoImpl implements ClientDao {
 			ResultSet result = statem.executeQuery(sql);
 			while (result.next()) {
 				Client client = new Client();
-				client.setClientId(result.getInt("client_id"));
+				client.setClientId(result.getLong("client_id"));
 				client.setFirstName(result.getString("first_name"));
 				client.setSecondName(result.getString("last_name"));
 				client.setPhone(result.getString("phone"));
@@ -43,16 +43,16 @@ public class ClientDaoImpl implements ClientDao {
 	}
 
 	@Override
-	public Client getClientById(int clientId) {
+	public Client getClientById(Long clientId) {
 		LOG.entry(clientId);
 		String sql = "SELECT * FROM client WHERE client_id = ?;";
 		Client client = null;
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setInt(1, clientId);
+			statem.setLong(1, clientId);
 			ResultSet result = statem.executeQuery();
 			if (result.next()) {
 				client = new Client();
-				client.setClientId(result.getInt("client_id"));
+				client.setClientId(result.getLong("client_id"));
 				client.setFirstName(result.getString("first_name"));
 				client.setSecondName(result.getString("last_name"));
 				client.setPhone(result.getString("phone"));
@@ -110,6 +110,30 @@ public class ClientDaoImpl implements ClientDao {
 			LOG.throwing(new DaoException("not able to delete the author", e));
 		}
 
+	}
+
+	@Override
+	public Client getClientByName(String readerName) {
+		LOG.entry(readerName);
+		String sql = "SELECT * FROM client WHERE first_name = ? OR last_name = ?;";
+		Client client = null;
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, readerName);
+			statem.setString(2, readerName);
+			ResultSet result = statem.executeQuery();
+			if (result.next()) {
+				client = new Client();
+				client.setClientId(result.getLong("client_id"));
+				client.setFirstName(result.getString("first_name"));
+				client.setSecondName(result.getString("last_name"));
+				client.setPhone(result.getString("phone"));
+				client.setEmail(result.getString("email"));
+			}
+			LOG.trace("the client was retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get a client by Id", e));
+		}
+		return LOG.exit(client);
 	}
 
 }

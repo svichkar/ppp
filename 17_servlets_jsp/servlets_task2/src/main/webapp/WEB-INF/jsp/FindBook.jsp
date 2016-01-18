@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="admin page">
+<t:general_template title="find book">
 	<jsp:attribute name="content_area">
-<h2>Find book</h2>
+<h2 class = "fixed">Find book</h2>
 <form id="create" action="findbook" method="post">
 				<select name="search criteria" required>
 						<option selected disabled value="">search by</option>
@@ -19,13 +19,16 @@
 		</form>
 	<jsp:useBean id="book" class="com.nixsolutions.model.BookBean" />
 		<c:if test="${not empty allBooks}">
+		<form id="to loan" action="loans" method="post">
+		<input type="submit" value="Submit loans">
 		<table>
 			<tr>
-				<td>book_id</td>
-				<td>book_name</td>
-				<td>cell</td>
-				<td>category</td>
-				<td>author</td>
+				<th>book_id</th>
+				<th>book_name</th>
+				<th>cell</th>
+				<th>category</th>
+				<th>author</th>
+				<th>loan</th>
 			</tr>
 			
 			<c:forEach var="book" items="${allBooks}">
@@ -35,9 +38,11 @@
 					<td>${book.cell.name}</td>
 					<td>${book.category.name}</td>
 					<td>${book.authors}</td>
+					<td><input type="checkbox" name="loaned" value="${book.book.bookId}"/></td>
 				</tr>
 			</c:forEach>
 		</table>
+		</form>
 </c:if>
 		</jsp:attribute>
 </t:general_template>

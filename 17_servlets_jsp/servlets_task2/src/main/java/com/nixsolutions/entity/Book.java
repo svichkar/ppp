@@ -3,21 +3,9 @@ package com.nixsolutions.entity;
 public class Book {
 	private Long bookId;
 	private String name;
-	private Integer cellId;
-	private Integer categoryId;
-	//private Integer authorId;
+	private Long cellId;
+	private Long categoryId;
 
-	/*
-	public Book(int bookId, String name, int cellId, int categoryId,
-			int authorId) {
-		super();
-		this.bookId = bookId;
-		this.name = name;
-		this.cellId = cellId;
-		this.categoryId = categoryId;
-		this.authorId = authorId;
-	}
-*/
 	public Long getBookId() {
 		return bookId;
 	}
@@ -34,19 +22,19 @@ public class Book {
 		this.name = name;
 	}
 
-	public Integer getCellId() {
+	public Long getCellId() {
 		return cellId;
 	}
 
-	public void setCellId(int cellId) {
+	public void setCellId(Long cellId) {
 		this.cellId = cellId;
 	}
 
-	public Integer getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 	

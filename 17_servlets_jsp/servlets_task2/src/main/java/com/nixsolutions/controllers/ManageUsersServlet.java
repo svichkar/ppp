@@ -20,7 +20,7 @@ import com.nixsolutions.entity.User;
 
 
 	@SuppressWarnings("serial")
-	public class AdminServlet extends HttpServlet{
+	public class ManageUsersServlet extends HttpServlet{
 		private static final Logger LOG = LogManager.getLogger();
 		private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 		
@@ -32,19 +32,14 @@ import com.nixsolutions.entity.User;
 			request.setAttribute("users", users);
 			request.setAttribute("roles", allRoles);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AdminPage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageUsers.jsp");
 			rd.forward(request, response);
 		}
 		
 		public void doPost(HttpServletRequest request, HttpServletResponse response)
 				throws IOException, ServletException {
 			PrintWriter out = response.getWriter(); 
-			if (request.getSession(false) == null
-					|| request.getSession().getAttribute("usrRole") == null
-					|| !request.getSession().getAttribute("usrRole")
-							.equals("admin")) {
-				out.print("<p style=\"color:red\">you are not authorized to be here</p>");
-			} else {
+
 				String usr = request.getParameter("username");
 				String pswd = request.getParameter("password");
 				String roleName = request.getParameter("selectrole");
@@ -77,9 +72,10 @@ import com.nixsolutions.entity.User;
 					factory.getUserDao().createUser(createUser);
 					response.sendRedirect("admin");
 					}
+				out.close();
 				}
-			out.close();
+		
 		}
 	
-}
+
 

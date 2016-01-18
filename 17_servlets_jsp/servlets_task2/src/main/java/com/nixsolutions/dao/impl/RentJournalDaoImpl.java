@@ -35,9 +35,9 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			result = statem.executeQuery(sql);
 			while (result.next()) {
 				RentJournal rentJournal = new RentJournal();
-				rentJournal.setRentId(result.getInt("ticket_id"));
-				rentJournal.setBookId(result.getInt("book_id"));
-				rentJournal.setClientId(result.getInt("client_id"));
+				rentJournal.setRentId(result.getLong("ticket_id"));
+				rentJournal.setBookId(result.getLong("book_id"));
+				rentJournal.setClientId(result.getLong("client_id"));
 				rentJournal.setRentDate(result.getDate("rent_date"));
 				rentJournal.setReturnDate(result.getDate("return_date"));
 				rentJournals.add(rentJournal);
@@ -53,7 +53,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	}
 
 	@Override
-	public RentJournal getRentById(int rentId) {
+	public RentJournal getRentById(Long rentId) {
 		LOG.entry(rentId);
 		String sql = "SELECT * FROM rent_journal WHERE ticket_id = ?;";
 		RentJournal rentJournal = null;
@@ -62,13 +62,13 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		ResultSet result = null;
 		try {conn = H2ConnManager.getConnection();
 			statem = conn.prepareStatement(sql);
-			statem.setInt(1, rentId);
+			statem.setLong(1, rentId);
 			result = statem.executeQuery();
 			if (result.next()) {
 				rentJournal = new RentJournal();
-				rentJournal.setRentId(result.getInt("ticket_id"));
-				rentJournal.setBookId(result.getInt("book_id"));
-				rentJournal.setClientId(result.getInt("client_id"));
+				rentJournal.setRentId(result.getLong("ticket_id"));
+				rentJournal.setBookId(result.getLong("book_id"));
+				rentJournal.setClientId(result.getLong("client_id"));
 				rentJournal.setRentDate(result.getDate("rent_date"));
 				rentJournal.setReturnDate(result.getDate("return_date"));
 			}
@@ -93,8 +93,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn = H2ConnManager.getConnection();
 			statem = conn.prepareStatement(sql);
 			conn.setAutoCommit(false);
-			statem.setInt(1, rentJournal.getBookId());
-			statem.setInt(2, rentJournal.getClientId());
+			statem.setLong(1, rentJournal.getBookId());
+			statem.setLong(2, rentJournal.getClientId());
 			statem.setDate(3, (Date) rentJournal.getRentDate());
 			statem.setDate(4, (Date) rentJournal.getReturnDate());
 			statem.executeUpdate();
@@ -119,11 +119,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn = H2ConnManager.getConnection();
 			statem = conn.prepareStatement(sql);
 			conn.setAutoCommit(false);
-			statem.setInt(1, rentJournal.getBookId());
-			statem.setInt(2, rentJournal.getClientId());
+			statem.setLong(1, rentJournal.getBookId());
+			statem.setLong(2, rentJournal.getClientId());
 			statem.setDate(3, (Date) rentJournal.getRentDate());
 			statem.setDate(4, (Date) rentJournal.getReturnDate());
-			statem.setInt(5, rentJournal.getRentId());
+			statem.setLong(5, rentJournal.getRentId());
 			statem.executeUpdate();
 			conn.commit();
 			LOG.exit("rentJournal was updated");
@@ -157,5 +157,37 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			H2ConnManager.closeQuitely(statem);
 			H2ConnManager.closeQuitely(conn);
 			}
+	}
+
+	@Override
+	public List<RentJournal> getRentsByClientId(Long clientId) {
+		LOG.entry(clientId);
+		String sql = "SELECT * FROM rent_journal WHERE client_id = ?;";
+		Connection conn = null;
+		PreparedStatement statem = null;
+		ResultSet result = null;
+		List<RentJournal> rentJournals = new ArrayList<>();
+		try {conn = H2ConnManager.getConnection();
+			statem = conn.prepareStatement(sql);
+			statem.setLong(1, clientId);
+			result = statem.executeQuery();
+			while (result.next()) {
+				RentJournal rentJournal = new RentJournal();
+				rentJournal.setRentId(result.getLong("ticket_id"));
+				rentJournal.setBookId(result.getLong("book_id"));
+				rentJournal.setClientId(result.getLong("client_id"));
+				rentJournal.setRentDate(result.getDate("rent_date"));
+				rentJournal.setReturnDate(result.getDate("return_date"));
+				rentJournals.add(rentJournal);
+			}
+		} catch (SQLException e) {
+			LOG.throwing(
+					new DaoException("not able to get a rentJournal by clientId", e));
+		}finally {
+			H2ConnManager.closeQuitely(result);
+			H2ConnManager.closeQuitely(statem);
+			H2ConnManager.closeQuitely(conn);
+			}
+		return LOG.exit(rentJournals);
 	}
 }

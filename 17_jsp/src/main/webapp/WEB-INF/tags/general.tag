@@ -19,7 +19,7 @@
 <body>
 <div id=container>
     <div id="sidebar">
-        <c:if test="${role == 'manager'}">
+        <c:if test="${sessionScope.role == 'manager'}">
             <p><a href="homepage?login=<c:out value="${login}"/>" class="customLink">Home Page</a></p>
             <p><a href="orders?login=<c:out value="${login}"/>" class="customLink">Orders</a></p>
             <p><a href="workers?login=<c:out value="${login}"/>" class="customLink">Workers</a></p>

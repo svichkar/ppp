@@ -52,11 +52,11 @@ INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(3, 2, CUR
 INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(4, 3, CURRENT_TIMESTAMP());
 INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(5, 2, CURRENT_TIMESTAMP());
 
-INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (50,1,2);
-INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (51,2,1);
-INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (52,3,3);
-INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (53,4,3);
-INSERT INTO employee_car_order (identifier, employee_id, car_order_id) VALUES (54,5,5);
+INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (1,2);
+INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (2,1);
+INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (3,3);
+INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (4,3);
+INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (5,5);
 
 DELETE FROM employee_car_order WHERE employee_id = 5;
 DELETE FROM employee WHERE first_name = 'Mega';

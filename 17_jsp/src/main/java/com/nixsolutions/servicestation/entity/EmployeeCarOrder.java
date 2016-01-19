@@ -40,4 +40,14 @@ public class EmployeeCarOrder {
     public void setIdentifier(Integer identifier) {
         this.identifier = identifier;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        EmployeeCarOrder employeeCarOrder = (EmployeeCarOrder) obj;
+        if(employeeId.equals(employeeCarOrder.employeeId) && carOrderId.equals(employeeCarOrder.carOrderId)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

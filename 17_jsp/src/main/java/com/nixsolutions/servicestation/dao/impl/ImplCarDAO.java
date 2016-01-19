@@ -141,4 +141,32 @@ public class ImplCarDAO implements CarDAO {
         }
         return carBeans;
     }
+
+    public List<CarBean> getCarWithoutOrder(){
+        List<CarBean> carBeans = new ArrayList<>();
+        int i=0;
+        String sql = "select ct.brand, ct.model_name, c.serial_id, c.car_id from car c " +
+                "left join car_order co on c.car_id=co.car_id " +
+                "inner join car_type ct on c.car_type_id=ct.car_type_id " +
+                "where co.car_order_id is null;";
+        try (Connection conn = CustomConnectionManager.getConnection();
+             PreparedStatement pStatement = conn.prepareStatement(sql)) {
+            ResultSet rs = pStatement.executeQuery();
+            while (rs.next()) {
+                CarBean cb = new CarBean();
+                cb.setCarId(rs.getInt("car_id"));
+                cb.setCarBrand((rs.getString("brand")));
+                cb.setCarModel((rs.getString("model_name")));
+                cb.setCarVIN(rs.getString("serial_id"));
+                carBeans.add(cb);
+                i++;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e);
+        }
+        if (carBeans != null) {
+            LOGGER.trace(i + " rows by getCarWithoutOrder were found");
+        }
+        return carBeans;
+    }
 }

@@ -24,10 +24,9 @@ public class ImplEmployeeCarOrderDAO implements EmployeeCarOrderDAO {
     public void create(EmployeeCarOrder entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("INSERT INTO employee_car_order " +
-                     "(identifier, employee_id, car_order_id) VALUES (?, ?, ?);")) {
-            pStatement.setInt(1, entity.getIdentifier());
-            pStatement.setInt(2, entity.getEmployeeId());
-            pStatement.setInt(3, entity.getCarOrderId());
+                     "(employee_id, car_order_id) VALUES (?, ?);")) {
+            pStatement.setInt(1, entity.getEmployeeId());
+            pStatement.setInt(2, entity.getCarOrderId());
             pStatement.execute();
             LOGGER.trace("Row in employee_car_order was created");
         } catch (SQLException e) {
@@ -39,13 +38,12 @@ public class ImplEmployeeCarOrderDAO implements EmployeeCarOrderDAO {
     public void update(EmployeeCarOrder entity) {
         try (Connection connection = CustomConnectionManager.getConnection();
              PreparedStatement pStatement = connection.prepareStatement("UPDATE employee_car_order " +
-                     "SET identifier=?, employee_id=?, car_order_id=? WHERE identifier=?;")) {
-            pStatement.setInt(1, entity.getIdentifier());
-            pStatement.setInt(2, entity.getEmployeeId());
-            pStatement.setInt(3, entity.getCarOrderId());
-            pStatement.setInt(4, entity.getIdentifier());
+                     "SET employee_id=?, car_order_id=? WHERE identifier=?;")) {
+            pStatement.setInt(1, entity.getEmployeeId());
+            pStatement.setInt(2, entity.getCarOrderId());
+            pStatement.setInt(3, entity.getIdentifier());
             pStatement.execute();
-            LOGGER.trace("Row in employee_car_order with id = " + entity.getEmployeeId() + " was updated");
+            LOGGER.trace("Row in employee_car_order with id = " + entity.getIdentifier() + " was updated");
         } catch (SQLException e) {
             LOGGER.error(e);
         }
@@ -58,7 +56,7 @@ public class ImplEmployeeCarOrderDAO implements EmployeeCarOrderDAO {
                      "WHERE identifier=?;")) {
             pStatement.setInt(1, entity.getIdentifier());
             pStatement.execute();
-            LOGGER.trace("Row in employee_car_order with id = " + entity.getEmployeeId() + " was deleted");
+            LOGGER.trace("Row in employee_car_order with id = " + entity.getIdentifier() + " was deleted");
         } catch (SQLException e) {
             LOGGER.error(e);
         }

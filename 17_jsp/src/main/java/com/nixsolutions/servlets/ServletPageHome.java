@@ -24,7 +24,7 @@ public class ServletPageHome extends HttpServlet {
             if (user.getPassword().equals(req.getParameter("pass"))) {
                 Role role = factoryDAO.getRoleDAO().findById(user.getRoleId());
                 req.setAttribute("login", req.getParameter("login"));
-                req.setAttribute("role", role.getRoleName());
+                req.getSession().setAttribute("role", role.getRoleName());
                 if (role.getRoleName().equals("manager")) {
                     req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders());
                     req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
@@ -42,7 +42,13 @@ public class ServletPageHome extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("index.jsp");
+        if (role.getRoleName().equals("manager")) {
+            req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders());
+            req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));
+            req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+        }
     }
 
 }

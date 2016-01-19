@@ -6,6 +6,7 @@
             <table border="1">
                 <caption>Orders</caption>
                     <tr>
+                        <th>orderId</th>
                         <th>carName</th>
                         <th>carVIN</th>
                         <th>status</th>
@@ -16,7 +17,7 @@
                         <tr>
                             <form action="orders" name="upDel" method="post">
                                 <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
-                                <input type="hidden" name="carOrderId" value="<c:out value="${ucob.carOrderId}"/>">
+                                <td><input type="text" name="carOrderId" value="<c:out value="${ucob.carOrderId}"/>" readonly></td>
                                 <input type="hidden" name="carId" value="<c:out value="${ucob.carId}"/>">
                                 <td><input type="text" value ="<c:out value="${ucob.carModel}"/>" readonly></td>
                                 <td><input type="text" value ="<c:out value="${ucob.serialId}"/>" readonly></td>
@@ -37,7 +38,7 @@
                     </c:forEach>
             </table>
             <table border="1">
-                <caption>Orders</caption>
+                <caption>Car without order</caption>
                     <tr>
                         <th>carName</th>
                         <th>carVIN</th>
@@ -59,6 +60,29 @@
                         </form>
                     </tr>
             </table>
+                        <table border="1">
+                            <caption>Employee and Order</caption>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Order_id</th>
+                                </tr>
+                                <tr>
+                                    <form action="orders" name="reOrder" method="post">
+                                        <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
+                                        <td><select name="employees" required>
+                                                <c:forEach var="employee" items="${employeeList}">
+                                                    <option value="<c:out value="${employee.employeeId}"/>"><c:out value="${employee.firstName} ${employee.lastName}"/></option>
+                                                </c:forEach>
+                                            </select></td>
+                                        <td><select name="orders" required>
+                                                <c:forEach var="order" items="${ucobList}">
+                                                    <option value="<c:out value="${order.carOrderId}"/>"><c:out value="${order.carModel} ${order.serialId}"/></option>
+                                                </c:forEach>
+                                            </select></td>
+                                        <td><input type="submit" value="reOrder" name="reOrder"></td>
+                                    </form>
+                                </tr>
+                        </table>
             <c:out value="${param.message}"/>
        </c:if>
     </jsp:attribute>

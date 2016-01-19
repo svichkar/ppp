@@ -61,3 +61,7 @@ select{
 input:read-only {
     background-color: yellow;
 }
+
+table td{
+    width:auto
+}

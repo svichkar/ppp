@@ -4,6 +4,8 @@ import com.nixsolutions.servicestation.dao.FactoryDAO;
 import com.nixsolutions.servicestation.dao.impl.ImplFactoryDAO;
 import com.nixsolutions.servicestation.entity.CarOrder;
 import com.nixsolutions.servicestation.entity.CarOrderStatus;
+import com.nixsolutions.servicestation.entity.Employee;
+import com.nixsolutions.servicestation.entity.EmployeeCarOrder;
 import com.nixsolutions.servicestation.entity.extendedentity.CarBean;
 import com.nixsolutions.servicestation.entity.extendedentity.UserCarOrderBean;
 
@@ -29,7 +31,9 @@ public class ServletPageOrders extends HttpServlet {
         FactoryDAO factoryDAO = new ImplFactoryDAO();
         List<UserCarOrderBean> ucobList = factoryDAO.getCarOrderDAO().getUserCarOrders();
         List<CarOrderStatus> cosList = factoryDAO.getCarOrderStatusDAO().findAll();
-        List<CarBean> cbList = factoryDAO.getCarDAO().getUserCars();
+        List<CarBean> cbList = factoryDAO.getCarDAO().getCarWithoutOrder();
+        List<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
+        req.setAttribute("employeeList", employeeList);
         req.setAttribute("cosList", cosList);
         req.setAttribute("ucobList", ucobList);
         req.setAttribute("cbList", cbList);
@@ -40,6 +44,19 @@ public class ServletPageOrders extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new ImplFactoryDAO();
         CarOrder carOrder = new CarOrder();
+
+        if(req.getParameter("reOrder") != null){
+            List<EmployeeCarOrder> employeeCarOrderList = factoryDAO.getEmployeeCarOrderDAO().findAll();
+            EmployeeCarOrder employeeCarOrder = new EmployeeCarOrder();
+            employeeCarOrder.setEmployeeId(Integer.valueOf(req.getParameter("employees")));
+            employeeCarOrder.setCarOrderId(Integer.valueOf(req.getParameter("orders")));
+            if(employeeCarOrderList.contains(employeeCarOrder)){
+                resp.sendRedirect("orders?message=That worker is already attached to that order");
+            } else {
+                factoryDAO.getEmployeeCarOrderDAO().create(employeeCarOrder);
+                resp.sendRedirect("orders?message=This worker added to that order");
+            }
+        }
         if (req.getParameter("delete") != null) {
             carOrder.setCarOrderId(Integer.valueOf(req.getParameter("carOrderId")));
             factoryDAO.getCarOrderDAO().delete(carOrder);

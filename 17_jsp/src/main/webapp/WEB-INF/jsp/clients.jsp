@@ -15,7 +15,6 @@
                     <c:forEach var="ucb" items="${ucbList}" varStatus="status">
                         <tr>
                             <form action="clients" name="upDel" method="post">
-                                <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
                                 <input type="hidden" name="client_id" value ="<c:out value="${ucb.clientId}"/>">
                                 <input type="hidden" name="user_id" value ="<c:out value="${ucb.userId}"/>">
                                 <td><input type="text" name="first_name" value ="<c:out value="${ucb.clientFName}"/>"></td>
@@ -37,11 +36,10 @@
                     </c:forEach>
                     <tr>
                         <form action="clients" name="add" method="post">
-                            <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
-                            <td><input type="text" name="first_name"/></td>
-                            <td><input type="text" name="last_name"/></td>
-                            <td><input type="text" name="user_login"/></td>
-                            <td><input type="text" name="user_password"/></td>
+                            <td><input type="text" name="first_name" required/></td>
+                            <td><input type="text" name="last_name" required/></td>
+                            <td><input type="text" name="user_login" required/></td>
+                            <td><input type="text" name="user_password" required/></td>
                             <td><select name="roles" required>
                                     <c:forEach var="role" items="${roleList}">
                                         <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>

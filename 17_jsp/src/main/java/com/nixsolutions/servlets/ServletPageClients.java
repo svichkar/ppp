@@ -33,7 +33,7 @@ public class ServletPageClients extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new ImplFactoryDAO();
-        boolean flag=true;
+        boolean flag = true;
         User user = new User();
         Client client = new Client();
         List<User> userList = factoryDAO.getUserDAO().findAll();
@@ -50,7 +50,7 @@ public class ServletPageClients extends HttpServlet {
                     factoryDAO.getUserDAO().create(user);
                     userList = factoryDAO.getUserDAO().findAll();
                 } else {
-                    flag=false;
+                    flag = false;
                     resp.sendRedirect("clients?message=This login is already in use");
                 }
             }
@@ -76,11 +76,15 @@ public class ServletPageClients extends HttpServlet {
 
         }
         if (req.getParameter("delete") != null) {
-            client.setClientId(Integer.valueOf(req.getParameter("client_id")));
-            factoryDAO.getClientDAO().delete(client);
-            user.setUserId(Integer.valueOf(req.getParameter("user_id")));
-            factoryDAO.getUserDAO().delete(user);
-            resp.sendRedirect("clients?message=Row was deleted");
+            if (!Integer.valueOf(req.getParameter("roles")).equals(1)) {
+                client.setClientId(Integer.valueOf(req.getParameter("client_id")));
+                factoryDAO.getClientDAO().delete(client);
+                user.setUserId(Integer.valueOf(req.getParameter("user_id")));
+                factoryDAO.getUserDAO().delete(user);
+                resp.sendRedirect("clients?message=Row was deleted");
+            } else {
+                resp.sendRedirect("clients?message=You cant delete manager from here. Please enter database and delete it there");
+            }
         }
     }
 }

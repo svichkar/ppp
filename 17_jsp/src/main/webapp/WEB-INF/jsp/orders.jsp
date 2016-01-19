@@ -45,7 +45,6 @@
                     </tr>
                     <tr>
                         <form action="orders" name="add" method="post">
-                            <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
                             <td><select name="cars" required>
                                     <c:forEach var="cb" items="${cbList}">
                                         <option value="<c:out value="${cb.carId}"/>"><c:out value="${cb.carBrand} ${cb.carModel} ${cb.carVIN}"/></option>
@@ -64,7 +63,7 @@
                             <caption>Employee and Order</caption>
                                 <tr>
                                     <th>Employee</th>
-                                    <th>Order_id</th>
+                                    <th>Car in order</th>
                                 </tr>
                                 <tr>
                                     <form action="orders" name="reOrder" method="post">

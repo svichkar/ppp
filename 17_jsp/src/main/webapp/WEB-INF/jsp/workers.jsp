@@ -14,7 +14,6 @@
                     <c:forEach var="employee" items="${employeeList}" varStatus="status">
                         <tr>
                             <form action="workers" name="upDel" method="post">
-                                <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
                                 <td><input type="text" name="worker_id" value ="<c:out value="${employee.employeeId}"/>" readonly></td>
                                 <td><input type="text" name="first_name" value ="<c:out value="${employee.firstName}"/>"></td>
                                 <td><input type="text" name="last_name" value ="<c:out value="${employee.lastName}"/>"></td>
@@ -33,10 +32,9 @@
                     </c:forEach>
                     <tr>
                         <form action="workers" name="add" method="post">
-                            <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
                             <td></td>
-                            <td><input type="text" name="first_name"/></td>
-                            <td><input type="text" name="last_name"/></td>
+                            <td><input type="text" name="first_name" required/></td>
+                            <td><input type="text" name="last_name" required/></td>
                             <td><select name="category" required>
                                     <c:forEach var="employeeCategory" items="${employeeCategoryList}">
                                         <option value="<c:out value="${employeeCategory.employeeCategoryId}"/>"><c:out value="${employeeCategory.name}"/></option>
@@ -46,6 +44,7 @@
                         </form>
                     </tr>
             </table>
+            <c:out value="${param.message}"/>
        </c:if>
     </jsp:attribute>
 </t:general>

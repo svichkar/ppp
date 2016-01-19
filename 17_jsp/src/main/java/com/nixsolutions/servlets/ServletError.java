@@ -33,6 +33,7 @@ public class ServletError extends HttpServlet {
         if (exception instanceof IOException) {
             out.println("We obtained input-output error, please contact us");
         }
+        out.println("servicestation@gmail.com");
 
     }
 }

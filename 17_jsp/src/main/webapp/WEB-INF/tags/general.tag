@@ -14,7 +14,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
   <jsp:invoke fragment="head_area" />
-  <p id="header">Your are logged in as: <c:out value="${param.login}"/><p>
+  <p id="header">Your are logged in as: <c:out value="${sessionScope.role}"/><p>
 </head>
 <body>
 <div id=container>

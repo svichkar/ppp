@@ -30,7 +30,6 @@
                     </c:forEach>
                     <tr>
                         <form action="cars" name="add" method="post">
-                            <input type="hidden" name="login" value="<c:out value="${param.login}"/>">
                             <td></td>
                             <td>
                                 <select name="clients" required>
@@ -39,9 +38,9 @@
                                     </c:forEach>
                                  </select>
                             </td>
-                            <td><input type="text" name="brand"/></td>
-                            <td><input type="text" name="model_name"/></td>
-                            <td><input type="text" name="VIN"/></td>
+                            <td><input type="text" name="brand" required/></td>
+                            <td><input type="text" name="model_name" required/></td>
+                            <td><input type="text" name="VIN" required/></td>
                             <td><input type="submit" value="add" name="add"></td>
                         </form>
                     </tr>

@@ -26,12 +26,12 @@ public class CustomConnectionManager {
             try {
                 inStream = new FileInputStream(propertiesLocation);
                 properties.load(inStream);
-                /*String dbLocation = CustomConnectionManager.class.getClassLoader().getResource("sqllab.h2.db").getFile();
+                String dbLocation = CustomConnectionManager.class.getClassLoader().getResource("sqllab.h2.db").getFile();
                 String url = "jdbc:h2:file:" +
                 dbLocation.replaceAll("%20", " ").replaceAll(".h2.db", "").replaceAll("/(\\w:)", "$1") + ";FILE_LOCK=NO";
-                cPool = JdbcConnectionPool.create(url, properties.getProperty("USER"), properties.getProperty("PASSWORD"));*/
-                cPool = JdbcConnectionPool.create(properties.getProperty("JDBC_URL"),
-                        properties.getProperty("USER"), properties.getProperty("PASSWORD"));
+                cPool = JdbcConnectionPool.create(url, properties.getProperty("USER"), properties.getProperty("PASSWORD"));
+                /*cPool = JdbcConnectionPool.create(properties.getProperty("JDBC_URL"),
+                        properties.getProperty("USER"), properties.getProperty("PASSWORD"));*/
                 cPool.setMaxConnections(10);
                 cPool.setLoginTimeout(60);
             } catch (IOException e) {

@@ -8,8 +8,7 @@
 <h2 class = "fixed">Find book</h2>
 <form id="create" action="findbook" method="post">
 				<select name="search criteria" required>
-						<option selected disabled value="">search by</option>
-						<option value="all">all</option>
+						<option selected value="all">all</option>
 						<option value="name">name</option>
 						<option value="author">author</option>
 						<option value="category">category</option>

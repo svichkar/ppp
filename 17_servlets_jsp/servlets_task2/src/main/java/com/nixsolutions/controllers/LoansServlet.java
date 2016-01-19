@@ -2,6 +2,7 @@ package com.nixsolutions.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Book;
-import com.nixsolutions.entity.Category;
 import com.nixsolutions.entity.Client;
 import com.nixsolutions.entity.RentJournal;
 import com.nixsolutions.model.LoanBean;
@@ -28,7 +28,8 @@ public class LoansServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		LOG.entry(">>> book send to loan from find book: " + request.getParameter("loaned") + "; vallue of the tobeLoaned" + request.getAttribute("toBeloaned"));
+		LOG.entry(">>> book send to loan from find book: " + request.getParameter("loaned")
+				+ "; vallue of the tobeLoaned" + request.getAttribute("toBeloaned"));
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
 		rd.forward(request, response);
@@ -36,26 +37,58 @@ public class LoansServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		LOG.entry(">>>" + request.getParameterValues("loaned"), request.getAttribute("toBeloaned"), request.getParameter("search input"));
+		LOG.entry(">>>" + request.getParameterValues("loaned"), request.getAttribute("toBeloaned"),
+				request.getParameter("search input"));
 
 		String[] booksIds = request.getParameterValues("loaned");
 		String readerName = request.getParameter("search input");
+		String readerId = request.getParameter("current client");
+		String[] selectedBooks = request.getParameterValues("selectbook");
+
+		Client reader = null;
+
+		// loaned book list section
 		List<Book> toBeloaned = new ArrayList<>();
-		if (booksIds != null){
-			
+		if (booksIds != null) {
+
 			for (String bookId : booksIds) {
 				toBeloaned.add(factory.getBookDao().getBookById(Long.valueOf(bookId)));
 			}
-			request.getSession().setAttribute("toBeloaned", toBeloaned);
+			request.setAttribute("toBeloaned", toBeloaned);
 		}
-		
-		if (readerName != null) {
-			Client reader = factory.getClientDao().getClientByName(readerName);
-			LOG.debug("Name search was: " + readerName + "; Reader was retrieved: " + reader);
-			List<LoanBean> loans = LoanBean.getBookBeansByClientId(reader.getClientId());
 
-			request.setAttribute("reader", reader);
-			request.setAttribute("loans", loans);
+		// reader active loans section (need to be rendered by submited name or
+		// current client on page)
+
+		if (readerName != null) {
+
+			reader = factory.getClientDao().getClientByName(readerName);
+			if (reader != null) {
+				LOG.debug(">>>>>>>>>>>>>>>>Name search was: " + readerName
+						+ "; Reader was retrieved: " + reader);
+				List<LoanBean> loans = LoanBean.getBookBeansByClientId(reader.getClientId());
+
+				request.setAttribute("reader", reader);
+				request.setAttribute("loans", loans);
+			} else {
+				reader = factory.getClientDao().getClientById(Long.valueOf(readerId));
+				List<LoanBean> loans = LoanBean.getBookBeansByClientId(reader.getClientId());
+
+				request.setAttribute("reader", reader);
+				request.setAttribute("loans", loans);
+			}
+		}
+
+		// submit a book to reader
+		LOG.debug(">>>>>>>>>>>>>books to be added to loan " + selectedBooks);
+		if (selectedBooks != null) {
+			for (String id : selectedBooks) {
+				RentJournal rent = new RentJournal();
+				rent.setBookId(Long.valueOf(id));
+				rent.setClientId(reader.getClientId());
+				rent.setRentDate(new Date());
+				factory.getRentJournalDao().createRent(rent);
+			}
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");

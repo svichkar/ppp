@@ -20,6 +20,7 @@
 <div id=container>
     <div id="sidebar">
         <c:if test="${role == 'manager'}">
+            <p><a href="homepage?login=<c:out value="${login}"/>" class="customLink">Home Page</a></p>
             <p><a href="orders?login=<c:out value="${login}"/>" class="customLink">Orders</a></p>
             <p><a href="workers?login=<c:out value="${login}"/>" class="customLink">Workers</a></p>
             <p><a href="cars?login=<c:out value="${login}"/>" class="customLink">Cars</a></p>
@@ -28,7 +29,7 @@
         </c:if>
     </div>
     <div id="content">
-        <form action="logout" method="post"/>
+        <form action="index.jsp" method="get"/>
                 <input type="submit" value="Logout">
         </form>
         <jsp:invoke fragment="content_area" />

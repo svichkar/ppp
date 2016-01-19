@@ -69,7 +69,7 @@ public class JDBCCreateTables {
                     "car_order_id BIGINT IDENTITY," +
                     "car_id BIGINT," +
                     "car_order_status_id TINYINT," +
-                    "start_date TIMESTAMP NOT NULL," +
+                    "start_date TIMESTAMP," +
                     "end_date TIMESTAMP,);");
             statement.addBatch("ALTER TABLE car_order " +
                     "ADD FOREIGN KEY (car_id) " +

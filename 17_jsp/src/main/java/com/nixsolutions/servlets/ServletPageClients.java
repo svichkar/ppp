@@ -78,9 +78,9 @@ public class ServletPageClients extends HttpServlet {
         if (req.getParameter("delete") != null) {
             client.setClientId(Integer.valueOf(req.getParameter("client_id")));
             factoryDAO.getClientDAO().delete(client);
-            resp.sendRedirect("clients?message=Row was deleted");
             user.setUserId(Integer.valueOf(req.getParameter("user_id")));
             factoryDAO.getUserDAO().delete(user);
+            resp.sendRedirect("clients?message=Row was deleted");
         }
     }
 }

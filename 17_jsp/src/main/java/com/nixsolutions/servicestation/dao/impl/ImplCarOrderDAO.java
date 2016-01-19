@@ -39,7 +39,11 @@ public class ImplCarOrderDAO implements CarOrderDAO {
                      "SET car_id=?, car_order_status_id=?, start_date=?, end_date=? WHERE car_order_id=?;")) {
             pStatement.setInt(1, entity.getCarId());
             pStatement.setInt(2, entity.getCarOrderStatusId());
-            pStatement.setDate(3, new Date(entity.getStartDate().getTime()));
+            if (entity.getStartDate() != null) {
+                pStatement.setDate(3, new Date(entity.getStartDate().getTime()));
+            } else {
+                pStatement.setDate(3, null);
+            }
             if (entity.getEndDate() != null) {
                 pStatement.setDate(4, new Date(entity.getEndDate().getTime()));
             } else {
@@ -151,7 +155,7 @@ public class ImplCarOrderDAO implements CarOrderDAO {
     public List<UserCarOrderBean> getUserCarOrders() {
         List<UserCarOrderBean> userCarOrderBeans = new ArrayList<>();
         int i = 0;
-        String sql = "SELECT u.login, co.car_order_id, cos.name, car.serial_id, ct.brand, ct.model_name FROM user u " +
+        String sql = "SELECT u.login, co.car_order_id, co.start_date, co.end_date, cos.car_order_status_id, cos.name, car.car_id, car.serial_id, ct.brand, ct.model_name FROM user u " +
                 "INNER JOIN client c ON u.user_id = c.user_id " +
                 "INNER JOIN car ON c.client_id = car.client_id " +
                 "INNER JOIN car_type ct ON car.car_type_id = ct.car_type_id " +
@@ -167,6 +171,10 @@ public class ImplCarOrderDAO implements CarOrderDAO {
                 uco.setCarOrderStatus(rs.getString("name"));
                 uco.setSerialId(rs.getString("serial_id"));
                 uco.setCarModel(rs.getString("brand") + " " + rs.getString("model_name"));
+                uco.setStartDate(rs.getDate("start_date"));
+                uco.setEndDate(rs.getDate("end_date"));
+                uco.setCarOrderStatusId(rs.getInt("car_order_status_id"));
+                uco.setCarId(rs.getInt("car_id"));
                 userCarOrderBeans.add(uco);
                 i++;
             }

@@ -25,7 +25,7 @@ import java.util.List;
         description = "Admin page for creating/updating users",
         urlPatterns = "/admin",
         loadOnStartup = 0)
-public class AdminPageServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
 
     private String pageHtml;
     private HttpSession session;

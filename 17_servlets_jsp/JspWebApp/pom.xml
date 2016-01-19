@@ -5,7 +5,7 @@
   <artifactId>student-grades</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>jsp-jstl-project</name>
+  <name>jsp-project</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>

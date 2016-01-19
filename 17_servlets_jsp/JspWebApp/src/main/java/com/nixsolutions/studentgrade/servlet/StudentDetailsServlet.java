@@ -37,7 +37,7 @@ public class StudentDetailsServlet extends HttpServlet {
 
             case "details": {
                 request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                        "Please specify term for student grade details</br><a href=\"student\">Back to Students List</a></h4></p>");
+                        "Please specify term for student grade details</br><a href=\"/student-grades/student\">Back to Students List</a></h4></p>");
                 break;
             }
 

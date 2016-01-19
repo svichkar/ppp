@@ -29,7 +29,7 @@
         </c:if>
     </div>
     <div id="content">
-        <form action="index.jsp" method="get"/>
+        <form action="logout" method="post"/>
                 <input type="submit" value="Logout">
         </form>
         <jsp:invoke fragment="content_area" />

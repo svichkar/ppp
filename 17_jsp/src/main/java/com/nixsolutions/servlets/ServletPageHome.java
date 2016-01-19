@@ -25,13 +25,7 @@ public class ServletPageHome extends HttpServlet {
                 Role role = factoryDAO.getRoleDAO().findById(user.getRoleId());
                 req.setAttribute("login", req.getParameter("login"));
                 req.getSession().setAttribute("role", role.getRoleName());
-                if (role.getRoleName().equals("manager")) {
-                    req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders());
-                    req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
-                } else {
-                    req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));
-                    req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
-                }
+                resp.sendRedirect("homepage");
             } else {
                 resp.sendRedirect("index.jsp?cantLogin=Your password is wrong");
             }
@@ -42,12 +36,17 @@ public class ServletPageHome extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (role.getRoleName().equals("manager")) {
-            req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders());
-            req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+        FactoryDAO factoryDAO = new ImplFactoryDAO();
+        if (req.getSession().getAttribute("role") != null) {
+            if (req.getSession().getAttribute("role").equals("manager")) {
+                req.setAttribute("userCarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders());
+                req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+            } else {
+                req.setAttribute("userCarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));
+                req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+            }
         } else {
-            req.setAttribute("userCarOrders",factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));
-            req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+            resp.sendRedirect("index.jsp?cantLogin=Please log in");
         }
     }
 

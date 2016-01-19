@@ -9,10 +9,9 @@
 
 <form id="find" action=loans method="post">
 				<input type="text" name="search input" />
-				<input type=submit value="search" name="button">			
+				<input type=submit value="search" name="button">							
 		
-		
-		<%-- need to pass id parameter by select--%>
+		<c:if test="${not empty toBeloaned}">
 				<select name="selectbook" multiple required>
 						<option selected disabled value="">choose</option>
 						<c:forEach var="book" items="${toBeloaned}">
@@ -22,9 +21,7 @@
 							<input type="hidden" name="loaned" value="${book.bookId}">
 						</c:forEach>	
 				</select>  
-				<input type=submit value="loan book" name="button">	
-	
-		
+	</c:if>	
 		<c:if test="${not empty reader}">
 		<input type="hidden" name="current client" value="${reader.clientId}">
 		<p>${reader}</p>
@@ -32,30 +29,19 @@
 			<tr>
 				<th>book_name</th>
 				<th>loan date</th>
-				<th>action</th>
-			</tr>
-			
-			<c:if test="${not empty toBeloaned}"> 
-			</c:if>
-			<c:forEach var="loan" items="${loans}">
-			
+				<th>check if book is returned</th>
+			</tr>			
+			<c:forEach var="loan" items="${loans}">			
 				<tr>
-				<form id="return" action=loans method="post">
 					<td>${loan.book.name}</td>
 					<td>${loan.loan.rentDate}</td>
-					<input type="hidden" name="book returned" value="${loan.book.bookId}">
-					<td><input type=submit value="book returned" name="button"></td>
-				</form>
-				</tr>
-				
+					<td><input type="checkbox" name="book returned" value="${loan.loan.rentId}"/></td>
+				</tr>				
 			</c:forEach>
 			
 		</table>
-	
+	<input type=submit value="submit changes" name="button">
 </c:if>
-
-	</form>
-
-		
+	</form>		
 		</jsp:attribute>
 </t:general_template>

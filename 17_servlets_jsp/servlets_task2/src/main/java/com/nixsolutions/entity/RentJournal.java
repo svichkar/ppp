@@ -50,7 +50,7 @@ public class RentJournal {
 	}
 
 	public String toString() {
-		return "rent with rentId: " + this.rentId + "; bookId: " + this.bookId + "; clientId: " + this.clientId + "; rentDate: " + this.rentDate;
+		return "rent with rentId: " + this.rentId + "; bookId: " + this.bookId + "; clientId: " + this.clientId + "; rentDate: " + this.rentDate+ "; returnDate: " + this.returnDate;
 
 	}
 }

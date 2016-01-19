@@ -1,6 +1,7 @@
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,7 @@ public class LoansServlet extends HttpServlet {
 		String readerName = request.getParameter("search input");
 		String readerId = request.getParameter("current client");
 		String[] selectedBooks = request.getParameterValues("selectbook");
+		String[] returnedBooks = request.getParameterValues("book returned");
 
 		Client reader = null;
 
@@ -66,13 +68,13 @@ public class LoansServlet extends HttpServlet {
 			if (reader != null) {
 				LOG.debug(">>>>>>>>>>>>>>>>Name search was: " + readerName
 						+ "; Reader was retrieved: " + reader);
-				List<LoanBean> loans = LoanBean.getBookBeansByClientId(reader.getClientId());
+				List<LoanBean> loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 
 				request.setAttribute("reader", reader);
 				request.setAttribute("loans", loans);
 			} else {
 				reader = factory.getClientDao().getClientById(Long.valueOf(readerId));
-				List<LoanBean> loans = LoanBean.getBookBeansByClientId(reader.getClientId());
+				List<LoanBean> loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 
 				request.setAttribute("reader", reader);
 				request.setAttribute("loans", loans);
@@ -88,6 +90,15 @@ public class LoansServlet extends HttpServlet {
 				rent.setClientId(reader.getClientId());
 				rent.setRentDate(new Date());
 				factory.getRentJournalDao().createRent(rent);
+			}
+		}
+
+		// reader returned books - update rent
+		if (returnedBooks != null) {
+			for (String rentId : returnedBooks) {
+				RentJournal rent = factory.getRentJournalDao().getRentById(Long.valueOf(rentId));
+				rent.setReturnDate(new java.sql.Date(new Date().getTime()));
+				factory.getRentJournalDao().updateRent(rent);
 			}
 		}
 

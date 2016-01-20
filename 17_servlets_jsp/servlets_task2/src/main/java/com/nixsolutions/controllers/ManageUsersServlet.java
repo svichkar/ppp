@@ -57,20 +57,20 @@ import com.nixsolutions.entity.User;
 					updUser.setUserName(usr);
 					updUser.setUserPassword(pswd);
 					factory.getUserDao().updateUser(updUser);
-					response.sendRedirect("admin");
+					response.sendRedirect("manageusers");
 				}
 
 				if (request.getParameter("button").equals("delete user")) {
 					User delUser = factory.getUserDao().getUserById(
 							Integer.parseInt(request.getParameter("userid")));
 					factory.getUserDao().deleteUser(delUser);
-					response.sendRedirect("admin");
+					response.sendRedirect("manageusers");
 				}
 
 				if (request.getParameter("button").equals("create user")) {
 					User createUser = new User(usr, pswd, role.getRoleId());
 					factory.getUserDao().createUser(createUser);
-					response.sendRedirect("admin");
+					response.sendRedirect("manageusers");
 					}
 				out.close();
 				}

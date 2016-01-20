@@ -16,7 +16,7 @@
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<form id="update" action="admin" method="post">
+				<form id="update" action="manageusers" method="post">
 					<td><input type="text" name="userid" value="${user.userId}"
 						readonly /></td>
 					<td><input type="text" name="username"
@@ -55,7 +55,7 @@
 				</form>
 			</tr>
 		</c:forEach>
-		<form id="create" action="admin" method="post">
+		<form id="create" action="manageusers" method="post">
 			<tr>
 				<td></td>
 				<td><input type="text" name="username" required/></td>

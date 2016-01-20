@@ -46,38 +46,32 @@ public class LoansServlet extends HttpServlet {
 		String readerId = request.getParameter("current client");
 		String[] selectedBooks = request.getParameterValues("selectbook");
 		String[] returnedBooks = request.getParameterValues("book returned");
-
 		Client reader = null;
+		List<LoanBean> loans = null;
+		String button = request.getParameter("button");
 
 		// loaned book list section
 		List<Book> toBeloaned = new ArrayList<>();
 		if (booksIds != null) {
-
 			for (String bookId : booksIds) {
 				toBeloaned.add(factory.getBookDao().getBookById(Long.valueOf(bookId)));
 			}
 			request.setAttribute("toBeloaned", toBeloaned);
 		}
 
-		// reader active loans section (need to be rendered by submited name or
+		// reader active loans section (needs to be rendered by submited name or
 		// current client on page)
-
-		if (readerName != null) {
-
+		if ("search".equals(button)) {
 			reader = factory.getClientDao().getClientByName(readerName);
-			if (reader != null) {
-				LOG.debug(">>>>>>>>>>>>>>>>Name search was: " + readerName
-						+ "; Reader was retrieved: " + reader);
-				List<LoanBean> loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
-
-				request.setAttribute("reader", reader);
-				request.setAttribute("loans", loans);
+			if (reader == null) {
+				// do nothing or show message - there is no such reader in db
 			} else {
+				loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
+			}
+		} else {
+			if (readerId != null) {
 				reader = factory.getClientDao().getClientById(Long.valueOf(readerId));
-				List<LoanBean> loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
-
-				request.setAttribute("reader", reader);
-				request.setAttribute("loans", loans);
+				loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 			}
 		}
 
@@ -91,6 +85,7 @@ public class LoansServlet extends HttpServlet {
 				rent.setRentDate(new Date());
 				factory.getRentJournalDao().createRent(rent);
 			}
+			loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 		}
 
 		// reader returned books - update rent
@@ -100,7 +95,11 @@ public class LoansServlet extends HttpServlet {
 				rent.setReturnDate(new java.sql.Date(new Date().getTime()));
 				factory.getRentJournalDao().updateRent(rent);
 			}
+			loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 		}
+
+		request.setAttribute("loans", loans);
+		request.setAttribute("reader", reader);
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
 		rd.forward(request, response);

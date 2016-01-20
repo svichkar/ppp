@@ -113,7 +113,7 @@
 	<!-- Filter Mapping -->
 	<filter-mapping>
 		<filter-name>adminAuth</filter-name>
-		<url-pattern>/admin</url-pattern>
+		<url-pattern>/manageusers</url-pattern>
 	</filter-mapping>
 
 <!-- Errors handling -->

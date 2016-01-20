@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Category;
-import com.nixsolutions.entity.Client;
 
 @SuppressWarnings("serial")
 public class AddCategoryServlet extends HttpServlet{

@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
 
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
@@ -32,7 +36,10 @@ public class HomePageServlet extends HttpServlet {
 
 		for (RentJournal loan : rents) {
 			LOG.debug(loan.getRentDate());
-			if (loan.getReturnDate() == null) {
+			DateTime dt1 = new DateTime(loan.getRentDate());
+			DateTime dt2 = new DateTime();	
+			int returnBefore = 30;
+			if (loan.getReturnDate() == null && Days.daysBetween(dt1, dt2).getDays() > returnBefore) {
 				loansBeans.add(new LoanBean(loan));
 			}
 		}

@@ -1,8 +1,6 @@
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
-import com.nixsolutions.entity.Category;
-import com.nixsolutions.entity.Cell;
 import com.nixsolutions.entity.Client;
 
 @SuppressWarnings("serial")

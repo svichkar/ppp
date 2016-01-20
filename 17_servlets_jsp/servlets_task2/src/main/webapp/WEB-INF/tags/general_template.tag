@@ -26,7 +26,7 @@
 		<li><a href="findbook">Find book</a></li>
 		<li><a href="addbook">Add book</a></li>
 		<li><a href="addreader">Add reader</a></li>
-		<li><a href="loans">Loan book</a></li>
+		<li><a href="readersearch">Loan book</a></li>
 		<c:if test="${usrRole == 'admin'}">
 			<li><a href="manageusers">Add user</a></li>
 			<li><a href="addcategory">Add category</a></li>

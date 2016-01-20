@@ -35,12 +35,12 @@
 		<servlet-class>com.nixsolutions.controllers.AddCategoryServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>loans</servlet-name>
-		<servlet-class>com.nixsolutions.controllers.LoansServlet</servlet-class>
+		<servlet-name>readersearch</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.ReaderSearchServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>loans2</servlet-name>
-		<servlet-class>com.nixsolutions.controllers.LoansServlet2</servlet-class>
+		<servlet-name>loansmanage</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.LoansManageServlet</servlet-class>
 	</servlet>
 <servlet>
 		<servlet-name>error</servlet-name>
@@ -82,12 +82,12 @@
 		<url-pattern>/addcategory</url-pattern>
 	</servlet-mapping>
 		<servlet-mapping>
-		<servlet-name>loans</servlet-name>
-		<url-pattern>/loans</url-pattern>
+		<servlet-name>readersearch</servlet-name>
+		<url-pattern>/readersearch</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
-		<servlet-name>loans2</servlet-name>
-		<url-pattern>/loans2</url-pattern>
+			<servlet-mapping>
+		<servlet-name>loansmanage</servlet-name>
+		<url-pattern>/loansmanage</url-pattern>
 	</servlet-mapping>
 		<servlet-mapping>
 		<servlet-name>error</servlet-name>
@@ -109,12 +109,30 @@
 		<filter-name>adminAuth</filter-name>
 		<filter-class>com.nixsolutions.filters.AdminAuthFilter</filter-class>
 	</filter>
+	
+	<filter>
+		<filter-name>sessionAuth</filter-name>
+		<filter-class>com.nixsolutions.filters.SessionAuthFilter</filter-class>
+	</filter>
 
 	<!-- Filter Mapping -->
 	<filter-mapping>
 		<filter-name>adminAuth</filter-name>
 		<url-pattern>/manageusers</url-pattern>
+		<url-pattern>/addcategory</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sessionAuth</filter-name>
+		<url-pattern>/manageusers</url-pattern>
+		<url-pattern>/librarian</url-pattern>
+		<url-pattern>/findbook</url-pattern>
+		<url-pattern>/addbook</url-pattern>
+		<url-pattern>/addreader</url-pattern>
+		<url-pattern>/addcategory</url-pattern>
+		<url-pattern>/readersearch</url-pattern>
+		<url-pattern>/homepage</url-pattern>
+	</filter-mapping>
+	
 
 <!-- Errors handling -->
 <error-page>

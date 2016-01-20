@@ -1,7 +1,6 @@
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,7 @@ import com.nixsolutions.entity.RentJournal;
 import com.nixsolutions.model.LoanBean;
 
 @SuppressWarnings("serial")
-public class LoansServlet extends HttpServlet {
+public class LoansManageServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
@@ -42,13 +41,11 @@ public class LoansServlet extends HttpServlet {
 				request.getParameter("search input"));
 
 		String[] booksIds = request.getParameterValues("loaned");
-		String readerName = request.getParameter("search input");
 		String readerId = request.getParameter("current client");
 		String[] selectedBooks = request.getParameterValues("selectbook");
 		String[] returnedBooks = request.getParameterValues("book returned");
 		Client reader = null;
 		List<LoanBean> loans = null;
-		String button = request.getParameter("button");
 
 		// loaned book list section
 		List<Book> toBeloaned = new ArrayList<>();
@@ -59,21 +56,8 @@ public class LoansServlet extends HttpServlet {
 			request.setAttribute("toBeloaned", toBeloaned);
 		}
 
-		// reader active loans section (needs to be rendered by submited name or
-		// current client on page)
-		if ("search".equals(button)) {
-			reader = factory.getClientDao().getClientByName(readerName);
-			if (reader == null) {
-				// do nothing or show message - there is no such reader in db
-			} else {
-				loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
-			}
-		} else {
-			if (readerId != null) {
-				reader = factory.getClientDao().getClientById(Long.valueOf(readerId));
-				loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
-			}
-		}
+		reader = factory.getClientDao().getClientById(Long.valueOf(readerId));
+		loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 
 		// submit a book to reader
 		LOG.debug(">>>>>>>>>>>>>books to be added to loan " + selectedBooks);

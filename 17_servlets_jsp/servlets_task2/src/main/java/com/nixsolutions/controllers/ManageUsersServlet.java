@@ -1,3 +1,4 @@
+
 package com.nixsolutions.controllers;
 
 import java.io.IOException;
@@ -73,9 +74,6 @@ import com.nixsolutions.entity.User;
 					response.sendRedirect("manageusers");
 					}
 				out.close();
-				}
-		
+				}	
 		}
 	
-
-

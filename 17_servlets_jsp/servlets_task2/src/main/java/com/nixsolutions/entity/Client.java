@@ -4,16 +4,13 @@ public class Client {
 	private Long clientId;
 	private String firstName;
 	private String secondName;
-	private String name;
 	private String phone;
 	private String email;
 
 public Client(){
-	name = firstName + " " + secondName;
+	
 }
-	public String getName(){
-		return name;
-	}
+
 	public Long getClientId() {
 		return clientId;
 	}

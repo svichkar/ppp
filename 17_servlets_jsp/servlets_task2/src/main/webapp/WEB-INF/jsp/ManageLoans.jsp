@@ -7,11 +7,11 @@
 	<jsp:attribute name="content_area">
 <h2>Loans</h2>
 
-<form id="find" action=loans method="post">
-				<input type="text" name="search input" />
-				<input type=submit value="search" name="button">							
-		
+<form id="find" action=loansmanage method="post">
+				
 		<c:if test="${not empty toBeloaned}">
+		<br/>
+		<p>Chose book(s) to add to readers loan list</p>
 				<select name="selectbook" multiple required>
 						<option selected disabled value="">choose</option>
 						<c:forEach var="book" items="${toBeloaned}">
@@ -22,7 +22,7 @@
 						</c:forEach>	
 				</select>  
 	</c:if>	
-		<c:if test="${not empty reader}">
+
 		<input type="hidden" name="current client" value="${reader.clientId}">
 		<p>${reader}</p>
 		<table>
@@ -41,7 +41,7 @@
 			
 		</table>
 	<input type=submit value="submit changes" name="button">
-</c:if>
+
 	</form>		
 		</jsp:attribute>
 </t:general_template>

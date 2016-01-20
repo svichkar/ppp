@@ -8,10 +8,10 @@
 <h2>Outdated Loans</h2>
 <table>
 		<tr>
-			<td>Reader name</td>
-			<td>book in loan</td>
-			<td>loan date</td>
-			<td>overdue</td>
+			<th>Reader name</th>
+			<th>book in loan</th>
+			<th>loan date</th>
+			<th>overdue</th>
 		</tr>
 			
 				

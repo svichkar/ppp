@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AdminAuthFilter implements Filter{
+public class SessionAuthFilter implements Filter{
 	private static final Logger LOG = LogManager.getLogger();
 
 	@Override
@@ -32,13 +32,10 @@ public class AdminAuthFilter implements Filter{
 	HttpServletRequest req = (HttpServletRequest) request;
 	HttpServletResponse res = (HttpServletResponse) response;
 	
-	LOG.entry(req.getSession().getAttribute("usrRole"));
+	LOG.entry(req.getSession(false));
 	PrintWriter out = response.getWriter();
 	
-		if (req.getSession(false) == null
-				|| req.getSession().getAttribute("usrRole") == null
-				|| !req.getSession().getAttribute("usrRole")
-						.equals("admin")){
+		if (req.getSession(false) == null) {
 							out.print(
 									"<p style=\"color:red\">you are not authorized to be here</p>"); 
 							RequestDispatcher rd = request.getRequestDispatcher("index.html");

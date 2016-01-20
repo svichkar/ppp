@@ -18,7 +18,7 @@
 		</form>
 	<jsp:useBean id="book" class="com.nixsolutions.model.BookBean" />
 		<c:if test="${not empty allBooks}">
-		<form id="to loan" action="loans" method="post">
+		<form id="to loan" action=readersearch method="post">
 		<input type="submit" value="Submit loans">
 		<table>
 			<tr>

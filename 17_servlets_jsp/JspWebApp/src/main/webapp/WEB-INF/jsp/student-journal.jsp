@@ -18,7 +18,8 @@
  </thead>
  <tbody>
  <tr>
- <form method="get" action="student">
+ <form method="get" action="<c:url value="/journal/student"/>">
+ <input type="text" name="id" value="${id}" hidden/>
  <select name="term">
  <option value="" selected disabled>select term</option>
  <c:forEach items="${terms}" var="t">
@@ -40,7 +41,7 @@
 
 <tr>
 <td readOnly></td>
-<td>AVARAGE SCORE:</td>
+<td>AVERAGE SCORE:</td>
 <td>${score}</td>
 </tr>
 

@@ -116,9 +116,9 @@ ${errorSearch}
 </td>
 </form>
 
-<form method="get" action="journal/student">
+<form method="get" action="<c:url value="/journal/student"/>">
 <td>
-<input type="test" name="id" value="${current.id}" hidden/>
+<input type="text" name="id" value="${current.id}" hidden/>
 <input type="submit" name="operation" value="details"/>
 </td>
 </form>

@@ -61,6 +61,7 @@ public class StudentDetailsServlet extends HttpServlet {
                     request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
                             "No data available. Please change search criteria.</br><a href=\"student\">Back to Students List</a></h5></p>");
                 }
+                request.setAttribute("id", studentId);
                 break;
             }
         }

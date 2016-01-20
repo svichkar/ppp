@@ -53,8 +53,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("isAdmin", false);
                 }
 
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp");
-                rd.include(request, response);
+                response.sendRedirect("home");
 
             } else {
                 request.setAttribute("error", "<h5>Password is not valid. Please try again.</h5>");

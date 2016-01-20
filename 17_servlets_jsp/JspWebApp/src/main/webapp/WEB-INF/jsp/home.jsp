@@ -4,6 +4,6 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Home">
     <jsp:attribute name="content_area">
-        <h2>Content area for home</h2>
+        <h2></h2>
     </jsp:attribute>
 </t:general_template>

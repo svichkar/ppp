@@ -23,6 +23,9 @@
 </header>
 
 <div id="menubar">
+<table>
+<tr>
+<td>
   <ul id="menu">
      <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
      <li><a class="selected" href="<c:url value="/home"/>">Home</a></li>
@@ -31,6 +34,15 @@
      <li><a href="<c:url value="/term"/>">Terms</a></li>
      <li><a href="<c:url value="/journal"/>">Journal</a></li>
    </ul>
+</td
+<td>
+<p><a href="logout">Logout</a></p>
+</td>
+</tr>
+</table>
+
+
+
 </div>
 <div id="site_content">
       <div id="content">

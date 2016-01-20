@@ -6,138 +6,90 @@
     <jsp:attribute name="content_area">
 <div class="divTable">
 
-        <table>
-        <tr>
-        <td width="1%">COMMANDS</td>
-        <td width="5%">USER ID</td>
-        <td width="18%">FIRST NAME</td>
-        <td width="18%">LAST NAME</td>
-        <td width="15%">LOGIN</td>
-        <td width="15%">PASSWORD</td>
-        <td width="20%">E-MAIL</td>
-        <td width="7%">ROLE</td>
-        </tr>
+<table>
 
-        <form action="admin" method="post">
-        <tr class="rows">
-        <td>
-        <input type="submit" name="operation" value="update" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        <input type="submit" name="operation" value="delete" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        </td>
-        <td><input type="text" name="id" value="1" readonly/></td>
-        <td><input type="text" name="fisrt_name" value="Konstantin" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="last_name" value="Svichkar" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="login" value="svichkar" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="pass" value="123456789" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="email" value="2012kostyan@gmail.com" maxlength="50" pattern="\S+@[a-z]+.[a-z]+" required/></td>
-        <td>
-        <select name="role" required style="width:100%;border: none;">
-        <option selected>admin</option>
-        <option>guest</option>
-        </select>
-        </td>
-        </tr>
-        </form>
+<thead>
+<th>#</th>
+<th>First Name</th>
+<th>Last Name</th>
+<th>E-mail</th>
+<th>Login</th>
+<th>Password</th>
+<th>Role</th>
+<th>Commands</th>
+</thead>
 
-        <form action="admin" method="post">
-        <tr class="rows">
-        <td>
-        <input type="submit" name="operation" value="update" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        <input type="submit" name="operation" value="delete" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        </td>
-        <td><input type="text" name="id" value="2" readonly/></td>
-        <td><input type="text" name="fisrt_name" value="Admin" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="last_name" value="Adminovich" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="login" value="kos" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="pass" value="123" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="email" value="admin@gmail.com" maxlength="50" pattern="\S+@[a-z]+.[a-z]+" required/></td>
-        <td>
-        <select name="role" required style="width:100%;border: none;">
-        <option selected>admin</option>
-        <option>guest</option>
-        </select>
-        </td></tr>
-        </form>
-        <form action="admin" method="post">
-                <tr class="rows">
-        <td>
-        <input type="submit" name="operation" value="update" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        <input type="submit" name="operation" value="delete" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        </td>
-        <td><input type="text" name="id" value="3" readonly/></td>
-        <td><input type="text" name="fisrt_name" value="Guest" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="last_name" value="Guestovich" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="login" value="guest" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="pass" value="321" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="email" value="guest@gmail.com" maxlength="50" pattern="\S+@[a-z]+.[a-z]+" required/></td>
-        <td>
-        <select name="role" required style="width:100%;border: none;">
-        <option>admin</option>
-        <option selected>guest</option>
-        </select>
-        </td></tr>
-        </form>
-        <form action="admin" method="post">
-                <tr class="rows">
-        <td>
-        <input type="submit" name="operation" value="update" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        <input type="submit" name="operation" value="delete" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        </td>
-        <td><input type="text" name="id" value="4" readonly/></td>
-        <td><input type="text" name="fisrt_name" value="Another" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="last_name" value="One" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="login" value="one" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="pass" value="111" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="email" value="one@gmail.com" maxlength="50" pattern="\S+@[a-z]+.[a-z]+" required/></td>
-        <td>
-        <select name="role" required style="width:100%;border: none;">
-        <option>admin</option>
-        <option selected>guest</option>
-        </select>
-        </td></tr>
-        </form>
-        <form action="admin" method="post">
-                <tr class="rows">
-        <td>
-        <input type="submit" name="operation" value="update" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        <input type="submit" name="operation" value="delete" style="width:100%;color:#fffff;background-color: #e5ffff;"/>
-        </td>
-        <td><input type="text" name="id" value="5" readonly/></td>
-        <td><input type="text" name="fisrt_name" value="Admin" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="last_name" value="Second" maxlength="30" pattern="[A-Za-z]{3,30}" required/></td>
-        <td><input type="text" name="login" value="admin" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="pass" value="12345" maxlength="20" pattern="[^?-??-???]{3,20}" required/></td>
-        <td><input type="text" name="email" value="admin2@gmail.com" maxlength="50" pattern="\S+@[a-z]+.[a-z]+" required/></td>
-        <td>
-        <select name="role" required style="width:100%;border: none;">
-        <option selected>admin</option>
-        <option>guest</option>
-        </select>
-        </td></tr>
-        </form>
+<tbody>
 
-        <form action="admin" method="post">
-        <tr class="rows">
-        <td>
-        <input type="submit" name="operation" value="add" style="width:100%;height:100%;color:#fffff;background-color: #e5ffff;"/>
-        </td>
-        <td><input type="text" name="id" hidden placeholder="id"></input></td>
-        <td><input type="text" name="fisrt_name" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
-        <td><input type="text" name="last_name" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
-        <td><input type="text" name="login" pattern="[^?-??-???]{3,20}" required placeholder="login"></input></td>
-        <td><input type="text" name="pass" pattern="[^?-??-???]{3,20}" required placeholder="password"></input></td>
-        <td><input type="text" name="email" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td><td>
+<c:set var="count" value="0" scope="page" />
+<c:forEach var="current" items="${users}">
+<c:set var="count" value="${count + 1}" scope="page"/>
+<form action="admin" method="post">
+<tr>
+<td readonly>${count}</td>
+<td>
+<input type="text" name="id" value="${current.userId}" hidden/>
+<input type="text" name="name" value="${current.firstName}" maxlength="30" pattern="[A-Za-z]{3,30}" required/>
+</td>
+<td>
+<input type="text" name="lastName" value="${current.lastName}" maxlength="30" pattern="[A-Za-z]{3,30}" required/>
+</td>
+<td>
+<input type="text" name="email" value="${current.email}" maxlength="50" pattern="\S+@[a-z]+.[a-z]+" required/>
+</td>
+<td>
+<input type="text" name="login" value="${current.login}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
+</td>
+<td>
+<input type="text" name="pass" value="${current.userPassword}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
+</td>
+<td>
+<select name="role">
+<c:forEach items="${roles}" var="r">
+<c:choose>
+    <c:when test="${r.roleId == current.roleId}">
+       <option value="${r.roleName}" selected>${r.roleName}</option>
+    </c:when>
+    <c:otherwise>
+        <option value="${r.roleName}">${r.roleName}</option>
+    </c:otherwise>
+</c:choose>
+</c:forEach>
+</select>
+</td>
+<td>
+<input type="submit" name="operation" value="update"/>
+<input type="submit" name="operation" value="delete"/>
+</td>
+</tr>
+</form>
+</c:forEach>
 
-        <select name="role" required style="width:100%;border: none;">
-        <option selected disabled></option>
-        <option>admin</option>
-        <option>guest</option>
-        </select>
-        </tr>
-        </form>
+<tr>
+<form action="admin" method="post">
+<td readonly></td>
+<td><input type="text" name="name" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
+<td><input type="text" name="lastName" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
+<td><input type="text" name="email" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td>
+<td><input type="text" name="login" required placeholder="login"></input></td>
+<td><input type="text" name="pass" required placeholder="password"></input></td>
+<td>
+<select name="role" required>
+<option value="" selected disabled></option>
+<c:forEach items="${roles}" var="r">
+    <option value="${r.roleName}">${r.roleName}</option>
+</c:forEach>
+</select>
+</td>
+<td>
+<input type="submit" name="operation" value="add""/>
+</td>
+</form>
+</tr>
 
-        </table>
+</tbody>
+</table>
 </div>
 
-    </jsp:attribute>
+</jsp:attribute>
 </t:general_template>

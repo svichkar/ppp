@@ -11,7 +11,7 @@ import java.io.IOException;
  * Created by konstantin on 1/19/2016.
  */
 @WebFilter(filterName = "AuthenticationFilter",
-        urlPatterns = {"/home","/term","/student","/subject","/journal"})
+        urlPatterns = {"/home", "/term", "/student", "/subject", "/journal"})
 public class AuthenticationFilter implements Filter {
 
     private ServletContext context;
@@ -28,12 +28,18 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        String uri = request.getRequestURI();
         HttpSession session = request.getSession(false);
+        this.context.log(session == null ? "session is null" : "session IS NOT null");
+        this.context.log(session.getAttribute("isAdmin") == null ? "isAdmin is null" : String.valueOf(session.getAttribute("isAdmin")));
+        this.context.log(session.getAttribute("user") == null ? "user is null" : String.valueOf(session.getAttribute("user")));
 
-        if (session == null && !(uri.endsWith("html") || uri.endsWith("login"))) {
+        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null) {
             this.context.log("Unauthorized access request");
-            response.sendRedirect("login.html");
+            session.removeAttribute("isAdmin");
+            if(session != null) {
+                session.invalidate();
+            }
+            response.sendRedirect("login");
         } else {
             filterChain.doFilter(request, response);
         }

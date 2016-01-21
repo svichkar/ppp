@@ -30,9 +30,10 @@ public class AdminRoleFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession(false);
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
-        this.context.log(String.valueOf(isAdmin));
-
+        Boolean isAdmin = null;
+        if (session != null) {
+            isAdmin = (Boolean) session.getAttribute("isAdmin");
+        }
         if (session == null || isAdmin == null || isAdmin == false ) {
             this.context.log("Unauthorized access request");
             session.removeAttribute("isAdmin");

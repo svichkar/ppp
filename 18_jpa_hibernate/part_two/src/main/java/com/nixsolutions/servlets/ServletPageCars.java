@@ -1,4 +1,4 @@
-/*
+
 package com.nixsolutions.servlets;
 
 import com.nixsolutions.servicestation.dao.FactoryDAO;
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-*/
+
 /**
  * Created by rybkinrolla on 15.01.2016.
- *//*
+ */
 
 @WebServlet("/cars")
 public class ServletPageCars extends HttpServlet {
@@ -44,27 +44,27 @@ public class ServletPageCars extends HttpServlet {
             }
             for (CarType ct : carTypeList) {
                 if (ct.getBrand().equals(req.getParameter("brand")) && ct.getModelName().equals(req.getParameter("model_name"))) {
-                    car.setCarTypeId(ct.getCarTypeId());
+                    car.getCarType().setCarTypeId(ct.getCarTypeId());
                 }
             }
-            car.setSerialId(req.getParameter("VIN"));
+            car.setSerialVIN(req.getParameter("VIN"));
             if (req.getParameter("add") != null) {
-                car.setClientId(Integer.valueOf(req.getParameter("clients")));
+                car.getClient().setClientId(Long.valueOf(req.getParameter("clients")));
                 factoryDAO.getCarDAO().create(car);
                 resp.sendRedirect("cars?message=Row was created");
             }
             if (req.getParameter("edit") != null) {
-                car.setClientId(Integer.valueOf(req.getParameter("client_id")));
-                car.setCarId(Integer.valueOf(req.getParameter("car_id")));
+                car.getClient().setClientId(Long.valueOf(req.getParameter("client_id")));
+                car.setCarId(Long.valueOf(req.getParameter("car_id")));
                 factoryDAO.getCarDAO().update(car);
                 resp.sendRedirect("cars?message=Row was updated");
             }
         }
         if(req.getParameter("delete") != null){
-            car.setCarId(Integer.valueOf(req.getParameter("car_id")));
+            car.setCarId(Long.valueOf(req.getParameter("car_id")));
             factoryDAO.getCarDAO().delete(car);
             resp.sendRedirect("cars?message=Row was deleted");
         }
     }
 }
-*/
+

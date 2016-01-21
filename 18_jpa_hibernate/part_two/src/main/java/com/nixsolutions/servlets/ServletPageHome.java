@@ -4,6 +4,8 @@ package com.nixsolutions.servlets;
 import com.nixsolutions.servicestation.dao.FactoryDAO;
 import com.nixsolutions.servicestation.dao.impl.FactoryDAOImpl;
 import com.nixsolutions.servicestation.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,9 +25,8 @@ public class ServletPageHome extends HttpServlet {
         if (user != null) {
             if (user.getPassword().equals(req.getParameter("pass"))) {
                 Role role = factoryDAO.getRoleDAO().findById(user.getRole().getRoleId());
-                req.setAttribute("login", req.getParameter("login"));
                 req.getSession().setAttribute("role", role.getRoleName());
-                resp.sendRedirect("index.jsp");
+                resp.sendRedirect("homepage?login="+req.getParameter("login"));
             } else {
                 resp.sendRedirect("index.jsp?cantLogin=Your password is wrong");
             }
@@ -39,10 +40,11 @@ public class ServletPageHome extends HttpServlet {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
         if (req.getSession().getAttribute("role") != null) {
             if (req.getSession().getAttribute("role").equals("manager")) {
-                //req.setAttribute("userCarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders());
+                req.setAttribute("CarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders());
                 req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
             } else {
-                //req.setAttribute("userCarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));                req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+                req.setAttribute("CarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));
+                req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
            }
        } else {
            resp.sendRedirect("index.jsp?cantLogin=Please log in");

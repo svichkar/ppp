@@ -21,6 +21,11 @@ public class Car implements Serializable{
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
+    @Transient
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "car_id", referencedColumnName = "car_id")
+    private CarOrder carOrder;
+
     public Car() {
     }
 
@@ -54,5 +59,13 @@ public class Car implements Serializable{
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public CarOrder getCarOrder() {
+        return carOrder;
+    }
+
+    public void setCarOrder(CarOrder carOrder) {
+        this.carOrder = carOrder;
     }
 }

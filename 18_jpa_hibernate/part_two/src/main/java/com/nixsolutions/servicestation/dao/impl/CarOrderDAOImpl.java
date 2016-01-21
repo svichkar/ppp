@@ -2,82 +2,50 @@ package com.nixsolutions.servicestation.dao.impl;
 
 import com.nixsolutions.servicestation.dao.CarOrderDAO;
 import com.nixsolutions.servicestation.entity.CarOrder;
-import com.nixsolutions.servicestation.util.CustomConnectionManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by rybkinrolla on 04.01.2016.
  */
 public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements CarOrderDAO {
+    public static Logger LOGGER = LogManager.getLogger(CarOrderDAOImpl.class.getName());
 
-    /*public List<UserCarOrderBean> getUserCarOrders(String login) {
-        List<UserCarOrderBean> userCarOrderBeans = new ArrayList<>();
-        int i=0;
-        String sql = "SELECT co.car_order_id, cos.name, car.serial_id, ct.brand, ct.model_name FROM user u " +
-                "INNER JOIN client c ON u.user_id = c.user_id " +
-                "INNER JOIN car ON c.client_id = car.client_id " +
-                "INNER JOIN car_type ct ON car.car_type_id = ct.car_type_id " +
-                "INNER JOIN car_order co ON car.car_id = co.car_id " +
-                "INNER JOIN car_order_status cos ON co.car_order_status_id = cos.car_order_status_id " +
-                "WHERE u.login = ?;";
-        try (Connection conn = CustomConnectionManager.getConnection();
-             PreparedStatement pStatement = conn.prepareStatement(sql)) {
-            pStatement.setString(1, login);
-            ResultSet rs = pStatement.executeQuery();
-            while (rs.next()) {
-                UserCarOrderBean uco = new UserCarOrderBean();
-                uco.setCarOrderId(rs.getInt("car_order_id"));
-                uco.setCarOrderStatus(rs.getString("name"));
-                uco.setSerialId(rs.getString("serial_id"));
-                uco.setCarModel(rs.getString("brand") + " " + rs.getString("model_name"));
-                uco.setUserLogin(login);
-                userCarOrderBeans.add(uco);
-                i++;
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        if (userCarOrderBeans != null) {
-            LOGGER.trace(i + " rows by getUserCarOrders were found");
-        }
-        return userCarOrderBeans;
-    }*/
+    public List<CarOrder> getUserCarOrders(String login) {
+        List<CarOrder> carOrderList;
+        Session session = sFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Criteria criteria = session.createCriteria(CarOrder.class, "co");
+        criteria.createAlias("co.car", "car");
+        criteria.createAlias("co.carOrderStatus", "carOrderStatus");
+        criteria.createAlias("car.carType", "carType");
+        criteria.createAlias("car.client", "client");
+        criteria.createAlias("client.user", "user");
+        criteria.add(Restrictions.eq("user.login", login));
+        carOrderList = criteria.list();
+        transaction.commit();
+        LOGGER.trace(carOrderList.size() + "rows in car_order were found");
+        return carOrderList;
+    }
 
-    /*public List<CarOrder> getUserCarOrders() {
-        List<CarOrder> userCarOrderBeans = new ArrayList<>();
-        int i = 0;
-        String sql = "SELECT u.login, co.car_order_id, co.start_date, co.end_date, cos.car_order_status_id, cos.name, car.car_id, car.serial_id, ct.brand, ct.model_name FROM user u " +
-                "INNER JOIN client c ON u.user_id = c.user_id " +
-                "INNER JOIN car ON c.client_id = car.client_id " +
-                "INNER JOIN car_type ct ON car.car_type_id = ct.car_type_id " +
-                "INNER JOIN car_order co ON car.car_id = co.car_id " +
-                "INNER JOIN car_order_status cos ON co.car_order_status_id = cos.car_order_status_id ORDER BY u.login;";
-        try (Connection conn = CustomConnectionManager.getConnection();
-             PreparedStatement pStatement = conn.prepareStatement(sql)) {
-            ResultSet rs = pStatement.executeQuery();
-            while (rs.next()) {
-                UserCarOrderBean uco = new UserCarOrderBean();
-                uco.setUserLogin(rs.getString("login"));
-                uco.setCarOrderId(rs.getInt("car_order_id"));
-                uco.setCarOrderStatus(rs.getString("name"));
-                uco.setSerialId(rs.getString("serial_id"));
-                uco.setCarModel(rs.getString("brand") + " " + rs.getString("model_name"));
-                uco.setStartDate(rs.getDate("start_date"));
-                uco.setEndDate(rs.getDate("end_date"));
-                uco.setCarOrderStatusId(rs.getInt("car_order_status_id"));
-                uco.setCarId(rs.getInt("car_id"));
-                userCarOrderBeans.add(uco);
-                i++;
-            }
-        } catch (SQLException e) {
-            LOGGER.error(e);
-        }
-        if (userCarOrderBeans != null) {
-            LOGGER.trace(i + " rows by getUserCarOrders were found");
-        }
-        return userCarOrderBeans;
-    }*/
+    public List<CarOrder> getUserCarOrders() {
+        List<CarOrder> carOrderList;
+        Session session = sFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        Criteria criteria = session.createCriteria(CarOrder.class, "co");
+        criteria.createAlias("co.car", "car");
+        criteria.createAlias("co.carOrderStatus", "carOrderStatus");
+        criteria.createAlias("car.carType", "carType");
+        criteria.createAlias("car.client", "client");
+        criteria.createAlias("client.user", "user");
+        carOrderList = criteria.list();
+        transaction.commit();
+        return carOrderList;
+    }
 }

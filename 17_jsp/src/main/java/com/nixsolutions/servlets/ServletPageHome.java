@@ -23,9 +23,8 @@ public class ServletPageHome extends HttpServlet {
         if (user != null) {
             if (user.getPassword().equals(req.getParameter("pass"))) {
                 Role role = factoryDAO.getRoleDAO().findById(user.getRoleId());
-                req.setAttribute("login", req.getParameter("login"));
                 req.getSession().setAttribute("role", role.getRoleName());
-                resp.sendRedirect("homepage");
+                resp.sendRedirect("homepage?login="+req.getParameter("login"));
             } else {
                 resp.sendRedirect("index.jsp?cantLogin=Your password is wrong");
             }

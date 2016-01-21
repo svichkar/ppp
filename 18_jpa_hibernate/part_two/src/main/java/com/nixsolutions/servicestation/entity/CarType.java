@@ -8,8 +8,8 @@ import java.util.List;
  * Created by rybkinrolla on 13.01.2016.
  */
 @Entity
-@Table(name="car_type")
-public class CarType implements Serializable{
+@Table(name = "car_type")
+public class CarType implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_type_id")
@@ -25,6 +25,11 @@ public class CarType implements Serializable{
     private List<Car> carList;
 
     public CarType() {
+    }
+
+    @Transient
+    public String getFullName() {
+        return brand + " " + modelName;
     }
 
     public List<Car> getCarList() {

@@ -8,6 +8,6 @@ import java.util.List;
  * Created by rybkinrolla on 29.12.2015.
  */
 public interface CarDAO extends GenericDAO<Car> {
-    /*List<CarBean> getUserCars();
-    List<CarBean> getCarWithoutOrder();*/
+    List<Car> getUserCars();
+    List<Car> getCarWithoutOrder();
 }

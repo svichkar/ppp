@@ -19,7 +19,8 @@
         <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
         <property name="show_sql">false</property>
-        <property name="hbm2ddl.auto">validate</property>
+        <property name="hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.import_files">dml.sql</property>
 
         <mapping class="com.nixsolutions.hibernate.entity.User" />
         <mapping class="com.nixsolutions.hibernate.entity.Role" />

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+    <book/>
+    <author_book/>
     <author author_id="1" first_name="Oleg" last_name="Kril"/>
     <author author_id="2" first_name="Alex" last_name="Barchuk"/>
 </dataset>

@@ -34,8 +34,8 @@ public class FindBookServlet extends HttpServlet {
 		List<BookBean> allBooks = null;
 		try {
 			switch (searchCriteria) {
-			case "all": 
-				 allBooks = BookBean.getAllBookBeans();
+			case "all":
+				allBooks = BookBean.getAllBookBeans();
 				break;
 			case "name":
 				allBooks = BookBean.getBookBeansByName(request.getParameter("search input"));
@@ -45,7 +45,7 @@ public class FindBookServlet extends HttpServlet {
 				break;
 			case "category":
 				allBooks = BookBean.getBookBeansByCategory(request.getParameter("search input"));
-		request.setAttribute("allBooks", allBooks);
+				request.setAttribute("allBooks", allBooks);
 				break;
 			default:
 				break;
@@ -53,10 +53,11 @@ public class FindBookServlet extends HttpServlet {
 		} catch (com.nixsolutions.dao.DaoException e) {
 			LOG.throwing(new ServletException("we all die", e));
 		}
-		
+
 		LOG.throwing(new ServletException("we all die without catch"));
+
 		request.setAttribute("allBooks", allBooks);
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
-		rd.forward(request, response);	
+		rd.forward(request, response);
 	}
 }

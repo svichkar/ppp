@@ -34,7 +34,6 @@ public class AddReaderServlet extends HttpServlet {
 		String firstName = request.getParameter("readerfirstname");
 		String lastName = request.getParameter("readerlastname");
 		String email = request.getParameter("email");
-
 		
 		Client client = new Client();
 		client.setFirstName(firstName);

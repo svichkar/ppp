@@ -65,7 +65,6 @@ public class AddBookServlet extends HttpServlet {
 		if (!listAuth.isEmpty()) {
 			LOG.debug("we have such an authore");
 			for (Author author : listAuth) {
-
 				factory.getAuthorBookDao()
 						.createAuthorBook(new AuthorBook(author.getAuthorId(), book.getBookId()));
 			}

@@ -5,6 +5,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>Archetype Created Web Application</display-name>
 	<!--Servlets-->
+		
 	<servlet>
 		<servlet-name>auth</servlet-name>
 		<servlet-class>com.nixsolutions.controllers.AuthServlet</servlet-class>
@@ -98,17 +99,34 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	<!--Filters-->
-	<filter>
+	
+	<!--Errors handling-->
+<error-page>
+<location>/errorhandler</location>
+</error-page>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/errorhandler</location>
+  </error-page>
+   
+  <error-page>
+  <exception-type>javax.servlet.ServletException</exception-type>
+  <location>/errorhandler</location>
+  </error-page>
+
+
+<!--Filters-->
+	 <filter>
 		<filter-name>adminAuth</filter-name>
 		<filter-class>com.nixsolutions.filters.AdminAuthFilter</filter-class>
 	</filter>
 	<filter>
 		<filter-name>sessionAuth</filter-name>
 		<filter-class>com.nixsolutions.filters.SessionAuthFilter</filter-class>
-	</filter>
+	</filter> 
 	<!--Filter Mapping-->
-<!--	<filter-mapping>
+	<filter-mapping>
 		<filter-name>adminAuth</filter-name>
 		<url-pattern>/manageusers</url-pattern>
 		<url-pattern>/addcategory</url-pattern>
@@ -123,25 +141,5 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<url-pattern>/addcategory</url-pattern>
 		<url-pattern>/readersearch</url-pattern>
 		<url-pattern>/homepage</url-pattern>
-	</filter-mapping> -->
-<!--Errors handling-->
-<error-page>
-<location>/error-handler</location>
-</error-page>
-<error-page>
-<error-code>404</error-code>
-<location>/error-handler</location>
-</error-page>
-<error-page>
-<exception-type>java.lang.UnsupportedOperationException</exception-type>
-<location>/error-handler</location>
-</error-page>
-<error-page>
-<exception-type>javax.servlet.ServletException</exception-type>
-<location>/error-handler</location>
-</error-page>
-<error-page>
-    <exception-type>java.lang.Throwable</exception-type >
-    <location>/error-handler</location>
-</error-page>
+	</filter-mapping> 
 </web-app>

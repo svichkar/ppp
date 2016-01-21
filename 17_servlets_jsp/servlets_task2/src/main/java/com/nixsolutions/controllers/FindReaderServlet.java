@@ -57,7 +57,7 @@ public class FindReaderServlet extends HttpServlet {
 			readers = factory.getClientDao().getClientsByName(request.getParameter("search input"));
 			request.setAttribute("readers", readers);
 		}
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
 		rd.forward(request, response);
 	}

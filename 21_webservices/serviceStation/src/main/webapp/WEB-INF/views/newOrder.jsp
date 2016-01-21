@@ -15,8 +15,8 @@
 			<td class="nav-menu">
 			<select name="regNumber">
 					<c:forEach var="car" items="${carList}">
-			<option value="${car.reg_number}"><c:out
-										value="${car.reg_number}" /></option>
+			<option value="${car.regNumber}"><c:out
+										value="${car.regNumber}" /></option>
 	</c:forEach>
 	</select>
 			</td>

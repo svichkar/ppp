@@ -17,13 +17,13 @@
 	</tr>
 	<c:forEach var="part" items="${partList}">
 		<tr>
-			<td><c:out value="${part.part_id}" /></td>
-			<td><c:out value="${part.part_name}" /></td>
+			<td><c:out value="${part.partId}" /></td>
+			<td><c:out value="${part.partName}" /></td>
 			<td><c:out value="${part.vendor}" /></td>
 			<td><c:out value="${part.amount}" /></td>
 			<td>
 				<form method="post">
-					<input type="hidden" name="part_id" value="${part.part_id}"></input>
+					<input type="hidden" name="part_id" value="${part.partId}"></input>
 					<input type="submit" name="action" formaction="<c:url value="/admin/deletePart"></c:url>" value="Delete"/>
 					<input type="submit" name="target" formaction="<c:url value="/admin/updateExistingPart"></c:url>" value="Edit Part"/>
 				</form>

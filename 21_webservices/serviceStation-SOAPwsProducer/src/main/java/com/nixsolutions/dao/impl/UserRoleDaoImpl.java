@@ -60,7 +60,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
 		UserRole role = new UserRole();
 		try {
 			role = (UserRole) sessionFactory.getCurrentSession().createCriteria(UserRole.class)
-					.add(Restrictions.eq("user_role_name", userRoleName)).uniqueResult();
+					.add(Restrictions.eq("userRoleName", userRoleName)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

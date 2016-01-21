@@ -1,6 +1,7 @@
 package com.nixsolutions.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nixsolutions.service.SpecializationService;
 import com.nixsolutions.service.UserService;
 import com.nixsolutions.service.WorkerService;
+import com.nixsolutions.service.wsdl.client.CustomerServiceClient;
+import com.nixsolutions.service.wsdl.client.WorkerServiceClient;
 
 @Controller
 public class WorkerController {
@@ -19,6 +22,8 @@ public class WorkerController {
 	private UserService userService;
 	@Autowired
 	private SpecializationService specializationService;
+	@Autowired
+	ApplicationContext applicationContext;
 
 	@RequestMapping(value = "/admin/workerPage", method = RequestMethod.GET)
 	public String loadWorkerPage(Model model) {
@@ -40,9 +45,13 @@ public class WorkerController {
 			@RequestParam(value = "userPassword", required = false) String userPassword,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
 
-		userService.createNewUser(userLogin, userPassword, specializationId);
+		WorkerServiceClient serviceClient = applicationContext.getBean(WorkerServiceClient.class);
+		serviceClient.createNewWorkerResponse(userLogin, userPassword, lastName, firstName, specializationId);
+	
+/*		userService.createNewUser(userLogin, userPassword, specializationId);
 		workerService.createWorker(lastName, firstName, userLogin,
 				specializationService.getSpecialization(specializationId));
+*/
 		model.addAttribute("workerList", workerService.getAllWorkers());
 		return "workerPage";
 	}
@@ -65,9 +74,13 @@ public class WorkerController {
 			@RequestParam(value = "worker_id", required = false) String workerId,
 			@RequestParam(value = "user_id", required = false) String userId, Model model) {
 
-		userService.updateUser(userId, userLogin, userPassword);
+		WorkerServiceClient serviceClient = applicationContext.getBean(WorkerServiceClient.class);
+		serviceClient.updateWorkerResponse(userId, userLogin, userPassword, workerId, lastName, firstName, specializationId);
+
+/*		userService.updateUser(userId, userLogin, userPassword);
 		workerService.updateWorker(workerId, userService.getUserByLogin(userLogin), lastName, firstName,
 				specializationService.getSpecialization(specializationId));
+*/
 		model.addAttribute("workerList", workerService.getAllWorkers());
 		return "workerPage";
 

@@ -61,9 +61,9 @@ public class OrderInWorkDaoImpl implements OrderInWorkDao {
 		try {
 			orderInWork = (OrderInWork) sessionFactory.getCurrentSession().createCriteria(OrderInWork.class, "order")
 					.createAlias("order.car", "car").createAlias("order.orderStatus", "orderStatus")
-					.add(Restrictions.eq("car.reg_number", regNumber))
-					.add(Restrictions.disjunction().add(Restrictions.eq("orderStatus.order_status_name", "in work"))
-							.add(Restrictions.eq("orderStatus.order_status_name", "waiting")))
+					.add(Restrictions.eq("car.regNumber", regNumber))
+					.add(Restrictions.disjunction().add(Restrictions.eq("orderStatus.orderStatusName", "in work"))
+							.add(Restrictions.eq("orderStatus.orderStatusName", "waiting")))
 					.uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
@@ -82,9 +82,9 @@ public class OrderInWorkDaoImpl implements OrderInWorkDao {
 		OrderInWork orderInWork = null;
 		try {
 			orderInWork = (OrderInWork) sessionFactory.getCurrentSession().createCriteria(OrderInWork.class)
-					.add(Restrictions.eq("customer.last_name", lastName))
-					.add(Restrictions.eq("customer.first_name", firstName))
-					.add(Restrictions.eq("order_status.order_status_name", "in work")).uniqueResult();
+					.add(Restrictions.eq("customer.lastName", lastName))
+					.add(Restrictions.eq("customer.firstName", firstName))
+					.add(Restrictions.eq("orderStatus.orderStatusName", "in work")).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

@@ -1,5 +1,7 @@
 package com.nixsolutions.soap.endpoint;
 
+import java.math.BigInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -18,7 +20,7 @@ import com.nixsolutions.soap.wsdl.UpdateCustomerResponse;
 
 @Endpoint
 public class CustomerEndpoint {
-	private static final String NAMESPACE_URI = "http://localhost:8080/serviceStation/soapws";
+	private static final String NAMESPACE_URI = "http://localhost:8080/wsSoapSTO/soapws";
 
 	@Autowired
 	private CustomerDao customerDao;
@@ -49,9 +51,10 @@ public class CustomerEndpoint {
 	@ResponsePayload
 	public UpdateCustomerResponse updateCustomer(@RequestPayload UpdateCustomerRequest request) {
 		UpdateCustomerResponse response = new UpdateCustomerResponse();
-		User user = userDao.getUserByLogin(request.getCustomer().getUser().getLogin());
+		User user = userDao.getUserByID(request.getCustomer().getUser().getUserId().intValue());
 		user.setUserLogin(request.getCustomer().getUser().getLogin());
 		user.setUserPassword(request.getCustomer().getUser().getPassword());
+		userDao.updateUser(user);
 		Customer customer = customerDao.getCustomerByID(request.getCustomer().getCustomerId().intValue());
 		customer.setLastName(request.getCustomer().getLastName());
 		customer.setFirstName(request.getCustomer().getFirstName());

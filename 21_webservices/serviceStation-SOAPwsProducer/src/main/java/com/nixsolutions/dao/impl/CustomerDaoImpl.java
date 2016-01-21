@@ -137,13 +137,12 @@ public class CustomerDaoImpl implements CustomerDao {
 	 */
 	@Override
 	public Customer getCustomerByID(Integer customerId) {
-		Customer customer = null;
 		try {
-			customer = (Customer) sessionFactory.getCurrentSession().createCriteria(Customer.class)
-					.add(Restrictions.eq("customer_id", customerId.longValue())).uniqueResult();
+			return (Customer) sessionFactory.getCurrentSession().createCriteria(Customer.class)
+					.add(Restrictions.eq("customerId", customerId.longValue())).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
-		return customer;
+		return null;
 	}
 }

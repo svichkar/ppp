@@ -72,7 +72,7 @@ public class WorkerSpecializationDaoImpl implements WorkerSpecializationDao {
 		try {
 			specialization = (WorkerSpecialization) sessionFactory.getCurrentSession()
 					.createCriteria(WorkerSpecialization.class)
-					.add(Restrictions.eq("specialization_id", specializationId)).uniqueResult();
+					.add(Restrictions.eq("specializationId", specializationId)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

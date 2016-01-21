@@ -9,8 +9,9 @@ import com.nixsolutions.dao.CarDao;
 import com.nixsolutions.entity.Car;
 import com.nixsolutions.entity.Customer;
 import com.nixsolutions.service.CarService;
+import com.nixsolutions.service.rest.entity.Cars;
 
-@Service
+//@Service
 public class CarServiceImpl implements CarService {
 
 	@Autowired
@@ -88,6 +89,12 @@ public class CarServiceImpl implements CarService {
 		car.setCarDescription(carDescription);
 		updateCarByID(car);
 
+	}
+
+	@Override
+	public Cars getAllCarRest() {
+		// use only for rest services
+		return null;
 	}
 
 }

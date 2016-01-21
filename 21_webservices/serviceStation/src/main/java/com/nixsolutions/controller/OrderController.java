@@ -71,7 +71,7 @@ public class OrderController {
 
 	@RequestMapping(value = "/admin/updateOrderGeneralInfo", method = RequestMethod.POST)
 	public String updateOrderGeneralInfo(@RequestParam(value = "order_status_id", required = false) String statusId,
-			@RequestParam(value = "order_id", required = false) String orderId,
+			@RequestParam(value = "orderId", required = false) String orderId,
 			@RequestParam(value = "order_description", required = false) String description, Model model) {
 		orderService.changeOrderStatusByOrderID(orderId, statusId);
 		orderService.updateOrderDescriptionByID(orderId, description);

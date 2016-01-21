@@ -26,7 +26,7 @@
 					<td class="nav-menu" colspan="2">
 					<select  name="specialization_id" form="newWorker">
 					<c:forEach var="spec" items="${specs}">
-					<option value="${spec.specialization_id }"><c:out value="${spec.specialization_name }"></c:out>
+					<option value="${spec.specializationId }"><c:out value="${spec.specializationName }"></c:out>
 					</c:forEach>
 					</select>
 </tr>

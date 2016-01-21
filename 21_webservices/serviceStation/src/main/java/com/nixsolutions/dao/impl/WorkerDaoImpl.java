@@ -201,7 +201,7 @@ public class WorkerDaoImpl implements WorkerDao {
 		Worker worker = null;
 		try {
 			worker = (Worker) sessionFactory.getCurrentSession().createCriteria(Worker.class)
-					.add(Restrictions.eq("worker_id", workerId)).uniqueResult();
+					.add(Restrictions.eq("workerId", workerId)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

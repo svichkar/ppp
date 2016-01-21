@@ -58,7 +58,7 @@ public class WorkerStatusDaoImpl implements WorkerStatusDao {
 		WorkerStatus status = null;
 		try {
 			status = (WorkerStatus) sessionFactory.getCurrentSession().createCriteria(WorkerStatus.class)
-					.add(Restrictions.eq("worker_status_id", workerStatusId)).uniqueResult();
+					.add(Restrictions.eq("workerStatusId", workerStatusId)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
@@ -70,7 +70,7 @@ public class WorkerStatusDaoImpl implements WorkerStatusDao {
 		WorkerStatus status = null;
 		try {
 			status = (WorkerStatus) sessionFactory.getCurrentSession().createCriteria(WorkerStatus.class)
-					.add(Restrictions.eq("worker_status_name", workerStatusName)).uniqueResult();
+					.add(Restrictions.eq("workerStatusName", workerStatusName)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

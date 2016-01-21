@@ -8,7 +8,7 @@
 		<h1><c:out value="Edit existing car" /></h1>
 		</div>
 		<form id="partInOrder" action="<c:url value="/admin/updateCar"></c:url>" method="post">
-			<input hidden="hidden" name="car_id" value="${car.car_id}" />
+			<input hidden="hidden" name="car_id" value="${car.carId}" />
 			<input hidden="hidden" name="action" value="edit" />
 			<table>
 				<tr>
@@ -19,7 +19,7 @@
 						<b>Car ID</b>
 					</td>
 					<td class="nav-menu">
-						<input disabled="disabled" value="${car.car_id}" />
+						<input name="carId" disabled="disabled" value="${car.carId}" />
 					</td>
 				</tr>
 				<tr>
@@ -27,7 +27,7 @@
 						<b>Car model</b>
 					</td>
 					<td class="nav-menu">
-						<input name="carModel" value="${car.car_model}" />
+						<input name="carModel" value="${car.carModel}" />
 					</td>
 				</tr>
 				<tr>
@@ -35,7 +35,7 @@
 						<b>Car registration number</b>
 					</td>
 					<td class="nav-menu">
-						<input name="regNumber" value="${car.reg_number}" />
+						<input name="regNumber" value="${car.regNumber}" />
 					</td>
 				</tr>
 				<tr>
@@ -43,7 +43,7 @@
 						<b>Car VIN number</b>
 					</td>
 					<td class="nav-menu">
-						<input name="vinNumber" value="${car.vin_number}" />
+						<input name="vinNumber" value="${car.vinNumber}" />
 					</td>
 				</tr>
 				<tr>
@@ -51,7 +51,7 @@
 						<b>Car description</b>
 					</td>
 					<td class="nav-menu">
-						<input name="car_description" value="${car.car_description}" />
+						<input name="car_description" value="${car.carDescription}" />
 					</td>
 				</tr>
 				<tr>
@@ -59,18 +59,18 @@
 						<b>Actual owner</b>
 					</td>
 					<td class="nav-menu">
-						<input disabled="disabled" name="carOwner" value="${car.customer.last_name} ${car.customer.first_name}" />
+						<input disabled="disabled" name="carOwner" value="${car.customer.lastName} ${car.customer.firstName}" />
 						<br/>
 						<b>Actual owner</b>
 						<br/>
 						<select name="customer_id">
 							<c:forEach var="customer" items="${customers}">
 								<c:choose>
-									<c:when test="${car.customer.customer_id== customer.customer_id}">
-										<option selected="selected" value="${customer.customer_id }"><c:out value="${customer.last_name }"></c:out><c:out value=" ${customer.first_name }"></c:out></option>
+									<c:when test="${car.customer.customerId== customer.customerId}">
+										<option selected="selected" value="${customer.customerId }"><c:out value="${customer.lastName }"></c:out><c:out value=" ${customer.firstName }"></c:out></option>
 									</c:when>    
 									<c:otherwise>
-										<option value="${customer.customer_id }"><c:out value="${customer.last_name }"></c:out><c:out value=" ${customer.first_name }"></c:out></option>
+										<option value="${customer.customerId }"><c:out value="${customer.lastName }"></c:out><c:out value=" ${customer.firstName }"></c:out></option>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

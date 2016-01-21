@@ -10,20 +10,20 @@
 			</h1>
 		</div>
 		<form id="part" action="<c:url value="/admin/updatePart"></c:url>" method="post">
-				<input hidden="hidden" name="part_id" value="${part.part_id}" />
+				<input hidden="hidden" name="part_id" value="${part.partId}" />
 <table>
 				<tr>
 					<th class="nav-menu" colspan="2"><h3>Edit general info</h3></th>
 				</tr>
 				<tr>
 					<td class="nav-menu"><b>part ID</b></td>
-					<td class="nav-menu"><input disabled="disabled" value="${part.part_id}" />
+					<td class="nav-menu"><input disabled="disabled" value="${part.partId}" />
 					</td>
 				</tr>
 				<tr>
 					<td class="nav-menu"><p>Part name</p></td>
 					<td class="nav-menu"><input type="text" name="part_name"
-					value="${ part.part_name}" form="part"></input>
+					value="${ part.partName}" form="part"></input>
 </tr>
 <tr> 
 					<td class="nav-menu"><p>vendor</p></td>	

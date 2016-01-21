@@ -20,7 +20,7 @@ import com.nixsolutions.soap.wsdl.UpdateWorkerResponse;
 
 @Endpoint
 public class WorkerEndpoint {
-	private static final String NAMESPACE_URI = "http://localhost:8080/serviceStation/soapws";
+	private static final String NAMESPACE_URI = "http://localhost:8080/wsSoapSTO/soapws";
 
 	@Autowired
 	private WorkerDao workerDao;
@@ -37,8 +37,12 @@ public class WorkerEndpoint {
 	@ResponsePayload
 	public CreateNewWorkerResponse createNewWorker(@RequestPayload CreateNewWorkerRequest request) {
 		CreateNewWorkerResponse response = new CreateNewWorkerResponse();
+
 		userDao.createNewUser(request.getWorker().getUser().getLogin(), request.getWorker().getUser().getPassword(),
-				userRoleDao.getUserRole(request.getWorker().getUser().getUserRole().getUserRoleId().intValue()));
+				userRoleDao.getUserRole(Role
+						.getRoleBySpecializationId(
+								request.getWorker().getWorkerSpecialization().getWorkerSpecializationId().intValue())
+						.toString()));
 		User user = userDao.getUserByLogin(request.getWorker().getUser().getLogin());
 
 		Worker worker = new Worker();
@@ -58,11 +62,14 @@ public class WorkerEndpoint {
 	@ResponsePayload
 	public UpdateWorkerResponse updateWorker(@RequestPayload UpdateWorkerRequest request) {
 		UpdateWorkerResponse response = new UpdateWorkerResponse();
-		User user = userDao.getUserByLogin(request.getWorker().getUser().getLogin());
+		User user = userDao.getUserByID(request.getWorker().getUser().getUserId().intValue());
 		user.setUserLogin(request.getWorker().getUser().getLogin());
 		user.setUserPassword(request.getWorker().getUser().getPassword());
 		user.setUserRole(
-				userRoleDao.getUserRole(request.getWorker().getUser().getUserRole().getUserRoleId().intValue()));
+				userRoleDao.getUserRole(Role
+						.getRoleBySpecializationId(
+								request.getWorker().getWorkerSpecialization().getWorkerSpecializationId().intValue())
+						.toString()));
 		userDao.updateUser(user);
 		Worker worker = workerDao.getWorkerByID(request.getWorker().getWorkerId().intValue());
 		worker.setLastName(request.getWorker().getLastName());
@@ -76,5 +83,36 @@ public class WorkerEndpoint {
 		workerDao.updateWorker(worker);
 		response.setResult("Worker was created");
 		return response;
+	}
+
+	public enum Role {
+		ROLE_MANAGER(6), ROLE_STOREKEEPER(7), ROLE_WORKER(3), ROLE_CUSTOMER(0);
+
+		private int specializationId;
+
+		private void setIntValue(int specializationId) {
+			this.specializationId = specializationId;
+		}
+
+		public int getIntValue() {
+			return specializationId;
+		}
+
+		private Role(int specializationId) {
+			setIntValue(specializationId);
+		}
+
+		public static Role getRoleBySpecializationId(int specializationId) {
+			switch (specializationId) {
+			case 0:
+				return Role.ROLE_CUSTOMER;
+			case 6:
+				return Role.ROLE_MANAGER;
+			case 7:
+				return Role.ROLE_STOREKEEPER;
+			default:
+				return Role.ROLE_WORKER;
+			}
+		}
 	}
 }

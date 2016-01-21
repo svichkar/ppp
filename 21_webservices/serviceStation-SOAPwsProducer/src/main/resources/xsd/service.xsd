@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://localhost:8080/serviceStation/soapws"
-	xmlns:tns="http://localhost:8080/serviceStation/soapws"
+	targetNamespace="http://localhost:8080/wsSoapSTO/soapws"
+	xmlns:tns="http://localhost:8080/wsSoapSTO/soapws"
 	elementFormDefault="qualified">
 
 <xs:element name="createNewWorkerRequest">
@@ -94,7 +94,6 @@
 			<xs:element name="workerId" type="xs:integer"></xs:element>
 			<xs:element name="lastName" type="xs:string"></xs:element>
 			<xs:element name="firstName" type="xs:string"></xs:element>
-			<xs:element name="phone" type="xs:string"></xs:element>
 			<xs:element name="user" type="tns:UserService"></xs:element>
 			<xs:element name="workerSpecialization" type="tns:WorkerSpecializationService"></xs:element>
 			<xs:element name="workerStatus" type="tns:WorkerStatusService"></xs:element>

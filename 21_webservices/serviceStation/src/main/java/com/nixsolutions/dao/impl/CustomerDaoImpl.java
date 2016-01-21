@@ -140,7 +140,7 @@ public class CustomerDaoImpl implements CustomerDao {
 		Customer customer = null;
 		try {
 			customer = (Customer) sessionFactory.getCurrentSession().createCriteria(Customer.class)
-					.add(Restrictions.eq("customer_id", customerId.longValue())).uniqueResult();
+					.add(Restrictions.eq("customerId", customerId.longValue())).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

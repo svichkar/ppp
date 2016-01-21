@@ -19,16 +19,16 @@
 	</tr>
 	<c:forEach var="worker" items="${workerList}">
 		<tr>
-			<td><c:out value="${worker.worker_id}" /></td>
-			<td><c:out value="${worker.last_name}" />
-						<c:out value=" ${worker.first_name}" /></td>
-			<td><c:out value="${worker.specialization.specialization_name}" /></td>
-			<td><c:out value="${worker.worker_status.worker_status_name}" /></td>
-			<td><c:out value="${worker.user.user_login}" /></td>
-			<td><c:out value="${worker.user.user_password}" /></td>
+			<td><c:out value="${worker.workerId}" /></td>
+			<td><c:out value="${worker.lastName}" />
+						<c:out value=" ${worker.firstName}" /></td>
+			<td><c:out value="${worker.specialization.specializationName}" /></td>
+			<td><c:out value="${worker.workerStatus.workerStatusName}" /></td>
+			<td><c:out value="${worker.user.userLogin}" /></td>
+			<td><c:out value="${worker.user.userPassword}" /></td>
 			<td>
 				<form method="post">
-					<input type="hidden" name="worker_id" value="${worker.worker_id}"></input>
+					<input type="hidden" name="worker_id" value="${worker.workerId}"></input>
 					<input type="submit" name="action"
 								formaction="<c:url value="/admin/deleteWorker"></c:url>"
 								value="Delete" />

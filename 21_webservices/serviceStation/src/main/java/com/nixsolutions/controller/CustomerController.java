@@ -4,6 +4,7 @@
 package com.nixsolutions.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nixsolutions.service.CustomerService;
-import com.nixsolutions.service.RoleService;
-import com.nixsolutions.service.UserService;
+import com.nixsolutions.service.wsdl.client.CustomerServiceClient;
 
 /**
  * @author mixeyes
@@ -22,10 +22,12 @@ import com.nixsolutions.service.UserService;
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
-	@Autowired
-	private RoleService userRoleService;
-	@Autowired
-	private UserService userService;
+	/*
+	 * @Autowired private RoleService userRoleService;
+	 * 
+	 * @Autowired private UserService userService;
+	 */ @Autowired
+	ApplicationContext applicationContext;
 
 	@RequestMapping(value = "/admin/customerPage", method = RequestMethod.GET)
 	public String loadCustomerPage(Model model) {
@@ -47,8 +49,15 @@ public class CustomerController {
 			@RequestParam(value = "userLogin", required = false) String userLogin,
 			@RequestParam(value = "userPassword", required = false) String userPassword,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
-		userService.createNewUser(userLogin, userPassword, userRoleService.getUserRole("ROLE_CUSTOMER"));
-		customerService.createNewCustomer(userService.getUserByLogin(userLogin), lastName, firstName, phone);
+		/*
+		 * userService.createNewUser(userLogin, userPassword,
+		 * userRoleService.getUserRole("ROLE_CUSTOMER"));
+		 * customerService.createNewCustomer(userService.getUserByLogin(
+		 * userLogin), lastName, firstName, phone);
+		 */
+
+		CustomerServiceClient serviceClient = applicationContext.getBean(CustomerServiceClient.class);
+		serviceClient.createNewCustomerResponse(userLogin, userPassword, lastName, firstName, phone);
 		model.addAttribute("customerList", customerService.getAllCustomers());
 		return "customerPage";
 	}
@@ -70,8 +79,14 @@ public class CustomerController {
 			@RequestParam(value = "customer_id", required = false) String customerId,
 			@RequestParam(value = "user_id", required = false) String userId, Model model) {
 
-		userService.updateUser(userId, userLogin, userPassword);
-		customerService.updateCustomer(userService.getUserByID(userId), customerId, lastName, firstName, phone);
+		/*
+		 * userService.updateUser(userId, userLogin, userPassword);
+		 * customerService.updateCustomer(userService.getUserByID(userId),
+		 * customerId, lastName, firstName, phone);
+		 */
+		CustomerServiceClient serviceClient = applicationContext.getBean(CustomerServiceClient.class);
+		serviceClient.updateCustomerResponse(userId, userLogin, userPassword, customerId, lastName, firstName, phone);
+
 		model.addAttribute("customerList", customerService.getAllCustomers());
 		return "customerPage";
 	}

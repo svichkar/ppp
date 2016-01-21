@@ -67,7 +67,7 @@ public class OrderStatusDaoImpl implements OrderStatusDao {
 		OrderStatus orderStatus = null;
 		try {
 			orderStatus = (OrderStatus) sessionFactory.getCurrentSession().createCriteria(OrderStatus.class)
-					.add(Restrictions.eq("order_status_id", orderStatusId)).uniqueResult();
+					.add(Restrictions.eq("orderStatusId", orderStatusId)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

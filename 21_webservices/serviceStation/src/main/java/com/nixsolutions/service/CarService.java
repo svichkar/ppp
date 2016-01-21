@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nixsolutions.entity.Car;
 import com.nixsolutions.entity.Customer;
+import com.nixsolutions.service.rest.entity.Cars;
 
 public interface CarService {
 
@@ -11,6 +12,11 @@ public interface CarService {
 	 * @return cars collection
 	 */
 	List<Car> getAllCar();
+	
+	/**
+	 * @return cars collection
+	 */
+	Cars getAllCarRest();
 
 	/**
 	 * @param vinNumber

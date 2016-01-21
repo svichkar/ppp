@@ -62,7 +62,7 @@ public class CarDaoImpl implements CarDao {
 		Car car = null;
 		try {
 			car = (Car) sessionFactory.getCurrentSession().createCriteria(Car.class)
-					.add(Restrictions.eq("vin_number", vinNumber)).uniqueResult();
+					.add(Restrictions.eq("vinNumber", vinNumber)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
@@ -80,7 +80,7 @@ public class CarDaoImpl implements CarDao {
 		Car car = new Car();
 		try {
 			car = (Car) sessionFactory.getCurrentSession().createCriteria(Car.class)
-					.add(Restrictions.eq("reg_number", regNumber)).uniqueResult();
+					.add(Restrictions.eq("regNumber", regNumber)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
@@ -98,7 +98,7 @@ public class CarDaoImpl implements CarDao {
 		Car car = null;
 		try {
 			car = (Car) sessionFactory.getCurrentSession().createCriteria(Car.class)
-					.add(Restrictions.eq("car_id", carId)).uniqueResult();
+					.add(Restrictions.eq("carId", carId)).uniqueResult();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}
@@ -117,8 +117,8 @@ public class CarDaoImpl implements CarDao {
 		List<Car> carList = null;
 		try {
 			carList = sessionFactory.getCurrentSession().createCriteria(Car.class)
-					.add(Restrictions.eq("customer.last_name", lastName))
-					.add(Restrictions.eq("customer.first_name", firstName)).list();
+					.add(Restrictions.eq("customer.lastName", lastName))
+					.add(Restrictions.eq("customer.firstName", firstName)).list();
 		} catch (Exception ex) {
 			logger.error(ex);
 		}

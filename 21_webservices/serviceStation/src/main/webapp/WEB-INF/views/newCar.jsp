@@ -16,9 +16,9 @@
 					<td class="nav-menu"><select name="customer">
 					<c:forEach
 								var="customer" items="${customers}">
-								<option value="${customer.customer_id}"><c:out
-										value="${customer.last_name}" /> <c:out
-										value="${customer.first_name}" /></option>
+								<option value="${customer.customerId}"><c:out
+										value="${customer.lastName}" /> <c:out
+										value="${customer.firstName}" /></option>
 							</c:forEach></select></td>
 </tr>
 <tr> 

@@ -20,7 +20,7 @@ public class AppConfig {
 		//wsdl11Definition.set
 		wsdl11Definition.setPortTypeName("ServicePort");
 		wsdl11Definition.setLocationUri("/soapws");
-		wsdl11Definition.setTargetNamespace("http://localhost:8080/serviceStation");
+		wsdl11Definition.setTargetNamespace("http://localhost:8080/wsSoapSTO");
 		wsdl11Definition.setSchema(serviceSchema);
 		return wsdl11Definition;
 	}

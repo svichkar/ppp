@@ -66,8 +66,8 @@
 						<tr>
 							<th># Order</th>
 							<td colspan="2">
-								<%-- <input name="order_id" value="${order.orderId}" hidden="hidden" /> --%>
-								<input name="order_id" value="${order.orderId}" disabled="disabled" />
+								<input name="orderId" value="${order.orderId}" hidden="hidden" />
+								<input name="orderId" value="${order.orderId}" disabled="disabled" form="order"/>
 							</td>
 						</tr>
 						<tr>

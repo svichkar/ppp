@@ -6,7 +6,7 @@
 <jsp:attribute name="content_area">
 
 <div>
-<h2>Hello, ${user}!</h2>
+<h2>Hello, ${pageTitle.firstName} ${pageTitle.lastName}!</h2>
 <table>
 <tr>
 <td style="text-align: left; background: transparent; border: none; font-size: 13px">

@@ -148,4 +148,32 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public User findByLogin(String userLogin) {
+
+        String sql = String.format("SELECT * FROM user " +
+                "WHERE login = '%s'", userLogin);
+
+        try (Connection connection = H2ConnectionManager.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                Long id = rs.getLong("user_id");
+                String name = rs.getString("first_name");
+                String last = rs.getString("last_name");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                Long role = rs.getLong("role_id");
+                return new User(id, name, last, login, password, email, role);
+            }
+            return null;
+        } catch (SQLException e) {
+            LOG.error(e);
+            return null;
+        }
+    }
+
 }

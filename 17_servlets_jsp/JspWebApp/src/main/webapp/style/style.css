@@ -74,8 +74,7 @@ ul#menu li
 ul#menu li a
 { letter-spacing: 0.1em;
   font-family: sans-serif;
-  font-weight: bold;
-  font-size: 120%;
+  font-size: 100%;
   display: block;
   float: left;
   height: 20px;

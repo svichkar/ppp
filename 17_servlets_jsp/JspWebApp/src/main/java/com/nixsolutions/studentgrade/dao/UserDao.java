@@ -20,4 +20,6 @@ public interface UserDao {
     public boolean validateUser(String user);
 
     public User getUserByLoginAndPassword(String login, String pass);
+
+    public User findByLogin(String pageOwner);
 }

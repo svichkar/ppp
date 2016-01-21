@@ -5,7 +5,8 @@
 <t:general_template title="Student Grade Details">
 <jsp:attribute name="content_area">
 
- ${error}
+${pageTitle}
+${message}
 
  <div>
  <table>
@@ -18,17 +19,27 @@
  </thead>
  <tbody>
  <tr>
+ <td colspan="3">
  <form method="get" action="<c:url value="/journal/student"/>">
  <input type="text" name="id" value="${id}" hidden/>
- <select name="term">
- <option value="" selected disabled>select term</option>
+ <select name="term" style="font-style: italic;">
+ <option value="" disabled style="font-style: italic;font-size: 12;">select term for details</option>
  <c:forEach items="${terms}" var="t">
-     <option value="${t.termName}">${t.termName}</option>
+ <c:choose>
+     <c:when test="${t.termName eq selectedTerm.termName}">
+        <option style="font-style: normal; font-size: 16;" value="${t.termName}" selected>${t.termName}</option>
+     </c:when>
+     <c:otherwise>
+         <option style="font-style: normal; font-size: 16;" value="${t.termName}">${t.termName}</option>
+     </c:otherwise>
+ </c:choose>
+
  </c:forEach>
  </select>
  <input type="submit" name="operation" value="show"/>
  </form>
- </tr>
+</td>
+</tr>
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${journals}">
 <c:set var="count" value="${count + 1}" scope="page"/>
@@ -36,13 +47,12 @@
 <td>${count}</td>
 <td>${current.subject}</td>
 <td>${current.grade}</td>
-</tr>
 </c:forEach>
+</tr>
 
 <tr>
-<td readOnly></td>
-<td>AVERAGE SCORE:</td>
-<td>${score}</td>
+<td  colspan="2"><b>AVERAGE SCORE:</b></td>
+<td><b>${score}</b></td>
 </tr>
 
 </tbody>

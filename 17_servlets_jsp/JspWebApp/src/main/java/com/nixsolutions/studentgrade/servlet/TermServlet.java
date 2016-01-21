@@ -44,10 +44,12 @@ public class TermServlet extends HttpServlet {
 
                 if(isUnique) {
                     daoFactory.getTermDao().create(new Term(termName));
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">Specified Term already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Specified Term already exists</h4></p>");
 
                 }
 
@@ -69,10 +71,12 @@ public class TermServlet extends HttpServlet {
 
                 if(isUnique) {
                     daoFactory.getTermDao().update(term);
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">Term already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Term already exists</h4></p>");
 
                 }
 
@@ -87,10 +91,12 @@ public class TermServlet extends HttpServlet {
                 term.setTermName(termName);
 
                 if (daoFactory.getTermDao().delete(term)) {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">Term cannot be delete</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Term cannot be delete</h4></p>");
                 }
 
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());

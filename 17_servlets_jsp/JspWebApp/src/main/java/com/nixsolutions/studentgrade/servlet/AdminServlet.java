@@ -33,9 +33,16 @@ public class AdminServlet extends HttpServlet {
 
         DaoFactory daoFactory = new DaoFactory();
         RoleDao roleDao = daoFactory.getRoleDao();
+        UserDao userDao = daoFactory.getUserDao();
+
         List<Role> roles = roleDao.findAll();
         List<User> users = daoFactory.getUserDao().findAll();
 
+        session = request.getSession(false);
+        String pageOwner = (String) session.getAttribute("user");
+        User user = userDao.findByLogin(pageOwner);
+
+        request.setAttribute("pageOwner", user);
         request.setAttribute("roles", roles);
         request.setAttribute("users", users);
         request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp").forward(request, response);
@@ -44,74 +51,89 @@ public class AdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        session = request.getSession(true);
-        if (session.getAttribute("isAdmin").equals(true)) {
-            DaoFactory daoFactory = new DaoFactory();
+        session = request.getSession(false);
+        String pageOwner = (String) session.getAttribute("user");
 
-            RoleDao roleDao = daoFactory.getRoleDao();
-            Role role = roleDao.findByName(request.getParameter("role"));
+        DaoFactory daoFactory = new DaoFactory();
+        RoleDao roleDao = daoFactory.getRoleDao();
+        UserDao userDao = daoFactory.getUserDao();
 
-            UserDao userDao = daoFactory.getUserDao();
-            User user = new User();
-
-            if (request.getParameter("id") != null && request.getParameter("id") != "") {
-                user.setUserId(Long.valueOf(request.getParameter("id")));
-            }
-            user.setFirstName(request.getParameter("fisrt_name"));
-            user.setLastName(request.getParameter("last_name"));
-            user.setLogin(request.getParameter("login"));
-            user.setUserPassword(request.getParameter("pass"));
-            user.setEmail(request.getParameter("email"));
-            user.setRoleId(role.getRoleId());
-
-            String message = "";
-
-            switch (request.getParameter("operation")) {
-
-                case "add": {
-
-                    boolean isUnique = true;
-                    for (User u : userDao.findAll()) {
-
-                        if (user.getLogin().equals(u.getLogin()) || user.getEmail().equals(u.getEmail())) {
-                            isUnique = false;
-                        }
-                    }
-
-                    if (isUnique) {
-                        userDao.create(user);
-                        message = "Success";
-                    } else {
-
-                        message = String.format("User with specified login OR e-mail already exists.", user.getLogin());
-                    }
-                }
-                break;
-
-                case "update": {
-                    if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
-                        userDao.update(user);
-                        message = "Success";
-
-                    } else {
-
-                        message = "User can't be updated by himself.";
-                    }
-                }
-                break;
-
-                case "delete": {
-                    if (request.getSession(true).getAttribute("pageOwner").equals(user.getLogin()) == false) {
-                        userDao.delete(user);
-                        message = "Success";
-
-                    } else {
-                        message = "User can't be deleted by himself.";
-                    }
-                }
-                break;
-            }
-
+        User user = new User();
+        Role role = roleDao.findByName(request.getParameter("role"));
+        if (request.getParameter("id") != null && request.getParameter("id") != "") {
+            user.setUserId(Long.valueOf(request.getParameter("id")));
         }
+        user.setFirstName(request.getParameter("name"));
+        user.setLastName(request.getParameter("lastName"));
+        user.setLogin(request.getParameter("login"));
+        user.setUserPassword(request.getParameter("pass"));
+        user.setEmail(request.getParameter("email"));
+        user.setRoleId(role.getRoleId());
+
+        String message = "";
+
+        switch (request.getParameter("operation")) {
+
+            case "add": {
+
+                boolean isUnique = true;
+                for (User u : userDao.findAll()) {
+
+                    if (user.getLogin().equals(u.getLogin()) || user.getEmail().equals(u.getEmail())) {
+                        isUnique = false;
+                    }
+                }
+
+                if (isUnique) {
+                    userDao.create(user);
+                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
+                } else {
+
+                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "User with specified login OR e-mail already exists</h4></p>");
+                }
+            }
+            break;
+
+            case "update": {
+                if (pageOwner.equals(user.getLogin()) == false) {
+                    userDao.update(user);
+                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
+                } else {
+                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "User can't be updated by himself</h4></p>");
+                }
+            }
+            break;
+
+            case "delete": {
+
+                if (pageOwner.equals(user.getLogin()) == false
+                        && !role.getRoleName().equals("admin")) {
+                    userDao.delete(user);
+                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
+
+                } else {
+                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "User can't be deleted by himself</h4></p>");
+
+                    if (role.getRoleName().equals("admin")) {
+                        message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                                "User with <b>admin</b> rights can't be deleted</h4></p>");
+                    }
+                }
+            }
+            break;
+        }
+
+        request.setAttribute("message", message);
+        request.setAttribute("pageOwner", user);
+        request.setAttribute("roles", roleDao.findAll());
+        request.setAttribute("users", userDao.findAll());
+
+        request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp").forward(request, response);
     }
 }

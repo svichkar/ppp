@@ -54,8 +54,8 @@ public class JournalServlet extends HttpServlet {
             request.setAttribute("subjects", subjectDao.findAll());
             request.setAttribute("grades", gradeDao.findAll());
         } else {
-            request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                    "No data available.</h5></p>");
+            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                    "No data available.</h4></p>");
         }
 
         request.getRequestDispatcher("/WEB-INF/jsp/journal.jsp").forward(request, response);
@@ -103,20 +103,20 @@ public class JournalServlet extends HttpServlet {
                             journal.setSubjectId(subject.getSubjectId());
                             journal.setStudentId(student.getStudentId());
                             dao.create(journal);
-                            request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                                    "Success</h5></p>");
+                            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                                    "Success</h4></p>");
                         } else {
-                            request.setAttribute("error", String.format("<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                                    "Wrong group '<b>%s</b>' for entered student. Please check <a href=\"student\">Students List</a></h5></p>", group));
+                            request.setAttribute("error", String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                                    "Wrong group '<b>%s</b>' for entered student. Please check <a href=\"student\">Students List</a></h4></p>", group));
                         }
 
                     } else {
-                        request.setAttribute("error", String.format("<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                                "Journal record for subject '<b>%s</b>' already exists</h5></p>", subjectName));
+                        request.setAttribute("error", String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                                "Journal record for subject '<b>%s</b>' already exists</h4></p>", subjectName));
                     }
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Student doesn't exist. Please check <a href=\"student\">Students List</a></h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                            "Student doesn't exist. Please check <a href=\"student\">Students List</a></h4></p>");
                 }
                 break;
             }
@@ -138,11 +138,11 @@ public class JournalServlet extends HttpServlet {
                     journal.setSubjectId(subject.getSubjectId());
                     journal.setGradeId(grade.getGradeId());
                     dao.update(journal);
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Journal record already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                            "Journal record already exists</h4></p>");
                 }
                 break;
             }
@@ -152,12 +152,12 @@ public class JournalServlet extends HttpServlet {
                 delete.setJournalId(Long.valueOf(id));
 
                 if (dao.delete(delete)) {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Journal record cannot be delete</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
+                            "Journal record cannot be delete</h4></p>");
                 }
                 break;
             }

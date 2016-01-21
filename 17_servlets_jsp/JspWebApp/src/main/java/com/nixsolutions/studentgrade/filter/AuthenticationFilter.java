@@ -29,11 +29,8 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession(false);
-        this.context.log(session == null ? "session is null" : "session IS NOT null");
-        this.context.log(session.getAttribute("isAdmin") == null ? "isAdmin is null" : String.valueOf(session.getAttribute("isAdmin")));
-        this.context.log(session.getAttribute("user") == null ? "user is null" : String.valueOf(session.getAttribute("user")));
 
-        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null) {
+        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null || (Boolean) session.getAttribute("isAdmin")== true) {
             this.context.log("Unauthorized access request");
             session.removeAttribute("isAdmin");
             if(session != null) {

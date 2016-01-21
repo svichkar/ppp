@@ -45,8 +45,8 @@ public class SubjectServlet extends HttpServlet {
                                 res.getSubjectName(),
                                 res.getTermId(),
                                 termDao.findById(id).getTermName()));
-                        request.setAttribute("message", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results.<a href=\"subject\">Back to Subject List</a></h5></p>");
+                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
+                                "Search results.<a href=\"subject\">Back to Subject List</a></h4></p>");
                     }
                 } else {
 
@@ -58,8 +58,8 @@ public class SubjectServlet extends HttpServlet {
                                     s.getTermId(),
                                     termDao.findById(s.getTermId()).getTermName()));
                         }
-                        request.setAttribute("message", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"subject\">Back to Subject List</a></h5></p>");
+                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
+                                "Search results. <a href=\"subject\">Back to Subject List</a></h4></p>");
                     }
                 }
 
@@ -72,12 +72,12 @@ public class SubjectServlet extends HttpServlet {
                                 res.getSubjectName(),
                                 res.getTermId(),
                                 termDao.findById(id).getTermName()));
-                        request.setAttribute("message", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"subject\">Back to Subject List</a></h5></p>");
+                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
+                                "Search results. <a href=\"subject\">Back to Subject List</a></h4></p>");
                     }
                 } else {
-                    request.setAttribute("errorSearch", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Please change search criteria</h5></p>");
+                    request.setAttribute("errorSearch", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Please change search criteria</h4></p>");
                 }
             }
         } else {
@@ -94,8 +94,8 @@ public class SubjectServlet extends HttpServlet {
             request.setAttribute("subjects", list);
             request.setAttribute("terms", termDao.findAll());
         } else {
-            request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                    "No data available. <a href=\"subject\">Back to Subject List</a></h5></p>");
+            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                    "No data available. <a href=\"subject\">Back to Subject List</a></h4></p>");
         }
 
         request.getRequestDispatcher("/WEB-INF/jsp/subject.jsp").forward(request, response);
@@ -125,12 +125,12 @@ public class SubjectServlet extends HttpServlet {
                 if (isUnique) {
                     Long termId = termDao.findByName(termName).getTermId();
                     dao.create(new Subject(subjectName, termId));
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Subject already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Subject already exists</h4></p>");
                 }
                 break;
             }
@@ -150,12 +150,12 @@ public class SubjectServlet extends HttpServlet {
 
                 if (isUnique) {
                     dao.update(subject);
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Subject already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Subject already exists</h4></p>");
                 }
                 break;
             }
@@ -165,12 +165,12 @@ public class SubjectServlet extends HttpServlet {
                 subject.setSubjectId(Long.valueOf(subjectId));
 
                 if (dao.delete(subject)) {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Subject cannot be delete</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Subject cannot be delete</h4></p>");
                 }
                 break;
             }

@@ -16,7 +16,7 @@
 <body>
 <header>
 <div class="container">
-<a href="<c:url value="/home"/>">
+<a href="<c:url value="/admin"/>">
 <img src="${logoUrl}" width="100%">
 </a>
 </header>
@@ -26,13 +26,6 @@
 <tbody>
 <tr>
 <td style="background: transparent; border: none; padding:10 0 0 10; margin: 0;width: 100%;">
-  <ul id="menu">
-     <li><a href="<c:url value="/home"/>">Home</a></li>
-     <li><a href="<c:url value="/student"/>">Students</a></li>
-     <li><a href="<c:url value="/subject"/>">Subjects</a></li>
-     <li><a href="<c:url value="/term"/>">Terms</a></li>
-     <li><a href="<c:url value="/journal"/>">Journal</a></li>
-   </ul>
 </td>
 
 <td style="background: transparent; border: none; padding:10 0 0 10; margin: 0;">

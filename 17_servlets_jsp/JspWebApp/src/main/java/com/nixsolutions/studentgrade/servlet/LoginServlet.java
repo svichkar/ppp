@@ -49,11 +49,11 @@ public class LoginServlet extends HttpServlet {
 
                 if (role.getRoleName().equals("admin")) {
                     session.setAttribute("isAdmin", true);
+                    response.sendRedirect("admin");
                 } else {
                     session.setAttribute("isAdmin", false);
+                    response.sendRedirect("home");
                 }
-
-                response.sendRedirect("home");
 
             } else {
                 request.setAttribute("error", "<h5>Password is not valid. Please try again.</h5>");

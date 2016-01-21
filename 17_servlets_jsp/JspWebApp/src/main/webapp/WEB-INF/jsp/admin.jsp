@@ -2,12 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="Admin Page">
+<t:admin_template title="Admin Page">
     <jsp:attribute name="content_area">
+
+${message}
+
 <div class="divTable">
 
 <table>
-
 <thead>
 <th>#</th>
 <th>First Name</th>
@@ -92,4 +94,4 @@
 </div>
 
 </jsp:attribute>
-</t:general_template>
+</t:admin_template>

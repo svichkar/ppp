@@ -56,8 +56,8 @@ public class StudentServlet extends HttpServlet {
                                     termDao.findById(st.getTermId()).getTermName()
                             ));
                         }
-                        request.setAttribute("message", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"student\">Back to Student List</a></h5></p>");
+                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
+                                "Search results. <a href=\"student\">Back to Student List</a></h4></p>");
                     }
                 } else {
 
@@ -76,8 +76,8 @@ public class StudentServlet extends HttpServlet {
                                     termDao.findById(st.getTermId()).getTermName()
                             ));
                         }
-                        request.setAttribute("message", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"student\">Back to Student List</a></h5></p>");
+                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
+                                "Search results. <a href=\"student\">Back to Student List</a></h4></p>");
                     }
                 }
 
@@ -98,12 +98,12 @@ public class StudentServlet extends HttpServlet {
                                     termDao.findById(st.getTermId()).getTermName()
                             ));
                         }
-                        request.setAttribute("message", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"student\">Back to Student List</a></h5></p>");
+                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
+                                "Search results. <a href=\"student\">Back to Student List</a></h4></p>");
                     }
                 } else {
-                    request.setAttribute("errorSearch", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Please change search criteria</h5></p>");
+                    request.setAttribute("errorSearch", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Please change search criteria</h4></p>");
                 }
             }
         } else {
@@ -134,8 +134,8 @@ public class StudentServlet extends HttpServlet {
             request.setAttribute("groups", groupDao.findAll());
             request.setAttribute("statusList", statusDao.findAll());
         } else {
-            request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                    "No data available. <a href=\"student\">Back to Student List</a></h5></p>");
+            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                    "No data available. <a href=\"student\">Back to Student List</a></h4></p>");
         }
         request.getRequestDispatcher("/WEB-INF/jsp/student.jsp").forward(request, response);
     }
@@ -177,12 +177,12 @@ public class StudentServlet extends HttpServlet {
                             statusDao.findByName(status).getStatusId(),
                             termDao.findByName(term).getTermId()));
 
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Student already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Student already exists</h4></p>");
                 }
                 break;
             }
@@ -211,12 +211,12 @@ public class StudentServlet extends HttpServlet {
 
                 if (isUnique) {
                     dao.update(student);
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Student already exists</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Student already exists</h4></p>");
                 }
                 break;
             }
@@ -226,12 +226,12 @@ public class StudentServlet extends HttpServlet {
                 del.setStudentId(Long.valueOf(id));
 
                 if (dao.delete(del)) {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                            "Success</h4></p>");
 
                 } else {
-                    request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Student cannot be delete</h5></p>");
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Student cannot be delete</h4></p>");
                 }
                 break;
             }
@@ -264,8 +264,8 @@ public class StudentServlet extends HttpServlet {
             request.setAttribute("groups", groupDao.findAll());
             request.setAttribute("statusList", statusDao.findAll());
         } else {
-            request.setAttribute("error", "<p><h5 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                    "No data available. <a href=\"student\">Back to Student List</a></h5></p>");
+            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                    "No data available. <a href=\"student\">Back to Student List</a></h4></p>");
         }
         request.getRequestDispatcher("/WEB-INF/jsp/student.jsp").forward(request, response);
     }

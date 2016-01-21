@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.entity.Role;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,117 +16,93 @@ import java.util.List;
  */
 public class RoleDaoImpl implements RoleDao {
 
-    private static final Logger LOG = LogManager.getLogger(RoleDaoImpl.class);
+    @Override
+    public void create(Role role) {
 
-    public boolean create(Role role) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        String sql = "INSERT INTO role (role_id, role_name) VALUES ( ?, ?)";
+        session.saveOrUpdate(role);
+        transaction.commit();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            statement.setLong(1, role.getRoleId());
-            statement.setString(2, role.getRoleName());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
-    public boolean update(Role role) {
+    @Override
+    public void update(Role role) {
 
-        String sql = "UPDATE role SET role_name = ? WHERE role_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(role);
+        transaction.commit();
 
-            statement.setString(1, role.getRoleName());
-            statement.setLong(2, role.getRoleId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
-    public boolean delete(Role role) {
+    @Override
+    public void delete(Role role) {
 
-        String sql = "DELETE FROM role WHERE role_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(role);
+        transaction.commit();
 
-            statement.setLong(1, role.getRoleId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     public List<Role> findAll() {
 
-        String sql = "SELECT * FROM role";
-        List<Role> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        List<Role> list = session.createCriteria(Role.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Role role = new Role();
-                role.setRoleId(rs.getLong("role_id"));
-                role.setRoleName(rs.getString("role_name"));
-                list.add(role);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     public Role findById(Long id) {
 
-        String sql = String.format("SELECT role_id, role_name FROM role WHERE role_id = %d", id);
-        Role result = new Role();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Role.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Role> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                Long roleId = rs.getLong("role_id");
-                String roleName = rs.getString("role_name");
-                return new Role(roleId, roleName);
-            }
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     public Role findByName(String role) {
 
-        String sql = String.format("SELECT role_id, role_name FROM role WHERE role_name = '%s'", role);
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Role.class);
+        criteria.add(Restrictions.eq("roleName", role));
+        List<Role> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                Long roleId = rs.getLong("role_id");
-                String roleName = rs.getString("role_name");
-                return new Role(roleId, roleName);
-            }
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 }

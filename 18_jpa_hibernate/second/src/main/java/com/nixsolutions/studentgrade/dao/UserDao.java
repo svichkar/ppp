@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface UserDao {
 
-    public boolean create(User user);
+    public void create(User user);
 
-    public boolean update(User user);
+    public void update(User user);
 
-    public boolean delete(User use);
+    public void delete(User use);
 
     public List<User> findAll();
 

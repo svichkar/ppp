@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface JournalDao {
 
-    public boolean create(Journal journal);
+    public void create(Journal journal);
 
-    public boolean update(Journal journal);
+    public void update(Journal journal);
 
-    public boolean delete(Journal journal);
+    public void delete(Journal journal);
 
     public List<Journal> findAll();
 

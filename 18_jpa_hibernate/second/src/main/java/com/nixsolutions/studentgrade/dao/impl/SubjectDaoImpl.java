@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.SubjectDao;
 import com.nixsolutions.studentgrade.entity.Subject;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,106 +16,75 @@ import java.util.List;
  */
 public class SubjectDaoImpl implements SubjectDao {
 
-    private static final Logger LOG = LogManager.getLogger(SubjectDaoImpl.class);
-
     @Override
-    public boolean create(Subject subject) {
+    public void create(Subject subject) {
 
-        String sql = "INSERT INTO subject(subject_name, term_id) VALUES ( ? , ?)";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(subject);
+        transaction.commit();
 
-            statement.setString(1, subject.getSubjectName());
-            statement.setLong(2, subject.getTermId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(Subject subject) {
+    public void update(Subject subject) {
 
-        String sql = "UPDATE subject SET subject_name = ?, term_id = ? " +
-                "WHERE subject_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(subject);
+        transaction.commit();
 
-            statement.setString(1, subject.getSubjectName());
-            statement.setLong(2, subject.getTermId());
-            statement.setLong(3, subject.getSubjectId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean delete(Subject subject) {
+    public void delete(Subject subject) {
 
-        String sql = "DELETE FROM subject WHERE subject_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(subject);
+        transaction.commit();
 
-            statement.setLong(1, subject.getSubjectId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<Subject> findAll() {
 
-        String sql = "SELECT * FROM subject";
-        List<Subject> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        List<Subject> list = session.createCriteria(Subject.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Subject subject = new Subject();
-                subject.setSubjectId(rs.getLong("subject_id"));
-                subject.setSubjectName(rs.getString("subject_name"));
-                subject.setTermId(rs.getLong("term_id"));
-                list.add(subject);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public Subject findById(Long id) {
 
-        String sql = String.format("SELECT subject_id, subject_name, term_id FROM subject WHERE subject_id = %d", id);
-        Subject result = new Subject();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Subject.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Subject> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setSubjectId(rs.getLong("subject_id"));
-                result.setSubjectName(rs.getString("subject_name"));
-                result.setTermId(rs.getLong("term_id"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -122,22 +92,19 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public Subject findByName(String subjectName) {
 
-        String sql = String.format("SELECT subject_id, subject_name, term_id " +
-                "FROM subject WHERE LOWER(subject_name) = TRIM(LOWER('%s'))", subjectName);
-        Subject result = new Subject();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Subject.class);
+        criteria.add(Restrictions.eq("subjectName", subjectName));
+        List<Subject> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setSubjectId(rs.getLong("subject_id"));
-                result.setSubjectName(rs.getString("subject_name"));
-                result.setTermId(rs.getLong("term_id"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -145,22 +112,20 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public Subject findByNameAndTermId(String subjectName, Long termId) {
 
-        String sql = String.format("SELECT subject_id, subject_name, term_id " +
-                "FROM subject WHERE LOWER(subject_name) = TRIM(LOWER('%s')) AND term_id = %d", subjectName, termId);
-        Subject result = new Subject();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Subject.class);
+        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(),
+                Restrictions.eq("termId", termId)));
+        List<Subject> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setSubjectId(rs.getLong("subject_id"));
-                result.setSubjectName(rs.getString("subject_name"));
-                result.setTermId(rs.getLong("term_id"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -168,25 +133,16 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public List<Subject> findByTermId(Long termId) {
 
-        String sql = String.format("SELECT * FROM subject WHERE term_id = %d", termId);
-        List<Subject> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Subject.class);
+        criteria.add(Restrictions.eq("termId", termId));
+        List<Subject> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Subject subject = new Subject();
-                subject.setSubjectId(rs.getLong("subject_id"));
-                subject.setSubjectName(rs.getString("subject_name"));
-                subject.setTermId(rs.getLong("term_id"));
-                list.add(subject);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return results;
     }
 }

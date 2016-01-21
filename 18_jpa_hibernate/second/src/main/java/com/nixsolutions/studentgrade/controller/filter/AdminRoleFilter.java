@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.filter;
+package com.nixsolutions.studentgrade.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,16 +10,17 @@ import java.io.IOException;
 /**
  * Created by konstantin on 1/19/2016.
  */
-@WebFilter(filterName = "AuthenticationFilter",
-        urlPatterns = {"/home", "/term", "/student", "/subject", "/journal"})
-public class AuthenticationFilter implements Filter {
+@WebFilter(filterName = "AdminRoleFilter", urlPatterns = "/admin")
+public class AdminRoleFilter implements Filter {
 
+    private FilterConfig filterConfig;
     private ServletContext context;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig fConfig) throws ServletException {
+        this.filterConfig = fConfig;
         this.context = filterConfig.getServletContext();
-        this.context.log("AuthenticationFilter initialized");
+        this.context.log("AdminRoleFilter initialized");
     }
 
     @Override
@@ -29,14 +30,19 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession(false);
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        this.context.log(String.valueOf(isAdmin));
 
-        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null || (Boolean) session.getAttribute("isAdmin")== true) {
+        if (session == null || isAdmin == null || isAdmin == false ) {
             this.context.log("Unauthorized access request");
             session.removeAttribute("isAdmin");
+            session.removeAttribute("user");
             if(session != null) {
                 session.invalidate();
             }
-            response.sendRedirect("login");
+            RequestDispatcher rd = servletRequest.getRequestDispatcher("login");
+            servletRequest.setAttribute("error", "<h5>You can't access admin page. Please login</h5>");
+            rd.include(servletRequest, servletResponse);
         } else {
             filterChain.doFilter(request, response);
         }
@@ -44,6 +50,6 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        this.filterConfig = null;
     }
 }

@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.servlet;
+package com.nixsolutions.studentgrade.controller;
 
 
 import com.nixsolutions.studentgrade.bean.StudentBean;

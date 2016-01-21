@@ -4,9 +4,6 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
-        <File name="File" fileName="logFile.log">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-        </File>
     </Appenders>
     <Loggers>
         <Root level="TRACE">
@@ -14,7 +11,6 @@
         </Root>
         <Logger name="com.nixsolutions.studentgrade" level="TRACE"  additivity="false">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="File"/>
         </Logger>
     </Loggers>
 </Configuration>

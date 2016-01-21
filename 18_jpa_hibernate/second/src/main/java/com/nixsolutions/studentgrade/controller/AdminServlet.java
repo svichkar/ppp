@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.servlet;
+package com.nixsolutions.studentgrade.controller;
 
 import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.RoleDao;
@@ -68,7 +68,8 @@ public class AdminServlet extends HttpServlet {
         user.setLogin(request.getParameter("login"));
         user.setUserPassword(request.getParameter("pass"));
         user.setEmail(request.getParameter("email"));
-        user.setRoleId(role.getRoleId());
+
+        user.getRole().setRoleId(role.getRoleId());
 
         String message = "";
 

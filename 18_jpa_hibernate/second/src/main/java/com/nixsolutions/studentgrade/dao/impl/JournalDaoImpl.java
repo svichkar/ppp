@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.JournalDao;
 import com.nixsolutions.studentgrade.entity.Journal;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,110 +16,75 @@ import java.util.List;
  */
 public class JournalDaoImpl implements JournalDao {
 
-    private static final Logger LOG = LogManager.getLogger(JournalDaoImpl.class);
-
     @Override
-    public boolean create(Journal journal) {
+    public void create(Journal journal) {
 
-        String sql = "INSERT INTO journal(student_id, subject_id, grade_id) VALUES ( ?, ?, ? )";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(journal);
+        transaction.commit();
 
-            statement.setLong(1, journal.getStudentId());
-            statement.setLong(2, journal.getSubjectId());
-            statement.setLong(3, journal.getGradeId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(Journal journal) {
+    public void update(Journal journal) {
 
-        String sql = "UPDATE journal SET student_id = ?, subject_id = ?, grade_id = ? WHERE journal_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(journal);
+        transaction.commit();
 
-            statement.setLong(1, journal.getStudentId());
-            statement.setLong(2, journal.getSubjectId());
-            statement.setLong(3, journal.getGradeId());
-            statement.setLong(4, journal.getJournalId());
-            statement.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean delete(Journal journal) {
+    public void delete(Journal journal) {
 
-        String sql = "DELETE FROM journal WHERE journal_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(journal);
+        transaction.commit();
 
-            statement.setLong(1, journal.getJournalId());
-            statement.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<Journal> findAll() {
 
-        String sql = "SELECT * FROM journal";
-        List<Journal> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        List<Journal> list = session.createCriteria(Journal.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                Journal journal = new Journal();
-                journal.setJournalId(rs.getLong("journal_id"));
-                journal.setStudentId(rs.getLong("student_id"));
-                journal.setSubjectId(rs.getLong("subject_id"));
-                journal.setGradeId(rs.getLong("grade_id"));
-                list.add(journal);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public Journal findById(Long id) {
 
-        String sql = String.format("SELECT journal_id, student_id, subject_id, grade_id FROM journal WHERE journal_id = %d", id);
-        Journal result = new Journal();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Journal.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Journal> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setJournalId(rs.getLong("journal_id"));
-                result.setStudentId(rs.getLong("student_id"));
-                result.setSubjectId(rs.getLong("subject_id"));
-                result.setGradeId(rs.getLong("grade_id"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -126,26 +92,16 @@ public class JournalDaoImpl implements JournalDao {
     @Override
     public List<Journal> findByStudentAndTerm(Long studentId, Long termId) {
 
-        String sql = String.format("SELECT journal_id, student_id, subject_id, grade_id FROM journal " +
-                "WHERE student_id = %d AND subject_id IN (SELECT subject_id FROM subject WHERE term_id = %d)", studentId, termId);
-        List<Journal> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Journal.class);
+        criteria.add(Restrictions.and(Restrictions.eq("studentId", studentId), Restrictions.eq("termId", termId)));
+        List<Journal> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                Journal journal = new Journal();
-                journal.setJournalId(rs.getLong("journal_id"));
-                journal.setStudentId(rs.getLong("student_id"));
-                journal.setSubjectId(rs.getLong("subject_id"));
-                journal.setGradeId(rs.getLong("grade_id"));
-                list.add(journal);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return results;
     }
 }

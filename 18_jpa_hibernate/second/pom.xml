@@ -15,6 +15,23 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>4.3.10.Final</version>
@@ -36,20 +53,15 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>hibernate-2</finalName>
+    <finalName>student-grades</finalName>
     <plugins>
       <plugin>
-        <groupId>com.googlecode</groupId>
-        <artifactId>maven-idea-plugin</artifactId>
-        <version>1.6.1</version>
-      </plugin>
-      <plugin>
-        <groupId>com.googlecode</groupId>
-        <artifactId>maven-idea-plugin</artifactId>
-        <version>1.6.1</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
         <configuration>
-          <vmParameters>-Xms256M -Xmx512M -Dfile.encofing=UTF-8</vmParameters>
-          <compileInBackground>false</compileInBackground>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>

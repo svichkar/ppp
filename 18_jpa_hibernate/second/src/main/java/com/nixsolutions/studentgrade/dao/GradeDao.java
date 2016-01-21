@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface GradeDao {
 
-    public boolean create(Grade grade);
+    public void create(Grade grade);
 
-    public boolean update(Grade grade);
+    public void update(Grade grade);
 
-    public boolean delete(Grade grade);
+    public void delete(Grade grade);
 
     public List<Grade> findAll();
 

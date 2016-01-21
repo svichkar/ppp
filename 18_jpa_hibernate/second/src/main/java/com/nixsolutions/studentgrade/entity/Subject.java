@@ -1,20 +1,32 @@
 package com.nixsolutions.studentgrade.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class Subject {
+@Entity
+@Table(name = "subject")
+public class Subject implements Serializable {
 
+    @Id
+    @Column(name = "subject_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subjectId;
+
+    @Column(name = "subject_name", nullable = false, unique = true, length = 256)
     private String subjectName;
-    private Long termId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name  = "term_id")
+    @Cascade(CascadeType.DETACH)
+    private Term term;
 
     public Subject() {
-    }
-
-    public Subject(String subjectName, Long termId) {
-        this.subjectName = subjectName;
-        this.termId = termId;
     }
 
     public Long getSubjectId() {
@@ -33,19 +45,11 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public Long getTermId() {
-        return termId;
+    public Term getTerm() {
+        return term;
     }
 
-    public void setTermId(Long termId) {
-        this.termId = termId;
-    }
-
-    public boolean isEmpty() {
-        if (this.subjectId == null && this.subjectName == null && this.termId == null) {
-            return true;
-        } else {
-            return false;
-        }
+    public void setTerm(Term term) {
+        this.term = term;
     }
 }

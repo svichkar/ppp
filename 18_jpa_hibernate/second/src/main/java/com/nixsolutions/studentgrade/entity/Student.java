@@ -1,30 +1,49 @@
 package com.nixsolutions.studentgrade.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class Student {
+@Entity
+@Table(name = "student")
+public class Student implements Serializable {
 
+    @Id
+    @Column(name = "student_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
+
+    @Column(name = "first_name", nullable = false, length = 256)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 256)
     private String lastName;
-    private Long groupId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id", nullable = false)
+    @Cascade(CascadeType.DETACH)
+    private StudentGroup studentGroup;
+
+    @Column(name = "admission_date", nullable = false)
     private Date admissionDate;
-    private Long statusId;
-    private Long termId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", nullable = false)
+    @Cascade(CascadeType.DETACH)
+    private Status status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "term_id", nullable = false)
+    @Cascade(CascadeType.DETACH)
+    private Term term;
 
     public Student() {
-    }
-
-    public Student(String firstName, String lastName, Long groupId, Date admissionDate, Long statusId, Long termId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.groupId = groupId;
-        this.admissionDate = admissionDate;
-        this.statusId = statusId;
-        this.termId = termId;
     }
 
     public Long getStudentId() {
@@ -51,12 +70,12 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setStudentGroup(StudentGroup studentGroup) {
+        this.studentGroup = studentGroup;
     }
 
     public Date getAdmissionDate() {
@@ -67,34 +86,19 @@ public class Student {
         this.admissionDate = admissionDate;
     }
 
-    public Long getStatusId() {
-        return statusId;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatusId(Long statusId) {
-        this.statusId = statusId;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public Long getTermId() {
-        return termId;
+    public Term getTerm() {
+        return term;
     }
 
-    public void setTermId(Long termId) {
-        this.termId = termId;
-    }
-
-    public boolean isEmpty() {
-
-        if (this.studentId == null
-                && this.firstName == null
-                && this.lastName == null
-                && this.groupId == null
-                && this.admissionDate == null
-                && this.statusId == null
-                && this.termId == null) {
-            return true;
-        } else {
-            return false;
-        }
+    public void setTerm(Term term) {
+        this.term = term;
     }
 }

@@ -1,18 +1,24 @@
 package com.nixsolutions.studentgrade.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class StudentGroup {
+@Entity
+@Table(name = "student_group")
+public class StudentGroup implements Serializable {
 
+    @Id
+    @Column(name = "group_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
+
+    @Column(name = "group_name", nullable = false, unique = true, length = 256)
     private String groupName;
 
     public StudentGroup() {
-    }
-
-    public StudentGroup(String groupName) {
-        this.groupName = groupName;
     }
 
     public Long getGroupId() {

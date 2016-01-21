@@ -1,19 +1,25 @@
 package com.nixsolutions.studentgrade.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class Grade {
+@Entity
+@Table(name = "grade")
+public class Grade implements Serializable {
 
+    @Id
+    @Column(name = "grade_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gradeId;
+
+    @Column(name = "grade_name", nullable = false, unique = true, length = 256)
     private String gradeName;
 
     public Grade() {
 
-    }
-
-    public Grade(String gradeName) {
-        this.gradeName = gradeName;
     }
 
     public Long getGradeId() {

@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StatusDao;
 import com.nixsolutions.studentgrade.entity.Status;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,101 +16,75 @@ import java.util.List;
  */
 public class StatusDaoImpl implements StatusDao {
 
-    private static final Logger LOG = LogManager.getLogger(StatusDaoImpl.class);
-
     @Override
-    public boolean create(Status status) {
+    public void create(Status status) {
 
-        String sql = "INSERT INTO status(status_name) VALUES ( ? )";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(status);
+        transaction.commit();
 
-            statement.setString(1, status.getStatusName());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(Status status) {
+    public void update(Status status) {
 
-        String sql = "UPDATE status SET status_name = ? WHERE status_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(status);
+        transaction.commit();
 
-            statement.setString(1, status.getStatusName());
-            statement.setLong(2, status.getStatusId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean delete(Status status) {
+    public void delete(Status status) {
 
-        String sql = "DELETE FROM status WHERE status_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(status);
+        transaction.commit();
 
-            statement.setLong(1, status.getStatusId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<Status> findAll() {
 
-        String sql = "SELECT * FROM status";
-        List<Status> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        List<Status> list = session.createCriteria(Status.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Status status = new Status();
-                status.setStatusId(rs.getLong("status_id"));
-                status.setStatusName(rs.getString("status_name"));
-                list.add(status);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public Status findById(Long id) {
 
-        String sql = String.format("SELECT status_id, status_name FROM status WHERE status_id = %d", id);
-        Status result = new Status();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Status.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Status> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setStatusId(rs.getLong("status_id"));
-                result.setStatusName(rs.getString("status_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -117,20 +92,19 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public Status findByName(String statusName) {
 
-        String sql = String.format("SELECT status_id, status_name FROM status WHERE status_name = '%s'", statusName);
-        Status result = new Status();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Status.class);
+        criteria.add(Restrictions.eq("statusName", statusName));
+        List<Status> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setStatusId(rs.getLong("status_id"));
-                result.setStatusName(rs.getString("status_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }

@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.TermDao;
 import com.nixsolutions.studentgrade.entity.Term;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,100 +16,75 @@ import java.util.List;
  */
 public class TermDaoImpl implements TermDao {
 
-    private static final Logger LOG = LogManager.getLogger(TermDaoImpl.class);
-
     @Override
-    public boolean create(Term term) {
+    public void create(Term term) {
 
-        String sql = "INSERT INTO term(term_name) VALUES ( ? )";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(term);
+        transaction.commit();
 
-            statement.setString(1, term.getTermName());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(Term term) {
+    public void update(Term term) {
 
-        String sql = "UPDATE term SET term_name = ? WHERE term_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(term);
+        transaction.commit();
 
-            statement.setString(1, term.getTermName());
-            statement.setLong(2, term.getTermId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean delete(Term term) {
+    public void delete(Term term) {
 
-        String sql = "DELETE FROM term WHERE term_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(term);
+        transaction.commit();
 
-            statement.setLong(1, term.getTermId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<Term> findAll() {
-        String sql = "SELECT * FROM term";
-        List<Term> list = new ArrayList<>();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-            ResultSet rs = statement.executeQuery(sql);
+        List<Term> list = session.createCriteria(Term.class).list();
+        transaction.commit();
+        session.close();
 
-            while (rs.next()) {
-                Term term = new Term();
-                term.setTermId(rs.getLong("term_id"));
-                term.setTermName(rs.getString("term_name"));
-                list.add(term);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public Term findById(Long id) {
 
-        String sql = String.format("SELECT term_id, term_name FROM term WHERE term_id = %d", id);
-        Term result = new Term();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Term.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Term> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setTermId(rs.getLong("term_id"));
-                result.setTermName(rs.getString("term_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -116,20 +92,19 @@ public class TermDaoImpl implements TermDao {
     @Override
     public Term findByName(String termName) {
 
-        String sql = String.format("SELECT term_id, term_name FROM term WHERE term_name = '%s'", termName);
-        Term result = new Term();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Term.class);
+        criteria.add(Restrictions.eq("termName", termName));
+        List<Term> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setTermId(rs.getLong("term_id"));
-                result.setTermName(rs.getString("term_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }

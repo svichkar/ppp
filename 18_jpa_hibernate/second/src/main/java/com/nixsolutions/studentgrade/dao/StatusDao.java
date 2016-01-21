@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface StatusDao {
 
-    public boolean create(Status status);
+    public void create(Status status);
 
-    public boolean update(Status status);
+    public void update(Status status);
 
-    public boolean delete(Status status);
+    public void delete(Status status);
 
     public List<Status> findAll();
 

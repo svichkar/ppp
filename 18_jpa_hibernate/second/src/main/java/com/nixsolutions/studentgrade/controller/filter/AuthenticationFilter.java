@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.filter;
+package com.nixsolutions.studentgrade.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,17 +10,16 @@ import java.io.IOException;
 /**
  * Created by konstantin on 1/19/2016.
  */
-@WebFilter(filterName = "AdminRoleFilter", urlPatterns = "/admin")
-public class AdminRoleFilter implements Filter {
+@WebFilter(filterName = "AuthenticationFilter",
+        urlPatterns = {"/home", "/term", "/student", "/subject", "/journal"})
+public class AuthenticationFilter implements Filter {
 
-    private FilterConfig filterConfig;
     private ServletContext context;
 
     @Override
-    public void init(FilterConfig fConfig) throws ServletException {
-        this.filterConfig = fConfig;
+    public void init(FilterConfig filterConfig) throws ServletException {
         this.context = filterConfig.getServletContext();
-        this.context.log("AdminRoleFilter initialized");
+        this.context.log("AuthenticationFilter initialized");
     }
 
     @Override
@@ -30,19 +29,14 @@ public class AdminRoleFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession(false);
-        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
-        this.context.log(String.valueOf(isAdmin));
 
-        if (session == null || isAdmin == null || isAdmin == false ) {
+        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null || (Boolean) session.getAttribute("isAdmin")== true) {
             this.context.log("Unauthorized access request");
             session.removeAttribute("isAdmin");
-            session.removeAttribute("user");
             if(session != null) {
                 session.invalidate();
             }
-            RequestDispatcher rd = servletRequest.getRequestDispatcher("login");
-            servletRequest.setAttribute("error", "<h5>You can't access admin page. Please login</h5>");
-            rd.include(servletRequest, servletResponse);
+            response.sendRedirect("login");
         } else {
             filterChain.doFilter(request, response);
         }
@@ -50,6 +44,6 @@ public class AdminRoleFilter implements Filter {
 
     @Override
     public void destroy() {
-        this.filterConfig = null;
+
     }
 }

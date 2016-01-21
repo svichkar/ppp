@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StudentGroupDao;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,124 +16,96 @@ import java.util.List;
  */
 public class StudentGroupDaoImpl implements StudentGroupDao {
 
-    private static final Logger LOG = LogManager.getLogger(StudentGroupDaoImpl.class);
-
     @Override
-    public boolean create(StudentGroup group) {
+    public void create(StudentGroup group) {
 
-        String sql = "INSERT INTO student_group (group_name) VALUES ( ? )";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(group);
+        transaction.commit();
 
-            statement.setString(1, group.getGroupName());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(StudentGroup group) {
+    public void update(StudentGroup group) {
 
-        String sql = "UPDATE student_group SET group_name = ? WHERE group_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(group);
+        transaction.commit();
 
-            statement.setString(1, group.getGroupName());
-            statement.setLong(2, group.getGroupId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean delete(StudentGroup group) {
+    public void delete(StudentGroup group) {
 
-        String sql = "DELETE FROM student_group WHERE group_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(group);
+        transaction.commit();
 
-            statement.setLong(1, group.getGroupId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<StudentGroup> findAll() {
 
-        String sql = "SELECT * FROM student_group";
-        List<StudentGroup> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement()) {
+        List<StudentGroup> list = session.createCriteria(StudentGroup.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                StudentGroup group = new StudentGroup();
-                group.setGroupId(rs.getLong("group_id"));
-                group.setGroupName(rs.getString("group_name"));
-                list.add(group);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public StudentGroup findById(Long id) {
 
-        String sql = String.format("SELECT group_id, group_name FROM student_group WHERE group_id = %d", id);
-        StudentGroup result = new StudentGroup();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(StudentGroup.class);
+        criteria.add(Restrictions.idEq(id));
+        List<StudentGroup> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                result.setGroupId(rs.getLong("group_id"));
-                result.setGroupName(rs.getString("group_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
+
     }
 
     @Override
     public StudentGroup findByName(String groupName) {
 
-        String sql = String.format("SELECT group_id, group_name FROM student_group WHERE group_name = '%s'", groupName);
-        StudentGroup result = new StudentGroup();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(StudentGroup.class);
+        criteria.add(Restrictions.eq("groupName", groupName));
+        List<StudentGroup> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                result.setGroupId(rs.getLong("group_id"));
-                result.setGroupName(rs.getString("group_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }

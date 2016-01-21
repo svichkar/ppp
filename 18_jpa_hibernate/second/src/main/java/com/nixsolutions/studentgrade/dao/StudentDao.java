@@ -9,11 +9,11 @@ import java.util.List;
  */
 public interface StudentDao {
 
-    public boolean create(Student student);
+    public void create(Student student);
 
-    public boolean update(Student student);
+    public void update(Student student);
 
-    public boolean delete(Student student);
+    public void delete(Student student);
 
     public List<Student> findAll();
 

@@ -1,23 +1,24 @@
 package com.nixsolutions.studentgrade.entity;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class Role {
+@Entity
+@Table(name = "role")
+public class Role implements Serializable {
 
+    @Id
+    @Column(name = "role_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
+
+    @Column(name = "role_name", nullable = false, unique = true, length = 256)
     private String roleName;
 
     public Role() {
-    }
-
-    public Role(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public Role(Long roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
     }
 
     public Long getRoleId() {

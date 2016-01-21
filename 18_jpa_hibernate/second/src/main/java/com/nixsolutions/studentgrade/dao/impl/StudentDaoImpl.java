@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StudentDao;
 import com.nixsolutions.studentgrade.entity.Student;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,150 +16,95 @@ import java.util.List;
  */
 public class StudentDaoImpl implements StudentDao {
 
-    private static final Logger LOG = LogManager.getLogger(StudentDaoImpl.class);
-
     @Override
-    public boolean create(Student student) {
+    public void create(Student student) {
 
-        String sql = "INSERT INTO student(first_name, last_name, group_id, admission_date, status_id, term_id) " +
-                "VALUES ( ?, ? , ?, ? , ?, ? )";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(student);
+        transaction.commit();
 
-            statement.setString(1, student.getFirstName());
-            statement.setString(2, student.getLastName());
-            statement.setLong(3, student.getGroupId());
-            statement.setDate(4, student.getAdmissionDate());
-            statement.setLong(5, student.getStatusId());
-            statement.setLong(6, student.getTermId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(Student student) {
-        String sql = "UPDATE student SET first_name = ?, last_name = ?, group_id = ?, admission_date = ?, " +
-                "status_id = ?, term_id = ? WHERE student_id = ?";
+    public void update(Student student) {
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-            statement.setString(1, student.getFirstName());
-            statement.setString(2, student.getLastName());
-            statement.setLong(3, student.getGroupId());
-            statement.setDate(4, student.getAdmissionDate());
-            statement.setLong(5, student.getStatusId());
-            statement.setLong(6, student.getTermId());
-            statement.setLong(7, student.getStudentId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.update(student);
+        transaction.commit();
+
+        session.close();
     }
 
     @Override
-    public boolean delete(Student student) {
+    public void delete(Student student) {
 
-        String sql = "DELETE FROM student WHERE student_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(student);
+        transaction.commit();
 
-            statement.setLong(1, student.getStudentId());
-            statement.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<Student> findAll() {
 
-        String sql = "SELECT * FROM student";
-        List<Student> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        List<Student> list = session.createCriteria(Student.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Student student = new Student();
-                student.setStudentId(rs.getLong("student_id"));
-                student.setFirstName(rs.getString("first_name"));
-                student.setLastName(rs.getString("last_name"));
-                student.setGroupId(rs.getLong("group_id"));
-                student.setAdmissionDate(rs.getDate("admission_date"));
-                student.setStatusId(rs.getLong("status_id"));
-                student.setTermId(rs.getLong("term_id"));
-                list.add(student);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public Student findById(Long id) {
 
-        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
-                "FROM student WHERE student_id = %d", id);
-        Student result = new Student();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Student> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setStudentId(rs.getLong("student_id"));
-                result.setFirstName(rs.getString("first_name"));
-                result.setLastName(rs.getString("last_name"));
-                result.setGroupId(rs.getLong("group_id"));
-                result.setAdmissionDate(rs.getDate("admission_date"));
-                result.setStatusId(rs.getLong("status_id"));
-                result.setTermId(rs.getLong("term_id"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
 
     @Override
     public Student findByNameAndLastName(String firsName, String lastName) {
-        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
-                "FROM student WHERE LOWER(first_name) = TRIM(LOWER('%s')) AND LOWER(last_name) = TRIM(LOWER('%s'))", firsName, lastName);
-        Student result = new Student();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setStudentId(rs.getLong("student_id"));
-                result.setFirstName(rs.getString("first_name"));
-                result.setLastName(rs.getString("last_name"));
-                result.setGroupId(rs.getLong("group_id"));
-                result.setAdmissionDate(rs.getDate("admission_date"));
-                result.setStatusId(rs.getLong("status_id"));
-                result.setTermId(rs.getLong("term_id"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.add(Restrictions.and(Restrictions.eq("firstName", firsName), Restrictions.eq("lastName", lastName)));
+        List<Student> results = criteria.list();
+        transaction.commit();
+        session.close();
+
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -166,90 +112,50 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public List<Student> findByLastName(String lastName) {
 
-        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
-                "FROM student WHERE LOWER(last_name) = TRIM(LOWER('%s'))", lastName);
-        List<Student> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.add(Restrictions.eq("lastName", lastName).ignoreCase());
+        List<Student> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Student student = new Student();
-                student.setStudentId(rs.getLong("student_id"));
-                student.setFirstName(rs.getString("first_name"));
-                student.setLastName(rs.getString("last_name"));
-                student.setGroupId(rs.getLong("group_id"));
-                student.setAdmissionDate(rs.getDate("admission_date"));
-                student.setStatusId(rs.getLong("status_id"));
-                student.setTermId(rs.getLong("term_id"));
-                list.add(student);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return results;
     }
 
     @Override
     public List<Student> findByGroupId(Long groupId) {
 
-        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
-                "FROM student WHERE group_id = %d", groupId);
-        List<Student> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.add(Restrictions.eq("groupId", groupId));
+        List<Student> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Student student = new Student();
-                student.setStudentId(rs.getLong("student_id"));
-                student.setFirstName(rs.getString("first_name"));
-                student.setLastName(rs.getString("last_name"));
-                student.setGroupId(rs.getLong("group_id"));
-                student.setAdmissionDate(rs.getDate("admission_date"));
-                student.setStatusId(rs.getLong("status_id"));
-                student.setTermId(rs.getLong("term_id"));
-                list.add(student);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return results;
     }
 
     @Override
     public List<Student> findByLastNameAndGroupId(String lastName, Long groupId) {
 
-        String sql = String.format("SELECT student_id, first_name, last_name, group_id, admission_date, status_id, term_id " +
-                "FROM student WHERE LOWER(last_name) = TRIM(LOWER('%s')) AND group_id = %d", lastName, groupId);
-        List<Student> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.add(Restrictions.and(Restrictions.eq("lastName", lastName).ignoreCase(),
+                Restrictions.eq("groupId", groupId)));
 
-            ResultSet rs = statement.executeQuery(sql);
+        List<Student> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            while (rs.next()) {
-                Student student = new Student();
-                student.setStudentId(rs.getLong("student_id"));
-                student.setFirstName(rs.getString("first_name"));
-                student.setLastName(rs.getString("last_name"));
-                student.setGroupId(rs.getLong("group_id"));
-                student.setAdmissionDate(rs.getDate("admission_date"));
-                student.setStatusId(rs.getLong("status_id"));
-                student.setTermId(rs.getLong("term_id"));
-                list.add(student);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return results;
     }
 }

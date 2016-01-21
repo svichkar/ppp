@@ -2,12 +2,13 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.GradeDao;
 import com.nixsolutions.studentgrade.entity.Grade;
-import com.nixsolutions.studentgrade.util.H2ConnectionManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.nixsolutions.studentgrade.util.HibernateUtil;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,101 +16,75 @@ import java.util.List;
  */
 public class GradeDaoImpl implements GradeDao {
 
-    private static final Logger LOG = LogManager.getLogger(GradeDaoImpl.class);
-
     @Override
-    public boolean create(Grade grade) {
+    public void create(Grade grade) {
 
-        String sql = "INSERT INTO grade(grade_name) VALUES ( ? )";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.saveOrUpdate(grade);
+        transaction.commit();
 
-            statement.setString(1, grade.getGradeName());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean update(Grade grade) {
+    public void update(Grade grade) {
 
-        String sql = "UPDATE grade SET grade_name = ? WHERE grade_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.update(grade);
+        transaction.commit();
 
-            statement.setString(1, grade.getGradeName());
-            statement.setLong(2, grade.getGradeId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
-    public boolean delete(Grade grade) {
+    public void delete(Grade grade) {
 
-        String sql = "DELETE FROM grade WHERE grade_id = ?";
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+        session.delete(grade);
+        transaction.commit();
 
-            statement.setLong(1, grade.getGradeId());
-            statement.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return false;
-        }
+        session.close();
     }
 
     @Override
     public List<Grade> findAll() {
 
-        String sql = "SELECT * FROM grade";
-        List<Grade> list = new ArrayList<>();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        List<Grade> list = session.createCriteria(Grade.class).list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                Grade grade = new Grade();
-                grade.setGradeId(rs.getLong("grade_id"));
-                grade.setGradeName(rs.getString("grade_name"));
-                list.add(grade);
-            }
-            return list;
-        } catch (SQLException e) {
-            LOG.error(e);
-            return null;
-        }
+        return list;
     }
 
     @Override
     public Grade findById(Long id) {
 
-        String sql = String.format("SELECT grade_id, grade_name FROM grade WHERE grade_id = %d", id);
-        Grade result = new Grade();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Grade.class);
+        criteria.add(Restrictions.idEq(id));
+        List<Grade> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setGradeId(rs.getLong("grade_id"));
-                result.setGradeName(rs.getString("grade_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }
@@ -117,20 +92,19 @@ public class GradeDaoImpl implements GradeDao {
     @Override
     public Grade findByName(String gradeName) {
 
-        String sql = String.format("SELECT grade_id, grade_name FROM grade WHERE grade_name = '%s'", gradeName);
-        Grade result = new Grade();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
 
-        try (Connection connection = H2ConnectionManager.getConnection();
-             Statement statement = connection.createStatement();) {
+        Criteria criteria = session.createCriteria(Grade.class);
+        criteria.add(Restrictions.eq("gradeName", gradeName));
+        List<Grade> results = criteria.list();
+        transaction.commit();
+        session.close();
 
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                result.setGradeId(rs.getLong("grade_id"));
-                result.setGradeName(rs.getString("grade_name"));
-            }
-            return result;
-        } catch (SQLException e) {
-            LOG.error(e);
+        if (results.isEmpty()) {
+            return results.get(0);
+        } else {
             return null;
         }
     }

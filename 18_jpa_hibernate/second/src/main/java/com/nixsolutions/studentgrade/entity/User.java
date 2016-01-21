@@ -1,38 +1,44 @@
 package com.nixsolutions.studentgrade.entity;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Created by svichkar on 12/18/2015.
  */
-public class User {
+@Entity
+@Table(name = "user")
+public class User implements Serializable {
 
+    @Id
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @Column(name = "first_name", nullable = false, length = 256)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 256)
     private String lastName;
+
+    @Column(name = "login", nullable = false, unique = true, length = 256)
     private String login;
+
+    @Column(name = "password", nullable = false, length = 256)
     private String userPassword;
+
+    @Column(name = "email", nullable = false, unique = true, length = 256)
     private String email;
-    private Long roleId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name  = "role_id")
+    @Cascade(CascadeType.DETACH)
+    private Role role;
 
     public User() {
-    }
-
-    public User(String firstName, String lastName, String login, String userPassword, String email, Long roleId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.login = login;
-        this.userPassword = userPassword;
-        this.email = email;
-        this.roleId = roleId;
-    }
-
-    public User(Long userId, String firstName, String lastName, String login, String userPassword, String email, Long roleId) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.login = login;
-        this.userPassword = userPassword;
-        this.email = email;
-        this.roleId = roleId;
     }
 
     public Long getUserId() {
@@ -83,11 +89,12 @@ public class User {
         this.email = email;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
+
 }

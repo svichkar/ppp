@@ -21,7 +21,7 @@ import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 
 @SuppressWarnings("serial")
-public class ReaderSearchServlet extends HttpServlet {
+public class FindReaderServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
@@ -34,7 +34,7 @@ public class ReaderSearchServlet extends HttpServlet {
 		request.setAttribute("users", users);
 		request.setAttribute("roles", allRoles);
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ReadersSearch.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
 		rd.forward(request, response);
 	}
 
@@ -43,6 +43,7 @@ public class ReaderSearchServlet extends HttpServlet {
 		LOG.debug("entered the method");
 		String[] booksIds = request.getParameterValues("loaned");
 		List<Client> readers = new ArrayList<>();
+
 		// loaned book list section
 		List<Book> toBeloaned = new ArrayList<>();
 		if (booksIds != null) {
@@ -51,11 +52,13 @@ public class ReaderSearchServlet extends HttpServlet {
 			}
 			request.setAttribute("toBeloaned", toBeloaned);
 		}
-		
-		readers = factory.getClientDao().getAllClients();
-		request.setAttribute("readers", readers);
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ReadersSearch.jsp");
+		if ("search".equals(request.getParameter("button"))) {
+			readers = factory.getClientDao().getClientsByName(request.getParameter("search input"));
+			request.setAttribute("readers", readers);
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
 		rd.forward(request, response);
 	}
 }

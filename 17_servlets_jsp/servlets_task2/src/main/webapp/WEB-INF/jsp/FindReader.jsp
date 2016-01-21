@@ -14,29 +14,31 @@
 		<c:if test="${not empty toBeloaned}">
 		<br/>
 		<p>The books were chosen to loan:</p>
+				
 						<c:forEach var="book" items="${toBeloaned}">
-							<p>${book.name}</p>
+							${book.name}<br/>
 							<input type="hidden" name="loaned" value="${book.bookId}">
-						</c:forEach>				
+						</c:forEach>	
+					
 	</c:if>	
 </form>
 
 		<c:if test="${not empty readers}"> <%-- if readers list are not empty --%>
 		<input type="hidden" name="current client" value="${reader.clientId}">
-		<table>
+		<table class = "present">
 			<tr>
-				<th>reader_name</th>
-				<th>email</th>
-				<th>phone</th>
-				<th>action</th>
+				<th class = "present">reader_name</th>
+				<th class = "present">email</th>
+				<th class = "present">phone</th>
+				<th class = "present">action</th>
 			</tr>	
 					
 			<c:forEach var="reader" items="${readers}">				
 				<tr>
-					<td>${reader}</td>
-					<td>${reader.email}</td>
-					<td>${reader.phone}</td>
-					<td><form id="${reader.clientId}" action=loansmanage method="post">
+					<td class = "present">${reader}</td>
+					<td class = "present">${reader.email}</td>
+					<td class = "present">${reader.phone}</td>
+					<td class = "present"><form id="${reader.clientId}" action=loansmanage method="post">
 								<input type="hidden" name="current client"
 									value="${reader.clientId}" /><input type=submit value="manage"
 									name="button">

@@ -136,4 +136,30 @@ public class ClientDaoImpl implements ClientDao {
 		return LOG.exit(client);
 	}
 
+	@Override
+	public List<Client> getClientsByName(String readerName) {
+		LOG.entry(readerName);
+		readerName = "%"+readerName+"%";
+		String sql = "SELECT * FROM client WHERE first_name LIKE ? OR last_name LIKE ?;";
+		List<Client> clients = new ArrayList<>();
+		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
+			statem.setString(1, readerName);
+			statem.setString(2, readerName);
+			ResultSet result = statem.executeQuery();
+			while (result.next()) {
+				Client client = new Client();
+				client.setClientId(result.getLong("client_id"));
+				client.setFirstName(result.getString("first_name"));
+				client.setSecondName(result.getString("last_name"));
+				client.setPhone(result.getString("phone"));
+				client.setEmail(result.getString("email"));
+				clients.add(client);
+			}
+			LOG.trace("all the clients were retrieved");
+		} catch (SQLException e) {
+			LOG.throwing(new DaoException("not able to get the clients by name", e));
+		}
+		return LOG.exit(clients);
+	}
+	
 }

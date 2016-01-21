@@ -6,22 +6,15 @@
 <t:general_template title="add reader">
 	<jsp:attribute name="content_area">
 <h2>Add Reader</h2>
-<table>
-		<tr>
-			<td>Reader first name</td>
-			<td>Reader last name</td>
-			<td>email</td>
-			<td></td>
-		</tr>
 		<form id="addcategory" action="addreader" method="post">
-			<tr>
-				<td><input type="text" name="readerfirstname" required/></td>
-				<td><input type="text" name="readerlastname" required/></td>
-				<td><input type="text" name="email" required/></td>
-				<td><input type=submit value="add user" name="button"></td>
-			</tr>
+			
+				<input type="text" name="readerfirstname" placeholder="Reader first name" required/>
+				<input type="text" name="readerlastname" placeholder="Reader last name" required/>
+				<input type="text" name="email" placeholder="email" required/>
+				<input type=submit value="add reader" name="button">
+			
 		</form>
-		</table>
+	
 		
 		</jsp:attribute>
 </t:general_template>

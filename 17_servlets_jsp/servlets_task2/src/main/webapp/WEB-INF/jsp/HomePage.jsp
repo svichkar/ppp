@@ -3,24 +3,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="loan book">
+<t:general_template title="welocme">
 	<jsp:attribute name="content_area">
 <h2>Outdated Loans</h2>
-<table>
+<table class="present">
 		<tr>
-			<th>Reader name</th>
-			<th>book in loan</th>
-			<th>loan date</th>
-			<th>overdue</th>
+			<th class="present">Reader name</th>
+			<th class="present">book in loan</th>
+			<th class="present">loan date</th>
+			<th class="present">overdue</th>
 		</tr>
 			
 				
 						<c:forEach var="loan" items="${loans}">
 						<tr>
-							<td>${loan.reader}</td>
-							<td>${loan.book.name}</td>
-							<td>${loan.loan.rentDate}</td>
-							<td>${loan.expirationState}</td>
+							<td class="present">${loan.reader}</td>
+							<td class="present">${loan.book.name}</td>
+							<td class="present">${loan.loan.rentDate}</td>
+							<td class="present">${loan.expirationState}</td>
 							</tr>
 						</c:forEach>
 

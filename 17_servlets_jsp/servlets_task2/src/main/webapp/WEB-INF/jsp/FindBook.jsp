@@ -20,32 +20,32 @@
 		<c:if test="${not empty allBooks}">
 		<form id="to loan" action=readersearch method="post">
 		<input type="submit" value="Submit loans">
-		<table>
+		<table class="present">
 			<tr>
-				<th>book_id</th>
-				<th>book_name</th>
-				<th>cell</th>
-				<th>category</th>
-				<th>author</th>
-				<th>count</th>
-				<th>loan</th>
+				<th class = "present">book_id</th>
+				<th class = "present">book_name</th>
+				<th class = "present">cell</th>
+				<th class = "present">category</th>
+				<th class = "present">author</th>
+				<th class = "present">count</th>
+				<th class = "present">loan</th>
 			</tr>
 			
 			<c:forEach var="book" items="${allBooks}">
 				<tr>
-					<td>${book.book.bookId}</td>
-					<td>${book.book.name}</td>
-					<td>${book.cell.name}</td>
-					<td>${book.category.name}</td>
-					<td>${book.authors}</td>
-					<td>${book.book.count}</td>
+					<td class = "present">${book.book.bookId}</td>
+					<td class = "present">${book.book.name}</td>
+					<td class = "present">${book.cell.name}</td>
+					<td class = "present">${book.category.name}</td>
+					<td class = "present">${book.authors}</td>
+					<td class = "present">${book.book.count}</td>
 					<c:choose>
 											<c:when test="${book.book.count == 0}">
-												<td><input type="checkbox" name="loaned"
+												<td class = "present"><input type="checkbox" name="loaned"
 										value="${book.book.bookId}" disabled /></td>
 											</c:when>
 											<c:otherwise>
-												<td><input type="checkbox" name="loaned"
+												<td class = "present"><input type="checkbox" name="loaned"
 										value="${book.book.bookId}" /></td>
 											</c:otherwise>
 					</c:choose>

@@ -30,22 +30,39 @@ li a:hover:not(.active) {
     color: white;
 }
 
-table {
+table.present {
     border-collapse: collapse;
    /* width: 100%; */
 }
 
-th {
+th.present {
     background-color: #4CAF50;
     color: white;
 }
-th, td {
+th.present, td.present {
     text-align: left;
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+tr.present:nth-child(even){background-color: #f2f2f2}
+
+  table.submit {
+  border-collapse:collapse;
+  }
+  
+  td.submit {
+    text-align: left;
+    padding: 0px;
+    border: 1px solid #ddd;
+  }
+  
+  select.submit{
+	width: 100%;
+	padding: 0px;
+}
+
+
 /*
 
 tr:hover {background-color: #ddd;}

@@ -6,18 +6,25 @@
 <t:general_template title="add category">
 	<jsp:attribute name="content_area">
 <h2>Add category</h2>
-<table>
-		<tr>
-			<td>category name</td>
-			<td></td>
-		</tr>
+
 		<form id="addcategory" action="addcategory" method="post">
-			<tr>
-				<td><input type="text" name="categoryname" required/></td>
-				<td><input type=submit value="create category" name="button"></td>
-			</tr>
+			
+				<input type="text" name="categoryname" placeholder="Category name"
+				required />
+				<input type=submit value="create category" name="button">
+			
 		</form>
-		</table>
-		
+	
+	<c:if test="${not empty status}">
+		<c:choose>
+		<c:when test="${status == 'true'}">
+		<br /> <font color="green">category was created</font>
+		</c:when>
+		<c:otherwise>
+		<br /> <font color="red">category already exists</font>
+		</c:otherwise>
+		</c:choose>
+		</c:if>
+											
 		</jsp:attribute>
 </t:general_template>

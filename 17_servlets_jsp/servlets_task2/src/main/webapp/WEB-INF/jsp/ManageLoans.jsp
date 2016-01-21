@@ -25,17 +25,17 @@
 
 		<input type="hidden" name="current client" value="${reader.clientId}">
 		<p>${reader}</p>
-		<table>
+		<table class = "present">
 			<tr>
-				<th>book_name</th>
-				<th>loan date</th>
-				<th>check if book is returned</th>
+				<th class = "present">book_name</th>
+				<th class = "present">loan date</th>
+				<th class = "present">check if book is returned</th>
 			</tr>			
 			<c:forEach var="loan" items="${loans}">			
 				<tr>
-					<td>${loan.book.name}</td>
-					<td>${loan.loan.rentDate}</td>
-					<td><input type="checkbox" name="book returned" value="${loan.loan.rentId}"/></td>
+					<td class = "present">${loan.book.name}</td>
+					<td class = "present">${loan.loan.rentDate}</td>
+					<td class = "present"><input type="checkbox" name="book returned" value="${loan.loan.rentId}"/></td>
 				</tr>				
 			</c:forEach>
 			

@@ -16,7 +16,7 @@ import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Category;
 
 @SuppressWarnings("serial")
-public class AddCategoryServlet extends HttpServlet{
+public class AddCategoryServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
@@ -27,14 +27,20 @@ public class AddCategoryServlet extends HttpServlet{
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp");
 		rd.forward(request, response);
 	}
-	
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
-		String categoryName = request.getParameter("categoryname");
-		factory.getCategoryDao().createCategory(new Category(categoryName));
-		
+		String categoryName = request.getParameter("categoryname").trim();
+
+		if (factory.getCategoryDao().getCategoryByName(categoryName) == null) {
+			factory.getCategoryDao().createCategory(new Category(categoryName));
+			request.setAttribute("status", "true");
+		} else {
+			request.setAttribute("status", "false");
+		}
+
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp");
 		rd.forward(request, response);
 	}

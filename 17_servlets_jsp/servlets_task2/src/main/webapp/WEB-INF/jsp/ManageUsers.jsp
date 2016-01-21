@@ -6,30 +6,30 @@
 <t:general_template title="Manage users">
     <jsp:attribute name="content_area">
 <h2>Manage users</h2>
-	<table>
+	<table class="submit">
 		<tr>
-			<td>user_id</td>
-			<td>user_name</td>
-			<td>user_password</td>
-			<td>user_role</td>
-			<td>action</td>
+			<td class="submit">user_id</td>
+			<td class="submit">user_name</td>
+			<td class="submit">user_password</td>
+			<td class="submit">user_role</td>
+			<td class="submit">action</td>
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
 				<form id="update" action="manageusers" method="post">
-					<td><input type="text" name="userid" value="${user.userId}"
+					<td class="submit"><input type="text" name="userid" value="${user.userId}"
 						readonly /></td>
-					<td><input type="text" name="username"
+					<td class="submit"><input type="text" name="username"
 						value="${user.userName}" /></td>
-					<td><input type="text" name="password"
+					<td class="submit"><input type="text" name="password"
 						value="${user.userPassword}" /></td>
 					<c:choose>
 						<c:when test="${user.roleId==1}">
-							<td><input type="text" name="selectrole" value="admin"
+							<td class="submit"><input type="text" name="selectrole" value="admin"
 								readonly /></td>
 						</c:when>
 						<c:otherwise>
-							<td><select name="selectrole">
+							<td class="submit"><select class="submit" name="selectrole">
 									<c:forEach var="role" items="${roles}">
 										<c:choose>
 											<c:when test="${role.roleId == user.roleId}">
@@ -45,11 +45,11 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${user.roleId==1}">
-							<td><input type=submit value="edit user" name="button"></td>
+							<td class="submit"><input type=submit value="edit user" name="button"></td>
 						</c:when>
 						<c:otherwise>
-							<td><input type=submit value="edit user" name="button"></td>
-							<td><input type=submit value="delete user" name="button"></td>
+							<td class="submit"><input type=submit value="edit user" name="button"></td>
+							<td class="submit"><input type=submit value="delete user" name="button"></td>
 						</c:otherwise>
 					</c:choose>
 				</form>
@@ -57,15 +57,15 @@
 		</c:forEach>
 		<form id="create" action="manageusers" method="post">
 			<tr>
-				<td></td>
-				<td><input type="text" name="username" required/></td>
-				<td><input type="text" name="password" required/></td>
-				<td><select name="selectrole" required>
+				<td class="submit"></td>
+				<td class="submit"><input type="text" name="username" required/></td>
+				<td class="submit"><input type="text" name="password" required/></td>
+				<td class="submit"><select name="selectrole" required>
 						<option selected disabled value="">choose</option>
 						<c:forEach var="role" items="${roles}">
 							<option value="${role.name}">${role.name}</option>
 						</c:forEach>
-						<td><input type=submit value="create user" name="button"></td>
+						<td class="submit"><input type=submit value="create user" name="button"></td>
 				</select></td>
 			</tr>
 		</form>

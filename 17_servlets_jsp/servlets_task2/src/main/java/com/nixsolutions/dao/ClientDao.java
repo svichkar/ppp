@@ -11,4 +11,5 @@ public interface ClientDao {
 	public void updateClient(Client client);
 	public void deleteClient(Client client);
 	public Client getClientByName(String readerName);
+	public List<Client> getClientsByName(String readerName);
 }

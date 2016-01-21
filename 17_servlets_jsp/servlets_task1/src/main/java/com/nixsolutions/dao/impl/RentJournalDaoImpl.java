@@ -112,6 +112,8 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
+		LOG.debug(rentJournal.getRentDate().getTime());
+		LOG.debug(rentJournal.getReturnDate().getTime());
 		String sql = "UPDATE rent_journal SET book_id = ?, client_id = ?, rent_date = ?, return_date = ?  WHERE ticket_id = ?";
 		Connection conn = null;
 		PreparedStatement statem = null;
@@ -119,11 +121,19 @@ public class RentJournalDaoImpl implements RentJournalDao {
 			conn = H2ConnManager.getConnection();
 			statem = conn.prepareStatement(sql);
 			conn.setAutoCommit(false);
-			statem.setInt(1, rentJournal.getBookId());
-			statem.setInt(2, rentJournal.getClientId());
-			statem.setDate(3, (Date) rentJournal.getRentDate());
-			statem.setDate(4, (Date) rentJournal.getReturnDate());
-			statem.setInt(5, rentJournal.getRentId());
+			statem.setLong(1, rentJournal.getBookId());
+			statem.setLong(2, rentJournal.getClientId());
+			///
+			Date sqlRentDate = new java.sql.Date(rentJournal.getRentDate().getTime());
+			Date sqlReturnDate = new java.sql.Date(rentJournal.getReturnDate().getTime());
+			statem.setDate(3, sqlRentDate);
+			statem.setDate(4, sqlReturnDate);
+			
+			//statem.setDate(3, new java.sql.Date(rentJournal.getRentDate().getTime()));
+			//statem.setDate(4, new java.sql.Date(rentJournal.getReturnDate().getTime()));
+			//statem.setDate(3, (Date) rentJournal.getRentDate());
+			//statem.setDate(4, (Date) rentJournal.getReturnDate());
+			statem.setLong(5, rentJournal.getRentId());
 			statem.executeUpdate();
 			conn.commit();
 			LOG.exit("rentJournal was updated");

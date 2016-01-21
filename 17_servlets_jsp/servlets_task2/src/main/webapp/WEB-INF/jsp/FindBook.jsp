@@ -5,7 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="find book">
 	<jsp:attribute name="content_area">
-<h2 class = "fixed">Find book</h2>
+<h2 class="fixed">Find book</h2>
 <form id="create" action="findbook" method="post">
 				<select name="search criteria" required>
 						<option selected value="all">all</option>
@@ -27,6 +27,7 @@
 				<th>cell</th>
 				<th>category</th>
 				<th>author</th>
+				<th>count</th>
 				<th>loan</th>
 			</tr>
 			
@@ -37,7 +38,17 @@
 					<td>${book.cell.name}</td>
 					<td>${book.category.name}</td>
 					<td>${book.authors}</td>
-					<td><input type="checkbox" name="loaned" value="${book.book.bookId}"/></td>
+					<td>${book.book.count}</td>
+					<c:choose>
+											<c:when test="${book.book.count == 0}">
+												<td><input type="checkbox" name="loaned"
+										value="${book.book.bookId}" disabled /></td>
+											</c:when>
+											<c:otherwise>
+												<td><input type="checkbox" name="loaned"
+										value="${book.book.bookId}" /></td>
+											</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>
 		</table>

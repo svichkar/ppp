@@ -5,6 +5,7 @@ public class Book {
 	private String name;
 	private Long cellId;
 	private Long categoryId;
+	private Integer count;
 
 	public Long getBookId() {
 		return bookId;
@@ -37,9 +38,27 @@ public class Book {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
-	
+
 	public String toString() {
 		return "book with bookId: " + this.bookId + "; name: " + this.name;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public void increaseCount() {
+		this.count++;
+	}
+
+	public void decreaseCount() {
+		if (count != null) {
+			this.count--;
+		}
 	}
 
 }

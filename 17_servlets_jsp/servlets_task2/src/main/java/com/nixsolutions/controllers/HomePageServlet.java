@@ -14,9 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.Hours;
-import org.joda.time.Minutes;
-
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.RentJournal;

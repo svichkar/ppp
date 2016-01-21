@@ -51,7 +51,10 @@ public class LoansManageServlet extends HttpServlet {
 		List<Book> toBeloaned = new ArrayList<>();
 		if (booksIds != null) {
 			for (String bookId : booksIds) {
-				toBeloaned.add(factory.getBookDao().getBookById(Long.valueOf(bookId)));
+				Book book = factory.getBookDao().getBookById(Long.valueOf(bookId));
+				if (book.getCount() > 0) { //1 because the page refreshes after we check
+					toBeloaned.add(book);
+				}
 			}
 			request.setAttribute("toBeloaned", toBeloaned);
 		}
@@ -64,10 +67,16 @@ public class LoansManageServlet extends HttpServlet {
 		if (selectedBooks != null) {
 			for (String id : selectedBooks) {
 				RentJournal rent = new RentJournal();
+				Book loanedBook = factory.getBookDao().getBookById(Long.valueOf(id));
 				rent.setBookId(Long.valueOf(id));
 				rent.setClientId(reader.getClientId());
 				rent.setRentDate(new Date());
-				factory.getRentJournalDao().createRent(rent);
+
+				if (loanedBook.getCount() > 0) {
+					loanedBook.decreaseCount();
+					factory.getRentJournalDao().createRent(rent);
+					factory.getBookDao().updateBook(loanedBook);
+				}//here should be a message about that we have no left available books
 			}
 			loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 		}
@@ -76,10 +85,25 @@ public class LoansManageServlet extends HttpServlet {
 		if (returnedBooks != null) {
 			for (String rentId : returnedBooks) {
 				RentJournal rent = factory.getRentJournalDao().getRentById(Long.valueOf(rentId));
+				Book returnedBook = factory.getBookDao().getBookById(rent.getBookId());
 				rent.setReturnDate(new java.sql.Date(new Date().getTime()));
+				returnedBook.increaseCount(); // increase count of available books
 				factory.getRentJournalDao().updateRent(rent);
+				factory.getBookDao().updateBook(returnedBook);
 			}
 			loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
+		}
+		
+		//finalize the list - may be there an another way to improve this
+		toBeloaned = new ArrayList<>();
+		if (booksIds != null) {
+			for (String bookId : booksIds) {
+				Book book = factory.getBookDao().getBookById(Long.valueOf(bookId));
+				if (book.getCount() > 0) { //1 because the page refreshes after we check
+					toBeloaned.add(book);
+				}
+			}
+			request.setAttribute("toBeloaned", toBeloaned);
 		}
 
 		request.setAttribute("loans", loans);

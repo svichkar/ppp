@@ -32,6 +32,7 @@ public class BookDaoImpl implements BookDao {
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getLong("category_id"));
 				book.setCellId(result.getLong("cell_id"));
+				book.setCount(result.getInt("count"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");
@@ -55,6 +56,7 @@ public class BookDaoImpl implements BookDao {
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getLong("category_id"));
 				book.setCellId(result.getLong("cell_id"));
+				book.setCount(result.getInt("count"));
 			}
 		} catch (SQLException e) {
 			LOG.throwing(new DaoException("not able to get a book by Id", e));
@@ -65,11 +67,12 @@ public class BookDaoImpl implements BookDao {
 	@Override
 	public Book createBook(Book book) {
 		LOG.entry(book);
-		String sql = "INSERT INTO book (name, category_id, cell_id) VALUES (?, ?, ?);";
+		String sql = "INSERT INTO book (name, category_id, cell_id, count) VALUES (?, ?, ?, ?);";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			statem.setString(1, book.getName());
 			statem.setLong(2, book.getCategoryId());
 			statem.setLong(3, book.getCellId());
+			statem.setLong(4, book.getCount());
 			statem.executeUpdate();
 			ResultSet generatedKeys = statem.getGeneratedKeys();
 			 if (generatedKeys.next()) {
@@ -87,12 +90,13 @@ public class BookDaoImpl implements BookDao {
 	@Override
 	public void updateBook(Book book) {
 		LOG.entry(book);
-		String sql = "UPDATE book SET name = ?, category_id = ?, cell_id=?  WHERE book_id = ?";
+		String sql = "UPDATE book SET name = ?, category_id = ?, cell_id=?, count=?  WHERE book_id = ?";
 		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
 			statem.setString(1, book.getName());
 			statem.setLong(2, book.getCategoryId());
 			statem.setLong(3, book.getCellId());
-			statem.setLong(4, book.getBookId());
+			statem.setInt(4, book.getCount());
+			statem.setLong(5, book.getBookId());
 			statem.executeUpdate();
 			LOG.exit("book was updated");
 		} catch (SQLException e) {
@@ -131,6 +135,7 @@ public class BookDaoImpl implements BookDao {
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getLong("category_id"));
 				book.setCellId(result.getLong("cell_id"));
+				book.setCount(result.getInt("count"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");
@@ -157,6 +162,7 @@ public class BookDaoImpl implements BookDao {
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getLong("category_id"));
 				book.setCellId(result.getLong("cell_id"));
+				book.setCount(result.getInt("count"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");
@@ -182,6 +188,7 @@ public class BookDaoImpl implements BookDao {
 				book.setName(result.getString("name"));
 				book.setCategoryId(result.getLong("category_id"));
 				book.setCellId(result.getLong("cell_id"));
+				book.setCount(result.getInt("count"));
 				books.add(book);
 			}
 			LOG.trace("all the books were retrieved");

@@ -2,7 +2,6 @@ package com.nixsolutions.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,10 +17,8 @@ import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Book;
 import com.nixsolutions.entity.Client;
-import com.nixsolutions.entity.RentJournal;
 import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
-import com.nixsolutions.model.LoanBean;
 
 @SuppressWarnings("serial")
 public class ReaderSearchServlet extends HttpServlet {
@@ -56,10 +53,6 @@ public class ReaderSearchServlet extends HttpServlet {
 		}
 		
 		readers = factory.getClientDao().getAllClients();
-
-		
-		
-		
 		request.setAttribute("readers", readers);
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ReadersSearch.jsp");

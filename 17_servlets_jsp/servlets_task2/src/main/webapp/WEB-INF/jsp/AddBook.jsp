@@ -13,6 +13,7 @@
 			<td>author last name</td>
 			<td>category</td>
 			<td>cell</td>
+			<td>count</td>
 			<td></td>
 		</tr>
 		<form id="addbook" action="addbook" method="post">
@@ -32,6 +33,7 @@
 							<option value="${cell.name}">${cell.name}</option>
 						</c:forEach>
 				</select></td>
+				<td><input type="text" name="count" required/></td>
 				<td><input type=submit value="create book" name="button"></td>
 			</tr>
 		</form>

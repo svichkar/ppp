@@ -49,12 +49,14 @@ public class AddBookServlet extends HttpServlet {
 		String authorLastName = request.getParameter("authorlastname");
 		String cell = request.getParameter("selectcell");
 		String category = request.getParameter("selectcategory");
+		String count = request.getParameter("count");
 
 		// new book
 		Book book = new Book();
 		book.setName(bookName);
 		book.setCellId(factory.getCellDao().getCellByName(cell).getCellId());
 		book.setCategoryId(factory.getCategoryDao().getCategoryByName(category).getCategoryId());
+		book.setCount(Integer.valueOf(count));
 		book = factory.getBookDao().createBook(book);
 
 		// new or existing author

@@ -59,8 +59,6 @@ public class AuthServlet extends HttpServlet {
 		
 		//click on registration
 	if(button.equals("register")){
-		
-		
 		if(factory.getUserDao().getUserByNameAndPswd(usr, pswd) == null){
 			User createUser = new User(usr, pswd, 2);
 			factory.getUserDao().createUser(createUser);

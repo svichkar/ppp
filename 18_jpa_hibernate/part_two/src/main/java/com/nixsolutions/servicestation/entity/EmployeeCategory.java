@@ -17,7 +17,6 @@ public class EmployeeCategory implements Serializable{
     @Column(name = "employee_category_name", length = 100, nullable = false)
     private String employeeCategoryName;
 
-    @Transient
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_category_id", referencedColumnName = "employee_category_id")
     private List<Employee> employeeList;

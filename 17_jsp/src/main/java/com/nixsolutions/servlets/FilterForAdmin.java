@@ -26,10 +26,10 @@ public class FilterForAdmin implements Filter {
             if (session.getAttribute("role").equals("manager")) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                response.sendRedirect("index.jsp?cantLogin=Please log in as manager");
+                response.sendRedirect("index.jsp?cantLogin=Please%20log%20in%20as%20manager");
             }
         } else {
-            response.sendRedirect("index.jsp?cantLogin=Please log in as manager");
+            response.sendRedirect("index.jsp?cantLogin=Please%20log%20in%20as%20manager");
         }
     }
 

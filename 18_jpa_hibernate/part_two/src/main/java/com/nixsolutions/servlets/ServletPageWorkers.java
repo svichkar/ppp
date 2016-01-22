@@ -27,14 +27,9 @@ public class ServletPageWorkers extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
         List<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
+        List<EmployeeCategory> employeeCategoryList = factoryDAO.getEmployeeCategoryDAO().findAll();
         req.setAttribute("employeeList", employeeList);
-        req.setAttribute("employeeCategoryList", factoryDAO.getEmployeeCategoryDAO().findAll());
-        List<String> employeeCategoryNameList = new ArrayList<>();
-        for (Employee e : employeeList) {
-            EmployeeCategory employeeCategory = factoryDAO.getEmployeeCategoryDAO().findById(e.getEmployeeCategory().getEmployeeCategoryId());
-            employeeCategoryNameList.add(employeeCategory.getEmployeeCategoryName());
-        }
-        req.setAttribute("employeeCategoryNameList", employeeCategoryNameList);
+        req.setAttribute("employeeCategoryList", employeeCategoryList);
         req.getRequestDispatcher("/WEB-INF/jsp/workers.jsp").forward(req, resp);
     }
 

@@ -15,7 +15,7 @@ public class Role implements Serializable {
     private Long roleId;
     @Column(name = "role_name", length = 100, nullable = false)
     private String roleName;
-    @Transient
+
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private List<User> userList;

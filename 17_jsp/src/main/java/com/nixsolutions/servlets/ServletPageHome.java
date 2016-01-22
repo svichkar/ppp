@@ -26,10 +26,10 @@ public class ServletPageHome extends HttpServlet {
                 req.getSession().setAttribute("role", role.getRoleName());
                 resp.sendRedirect("homepage?login="+req.getParameter("login"));
             } else {
-                resp.sendRedirect("index.jsp?cantLogin=Your password is wrong");
+                resp.sendRedirect("index.jsp?cantLogin=Your%20password%20is%20wrong");
             }
         } else {
-            resp.sendRedirect("index.jsp?cantLogin=Your login is wrong or doesn't exist");
+            resp.sendRedirect("index.jsp?cantLogin=Your%20login%20is%20wrong%20or%20doesn't%20exist");
         }
 
     }

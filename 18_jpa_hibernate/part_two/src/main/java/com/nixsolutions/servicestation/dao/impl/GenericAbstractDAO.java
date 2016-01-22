@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import javax.persistence.Transient;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by rybkinrolla on 29.12.2015.
  */
-public abstract class GenericAbstractDAO<E> implements GenericDAO<E>{
+public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
     protected Class<E> type;
     public static SessionFactory sFactory = HiberUtil.getSessionFactory();
 
@@ -23,28 +24,28 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E>{
         type = (Class) pt.getActualTypeArguments()[0];
     }
 
-    public void create(E entity){
+    public void create(E entity) {
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.save(entity);
         transaction.commit();
     }
 
-    public void update(E entity){
+    public void update(E entity) {
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(entity);
         transaction.commit();
     }
 
-    public void delete(E entity){
+    public void delete(E entity) {
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.delete(entity);
         transaction.commit();
     }
 
-    public E findById(Long id){
+    public E findById(Long id) {
         Session session = sFactory.getCurrentSession();
         E entity;
         Transaction transaction = session.beginTransaction();
@@ -53,7 +54,7 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E>{
         return entity;
     }
 
-    public List<E> findAll(){
+    public List<E> findAll() {
         Session session = sFactory.getCurrentSession();
         List<E> list;
         Transaction transaction = session.beginTransaction();

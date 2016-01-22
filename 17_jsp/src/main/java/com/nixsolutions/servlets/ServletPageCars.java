@@ -48,19 +48,19 @@ public class ServletPageCars extends HttpServlet {
             if (req.getParameter("add") != null) {
                 car.setClientId(Integer.valueOf(req.getParameter("clients")));
                 factoryDAO.getCarDAO().create(car);
-                resp.sendRedirect("cars?message=Row was created");
+                resp.sendRedirect("cars?message=Row%20was%20created");
             }
             if (req.getParameter("edit") != null) {
                 car.setClientId(Integer.valueOf(req.getParameter("client_id")));
                 car.setCarId(Integer.valueOf(req.getParameter("car_id")));
                 factoryDAO.getCarDAO().update(car);
-                resp.sendRedirect("cars?message=Row was updated");
+                resp.sendRedirect("cars?message=Row%20was%20updated");
             }
         }
         if(req.getParameter("delete") != null){
             car.setCarId(Integer.valueOf(req.getParameter("car_id")));
             factoryDAO.getCarDAO().delete(car);
-            resp.sendRedirect("cars?message=Row was deleted");
+            resp.sendRedirect("cars?message=Row%20was%20deleted");
         }
     }
 }

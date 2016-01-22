@@ -21,7 +21,6 @@ public class Car implements Serializable{
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
-    @Transient
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     private CarOrder carOrder;

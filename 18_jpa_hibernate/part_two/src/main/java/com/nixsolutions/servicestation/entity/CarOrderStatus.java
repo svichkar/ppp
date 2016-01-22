@@ -17,7 +17,6 @@ public class CarOrderStatus implements Serializable{
     @Column(name = "car_order_status_name", length = 100, nullable = false)
     private String carOrderStatusName;
 
-    @Transient
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_order_status_id", referencedColumnName = "car_order_status_id")
     private List<CarOrder> carOrderList;

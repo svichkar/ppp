@@ -19,7 +19,6 @@ public class CarType implements Serializable {
     @Column(name = "model_name", length = 100, nullable = false)
     private String modelName;
 
-    @Transient
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_type_id", referencedColumnName = "car_type_id")
     private List<Car> carList;

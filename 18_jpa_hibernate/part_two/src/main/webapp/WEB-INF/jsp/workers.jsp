@@ -18,10 +18,10 @@
                                 <td><input type="text" name="first_name" value ="<c:out value="${employee.firstName}"/>"></td>
                                 <td><input type="text" name="last_name" value ="<c:out value="${employee.lastName}"/>"></td>
                                 <td><select name="category" required>
-                                        <option selected value="<c:out value="${employee.employeeCategoryId}"/>"><c:out value="${employeeCategoryNameList[status.index]}"/></option>
+                                        <option selected value="<c:out value="${employee.employeeCategory.employeeCategoryId}"/>"><c:out value="${employee.employeeCategory.employeeCategoryName}"/></option>
                                             <c:forEach var="employeeCategory" items="${employeeCategoryList}">
-                                                <c:if test="${employeeCategory.name != employeeCategoryNameList[status.index]}">
-                                                    <option value="<c:out value="${employeeCategory.employeeCategoryId}"/>"><c:out value="${employeeCategory.name}"/></option>
+                                                <c:if test="${employeeCategory.employeeCategoryName != employee.employeeCategory.employeeCategoryName}">
+                                                    <option value="<c:out value="${employeeCategory.employeeCategoryId}"/>"><c:out value="${employeeCategory.employeeCategoryName}"/></option>
                                                 </c:if>
                                             </c:forEach>
                                     </select></td>
@@ -37,7 +37,7 @@
                             <td><input type="text" name="last_name" required/></td>
                             <td><select name="category" required>
                                     <c:forEach var="employeeCategory" items="${employeeCategoryList}">
-                                        <option value="<c:out value="${employeeCategory.employeeCategoryId}"/>"><c:out value="${employeeCategory.name}"/></option>
+                                        <option value="<c:out value="${employeeCategory.employeeCategoryId}"/>"><c:out value="${employeeCategory.employeeCategoryName}"/></option>
                                     </c:forEach>
                                 </select></td>
                             <td><input type="submit" value="add" name="add"></td>

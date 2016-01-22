@@ -51,7 +51,7 @@ public class ServletPageClients extends HttpServlet {
                     userList = factoryDAO.getUserDAO().findAll();
                 } else {
                     flag = false;
-                    resp.sendRedirect("clients?message=This login is already in use");
+                    resp.sendRedirect("clients?message=This%20login%20is%20already%20in%20use");
                 }
             }
             if (req.getParameter("add") != null && flag) {
@@ -63,7 +63,7 @@ public class ServletPageClients extends HttpServlet {
                 client.setFirstName(req.getParameter("first_name"));
                 client.setLastName(req.getParameter("last_name"));
                 factoryDAO.getClientDAO().create(client);
-                resp.sendRedirect("clients?message=Row was created");
+                resp.sendRedirect("clients?message=Row%20was%20created");
             }
             if (req.getParameter("edit") != null) {
                 client.setFirstName(req.getParameter("first_name"));
@@ -71,7 +71,7 @@ public class ServletPageClients extends HttpServlet {
                 client.setUserId(Integer.valueOf(req.getParameter("user_id")));
                 client.setClientId(Integer.valueOf(req.getParameter("client_id")));
                 factoryDAO.getClientDAO().update(client);
-                resp.sendRedirect("clients?message=Row was updated");
+                resp.sendRedirect("clients?message=Row%20was%20updated");
             }
 
         }
@@ -81,9 +81,9 @@ public class ServletPageClients extends HttpServlet {
                 factoryDAO.getClientDAO().delete(client);
                 user.setUserId(Integer.valueOf(req.getParameter("user_id")));
                 factoryDAO.getUserDAO().delete(user);
-                resp.sendRedirect("clients?message=Row was deleted");
+                resp.sendRedirect("clients?message=Row%20was%20deleted");
             } else {
-                resp.sendRedirect("clients?message=You cant delete manager from here. Please enter database and delete it there");
+                resp.sendRedirect("clients?message=You%20cant%20delete%20manager%20from%20here.%20Please%20enter%20database%20and%20delete%20it%20there");
             }
         }
     }

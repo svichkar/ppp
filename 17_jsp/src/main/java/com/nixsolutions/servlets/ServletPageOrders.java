@@ -51,23 +51,23 @@ public class ServletPageOrders extends HttpServlet {
             employeeCarOrder.setEmployeeId(Integer.valueOf(req.getParameter("employees")));
             employeeCarOrder.setCarOrderId(Integer.valueOf(req.getParameter("orders")));
             if(employeeCarOrderList.contains(employeeCarOrder)){
-                resp.sendRedirect("orders?message=That worker is already attached to that order");
+                resp.sendRedirect("orders?message=That%20worker%20is%20already%20attached%20to%20that%20order");
             } else {
                 factoryDAO.getEmployeeCarOrderDAO().create(employeeCarOrder);
-                resp.sendRedirect("orders?message=This worker added to that order");
+                resp.sendRedirect("orders?message=This%20worker%20added%20to%20that%20order");
             }
         }
         if (req.getParameter("delete") != null) {
             carOrder.setCarOrderId(Integer.valueOf(req.getParameter("carOrderId")));
             factoryDAO.getCarOrderDAO().delete(carOrder);
-            resp.sendRedirect("orders?message=Row was deleted");
+            resp.sendRedirect("orders?message=Row%20was%20deleted");
         }
         if (req.getParameter("add") != null) {
             carOrder.setCarId(Integer.valueOf(req.getParameter("cars")));
             carOrder.setCarOrderStatusId(Integer.valueOf(req.getParameter("statuses")));
             carOrder.setStartDate(new Date());
             factoryDAO.getCarOrderDAO().create(carOrder);
-            resp.sendRedirect("orders?message=Row was created");
+            resp.sendRedirect("orders?message=Row%20was%20created");
         }
         if (req.getParameter("edit") != null) {
             carOrder.setCarOrderId(Integer.valueOf(req.getParameter("carOrderId")));
@@ -87,7 +87,7 @@ public class ServletPageOrders extends HttpServlet {
                 carOrder.setEndDate(null);
             }
             factoryDAO.getCarOrderDAO().update(carOrder);
-            resp.sendRedirect("orders?message=Row was updated");
+            resp.sendRedirect("orders?message=Row%20was%20updated");
         }
     }
 }

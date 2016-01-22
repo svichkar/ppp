@@ -1,3 +1,4 @@
+
 package com.nixsolutions.servlets;
 
 import javax.servlet.ServletException;
@@ -9,9 +10,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
+
 /**
  * Created by rybkinrolla on 19.01.2016.
  */
+
 @WebServlet("/errorpage")
 public class ServletError extends HttpServlet {
     @Override
@@ -37,3 +40,4 @@ public class ServletError extends HttpServlet {
 
     }
 }
+

@@ -51,7 +51,7 @@ public class ServletPageWorkers extends HttpServlet {
                 }
             }
             factoryDAO.getEmployeeDAO().delete(employee);
-            resp.sendRedirect("workers?message=Row was deleted");
+            resp.sendRedirect("workers?message=Row%20was%20deleted");
         }
         if (req.getParameter("edit") != null) {
             employee.setEmployeeId(Integer.valueOf(req.getParameter("worker_id")));
@@ -59,14 +59,14 @@ public class ServletPageWorkers extends HttpServlet {
             employee.setLastName(req.getParameter("last_name"));
             employee.setEmployeeCategoryId(Integer.valueOf(req.getParameter("category")));
             factoryDAO.getEmployeeDAO().update(employee);
-            resp.sendRedirect("workers?message=Row was updated");
+            resp.sendRedirect("workers?message=Row%20was%20updated");
         }
         if (req.getParameter("add") != null) {
             employee.setFirstName(req.getParameter("first_name"));
             employee.setLastName(req.getParameter("last_name"));
             employee.setEmployeeCategoryId(Integer.valueOf(req.getParameter("category")));
             factoryDAO.getEmployeeDAO().create(employee);
-            resp.sendRedirect("workers?message=Row was added");
+            resp.sendRedirect("workers?message=Row%20was%20added");
         }
     }
 }

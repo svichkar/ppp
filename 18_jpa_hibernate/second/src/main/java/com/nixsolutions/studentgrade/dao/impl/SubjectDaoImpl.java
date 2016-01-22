@@ -25,8 +25,6 @@ public class SubjectDaoImpl implements SubjectDao {
 
         session.saveOrUpdate(subject);
         transaction.commit();
-
-
     }
 
     @Override
@@ -38,8 +36,6 @@ public class SubjectDaoImpl implements SubjectDao {
 
         session.update(subject);
         transaction.commit();
-
-
     }
 
     @Override
@@ -51,8 +47,6 @@ public class SubjectDaoImpl implements SubjectDao {
 
         session.delete(subject);
         transaction.commit();
-
-
     }
 
     @Override
@@ -64,7 +58,6 @@ public class SubjectDaoImpl implements SubjectDao {
 
         List<Subject> list = session.createCriteria(Subject.class).list();
         transaction.commit();
-
 
         return list;
     }
@@ -81,8 +74,7 @@ public class SubjectDaoImpl implements SubjectDao {
         List<Subject> results = criteria.list();
         transaction.commit();
 
-
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -101,8 +93,7 @@ public class SubjectDaoImpl implements SubjectDao {
         List<Subject> results = criteria.list();
         transaction.commit();
 
-
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -122,8 +113,7 @@ public class SubjectDaoImpl implements SubjectDao {
         List<Subject> results = criteria.list();
         transaction.commit();
 
-
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -141,7 +131,6 @@ public class SubjectDaoImpl implements SubjectDao {
         criteria.add(Restrictions.eq("termId", termId));
         List<Subject> results = criteria.list();
         transaction.commit();
-
 
         return results;
     }

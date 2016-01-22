@@ -38,8 +38,6 @@ public class JournalDaoImpl implements JournalDao {
 
         session.update(journal);
         transaction.commit();
-
-
     }
 
     @Override
@@ -51,8 +49,6 @@ public class JournalDaoImpl implements JournalDao {
 
         session.delete(journal);
         transaction.commit();
-
-
     }
 
     @Override
@@ -64,7 +60,6 @@ public class JournalDaoImpl implements JournalDao {
 
         List<Journal> list = session.createCriteria(Journal.class).list();
         transaction.commit();
-
 
         return list;
     }
@@ -82,7 +77,7 @@ public class JournalDaoImpl implements JournalDao {
         transaction.commit();
 
 
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -100,7 +95,6 @@ public class JournalDaoImpl implements JournalDao {
         criteria.add(Restrictions.and(Restrictions.eq("studentId", studentId), Restrictions.eq("termId", termId)));
         List<Journal> results = criteria.list();
         transaction.commit();
-
 
         return results;
     }

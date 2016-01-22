@@ -25,8 +25,6 @@ public class StudentDaoImpl implements StudentDao {
 
         session.saveOrUpdate(student);
         transaction.commit();
-
-
     }
 
     @Override
@@ -38,8 +36,6 @@ public class StudentDaoImpl implements StudentDao {
 
         session.update(student);
         transaction.commit();
-
-
     }
 
     @Override
@@ -51,8 +47,6 @@ public class StudentDaoImpl implements StudentDao {
 
         session.delete(student);
         transaction.commit();
-
-
     }
 
     @Override
@@ -64,7 +58,6 @@ public class StudentDaoImpl implements StudentDao {
 
         List<Student> list = session.createCriteria(Student.class).list();
         transaction.commit();
-
 
         return list;
     }
@@ -81,8 +74,7 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> results = criteria.list();
         transaction.commit();
 
-
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -101,8 +93,7 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> results = criteria.list();
         transaction.commit();
 
-
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -121,7 +112,6 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> results = criteria.list();
         transaction.commit();
 
-
         return results;
     }
 
@@ -136,7 +126,6 @@ public class StudentDaoImpl implements StudentDao {
         criteria.add(Restrictions.eq("groupId", groupId));
         List<Student> results = criteria.list();
         transaction.commit();
-
 
         return results;
     }
@@ -154,7 +143,6 @@ public class StudentDaoImpl implements StudentDao {
 
         List<Student> results = criteria.list();
         transaction.commit();
-
 
         return results;
     }

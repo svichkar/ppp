@@ -78,7 +78,6 @@ public class UserDaoImpl implements UserDao {
         List<Subject> results = criteria.list();
         transaction.commit();
 
-
         if (results.isEmpty()) {
             return false;
         } else {
@@ -98,7 +97,7 @@ public class UserDaoImpl implements UserDao {
         transaction.commit();
 
 
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;
@@ -118,7 +117,7 @@ public class UserDaoImpl implements UserDao {
         transaction.commit();
 
 
-        if (results.isEmpty()) {
+        if (results.isEmpty() == false) {
             return results.get(0);
         } else {
             return null;

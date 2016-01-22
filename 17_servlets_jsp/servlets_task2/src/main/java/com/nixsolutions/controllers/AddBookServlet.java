@@ -40,6 +40,13 @@ public class AddBookServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		processAddBook(request, response);
+
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddBook.jsp");
+		rd.forward(request, response);
+	}
+
+	private void processAddBook(HttpServletRequest request, HttpServletResponse response) {
 		LOG.entry(request.getParameter("bookname"), request.getParameter("authorfirstname"),
 				request.getParameter("authorlastname"), request.getParameter("selectcell"),
 				request.getParameter("selectcategory"));
@@ -77,8 +84,5 @@ public class AddBookServlet extends HttpServlet {
 			factory.getAuthorBookDao()
 					.createAuthorBook(new AuthorBook(auth.getAuthorId(), book.getBookId()));
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddBook.jsp");
-		rd.forward(request, response);
 	}
 }

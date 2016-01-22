@@ -25,6 +25,11 @@ public class AuthServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getParameter("username"), request.getParameter("userpass"));
+		processAuthorisation(request, response);
+	}
+
+	private void processAuthorisation(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("userpass");
 		PrintWriter out = response.getWriter();
@@ -34,7 +39,7 @@ public class AuthServlet extends HttpServlet {
 		LOG.debug("value of the auth button " + request.getParameter("button"));
 		String button = request.getParameter("button");
 
-		//click on login
+		// click on login
 		if (button.equals("login")) {
 			response.setContentType("text/html");
 			if (user != null) {
@@ -70,8 +75,6 @@ public class AuthServlet extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("index.html");
 				rd.include(request, response);
 			}
-
 		}
-
 	}
 }

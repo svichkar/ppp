@@ -30,6 +30,13 @@ public class AddCategoryServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
+		processAddCategory(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp");
+		rd.forward(request, response);
+	}
+	
+	private void processAddCategory(HttpServletRequest request, HttpServletResponse response){
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
 		String categoryName = request.getParameter("categoryname").trim();
@@ -40,8 +47,5 @@ public class AddCategoryServlet extends HttpServlet {
 		} else {
 			request.setAttribute("status", "false");
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp");
-		rd.forward(request, response);
 	}
 }

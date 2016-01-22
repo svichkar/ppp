@@ -39,8 +39,13 @@ public class ManageUsersServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		PrintWriter out = response.getWriter();
 
+		processUsers(request, response);
+	}
+
+	private void processUsers(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		PrintWriter out = response.getWriter();
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("password");
 		String roleName = request.getParameter("selectrole");

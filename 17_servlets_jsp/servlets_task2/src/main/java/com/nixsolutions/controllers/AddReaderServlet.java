@@ -31,6 +31,13 @@ public class AddReaderServlet extends HttpServlet {
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
+		processAddreader(request, response);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddReader.jsp");
+		rd.forward(request, response);
+	}
+
+	private void processAddreader(HttpServletRequest request, HttpServletResponse response){
 		String firstName = request.getParameter("readerfirstname");
 		String lastName = request.getParameter("readerlastname");
 		String email = request.getParameter("email");
@@ -40,10 +47,6 @@ public class AddReaderServlet extends HttpServlet {
 		client.setSecondName(lastName);
 		client.setEmail(email);
 		factory.getClientDao().createClient(client);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddReader.jsp");
-		rd.forward(request, response);
 	}
-
 
 }

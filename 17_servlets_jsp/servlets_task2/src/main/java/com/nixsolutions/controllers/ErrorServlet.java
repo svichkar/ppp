@@ -23,11 +23,6 @@ public class ErrorServlet extends HttpServlet {
 		processError(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		processError(request, response);
-	}
-
 	private void processError(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		// Analyze the servlet exception

@@ -17,8 +17,6 @@ import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Book;
 import com.nixsolutions.entity.Client;
-import com.nixsolutions.entity.Role;
-import com.nixsolutions.entity.User;
 
 @SuppressWarnings("serial")
 public class FindReaderServlet extends HttpServlet {
@@ -28,11 +26,6 @@ public class FindReaderServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
-		List<User> users = factory.getUserDao().getAllUsers();
-		List<Role> allRoles = factory.getRoleDao().getAllRoles();
-
-		request.setAttribute("users", users);
-		request.setAttribute("roles", allRoles);
 
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
 		rd.forward(request, response);
@@ -40,6 +33,14 @@ public class FindReaderServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+
+		processFindReaders(request, response);
+
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
+		rd.forward(request, response);
+	}
+
+	private void processFindReaders(HttpServletRequest request, HttpServletResponse response) {
 		LOG.debug("entered the method");
 		String[] booksIds = request.getParameterValues("loaned");
 		List<Client> readers = new ArrayList<>();
@@ -57,8 +58,5 @@ public class FindReaderServlet extends HttpServlet {
 			readers = factory.getClientDao().getClientsByName(request.getParameter("search input"));
 			request.setAttribute("readers", readers);
 		}
-
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
-		rd.forward(request, response);
 	}
 }

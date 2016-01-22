@@ -37,6 +37,13 @@ public class LoansManageServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
+		processLoans(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
+		rd.forward(request, response);
+	}
+	
+	private void processLoans(HttpServletRequest request, HttpServletResponse response){
 		LOG.entry(">>>" + request.getParameterValues("loaned"), request.getAttribute("toBeloaned"),
 				request.getParameter("search input"));
 
@@ -107,11 +114,7 @@ public class LoansManageServlet extends HttpServlet {
 			}
 			request.setAttribute("toBeloaned", toBeloaned);
 		}
-
 		request.setAttribute("loans", loans);
 		request.setAttribute("reader", reader);
-
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
-		rd.forward(request, response);
 	}
 }

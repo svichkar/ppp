@@ -24,6 +24,9 @@ public class User implements Serializable{
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private Role role;
 
+    public User() {
+    }
+
     public Long getUserId() {
         return userId;
     }

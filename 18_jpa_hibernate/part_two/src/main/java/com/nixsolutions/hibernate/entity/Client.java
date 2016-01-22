@@ -39,6 +39,9 @@ public class Client implements Serializable{
         return clientFirstName + " " + clientLastName;
     }
 
+    public Client() {
+    }
+
     public Long getClientId() {
         return clientId;
     }

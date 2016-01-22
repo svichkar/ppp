@@ -26,6 +26,9 @@ public class Cell implements Serializable{
     @JoinColumn(name = "cell_id", referencedColumnName = "cell_id")
     private List<Book> books;
 
+    public Cell() {
+    }
+
     public Long getCellId() {
         return cellId;
     }

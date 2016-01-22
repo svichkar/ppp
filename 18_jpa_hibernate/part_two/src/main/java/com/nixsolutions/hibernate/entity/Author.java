@@ -35,6 +35,9 @@ public class Author implements Serializable{
         return authorFirstName + " " + authorLastName;
     }
 
+    public Author() {
+    }
+
     public Long getAuthorId() {
         return authorId;
     }

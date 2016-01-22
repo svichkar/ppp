@@ -54,6 +54,9 @@ public class Book implements Serializable {
         return ticket;
     }
 
+    public Book() {
+    }
+
     public Long getBookId() {
         return bookId;
     }

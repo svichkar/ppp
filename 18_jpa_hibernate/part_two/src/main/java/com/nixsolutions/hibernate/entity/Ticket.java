@@ -35,7 +35,10 @@ public class Ticket implements Serializable{
 
     @Transient
     public Boolean isReturned(){
-        return (returnDate != null);
+        return returnDate != null;
+    }
+
+    public Ticket() {
     }
 
     public Long getTicketId() {

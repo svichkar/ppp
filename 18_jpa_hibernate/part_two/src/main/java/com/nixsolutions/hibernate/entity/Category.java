@@ -25,6 +25,9 @@ public class Category implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private List<Book> books;
 
+    public Category() {
+    }
+
     public Long getCategoryId() {
         return categoryId;
     }

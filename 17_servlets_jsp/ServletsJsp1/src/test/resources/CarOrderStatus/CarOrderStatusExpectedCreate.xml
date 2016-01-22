@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <car_order_status name="Outstanding" />
+    <car_order_status name="Ready" />
+    <car_order_status name="In Progress" />
+    <car_order_status name="Assigned" />
+</dataset>

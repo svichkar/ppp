@@ -52,4 +52,13 @@ public class Subject implements Serializable {
     public void setTerm(Term term) {
         this.term = term;
     }
+
+    public boolean isEmpty() {
+        boolean result = false;
+
+        if(this.subjectId == null && this.subjectName == null && this.term == null)
+            result = true;
+
+        return result;
+    }
 }

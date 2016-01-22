@@ -11,8 +11,7 @@ import java.io.Serializable;
 public class Role implements Serializable {
 
     @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id", nullable = false, unique = true)
     private Long roleId;
 
     @Column(name = "role_name", nullable = false, unique = true, length = 256)

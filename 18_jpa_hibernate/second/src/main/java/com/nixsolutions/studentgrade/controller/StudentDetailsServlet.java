@@ -40,13 +40,14 @@ public class StudentDetailsServlet extends HttpServlet {
             Long studentId = Long.valueOf(request.getParameter("id"));
             Student student = studentDao.findById(studentId);
             request.setAttribute("pageTitle", String.format("<p><h3>Detailed grade statistic for <b>%s %s</b>. " +
-                    "<a href=\"/student-grades/student\">Back to Students List</a></h3></p>",
+                            "<a href=\"/student-grades/student\">Back to Students List</a></h3></p>",
                     student.getFirstName(), student.getLastName()));
         }
+
         switch (operation) {
 
             case "details": {
-                getServletContext().log(request.getParameter("id"));
+
                 request.setAttribute("id", request.getParameter("id"));
                 request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                         "Please specify term for student grade details</h4></p>");
@@ -55,7 +56,6 @@ public class StudentDetailsServlet extends HttpServlet {
 
             case "show": {
 
-                getServletContext().log(request.getParameter("id"));
                 Long studentId = Long.valueOf(request.getParameter("id"));
 
                 String termName = request.getParameter("term");
@@ -63,15 +63,14 @@ public class StudentDetailsServlet extends HttpServlet {
                 List<Journal> journalList = journalDao.findByStudentAndTerm(studentId, term.getTermId());
                 if (journalList != null && journalList.isEmpty() == false) {
 
-                    getServletContext().log("journalList is not empty");
                     request.setAttribute("selectedTerm", term);
 
                     Long sum = 0L;
                     for (Journal j : journalList) {
-                        list.add(new StudentDetailsBean(subjectDao.findById(j.getSubjectId()).getSubjectName(),
-                                gradeDao.findById(j.getGradeId()).getGradeName()));
+                        list.add(new StudentDetailsBean(j.getSubject().getSubjectName(),
+                                j.getGrade().getGradeName()));
 
-                        sum += j.getGradeId();
+                        sum += j.getGrade().getGradeId();
                     }
 
                     Float score = Float.valueOf(sum) / journalList.size();
@@ -84,7 +83,6 @@ public class StudentDetailsServlet extends HttpServlet {
 
                 if (list != null && list.isEmpty() == false) {
                     request.setAttribute("journals", list);
-                    getServletContext().log("journal is not empty");
                 } else {
                     request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                             "No data available. Please change search criteria</h4></p>");

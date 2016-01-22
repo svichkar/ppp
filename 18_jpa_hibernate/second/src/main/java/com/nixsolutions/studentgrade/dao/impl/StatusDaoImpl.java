@@ -26,7 +26,7 @@ public class StatusDaoImpl implements StatusDao {
         session.saveOrUpdate(status);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class StatusDaoImpl implements StatusDao {
         session.update(status);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class StatusDaoImpl implements StatusDao {
         session.delete(status);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class StatusDaoImpl implements StatusDao {
 
         List<Status> list = session.createCriteria(Status.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -80,7 +80,7 @@ public class StatusDaoImpl implements StatusDao {
         criteria.add(Restrictions.idEq(id));
         List<Status> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -100,7 +100,7 @@ public class StatusDaoImpl implements StatusDao {
         criteria.add(Restrictions.eq("statusName", statusName));
         List<Status> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);

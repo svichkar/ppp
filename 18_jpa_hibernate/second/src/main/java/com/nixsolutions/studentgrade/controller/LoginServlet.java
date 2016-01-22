@@ -1,7 +1,6 @@
 package com.nixsolutions.studentgrade.controller;
 
 import com.nixsolutions.studentgrade.dao.DaoFactory;
-import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
@@ -39,8 +38,7 @@ public class LoginServlet extends HttpServlet {
 
             if (user != null) {
 
-                RoleDao roleDao = daoFactory.getRoleDao();
-                Role role = roleDao.findById(user.getRoleId());
+                Role role = user.getRole();
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user.getLogin());
 

@@ -101,4 +101,19 @@ public class Student implements Serializable {
     public void setTerm(Term term) {
         this.term = term;
     }
+
+    public boolean isEmpty() {
+
+        boolean result = false;
+        if (this.studentId == null
+                && this.firstName == null
+                && this.lastName == null
+                && this.admissionDate == null
+                && this.term == null
+                && this.status == null
+                && this.studentGroup == null)
+            result = true;
+
+        return result;
+    }
 }

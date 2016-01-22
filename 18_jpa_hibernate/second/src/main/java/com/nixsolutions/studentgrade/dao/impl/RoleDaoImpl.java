@@ -26,7 +26,7 @@ public class RoleDaoImpl implements RoleDao {
         session.saveOrUpdate(role);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class RoleDaoImpl implements RoleDao {
         session.update(role);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class RoleDaoImpl implements RoleDao {
         session.delete(role);
         transaction.commit();
 
-        session.close();
+
     }
 
     public List<Role> findAll() {
@@ -63,7 +63,7 @@ public class RoleDaoImpl implements RoleDao {
 
         List<Role> list = session.createCriteria(Role.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -78,7 +78,7 @@ public class RoleDaoImpl implements RoleDao {
         criteria.add(Restrictions.idEq(id));
         List<Role> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -97,7 +97,7 @@ public class RoleDaoImpl implements RoleDao {
         criteria.add(Restrictions.eq("roleName", role));
         List<Role> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);

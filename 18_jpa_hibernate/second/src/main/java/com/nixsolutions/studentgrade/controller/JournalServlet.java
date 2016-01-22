@@ -28,12 +28,13 @@ public class JournalServlet extends HttpServlet {
 
         List<JournalBean> list = new ArrayList<>();
         List<Journal> journals = dao.findAll();
+
         if (journals != null && journals.isEmpty() == false) {
             for (Journal j : journals) {
-                Student student = studentDao.findById(j.getStudentId());
-                StudentGroup group = groupDao.findById(student.getGroupId());
-                Subject subject = subjectDao.findById(j.getSubjectId());
-                Grade grade = gradeDao.findById(j.getGradeId());
+                Student student = j.getStudent();
+                StudentGroup group = student.getStudentGroup();
+                Subject subject = j.getSubject();
+                Grade grade = j.getGrade();
 
                 list.add(new JournalBean(j.getJournalId(),
                         student.getFirstName(),
@@ -91,17 +92,17 @@ public class JournalServlet extends HttpServlet {
                 if (student != null && student.isEmpty() == false) {
                     boolean isUnique = true;
                     for (Journal j : dao.findAll()) {
-                        if (student.getStudentId().equals(j.getStudentId())
-                                && subject.getSubjectId().equals(j.getSubjectId()))
+                        if (student.getStudentId().equals(j.getStudent().getStudentId())
+                                && subject.getSubjectId().equals(j.getSubject().getSubjectId()))
                             isUnique = false;
                     }
 
                     Journal journal = new Journal();
                     if (isUnique) {
-                        if(student.getGroupId().equals(studentGroup.getGroupId())) {
-                            journal.setGradeId(grade.getGradeId());
-                            journal.setSubjectId(subject.getSubjectId());
-                            journal.setStudentId(student.getStudentId());
+                        if (student.getStudentGroup().getGroupId().equals(studentGroup.getGroupId())) {
+                            journal.setGrade(grade);
+                            journal.setSubject(subject);
+                            journal.setStudent(student);
                             dao.create(journal);
                             request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                                     "Success</h4></p>");
@@ -125,18 +126,17 @@ public class JournalServlet extends HttpServlet {
 
                 boolean isUnique = true;
                 for (Journal j : dao.findAll()) {
-                    if (student.getStudentId().equals(j.getStudentId())
-                            && grade.getGradeId().equals(j.getGradeId())
-                            && subject.getSubjectId().equals(j.getSubjectId()))
+                    if (student.getStudentId().equals(j.getStudent().getStudentId())
+                            && grade.getGradeId().equals(j.getGrade().getGradeId())
+                            && subject.getSubjectId().equals(j.getSubject().getSubjectId()))
                         isUnique = false;
                 }
 
-                Journal journal = new Journal();
+                Journal journal = dao.findById(Long.valueOf(id));
                 if (isUnique) {
-                    journal.setJournalId(Long.valueOf(id));
-                    journal.setStudentId(student.getStudentId());
-                    journal.setSubjectId(subject.getSubjectId());
-                    journal.setGradeId(grade.getGradeId());
+                    journal.setStudent(student);
+                    journal.setSubject(subject);
+                    journal.setGrade(grade);
                     dao.update(journal);
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
@@ -148,17 +148,10 @@ public class JournalServlet extends HttpServlet {
             }
 
             case "delete": {
-                Journal delete = new Journal();
-                delete.setJournalId(Long.valueOf(id));
-
-                if (dao.delete(delete)) {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
-                } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: red;\">" +
-                            "Journal record cannot be delete</h4></p>");
-                }
+                Journal journal = dao.findById(Long.valueOf(id));
+                dao.delete(journal);
+                request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                        "Success</h4></p>");
                 break;
             }
         }
@@ -167,10 +160,10 @@ public class JournalServlet extends HttpServlet {
         List<Journal> journalList = dao.findAll();
         if (journalList != null && journalList.isEmpty() == false) {
             for (Journal j : journalList) {
-                Student st = studentDao.findById(j.getStudentId());
-                StudentGroup gr = groupDao.findById(st.getGroupId());
-                Subject sub = subjectDao.findById(j.getSubjectId());
-                Grade g = gradeDao.findById(j.getGradeId());
+                Student st = j.getStudent();
+                StudentGroup gr = st.getStudentGroup();
+                Subject sub = j.getSubject();
+                Grade g = j.getGrade();
 
                 list.add(new JournalBean(j.getJournalId(),
                         st.getFirstName(),

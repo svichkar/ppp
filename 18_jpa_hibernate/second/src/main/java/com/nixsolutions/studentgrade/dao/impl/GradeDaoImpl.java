@@ -26,7 +26,7 @@ public class GradeDaoImpl implements GradeDao {
         session.saveOrUpdate(grade);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class GradeDaoImpl implements GradeDao {
         session.update(grade);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GradeDaoImpl implements GradeDao {
         session.delete(grade);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GradeDaoImpl implements GradeDao {
 
         List<Grade> list = session.createCriteria(Grade.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -80,7 +80,7 @@ public class GradeDaoImpl implements GradeDao {
         criteria.add(Restrictions.idEq(id));
         List<Grade> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -100,7 +100,7 @@ public class GradeDaoImpl implements GradeDao {
         criteria.add(Restrictions.eq("gradeName", gradeName));
         List<Grade> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);

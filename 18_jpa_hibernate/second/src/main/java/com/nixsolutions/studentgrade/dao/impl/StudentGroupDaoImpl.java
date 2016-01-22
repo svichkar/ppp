@@ -26,7 +26,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         session.saveOrUpdate(group);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         session.update(group);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         session.delete(group);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
         List<StudentGroup> list = session.createCriteria(StudentGroup.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -80,7 +80,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         criteria.add(Restrictions.idEq(id));
         List<StudentGroup> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -101,7 +101,7 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         criteria.add(Restrictions.eq("groupName", groupName));
         List<StudentGroup> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);

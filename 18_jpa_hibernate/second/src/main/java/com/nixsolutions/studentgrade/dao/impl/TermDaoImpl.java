@@ -26,7 +26,7 @@ public class TermDaoImpl implements TermDao {
         session.saveOrUpdate(term);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TermDaoImpl implements TermDao {
         session.update(term);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TermDaoImpl implements TermDao {
         session.delete(term);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TermDaoImpl implements TermDao {
 
         List<Term> list = session.createCriteria(Term.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -80,7 +80,7 @@ public class TermDaoImpl implements TermDao {
         criteria.add(Restrictions.idEq(id));
         List<Term> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -100,7 +100,7 @@ public class TermDaoImpl implements TermDao {
         criteria.add(Restrictions.eq("termName", termName));
         List<Term> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);

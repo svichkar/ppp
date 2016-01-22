@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
         session.saveOrUpdate(user);
         transaction.commit();
 
-        session.close();
+
     }
 
     public void update(User user) {
@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
         session.update(user);
         transaction.commit();
 
-        session.close();
+
     }
 
     public void delete(User user) {
@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
         session.delete(user);
         transaction.commit();
 
-        session.close();
+
     }
 
     public List<User> findAll() {
@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 
         List<User> list = session.createCriteria(User.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
         criteria.add(Restrictions.eq("login", user));
         List<Subject> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return false;
@@ -96,7 +96,7 @@ public class UserDaoImpl implements UserDao {
         criteria.add(Restrictions.and(Restrictions.eq("login", user), Restrictions.eq("userPassword", pass)));
         List<User> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -116,7 +116,7 @@ public class UserDaoImpl implements UserDao {
         criteria.add(Restrictions.eq("login", userLogin));
         List<User> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);

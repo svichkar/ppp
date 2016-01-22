@@ -43,7 +43,9 @@ public class TermServlet extends HttpServlet {
                 }
 
                 if(isUnique) {
-                    daoFactory.getTermDao().create(new Term(termName));
+                    Term newTerm = new Term();
+                    newTerm.setTermName(termName);
+                    daoFactory.getTermDao().create(newTerm);
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
 
@@ -59,8 +61,7 @@ public class TermServlet extends HttpServlet {
             }
 
             case "update": {
-                Term term = new Term();
-                term.setTermId(Long.valueOf(termId));
+                Term term = daoFactory.getTermDao().findById(Long.valueOf(termId));
                 term.setTermName(termName);
 
                 boolean isUnique = true;
@@ -86,18 +87,10 @@ public class TermServlet extends HttpServlet {
             }
 
             case "delete" : {
-                Term term = new Term();
-                term.setTermId(Long.valueOf(termId));
-                term.setTermName(termName);
-
-                if (daoFactory.getTermDao().delete(term)) {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                Term term = daoFactory.getTermDao().findById(Long.valueOf(termId));
+                daoFactory.getTermDao().delete(term);
+                request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
-
-                } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Term cannot be delete</h4></p>");
-                }
 
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());
                 request.getRequestDispatcher("/WEB-INF/jsp/term.jsp").forward(request, response);

@@ -26,7 +26,7 @@ public class StudentDaoImpl implements StudentDao {
         session.saveOrUpdate(student);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -39,7 +39,7 @@ public class StudentDaoImpl implements StudentDao {
         session.update(student);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -52,7 +52,7 @@ public class StudentDaoImpl implements StudentDao {
         session.delete(student);
         transaction.commit();
 
-        session.close();
+
     }
 
     @Override
@@ -64,7 +64,7 @@ public class StudentDaoImpl implements StudentDao {
 
         List<Student> list = session.createCriteria(Student.class).list();
         transaction.commit();
-        session.close();
+
 
         return list;
     }
@@ -80,7 +80,7 @@ public class StudentDaoImpl implements StudentDao {
         criteria.add(Restrictions.idEq(id));
         List<Student> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -100,7 +100,7 @@ public class StudentDaoImpl implements StudentDao {
         criteria.add(Restrictions.and(Restrictions.eq("firstName", firsName), Restrictions.eq("lastName", lastName)));
         List<Student> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         if (results.isEmpty()) {
             return results.get(0);
@@ -120,7 +120,7 @@ public class StudentDaoImpl implements StudentDao {
         criteria.add(Restrictions.eq("lastName", lastName).ignoreCase());
         List<Student> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         return results;
     }
@@ -136,7 +136,7 @@ public class StudentDaoImpl implements StudentDao {
         criteria.add(Restrictions.eq("groupId", groupId));
         List<Student> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         return results;
     }
@@ -154,7 +154,7 @@ public class StudentDaoImpl implements StudentDao {
 
         List<Student> results = criteria.list();
         transaction.commit();
-        session.close();
+
 
         return results;
     }

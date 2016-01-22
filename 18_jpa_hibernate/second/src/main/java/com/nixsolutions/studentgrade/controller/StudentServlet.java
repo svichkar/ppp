@@ -48,12 +48,12 @@ public class StudentServlet extends HttpServlet {
                                     st.getFirstName(),
                                     st.getLastName(),
                                     st.getAdmissionDate(),
-                                    st.getGroupId(),
-                                    studentGroup.getGroupName(),
-                                    st.getStatusId(),
-                                    statusDao.findById(st.getStatusId()).getStatusName(),
-                                    st.getTermId(),
-                                    termDao.findById(st.getTermId()).getTermName()
+                                    st.getStudentGroup().getGroupId(),
+                                    st.getStudentGroup().getGroupName(),
+                                    st.getStatus().getStatusId(),
+                                    st.getStatus().getStatusName(),
+                                    st.getTerm().getTermId(),
+                                    st.getTerm().getTermName()
                             ));
                         }
                         request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
@@ -68,12 +68,12 @@ public class StudentServlet extends HttpServlet {
                                     st.getFirstName(),
                                     st.getLastName(),
                                     st.getAdmissionDate(),
-                                    st.getGroupId(),
-                                    studentGroup.getGroupName(),
-                                    st.getStatusId(),
-                                    statusDao.findById(st.getStatusId()).getStatusName(),
-                                    st.getTermId(),
-                                    termDao.findById(st.getTermId()).getTermName()
+                                    st.getStudentGroup().getGroupId(),
+                                    st.getStudentGroup().getGroupName(),
+                                    st.getStatus().getStatusId(),
+                                    st.getStatus().getStatusName(),
+                                    st.getTerm().getTermId(),
+                                    st.getTerm().getTermName()
                             ));
                         }
                         request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
@@ -90,12 +90,12 @@ public class StudentServlet extends HttpServlet {
                                     st.getFirstName(),
                                     st.getLastName(),
                                     st.getAdmissionDate(),
-                                    st.getGroupId(),
-                                    groupDao.findById(st.getGroupId()).getGroupName(),
-                                    st.getStatusId(),
-                                    statusDao.findById(st.getStatusId()).getStatusName(),
-                                    st.getTermId(),
-                                    termDao.findById(st.getTermId()).getTermName()
+                                    st.getStudentGroup().getGroupId(),
+                                    st.getStudentGroup().getGroupName(),
+                                    st.getStatus().getStatusId(),
+                                    st.getStatus().getStatusName(),
+                                    st.getTerm().getTermId(),
+                                    st.getTerm().getTermName()
                             ));
                         }
                         request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
@@ -116,12 +116,12 @@ public class StudentServlet extends HttpServlet {
                             st.getFirstName(),
                             st.getLastName(),
                             st.getAdmissionDate(),
-                            st.getGroupId(),
-                            groupDao.findById(st.getGroupId()).getGroupName(),
-                            st.getStatusId(),
-                            statusDao.findById(st.getStatusId()).getStatusName(),
-                            st.getTermId(),
-                            termDao.findById(st.getTermId()).getTermName()
+                            st.getStudentGroup().getGroupId(),
+                            st.getStudentGroup().getGroupName(),
+                            st.getStatus().getStatusId(),
+                            st.getStatus().getStatusName(),
+                            st.getTerm().getTermId(),
+                            st.getTerm().getTermName()
                     ));
                 }
             }
@@ -170,12 +170,14 @@ public class StudentServlet extends HttpServlet {
                 }
 
                 if (isUnique) {
-                    dao.create(new Student(name,
-                            lastName,
-                            groupDao.findByName(group).getGroupId(),
-                            Date.valueOf(addedDate),
-                            statusDao.findByName(status).getStatusId(),
-                            termDao.findByName(term).getTermId()));
+                    Student newStudent = new Student();
+                    newStudent.setFirstName(name);
+                    newStudent.setLastName(lastName);
+                    newStudent.setStudentGroup(groupDao.findByName(group));
+                    newStudent.setAdmissionDate(Date.valueOf(addedDate));
+                    newStudent.setStatus(statusDao.findByName(status));
+                    newStudent.setTerm(termDao.findByName(term));
+                    dao.create(newStudent);
 
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
@@ -189,23 +191,22 @@ public class StudentServlet extends HttpServlet {
 
             case "update": {
 
-                Student student = new Student();
-                student.setStudentId(Long.valueOf(id));
+                Student student = dao.findById(Long.valueOf(id));
                 student.setFirstName(name);
                 student.setLastName(lastName);
                 student.setAdmissionDate(Date.valueOf(addedDate));
-                student.setGroupId(groupDao.findByName(group).getGroupId());
-                student.setStatusId(statusDao.findByName(status).getStatusId());
-                student.setTermId(termDao.findByName(term).getTermId());
+                student.setStudentGroup(groupDao.findByName(group));
+                student.setStatus(statusDao.findByName(status));
+                student.setTerm(termDao.findByName(term));
 
                 boolean isUnique = true;
                 for (Student s : dao.findAll()) {
                     if (s.getLastName().equals(lastName)
                             && s.getFirstName().equals(name)
                             && s.getAdmissionDate().equals(Date.valueOf(addedDate))
-                            && s.getGroupId().equals(groupDao.findByName(group).getGroupId())
-                            && s.getStatusId().equals(statusDao.findByName(status).getStatusId())
-                            && s.getTermId().equals(termDao.findByName(term).getTermId()))
+                            && s.getStudentGroup().getGroupId().equals(groupDao.findByName(group).getGroupId())
+                            && s.getStatus().getStatusId().equals(statusDao.findByName(status).getStatusId())
+                            && s.getTerm().getTermId().equals(termDao.findByName(term).getTermId()))
                         isUnique = false;
                 }
 
@@ -222,17 +223,11 @@ public class StudentServlet extends HttpServlet {
             }
 
             case "delete": {
-                Student del = new Student();
-                del.setStudentId(Long.valueOf(id));
+                Student student = dao.findById(Long.valueOf(id));
+                dao.delete(student);
+                request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                        "Success</h4></p>");
 
-                if (dao.delete(del)) {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
-                } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Student cannot be delete</h4></p>");
-                }
                 break;
             }
         }
@@ -247,12 +242,12 @@ public class StudentServlet extends HttpServlet {
                         st.getFirstName(),
                         st.getLastName(),
                         st.getAdmissionDate(),
-                        st.getGroupId(),
-                        groupDao.findById(st.getGroupId()).getGroupName(),
-                        st.getStatusId(),
-                        statusDao.findById(st.getStatusId()).getStatusName(),
-                        st.getTermId(),
-                        termDao.findById(st.getTermId()).getTermName()
+                        st.getStudentGroup().getGroupId(),
+                        st.getStudentGroup().getGroupName(),
+                        st.getStatus().getStatusId(),
+                        st.getStatus().getStatusName(),
+                        st.getTerm().getTermId(),
+                        st.getTerm().getTermName()
                 ));
             }
         }

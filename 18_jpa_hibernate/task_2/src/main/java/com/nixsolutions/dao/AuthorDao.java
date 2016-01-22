@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Author;
 
 public interface AuthorDao {
 	public List<Author> getAllAuthors();
-	public List<Author> getAuthorsByName(String name);
+	public Author getAuthorByName(String name);
 	public Author getAuthorById(Long authorId);
 	public Author createAuthor(Author author);
 	public void updateAuthor(Author author);

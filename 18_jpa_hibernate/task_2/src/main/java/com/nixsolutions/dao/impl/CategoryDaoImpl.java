@@ -10,11 +10,17 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.CategoryDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.H2ConnManager;
+import com.nixsolutions.entity.Book;
 import com.nixsolutions.entity.Category;
+import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
@@ -22,96 +28,71 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Override
 	public List<Category> getAllCategories() {
 		LOG.entry();
-		String sql = "SELECT * FROM category;";
-		List<Category> categories = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
-			ResultSet result = statem.executeQuery(sql);
-			while (result.next()) {
-				Category category = new Category(result.getString("name"));
-				category.setCategoryId(result.getLong("category_id"));
-				categories.add(category);
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get all categorys", e));
-		}
+		List<Category> categories = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Category.class);
+		categories = criteria.list();
+		transaction.commit();
 		return LOG.exit(categories);
 	}
 
 	@Override
 	public Category getCategoryById(Long categoryId) {
 		LOG.entry(categoryId);
-		String sql = "SELECT * FROM category WHERE category_id = ?;";
 		Category category = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setLong(1, categoryId);
-			ResultSet result = statem.executeQuery();
-			if (result.next()) {
-				category = new Category(result.getString("name"));
-				category.setCategoryId(result.getLong("category_id"));
-			}
-			LOG.trace("the category was retrieved");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a category by Id", e ));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Category.class, "category")
+				.add(Restrictions.eq("category.categoryId", categoryId));
+		category = (Category) criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(category);
 	}
-	
+
 	@Override
 	public Category getCategoryByName(String categoryName) {
 		LOG.entry(categoryName);
-		String sql = "SELECT * FROM category WHERE name = ?;";
 		Category category = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, categoryName);
-			ResultSet result = statem.executeQuery();
-			if (result.next()) {
-				category = new Category(result.getString("name"));
-				category.setCategoryId(result.getLong("category_id"));
-			}
-			LOG.trace("the category was retrieved");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a category by Id", e ));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Category.class, "category")
+				.add(Restrictions.eq("category.name", categoryName));
+		category = (Category) criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(category);
 	}
 
 	@Override
 	public void createCategory(Category category) {
 		LOG.entry(category);
-		String sql = "INSERT INTO category (name) VALUES (?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, category.getName());
-			statem.executeUpdate();
-			LOG.exit("category was created");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create a category", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.save(category);
+		transaction.commit();
 	}
 
 	@Override
 	public void updateCategory(Category category) {
 		LOG.entry(category);
-		String sql = "UPDATE category SET name = ? WHERE category_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, category.getName());
-			statem.setLong(2, category.getCategoryId());
-			statem.executeUpdate();
-			LOG.exit("category with id: " + category.getCategoryId() + " was updated");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to update the category", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.saveOrUpdate(category);
+		transaction.commit();
 	}
 
 	@Override
 	public void deleteCategory(Category category) {
 		LOG.entry(category);
-		String sql = "DELETE FROM category WHERE category_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setLong(1, category.getCategoryId());
-			statem.executeUpdate();
-			LOG.exit("category with id: " + category.getCategoryId() + " was deleted");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to delete the category", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.delete(category);
+		transaction.commit();
 	}
 }

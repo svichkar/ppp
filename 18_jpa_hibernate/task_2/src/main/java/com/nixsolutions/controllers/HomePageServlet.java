@@ -26,6 +26,13 @@ public class HomePageServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		processHomePage(request, response);
+
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/HomePage.jsp");
+		rd.forward(request, response);
+	}
+
+	private void processHomePage(HttpServletRequest request, HttpServletResponse response) {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
 		List<RentJournal> rents = factory.getRentJournalDao().getAllRents();
@@ -34,15 +41,13 @@ public class HomePageServlet extends HttpServlet {
 		for (RentJournal loan : rents) {
 			LOG.debug(loan.getRentDate());
 			DateTime dt1 = new DateTime(loan.getRentDate());
-			DateTime dt2 = new DateTime();	
+			DateTime dt2 = new DateTime();
 			int returnBefore = 30;
-			if (loan.getReturnDate() == null && Days.daysBetween(dt1, dt2).getDays() > returnBefore) {
+			if (loan.getReturnDate() == null
+					&& Days.daysBetween(dt1, dt2).getDays() > returnBefore) {
 				loansBeans.add(new LoanBean(loan));
 			}
 		}
 		request.setAttribute("loans", loansBeans);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/HomePage.jsp");
-		rd.forward(request, response);
 	}
-
 }

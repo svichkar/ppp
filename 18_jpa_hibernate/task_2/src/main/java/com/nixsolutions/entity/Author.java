@@ -21,20 +21,20 @@ public class Author implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "AUTHOR_ID", unique = true, nullable = false)
+	@Column(name = "author_id", unique = true, nullable = false)
 	private Long authorId;
 	@NotNull
 	@Size(min = 3, max = 20)
-	@Column(name = "FIRST_NAME", nullable = false)
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@NotNull
 	@Size(min = 3, max = 20)
-	@Column(name = "LAST_NAME", nullable = false)
+	@Column(name = "last_name", nullable = false)
 	private String secondName;
 
 	@ManyToMany
-	@JoinTable(name = "author_book", joinColumns = { @JoinColumn(name = "AUTHOR_ID") },
-			inverseJoinColumns = { @JoinColumn(name = "BOOK_ID") })
+	@JoinTable(name = "author_book", joinColumns = { @JoinColumn(name = "author_id") },
+			inverseJoinColumns = { @JoinColumn(name = "book_id") })
 	private Set<Book> books;
 
 	public Long getAuthorId() {

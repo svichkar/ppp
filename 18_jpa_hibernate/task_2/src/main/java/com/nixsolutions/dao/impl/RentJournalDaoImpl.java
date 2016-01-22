@@ -11,11 +11,18 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.dao.RentJournalDao;
+import com.nixsolutions.entity.Book;
 import com.nixsolutions.entity.RentJournal;
+import com.nixsolutions.entity.User;
+import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
@@ -23,169 +30,72 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public List<RentJournal> getAllRents() {
 		LOG.entry();
-		String sql = "SELECT * FROM rent_journal;";
-		Connection conn = null;
-		Statement statem = null;
-		ResultSet result = null;
-		List<RentJournal> rentJournals = new ArrayList<>();
-		try {
-			conn = H2ConnManager.getConnection();
-			statem = conn.createStatement();
-			result = statem.executeQuery(sql);
-			while (result.next()) {
-				RentJournal rentJournal = new RentJournal();
-				rentJournal.setRentId(result.getLong("ticket_id"));
-				rentJournal.setBookId(result.getLong("book_id"));
-				rentJournal.setClientId(result.getLong("client_id"));
-				rentJournal.setRentDate(result.getDate("rent_date"));
-				rentJournal.setReturnDate(result.getDate("return_date"));
-				rentJournals.add(rentJournal);
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get all rentJournals", e));
-		} finally {
-			H2ConnManager.closeQuitely(result);
-			H2ConnManager.closeQuitely(statem);
-			H2ConnManager.closeQuitely(conn);
-		}
+		List<RentJournal> rentJournals = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(RentJournal.class);
+		rentJournals = criteria.list();
+		transaction.commit();
 		return LOG.exit(rentJournals);
 	}
 
 	@Override
 	public RentJournal getRentById(Long rentId) {
 		LOG.entry(rentId);
-		String sql = "SELECT * FROM rent_journal WHERE ticket_id = ?;";
 		RentJournal rentJournal = null;
-		Connection conn = null;
-		PreparedStatement statem = null;
-		ResultSet result = null;
-		try {
-			conn = H2ConnManager.getConnection();
-			statem = conn.prepareStatement(sql);
-			statem.setLong(1, rentId);
-			result = statem.executeQuery();
-			if (result.next()) {
-				rentJournal = new RentJournal();
-				rentJournal.setRentId(result.getLong("ticket_id"));
-				rentJournal.setBookId(result.getLong("book_id"));
-				rentJournal.setClientId(result.getLong("client_id"));
-				rentJournal.setRentDate(result.getDate("rent_date"));
-				rentJournal.setReturnDate(result.getDate("return_date"));
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a rentJournal by Id", e));
-		} finally {
-			H2ConnManager.closeQuitely(result);
-			H2ConnManager.closeQuitely(statem);
-			H2ConnManager.closeQuitely(conn);
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(RentJournal.class)
+				.add(Restrictions.eq("rentId", rentId));
+		rentJournal = (RentJournal) criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(rentJournal);
 	}
 
 	@Override
 	public void createRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal.toString());
-		String sql = "INSERT INTO rent_journal (book_id, client_id, rent_date) VALUES (?, ?, ?)";
-		Connection conn = null;
-		PreparedStatement statem = null;
-		try {
-			conn = H2ConnManager.getConnection();
-			statem = conn.prepareStatement(sql);
-			conn.setAutoCommit(false);
-			statem.setLong(1, rentJournal.getBookId());
-			statem.setLong(2, rentJournal.getClientId());
-			statem.setDate(3, new java.sql.Date(rentJournal.getRentDate().getTime()));
-			statem.executeUpdate();
-			conn.commit();
-			LOG.exit("rentJournal was created");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create the rent", e));
-			H2ConnManager.rollbackQuitely(conn);
-		} finally {
-			H2ConnManager.closeQuitely(statem);
-			H2ConnManager.closeQuitely(conn);
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.save(rentJournal);
+		transaction.commit();
 	}
 
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		String sql = "UPDATE rent_journal SET book_id = ?, client_id = ?, rent_date = ?, return_date = ?  WHERE ticket_id = ?";
-		Connection conn = null;
-		PreparedStatement statem = null;
-		try {
-			conn = H2ConnManager.getConnection();
-			statem = conn.prepareStatement(sql);
-			conn.setAutoCommit(false);
-			statem.setLong(1, rentJournal.getBookId());
-			statem.setLong(2, rentJournal.getClientId());
-			statem.setDate(3, (Date) rentJournal.getRentDate());
-			statem.setDate(4, (Date) rentJournal.getReturnDate());
-			statem.setLong(5, rentJournal.getRentId());
-			statem.executeUpdate();
-			conn.commit();
-			LOG.exit("rentJournal was updated");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create an rent", e));
-			H2ConnManager.rollbackQuitely(conn);
-		} finally {
-			H2ConnManager.closeQuitely(statem);
-			H2ConnManager.closeQuitely(conn);
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.saveOrUpdate(rentJournal);
+		transaction.commit();
 	}
 
 	@Override
 	public void deleteRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		String sql = "DELETE FROM rent_journal WHERE ticket_id = ?";
-		Connection conn = null;
-		PreparedStatement statem = null;
-		try {
-			conn = H2ConnManager.getConnection();
-			statem = conn.prepareStatement(sql);
-			conn.setAutoCommit(false);
-			statem.setLong(1, rentJournal.getRentId());
-			statem.executeUpdate();
-			conn.commit();
-			LOG.exit("rent was deleted");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create an rent", e));
-			H2ConnManager.rollbackQuitely(conn);
-		} finally {
-			H2ConnManager.closeQuitely(statem);
-			H2ConnManager.closeQuitely(conn);
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.delete(rentJournal);
+		transaction.commit();
 	}
 
 	@Override
 	public List<RentJournal> getRentsByClientId(Long clientId) {
 		LOG.entry(clientId);
-		String sql = "SELECT * FROM rent_journal WHERE client_id = ?;";
-		Connection conn = null;
-		PreparedStatement statem = null;
-		ResultSet result = null;
-		List<RentJournal> rentJournals = new ArrayList<>();
-		try {
-			conn = H2ConnManager.getConnection();
-			statem = conn.prepareStatement(sql);
-			statem.setLong(1, clientId);
-			result = statem.executeQuery();
-			while (result.next()) {
-				RentJournal rentJournal = new RentJournal();
-				rentJournal.setRentId(result.getLong("ticket_id"));
-				rentJournal.setBookId(result.getLong("book_id"));
-				rentJournal.setClientId(result.getLong("client_id"));
-				rentJournal.setRentDate(result.getDate("rent_date"));
-				rentJournal.setReturnDate(result.getDate("return_date"));
-				rentJournals.add(rentJournal);
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a rentJournal by clientId", e));
-		} finally {
-			H2ConnManager.closeQuitely(result);
-			H2ConnManager.closeQuitely(statem);
-			H2ConnManager.closeQuitely(conn);
-		}
+		List<RentJournal> rentJournals = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(RentJournal.class, "journal")
+				.createAlias("journal.client", "client")
+				.add(Restrictions.eq("client.clientId", clientId));
+		rentJournals = criteria.list();
+		transaction.commit();
 		return LOG.exit(rentJournals);
 	}
 }

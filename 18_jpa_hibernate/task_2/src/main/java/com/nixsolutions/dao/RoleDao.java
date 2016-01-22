@@ -6,7 +6,7 @@ import com.nixsolutions.entity.Role;
 
 public interface RoleDao {
 	public List<Role> getAllRoles();
-	public Role getRoleById(int roleId);
+	public Role getRoleById(Long roleId);
 	public void createRole(Role role);
 	public void updateRole(Role role);
 	public void deleteRole(Role role);

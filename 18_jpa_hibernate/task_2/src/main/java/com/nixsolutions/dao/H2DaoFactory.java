@@ -1,6 +1,5 @@
 package com.nixsolutions.dao;
 
-import com.nixsolutions.dao.impl.AuthorBookDaoImpl;
 import com.nixsolutions.dao.impl.AuthorDaoImpl;
 import com.nixsolutions.dao.impl.BookDaoImpl;
 import com.nixsolutions.dao.impl.CategoryDaoImpl;
@@ -12,10 +11,6 @@ import com.nixsolutions.dao.impl.UserDaoImpl;
 
 
 public class H2DaoFactory extends DaoFactory{
-
-	public AuthorBookDao getAuthorBookDao() {
-		return new AuthorBookDaoImpl();
-	}
 
 	public AuthorDao getAuthorDao() {
 		return new AuthorDaoImpl();

@@ -1,6 +1,7 @@
 package com.nixsolutions.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -23,9 +24,9 @@ public class RentJournal implements Serializable{
 	@Column(name = "TICKET_ID", unique = true, nullable = false)
 	private Long rentId;
 	@Column(name = "RENT_DATE", nullable = false)
-	private Date rentDate;
+	private Timestamp rentDate;
 	@Column(name = "RETURN_DATE")
-	private Date returnDate;
+	private Timestamp returnDate;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")
@@ -42,7 +43,7 @@ public class RentJournal implements Serializable{
 		this.rentId = rentId;
 	}
 
-	public Book getBookId() {
+	public Book getBook() {
 		return book;
 	}
 
@@ -54,7 +55,7 @@ public class RentJournal implements Serializable{
 		return client;
 	}
 
-	public void setClientId(Client client) {
+	public void setClient(Client client) {
 		this.client = client;
 	}
 
@@ -62,7 +63,7 @@ public class RentJournal implements Serializable{
 		return rentDate;
 	}
 
-	public void setRentDate(Date rentDate) {
+	public void setRentDate(Timestamp rentDate) {
 		this.rentDate = rentDate;
 	}
 
@@ -70,7 +71,7 @@ public class RentJournal implements Serializable{
 		return returnDate;
 	}
 
-	public void setReturnDate(Date returnDate) {
+	public void setReturnDate(Timestamp returnDate) {
 		this.returnDate = returnDate;
 	}
 

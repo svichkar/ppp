@@ -10,11 +10,17 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.CellDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.H2ConnManager;
+import com.nixsolutions.entity.Book;
 import com.nixsolutions.entity.Cell;
+import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class CellDaoImpl implements CellDao{
 	public static final Logger LOG = LogManager.getLogger();
@@ -22,97 +28,71 @@ public class CellDaoImpl implements CellDao{
 	@Override
 	public List<Cell> getAllCells() {
 		LOG.entry();
-		String sql = "SELECT * FROM cell;";
-		List<Cell> cells = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
-			ResultSet result = statem.executeQuery(sql);
-			while (result.next()) {
-				Cell cell = new Cell(result.getString("name"));
-				cell.setCellId(result.getLong("cell_id"));
-				cells.add(cell);
-			}
-			LOG.trace("all the cells were retrieved");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get all cells", e));
-		}
+		List<Cell> cells = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Cell.class);
+		cells = criteria.list();
+		transaction.commit();
 		return LOG.exit(cells);
 	}
 
 	@Override
 	public Cell getCellById(Long cellId) {
 		LOG.entry(cellId);
-		String sql = "SELECT * FROM cell WHERE cell_id = ?;";
 		Cell cell = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setLong(1, cellId);
-			ResultSet result = statem.executeQuery();
-			if (result.next()) {
-				cell = new Cell(result.getString("name"));
-				cell.setCellId(result.getLong("cell_id"));
-			}
-			LOG.trace("the cell was retrieved");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a cell by Id", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Cell.class)
+				.add(Restrictions.eq("cellId", cellId));
+		cell = (Cell) criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(cell);
 	}
 
 	@Override
-	public Cell getCellByName(String celltName) {
-		LOG.entry(celltName);
-		String sql = "SELECT * FROM cell WHERE name = ?;";
+	public Cell getCellByName(String cellName) {
+		LOG.entry(cellName);
 		Cell cell = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, celltName);
-			ResultSet result = statem.executeQuery();
-			if (result.next()) {
-				cell = new Cell(result.getString("name"));
-				cell.setCellId(result.getLong("cell_id"));
-			}
-			LOG.trace("the cell was retrieved");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get a cell by Id", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Cell.class)
+				.add(Restrictions.eq("name", cellName));
+		cell = (Cell) criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(cell);
 	}
 	
 	@Override
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
-		String sql = "INSERT INTO cell (name) VALUES (?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, cell.getName());
-			statem.executeUpdate();
-			LOG.exit("cell was created");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create a cell", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.save(cell);
+		transaction.commit();
 	}
 
 	@Override
 	public void updateCell(Cell cell) {
 		LOG.entry(cell);
-		String sql = "UPDATE cell SET name = ? WHERE cell_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, cell.getName());
-			statem.setLong(2, cell.getCellId());
-			statem.executeUpdate();
-			LOG.exit("cell with id: " + cell.getCellId() + " was updated");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to update the cell", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.saveOrUpdate(cell);
+		transaction.commit();
 	}
 
 	@Override
 	public void deleteCell(Cell cell) {
 		LOG.entry(cell);
-		String sql = "DELETE FROM cell WHERE cell_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setLong(1, cell.getCellId());
-			statem.executeUpdate();
-			LOG.exit("cell with id: " + cell.getCellId() + " was deleted");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to delete the cell", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.delete(cell);
+		transaction.commit();
 	}
 }

@@ -26,38 +26,38 @@ public class FindBookServlet extends HttpServlet {
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException, com.nixsolutions.dao.DaoException {
+			throws IOException, ServletException {
+
+		processFindBook(request, response);
+
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
+		rd.forward(request, response);
+	}
+
+	private void processFindBook(HttpServletRequest request, HttpServletResponse response) {
 		LOG.entry(request.getParameter("button"), request.getParameter("search criteria"),
 				request.getParameter("search input"));
-
 		String searchCriteria = request.getParameter("search criteria");
 		List<BookBean> allBooks = null;
-		try {
-			switch (searchCriteria) {
-			case "all": 
-				 allBooks = BookBean.getAllBookBeans();
-				break;
-			case "name":
-				allBooks = BookBean.getBookBeansByName(request.getParameter("search input"));
-				break;
-			case "author":
-				allBooks = BookBean.getBookBeansByAuthor(request.getParameter("search input"));
-				break;
-			case "category":
-				allBooks = BookBean.getBookBeansByCategory(request.getParameter("search input"));
-		request.setAttribute("allBooks", allBooks);
-				break;
-			default:
-				break;
-			}
-		} catch (com.nixsolutions.dao.DaoException e) {
-			LOG.throwing(new ServletException("we all die", e));
+
+		switch (searchCriteria) {
+		case "all":
+			allBooks = BookBean.getAllBookBeans();
+			break;
+		case "name":
+			allBooks = BookBean.getBookBeansByName(request.getParameter("search input"));
+			break;
+		case "author":
+			allBooks = BookBean.getBookBeansByAuthor(request.getParameter("search input"));
+			break;
+		case "category":
+			allBooks = BookBean.getBookBeansByCategory(request.getParameter("search input"));
+			request.setAttribute("allBooks", allBooks);
+			break;
+		default:
+			break;
 		}
-		
-		LOG.throwing(new ServletException("we all die without catch"));
-		
+
 		request.setAttribute("allBooks", allBooks);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
-		rd.forward(request, response);	
 	}
 }

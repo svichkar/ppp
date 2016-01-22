@@ -10,11 +10,17 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.AuthorDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.entity.Author;
+import com.nixsolutions.entity.Book;
+import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class AuthorDaoImpl implements AuthorDao {
 	public static final Logger LOG = LogManager.getLogger();
@@ -22,111 +28,72 @@ public class AuthorDaoImpl implements AuthorDao {
 	@Override
 	public List<Author> getAllAuthors() {
 		LOG.entry();
-		String sql = "SELECT * FROM author;";
-		List<Author> authors = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); Statement statem = conn.createStatement()) {
-			ResultSet result = statem.executeQuery(sql);
-			while (result.next()) {
-				Author auth = new Author();
-				auth.setAuthorId(result.getLong("author_id"));
-				auth.setFirstName(result.getString("first_name"));
-				auth.setSecondName(result.getString("last_name"));
-				authors.add(auth);
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get all authors", e));
-		}
+		List<Author> authors = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Author.class);
+		authors = criteria.list();
+		transaction.commit();
 		return LOG.exit(authors);
 	}
 	
 	@Override
-	public List<Author> getAuthorsByName(String name) {
+	public Author getAuthorByName(String name) {
 		LOG.entry(name);
-		String sql = "SELECT * FROM author WHERE FIRST_NAME = ? OR LAST_NAME = ?;";
-		List<Author> authors = new ArrayList<>();
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, name);
-			statem.setString(2, name);
-			ResultSet result = statem.executeQuery();
-			while (result.next()) {
-				Author auth = new Author();
-				auth.setAuthorId(result.getLong("author_id"));
-				auth.setFirstName(result.getString("first_name"));
-				auth.setSecondName(result.getString("last_name"));
-				authors.add(auth);
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get all authors", e));
-		}
-		return LOG.exit(authors);
+		Author author = null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Author.class, "author")
+				.add(Restrictions.eq("author.secondName", name));
+		author = (Author) criteria.uniqueResult();
+		transaction.commit();
+		return LOG.exit(author);
 	}
 
 	@Override
 	public Author getAuthorById(Long authorId) {
 		LOG.entry(authorId);
-		String sql = "SELECT * FROM author WHERE author_id = ?;";
 		Author author = null;
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setLong(1, authorId);
-			ResultSet result = statem.executeQuery();
-			if (result.next()) {
-				author = new Author();
-				author.setAuthorId(result.getLong("author_id"));
-				author.setFirstName(result.getString("first_name"));
-				author.setSecondName(result.getString("last_name"));
-			}
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to get an author by Id", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		Criteria criteria = session.createCriteria(Author.class, "author")
+				.add(Restrictions.eq("author.authorId", authorId));
+		author = (Author)criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(author);
 	}
 
 	@Override
 	public Author createAuthor(Author author) {
 		LOG.entry(author);
-		String sql = "INSERT INTO author (first_name, last_name) VALUES (?, ?)";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-			statem.setString(1, author.getFirstName());
-			statem.setString(2, author.getSecondName());
-			statem.executeUpdate();
-			ResultSet generatedKeys = statem.getGeneratedKeys();
-			 if (generatedKeys.next()) {
-				 author.setAuthorId(generatedKeys.getLong(1));
-	            } else {
-	            	LOG.throwing(new DaoException("Creating author failed, no ID obtained."));
-	            }
-			LOG.exit("author was created");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to create an author", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.save(author);
+		transaction.commit();
 		return author;
 	}
 
 	@Override
 	public void updateAuthor(Author author) {
 		LOG.entry(author);
-		String sql = "UPDATE author SET first_name = ?, last_name = ?  WHERE author_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setString(1, author.getFirstName());
-			statem.setString(2, author.getSecondName());
-			statem.setLong(3, author.getAuthorId());
-			statem.executeUpdate();
-			LOG.exit("author was updated");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to update the author", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.saveOrUpdate(author);
+		transaction.commit();
 	}
 
 	@Override
 	public void deleteAuthor(Author author) {
 		LOG.entry(author);
-		String sql = "DELETE FROM author WHERE author_id = ?";
-		try (Connection conn = H2ConnManager.getConnection(); PreparedStatement statem = conn.prepareStatement(sql)) {
-			statem.setLong(1, author.getAuthorId());
-			statem.executeUpdate();
-			LOG.exit("author was deleted");
-		} catch (SQLException e) {
-			LOG.throwing(new DaoException("not able to delete the author", e));
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.getTransaction();
+		transaction.begin();
+		session.delete(author);
+		transaction.commit();
 	}
 }

@@ -37,6 +37,13 @@ public class LoansManageServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
+		processLoans(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
+		rd.forward(request, response);
+	}
+	
+	private void processLoans(HttpServletRequest request, HttpServletResponse response){
 		LOG.entry(">>>" + request.getParameterValues("loaned"), request.getAttribute("toBeloaned"),
 				request.getParameter("search input"));
 
@@ -52,7 +59,7 @@ public class LoansManageServlet extends HttpServlet {
 		if (booksIds != null) {
 			for (String bookId : booksIds) {
 				Book book = factory.getBookDao().getBookById(Long.valueOf(bookId));
-				if (book.getCount() > 0) { //1 because the page refreshes after we check
+				if (book.getCount() > 0) {
 					toBeloaned.add(book);
 				}
 			}
@@ -68,15 +75,16 @@ public class LoansManageServlet extends HttpServlet {
 			for (String id : selectedBooks) {
 				RentJournal rent = new RentJournal();
 				Book loanedBook = factory.getBookDao().getBookById(Long.valueOf(id));
-				rent.setBookId(Long.valueOf(id));
-				rent.setClientId(reader.getClientId());
+				rent.setBook(factory.getBookDao().getBookById(Long.valueOf(id)));
+				rent.setClient(reader);
 				rent.setRentDate(new Date());
 
 				if (loanedBook.getCount() > 0) {
 					loanedBook.decreaseCount();
 					factory.getRentJournalDao().createRent(rent);
 					factory.getBookDao().updateBook(loanedBook);
-				}//here should be a message about that we have no left available books
+				} // here should be a message about that we have no left
+					// available books
 			}
 			loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 		}
@@ -85,31 +93,28 @@ public class LoansManageServlet extends HttpServlet {
 		if (returnedBooks != null) {
 			for (String rentId : returnedBooks) {
 				RentJournal rent = factory.getRentJournalDao().getRentById(Long.valueOf(rentId));
-				Book returnedBook = factory.getBookDao().getBookById(rent.getBookId());
+				Book returnedBook = factory.getBookDao().getBookById(rent.getBook().getBookId());
 				rent.setReturnDate(new java.sql.Date(new Date().getTime()));
-				returnedBook.increaseCount(); // increase count of available books
+				returnedBook.increaseCount(); // increase count of available
+												// books
 				factory.getRentJournalDao().updateRent(rent);
 				factory.getBookDao().updateBook(returnedBook);
 			}
 			loans = LoanBean.getActiveLoanBeansByClientId(reader.getClientId());
 		}
-		
-		//finalize the list - may be there an another way to improve this
+
+		// finalize the list - may be there an another way to improve this
 		toBeloaned = new ArrayList<>();
 		if (booksIds != null) {
 			for (String bookId : booksIds) {
 				Book book = factory.getBookDao().getBookById(Long.valueOf(bookId));
-				if (book.getCount() > 0) { //1 because the page refreshes after we check
+				if (book.getCount() > 0) {
 					toBeloaned.add(book);
 				}
 			}
 			request.setAttribute("toBeloaned", toBeloaned);
 		}
-
 		request.setAttribute("loans", loans);
 		request.setAttribute("reader", reader);
-
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
-		rd.forward(request, response);
 	}
 }

@@ -1,8 +1,7 @@
 package com.nixsolutions.entity;
 
 import java.io.Serializable;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,10 +43,18 @@ public class Book implements Serializable{
 	@JoinTable(name = "author_book",
 				joinColumns = {@JoinColumn(name = "BOOK_ID")},
 				inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID")})
-	private Set<Author> authors;
+	private List<Author> authors;
 
 	public Long getBookId() {
 		return bookId;
+	}
+
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
 	}
 
 	public void setBookId(Long bookId) {
@@ -81,6 +88,7 @@ public class Book implements Serializable{
 	public String toString() {
 		return "book with bookId: " + this.bookId + "; name: " + this.name;
 	}
+	
 	public Integer getCount() {
 		return count;
 	}

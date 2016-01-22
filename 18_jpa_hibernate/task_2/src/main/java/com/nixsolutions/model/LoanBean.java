@@ -22,14 +22,12 @@ public class LoanBean {
 	private RentJournal loan;
 	private Book book;
 	private Client reader;
-	private String expirationState; // null if not expired or count of overdue
-									// days
+	private String expirationState;
 
 	public LoanBean(RentJournal loan) {
 		setLoan(loan);
-		setBook(loan.getBookId());
-		setReader(loan.getClientId());
-		// here we will calculate expiration state
+		setBook();
+		setReader();
 		checkForExpiration();
 	}
 
@@ -60,16 +58,16 @@ public class LoanBean {
 		return book;
 	}
 
-	private void setBook(Long id) {
-		this.book = factory.getBookDao().getBookById(id);
+	private void setBook() {
+		this.book = loan.getBook();
 	}
 
 	public Client getReader() {
 		return reader;
 	}
 
-	private void setReader(Long id) {
-		this.reader = factory.getClientDao().getClientById(id);
+	private void setReader() {
+		this.reader = loan.getClient();
 	}
 
 	public String getExpirationState() {
@@ -103,50 +101,4 @@ public class LoanBean {
 
 		return LOG.exit(LoanBeans);
 	}
-
-	/*
-	 * public static List<LoanBean> getAllBookBeans() {
-	 * 
-	 * H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
-	 * List<LoanBean> allBookBeans = new ArrayList<>(); List<Book> books =
-	 * factory.getBookDao().getAllBooks();
-	 * 
-	 * for (Book book : books) { allBookBeans.add(getBookBean(book)); }
-	 * 
-	 * return LOG.exit(allBookBeans); }
-	 * 
-	 * public static List<LoanBean> getBookBeansByName(String name) {
-	 * H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
-	 * List<LoanBean> allBookBeans = new ArrayList<>(); List<Book> books =
-	 * factory.getBookDao().getBooksByName(name);
-	 * 
-	 * for (Book book : books) { allBookBeans.add(getBookBean(book)); }
-	 * 
-	 * return LOG.exit(allBookBeans); }
-	 * 
-	 * public static List<LoanBean> getBookBeansByCategory(String name) {
-	 * H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
-	 * List<LoanBean> allBookBeans = new ArrayList<>(); List<Book> books =
-	 * factory.getBookDao().getBooksByCategory(name);
-	 * 
-	 * for (Book book : books) { allBookBeans.add(getBookBean(book)); }
-	 * 
-	 * return LOG.exit(allBookBeans); }
-	 * 
-	 * public static LoanBean getBookBean(Book book){ H2DaoFactory factory =
-	 * DaoFactory.getDAOFactory(DaoFactory.H2); List<Author> authors = new
-	 * ArrayList<Author>(); List<AuthorBook> authBook; LoanBean bookBean = new
-	 * LoanBean(); bookBean.setBook(book);
-	 * bookBean.setCell(factory.getCellDao().getCellById(book.getCellId()));
-	 * bookBean.setCategory(factory.getCategoryDao().getCategoryById(book.
-	 * getCategoryId()));
-	 * 
-	 * authBook =
-	 * factory.getAuthorBookDao().getAuthorIdByBookId(book.getBookId()); for
-	 * (AuthorBook authorBook : authBook) {
-	 * authors.add(factory.getAuthorDao().getAuthorById(authorBook.getAuthorId()
-	 * )); }
-	 * 
-	 * bookBean.setAuthors(authors); return bookBean; }
-	 */
 }

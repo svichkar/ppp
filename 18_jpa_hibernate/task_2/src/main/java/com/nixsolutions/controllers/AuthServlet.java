@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
+import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 
 @SuppressWarnings("serial")
@@ -25,6 +26,11 @@ public class AuthServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getParameter("username"), request.getParameter("userpass"));
+		processAuthorisation(request, response);
+	}
+
+	private void processAuthorisation(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("userpass");
 		PrintWriter out = response.getWriter();
@@ -33,50 +39,44 @@ public class AuthServlet extends HttpServlet {
 
 		LOG.debug("value of the auth button " + request.getParameter("button"));
 		String button = request.getParameter("button");
-		
-		//click on login
-		
-	if(button.equals("login")){
-		
-		response.setContentType("text/html");
-		if (user != null) {
-			if (user.getRoleId().equals(1)) {
-				session.setAttribute("usrRole", "admin");
-				session.setAttribute("usrName", usr);
-				response.sendRedirect("homepage");
+
+		// click on login
+		if (button.equals("login")) {
+			response.setContentType("text/html");
+			if (user != null) {
+				if (user.getRole().getRoleId().equals(1)) {
+					session.setAttribute("usrRole", "admin");
+					session.setAttribute("usrName", usr);
+					response.sendRedirect("homepage");
+				} else {
+					session.setAttribute("usrRole", "regular");
+					session.setAttribute("usrName", usr);
+					response.sendRedirect("homepage");
+				}
 			} else {
-				session.setAttribute("usrRole", "regular");
-				session.setAttribute("usrName", usr);
-				response.sendRedirect("homepage");
+				out.print(
+						"<p style=\"color:red\">you have entered incorrect user name or password</p>");
+				RequestDispatcher rd = request.getRequestDispatcher("index.html");
+				rd.include(request, response);
 			}
-		} else {
-			out.print(
-					"<p style=\"color:red\">you have entered incorrect user name or password</p>");
-			RequestDispatcher rd = request.getRequestDispatcher("index.html");
-			rd.include(request, response);
 		}
+
+		// click on registration
+		if (button.equals("register")) {
+			if (factory.getUserDao().getUserByNameAndPswd(usr, pswd) == null) {
+				Role librarian = factory.getRoleDao().getRoleById(2l);
+				User createUser = new User(usr, pswd, librarian);
+				factory.getUserDao().createUser(createUser);
+				out.print("<p style=\"color:red\">user created, you can login now</p>");
+				RequestDispatcher rd = request.getRequestDispatcher("index.html");
+				rd.include(request, response);
+
+			} else {
+				out.print(
+						"<p style=\"color:red\">Please choose another name, this one is already taken</p>");
+				RequestDispatcher rd = request.getRequestDispatcher("index.html");
+				rd.include(request, response);
+			}
 		}
-		
-		//click on registration
-	if(button.equals("register")){
-		if(factory.getUserDao().getUserByNameAndPswd(usr, pswd) == null){
-			User createUser = new User(usr, pswd, 2);
-			factory.getUserDao().createUser(createUser);
-			out.print(
-					"<p style=\"color:red\">user created, you can login now</p>");
-			RequestDispatcher rd = request.getRequestDispatcher("index.html");
-			rd.include(request, response);
-			
-		} else {
-			out.print(
-					"<p style=\"color:red\">Please choose another name, this one is already taken</p>");
-			RequestDispatcher rd = request.getRequestDispatcher("index.html");
-			rd.include(request, response);
-		}
-		
-		
-		
-	}
-		
 	}
 }

@@ -1,0 +1,7 @@
+<dataset>
+    <grade grade_name="poor"/>
+    <grade grade_name="fair"/>
+    <grade grade_name="average"/>
+    <grade grade_name="good"/>
+    <grade grade_name="excellent"/>
+</dataset>

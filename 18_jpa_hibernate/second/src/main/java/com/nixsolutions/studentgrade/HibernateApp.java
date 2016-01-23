@@ -52,8 +52,7 @@ public class HibernateApp {
 
 
         for (int i = 0; i < 150; i++) {
-            System.out.println(String.
-                    format("INSERT INTO journal(student_id, subject_id, grade_id) VALUES(%s, %s);", a.toArray()[i], r.nextInt(5) + 1));
+            //System.out.println(String.format("INSERT INTO journal(student_id, subject_id, grade_id) VALUES(%s, %s);", a.toArray()[i], r.nextInt(5) + 1));
         }
 
         LOG.info("Demo Hibernate Program finished.");

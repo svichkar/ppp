@@ -55,4 +55,17 @@ public class User implements Serializable{
     public void setRole(Role role) {
         this.role = role;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        User user = (User) obj;
+        if (userId.equals(user.userId) &&
+                login.equals(user.login) &&
+                password.equals(user.password) &&
+                role.equals(user.role)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

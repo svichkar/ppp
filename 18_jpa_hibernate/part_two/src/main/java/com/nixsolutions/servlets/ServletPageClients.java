@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -25,8 +26,8 @@ public class ServletPageClients extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        List<User> ucbList = factoryDAO.getUserDAO().findClientsUsers();
-        List<Role> roleList = factoryDAO.getRoleDAO().findAll();
+        Set<User> ucbList = factoryDAO.getUserDAO().findClientsUsers();
+        Set<Role> roleList = factoryDAO.getRoleDAO().findAll();
         req.setAttribute("ucbList", ucbList);
         req.setAttribute("roleList", roleList);
         req.getRequestDispatcher("/WEB-INF/jsp/clients.jsp").forward(req, resp);
@@ -38,7 +39,7 @@ public class ServletPageClients extends HttpServlet {
         boolean flag = true;
         User user = new User();
         Client client = new Client();
-        List<User> userList = factoryDAO.getUserDAO().findAll();
+        Set<User> userList = factoryDAO.getUserDAO().findAll();
         if ((req.getParameter("edit") != null) || (req.getParameter("add") != null)) {
             user.setLogin(req.getParameter("user_login"));
             user.setPassword(req.getParameter("user_password"));

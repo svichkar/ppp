@@ -2,12 +2,12 @@ package com.nixsolutions.servicestation.dao;
 
 import com.nixsolutions.servicestation.entity.Car;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 29.12.2015.
  */
 public interface CarDAO extends GenericDAO<Car> {
-    List<Car> getUserCars();
-    List<Car> getCarWithoutOrder();
+    Set<Car> getUserCars();
+    Set<Car> getCarWithoutOrder();
 }

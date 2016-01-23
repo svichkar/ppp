@@ -2,7 +2,7 @@ package com.nixsolutions.servicestation.dao;
 
 import com.nixsolutions.servicestation.entity.User;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 06.01.2016.
@@ -10,5 +10,5 @@ import java.util.List;
 public interface UserDAO extends GenericDAO<User> {
 
     User findByLogin(String login);
-    List<User> findClientsUsers();
+    Set<User> findClientsUsers();
 }

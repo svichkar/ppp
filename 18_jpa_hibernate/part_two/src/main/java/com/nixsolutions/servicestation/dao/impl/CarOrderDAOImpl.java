@@ -9,7 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 04.01.2016.
@@ -17,8 +19,8 @@ import java.util.List;
 public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements CarOrderDAO {
     public static Logger LOGGER = LogManager.getLogger(CarOrderDAOImpl.class.getName());
 
-    public List<CarOrder> getUserCarOrders(String login) {
-        List<CarOrder> carOrderList;
+    public Set<CarOrder> getUserCarOrders(String login) {
+        Set<CarOrder> carOrderList;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(CarOrder.class, "co");
@@ -28,14 +30,14 @@ public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements Car
         criteria.createAlias("car.client", "client");
         criteria.createAlias("client.user", "user");
         criteria.add(Restrictions.eq("user.login", login));
-        carOrderList = criteria.list();
+        carOrderList = new HashSet<CarOrder>(criteria.list());
         transaction.commit();
         LOGGER.trace(carOrderList.size() + "rows in car_order were found");
         return carOrderList;
     }
 
-    public List<CarOrder> getUserCarOrders() {
-        List<CarOrder> carOrderList;
+    public Set<CarOrder> getUserCarOrders() {
+        Set<CarOrder> carOrderList;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(CarOrder.class, "co");
@@ -44,7 +46,7 @@ public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements Car
         criteria.createAlias("car.carType", "carType");
         criteria.createAlias("car.client", "client");
         criteria.createAlias("client.user", "user");
-        carOrderList = criteria.list();
+        carOrderList = new HashSet<CarOrder>(criteria.list());
         transaction.commit();
         return carOrderList;
     }

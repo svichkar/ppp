@@ -14,8 +14,8 @@ import java.io.IOException;
 public class ServletLogout extends HttpServlet{
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().invalidate();
-        resp.sendRedirect("index.jsp?cantLogin=You're logged out");
+        resp.sendRedirect("index.jsp?cantLogin=You're%20logged%20out");
     }
 }

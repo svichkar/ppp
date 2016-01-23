@@ -3,14 +3,14 @@ package com.nixsolutions.servicestation.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
  */
 @Entity
-@Table(name="car_order")
-public class CarOrder implements Serializable{
+@Table(name = "car_order")
+public class CarOrder implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_order_id")
@@ -26,20 +26,21 @@ public class CarOrder implements Serializable{
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany
-    @JoinTable(name="employee_car_order",
-            joinColumns ={@JoinColumn(name="car_order_id")},
-            inverseJoinColumns = {@JoinColumn(name="employee_id")})
-    private List<Employee> employeeList;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "employee_car_order",
+            joinColumns = {@JoinColumn(name = "car_order_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "employee_id", nullable = false)})
+    private Set<Employee> employeeList;
 
     public CarOrder() {
     }
 
-    public List<Employee> getEmployeeList() {
+    public Set<Employee> getEmployeeList() {
         return employeeList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
+    public void setEmployeeList(Set<Employee> employeeList) {
         this.employeeList = employeeList;
     }
 
@@ -81,5 +82,17 @@ public class CarOrder implements Serializable{
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CarOrder carOrder = (CarOrder) obj;
+        if (carOrderId.equals(carOrder.carOrderId) && car.equals(carOrder.car) &&
+                carOrderStatus.equals(carOrder.carOrderStatus) && startDate.equals(carOrder.startDate) &&
+                endDate.equals(carOrder.endDate)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -26,8 +27,8 @@ public class ServletPageWorkers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        List<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
-        List<EmployeeCategory> employeeCategoryList = factoryDAO.getEmployeeCategoryDAO().findAll();
+        Set<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
+        Set<EmployeeCategory> employeeCategoryList = factoryDAO.getEmployeeCategoryDAO().findAll();
         req.setAttribute("employeeList", employeeList);
         req.setAttribute("employeeCategoryList", employeeCategoryList);
         req.getRequestDispatcher("/WEB-INF/jsp/workers.jsp").forward(req, resp);
@@ -37,31 +38,27 @@ public class ServletPageWorkers extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
         Employee employee = new Employee();
+        EmployeeCategory employeeCategory = new EmployeeCategory();
+        employeeCategory.setEmployeeCategoryId(Long.valueOf(req.getParameter("category")));
+        employee.setEmployeeCategory(employeeCategory);
+        employee.setFirstName(req.getParameter("first_name"));
+        employee.setLastName(req.getParameter("last_name"));
         if (req.getParameter("delete") != null) {
             employee.setEmployeeId(Long.valueOf(req.getParameter("worker_id")));
-            employee.getEmployeeCategory().setEmployeeCategoryId(Long.valueOf(req.getParameter("category")));
-            /*for (Employee eco:factoryDAO.getEmployeeCarOrderDAO().findAll()) {
-                if(eco.getEmployeeId().equals(employee.getEmployeeId())) {
-                    factoryDAO.getEmployeeCarOrderDAO().delete(eco);
-                }
-            }*/
             factoryDAO.getEmployeeDAO().delete(employee);
-            resp.sendRedirect("workers?message=Row was deleted");
+            resp.sendRedirect("workers?message=Row%20was%20deleted");
         }
         if (req.getParameter("edit") != null) {
             employee.setEmployeeId(Long.valueOf(req.getParameter("worker_id")));
-            employee.setFirstName(req.getParameter("first_name"));
-            employee.setLastName(req.getParameter("last_name"));
-            employee.getEmployeeCategory().setEmployeeCategoryId(Long.valueOf(req.getParameter("category")));
+
             factoryDAO.getEmployeeDAO().update(employee);
-            resp.sendRedirect("workers?message=Row was updated");
+            resp.sendRedirect("workers?message=Row%20was%20updated");
         }
         if (req.getParameter("add") != null) {
             employee.setFirstName(req.getParameter("first_name"));
             employee.setLastName(req.getParameter("last_name"));
-            employee.getEmployeeCategory().setEmployeeCategoryId(Long.valueOf(req.getParameter("category")));
             factoryDAO.getEmployeeDAO().create(employee);
-            resp.sendRedirect("workers?message=Row was added");
+            resp.sendRedirect("workers?message=Row%20was%20added");
         }
     }
 }

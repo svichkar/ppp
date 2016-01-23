@@ -2,7 +2,9 @@ package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
@@ -19,16 +21,16 @@ public class EmployeeCategory implements Serializable{
 
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_category_id", referencedColumnName = "employee_category_id")
-    private List<Employee> employeeList;
+    private Set<Employee> employeeList;
 
     public EmployeeCategory() {
     }
 
-    public List<Employee> getEmployeeList() {
+    public Set<Employee> getEmployeeList() {
         return employeeList;
     }
 
-    public void setEmployeeList(List<Employee> employeeList) {
+    public void setEmployeeList(Set<Employee> employeeList) {
         this.employeeList = employeeList;
     }
 
@@ -46,5 +48,16 @@ public class EmployeeCategory implements Serializable{
 
     public void setEmployeeCategoryName(String employeeCategoryName) {
         this.employeeCategoryName = employeeCategoryName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        EmployeeCategory employeeCategory = (EmployeeCategory) obj;
+        if (employeeCategoryId.equals(employeeCategory.employeeCategoryId) &&
+                employeeCategoryName.equals(employeeCategory.employeeCategoryName)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

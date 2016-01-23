@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -30,10 +31,10 @@ public class ServletPageOrders extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        List<CarOrder> ucobList = factoryDAO.getCarOrderDAO().getUserCarOrders();
-        List<CarOrderStatus> cosList = factoryDAO.getCarOrderStatusDAO().findAll();
-        List<Car> cbList = factoryDAO.getCarDAO().getCarWithoutOrder();
-        List<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
+        Set<CarOrder> ucobList = factoryDAO.getCarOrderDAO().getUserCarOrders();
+        Set<CarOrderStatus> cosList = factoryDAO.getCarOrderStatusDAO().findAll();
+        Set<Car> cbList = factoryDAO.getCarDAO().getCarWithoutOrder();
+        Set<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
         req.setAttribute("employeeList", employeeList);
         req.setAttribute("cosList", cosList);
         req.setAttribute("ucobList", ucobList);

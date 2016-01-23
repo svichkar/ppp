@@ -67,4 +67,14 @@ public class Car implements Serializable{
     public void setCarOrder(CarOrder carOrder) {
         this.carOrder = carOrder;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Car car = (Car) obj;
+        if(carId.equals(car.carId) && serialVIN.equals(car.serialVIN) && carType.equals(car.carType) && client.equals(car.client)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

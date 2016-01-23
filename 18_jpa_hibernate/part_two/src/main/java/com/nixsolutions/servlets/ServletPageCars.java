@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -34,7 +35,7 @@ public class ServletPageCars extends HttpServlet {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
         Car car = new Car();
         if ((req.getParameter("add") != null) || (req.getParameter("edit") != null)) {
-            List<CarType> carTypeList = factoryDAO.getCarTypeDAO().findAll();
+            Set<CarType> carTypeList = factoryDAO.getCarTypeDAO().findAll();
             CarType carType = new CarType();
             carType.setBrand(req.getParameter("brand"));
             carType.setModelName(req.getParameter("model_name"));

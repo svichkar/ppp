@@ -2,7 +2,9 @@ package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
@@ -19,7 +21,7 @@ public class CarOrderStatus implements Serializable{
 
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_order_status_id", referencedColumnName = "car_order_status_id")
-    private List<CarOrder> carOrderList;
+    private Set<CarOrder> carOrderList;
 
     public CarOrderStatus() {
     }
@@ -40,11 +42,22 @@ public class CarOrderStatus implements Serializable{
         this.carOrderStatusName = carOrderStatusName;
     }
 
-    public List<CarOrder> getCarOrderList() {
+    public Set<CarOrder> getCarOrderList() {
         return carOrderList;
     }
 
-    public void setCarOrderList(List<CarOrder> carOrderList) {
+    public void setCarOrderList(Set<CarOrder> carOrderList) {
         this.carOrderList = carOrderList;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CarOrderStatus carOrderStatus = (CarOrderStatus) obj;
+        if (carOrderStatusId.equals(carOrderStatus.carOrderStatusId) &&
+                carOrderStatusName.equals(carOrderStatus.carOrderStatusName)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

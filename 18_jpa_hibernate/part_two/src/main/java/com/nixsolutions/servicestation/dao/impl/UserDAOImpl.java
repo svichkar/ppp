@@ -7,7 +7,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 06.01.2016.
@@ -24,14 +26,14 @@ public class UserDAOImpl extends GenericAbstractDAO<User> implements UserDAO {
         return user;
     }
 
-    public List<User> findClientsUsers() {
-        List<User> userList;
+    public Set<User> findClientsUsers() {
+        Set<User> userList;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(User.class, "u");
         criteria.createAlias("u.client", "client");
         criteria.createAlias("u.role", "role");
-        userList = criteria.list();
+        userList = new HashSet<User>(criteria.list());
         transaction.commit();
         return userList;
     }

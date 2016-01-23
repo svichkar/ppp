@@ -2,7 +2,7 @@ package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
@@ -18,16 +18,16 @@ public class Role implements Serializable {
 
     @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    private List<User> userList;
+    private Set<User> userList;
 
     public Role() {
     }
 
-    public List<User> getUserList() {
+    public Set<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(Set<User> userList) {
         this.userList = userList;
     }
 
@@ -45,5 +45,16 @@ public class Role implements Serializable {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Role role = (Role) obj;
+        if (roleId.equals(role.roleId) &&
+                roleName.equals(role.roleName)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

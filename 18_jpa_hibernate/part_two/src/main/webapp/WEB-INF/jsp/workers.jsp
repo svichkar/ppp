@@ -30,9 +30,17 @@
                             </form>
                         </tr>
                     </c:forEach>
+                    </c:if>
+                    </table>
+                    <table border="1">
+                                    <caption>Add worker</caption>
+                                        <tr>
+                                            <th>first_name</th>
+                                            <th>last_name</th>
+                                            <th>category</th>
+                                        </tr>
                     <tr>
                         <form action="workers" name="add" method="post">
-                            <td></td>
                             <td><input type="text" name="first_name" required/></td>
                             <td><input type="text" name="last_name" required/></td>
                             <td><select name="category" required>
@@ -45,6 +53,5 @@
                     </tr>
             </table>
             <c:out value="${param.message}"/>
-       </c:if>
     </jsp:attribute>
 </t:general>

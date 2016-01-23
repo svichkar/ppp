@@ -1,6 +1,6 @@
 package com.nixsolutions.servicestation.dao;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 20.01.2016.
@@ -14,5 +14,5 @@ public interface GenericDAO<E> {
 
     public E findById(Long id);
 
-    public List<E> findAll();
+    public Set<E> findAll();
 }

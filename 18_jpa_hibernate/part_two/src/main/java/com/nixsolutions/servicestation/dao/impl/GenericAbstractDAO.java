@@ -9,7 +9,9 @@ import org.hibernate.Transaction;
 import javax.persistence.Transient;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 29.12.2015.
@@ -54,11 +56,11 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
         return entity;
     }
 
-    public List<E> findAll() {
+    public Set<E> findAll() {
         Session session = sFactory.getCurrentSession();
-        List<E> list;
+        Set<E> list;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(type).list();
+        list = new HashSet<E>(session.createCriteria(type).list());
         transaction.commit();
         return list;
     }

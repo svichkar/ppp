@@ -2,13 +2,15 @@ package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
  */
 @Entity
-public class Employee implements Serializable{
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id")
@@ -21,21 +23,22 @@ public class Employee implements Serializable{
     @JoinColumn(name = "employee_category_id", referencedColumnName = "employee_category_id")
     private EmployeeCategory employeeCategory;
 
-    @ManyToMany
-    @JoinTable(name="employee_car_order",
-                joinColumns ={@JoinColumn(name="employee_id")},
-                inverseJoinColumns = {@JoinColumn(name="car_order_id")})
-    private List<CarOrder> carOrderList;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "employee_car_order",
+            joinColumns = {@JoinColumn(name = "employee_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "car_order_id", nullable = false)})
+    private Set<CarOrder> carOrderList;
 
     public Long getEmployeeId() {
         return employeeId;
     }
 
-    public List<CarOrder> getCarOrderList() {
+    public Set<CarOrder> getCarOrderList() {
         return carOrderList;
     }
 
-    public void setCarOrderList(List<CarOrder> carOrderList) {
+    public void setCarOrderList(Set<CarOrder> carOrderList) {
         this.carOrderList = carOrderList;
     }
 
@@ -65,5 +68,18 @@ public class Employee implements Serializable{
 
     public void setEmployeeCategory(EmployeeCategory employeeCategory) {
         this.employeeCategory = employeeCategory;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Employee employee = (Employee) obj;
+        if (employeeId.equals(employee.employeeId) &&
+                firstName.equals(employee.firstName) &&
+                lastName.equals(employee.lastName) &&
+                employeeCategory.equals(employee.employeeCategory)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

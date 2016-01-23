@@ -17,62 +17,64 @@ import java.util.List;
  */
 public class UserDaoImpl implements UserDao {
 
-
+    @Override
     public void create(User user) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.saveOrUpdate(user);
+        session.save(user);
         transaction.commit();
-
-
     }
 
+    @Override
     public void update(User user) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.update(user);
+        session.saveOrUpdate(user);
         transaction.commit();
-
-
     }
 
+    @Override
     public void delete(User user) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         session.delete(user);
         transaction.commit();
-
-
     }
 
+    @Override
     public List<User> findAll() {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         List<User> list = session.createCriteria(User.class).list();
         transaction.commit();
-
-
         return list;
     }
 
+    @Override
+    public User findById(Long id) {
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        User user = (User) session.get(User.class, id);
+        transaction.commit();
+        return user;
+    }
+
+    @Override
     public boolean validateUser(String user) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("login", user));
         List<Subject> results = criteria.list();
@@ -85,6 +87,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
     public User getUserByLoginAndPassword(String user, String pass) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -115,7 +118,6 @@ public class UserDaoImpl implements UserDao {
         criteria.add(Restrictions.eq("login", userLogin));
         List<User> results = criteria.list();
         transaction.commit();
-
 
         if (results.isEmpty() == false) {
             return results.get(0);

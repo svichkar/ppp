@@ -22,8 +22,7 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.saveOrUpdate(student);
+        session.save(student);
         transaction.commit();
     }
 
@@ -33,8 +32,7 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.update(student);
+        session.saveOrUpdate(student);
         transaction.commit();
     }
 
@@ -44,7 +42,6 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         session.delete(student);
         transaction.commit();
     }
@@ -55,10 +52,8 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         List<Student> list = session.createCriteria(Student.class).list();
         transaction.commit();
-
         return list;
     }
 
@@ -68,17 +63,9 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(Student.class);
-        criteria.add(Restrictions.idEq(id));
-        List<Student> results = criteria.list();
+        Student result = (Student) session.get(Student.class, id);
         transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
-        }
+        return result;
     }
 
     @Override
@@ -89,7 +76,8 @@ public class StudentDaoImpl implements StudentDao {
         Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(Student.class);
-        criteria.add(Restrictions.and(Restrictions.eq("firstName", firsName), Restrictions.eq("lastName", lastName)));
+        criteria.add(Restrictions.and(Restrictions.eq("firstName", firsName).ignoreCase(),
+                Restrictions.eq("lastName", lastName).ignoreCase()));
         List<Student> results = criteria.list();
         transaction.commit();
 
@@ -106,12 +94,10 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Student.class);
         criteria.add(Restrictions.eq("lastName", lastName).ignoreCase());
         List<Student> results = criteria.list();
         transaction.commit();
-
         return results;
     }
 
@@ -121,12 +107,11 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Student.class);
-        criteria.add(Restrictions.eq("groupId", groupId));
+        criteria.createAlias("studentGroup", "group");
+        criteria.add(Restrictions.eq("group.groupId", groupId));
         List<Student> results = criteria.list();
         transaction.commit();
-
         return results;
     }
 
@@ -136,14 +121,13 @@ public class StudentDaoImpl implements StudentDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Student.class);
+        criteria.createAlias("studentGroup", "group");
         criteria.add(Restrictions.and(Restrictions.eq("lastName", lastName).ignoreCase(),
-                Restrictions.eq("groupId", groupId)));
+                Restrictions.eq("group.groupId", groupId)));
 
         List<Student> results = criteria.list();
         transaction.commit();
-
         return results;
     }
 }

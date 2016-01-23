@@ -49,7 +49,7 @@ ${message}
 <select name="role">
 <c:forEach items="${roles}" var="r">
 <c:choose>
-    <c:when test="${r.roleId == current.roleId}">
+    <c:when test="${r.roleId == current.role.roleId}">
        <option value="${r.roleName}" selected>${r.roleName}</option>
     </c:when>
     <c:otherwise>

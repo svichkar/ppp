@@ -57,10 +57,10 @@ public class StudentDetailsServlet extends HttpServlet {
             case "show": {
 
                 Long studentId = Long.valueOf(request.getParameter("id"));
-
                 String termName = request.getParameter("term");
                 Term term = termDao.findByName(termName);
                 List<Journal> journalList = journalDao.findByStudentAndTerm(studentId, term.getTermId());
+
                 if (journalList != null && journalList.isEmpty() == false) {
 
                     request.setAttribute("selectedTerm", term);
@@ -84,6 +84,7 @@ public class StudentDetailsServlet extends HttpServlet {
                 if (list != null && list.isEmpty() == false) {
                     request.setAttribute("journals", list);
                 } else {
+                    request.setAttribute("selectedTerm", term);
                     request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                             "No data available. Please change search criteria</h4></p>");
                 }

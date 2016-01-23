@@ -92,7 +92,11 @@ public class JournalDaoImpl implements JournalDao {
         Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(Journal.class);
-        criteria.add(Restrictions.and(Restrictions.eq("studentId", studentId), Restrictions.eq("termId", termId)));
+        criteria.createAlias("student", "student");
+        criteria.createAlias("subject", "subject");
+        criteria.createAlias("subject.term", "term");
+        criteria.add(Restrictions.and(Restrictions.eq("student.studentId", studentId),
+                Restrictions.eq("term.termId", termId)));
         List<Journal> results = criteria.list();
         transaction.commit();
 

@@ -25,7 +25,6 @@ import java.util.List;
         loadOnStartup = 0)
 public class AdminServlet extends HttpServlet {
 
-    private String pageHtml;
     private HttpSession session;
 
     @Override
@@ -36,7 +35,7 @@ public class AdminServlet extends HttpServlet {
         UserDao userDao = daoFactory.getUserDao();
 
         List<Role> roles = roleDao.findAll();
-        List<User> users = daoFactory.getUserDao().findAll();
+        List<User> users = userDao.findAll();
 
         session = request.getSession(false);
         String pageOwner = (String) session.getAttribute("user");
@@ -58,18 +57,20 @@ public class AdminServlet extends HttpServlet {
         RoleDao roleDao = daoFactory.getRoleDao();
         UserDao userDao = daoFactory.getUserDao();
 
+        String roleName = request.getParameter("role");
+        String userId = request.getParameter("id");
+
         User user = new User();
-        Role role = roleDao.findByName(request.getParameter("role"));
-        if (request.getParameter("id") != null && request.getParameter("id") != "") {
-            user.setUserId(Long.valueOf(request.getParameter("id")));
+        Role role = roleDao.findByName(roleName);
+        if (userId != null && userId != "") {
+            user.setUserId(Long.valueOf(userId));
         }
         user.setFirstName(request.getParameter("name"));
         user.setLastName(request.getParameter("lastName"));
         user.setLogin(request.getParameter("login"));
         user.setUserPassword(request.getParameter("pass"));
         user.setEmail(request.getParameter("email"));
-
-        user.getRole().setRoleId(role.getRoleId());
+        user.setRole(role);
 
         String message = "";
 
@@ -94,26 +95,53 @@ public class AdminServlet extends HttpServlet {
                     message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                             "User with specified login OR e-mail already exists</h4></p>");
                 }
+                break;
             }
-            break;
 
             case "update": {
+
                 if (pageOwner.equals(user.getLogin()) == false) {
-                    userDao.update(user);
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
+
+                    User update = userDao.findById(Long.valueOf(userId));
+
+                    update.setFirstName(user.getFirstName());
+                    update.setLastName(user.getLastName());
+                    update.setEmail(user.getEmail());
+                    update.setLogin(user.getLogin());
+                    update.setUserPassword(user.getUserPassword());
+                    update.setRole(user.getRole());
+
+                    boolean isUnique = true;
+                    for (User u : userDao.findAll()) {
+
+                        if (update.getUserId() != u.getUserId() &&
+                                (update.getLogin().equals(u.getLogin()) || update.getEmail().equals(u.getEmail()))) {
+                            isUnique = false;
+                        }
+                    }
+
+                    if (isUnique) {
+                        userDao.update(update);
+                        message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                                "Success</h4></p>");
+                    } else {
+                        message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                                "User with specified login OR e-mail already exists</h4></p>");
+                    }
                 } else {
                     message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                             "User can't be updated by himself</h4></p>");
                 }
+                break;
             }
-            break;
 
             case "delete": {
 
                 if (pageOwner.equals(user.getLogin()) == false
                         && !role.getRoleName().equals("admin")) {
-                    userDao.delete(user);
+
+                    User delete = userDao.findById(Long.valueOf(userId));
+                    userDao.delete(delete);
                     message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
 

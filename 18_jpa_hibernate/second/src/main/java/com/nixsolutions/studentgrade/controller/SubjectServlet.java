@@ -39,7 +39,7 @@ public class SubjectServlet extends HttpServlet {
 
                 if (subjectName != null && subjectName.isEmpty() == false) {
                     Subject res = subjectDao.findByNameAndTermId(subjectName, term.getTermId());
-                    if (!res.isEmpty()) {
+                    if (res != null && !res.isEmpty()) {
                         list.add(new SubjectBean(res.getSubjectId(),
                                 res.getSubjectName(),
                                 res.getTerm().getTermId(),
@@ -65,7 +65,7 @@ public class SubjectServlet extends HttpServlet {
             } else {
                 if (subjectName != null && subjectName.isEmpty() == false) {
                     Subject res = subjectDao.findByName(subjectName);
-                    if (!res.isEmpty()) {
+                    if (res != null && !res.isEmpty()) {
                         Long id = res.getTerm().getTermId();
                         list.add(new SubjectBean(res.getSubjectId(),
                                 res.getSubjectName(),
@@ -97,8 +97,8 @@ public class SubjectServlet extends HttpServlet {
                     "No data available. <a href=\"subject\">Back to Subject List</a></h4></p>");
         }
 
-        request.setAttribute("subjects",list);
-        request.setAttribute("terms",termDao.findAll());
+        request.setAttribute("subjects", list);
+        request.setAttribute("terms", termDao.findAll());
         request.getRequestDispatcher("/WEB-INF/jsp/subject.jsp").forward(request, response);
     }
 
@@ -145,8 +145,7 @@ public class SubjectServlet extends HttpServlet {
 
                 boolean isUnique = true;
                 for (Subject s : dao.findAll()) {
-                    if (subjectName.equals(s.getSubjectName())
-                            && s.getTerm().getTermId().equals(termDao.findByName(termName).getTermId()))
+                    if (subject.getSubjectId() != s.getSubjectId() && subjectName.equals(s.getSubjectName()))
                         isUnique = false;
                 }
 
@@ -167,11 +166,20 @@ public class SubjectServlet extends HttpServlet {
                 dao.delete(subject);
                 request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                         "Success</h4></p>");
-
-            break;
+                break;
+            }
         }
 
-
+        List<SubjectBean> list = new ArrayList<>();
+        for (Subject s : dao.findAll()) {
+            list.add(new SubjectBean(s.getSubjectId(),
+                    s.getSubjectName(),
+                    s.getTerm().getTermId(),
+                    s.getTerm().getTermName()));
+        }
+        request.setAttribute("subjects", list);
+        request.setAttribute("terms", termDao.findAll());
+        request.getRequestDispatcher("/WEB-INF/jsp/subject.jsp").forward(request, response);
     }
-}
+
 }

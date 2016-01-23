@@ -22,8 +22,7 @@ public class RoleDaoImpl implements RoleDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.saveOrUpdate(role);
+        session.save(role);
         transaction.commit();
     }
 
@@ -33,8 +32,7 @@ public class RoleDaoImpl implements RoleDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.update(role);
+        session.saveOrUpdate(role);
         transaction.commit();
     }
 
@@ -44,7 +42,6 @@ public class RoleDaoImpl implements RoleDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         session.delete(role);
         transaction.commit();
     }
@@ -54,10 +51,8 @@ public class RoleDaoImpl implements RoleDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         List<Role> list = session.createCriteria(Role.class).list();
         transaction.commit();
-
         return list;
     }
 
@@ -66,7 +61,6 @@ public class RoleDaoImpl implements RoleDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Role.class);
         criteria.add(Restrictions.idEq(id));
         List<Role> results = criteria.list();
@@ -84,7 +78,6 @@ public class RoleDaoImpl implements RoleDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Role.class);
         criteria.add(Restrictions.eq("roleName", role));
         List<Role> results = criteria.list();

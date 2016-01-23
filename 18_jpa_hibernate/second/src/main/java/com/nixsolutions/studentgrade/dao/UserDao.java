@@ -17,6 +17,8 @@ public interface UserDao {
 
     public List<User> findAll();
 
+    public User findById(Long id);
+
     public boolean validateUser(String user);
 
     public User getUserByLoginAndPassword(String login, String pass);

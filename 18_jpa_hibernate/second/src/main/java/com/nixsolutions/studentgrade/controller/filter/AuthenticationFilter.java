@@ -30,9 +30,9 @@ public class AuthenticationFilter implements Filter {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null || (Boolean) session.getAttribute("isAdmin")== true) {
+        if (session == null || session.getAttribute("user") == null || session.getAttribute("isAdmin") == null
+                || (Boolean) session.getAttribute("isAdmin")== true) {
             this.context.log("Unauthorized access request");
-            session.removeAttribute("isAdmin");
             if(session != null) {
                 session.invalidate();
             }

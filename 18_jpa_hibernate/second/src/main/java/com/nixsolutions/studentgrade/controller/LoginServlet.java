@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 
         } else {
             if (login.isEmpty() == false) {
-                request.setAttribute("error", "<h5>User doesn't exist. Please contact admin to add new user.</h5>");
+                request.setAttribute("error", "<h5>User doesn't exist. Please contact admin to add new user</h5>");
             }
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
             rd.include(request, response);

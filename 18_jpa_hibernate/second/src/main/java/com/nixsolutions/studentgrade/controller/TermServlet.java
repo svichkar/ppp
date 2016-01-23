@@ -51,7 +51,7 @@ public class TermServlet extends HttpServlet {
 
                 } else {
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Specified Term already exists</h4></p>");
+                            "Term already exists</h4></p>");
 
                 }
 

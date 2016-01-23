@@ -201,12 +201,8 @@ public class StudentServlet extends HttpServlet {
 
                 boolean isUnique = true;
                 for (Student s : dao.findAll()) {
-                    if (s.getLastName().equals(lastName)
-                            && s.getFirstName().equals(name)
-                            && s.getAdmissionDate().equals(Date.valueOf(addedDate))
-                            && s.getStudentGroup().getGroupId().equals(groupDao.findByName(group).getGroupId())
-                            && s.getStatus().getStatusId().equals(statusDao.findByName(status).getStatusId())
-                            && s.getTerm().getTermId().equals(termDao.findByName(term).getTermId()))
+                    if (s.getStudentId()!= student.getStudentId() && s.getLastName().equals(lastName)
+                            && s.getFirstName().equals(name))
                         isUnique = false;
                 }
 

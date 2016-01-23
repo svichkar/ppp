@@ -22,8 +22,7 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.saveOrUpdate(subject);
+        session.save(subject);
         transaction.commit();
     }
 
@@ -33,8 +32,7 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.update(subject);
+        session.saveOrUpdate(subject);
         transaction.commit();
     }
 
@@ -44,7 +42,6 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         session.delete(subject);
         transaction.commit();
     }
@@ -55,10 +52,8 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         List<Subject> list = session.createCriteria(Subject.class).list();
         transaction.commit();
-
         return list;
     }
 
@@ -68,17 +63,9 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.idEq(id));
-        List<Subject> results = criteria.list();
+        Subject result = (Subject) session.get(Subject.class, id);
         transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
-        }
+        return result;
     }
 
     @Override
@@ -87,12 +74,10 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.eq("subjectName", subjectName));
+        criteria.add(Restrictions.eq("subjectName", subjectName).ignoreCase());
         List<Subject> results = criteria.list();
         transaction.commit();
-
         if (results.isEmpty() == false) {
             return results.get(0);
         } else {
@@ -106,10 +91,10 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Subject.class);
+        criteria.createAlias("term", "term");
         criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(),
-                Restrictions.eq("termId", termId)));
+                Restrictions.eq("term.termId", termId)));
         List<Subject> results = criteria.list();
         transaction.commit();
 
@@ -126,12 +111,11 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.eq("termId", termId));
+        criteria.createAlias("term", "term");
+        criteria.add(Restrictions.eq("term.termId", termId));
         List<Subject> results = criteria.list();
         transaction.commit();
-
         return results;
     }
 }

@@ -119,4 +119,49 @@ public class UserDaoTest extends DBUnitConfig {
         Assertion.assertEqualsByQuery(expTable, getConnection(), "user", sqlQuery, ignore);
         Assert.assertEquals(expTable.getValue(0, "first_name"), foundUser.getFirstName());
     }
+
+    @Test
+    public void testFindByLoginShouldReturnRequestedEntity() throws Exception {
+
+        String login = userDao.findAll().get(1).getLogin();
+        User foundUser = userDao.findByLogin(login);
+
+        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("user/user-data-find-by-login.xml"));
+        ITable expTable = expected.getTable("user");
+
+        String sqlQuery = String.format("SELECT * FROM user WHERE login = '%s'", login);
+        String[] ignore = {"user_id"};
+        Assertion.assertEqualsByQuery(expTable, getConnection(), "user", sqlQuery, ignore);
+        Assert.assertEquals(expTable.getValue(0, "login"), foundUser.getLogin());
     }
+
+    @Test
+    public void testGetUserByLoginAndPasswordShouldReturnRequestedEntity() throws Exception {
+
+        String login = userDao.findAll().get(1).getLogin();
+        String pass = userDao.findAll().get(1).getUserPassword();
+        User foundUser = userDao.getUserByLoginAndPassword(login, pass);
+
+        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("user/user-data-find-by-login-and-pass.xml"));
+        ITable expTable = expected.getTable("user");
+
+        String sqlQuery = String.format("SELECT * FROM user WHERE login = '%s' AND password = '%s'", login, pass);
+        String[] ignore = {"user_id"};
+        Assertion.assertEqualsByQuery(expTable, getConnection(), "user", sqlQuery, ignore);
+        Assert.assertEquals(expTable.getValue(0, "login"), foundUser.getLogin());
+        Assert.assertEquals(expTable.getValue(0, "password"), foundUser.getUserPassword());
+    }
+
+    @Test
+    public void testValidateUserShouldReturnRightCondition() throws Exception {
+
+        String login = userDao.findAll().get(1).getLogin();
+        boolean validUser = userDao.validateUser(login);
+        boolean invalidUser = userDao.validateUser("doesn't exist");
+
+        Assert.assertTrue(validUser == true);
+        Assert.assertTrue(invalidUser == false);
+    }
+}

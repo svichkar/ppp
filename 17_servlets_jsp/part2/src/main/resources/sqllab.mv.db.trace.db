@@ -1,0 +1,150 @@
+2016-01-06 17:46:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER
+(
+	USER_ID BIGINT IDENTITY,
+	USERNAME VARCHAR(256) NOT NULL,
+	PASSWORD VARCHAR(256) NOT NULL,
+	ROLE_ID TINYINT NOT NULL
+	CUSTOMER_ID[*] TINYINT
+) "; expected "AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE user
+(
+	user_id bigint IDENTITY,
+	username VARCHAR(256) NOT NULL,
+	password VARCHAR(256) NOT NULL,
+	role_id tinyint NOT NULL
+	customer_id tinyint
+) [42001-190]
+2016-01-06 17:46:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+ALTER TABLE user ADD FOREIGN KEY(role_id) REFERENCES role(role_id) [42102-190]
+2016-01-06 17:46:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+ALTER TABLE user ADD FOREIGN KEY(customer_id) REFERENCES customer(customer_id) [42102-190]
+2016-01-06 17:47:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+---fill table user
+INSERT INTO user (username, password, role_id) VALUES ('hansb', '1', 2, 1) [42102-190]
+2016-01-06 17:47:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+INSERT INTO user (username, password, role_id) VALUES ('dinio', '1', 2, 2) [42102-190]
+2016-01-06 17:47:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+INSERT INTO user (username, password, role_id) VALUES ('admin', '1', 1) [42102-190]
+2016-01-06 17:48:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE USER
+(
+	USER_ID BIGINT IDENTITY,
+	USERNAME VARCHAR(256) NOT NULL,
+	PASSWORD VARCHAR(256) NOT NULL,
+	ROLE_ID TINYINT NOT NULL
+	CUSTOMER_ID[*] TINYINT
+) "; expected "AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE user
+(
+	user_id bigint IDENTITY,
+	username VARCHAR(256) NOT NULL,
+	password VARCHAR(256) NOT NULL,
+	role_id tinyint NOT NULL
+	customer_id tinyint
+) [42001-190]
+2016-01-06 17:48:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+ALTER TABLE user ADD FOREIGN KEY(role_id) REFERENCES role(role_id) [42102-190]
+2016-01-06 17:48:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+ALTER TABLE user ADD FOREIGN KEY(customer_id) REFERENCES customer(customer_id) [42102-190]
+2016-01-06 17:49:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+---fill table user
+INSERT INTO user (username, password, role_id) VALUES ('hansb', '1', 2, 1) [21002-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-01-06 17:49:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+INSERT INTO user (username, password, role_id) VALUES ('dinio', '1', 2, 2) [21002-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-01-06 17:50:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+INSERT INTO user (username, password, role_id, customer_id) VALUES ('admin', '1', 1) [21002-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:246)
+	at org.h2.engine.Session.prepareLocal(Session.java:460)
+	at org.h2.engine.Session.prepareCommand(Session.java:402)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:170)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-01-10 21:47:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE USER DELETE[*] FOREIGN KEY(CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID) "; expected "., ADD, SET, RENAME, DROP, CHANGE, MODIFY, ALTER"; SQL statement:
+ALTER TABLE user DELETE FOREIGN KEY(customer_id) REFERENCES customer(customer_id) [42001-190]
+2016-01-10 21:47:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE USER DROP FOREIGN KEY([*]CUSTOMER_ID) REFERENCES CUSTOMER(CUSTOMER_ID) "; expected "identifier"; SQL statement:
+ALTER TABLE user drop FOREIGN KEY(customer_id) REFERENCES customer(customer_id) [42001-190]
+2016-01-10 22:13:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "USE" not found; SQL statement:
+select * from use [42102-190]
+2016-01-10 22:18:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Schema "SQLLAB" already exists; SQL statement:
+create schema sqllab [90078-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.ddl.CreateSchema.update(CreateSchema.java:48)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78)
+	at org.h2.command.Command.executeUpdate(Command.java:253)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:184)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1388)
+	at org.h2.server.web.WebApp.query(WebApp.java:1061)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1023)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1010)
+	at org.h2.server.web.WebThread.process(WebThread.java:164)
+	at org.h2.server.web.WebThread.run(WebThread.java:89)
+	at java.lang.Thread.run(Unknown Source)
+2016-01-20 17:00:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ORDERS" not found; SQL statement:
+select * from sqllab.orders [42102-190]

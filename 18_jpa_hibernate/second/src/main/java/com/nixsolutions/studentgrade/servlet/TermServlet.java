@@ -1,7 +1,8 @@
-package com.nixsolutions.studentgrade.controller;
+package com.nixsolutions.studentgrade.servlet;
 
 import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.entity.Term;
+import org.hibernate.exception.ConstraintViolationException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "term", urlPatterns = { "/term"})
+@WebServlet(name = "term", urlPatterns = {"/term"})
 public class TermServlet extends HttpServlet {
 
     @Override
@@ -35,14 +36,14 @@ public class TermServlet extends HttpServlet {
 
         switch (operation) {
 
-            case "add":{
+            case "add": {
                 boolean isUnique = true;
                 for (Term t : terms) {
                     if (termName.equals(t.getTermName()))
                         isUnique = false;
                 }
 
-                if(isUnique) {
+                if (isUnique) {
                     Term newTerm = new Term();
                     newTerm.setTermName(termName);
                     daoFactory.getTermDao().create(newTerm);
@@ -70,7 +71,7 @@ public class TermServlet extends HttpServlet {
                         isUnique = false;
                 }
 
-                if(isUnique) {
+                if (isUnique) {
                     daoFactory.getTermDao().update(term);
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
@@ -86,11 +87,17 @@ public class TermServlet extends HttpServlet {
                 break;
             }
 
-            case "delete" : {
+            case "delete": {
                 Term term = daoFactory.getTermDao().findById(Long.valueOf(termId));
-                daoFactory.getTermDao().delete(term);
-                request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
+                try {
+                    daoFactory.getTermDao().delete(term);
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
+                } catch (ConstraintViolationException e) {
+                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
+                            "Term is linked with students and can't be deleted</h4></p>");
+
+                }
 
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());
                 request.getRequestDispatcher("/WEB-INF/jsp/term.jsp").forward(request, response);

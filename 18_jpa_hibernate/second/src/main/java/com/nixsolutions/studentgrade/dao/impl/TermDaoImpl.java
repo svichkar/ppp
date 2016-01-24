@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -45,7 +46,12 @@ public class TermDaoImpl implements TermDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.delete(term);
+        Serializable id = term.getTermId();
+        Object persistentInstance = session.load(Term.class, id);
+        if (persistentInstance != null) {
+            session.delete(persistentInstance);
+            session.flush();
+        }
         transaction.commit();
     }
 

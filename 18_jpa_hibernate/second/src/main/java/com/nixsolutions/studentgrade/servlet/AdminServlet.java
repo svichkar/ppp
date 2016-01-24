@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.controller;
+package com.nixsolutions.studentgrade.servlet;
 
 import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.dao.RoleDao;

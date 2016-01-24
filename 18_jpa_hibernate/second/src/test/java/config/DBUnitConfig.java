@@ -51,8 +51,8 @@ public class DBUnitConfig extends DBTestCase {
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, prop.getProperty("jdbc.password"));
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "");
 
-        daoFactory = new DaoFactory();
         HibernateUtil.getSessionFactory();
+        daoFactory = new DaoFactory();
     }
 
     @Override

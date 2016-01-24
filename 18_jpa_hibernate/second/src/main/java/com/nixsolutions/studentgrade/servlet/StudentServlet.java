@@ -1,8 +1,9 @@
-package com.nixsolutions.studentgrade.controller;
+package com.nixsolutions.studentgrade.servlet;
 
 
 import com.nixsolutions.studentgrade.bean.StudentBean;
 import com.nixsolutions.studentgrade.dao.*;
+import com.nixsolutions.studentgrade.entity.Status;
 import com.nixsolutions.studentgrade.entity.Student;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
 
@@ -218,12 +219,14 @@ public class StudentServlet extends HttpServlet {
                 break;
             }
 
+            //set status to inactive when deleting
             case "delete": {
                 Student student = dao.findById(Long.valueOf(id));
-                dao.delete(student);
+                Status s = statusDao.findByName("inactive");
+                student.setStatus(s);
+                dao.update(student);
                 request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                         "Success</h4></p>");
-
                 break;
             }
         }

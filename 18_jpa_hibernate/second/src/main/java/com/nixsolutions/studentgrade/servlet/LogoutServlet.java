@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.controller;
+package com.nixsolutions.studentgrade.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

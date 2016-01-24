@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by konstantin on 12/23/2015.
  */
-public class DbGradeTest extends DBUnitConfig {
+public class GradeDaoTest extends DBUnitConfig {
 
     private GradeDao gradeDao;
 
@@ -28,7 +28,7 @@ public class DbGradeTest extends DBUnitConfig {
         gradeDao = daoFactory.getGradeDao();
     }
 
-    public DbGradeTest(String name) {
+    public GradeDaoTest(String name) {
         super(name);
     }
 
@@ -106,6 +106,22 @@ public class DbGradeTest extends DBUnitConfig {
         ITable expTable = expected.getTable("grade");
 
         String sqlQuery = String.format("SELECT * FROM grade WHERE grade_id = %d", gradeId);
+        String[] ignore = {"grade_id"};
+        Assertion.assertEqualsByQuery(expTable, getConnection(), "grade", sqlQuery, ignore);
+        Assert.assertEquals(expTable.getValue(0, "grade_name"), foundGrade.getGradeName());
+    }
+
+    @Test
+    public void testFindByNameShouldReturnRequestedEntity() throws Exception {
+
+        String gradeName = gradeDao.findAll().get(2).getGradeName();
+        Grade foundGrade = gradeDao.findByName(gradeName);
+
+        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("grade/grade-data-find-by-name.xml"));
+        ITable expTable = expected.getTable("grade");
+
+        String sqlQuery = String.format("SELECT * FROM grade WHERE grade_name = '%s'", gradeName);
         String[] ignore = {"grade_id"};
         Assertion.assertEqualsByQuery(expTable, getConnection(), "grade", sqlQuery, ignore);
         Assert.assertEquals(expTable.getValue(0, "grade_name"), foundGrade.getGradeName());

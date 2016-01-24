@@ -1,0 +1,5 @@
+<dataset>
+    <user first_name="Igor" last_name="Ivanov" login="ivanov" email="ivanov@gmail.com" password="321" role_id="2"/>
+    <user first_name="Nick" last_name="Dubov" login="dubov" email="dubov@gmail.com" password="dubov" role_id="2"/>
+    <user first_name="Ivan" last_name="Cock" login="cock" email="cock@gmail.com" password="456" role_id="1"/>
+</dataset>

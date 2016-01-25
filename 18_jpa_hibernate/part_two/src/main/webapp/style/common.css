@@ -1,0 +1,58 @@
+html {
+	height: 100%;
+}
+
+body {
+	font-family: "lucida sans", arial, sans-serif;
+	padding: 0px;
+	margin: 0px;
+	font-size: .78em;
+	background: #090708;
+	color: #5D5D5D;
+	height: 80%
+}
+
+
+#logo {
+	font-family: 'trebuchet ms', sans-serif;
+	font-size: 90%;
+	height: 28px;
+	padding: 20px 0 5px 0;
+	text-align: center;
+	background: transparent;
+	color: #EEF3CD;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+#site_content {
+	padding: 100px 0 100px 0;
+	text-align: center;
+}
+
+#content {
+	text-align: center;
+	padding: 0;
+}
+
+#footer {
+	font-family: 'trebuchet ms', sans-serif;
+	font-size: 90%;
+	height: 28px;
+	text-align: center;
+	background: transparent;
+	color: #EEF3CD;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+table {
+	align: center;
+	background: #E5E5DB;
+	color: #47433F;
+	border: 1px solid;
+}
+
+table th {
+	border: 1px solid;
+}

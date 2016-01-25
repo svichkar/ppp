@@ -90,6 +90,8 @@ public class WorkerSrvt extends HttpServlet {
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
 				request.setAttribute("title", "Add worker");
+				request.setAttribute("statuses", statusImpl.getAll());
+				request.setAttribute("specifications", workerspecImpl.getAll());
 				request.getRequestDispatcher("/WEB-INF/jsp/worker.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
 				Worker worker = new Worker(f_name, l_name, specId, statusId);

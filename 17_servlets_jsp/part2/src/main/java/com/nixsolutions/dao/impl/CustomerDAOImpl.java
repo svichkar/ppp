@@ -95,7 +95,7 @@ public class CustomerDAOImpl implements CustomerDAO<Customer> {
 
 	@Override
 	public boolean delete(Customer t) {
-		int executionResult = 0;
+		List<Integer> executionResult = new ArrayList<>();
 		try {
 			this.conn = ConnectionManager.getConnection();
 			// define schema
@@ -103,7 +103,13 @@ public class CustomerDAOImpl implements CustomerDAO<Customer> {
 			ps.execute();
 			ps = conn.prepareStatement("DELETE FROM customer WHERE customer_id=?");
 			ps.setInt(1, t.getId());
-			executionResult = ps.executeUpdate();
+
+			PreparedStatement ps1 = conn.prepareStatement("DELETE FROM car WHERE customer_id=?");
+			ps1.setInt(1, t.getId());
+
+			executionResult.add(ps1.executeUpdate());
+			executionResult.add(ps.executeUpdate());
+
 		} catch (SQLException | ClassNotFoundException ex) {
 			LOG.error(ex, ex);
 		} finally {
@@ -118,7 +124,7 @@ public class CustomerDAOImpl implements CustomerDAO<Customer> {
 				LOG.error(ex, ex);
 			}
 		}
-		if (executionResult > 0) {
+		if (!executionResult.contains(0)) {
 			return true;
 		}
 		return false;

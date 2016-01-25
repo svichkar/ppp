@@ -14,7 +14,7 @@
 				<th>
 				<form action="workerAdd" method="POST">
 					<input type="hidden" name="action" value="Add"> 
-					<input type="submit" value="Add part">
+					<input type="submit" value="Add worker">
 				</form>
 				</th>
 		</tr>

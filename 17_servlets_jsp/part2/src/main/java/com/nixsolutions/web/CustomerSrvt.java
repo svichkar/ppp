@@ -57,7 +57,8 @@ public class CustomerSrvt extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/customer.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
 				customerImpl.delete(customer);
-				response.sendRedirect("/WEB-INF/jsp/customers.jsp");
+				request.setAttribute("destination", "Customers");
+				request.getRequestDispatcher("/navigation").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
 
 				customer.setF_name(f_name);

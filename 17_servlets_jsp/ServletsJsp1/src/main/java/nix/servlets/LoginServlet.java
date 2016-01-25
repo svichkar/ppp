@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import nix.jdbcworkshop.entities.WebUser;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
@@ -22,6 +24,8 @@ import nix.jdbcworkshop.utils.DaoFactoryH2;
  */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
+
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             String name = request.getParameter("j_username");
             String password = request.getParameter("j_password");
             WebUser user = DaoFactoryH2.getWebUserDaoH2().findWebUserByLogin(name);
-            if (user != null) {
+            if (user != null && name != null && password != null) {
                 if (password.equals(user.getWebUserPassword())) {
                     out.print("Welcome, " + name);
                     HttpSession session = request.getSession();
@@ -61,23 +65,11 @@ public class LoginServlet extends HttpServlet {
                 //response.sendRedirect("index.html");
             }
             out.close();
+        } catch (RuntimeException ex) {
+            LOGGER.log(Level.FATAL, ex);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

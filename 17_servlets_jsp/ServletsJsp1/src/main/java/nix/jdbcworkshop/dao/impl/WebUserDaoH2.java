@@ -47,6 +47,7 @@ public class WebUserDaoH2 implements WebUserDao {
             counters.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException (ex);
         }
     }
 
@@ -65,6 +66,7 @@ public class WebUserDaoH2 implements WebUserDao {
             newWebUser.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException (ex);
         }
     }
 
@@ -79,6 +81,7 @@ public class WebUserDaoH2 implements WebUserDao {
             newWebUser.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException (ex);
         }
     }
 
@@ -105,6 +108,7 @@ public class WebUserDaoH2 implements WebUserDao {
 
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException (ex);
         }
         return searchedWebUser;
     }
@@ -132,6 +136,7 @@ public class WebUserDaoH2 implements WebUserDao {
 
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException(ex);
         }
         return searchedWebUser;
     }
@@ -167,6 +172,7 @@ public class WebUserDaoH2 implements WebUserDao {
             searchResults.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException (ex);
         }
         return results;
     }

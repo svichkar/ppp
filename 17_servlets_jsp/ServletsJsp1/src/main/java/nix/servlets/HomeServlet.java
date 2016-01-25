@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import nix.jdbcworkshop.entities.WebRole;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *
@@ -20,7 +22,7 @@ import nix.jdbcworkshop.entities.WebRole;
  */
 @WebServlet(name = "HomeServlet", urlPatterns = {"/homepage"})
 public class HomeServlet extends HttpServlet {
-
+private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
@@ -44,6 +46,7 @@ public class HomeServlet extends HttpServlet {
                 out.println("<h1>Home Page</h1>");
                 out.println("Wlecome dear " + request.getSession().getAttribute("role") + " <b>"
                         + request.getSession().getAttribute("name") + "</b>");
+                out.println("<p>" + (request.getAttribute("status") != null ? request.getAttribute("status") : "") + "</p>");
                 out.println("<ul>");
                 out.println("<li><a href='index.html'>Login</a></li>");
                 out.println("<li><a href='homepage'>Homepage</a></li>");
@@ -53,11 +56,12 @@ public class HomeServlet extends HttpServlet {
                 out.println("</ul>");
                 out.println("</body>");
                 out.println("</html>");
-            }
-            else
-            {
+            } else {
                 response.sendRedirect("index.html");
             }
+        }
+         catch (RuntimeException ex) {
+            LOGGER.log(Level.FATAL, ex);
         }
     }
 
@@ -72,20 +76,6 @@ public class HomeServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

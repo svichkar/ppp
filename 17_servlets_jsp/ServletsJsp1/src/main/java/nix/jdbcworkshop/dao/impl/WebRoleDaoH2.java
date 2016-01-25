@@ -44,6 +44,7 @@ public class WebRoleDaoH2 implements WebRoleDao {
             counters.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException(ex);
         }
     }
 
@@ -59,6 +60,7 @@ public class WebRoleDaoH2 implements WebRoleDao {
             newWebRole.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException(ex);
         }
     }
 
@@ -73,6 +75,7 @@ public class WebRoleDaoH2 implements WebRoleDao {
             newWebRole.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException(ex);
         }
     }
 
@@ -99,6 +102,7 @@ public class WebRoleDaoH2 implements WebRoleDao {
 
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException(ex);
         }
         return searchedWebRole;
     }
@@ -133,6 +137,7 @@ public class WebRoleDaoH2 implements WebRoleDao {
             searchResults.close();
         } catch (SQLException | RuntimeException ex) {
             LOGGER.error(ex);
+            throw new RuntimeException(ex);
         }
         return results;
     }

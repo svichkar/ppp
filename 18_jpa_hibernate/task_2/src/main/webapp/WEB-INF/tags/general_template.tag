@@ -15,10 +15,16 @@
 <meta http-equiv="content-type"
 	content="text/html; charset=windows-1252" />
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
-<jsp:invoke fragment="head_area" />
+
 </head>
 
 <body>
+<div id="header">
+<jsp:invoke fragment="head_area" />
+</div>
+
+
+<div id="nav">
 
 	<ul>
 		<li><a class="active">Hi, ${usrName}!</a></li>
@@ -33,9 +39,15 @@
 		</c:if>
 	</ul>
 
-	<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
+</div>
+
+	<div id = "section" style="margin-left: 25%; padding: 1px 16px; height: 1000px;">
 		<jsp:invoke fragment="content_area" />
 	</div> 
 
+	
+
 </body>
+
+
 </html>

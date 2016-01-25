@@ -20,10 +20,10 @@ public class RoleDaoImpl implements RoleDao{
 	public List<Role> getAllRoles() {
 		LOG.entry();
 		List<Role> roles = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Role.class);
+		Criteria criteria = session.createCriteria(Role.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		roles = criteria.list();
 		transaction.commit();
 		return LOG.exit(roles);
@@ -33,11 +33,11 @@ public class RoleDaoImpl implements RoleDao{
 	public Role getRoleById(Long roleId) {
 		LOG.entry(roleId);
 		Role role = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Role.class)
-				.add(Restrictions.eq("roleId", roleId));
+				.add(Restrictions.eq("roleId", roleId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		role = (Role) criteria.uniqueResult();
 		transaction.commit();
 		return LOG.exit(role);
@@ -47,11 +47,11 @@ public class RoleDaoImpl implements RoleDao{
 	public Role getRoleByName(String name) {
 		LOG.entry(name);
 		Role role = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Role.class)
-				.add(Restrictions.eq("name", name));
+				.add(Restrictions.eq("name", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		role = (Role) criteria.uniqueResult();
 		transaction.commit();
 		return LOG.exit(role);
@@ -60,7 +60,7 @@ public class RoleDaoImpl implements RoleDao{
 	@Override
 	public void createRole(Role role) {
 		LOG.entry(role);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(role);
@@ -70,7 +70,7 @@ public class RoleDaoImpl implements RoleDao{
 	@Override
 	public void updateRole(Role role) {
 		LOG.entry(role);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(role);
@@ -80,7 +80,7 @@ public class RoleDaoImpl implements RoleDao{
 	@Override
 	public void deleteRole(Role role) {
 		LOG.entry(role);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(role);

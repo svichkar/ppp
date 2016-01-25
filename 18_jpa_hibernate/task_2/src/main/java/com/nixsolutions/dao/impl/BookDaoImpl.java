@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,18 +17,18 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class BookDaoImpl implements BookDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	
 	@Override
 	public List<Book> getAllBooks() {
 		LOG.entry();
 		List<Book> books = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class);
+		Criteria criteria = session.createCriteria(Book.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(books);
 	}
 
@@ -35,58 +36,58 @@ public class BookDaoImpl implements BookDao {
 	public Book getBookById(Long bookId) {
 		LOG.entry(bookId);
 		Book book = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class)
-				.add(Restrictions.eq("bookId", bookId));
+				.add(Restrictions.eq("bookId", bookId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		book = (Book) criteria.uniqueResult();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(book);
 	}
 
 	@Override
-	public Book createBook(Book book) {
+	public void createBook(Book book) {
 		LOG.entry(book);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(book);		
-		transaction.commit();
-		return book;
+		transaction.commit(); 
 	}
 
 	@Override
 	public void updateBook(Book book) {
 		LOG.entry(book);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(book);	
+		transaction.commit(); 
 	}
 
 	@Override
 	public void deleteBook(Book book) {
 		LOG.entry(book);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(book);	
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public List<Book> getBooksByAuthor(String name) {
 		LOG.entry(name);
 		List<Book> books = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class, "book")
-				.createAlias("book.authors", "author")
-				.add(Restrictions.eq("authors.secondName", name));
+				.createAlias("book.authors", "authors")
+				.add(Restrictions.eq("authors.secondName", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(books);
 	}
 
@@ -94,14 +95,14 @@ public class BookDaoImpl implements BookDao {
 	public List<Book> getBooksByCategory(String name) {
 		LOG.entry(name);
 		List<Book> books = new ArrayList<>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class, "book")
 				.createAlias("book.category", "category")
-				.add(Restrictions.eq("category.name", name));
+				.add(Restrictions.eq("category.name", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(books);
 	}
 
@@ -109,13 +110,13 @@ public class BookDaoImpl implements BookDao {
 	public List<Book> getBooksByName(String name) {
 		LOG.entry(name);
 		List<Book> books = new ArrayList<>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class, "book")
-				.add(Restrictions.eq("book.name", name));
+				.add(Restrictions.eq("book.name", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(books);
 	}
 }

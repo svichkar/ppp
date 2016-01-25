@@ -4,12 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="loan book">
-	<jsp:attribute name="content_area">
+<jsp:attribute name="content_area">
 <h2>Loans</h2>
-
+<div class = "submit">
 <form id="find" action=readersearch method="post">
-				<input type="text" name="search input" placeholder="Reader name" /> <%-- add search all readers / by name / combinations  --%>
-				<input type=submit value="search" name="button">								
+
+				
+				<input class = "submit" type="text" name="search input" placeholder="Reader name" /> <%-- add search all readers / by name / combinations  --%>
+				<input class = "submit" type=submit value="search" name="button">								
+
+
 
 		<c:if test="${not empty toBeloaned}">
 		<br/>
@@ -22,11 +26,13 @@
 					
 	</c:if>	
 </form>
+</div>
 
 		<c:if test="${not empty readers}"> <%-- if readers list are not empty --%>
+	<div class = "reader">
 		<input type="hidden" name="current client" value="${reader.clientId}">
-		<table class = "present">
-			<tr>
+		<table class = "reader">
+			<tr class = "present">
 				<th class = "present">reader_name</th>
 				<th class = "present">email</th>
 				<th class = "present">phone</th>
@@ -53,6 +59,7 @@
 			</c:forEach>
 			
 		</table>
+		</div>
 </c:if>
 			
 		</jsp:attribute>

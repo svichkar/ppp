@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="loan book">
-	<jsp:attribute name="content_area">
+<jsp:attribute name="content_area">
 <h2>Loans</h2>
 
 <form id="find" action=loansmanage method="post">
@@ -29,14 +29,18 @@
 			<tr>
 				<th class = "present">book_name</th>
 				<th class = "present">loan date</th>
+				<th class = "present">return date</th>
 				<th class = "present">check if book is returned</th>
 			</tr>			
-			<c:forEach var="loan" items="${loans}">			
+			<c:forEach var="loan" items="${reader.rents}">			
+				<c:if test="${empty loan.returnDate}">
 				<tr>
 					<td class = "present">${loan.book.name}</td>
-					<td class = "present">${loan.loan.rentDate}</td>
-					<td class = "present"><input type="checkbox" name="book returned" value="${loan.loan.rentId}"/></td>
-				</tr>				
+					<td class = "present">${loan.rentDate}</td>
+					<td class = "present">${loan.returnDate}</td>
+					<td class = "present"><input type="checkbox" name="book returned" value="${loan.rentId}"/></td>
+				</tr>	
+				</c:if>			
 			</c:forEach>
 			
 		</table>

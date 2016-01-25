@@ -13,8 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Book implements Serializable{
@@ -38,13 +42,20 @@ public class Book implements Serializable{
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "CATEGORY_ID")
 	private Category category;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "book_id", referencedColumnName = "book_id")
+	private List<RentJournal> loans;
 
-	@ManyToMany
+	@ManyToMany 
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "author_book",
 				joinColumns = {@JoinColumn(name = "BOOK_ID")},
 				inverseJoinColumns = {@JoinColumn(name = "AUTHOR_ID")})
 	private List<Author> authors;
 
+	public Book(){};
+	
 	public Long getBookId() {
 		return bookId;
 	}
@@ -106,5 +117,72 @@ public class Book implements Serializable{
 			this.count--;
 		}
 	}
+	
+	
+
+	public List<RentJournal> getLoans() {
+		return loans;
+	}
+
+	public void setLoans(List<RentJournal> loans) {
+		this.loans = loans;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((authors == null) ? 0 : authors.hashCode());
+		result = prime * result + ((bookId == null) ? 0 : bookId.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((cell == null) ? 0 : cell.hashCode());
+		result = prime * result + ((count == null) ? 0 : count.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		if (authors == null) {
+			if (other.authors != null)
+				return false;
+		} else if (!authors.equals(other.authors))
+			return false;
+		if (bookId == null) {
+			if (other.bookId != null)
+				return false;
+		} else if (!bookId.equals(other.bookId))
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
+		if (cell == null) {
+			if (other.cell != null)
+				return false;
+		} else if (!cell.equals(other.cell))
+			return false;
+		if (count == null) {
+			if (other.count != null)
+				return false;
+		} else if (!count.equals(other.count))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
 
 }

@@ -45,7 +45,6 @@ public class ManageUsersServlet extends HttpServlet {
 
 	private void processUsers(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		PrintWriter out = response.getWriter();
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("password");
 		String roleName = request.getParameter("selectrole");
@@ -77,6 +76,5 @@ public class ManageUsersServlet extends HttpServlet {
 			factory.getUserDao().createUser(createUser);
 			response.sendRedirect("manageusers");
 		}
-		out.close();
 	}
 }

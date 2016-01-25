@@ -1,40 +1,33 @@
 package com.nixsolutions.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.AuthorDao;
-import com.nixsolutions.dao.DaoException;
-import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.entity.Author;
-import com.nixsolutions.entity.Book;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class AuthorDaoImpl implements AuthorDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	
 	@Override
 	public List<Author> getAllAuthors() {
 		LOG.entry();
 		List<Author> authors = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Author.class);
+		Criteria criteria = session.createCriteria(Author.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		authors = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(authors);
 	}
 	
@@ -42,13 +35,13 @@ public class AuthorDaoImpl implements AuthorDao {
 	public Author getAuthorByName(String name) {
 		LOG.entry(name);
 		Author author = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Author.class, "author")
-				.add(Restrictions.eq("author.secondName", name));
+				.add(Restrictions.eq("author.secondName", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		author = (Author) criteria.uniqueResult();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(author);
 	}
 
@@ -56,44 +49,44 @@ public class AuthorDaoImpl implements AuthorDao {
 	public Author getAuthorById(Long authorId) {
 		LOG.entry(authorId);
 		Author author = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Author.class, "author")
-				.add(Restrictions.eq("author.authorId", authorId));
+				.add(Restrictions.eq("author.authorId", authorId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		author = (Author)criteria.uniqueResult();
-		transaction.commit();
+		transaction.commit(); session.close();
 		return LOG.exit(author);
 	}
 
 	@Override
 	public Author createAuthor(Author author) {
 		LOG.entry(author);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(author);
-		transaction.commit();
+		transaction.commit(); 
 		return author;
 	}
 
 	@Override
 	public void updateAuthor(Author author) {
 		LOG.entry(author);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(author);
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public void deleteAuthor(Author author) {
 		LOG.entry(author);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(author);
-		transaction.commit();
+		transaction.commit(); 
 	}
 }

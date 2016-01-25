@@ -30,6 +30,9 @@ public class Book implements Serializable{
 	@Size(min = 3)
 	@Column(name = "NAME", nullable=false)
 	private String name;
+	@NotNull
+	@Column(name = "COUNT", nullable=false)
+	private Integer count;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CELL_ID", referencedColumnName = "CELL_ID")
 	private Cell cell;
@@ -77,6 +80,23 @@ public class Book implements Serializable{
 	
 	public String toString() {
 		return "book with bookId: " + this.bookId + "; name: " + this.name;
+	}
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public void increaseCount() {
+		this.count++;
+	}
+
+	public void decreaseCount() {
+		if (count != null) {
+			this.count--;
+		}
 	}
 
 }

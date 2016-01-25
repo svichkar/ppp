@@ -1,12 +1,5 @@
 package com.nixsolutions.dao.impl;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,12 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import com.nixsolutions.dao.DaoException;
-import com.nixsolutions.dao.H2ConnManager;
 import com.nixsolutions.dao.RentJournalDao;
-import com.nixsolutions.entity.Book;
 import com.nixsolutions.entity.RentJournal;
-import com.nixsolutions.entity.User;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class RentJournalDaoImpl implements RentJournalDao {
@@ -31,12 +20,12 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public List<RentJournal> getAllRents() {
 		LOG.entry();
 		List<RentJournal> rentJournals = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(RentJournal.class);
+		Criteria criteria = session.createCriteria(RentJournal.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		rentJournals = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(rentJournals);
 	}
 
@@ -44,58 +33,58 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public RentJournal getRentById(Long rentId) {
 		LOG.entry(rentId);
 		RentJournal rentJournal = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(RentJournal.class)
-				.add(Restrictions.eq("rentId", rentId));
+				.add(Restrictions.eq("rentId", rentId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		rentJournal = (RentJournal) criteria.uniqueResult();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(rentJournal);
 	}
 
 	@Override
 	public void createRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal.toString());
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(rentJournal);
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(rentJournal);
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public void deleteRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(rentJournal);
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public List<RentJournal> getRentsByClientId(Long clientId) {
 		LOG.entry(clientId);
 		List<RentJournal> rentJournals = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(RentJournal.class, "journal")
 				.createAlias("journal.client", "client")
-				.add(Restrictions.eq("client.clientId", clientId));
+				.add(Restrictions.eq("client.clientId", clientId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		rentJournals = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(rentJournals);
 	}
 }

@@ -64,8 +64,7 @@ public class AddBookServlet extends HttpServlet {
 		book.setCell(factory.getCellDao().getCellByName(cell));
 		book.setCategory(factory.getCategoryDao().getCategoryByName(category));
 		book.setCount(Integer.valueOf(count));
-		book = factory.getBookDao().createBook(book);
-
+		//factory.getBookDao().createBook(book);
 		// new or existing author
 		Author auth = factory.getAuthorDao().getAuthorByName(authorLastName);
 		List<Author> authors = new ArrayList<>();
@@ -74,13 +73,14 @@ public class AddBookServlet extends HttpServlet {
 			authors.add(auth);
 			book.setAuthors(authors);
 		} else {
-			Author author = new Author();
+			auth = new Author();
 			auth.setFirstName(authorFirstName);
 			auth.setSecondName(authorLastName);
-			auth = factory.getAuthorDao().createAuthor(auth);
+			factory.getAuthorDao().createAuthor(auth);
 			LOG.debug("during creation of new book the author was created: " + auth);
 			authors.add(auth);
 			book.setAuthors(authors);
 		}
+		factory.getBookDao().createBook(book);
 	}
 }

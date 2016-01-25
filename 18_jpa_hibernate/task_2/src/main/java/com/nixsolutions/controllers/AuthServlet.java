@@ -44,7 +44,7 @@ public class AuthServlet extends HttpServlet {
 		if (button.equals("login")) {
 			response.setContentType("text/html");
 			if (user != null) {
-				if (user.getRole().getRoleId().equals(1)) {
+				if (user.getRole().getRoleId().equals(1l)) {
 					session.setAttribute("usrRole", "admin");
 					session.setAttribute("usrName", usr);
 					response.sendRedirect("homepage");

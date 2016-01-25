@@ -29,12 +29,12 @@ public class CategoryDaoImpl implements CategoryDao {
 	public List<Category> getAllCategories() {
 		LOG.entry();
 		List<Category> categories = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Category.class);
+		Criteria criteria = session.createCriteria(Category.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		categories = criteria.list();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(categories);
 	}
 
@@ -42,13 +42,13 @@ public class CategoryDaoImpl implements CategoryDao {
 	public Category getCategoryById(Long categoryId) {
 		LOG.entry(categoryId);
 		Category category = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Category.class, "category")
-				.add(Restrictions.eq("category.categoryId", categoryId));
+				.add(Restrictions.eq("category.categoryId", categoryId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		category = (Category) criteria.uniqueResult();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(category);
 	}
 
@@ -56,43 +56,43 @@ public class CategoryDaoImpl implements CategoryDao {
 	public Category getCategoryByName(String categoryName) {
 		LOG.entry(categoryName);
 		Category category = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Category.class, "category")
-				.add(Restrictions.eq("category.name", categoryName));
+				.add(Restrictions.eq("category.name", categoryName)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		category = (Category) criteria.uniqueResult();
-		transaction.commit();
+		transaction.commit(); 
 		return LOG.exit(category);
 	}
 
 	@Override
 	public void createCategory(Category category) {
 		LOG.entry(category);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(category);
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public void updateCategory(Category category) {
 		LOG.entry(category);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(category);
-		transaction.commit();
+		transaction.commit(); 
 	}
 
 	@Override
 	public void deleteCategory(Category category) {
 		LOG.entry(category);
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(category);
-		transaction.commit();
+		transaction.commit(); 
 	}
 }

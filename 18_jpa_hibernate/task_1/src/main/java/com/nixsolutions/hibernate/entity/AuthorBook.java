@@ -14,30 +14,30 @@ public class AuthorBook implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "AUTHOR_ID", nullable=false)
-	private Integer authorId;
+	private Long authorId;
 	@Id
 	@Column(name = "BOOK_ID", nullable=false)
-	private Integer bookId;
+	private Long bookId;
 
-	public AuthorBook(int authorId, int bookId) {
+	public AuthorBook(Long authorId, Long bookId) {
 		super();
 		this.authorId = authorId;
 		this.bookId = bookId;
 	}
 
-	public Integer getAuthorId() {
+	public Long getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(int authorId) {
+	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
 	}
 
-	public Integer getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 	

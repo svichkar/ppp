@@ -17,7 +17,6 @@ import org.joda.time.Days;
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.RentJournal;
-import com.nixsolutions.model.LoanBean;
 
 @SuppressWarnings("serial")
 public class HomePageServlet extends HttpServlet {
@@ -36,18 +35,18 @@ public class HomePageServlet extends HttpServlet {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
 		List<RentJournal> rents = factory.getRentJournalDao().getAllRents();
-		List<LoanBean> loansBeans = new ArrayList<>();
+		List<RentJournal> expiredloans = new ArrayList<>();
 
 		for (RentJournal loan : rents) {
-			LOG.debug(loan.getRentDate());
 			DateTime dt1 = new DateTime(loan.getRentDate());
 			DateTime dt2 = new DateTime();
 			int returnBefore = 30;
 			if (loan.getReturnDate() == null
 					&& Days.daysBetween(dt1, dt2).getDays() > returnBefore) {
-				loansBeans.add(new LoanBean(loan));
+				loan.checkForExpiration();
+				expiredloans.add(loan);
 			}
 		}
-		request.setAttribute("loans", loansBeans);
+		request.setAttribute("loans", expiredloans);
 	}
 }

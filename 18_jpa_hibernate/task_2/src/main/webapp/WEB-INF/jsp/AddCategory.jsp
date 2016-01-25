@@ -4,17 +4,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="add category">
-	<jsp:attribute name="content_area">
+<jsp:attribute name="content_area">
 <h2>Add category</h2>
-
+<div class = "submit">
 		<form id="addcategory" action="addcategory" method="post">
-			
-				<input type="text" name="categoryname" placeholder="Category name"
+			<label for="catname">Reader First Name</label>
+				<input class = "submit" type="text" name="categoryname" placeholder="Category name"
 				required />
-				<input type=submit value="create category" name="button">
+				
+				<input class = "submit" type=submit value="create category" name="button">
 			
 		</form>
-	
+	</div>
 	<c:if test="${not empty status}">
 		<c:choose>
 		<c:when test="${status == 'true'}">

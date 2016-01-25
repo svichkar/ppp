@@ -8,7 +8,7 @@
 <h2>Add category</h2>
 <div class = "submit">
 		<form id="addcategory" action="addcategory" method="post">
-			<label for="catname">Reader First Name</label>
+			<label for="catname">Category Name</label>
 				<input class = "submit" type="text" name="categoryname" placeholder="Category name"
 				required />
 				

@@ -93,7 +93,6 @@ public class LoansManageServlet extends HttpServlet {
 					toBeloaned.add(book);
 				}
 			}
-			
 		}
 		return LOG.exit(toBeloaned);
 	}

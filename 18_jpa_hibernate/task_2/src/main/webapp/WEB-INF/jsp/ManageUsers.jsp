@@ -8,11 +8,11 @@
 <h2>Manage users</h2>
 	<table class="users">
 		<tr>
-			<td class="users">user_id</td>
-			<td class="users">user_name</td>
-			<td class="users">user_password</td>
-			<td class="users">user_role</td>
-			<td class="users">action</td>
+			<th class="users">user_id</th>
+			<th class="users">user_name</th>
+			<th class="users">user_password</th>
+			<th class="users">user_role</th>
+			<th class="users">action</th>
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
@@ -29,7 +29,7 @@
 								readonly /></td>
 						</c:when>
 						<c:otherwise>
-							<td class="users"><select name="selectrole">
+							<td class="users"><select class="users" name="selectrole">
 									<c:forEach var="role" items="${roles}">
 										<c:choose>
 											<c:when test="${role.roleId == user.role.roleId}">
@@ -45,28 +45,28 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${user.role.roleId==1}">
-							<td class="users"><input type=submit value="edit user" name="button"></td>
+							<td class="users"><input class="users" type=submit value="edit user" name="button"></td>
 						</c:when>
 						<c:otherwise>
-							<td class="users"><input type=submit value="edit user" name="button"></td>
-							<td class="users"><input type=submit value="delete user" name="button"></td>
+							<td class="users"><input class="users" type=submit value="edit user" name="button"></td>
+							<td class="users"><input class="users" type=submit value="delete user" name="button"></td>
 						</c:otherwise>
 					</c:choose>
 				</form>
 			</tr>
 		</c:forEach>
-		<form id="create" action="manageusers" method="post">
+		<form class="users" id="create" action="manageusers" method="post">
 			<tr>
 				<td class="users"></td>
 				<td class="users"><input type="text" name="username" required/></td>
 				<td class="users"><input type="text" name="password" required/></td>
-				<td class="users"><select name="selectrole" required>
+				<td class="users"><select class="users" name="selectrole" required>
 						<option selected disabled value="">choose</option>
 						<c:forEach var="role" items="${roles}">
 							<option value="${role.name}">${role.name}</option>
 						</c:forEach>	
 				</select></td>
-				<td class="users"><input type=submit value="create user" name="button"></td>
+				<td class="users"><input class="users" type=submit value="create user" name="button"></td>
 			</tr>
 		</form>
 	</table>

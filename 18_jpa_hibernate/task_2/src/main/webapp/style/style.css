@@ -73,11 +73,6 @@ tr.present:nth-child(even){background-color: #f2f2f2}
     border: 1px solid #ddd;
   }
   
-  select.submit{
-	width: 100%;
-	padding: 0px;
-}
-
 div.submit {
     border-radius: 1px;
     background-color: #f2f2f2;
@@ -110,30 +105,44 @@ input[type=submit].submit:hover {
     background-color: #45a049;
 }
 
-input[type=button], input[type=submit], input[type=reset] input[type=text]{
+
+input[type=button], input[type=submit], input[type=reset]{
     background-color: #4CAF50;
    border: none;
     color: white;
-    padding: 16px 32px;
+    padding: 6px 32px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
-}
+} 
 
 
-input[type=button].users, input[type=submit].users, input[type=reset].users, input[type=text].users, select.users{
+input[type=submit].users {
     background-color: #4CAF50;
    border: none;
     color: white;
-    padding: 8px 32px;
+    padding: 4px 4px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
     width: 100%;
 }
+ select.users{
 
+    width: 100%;
+}
 
+th.users {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
 
+/*table.users {
+       background-color: #efeef1; 
+}*/
 
 tr.present:hover {background-color: #ddd;}
 

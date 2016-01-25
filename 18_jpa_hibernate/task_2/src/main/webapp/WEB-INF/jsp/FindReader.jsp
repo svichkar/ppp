@@ -9,7 +9,7 @@
 <div class = "submit">
 <form id="find" action=readersearch method="post">
 
-				
+				<label for="rfname">Please search for reader</label>
 				<input class = "submit" type="text" name="search input" placeholder="Reader name" /> <%-- add search all readers / by name / combinations  --%>
 				<input class = "submit" type=submit value="search" name="button">								
 

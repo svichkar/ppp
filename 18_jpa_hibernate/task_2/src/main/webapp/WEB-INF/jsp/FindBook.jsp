@@ -8,16 +8,19 @@
 	<jsp:attribute name="content_area">
 	
 <h2 class="fixed">Find book</h2>
+
+
 <form id="create" action="findbook" method="post">
-				<select name="search criteria" required>
+				<select  name="search criteria" required>
 						<option selected value="all">all</option>
 						<option value="name">name</option>
 						<option value="author">author</option>
 						<option value="category">category</option>
 				</select>
-				<input type="text" name="search input" />
-				<input type=submit value="search" name="button">			
+				<input  type="text" name="search input" />
+				<input  type=submit value="search" name="button">			
 		</form>
+
 
 		<c:if test="${not empty allBooks}">
 		<form id="to loan" action=readersearch method="post">
@@ -39,7 +42,10 @@
 					<td class = "present">${book.name}</td>
 					<td class = "present">${book.cell.name}</td>
 					<td class = "present">${book.category.name}</td>
-					<td class = "present">${book.authors}</td>
+					<td class = "present">
+					<c:forEach var="author" items="${book.authors}">
+					${author}  
+					</c:forEach></td>
 					<td class = "present">${book.count}</td>
 					<c:choose>
 											<c:when test="${book.count == 0}">

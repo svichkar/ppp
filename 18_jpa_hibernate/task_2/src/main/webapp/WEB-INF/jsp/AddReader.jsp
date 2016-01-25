@@ -11,7 +11,7 @@
 		<form id="addcategory" action="addreader" method="post">
 				<label for="rfname">Reader First Name</label>
 				<input class = "submit" type="text" name="readerfirstname" placeholder="Reader first name" required/>
-				<label class = "submit" for="rlname">Reader First Name</label>
+				<label class = "submit" for="rlname">Reader Last Name</label>
 				<input class = "submit" type="text" name="readerlastname" placeholder="Reader last name" required/>
 				<label for="email">Email</label>
 				<input class = "submit" type="text" name="email" placeholder="email" required/>

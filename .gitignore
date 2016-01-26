@@ -83,6 +83,7 @@ local.properties
 
 # IntelliJ
 /out/
+*.class
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/

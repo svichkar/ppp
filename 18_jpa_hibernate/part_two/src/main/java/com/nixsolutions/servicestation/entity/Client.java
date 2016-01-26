@@ -30,6 +30,11 @@ public class Client implements Serializable{
     public Client() {
     }
 
+    @Transient
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public Set<Car> getCarList() {
         return carList;
     }
@@ -81,5 +86,12 @@ public class Client implements Serializable{
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        return result;
     }
 }

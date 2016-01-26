@@ -60,4 +60,11 @@ public class CarOrderStatus implements Serializable{
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        int result = carOrderStatusId != null ? carOrderStatusId.hashCode() : 0;
+        result = 31 * result + carOrderStatusName.hashCode();
+        return result;
+    }
 }

@@ -27,10 +27,10 @@ public class ServletPageWorkers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        Set<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
-        Set<EmployeeCategory> employeeCategoryList = factoryDAO.getEmployeeCategoryDAO().findAll();
-        req.setAttribute("employeeList", employeeList);
-        req.setAttribute("employeeCategoryList", employeeCategoryList);
+        Set<Employee> employeeSet = factoryDAO.getEmployeeDAO().findAll();
+        Set<EmployeeCategory> employeeCategorySet = factoryDAO.getEmployeeCategoryDAO().findAll();
+        req.setAttribute("employeeSet", employeeSet);
+        req.setAttribute("employeeCategorySet", employeeCategorySet);
         req.getRequestDispatcher("/WEB-INF/jsp/workers.jsp").forward(req, resp);
     }
 

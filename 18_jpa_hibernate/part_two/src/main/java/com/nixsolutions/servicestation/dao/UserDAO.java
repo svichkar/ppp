@@ -10,5 +10,4 @@ import java.util.Set;
 public interface UserDAO extends GenericDAO<User> {
 
     User findByLogin(String login);
-    Set<User> findClientsUsers();
 }

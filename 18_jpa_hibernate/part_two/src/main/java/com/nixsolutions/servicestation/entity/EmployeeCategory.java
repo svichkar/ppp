@@ -60,4 +60,11 @@ public class EmployeeCategory implements Serializable{
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        int result = employeeCategoryId != null ? employeeCategoryId.hashCode() : 0;
+        result = 31 * result + employeeCategoryName.hashCode();
+        return result;
+    }
 }

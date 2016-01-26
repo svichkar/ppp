@@ -38,7 +38,7 @@ public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements Car
 
     public Set<CarOrder> getUserCarOrders() {
         Set<CarOrder> carOrderList;
-        Session session = sFactory.getCurrentSession();
+        Session session = sFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(CarOrder.class, "co");
         criteria.createAlias("co.car", "car");
@@ -48,6 +48,7 @@ public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements Car
         criteria.createAlias("client.user", "user");
         carOrderList = new HashSet<CarOrder>(criteria.list());
         transaction.commit();
+        session.close();
         return carOrderList;
     }
 }

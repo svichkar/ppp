@@ -1,7 +1,7 @@
 INSERT INTO role (role_name) VALUES ('manager');
 INSERT INTO role (role_name) VALUES ('client');
 
-INSERT INTO user (login, password, role_id) VALUES ('john', 'john',1);
+INSERT INTO user (login, password, role_id) VALUES ('john', 'john',2);
 INSERT INTO user (login, password, role_id) VALUES ('jack', 'jack',2);
 INSERT INTO user (login, password, role_id) VALUES ('mich', 'mich',2);
 INSERT INTO user (login, password, role_id) VALUES ('mor', 'mor',1);
@@ -29,6 +29,8 @@ INSERT INTO car (serial_vin, car_type_id, client_id) VALUES ('bbbbbbbbbb', 7, 5)
 INSERT INTO car (serial_vin, car_type_id, client_id) VALUES ('cccccccccc', 3, 6);
 INSERT INTO car (serial_vin, car_type_id, client_id) VALUES ('xxxxxxxxxx', 4, 6);
 INSERT INTO car (serial_vin, car_type_id, client_id) VALUES ('yyyyyyyyyy', 5, 4);
+INSERT INTO car (serial_vin, car_type_id, client_id) VALUES ('zzz', 5, 4);
+INSERT INTO car (serial_vin, car_type_id, client_id) VALUES ('mmmmmmm', 5, 4);
 
 INSERT INTO employee_category (employee_category_name) VALUES ('electricity');
 INSERT INTO employee_category (employee_category_name) VALUES ('engine');

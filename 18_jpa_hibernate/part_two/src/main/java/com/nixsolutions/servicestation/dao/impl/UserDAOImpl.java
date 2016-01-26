@@ -26,15 +26,4 @@ public class UserDAOImpl extends GenericAbstractDAO<User> implements UserDAO {
         return user;
     }
 
-    public Set<User> findClientsUsers() {
-        Set<User> userList;
-        Session session = sFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(User.class, "u");
-        criteria.createAlias("u.client", "client");
-        criteria.createAlias("u.role", "role");
-        userList = new HashSet<User>(criteria.list());
-        transaction.commit();
-        return userList;
-    }
 }

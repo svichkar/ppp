@@ -21,7 +21,7 @@ public class Car implements Serializable{
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     private CarOrder carOrder;
 
@@ -69,12 +69,18 @@ public class Car implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Car car = (Car) obj;
-        if(carId.equals(car.carId) && serialVIN.equals(car.serialVIN) && carType.equals(car.carType) && client.equals(car.client)){
-            return true;
-        } else {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+
+        Car car = (Car) o;
+
+        return !(carId != null ? !carId.equals(car.carId) : car.carId != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return carId != null ? carId.hashCode() : 0;
     }
 }

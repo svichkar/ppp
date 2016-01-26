@@ -14,11 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 
@@ -31,65 +27,55 @@ public class ServletPageOrders extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        Set<CarOrder> ucobList = factoryDAO.getCarOrderDAO().getUserCarOrders();
-        Set<CarOrderStatus> cosList = factoryDAO.getCarOrderStatusDAO().findAll();
-        Set<Car> cbList = factoryDAO.getCarDAO().getCarWithoutOrder();
-        Set<Employee> employeeList = factoryDAO.getEmployeeDAO().findAll();
-        req.setAttribute("employeeList", employeeList);
-        req.setAttribute("cosList", cosList);
-        req.setAttribute("ucobList", ucobList);
-        req.setAttribute("cbList", cbList);
+        Set<CarOrder> coSet = factoryDAO.getCarOrderDAO().getUserCarOrders();
+        Set<CarOrderStatus> cosSet = factoryDAO.getCarOrderStatusDAO().findAll();
+        Set<Employee> employeeSet = factoryDAO.getEmployeeDAO().findAll();
+        req.setAttribute("employeeSet", employeeSet);
+        req.setAttribute("cosSet", cosSet);
+        req.setAttribute("coSet", coSet);
+        Set<Car> cSet = factoryDAO.getCarDAO().getCarWithoutOrder();
+        req.setAttribute("cSet", cSet);
         req.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        CarOrder carOrder = new CarOrder();
-
-        /*if(req.getParameter("reOrder") != null){
-            List<EmployeeCarOrder> employeeCarOrderList = factoryDAO.getEmployeeCarOrderDAO().findAll();
-            EmployeeCarOrder employeeCarOrder = new EmployeeCarOrder();
-            employeeCarOrder.setEmployeeId(Integer.valueOf(req.getParameter("employees")));
-            employeeCarOrder.setCarOrderId(Integer.valueOf(req.getParameter("orders")));
-            if(employeeCarOrderList.contains(employeeCarOrder)){
-                resp.sendRedirect("orders?message=That worker is already attached to that order");
-            } else {
-                factoryDAO.getEmployeeCarOrderDAO().create(employeeCarOrder);
-                resp.sendRedirect("orders?message=This worker added to that order");
-            }
-        }*/
+        if(req.getParameter("reOrder") != null){
+            Employee employee = factoryDAO.getEmployeeDAO().findById(Long.valueOf(req.getParameter("employees")));
+            CarOrder carOrder = factoryDAO.getCarOrderDAO().findById(Long.valueOf(req.getParameter("orders")));
+            Set<CarOrder> carOrderSet = employee.getCarOrderSet();
+            carOrderSet.add(carOrder);
+            employee.setCarOrderSet(carOrderSet);
+            factoryDAO.getEmployeeDAO().update(employee);
+            resp.sendRedirect("orders?message=This%20worker%20added%20to%20that%20order");
+        }
         if (req.getParameter("delete") != null) {
-            carOrder.setCarOrderId(Long.valueOf(req.getParameter("carOrderId")));
+            CarOrder carOrder = factoryDAO.getCarOrderDAO().findById(Long.valueOf(req.getParameter("carOrderId")));
             factoryDAO.getCarOrderDAO().delete(carOrder);
-            resp.sendRedirect("orders?message=Row was deleted");
+            resp.sendRedirect("orders?message=Row%20was%20deleted");
         }
         if (req.getParameter("add") != null) {
-            carOrder.getCar().setCarId(Long.valueOf(req.getParameter("cars")));
-            carOrder.getCarOrderStatus().setCarOrderStatusId(Long.valueOf(req.getParameter("statuses")));
+            CarOrder carOrder = new CarOrder();
+            Car car = factoryDAO.getCarDAO().findById(Long.valueOf(req.getParameter("cars")));
+            carOrder.setCar(car);
             carOrder.setStartDate(new Date());
+            CarOrderStatus carOrderStatus = factoryDAO.getCarOrderStatusDAO().findById(Long.valueOf(req.getParameter("statuses2")));
+            carOrder.setCarOrderStatus(carOrderStatus);
             factoryDAO.getCarOrderDAO().create(carOrder);
-            resp.sendRedirect("orders?message=Row was created");
+            resp.sendRedirect("orders?message=Row%20was%20created");
         }
         if (req.getParameter("edit") != null) {
-            carOrder.setCarOrderId(Long.valueOf(req.getParameter("carOrderId")));
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            if(req.getParameter("startDate") != null) {
-                try {
-                    carOrder.setStartDate(formatter.parse(req.getParameter("startDate")));
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            carOrder.getCarOrderStatus().setCarOrderStatusId(Long.valueOf(req.getParameter("statuses")));
-            carOrder.getCar().setCarId(Long.valueOf(req.getParameter("carId")));
-            if (carOrder.getCarOrderStatus().getCarOrderStatusId().equals(1)) {
+            CarOrder carOrder = factoryDAO.getCarOrderDAO().findById(Long.valueOf(req.getParameter("carOrderId")));
+            CarOrderStatus carOrderStatus = factoryDAO.getCarOrderStatusDAO().findById(Long.valueOf(req.getParameter("statuses")));
+            carOrder.setCarOrderStatus(carOrderStatus);
+            if (carOrder.getCarOrderStatus().getCarOrderStatusName().equals("Complete")) {
                 carOrder.setEndDate(new Date());
             } else{
                 carOrder.setEndDate(null);
             }
             factoryDAO.getCarOrderDAO().update(carOrder);
-            resp.sendRedirect("orders?message=Row was updated");
+            resp.sendRedirect("orders?message=Row%20was%20updated");
         }
     }
 }

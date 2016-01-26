@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <employee_category employee_category_id="1" employee_category_name="electricity"/>
+    <employee_category employee_category_id="2" employee_category_name="engine"/>
+    <employee employee_id="100" first_name="John" last_name="Johnson" employee_category_id="1"/>
+    <employee employee_id="101" first_name="Jack" last_name="Jackson" employee_category_id="2"/>
+</dataset>

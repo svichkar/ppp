@@ -2,8 +2,6 @@ package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,22 +22,22 @@ public class Employee implements Serializable {
     private EmployeeCategory employeeCategory;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @JoinTable(name = "employee_car_order",
             joinColumns = {@JoinColumn(name = "employee_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "car_order_id", nullable = false)})
-    private Set<CarOrder> carOrderList;
+    private Set<CarOrder> carOrderSet;
 
     public Long getEmployeeId() {
         return employeeId;
     }
 
-    public Set<CarOrder> getCarOrderList() {
-        return carOrderList;
+    public Set<CarOrder> getCarOrderSet() {
+        return carOrderSet;
     }
 
-    public void setCarOrderList(Set<CarOrder> carOrderList) {
-        this.carOrderList = carOrderList;
+    public void setCarOrderSet(Set<CarOrder> carOrderSet) {
+        this.carOrderSet = carOrderSet;
     }
 
     public void setEmployeeId(Long employeeId) {
@@ -81,5 +79,12 @@ public class Employee implements Serializable {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        return result;
     }
 }

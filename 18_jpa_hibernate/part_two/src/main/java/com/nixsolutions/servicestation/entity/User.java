@@ -59,13 +59,17 @@ public class User implements Serializable{
     @Override
     public boolean equals(Object obj) {
         User user = (User) obj;
-        if (userId.equals(user.userId) &&
-                login.equals(user.login) &&
-                password.equals(user.password) &&
-                role.equals(user.role)) {
+        if (login.equals(user.login)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 5;
+        result = 31 * result + login.hashCode();
+        return result;
     }
 }

@@ -57,4 +57,11 @@ public class Role implements Serializable {
             return false;
         }
     }
+
+    @Override
+    public int hashCode() {
+        int result = roleId != null ? roleId.hashCode() : 0;
+        result = 31 * result + roleName.hashCode();
+        return result;
+    }
 }

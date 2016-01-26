@@ -37,7 +37,7 @@ public class CarDAOImpl extends GenericAbstractDAO<Car> implements CarDAO {
         Criteria criteria = session.createCriteria(Car.class, "c");
         criteria.createAlias("c.carType", "carType");
         criteria.createAlias("c.carOrder", "carOrder", JoinType.LEFT_OUTER_JOIN);
-        criteria.add(Restrictions.eq("carOrder.carOrderId", null));
+        criteria.add(Restrictions.isNull("carOrder.carOrderId"));
         carList = new HashSet<Car>(criteria.list());
         transaction.commit();
         return carList;

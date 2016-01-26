@@ -1,6 +1,8 @@
 
 package com.nixsolutions.servlets;
 
+import org.hibernate.HibernateException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,7 @@ public class ServletError extends HttpServlet {
         if (exception instanceof RuntimeException) {
             out.println("We obtained critical error, please contact us");
         }
-        if (exception instanceof SQLException) {
+        if (exception instanceof HibernateException) {
             out.println("We obtained database error, please contact us");
         }
         if (exception instanceof ServletException) {

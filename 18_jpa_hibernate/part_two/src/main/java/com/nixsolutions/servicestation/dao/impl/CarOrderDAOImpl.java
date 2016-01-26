@@ -10,7 +10,6 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,35 +19,32 @@ public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements Car
     public static Logger LOGGER = LogManager.getLogger(CarOrderDAOImpl.class.getName());
 
     public Set<CarOrder> getUserCarOrders(String login) {
-        Set<CarOrder> carOrderList;
+        Set<CarOrder> carOrderSet;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(CarOrder.class, "co");
         criteria.createAlias("co.car", "car");
-        criteria.createAlias("co.carOrderStatus", "carOrderStatus");
-        criteria.createAlias("car.carType", "carType");
         criteria.createAlias("car.client", "client");
         criteria.createAlias("client.user", "user");
         criteria.add(Restrictions.eq("user.login", login));
-        carOrderList = new HashSet<CarOrder>(criteria.list());
+        carOrderSet = new HashSet<>(criteria.list());
         transaction.commit();
-        LOGGER.trace(carOrderList.size() + "rows in car_order were found");
-        return carOrderList;
+        LOGGER.trace(carOrderSet.size() + " rows in car_order were found");
+        return carOrderSet;
     }
 
     public Set<CarOrder> getUserCarOrders() {
-        Set<CarOrder> carOrderList;
+        Set<CarOrder> carOrderSet;
         Session session = sFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(CarOrder.class, "co");
         criteria.createAlias("co.car", "car");
-        criteria.createAlias("co.carOrderStatus", "carOrderStatus");
-        criteria.createAlias("car.carType", "carType");
         criteria.createAlias("car.client", "client");
         criteria.createAlias("client.user", "user");
-        carOrderList = new HashSet<CarOrder>(criteria.list());
+        carOrderSet = new HashSet<>(criteria.list());
         transaction.commit();
         session.close();
-        return carOrderList;
+        LOGGER.trace(carOrderSet.size() + " rows in car_order were found");
+        return carOrderSet;
     }
 }

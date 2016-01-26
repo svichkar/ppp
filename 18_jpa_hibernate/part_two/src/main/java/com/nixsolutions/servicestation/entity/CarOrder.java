@@ -15,7 +15,7 @@ public class CarOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_order_id")
     private Long carOrderId;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id", referencedColumnName = "car_id")
     private Car car;
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -26,7 +26,7 @@ public class CarOrder implements Serializable {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
+    @ManyToMany(cascade = CascadeType.DETACH,
             fetch = FetchType.EAGER)
     @JoinTable(name = "employee_car_order",
             joinColumns = {@JoinColumn(name = "car_order_id", nullable = false)},

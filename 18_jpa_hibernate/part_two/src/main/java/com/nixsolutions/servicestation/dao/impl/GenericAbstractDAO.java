@@ -58,10 +58,10 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
 
     public Set<E> findAll() {
         Session session = sFactory.getCurrentSession();
-        Set<E> list;
+        Set<E> set;
         Transaction transaction = session.beginTransaction();
-        list = new HashSet<E>(session.createCriteria(type).list());
+        set = new HashSet<>(session.createCriteria(type).list());
         transaction.commit();
-        return list;
+        return set;
     }
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -35,6 +36,7 @@ public class ServletPageOrders extends HttpServlet {
         req.setAttribute("coSet", coSet);
         Set<Car> cSet = factoryDAO.getCarDAO().getCarWithoutOrder();
         req.setAttribute("cSet", cSet);
+        cSet=null;
         req.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(req, resp);
     }
 

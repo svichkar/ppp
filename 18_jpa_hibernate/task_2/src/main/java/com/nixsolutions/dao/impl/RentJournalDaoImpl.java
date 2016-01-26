@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -23,9 +24,10 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(RentJournal.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(RentJournal.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		rentJournals = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(rentJournals);
 	}
 
@@ -37,9 +39,10 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(RentJournal.class)
-				.add(Restrictions.eq("rentId", rentId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("rentId", rentId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		rentJournal = (RentJournal) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(rentJournal);
 	}
 
@@ -50,7 +53,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(rentJournal);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -60,7 +63,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(rentJournal);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -70,7 +73,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(rentJournal);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -82,9 +85,10 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		transaction.begin();
 		Criteria criteria = session.createCriteria(RentJournal.class, "journal")
 				.createAlias("journal.client", "client")
-				.add(Restrictions.eq("client.clientId", clientId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("client.clientId", clientId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		rentJournals = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(rentJournals);
 	}
 }

@@ -17,7 +17,7 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 public class AuthorDaoImpl implements AuthorDao {
 	public static final Logger LOG = LogManager.getLogger();
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-	
+
 	@Override
 	public List<Author> getAllAuthors() {
 		LOG.entry();
@@ -25,12 +25,13 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Author.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(Author.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		authors = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(authors);
 	}
-	
+
 	@Override
 	public Author getAuthorByName(String name) {
 		LOG.entry(name);
@@ -39,9 +40,10 @@ public class AuthorDaoImpl implements AuthorDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Author.class, "author")
-				.add(Restrictions.eq("author.secondName", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("author.secondName", name))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		author = (Author) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(author);
 	}
 
@@ -53,9 +55,10 @@ public class AuthorDaoImpl implements AuthorDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Author.class, "author")
-				.add(Restrictions.eq("author.authorId", authorId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		author = (Author)criteria.uniqueResult();
-		transaction.commit(); 
+				.add(Restrictions.eq("author.authorId", authorId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		author = (Author) criteria.uniqueResult();
+		transaction.commit();
 		return LOG.exit(author);
 	}
 
@@ -66,7 +69,7 @@ public class AuthorDaoImpl implements AuthorDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(author);
-		transaction.commit(); 
+		transaction.commit();
 		return author;
 	}
 
@@ -77,7 +80,7 @@ public class AuthorDaoImpl implements AuthorDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(author);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -87,6 +90,6 @@ public class AuthorDaoImpl implements AuthorDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(author);
-		transaction.commit(); 
+		transaction.commit();
 	}
 }

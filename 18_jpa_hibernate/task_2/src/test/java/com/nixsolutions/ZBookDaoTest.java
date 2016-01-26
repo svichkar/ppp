@@ -13,10 +13,10 @@ import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
 import com.nixsolutions.entity.Book;
 
-public class YBookDaoTest extends DBUnitConfig {
+public class ZBookDaoTest extends DBUnitConfig {
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 	
-	public YBookDaoTest(String name) {
+	public ZBookDaoTest(String name) {
 		super(name);
 	}
 

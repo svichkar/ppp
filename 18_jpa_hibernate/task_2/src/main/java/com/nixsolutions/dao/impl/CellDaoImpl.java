@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -13,7 +14,7 @@ import com.nixsolutions.dao.CellDao;
 import com.nixsolutions.entity.Cell;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class CellDaoImpl implements CellDao{
+public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
 
 	@Override
@@ -23,9 +24,10 @@ public class CellDaoImpl implements CellDao{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Cell.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(Cell.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		cells = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(cells);
 	}
 
@@ -37,9 +39,10 @@ public class CellDaoImpl implements CellDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Cell.class)
-				.add(Restrictions.eq("cellId", cellId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("cellId", cellId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		cell = (Cell) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(cell);
 	}
 
@@ -51,12 +54,13 @@ public class CellDaoImpl implements CellDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Cell.class)
-				.add(Restrictions.eq("name", cellName)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("name", cellName))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		cell = (Cell) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(cell);
 	}
-	
+
 	@Override
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
@@ -64,7 +68,7 @@ public class CellDaoImpl implements CellDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(cell);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -74,7 +78,7 @@ public class CellDaoImpl implements CellDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(cell);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -84,6 +88,6 @@ public class CellDaoImpl implements CellDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(cell);
-		transaction.commit(); 
+		transaction.commit();
 	}
 }

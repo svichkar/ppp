@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
@@ -16,7 +17,7 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class ClientDaoImpl implements ClientDao {
 	public static final Logger LOG = LogManager.getLogger();
-	
+
 	@Override
 	public List<Client> getAllClients() {
 		LOG.entry();
@@ -24,9 +25,10 @@ public class ClientDaoImpl implements ClientDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Client.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(Client.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		clients = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(clients);
 	}
 
@@ -38,9 +40,10 @@ public class ClientDaoImpl implements ClientDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Client.class)
-				.add(Restrictions.eq("clientId", clientId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("clientId", clientId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		client = (Client) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(client);
 	}
 
@@ -51,7 +54,7 @@ public class ClientDaoImpl implements ClientDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(client);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -61,7 +64,7 @@ public class ClientDaoImpl implements ClientDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(client);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -71,7 +74,7 @@ public class ClientDaoImpl implements ClientDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(client);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -82,9 +85,10 @@ public class ClientDaoImpl implements ClientDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Client.class, "client")
-				.add(Restrictions.eq("client.secondName", readerName)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("client.secondName", readerName))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		client = (Client) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(client);
 	}
 
@@ -96,10 +100,11 @@ public class ClientDaoImpl implements ClientDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Client.class, "client")
-				.add(Restrictions.eq("client.secondName", readerName)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("client.secondName", readerName))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		clients = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(clients);
 	}
-	
+
 }

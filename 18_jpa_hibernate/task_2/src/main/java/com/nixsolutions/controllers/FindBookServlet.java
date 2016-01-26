@@ -45,16 +45,16 @@ public class FindBookServlet extends HttpServlet {
 
 		switch (searchCriteria) {
 		case "all":
-			allBooks = factory.getBookDao().getAllBooks();//BookBean.getAllBookBeans();
+			allBooks = factory.getBookDao().getAllBooks();
 			break;
 		case "name":
-			allBooks = factory.getBookDao().getBooksByName(request.getParameter("search input"));//BookBean.getBookBeansByName(request.getParameter("search input"));
+			allBooks = factory.getBookDao().getBooksByName(request.getParameter("search input"));
 			break;
 		case "author":
-			allBooks = factory.getBookDao().getBooksByAuthor(request.getParameter("search input"));//BookBean.getBookBeansByAuthor(request.getParameter("search input"));
+			allBooks = factory.getBookDao().getBooksByAuthor(request.getParameter("search input"));
 			break;
 		case "category":
-			allBooks = factory.getBookDao().getBooksByCategory(request.getParameter("search input"));//BookBean.getBookBeansByCategory(request.getParameter("search input"));
+			allBooks = factory.getBookDao().getBooksByCategory(request.getParameter("search input"));
 			request.setAttribute("allBooks", allBooks);
 			break;
 		default:

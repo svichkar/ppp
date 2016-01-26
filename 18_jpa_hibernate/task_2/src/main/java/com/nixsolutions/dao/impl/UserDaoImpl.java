@@ -13,9 +13,9 @@ import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 	public static final Logger LOG = LogManager.getLogger();
-	
+
 	@Override
 	public List<User> getAllUsers() {
 		LOG.entry();
@@ -23,12 +23,13 @@ public class UserDaoImpl implements UserDao{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(User.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(User.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		users = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(users);
 	}
-	
+
 	@Override
 	public User getUserByNameAndPswd(String name, String pswd) {
 		LOG.entry(name, pswd);
@@ -37,13 +38,13 @@ public class UserDaoImpl implements UserDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq("userName", name))
-				.add(Restrictions.eq("userPassword", pswd)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("userName", name)).add(Restrictions.eq("userPassword", pswd))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		user = (User) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(user);
 	}
-	
+
 	@Override
 	public User getUserById(Long userId) {
 		LOG.entry(userId);
@@ -52,9 +53,10 @@ public class UserDaoImpl implements UserDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq("userId", userId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("userId", userId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		user = (User) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(user);
 	}
 
@@ -65,7 +67,7 @@ public class UserDaoImpl implements UserDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.save(user);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public class UserDaoImpl implements UserDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.saveOrUpdate(user);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 	@Override
@@ -85,7 +87,7 @@ public class UserDaoImpl implements UserDao{
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		session.delete(user);
-		transaction.commit(); 
+		transaction.commit();
 	}
 
 }

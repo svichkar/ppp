@@ -39,6 +39,7 @@ public class RentJournal implements Serializable{
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")
 	private Book book;
+	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "CLIENT_ID", referencedColumnName = "CLIENT_ID")
 	private Client client;

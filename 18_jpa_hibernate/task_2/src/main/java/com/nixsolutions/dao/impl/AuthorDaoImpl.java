@@ -55,7 +55,7 @@ public class AuthorDaoImpl implements AuthorDao {
 		Criteria criteria = session.createCriteria(Author.class, "author")
 				.add(Restrictions.eq("author.authorId", authorId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		author = (Author)criteria.uniqueResult();
-		transaction.commit(); session.close();
+		transaction.commit(); 
 		return LOG.exit(author);
 	}
 

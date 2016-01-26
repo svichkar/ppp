@@ -18,7 +18,7 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 public class BookDaoImpl implements BookDao {
 	public static final Logger LOG = LogManager.getLogger();
 	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-	
+
 	@Override
 	public List<Book> getAllBooks() {
 		LOG.entry();
@@ -26,9 +26,10 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		Criteria criteria = session.createCriteria(Book.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(books);
 	}
 
@@ -40,9 +41,10 @@ public class BookDaoImpl implements BookDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class)
-				.add(Restrictions.eq("bookId", bookId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("bookId", bookId))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		book = (Book) criteria.uniqueResult();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(book);
 	}
 
@@ -52,8 +54,12 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.save(book);		
-		transaction.commit(); 
+		try {
+			session.save(book);
+		} catch (Exception e) {
+			transaction.rollback();
+		} 
+		transaction.commit();
 	}
 
 	@Override
@@ -62,8 +68,8 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.saveOrUpdate(book);	
-		transaction.commit(); 
+		session.saveOrUpdate(book);
+		transaction.commit();
 	}
 
 	@Override
@@ -72,8 +78,8 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.delete(book);	
-		transaction.commit(); 
+		session.delete(book);
+		transaction.commit();
 	}
 
 	@Override
@@ -85,9 +91,10 @@ public class BookDaoImpl implements BookDao {
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class, "book")
 				.createAlias("book.authors", "authors")
-				.add(Restrictions.eq("authors.secondName", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("authors.secondName", name))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(books);
 	}
 
@@ -100,9 +107,10 @@ public class BookDaoImpl implements BookDao {
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class, "book")
 				.createAlias("book.category", "category")
-				.add(Restrictions.eq("category.name", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("category.name", name))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(books);
 	}
 
@@ -114,9 +122,10 @@ public class BookDaoImpl implements BookDao {
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		Criteria criteria = session.createCriteria(Book.class, "book")
-				.add(Restrictions.eq("book.name", name)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+				.add(Restrictions.eq("book.name", name))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		books = criteria.list();
-		transaction.commit(); 
+		transaction.commit();
 		return LOG.exit(books);
 	}
 }

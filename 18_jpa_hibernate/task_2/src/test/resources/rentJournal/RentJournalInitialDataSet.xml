@@ -13,13 +13,13 @@
 	<cell cell_id="2" name="cell B" />
 	<cell cell_id="3" name="cell C" />
 
-	<book book_id="1" name="book1" cell_id="1" category_id="1" />
-	<book book_id="2" name="book2" cell_id="1" category_id="1" />
-	<book book_id="3" name="book3" cell_id="1" category_id="1" />
-	<book book_id="4" name="book4" cell_id="1" category_id="1" />
-	<book book_id="5" name="book5" cell_id="1" category_id="1" />
-	<book book_id="6" name="book6" cell_id="1" category_id="1" />
-	<book book_id="7" name="book7" cell_id="1" category_id="1" />
+	<book book_id="1" name="book1" cell_id="1" category_id="1" count="1"/>
+	<book book_id="2" name="book2" cell_id="1" category_id="1" count="1"/>
+	<book book_id="3" name="book3" cell_id="1" category_id="1" count="1"/>
+	<book book_id="4" name="book4" cell_id="1" category_id="1" count="1"/>
+	<book book_id="5" name="book5" cell_id="1" category_id="1" count="1"/>
+	<book book_id="6" name="book6" cell_id="1" category_id="1" count="1"/>
+	<book book_id="7" name="book7" cell_id="1" category_id="1" count="1"/>
 
 	<author_book author_id="1" book_id="1" />
 	<author_book author_id="1" book_id="2" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<book book_id="1" name="book1" cell_id="1" category_id="1" />
-	<book book_id="2" name="book2" cell_id="1" category_id="1" />
-	<book book_id="3" name="book3" cell_id="1" category_id="1" />
-	<book book_id="4" name="book5" cell_id="2" category_id="2" />
+	<book book_id="1" name="book1" cell_id="1" category_id="1" count="1"/>
+	<book book_id="2" name="book2" cell_id="1" category_id="1" count="1"/>
+	<book book_id="3" name="book3" cell_id="1" category_id="1" count="1"/>
+	<book book_id="4" name="book5" cell_id="2" category_id="2" count="1"/>
 </dataset>

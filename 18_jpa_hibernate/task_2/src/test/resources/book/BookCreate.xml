@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<book name="book1" cell_id="1" category_id="1" />
-	<book name="book2" cell_id="1" category_id="1" />
-	<book name="book3" cell_id="1" category_id="1" />
-	<book name="book4" cell_id="1" category_id="1" />
-	<book name="book5" cell_id="2" category_id="2" />
+	<book name="book1" cell_id="1" category_id="1" count="1"/>
+	<book name="book2" cell_id="1" category_id="1" count="1"/>
+	<book name="book3" cell_id="1" category_id="1" count="1"/>
+	<book name="book4" cell_id="1" category_id="1" count="1"/>
+	<book name="book5" cell_id="2" category_id="2" count="1"/>
 </dataset>

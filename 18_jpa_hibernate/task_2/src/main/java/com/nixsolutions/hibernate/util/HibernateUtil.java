@@ -9,23 +9,28 @@ import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
 	private static final Logger LOG = LogManager.getLogger();
-	private static final SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
-	static {
-		try {
+
+	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null) {
 			Configuration configuration = new Configuration();
 			configuration.configure("hibernate.cfg.xml");
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 					.applySettings(configuration.getProperties()).build();
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-
-		} catch (Throwable ex) {
-			LOG.error("Initial SessionFactory creation failed." + ex);
-			throw new ExceptionInInitializerError(ex);
 		}
+		return LOG.exit(sessionFactory);
 	}
-
-	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
+	
+	public static SessionFactory getSessionFactory(String hibConfig) {
+		if (sessionFactory == null) {
+			Configuration configuration = new Configuration();
+			configuration.configure(hibConfig);
+			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+					.applySettings(configuration.getProperties()).build();
+			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		}
+		return LOG.exit(sessionFactory);
 	}
 }

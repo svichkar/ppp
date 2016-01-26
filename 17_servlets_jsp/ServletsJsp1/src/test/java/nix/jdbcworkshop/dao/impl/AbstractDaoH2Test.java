@@ -44,7 +44,14 @@ public abstract class AbstractDaoH2Test extends JdbcBasedDBTestCase {
 
     @Override
     protected String getConnectionUrl() {
-        return ConnectionManagerH2.getJdbcConfig().getString("jdbc.connection.string");
+        String connection = ConnectionManagerH2.getJdbcConfig().getString("jdbc.connection.string");
+        if (ConnectionManagerH2.getJdbcConfig().getString("jdbc.connection.string").startsWith("jdbc:h2:file:")) {
+            String databasePath = connection.substring(13, connection.indexOf(";"));
+            String resourceFile = ConnectionManagerH2.class.getClassLoader()
+                    .getResource(databasePath + ".h2.db").getFile();
+            connection = connection.replace(databasePath, resourceFile.replace(".h2.db", ""));
+        }
+        return connection;
     }
 
     @Override

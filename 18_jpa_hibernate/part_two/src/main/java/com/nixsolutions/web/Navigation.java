@@ -69,57 +69,49 @@ public class Navigation extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String login = (String) session.getAttribute("login");
 		String destinaion = (request.getParameter("destination") != null ? request.getParameter("destination")
 				: (String) request.getAttribute("destination"));
 		if (destinaion == null) {
 			destinaion = "Orders";
 		}
-		User user = userImpl.findByName(login);
-		Role role = roleImpl.findByPK(user.getRole().getRoleId());
-		if (user.getUsername() != null) {
-			if (role.getRolename().equals("admin")) {
-				switch (destinaion) {
-				case "Cars":
-					request.setAttribute("carcustomers", carcustomerImpl.getAll());
-					request.setAttribute("title", "Cars");
-					request.getRequestDispatcher("/WEB-INF/jsp/cars.jsp").forward(request, response);
-					break;
-				case "Orders":
-					request.setAttribute("oiwcs", orderInWorkCSImpl.getAll());
-					request.setAttribute("title", "Orders");
-					request.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(request, response);
-					break;
-				case "Workers":
-					request.setAttribute("workers", workerstatusspecificationImpl.getAll());
-					request.setAttribute("title", "Workers");
-					request.getRequestDispatcher("/WEB-INF/jsp/workers.jsp").forward(request, response);
-					break;
-				case "Parts":
-					request.setAttribute("parts", partImpl.getAll());
-					request.setAttribute("title", "Parts");
-					request.getRequestDispatcher("/WEB-INF/jsp/parts.jsp").forward(request, response);
-					break;
-				case "Customers":
-					request.setAttribute("customers", customerImpl.getAll());
-					request.setAttribute("title", "Customers");
-					request.getRequestDispatcher("/WEB-INF/jsp/customers.jsp").forward(request, response);
-					break;
-				default:
-					request.setAttribute("oiwcs", orderInWorkCSImpl.getAll());
-					request.setAttribute("title", "Orders status");
-					request.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(request, response);
-					break;
-				}
 
-			} else {
-				request.setAttribute("title", "Orders status");
-				request.getRequestDispatcher("/WEB-INF/jsp/userpage.jsp").forward(request, response);
-			}
-		} else {
-			request.setAttribute("title", "Oooups! Error!");
-			request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+		switch (destinaion) {
+		case "Cars":
+			request.setAttribute("carcustomers", carcustomerImpl.getAll());
+			request.setAttribute("title", "Cars");
+			request.getRequestDispatcher("/WEB-INF/jsp/cars.jsp").forward(request, response);
+			break;
+		case "Orders":
+			request.setAttribute("oiwcs", orderInWorkCSImpl.getAll());
+			request.setAttribute("title", "Orders");
+			request.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(request, response);
+			break;
+		case "Workers":
+			request.setAttribute("workers", workerstatusspecificationImpl.getAll());
+			request.setAttribute("title", "Workers");
+			request.getRequestDispatcher("/WEB-INF/jsp/workers.jsp").forward(request, response);
+			break;
+		case "Parts":
+			request.setAttribute("parts", partImpl.getAll());
+			request.setAttribute("title", "Parts");
+			request.getRequestDispatcher("/WEB-INF/jsp/parts.jsp").forward(request, response);
+			break;
+		case "Customers":
+			request.setAttribute("customers", customerImpl.getAll());
+			request.setAttribute("title", "Customers");
+			request.getRequestDispatcher("/WEB-INF/jsp/customers.jsp").forward(request, response);
+			break;
+		case "Users":
+			request.setAttribute("users", userImpl.getAll());
+			request.setAttribute("roles", roleImpl.getAll());
+			request.setAttribute("title", "Users");
+			request.getRequestDispatcher("/WEB-INF/jsp/users.jsp").forward(request, response);
+			break;
+		default:
+			request.setAttribute("oiwcs", orderInWorkCSImpl.getAll());
+			request.setAttribute("title", "Orders status");
+			request.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(request, response);
+			break;
 		}
 
 	}

@@ -73,7 +73,7 @@ public class RoleDAOImpl implements RoleDAO<Role> {
 		List<Role> lRoles = new ArrayList<Role>();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		lRoles.addAll(session.createCriteria(OrderInWork.class).list());
+		lRoles.addAll(session.createCriteria(Role.class).list());
 		tx.commit();
 		return lRoles;
 	}

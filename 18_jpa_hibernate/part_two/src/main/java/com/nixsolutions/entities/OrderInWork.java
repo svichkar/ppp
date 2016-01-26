@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class OrderInWork implements Serializable {
@@ -29,7 +30,7 @@ public class OrderInWork implements Serializable {
 	private OrderStatus order_status;
 	@Column(name = "description", nullable = false, length = 255)
 	private String description;
-	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "car_id", referencedColumnName = "car_id")
 	private Car car;
 	@Column(name = "datetime_start", nullable = false)

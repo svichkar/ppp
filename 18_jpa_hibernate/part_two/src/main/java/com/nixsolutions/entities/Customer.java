@@ -34,9 +34,8 @@ public class Customer implements Serializable {
 	private String l_name;
 	@Column(name = "phone", nullable = false, length = 255)
 	private String phone;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
@@ -46,14 +45,14 @@ public class Customer implements Serializable {
 
 	}
 
-	public Customer(String f_name, String l_name, String phone) {
+	public Customer(String f_name, String l_name, String phone, User user) {
 		this.f_name = f_name;
 		this.l_name = l_name;
 		this.phone = phone;
+		this.user = user;
 	}
 
 	public long getCustomerId() {
-		// TODO Auto-generated method stub
 		return customer_id;
 	}
 

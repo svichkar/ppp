@@ -6,29 +6,34 @@
 	<jsp:attribute name="content_area">
 		<table>
 		<tr>
-				<th>Login</th>
-				<th>First name</th>
-				<th>Last Name</th>
-				<th>Phone</th>
+				<th>Username</th>
+				<th>Password</th>
+				<th>Role</th>
 				<th>Action</th>
 				<th>
-				<form action="customerAdd" method="POST">
+				<form action="userAdd" method="POST">
 					<input type="hidden" name="action" value="Add"> 
-					<input type="submit" value="Add customer">
+					<input type="submit" value="Add user">
 				</form>
 				</th>
 		</tr>
-		<c:forEach var="item" items="${customers}">
-		<form action="customerEdit" method="POST">
+		<c:forEach var="user" items="${users}">
+		<form action="userEdit" method="POST">
 		<tr>
 			<td>
-				<c:out value="${item.user.username}" />
+				<c:out value="${user.username}" />
 			</td>
+			<td><c:out value="${user.password}" /></td>
 			<td>
-				<c:out value="${item.f_name}" />
+				<select name="role_id">
+					<c:forEach var="item" items="${roles}">
+						<option value="${item.roleId}"
+										<c:if test="${item.roleId eq user.role.roleId}">selected</c:if>>
+										<c:out value="${item.rolename}"/>
+						</option>
+					</c:forEach>
+				</select>
 			</td>
-			<td><c:out value="${item.l_name}" /></td>
-			<td><c:out value="${item.phone}" /></td>
 			<td>
 			<select name="action">
 				<option name="edit">Edit</option>
@@ -36,7 +41,7 @@
 			</select>
 			</td>
 			<td>
-				<input type="hidden" name="customer_id" value="${item.customerId}">
+				<input type="hidden" name="user_id" value="${user.userId}">
 				<input type="submit" value="Process">
 			</td>
 		</tr>

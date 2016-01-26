@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class User implements Serializable {
 
@@ -33,10 +36,16 @@ public class User implements Serializable {
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
 	private Role role;
-
+	
 	public User() {
 	}
 
+	public User(String username, String password, Role role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+	
 	public long getUserId() {
 		return user_id;
 	}
@@ -56,7 +65,7 @@ public class User implements Serializable {
 	public Role getRole() {
 		return role;
 	}
-
+	
 
 	public void setUserId(long value) {
 		this.user_id = value;
@@ -78,6 +87,5 @@ public class User implements Serializable {
 	public void setRole(Role value) {
 		this.role = value;
 	}
-
 
 }

@@ -7,14 +7,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceException;
 
 import org.apache.commons.lang.math.NumberUtils;
 
 import com.nixsolutions.dao.impl.CarDAOImpl;
 import com.nixsolutions.dao.impl.CustomerDAOImpl;
+import com.nixsolutions.dao.impl.OrderInWorkDAOImpl;
 import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
 import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.Customer;
+import com.nixsolutions.entities.OrderInWork;
 
 /**
  * Servlet implementation class Car
@@ -24,6 +27,7 @@ public class CarSrvt extends HttpServlet {
 	private ServiceStationDAOFactoryImpl factory;
 	private CarDAOImpl carImpl;
 	private CustomerDAOImpl customerImpl;
+	private OrderInWorkDAOImpl oiwImpl;
 
 	/**
 	 * @throws Exception
@@ -33,6 +37,7 @@ public class CarSrvt extends HttpServlet {
 		factory = new ServiceStationDAOFactoryImpl();
 		carImpl = (CarDAOImpl) factory.getDao(Car.class);
 		customerImpl = (CustomerDAOImpl) factory.getDao(Customer.class);
+		oiwImpl =  (OrderInWorkDAOImpl) factory.getDao(OrderInWork.class);
 	}
 
 	/**
@@ -72,6 +77,13 @@ public class CarSrvt extends HttpServlet {
 				request.setAttribute("title", "Edit car");
 				request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
+				List<OrderInWork> lOIW = oiwImpl.getAll();
+				for (OrderInWork orderInWork : lOIW) {
+					if(orderInWork.getCar().getCarId() == car.getCarId())
+					{
+						throw new WebServiceException("You cannot remove car when it is in order!!");
+					}
+				}
 				carImpl.delete(car);
 				request.setAttribute("destination", "Cars");
 				request.getRequestDispatcher("/navigation").forward(request, response);

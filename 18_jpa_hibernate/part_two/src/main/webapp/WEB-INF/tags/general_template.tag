@@ -29,11 +29,11 @@
 				<form action="navigation" method="POST">
 					<table>
 						<tr>
+							<td><input type="submit" name="destination" value="Users"></td>
+							<td><input type="submit" name="destination"	value="Customers"></td>
 							<td><input type="submit" name="destination" value="Cars"></td>
 							<td><input type="submit" name="destination" value="Parts"></td>
 							<td><input type="submit" name="destination" value="Workers"></td>
-							<td><input type="submit" name="destination"
-								value="Customers"></td>
 							<td><input type="submit" name="destination" value="Orders"></td>
 						</tr>
 					</table>

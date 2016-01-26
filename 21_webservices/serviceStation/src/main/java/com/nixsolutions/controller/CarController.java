@@ -23,7 +23,7 @@ import com.nixsolutions.service.rest.entity.Cars;
 public class CarController {
 
 	private Client wClient = ClientBuilder.newClient();
-	private static final String SERVICE_URL = "http://localhost:8080/serviceStation/rest/carService";
+	private static final String SERVICE_URL = "http://localhost:8080/serviceStation/service/carService";
 
 	@Autowired
 	private CustomerService customerService;
@@ -55,12 +55,12 @@ public class CarController {
 
 	@RequestMapping(value = "/admin/carPage", method = RequestMethod.GET)
 	public String loadCarPage(@RequestParam(value = "homePage", required = false) String homePage, Model model) {
+		List<Car> cars = carService.getAllCar();
 
-		Response resp = wClient.target(SERVICE_URL).path("/getAllCar").request().accept(MediaType.APPLICATION_JSON)
+		Response resp = wClient.target(SERVICE_URL).path("/getAllCarRest").request().accept(MediaType.APPLICATION_JSON)
 				.get();
 
 		model.addAttribute("carList", resp.readEntity(Cars.class).getCars());
-//		model.addAttribute("carList", carService.getAllCar());
 		model.addAttribute("homePage", homePage);
 		return "carPage";
 	}
@@ -89,16 +89,8 @@ public class CarController {
 	@RequestMapping(value = "/admin/updateExistingCar", method = { RequestMethod.GET, RequestMethod.POST })
 	public String updateExistingCar(@RequestParam(value = "car_id", required = false) String car_id,
 			@RequestParam(value = "homePage", required = false) String homePage, Model model) {
-		
-		Response resp = wClient.target(SERVICE_URL)
-				.path("/getCarByID")
-				.queryParam("carId", Integer.decode(car_id))
-				.request()
-				.accept(MediaType.APPLICATION_JSON)
-				.get();
-		model.addAttribute("car", resp.readEntity(Car.class));
 		model.addAttribute("homePage", homePage);
-		//model.addAttribute("car", carService.getCarByID(car_id));
+		model.addAttribute("car", carService.getCarByID(car_id));
 		model.addAttribute("customers", customerService.getAllCustomers());
 		return "editCar";
 	}

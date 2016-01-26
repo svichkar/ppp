@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author mixeyes
@@ -23,7 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "car")
-@XmlRootElement
 public class Car implements Serializable {
 
 	public Car() {
@@ -156,6 +154,12 @@ public class Car implements Serializable {
 		} else if (!vinNumber.equals(other.vinNumber))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [carId=" + carId + ", carModel=" + carModel + ", vinNumber=" + vinNumber + ", regNumber="
+				+ regNumber + ", carDescription=" + carDescription + ", customer=" + customer + "]";
 	}
 
 }

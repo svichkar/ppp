@@ -1,8 +1,17 @@
-package com.nixsolutions.service.impl;
+package com.nixsolutions.service.rest;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.CarDao;
 import com.nixsolutions.entity.Car;
@@ -10,15 +19,52 @@ import com.nixsolutions.entity.Customer;
 import com.nixsolutions.service.CarService;
 import com.nixsolutions.service.rest.entity.Cars;
 
-//@Service
-public class CarServiceImpl implements CarService {
+@Service
+//@Component
+//@Controller
+@Path("/carService")
+// @RequestMapping(value = "/carService", produces = MediaType.APPLICATION_JSON)
 
+public class CarRestService implements CarService {
+
+	@Autowired
+	private ApplicationContext ctx;
 	@Autowired
 	private CarDao carDao;
 
+	@GET
+	@Path("ping")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Car ping() {
+		return carDao.getCarByID(1);
+	}
+
+	@GET
+	@Path("ping2")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public String ping2() {
+		return carDao.getCarByID(1).toString();
+	}
+
 	@Override
+	@GET
+	@Path("getAllCarRest2")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Car> getAllCar() {
 		return carDao.getAllCar();
+	}
+
+	@Override
+	@GET
+	@Path("getAllCarRest")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Cars getAllCarRest() {
+		Cars cars = new Cars();
+		if (carDao == null) {
+			carDao = ctx.getBean(CarDao.class);
+		}
+		cars.setCars(carDao.getAllCar());
+		return cars;
 	}
 
 	@Override
@@ -47,6 +93,10 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
+	@GET
+	@Path("getCarByID")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	public Car getCarByID(String carId) {
 		return getCarByID(Integer.decode(carId));
 	}
@@ -88,12 +138,6 @@ public class CarServiceImpl implements CarService {
 		car.setCarDescription(carDescription);
 		updateCarByID(car);
 
-	}
-
-	@Override
-	public Cars getAllCarRest() {
-		// use only for rest services
-		return null;
 	}
 
 }

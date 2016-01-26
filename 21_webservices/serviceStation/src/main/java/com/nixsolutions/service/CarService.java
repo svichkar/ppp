@@ -12,11 +12,6 @@ public interface CarService {
 	 * @return cars collection
 	 */
 	List<Car> getAllCar();
-	
-	/**
-	 * @return cars collection
-	 */
-	Cars getAllCarRest();
 
 	/**
 	 * @param vinNumber
@@ -82,5 +77,7 @@ public interface CarService {
 	void createNewCar(String carModel, String regNumber, String vinNumber, Customer customerByID);
 
 	void updateCar(String carModel, String regNumber, String vinNumber, String carDescription, Customer customerByID);
+
+	Cars getAllCarRest();
 
 }

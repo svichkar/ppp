@@ -5,13 +5,8 @@ import java.math.BigInteger;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
-import com.nixsolutions.service.wsdl.CreateNewCustomerRequest;
-import com.nixsolutions.service.wsdl.CreateNewCustomerResponse;
 import com.nixsolutions.service.wsdl.CreateNewWorkerRequest;
 import com.nixsolutions.service.wsdl.CreateNewWorkerResponse;
-import com.nixsolutions.service.wsdl.CustomerService;
-import com.nixsolutions.service.wsdl.UpdateCustomerRequest;
-import com.nixsolutions.service.wsdl.UpdateCustomerResponse;
 import com.nixsolutions.service.wsdl.UpdateWorkerRequest;
 import com.nixsolutions.service.wsdl.UpdateWorkerResponse;
 import com.nixsolutions.service.wsdl.UserRoleService;

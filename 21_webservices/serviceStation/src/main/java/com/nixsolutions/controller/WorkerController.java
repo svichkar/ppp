@@ -9,17 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nixsolutions.service.SpecializationService;
-import com.nixsolutions.service.UserService;
 import com.nixsolutions.service.WorkerService;
-import com.nixsolutions.service.wsdl.client.CustomerServiceClient;
 import com.nixsolutions.service.wsdl.client.WorkerServiceClient;
 
 @Controller
 public class WorkerController {
 	@Autowired
 	private WorkerService workerService;
-	@Autowired
-	private UserService userService;
 	@Autowired
 	private SpecializationService specializationService;
 	@Autowired

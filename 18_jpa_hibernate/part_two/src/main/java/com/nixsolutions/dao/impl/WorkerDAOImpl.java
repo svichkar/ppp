@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.WorkerDAO;
@@ -67,7 +68,9 @@ public class WorkerDAOImpl implements WorkerDAO<Worker> {
 		List<Worker> lWorkers = new ArrayList<Worker>();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		lWorkers.addAll(session.createCriteria(Worker.class).list());
+		lWorkers.addAll(session.createCriteria(Worker.class)
+				.setResultTransformer( DistinctRootEntityResultTransformer.INSTANCE )
+				.list());
 		tx.commit();
 		return lWorkers;
 	}

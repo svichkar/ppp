@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.PartDAO;
@@ -63,7 +64,9 @@ public class PartDAOImpl implements PartDAO<Part> {
 		List<Part> lParts = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		lParts.addAll(session.createCriteria(Part.class).list());
+		lParts.addAll(session.createCriteria(Part.class)
+				.setResultTransformer( DistinctRootEntityResultTransformer.INSTANCE )
+				.list());
 		tx.commit();
 		return lParts;
 	}

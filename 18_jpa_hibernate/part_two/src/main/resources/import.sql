@@ -84,7 +84,9 @@ INSERT INTO orderworker (worker_id, order_id, completed) VALUES (4, 6, true);
 --fill table part_order
 INSERT INTO partorder (order_id, part_id, amount) VALUES (1,7,16);
 INSERT INTO partorder (order_id, part_id, amount) VALUES (2,5,16);
+INSERT INTO partorder (order_id, part_id, amount) VALUES (2,7,16);
 INSERT INTO partorder (order_id, part_id, amount) VALUES (3,9,1);
+INSERT INTO partorder (order_id, part_id, amount) VALUES (3,3,1);
 INSERT INTO partorder (order_id, part_id, amount) VALUES (4,4,1);
 INSERT INTO partorder (order_id, part_id, amount) VALUES (5,8,1);
 

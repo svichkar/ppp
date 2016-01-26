@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.CustomerDAO;
@@ -71,7 +72,9 @@ public class CustomerDAOImpl implements CustomerDAO<Customer> {
 		List<Customer> lCustomers = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		lCustomers.addAll(session.createCriteria(Customer.class).list());
+		lCustomers.addAll(session.createCriteria(Customer.class)
+				.setResultTransformer( DistinctRootEntityResultTransformer.INSTANCE )
+				.list());
 		tx.commit();
 		return lCustomers;
 	}

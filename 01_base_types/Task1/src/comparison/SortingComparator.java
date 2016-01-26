@@ -12,7 +12,7 @@ public class SortingComparator {
         int numberOfTimes = 20;
         long[][] elapsedTimes = new long[2][numberOfTimes];
 
-        for(int i = 0; i < numberOfTimes; i++){
+        for (int i = 0; i < numberOfTimes; i++){
             int[] numbers = getRandomlyFilledArray();
 
             startTime = System.currentTimeMillis();
@@ -35,15 +35,15 @@ public class SortingComparator {
     private static int[] getRandomlyFilledArray(){
         Random rand = new Random();
         int[] toReturn = new int[10000];
-        for(int i = 0; i < toReturn.length; i++){
+        for (int i = 0; i < toReturn.length; i++){
             toReturn[i] = (rand.nextInt(201)-100);
         }
         return toReturn;
     }
 
-    private static float getAvgTime(long[][] a, int firstDimensionIndex){
-        float toReturn = 0;
-        for(int i = 0; i < a[firstDimensionIndex].length; i++){
+    private static double getAvgTime(long[][] a, int firstDimensionIndex){
+        double toReturn = 0;
+        for (int i = 0; i < a[firstDimensionIndex].length; i++){
             toReturn += a[firstDimensionIndex][i];
         }
         return toReturn/a[firstDimensionIndex].length;

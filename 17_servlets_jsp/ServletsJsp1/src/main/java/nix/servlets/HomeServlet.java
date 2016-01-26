@@ -22,15 +22,9 @@ import org.apache.logging.log4j.LogManager;
  */
 @WebServlet(name = "HomeServlet", urlPatterns = {"/homepage"})
 public class HomeServlet extends HttpServlet {
-private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,7 +40,8 @@ private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogg
                 out.println("<h1>Home Page</h1>");
                 out.println("Wlecome dear " + request.getSession().getAttribute("role") + " <b>"
                         + request.getSession().getAttribute("name") + "</b>");
-                out.println("<p>" + (request.getAttribute("status") != null ? request.getAttribute("status") : "") + "</p>");
+                out.println("<p>" + (request.getAttribute("status") != null ? request
+                        .getAttribute("status") : "") + "</p>");
                 out.println("<ul>");
                 out.println("<li><a href='index.html'>Login</a></li>");
                 out.println("<li><a href='homepage'>Homepage</a></li>");
@@ -59,13 +54,12 @@ private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogg
             } else {
                 response.sendRedirect("index.html");
             }
-        }
-         catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             LOGGER.log(Level.FATAL, ex);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+   
     /**
      * Handles the HTTP <code>GET</code> method.
      *

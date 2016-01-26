@@ -27,14 +27,6 @@ public class CreateUserServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -50,7 +42,8 @@ public class CreateUserServlet extends HttpServlet {
                     out.println("<h1>Create User</h1>");
                     out.println("Wlecome dear " + request.getSession().getAttribute("role") + " <b>"
                             + request.getSession().getAttribute("name") + "</b>");
-                    out.println("<p>" + (request.getAttribute("status") != null ? request.getAttribute("status") : "") + "</p>");
+                    out.println("<p>" + (request.getAttribute("status") != null ? 
+                            request.getAttribute("status") : "") + "</p>");
                     out.println("<ul>");
                     out.println("<li><a href='index.html'>Login</a></li>");
                     out.println("<li><a href='homepage'>Homepage</a></li>");
@@ -60,8 +53,10 @@ public class CreateUserServlet extends HttpServlet {
                     out.println("</ul>");
 
                     out.println("<form action='create-user' method='post'>\n<table>");
-                    out.println("<tr><td>Login: </td><td><input type='text' size='40' name='new-login'/></td></tr>");
-                    out.println("<tr><td>Password: </td><td><input type='password' size='40' name='new-password'/></td></tr>");
+                    out.println("<tr><td>Login: </td><td><input type='text' size='40' "
+                            + "name='new-login'/></td></tr>");
+                    out.println("<tr><td>Password: </td><td><input type='password' size='40' "
+                            + "name='new-password'/></td></tr>");
                     out.println("<tr><td>Role: </td><td>");
 
                     String roles = "";
@@ -71,7 +66,8 @@ public class CreateUserServlet extends HttpServlet {
                     }
                     out.println("<select name='new-role'>" + roles + "</select>");
                     out.println("</td></tr>");
-                    out.println("<tr><td colspan='2'><input type='submit' name='status' value='create'></td></tr>");
+                    out.println("<tr><td colspan='2'><input type='submit' name='status' "
+                            + "value='create'></td></tr>");
                     out.println("</table>\n</form>");
                     out.println("</body>");
                     out.println("</html>");
@@ -87,7 +83,7 @@ public class CreateUserServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *

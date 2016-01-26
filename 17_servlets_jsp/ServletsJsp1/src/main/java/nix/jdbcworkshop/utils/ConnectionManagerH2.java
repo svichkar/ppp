@@ -40,8 +40,15 @@ public class ConnectionManagerH2 {
 
     public static Connection getConnection() throws SQLException {
         if (connectionPool == null) {
+            String connection = getJdbcConfig().getString("jdbc.connection.string");
+            if (getJdbcConfig().getString("jdbc.connection.string").startsWith("jdbc:h2:file:")) {
+                String databasePath = connection.substring(13, connection.indexOf(";"));
+                String resourceFile = ConnectionManagerH2.class.getClassLoader()
+                        .getResource(databasePath + ".h2.db").getFile();
+                connection = connection.replace(databasePath, resourceFile.replace(".h2.db", ""));
+            }
             connectionPool
-                    = JdbcConnectionPool.create(getJdbcConfig().getString("jdbc.connection.string"),
+                    = JdbcConnectionPool.create(connection,
                             getJdbcConfig().getString("jdbc.username"),
                             getJdbcConfig().getString("jdbc.password"));
         }

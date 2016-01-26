@@ -27,28 +27,12 @@ public class AdministrationServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (request.getSession().getAttribute("name") != null) {
                 if (request.getSession().getAttribute("role").equals("admin")) {
-                    /*if ("edit".equals(request.getParameter("action"))) {
-                        WebUser updatedUser = new WebUser(Long.valueOf(request.getParameter("user-id")), request.getParameter("new-login"), request.getParameter("new-password"), Short.valueOf(request.getParameter("new-role")));
-                        DaoFactoryH2.getWebUserDaoH2().update(updatedUser);
-                        response.sendRedirect("administration");
-                    }
-                    if ("delete".equals(request.getParameter("action"))) {
-                        DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(Long.valueOf(request.getParameter("user-id")), null, null, null));
-                    }*/
                     out.println("<!DOCTYPE html>");
                     out.println("<html>");
                     out.println("<head>");
@@ -58,7 +42,8 @@ public class AdministrationServlet extends HttpServlet {
                     out.println("<h1>Administration</h1>");
                     out.println("Wlecome dear " + request.getSession().getAttribute("role") + " <b>"
                             + request.getSession().getAttribute("name") + "</b>");
-                    out.println("<p>" + (request.getAttribute("status") != null ? request.getAttribute("status") : "") + "</p>");
+                    out.println("<p>" + (request.getAttribute("status") != null ? request
+                            .getAttribute("status") : "") + "</p>");
                     out.println("<ul>");
                     out.println("<li><a href='index.html'>Login</a></li>");
                     out.println("<li><a href='homepage'>Homepage</a></li>");
@@ -94,23 +79,34 @@ public class AdministrationServlet extends HttpServlet {
             if (user.getWebUserId().toString().equals(request.getParameter("edit"))) {
                 String roles = "";
                 for (WebRole role : DaoFactoryH2.getWebRoleDaoH2().getWebRoleList()) {
-                    roles = roles.concat("<option " + (role.getWebRoleId().equals(user.getWebRoleId()) ? "selected" : "") + " value='" + role.getWebRoleId() + "'>"
+                    roles = roles.concat("<option " + (role.getWebRoleId()
+                            .equals(user.getWebRoleId()) ? "selected" : "") + " value='"
+                            + role.getWebRoleId() + "'>"
                             + role.getWebRoleName() + "</option>\n");
                 }
-
                 usersTable = usersTable.concat("<tr>\n"
-                        + "<td><button formaction='administration' method='post' name='action' value='edit'>ok</button>"
-                        + "<button formaction='administration' method='post' name='action' value='cancel'>cancel</button></td>\n"
-                        + "<td><input type='hidden' size='40' name='user-id' value='" + user.getWebUserId().toString() + "'/>" + user.getWebUserId().toString() + "</td>\n"
-                        + "<td><input type='text' size='20' name='new-login' value='" + user.getWebUserLogin() + "'/></td> \n"
-                        + "<td><input type='password' size='20' name='new-password' value='" + user.getWebUserPassword() + "'/></td>\n"
+                        + "<td><button formaction='administration' method='post' name='action' "
+                        + "value='edit'>ok</button>"
+                        + "<button formaction='administration' method='post' name='action' "
+                        + "value='cancel'>cancel</button></td>\n"
+                        + "<td><input type='hidden' size='40' name='user-id' value='"
+                        + user.getWebUserId().toString() + "'/>" + user.getWebUserId().toString()
+                        + "</td>\n"
+                        + "<td><input type='text' size='20' name='new-login' value='"
+                        + user.getWebUserLogin() + "'/></td> \n"
+                        + "<td><input type='password' size='20' name='new-password' value='"
+                        + user.getWebUserPassword() + "'/></td>\n"
                         + "<td><select name='new-role'>" + roles + "</select></td>\n"
                         + "  </tr>\n");
             } else if (user.getWebUserId().toString().equals(request.getParameter("delete"))) {
                 usersTable = usersTable.concat("<tr>\n"
-                        + "<td><button formaction='administration' method='post' name='action' value='delete'>ok</button>"
-                        + "<button formaction='administration' method='post' name='action' value='cancel'>cancel</button></td>\n"
-                        + "<td><input type='hidden' size='40' name='user-id' value='" + user.getWebUserId().toString() + "'/>" + user.getWebUserId().toString() + "</td>\n"
+                        + "<td><button formaction='administration' method='post' name='action' "
+                        + "value='delete'>ok</button>"
+                        + "<button formaction='administration' method='post' name='action' "
+                        + "value='cancel'>cancel</button></td>\n"
+                        + "<td><input type='hidden' size='40' name='user-id' value='"
+                        + user.getWebUserId().toString() + "'/>" + user.getWebUserId().toString()
+                        + "</td>\n"
                         + "<td>" + user.getWebUserLogin() + "</td> \n"
                         + "<td>" + user.getWebUserPassword().substring(0, 1) + "***</td>\n"
                         + "<td>" + DaoFactoryH2.getWebRoleDaoH2()
@@ -118,8 +114,14 @@ public class AdministrationServlet extends HttpServlet {
                         + "  </tr>\n");
             } else {
                 usersTable = usersTable.concat("<tr>\n"
-                        + "<td><button formaction='administration' method='get' name='edit' value='" + user.getWebUserId().toString() + "'>edit</button>"
-                        + "<button formaction='administration' method='get' name='delete' value='" + user.getWebUserId().toString() + "'>delete</button></td>\n"
+                        + "<td><button formaction='administration' method='get' name='edit' value='"
+                        + user.getWebUserId().toString() + "' " + (user.getWebUserLogin().equals(
+                                request.getSession().getAttribute("name")) ? "disabled" : "")
+                        + ">edit</button>"
+                        + "<button formaction='administration' method='get' name='delete' value='"
+                        + user.getWebUserId().toString() + "' " + (user.getWebUserLogin().equals(
+                                request.getSession().getAttribute("name")) ? "disabled" : "")
+                        + ">delete</button></td>\n"
                         + "<td>" + user.getWebUserId().toString() + "</td>\n"
                         + "<td>" + user.getWebUserLogin() + "</td> \n"
                         + "<td>" + user.getWebUserPassword().substring(0, 1) + "***</td>\n"
@@ -132,7 +134,6 @@ public class AdministrationServlet extends HttpServlet {
         return usersTable;
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -165,12 +166,16 @@ public class AdministrationServlet extends HttpServlet {
             if (request.getSession().getAttribute("name") != null) {
                 if (request.getSession().getAttribute("role").equals("admin")) {
                     if ("edit".equals(request.getParameter("action"))) {
-                        WebUser updatedUser = new WebUser(Long.valueOf(request.getParameter("user-id")), request.getParameter("new-login"), request.getParameter("new-password"), Short.valueOf(request.getParameter("new-role")));
+                        WebUser updatedUser = new WebUser(Long.valueOf(
+                                request.getParameter("user-id")), request.getParameter("new-login"),
+                                request.getParameter("new-password"), Short.valueOf(request
+                                .getParameter("new-role")));
                         DaoFactoryH2.getWebUserDaoH2().update(updatedUser);
                         response.sendRedirect("administration");
                     }
                     if ("delete".equals(request.getParameter("action"))) {
-                        DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(Long.valueOf(request.getParameter("user-id")), null, null, null));
+                        DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(Long.valueOf(
+                                request.getParameter("user-id")), null, null, null));
                         response.sendRedirect("administration");
                     }
                 } else {

@@ -1,7 +1,6 @@
 package com.nixsolutions;
 
 import java.lang.Math;
-import java.util.Collections;
 
 public class CompareMySortWithDefault {
 

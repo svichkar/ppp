@@ -2,11 +2,10 @@ package com.nixsolutions;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -63,5 +62,8 @@ public class DateCollections {
 
     public static void printCurrentDateForSomeLocal() {
         LocalDate localDate = LocalDate.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
+        System.out.println(localDate.format(dtf.withLocale(Locale.GERMAN)));
+        System.out.println(localDate.format(dtf.withLocale(Locale.CANADA)));
     }
 }

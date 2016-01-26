@@ -7,6 +7,11 @@ import java.util.Random;
  */
 
 public class Arrays {
+    /**
+     *
+     * @param arr
+     * @return
+     */
     public static int[] sort(int[] arr)
     {
         int a=0;
@@ -24,6 +29,12 @@ public class Arrays {
         }
         return arr;
     }
+
+    /**
+     * calculate average time
+     * @param time
+     * @return
+     */
     public static String average(double[][] time)
     {
         String result ="";
@@ -41,17 +52,15 @@ public class Arrays {
     public static void main(String[] args)
     {
         Random random = new Random();
-        double[] bulbTime = new double[20];
-        double[] bysTime = new double[20];
         double[][] time = new double[2][20];
         int[] arrayCopy = new int[10000];
         int[] array = new int[10000];
         String avgTime = "";
         double avgBulbTime = 0;
         double avgSysTime = 0;
-        for(int count=0;count<20;count++)
+        for (int count=0;count<20;count++)
         {
-            for(int i=0;i<array.length;i++)
+            for (int i=0;i<array.length;i++)
             {
                 array[i]=random.nextInt(201)-100;
             }

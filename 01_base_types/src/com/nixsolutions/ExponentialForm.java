@@ -1,0 +1,38 @@
+package com.nixsolutions;
+
+import javax.swing.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+
+/**
+ * Created by sobolenko on 1/26/2016.
+ */
+public class ExponentialForm {
+    public static void main(String[] args) throws ParseException {
+        String input = "";
+        float number = 0;
+        boolean isExeption=false;
+        do {
+            try{
+                input = JOptionPane.showInputDialog("Please type float number");
+                number = Float.parseFloat(input);
+                isExeption=false;
+            }catch (NumberFormatException e)
+            {
+                isExeption = true;
+            }
+        }while (isExeption);
+        DecimalFormat decimalFormat = new DecimalFormat();
+        if(input.equals(String.valueOf(decimalFormat.parse(input))))
+        {
+            DecimalFormat newFormatter = new DecimalFormat("0.0E0");
+            System.out.println(newFormatter.format(number));
+        }
+        else
+        {
+            DecimalFormat newFormatter = new DecimalFormat();
+            System.out.println(newFormatter.format(number));
+        }
+    }
+}

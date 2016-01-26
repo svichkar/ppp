@@ -110,15 +110,21 @@ public class MyCalendar
      * @throws ParseException
      */
     public String howManyYearsMonthsDaysHavePassedSinceDate(String targetDate) throws ParseException {
-        String rightDate = targetDate.replaceAll("\\s", ".");
+
+        /*String rightDate = targetDate.replaceAll("\\s", ".");
         String[] dayMonthYear = rightDate.split("\\.");
         LocalDate today = LocalDate.now();
         Date current = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(targetDate);
-        //LocalDate targetDay = LocalDate.of(Integer.parseInt(dayMonthYear[2]),Integer.parseInt(dayMonthYear[1]),Integer.parseInt(dayMonthYear[0]));
-        LocalDate targetDay = LocalDate.fromDateFields(current);
-        //Period period = Period.between(targetDay, today);
-        Period period = Period.fieldDifference(today, targetDay);
-        return period.getYears()+" years "+period.getMonths()+" month "+period.getDays()+" days pass from "+ targetDate;
+        LocalDate targetDay = LocalDate.of(Integer.parseInt(dayMonthYear[2]),Integer.parseInt(dayMonthYear[1]),Integer.parseInt(dayMonthYear[0]));
+        //LocalDate targetDay = LocalDate.fromDateFields(current);
+        Period period = Period.between(targetDay, today);
+        //Period period = Period.fieldDifference(today, targetDay);*/
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(targetDate));
+        DateTime dateTime = DateTime.now();
+        Period rentalPeriod = new Period().withYears(calendar.get(Calendar.YEAR)).withMonths(calendar.get(Calendar.MONTH)+1).withDays(calendar.get(Calendar.DATE));
+        DateTime period = dateTime.minus(rentalPeriod).dayOfYear().getDateTime();
+        return period.getYear()+" years "+period.getMonthOfYear()+" month "+period.getDayOfMonth()+" days pass from "+ targetDate;
     }
     /**
      * 

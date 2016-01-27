@@ -16,12 +16,18 @@ import java.util.List;
  */
 public class RoleDaoImpl implements RoleDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(Role entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -29,16 +35,26 @@ public class RoleDaoImpl implements RoleDAO {
     public void update(Role entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Role entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -46,9 +62,14 @@ public class RoleDaoImpl implements RoleDAO {
         Session session = sessionFactory.getCurrentSession();
         Role role = null;
         Transaction transaction = session.beginTransaction();
-        role = (Role) session.get(Role.class, id);
-        transaction.commit();
-        return role;
+        try {
+            role = (Role) session.get(Role.class, id);
+            transaction.commit();
+            return role;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -56,9 +77,14 @@ public class RoleDaoImpl implements RoleDAO {
         Session session = sessionFactory.getCurrentSession();
         Role role = null;
         Transaction transaction = session.beginTransaction();
-        role = (Role)session.createCriteria(Role.class).add(Restrictions.eq("roleName", name)).uniqueResult();
-        transaction.commit();
-        return role;
+        try {
+            role = (Role) session.createCriteria(Role.class).add(Restrictions.eq("roleName", name)).uniqueResult();
+            transaction.commit();
+            return role;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -66,9 +92,14 @@ public class RoleDaoImpl implements RoleDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Role> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Role.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(Role.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
 
     }
 }

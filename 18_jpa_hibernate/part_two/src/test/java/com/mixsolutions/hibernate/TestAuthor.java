@@ -1,38 +1,59 @@
 package com.mixsolutions.hibernate;
 
-import com.mixsolutions.hibernate.config.DBUnitConfig;
 import com.nixsolutions.hibernate.dao.AuthorDAO;
 
+import com.nixsolutions.hibernate.dao.DaoFactory;
+import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.Author;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 import org.dbunit.Assertion;
-import org.dbunit.database.DatabaseConfig;
-import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.DBTestCase;
+import org.dbunit.JdbcDatabaseTester;
+import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
-import org.dbunit.ext.h2.H2DataTypeFactory;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
 
+import java.io.FileInputStream;
 import java.util.List;
 
 
 /**
  * Created by kozlovskij on 12/24/2015.
  */
-public class TestAuthor extends DBUnitConfig {
+public class TestAuthor extends DBTestCase {
+    private JdbcDatabaseTester tester;
+    protected DaoFactory daoFactory = new DaoFactoryImpl();
     private Author author;
 
     public TestAuthor(String name) {
         super(name);
+        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
+        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:mem:sqllab");
+        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "root");
+        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "root");
+    }
+    @Override
+    protected DatabaseOperation getTearDownOperation() throws Exception {
+        return DatabaseOperation.CLEAN_INSERT;
+    }
+
+    @Override
+    protected DatabaseOperation getSetUpOperation() throws Exception {
+        return DatabaseOperation.DELETE;
+    }
+    @Override
+    protected IDataSet getDataSet() throws Exception {
+        return new FlatXmlDataSetBuilder().setColumnSensing(true).build(new FileInputStream("src/test/resources/Author/init.xml"));
     }
 
     public void setUp() throws Exception {
-        super.setUp();
-        beforeData = new FlatXmlDataFileLoader().load("/Author/Init.xml");
-        tester.setDataSet(beforeData);
-        tester.onSetup();
+        tester = new JdbcDatabaseTester("org.h2.Driver",
+                "jdbc:h2:mem:sqllab", "root", "root");
+        tester.setDataSet(this.getDataSet());
     }
 
     public void testCreate() throws Exception {
@@ -50,10 +71,11 @@ public class TestAuthor extends DBUnitConfig {
 
     public void testUpdate() throws Exception {
         author = new Author();
-        author.setAuthorId(1L);
         author.setAuthorFirstName("Aleksandr");
         author.setAuthorLastName("Pushkin");
         AuthorDAO authorDAO = daoFactory.getAuthorDAO();
+        authorDAO.create(author);
+        author.setAuthorLastName("Gogol");
         authorDAO.update(author);
         IDataSet expected = new FlatXmlDataFileLoader().load("/Author/Update.xml");
         IDataSet actual = tester.getConnection().createDataSet();
@@ -64,10 +86,10 @@ public class TestAuthor extends DBUnitConfig {
 
     public void testDelete() throws Exception {
         author = new Author();
-        author.setAuthorId(1L);
-        author.setAuthorFirstName("Oleg");
-        author.setAuthorLastName("Kril");
+        author.setAuthorFirstName("Aleksandr");
+        author.setAuthorLastName("Pushkin");
         AuthorDAO authorDAO = daoFactory.getAuthorDAO();
+        authorDAO.create(author);
         authorDAO.delete(author);
         IDataSet expected = new FlatXmlDataFileLoader().load("/Author/Delete.xml");
         IDataSet actual = tester.getConnection().createDataSet();
@@ -77,26 +99,31 @@ public class TestAuthor extends DBUnitConfig {
     }
 
     public void testFindById() throws Exception {
+        author = new Author();
+        author.setAuthorFirstName("Aleksandr");
+        author.setAuthorLastName("Pushkin");
         AuthorDAO authorDAO = daoFactory.getAuthorDAO();
-        author = authorDAO.findByID(1L);
-        Assert.assertEquals(new Long(1), author.getAuthorId());
-        Assert.assertEquals("Oleg", author.getAuthorFirstName());
-        Assert.assertEquals("Kril", author.getAuthorLastName());
+        authorDAO.create(author);
+        Long actualId = author.getAuthorId();
+        author = authorDAO.findByID(author.getAuthorId());
+        Assert.assertEquals(actualId, author.getAuthorId());
+        Assert.assertEquals("Aleksandr", author.getAuthorFirstName());
+        Assert.assertEquals("Pushkin", author.getAuthorLastName());
     }
 
     public void testFindAll() throws Exception {
+        author = new Author();
+        author.setAuthorFirstName("Aleksandr");
+        author.setAuthorLastName("Pushkin");
         AuthorDAO authorDAO = daoFactory.getAuthorDAO();
+        authorDAO.create(author);
         List<Author> authorList;
         authorList = authorDAO.findAll();
 
-        Assert.assertEquals(2, authorList.size());
+        Assert.assertEquals(1, authorList.size());
 
-        Assert.assertEquals(new Long(1), authorList.get(0).getAuthorId());
-        Assert.assertEquals("Oleg", authorList.get(0).getAuthorFirstName());
-        Assert.assertEquals("Kril", authorList.get(0).getAuthorLastName());
-
-        Assert.assertEquals(new Long(2), authorList.get(1).getAuthorId());
-        Assert.assertEquals("Alex", authorList.get(1).getAuthorFirstName());
-        Assert.assertEquals("Barchuk", authorList.get(1).getAuthorLastName());
+        Assert.assertEquals(new Long(1), author.getAuthorId());
+        Assert.assertEquals("Aleksandr", author.getAuthorFirstName());
+        Assert.assertEquals("Pushkin", author.getAuthorLastName());
     }
 }

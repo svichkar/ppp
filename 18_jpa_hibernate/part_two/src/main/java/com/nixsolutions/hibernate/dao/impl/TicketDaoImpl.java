@@ -18,12 +18,18 @@ import java.util.List;
  */
 public class TicketDaoImpl implements TicketDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(Ticket entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -31,16 +37,26 @@ public class TicketDaoImpl implements TicketDAO {
     public void update(Ticket entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Ticket entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -48,9 +64,14 @@ public class TicketDaoImpl implements TicketDAO {
         Session session = sessionFactory.getCurrentSession();
         Ticket ticket = null;
         Transaction transaction = session.beginTransaction();
-        ticket = (Ticket) session.get(Ticket.class, id);
-        transaction.commit();
-        return ticket;
+        try {
+            ticket = (Ticket) session.get(Ticket.class, id);
+            transaction.commit();
+            return ticket;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -58,9 +79,14 @@ public class TicketDaoImpl implements TicketDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Ticket> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(User.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(User.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -68,10 +94,15 @@ public class TicketDaoImpl implements TicketDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Ticket> list = null;
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Ticket.class);
-        criteria.add(Restrictions.isNull("returnDate"));
-        criteria.add(Restrictions.le("expiredDate", new Timestamp(System.currentTimeMillis())));
-        list = criteria.list();
-        return list;
+        try {
+            Criteria criteria = session.createCriteria(Ticket.class);
+            criteria.add(Restrictions.isNull("returnDate"));
+            criteria.add(Restrictions.le("expiredDate", new Timestamp(System.currentTimeMillis())));
+            list = criteria.list();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

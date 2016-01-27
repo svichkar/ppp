@@ -14,12 +14,18 @@ import java.util.List;
  */
 public class ClientDaoImpl implements ClientDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(Client entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -27,16 +33,26 @@ public class ClientDaoImpl implements ClientDAO {
     public void update(Client entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Client entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -44,9 +60,14 @@ public class ClientDaoImpl implements ClientDAO {
         Session session = sessionFactory.getCurrentSession();
         Client client = null;
         Transaction transaction = session.beginTransaction();
-        client = (Client) session.get(Client.class, id);
-        transaction.commit();
-        return client;
+        try {
+            client = (Client) session.get(Client.class, id);
+            transaction.commit();
+            return client;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -54,8 +75,13 @@ public class ClientDaoImpl implements ClientDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Client> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Client.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(Client.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

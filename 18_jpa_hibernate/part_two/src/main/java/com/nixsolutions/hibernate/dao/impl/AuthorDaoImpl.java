@@ -14,29 +14,44 @@ import java.util.List;
  */
 public class AuthorDaoImpl implements AuthorDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(Author entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
-
 
     @Override
     public void update(Author entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Author entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -44,9 +59,14 @@ public class AuthorDaoImpl implements AuthorDAO {
         Session session = sessionFactory.getCurrentSession();
         Author author = null;
         Transaction transaction = session.beginTransaction();
-        author = (Author) session.get(Author.class, id);
-        transaction.commit();
-        return author;
+        try {
+            author = (Author) session.get(Author.class, id);
+            transaction.commit();
+            return author;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -54,8 +74,13 @@ public class AuthorDaoImpl implements AuthorDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Author> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Author.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(Author.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

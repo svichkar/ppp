@@ -15,12 +15,18 @@ import java.util.List;
  */
 public class UserDaoImpl implements UserDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(User entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -28,16 +34,26 @@ public class UserDaoImpl implements UserDAO {
     public void update(User entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(User entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -45,9 +61,14 @@ public class UserDaoImpl implements UserDAO {
         Session session = sessionFactory.getCurrentSession();
         User user = null;
         Transaction transaction = session.beginTransaction();
-        user = (User) session.get(User.class, id);
-        transaction.commit();
-        return user;
+        try {
+            user = (User) session.get(User.class, id);
+            transaction.commit();
+            return user;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -55,9 +76,14 @@ public class UserDaoImpl implements UserDAO {
         Session session = sessionFactory.getCurrentSession();
         List<User> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(User.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(User.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -65,8 +91,13 @@ public class UserDaoImpl implements UserDAO {
         Session session = sessionFactory.getCurrentSession();
         User user = null;
         Transaction transaction = session.beginTransaction();
-        user = (User)session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
-        transaction.commit();
-        return user;
+        try {
+            user = (User) session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
+            transaction.commit();
+            return user;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

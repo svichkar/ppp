@@ -14,12 +14,18 @@ import java.util.List;
  */
 public class CategoryDaoImpl implements CategoryDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(Category entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -27,16 +33,26 @@ public class CategoryDaoImpl implements CategoryDAO {
     public void update(Category entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Category entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -44,9 +60,14 @@ public class CategoryDaoImpl implements CategoryDAO {
         Session session = sessionFactory.getCurrentSession();
         Category category = null;
         Transaction transaction = session.beginTransaction();
-        category = (Category) session.get(Category.class, id);
-        transaction.commit();
-        return category;
+        try {
+            category = (Category) session.get(Category.class, id);
+            transaction.commit();
+            return category;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -54,8 +75,13 @@ public class CategoryDaoImpl implements CategoryDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Category> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Category.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(Category.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

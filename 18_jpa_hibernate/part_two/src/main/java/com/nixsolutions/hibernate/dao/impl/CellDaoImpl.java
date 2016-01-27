@@ -14,12 +14,18 @@ import java.util.List;
  */
 public class CellDaoImpl implements CellDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
     @Override
     public void create(Cell entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -27,16 +33,26 @@ public class CellDaoImpl implements CellDAO {
     public void update(Cell entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Cell entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -44,9 +60,14 @@ public class CellDaoImpl implements CellDAO {
         Session session = sessionFactory.getCurrentSession();
         Cell cell = null;
         Transaction transaction = session.beginTransaction();
-        cell = (Cell) session.get(Cell.class, id);
-        transaction.commit();
-        return cell;
+        try {
+            cell = (Cell) session.get(Cell.class, id);
+            transaction.commit();
+            return cell;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -54,8 +75,13 @@ public class CellDaoImpl implements CellDAO {
         Session session = sessionFactory.getCurrentSession();
         List<Cell> list = null;
         Transaction transaction = session.beginTransaction();
-        list = session.createCriteria(Cell.class).list();
-        transaction.commit();
-        return list;
+        try {
+            list = session.createCriteria(Cell.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
     }
 }

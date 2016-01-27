@@ -5,6 +5,7 @@ import com.nixsolutions.servicestation.entity.Car;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,11 +19,16 @@ public class CarDAOImpl extends GenericAbstractDAO<Car> implements CarDAO {
         Set<Car> carSet;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Car.class, "c");
-        criteria.createAlias("c.client", "client");
-        criteria.createAlias("client.user", "user");
-        carSet = new HashSet<>(criteria.list());
-        transaction.commit();
+        try {
+            Criteria criteria = session.createCriteria(Car.class, "c");
+            criteria.createAlias("c.client", "client");
+            criteria.createAlias("client.user", "user");
+            carSet = new HashSet<>(criteria.list());
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         LOGGER.trace(carSet.size() + " rows in car were found");
         return carSet;
     }
@@ -31,12 +37,17 @@ public class CarDAOImpl extends GenericAbstractDAO<Car> implements CarDAO {
         Set<Car> carSet;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from Car as c " +
-                "left join fetch c.carOrder as co " +
-                "where co.carOrderId is null");
-        carSet = new HashSet<>(query.list());
-        transaction.commit();
-        LOGGER.trace(carSet.size() + " rows in car were found");
+        try {
+            Query query = session.createQuery("from Car as c " +
+                    "left join fetch c.carOrder as co " +
+                    "where co.carOrderId is null");
+            carSet = new HashSet<>(query.list());
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
+        LOGGER.trace(carSet.size() + " rows in car by getCarWithoutOrder() were found");
         return carSet;
     }
 }

@@ -22,29 +22,39 @@ public class CarOrderDAOImpl extends GenericAbstractDAO<CarOrder> implements Car
         Set<CarOrder> carOrderSet;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(CarOrder.class, "co");
-        criteria.createAlias("co.car", "car");
-        criteria.createAlias("car.client", "client");
-        criteria.createAlias("client.user", "user");
-        criteria.add(Restrictions.eq("user.login", login));
-        carOrderSet = new HashSet<>(criteria.list());
-        transaction.commit();
+        try {
+            Criteria criteria = session.createCriteria(CarOrder.class, "co");
+            criteria.createAlias("co.car", "car");
+            criteria.createAlias("car.client", "client");
+            criteria.createAlias("client.user", "user");
+            criteria.add(Restrictions.eq("user.login", login));
+            carOrderSet = new HashSet<>(criteria.list());
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         LOGGER.trace(carOrderSet.size() + " rows in car_order were found");
         return carOrderSet;
     }
 
     public Set<CarOrder> getUserCarOrders() {
         Set<CarOrder> carOrderSet;
-        Session session = sFactory.openSession();
+        Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(CarOrder.class, "co");
-        criteria.createAlias("co.car", "car");
-        criteria.createAlias("car.client", "client");
-        criteria.createAlias("client.user", "user");
-        carOrderSet = new HashSet<>(criteria.list());
-        transaction.commit();
-        session.close();
+        try {
+            Criteria criteria = session.createCriteria(CarOrder.class, "co");
+            criteria.createAlias("co.car", "car");
+            criteria.createAlias("car.client", "client");
+            criteria.createAlias("client.user", "user");
+            carOrderSet = new HashSet<>(criteria.list());
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         LOGGER.trace(carOrderSet.size() + " rows in car_order were found");
         return carOrderSet;
     }
+
 }

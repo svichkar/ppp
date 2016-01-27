@@ -48,11 +48,11 @@ INSERT INTO car_order_status (car_order_status_name) VALUES ('Complete');
 INSERT INTO car_order_status (car_order_status_name) VALUES ('In Progress');
 INSERT INTO car_order_status (car_order_status_name) VALUES ('Pending');
 
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(1, 2, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(2, 2, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(3, 2, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(4, 3, CURRENT_TIMESTAMP());
-INSERT INTO car_order (car_id, car_order_status_id, start_date) VALUES(5, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (carorder_car_id, car_order_status_id, start_date) VALUES(1, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (carorder_car_id, car_order_status_id, start_date) VALUES(2, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (carorder_car_id, car_order_status_id, start_date) VALUES(3, 2, CURRENT_TIMESTAMP());
+INSERT INTO car_order (carorder_car_id, car_order_status_id, start_date) VALUES(4, 3, CURRENT_TIMESTAMP());
+INSERT INTO car_order (carorder_car_id, car_order_status_id, start_date) VALUES(5, 2, CURRENT_TIMESTAMP());
 
 INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (1,2);
 INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (2,1);

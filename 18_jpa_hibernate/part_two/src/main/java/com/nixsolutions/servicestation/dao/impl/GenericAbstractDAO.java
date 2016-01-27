@@ -29,30 +29,50 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
     public void create(E entity) {
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+        try {
+            session.save(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
     }
 
     public void update(E entity) {
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(entity);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
     }
 
     public void delete(E entity) {
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(entity);
-        transaction.commit();
+        try {
+            session.delete(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
     }
 
     public E findById(Long id) {
         Session session = sFactory.getCurrentSession();
         E entity;
         Transaction transaction = session.beginTransaction();
-        entity = (E) session.get(type, id);
-        transaction.commit();
+        try {
+            entity = (E) session.get(type, id);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         return entity;
     }
 
@@ -60,8 +80,13 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
         Session session = sFactory.getCurrentSession();
         Set<E> set;
         Transaction transaction = session.beginTransaction();
-        set = new HashSet<>(session.createCriteria(type).list());
-        transaction.commit();
+        try {
+            set = new HashSet<>(session.createCriteria(type).list());
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         return set;
     }
 }

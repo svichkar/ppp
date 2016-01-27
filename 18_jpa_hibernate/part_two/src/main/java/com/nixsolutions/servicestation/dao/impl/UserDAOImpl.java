@@ -21,8 +21,13 @@ public class UserDAOImpl extends GenericAbstractDAO<User> implements UserDAO {
         Session session = sFactory.getCurrentSession();
         User user;
         Transaction transaction = session.beginTransaction();
-        user = (User) session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
-        transaction.commit();
+        try {
+            user = (User) session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         return user;
     }
 

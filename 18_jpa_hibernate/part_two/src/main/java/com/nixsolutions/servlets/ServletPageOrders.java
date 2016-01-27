@@ -35,8 +35,11 @@ public class ServletPageOrders extends HttpServlet {
         req.setAttribute("cosSet", cosSet);
         req.setAttribute("coSet", coSet);
         Set<Car> cSet = factoryDAO.getCarDAO().getCarWithoutOrder();
+        for (Car c:cSet) {
+            System.out.println(c);
+            //System.out.println(c.getCarId() + " "+c.getCarType() + " " +c.getSerialVIN());
+        }
         req.setAttribute("cSet", cSet);
-        cSet=null;
         req.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(req, resp);
     }
 

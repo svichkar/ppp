@@ -15,8 +15,7 @@ public class CarOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_order_id")
     private Long carOrderId;
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "carorder_car_id", referencedColumnName = "car_id")
+    @OneToOne @MapsId
     private Car car;
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "car_order_status_id", referencedColumnName = "car_order_status_id")

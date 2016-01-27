@@ -11,13 +11,13 @@
                 <th>carName</th>
                 <th>status</th>
             </tr>
-                <c:forEach var="CarOrder" items="${CarOrders}">
+                <c:forEach var="Car" items="${CarOrders}">
                     <tr>
-                        <td><input type="text" value ="<c:out value="${CarOrder.car.client.user.login}"/>" readonly></td>
-                        <td><input type="text" value ="<c:out value="${CarOrder.carOrderId}"/>" readonly></td>
-                        <td><input type="text" value ="<c:out value="${CarOrder.car.serialVIN}"/>" readonly></td>
-                        <td><input type="text" value ="<c:out value="${CarOrder.car.carType.getFullName()}"/>" readonly></td>
-                        <td><input type="text" value ="<c:out value="${CarOrder.carOrderStatus.carOrderStatusName}"/>" readonly></td>
+                        <td><input type="text" value ="<c:out value="${Car.client.user.login}"/>" readonly></td>
+                        <td><input type="text" value ="<c:out value="${Car.carOrder.carOrderId}"/>" readonly></td>
+                        <td><input type="text" value ="<c:out value="${Car.serialVIN}"/>" readonly></td>
+                        <td><input type="text" value ="<c:out value="${Car.carType.getFullName()}"/>" readonly></td>
+                        <td><input type="text" value ="<c:out value="${Car.carOrder.carOrderStatus.carOrderStatusName}"/>" readonly></td>
                     </tr>
                 </c:forEach>
 </table>

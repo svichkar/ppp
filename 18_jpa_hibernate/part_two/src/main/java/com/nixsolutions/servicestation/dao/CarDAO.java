@@ -8,6 +8,6 @@ import java.util.Set;
  * Created by rybkinrolla on 29.12.2015.
  */
 public interface CarDAO extends GenericDAO<Car> {
-    Set<Car> getUserCars();
     Set<Car> getCarWithoutOrder();
+    Set<Car> getUserCarOrders(String login);
 }

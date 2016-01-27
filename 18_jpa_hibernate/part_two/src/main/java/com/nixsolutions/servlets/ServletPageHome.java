@@ -40,10 +40,10 @@ public class ServletPageHome extends HttpServlet {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
         if (req.getSession().getAttribute("role") != null) {
             if (req.getSession().getAttribute("role").equals("manager")) {
-                req.setAttribute("CarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders());
+                req.setAttribute("CarOrders", factoryDAO.getCarDAO().findAll());
                 req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
             } else {
-                req.setAttribute("CarOrders", factoryDAO.getCarOrderDAO().getUserCarOrders(req.getParameter("login")));
+                req.setAttribute("CarOrders", factoryDAO.getCarDAO().getUserCarOrders(req.getParameter("login")));
                 req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
            }
        } else {

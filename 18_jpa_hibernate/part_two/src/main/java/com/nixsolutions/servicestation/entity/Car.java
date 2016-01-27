@@ -21,8 +21,7 @@ public class Car implements Serializable{
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Client client;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "car_id", referencedColumnName = "carorder_car_id")
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH},  mappedBy = "car", fetch = FetchType.EAGER)
     private CarOrder carOrder;
 
     public Car() {

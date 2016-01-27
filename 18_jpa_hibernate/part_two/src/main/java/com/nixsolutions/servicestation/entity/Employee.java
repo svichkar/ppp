@@ -68,23 +68,4 @@ public class Employee implements Serializable {
         this.employeeCategory = employeeCategory;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        Employee employee = (Employee) obj;
-        if (employeeId.equals(employee.employeeId) &&
-                firstName.equals(employee.firstName) &&
-                lastName.equals(employee.lastName) &&
-                employeeCategory.equals(employee.employeeCategory)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        int result = firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        return result;
-    }
 }

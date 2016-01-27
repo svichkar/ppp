@@ -27,7 +27,7 @@ public class ServletPageCars extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        req.setAttribute("carsSet", factoryDAO.getCarDAO().getUserCars());
+        req.setAttribute("carsSet", factoryDAO.getCarDAO().findAll());
         req.setAttribute("clientsSet", factoryDAO.getClientDAO().findAll());
         req.getRequestDispatcher("/WEB-INF/jsp/cars.jsp").forward(req, resp);
     }

@@ -28,17 +28,13 @@ public class ServletPageOrders extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FactoryDAO factoryDAO = new FactoryDAOImpl();
-        Set<CarOrder> coSet = factoryDAO.getCarOrderDAO().getUserCarOrders();
+        Set<CarOrder> coSet = factoryDAO.getCarOrderDAO().findAll();
         Set<CarOrderStatus> cosSet = factoryDAO.getCarOrderStatusDAO().findAll();
         Set<Employee> employeeSet = factoryDAO.getEmployeeDAO().findAll();
         req.setAttribute("employeeSet", employeeSet);
         req.setAttribute("cosSet", cosSet);
         req.setAttribute("coSet", coSet);
         Set<Car> cSet = factoryDAO.getCarDAO().getCarWithoutOrder();
-        for (Car c:cSet) {
-            System.out.println(c);
-            //System.out.println(c.getCarId() + " "+c.getCarType() + " " +c.getSerialVIN());
-        }
         req.setAttribute("cSet", cSet);
         req.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(req, resp);
     }

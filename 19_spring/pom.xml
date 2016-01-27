@@ -3,11 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>18_jpa_hibernate</groupId>
-    <artifactId>18_jpa_hibernate</artifactId>
+
+    <groupId>19_spring</groupId>
+    <artifactId>19_spring</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>18_jpa_hibernate Maven Webapp</name>
+    <name>19spring Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

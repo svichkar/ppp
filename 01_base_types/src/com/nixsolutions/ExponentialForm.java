@@ -26,7 +26,7 @@ public class ExponentialForm {
         DecimalFormat decimalFormat = new DecimalFormat();
         if(input.equals(String.valueOf(decimalFormat.parse(input))))
         {
-            DecimalFormat newFormatter = new DecimalFormat("0.0E0");
+            DecimalFormat newFormatter = new DecimalFormat("0.00E00");
             System.out.println(newFormatter.format(number));
         }
         else

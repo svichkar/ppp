@@ -1,9 +1,7 @@
 import org.joda.time.*;
-//import java.time.LocalDate;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-//import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
@@ -28,7 +26,7 @@ public class MyCalendar
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getMonths();
         SimpleDateFormat monthDisplay = new SimpleDateFormat("MMMM",Locale.ENGLISH);
-        currentDate = new SimpleDateFormat("yyyy").parse(inputYear);
+        currentDate = new SimpleDateFormat("yyyy",Locale.ENGLISH).parse(inputYear);
         calendar.setTime(currentDate);
         for (int i = 1; i < months.length; i++) {
             int days = calendar.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
@@ -48,17 +46,13 @@ public class MyCalendar
     public Map<String, String> listOfDatesThatFallOnMonday(String inputMounthYear,String DayOfWeek) throws ParseException, NoSuchMethodException {
         Map<String, String> dayMonday = new LinkedHashMap<String, String>();
         Date currentDate = new Date();
+        String syntDate ="";
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setLenient(false);
-        String syntDate ="";
-        Date inputDate = new SimpleDateFormat("MM.yyyy").parse(inputMounthYear);
+        Date inputDate = new SimpleDateFormat("MM.yyyy",Locale.ENGLISH).parse(inputMounthYear);
         calendar.setTime(inputDate);
-
-        SimpleDateFormat month = new SimpleDateFormat("MM",Locale.ENGLISH);
-        SimpleDateFormat year = new SimpleDateFormat("yyyy",Locale.ENGLISH);
-        String rightMonth = month.format(calendar.getTime());
-        String rightYear = year.format(calendar.getTime());
-
+        String rightMonth = String.valueOf(calendar.get(Calendar.MONTH)+1);
+        String rightYear = String.valueOf(calendar.get(Calendar.YEAR));
         Map<String, Integer> monthLong = lengthForEachMonth(rightYear);
         SimpleDateFormat monthParse = new SimpleDateFormat("MM",Locale.ENGLISH);
         SimpleDateFormat monthDisplay = new SimpleDateFormat("MMMM",Locale.ENGLISH);
@@ -66,10 +60,10 @@ public class MyCalendar
         try {
             for (int i = 1; i <= monthLong.get(currMonth); i++) {
                 syntDate = i+"."+rightMonth+"."+rightYear;
-                currentDate = new SimpleDateFormat("dd.MM.yyyy").parse(syntDate);
+                currentDate = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(syntDate);
                 calendar.setTime(currentDate);
                 String day = calendar.getDisplayName(GregorianCalendar.DAY_OF_WEEK,GregorianCalendar.LONG,Locale.ENGLISH);
-                if(day.equals(DayOfWeek)) dayMonday.put(syntDate,day);
+                if (day.equals(DayOfWeek)) dayMonday.put(syntDate,day);
             }
         }
         catch (ParseException e)
@@ -88,14 +82,16 @@ public class MyCalendar
      * @throws NoSuchMethodException
      */
     public String dayFridayThirteen(String inputDate,String DayOfWeek) throws ParseException, NoSuchMethodException {
-        Map<String, String> dayFridayT = new LinkedHashMap<String, String>();
-        String rightDate = inputDate.replaceAll("\\s", ".");
-        String[] dayMonthYear = rightDate.split("\\.");
+       Map<String, String> dayFridayT = new LinkedHashMap<String, String>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setLenient(false);
+        Date date = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(inputDate);
+        calendar.setTime(date);
         String result="";
-        dayFridayT = listOfDatesThatFallOnMonday(dayMonthYear[1]+"."+dayMonthYear[2], "Friday");
+        dayFridayT = listOfDatesThatFallOnMonday((calendar.get(Calendar.MONTH)+1)+"."+calendar.get(Calendar.YEAR), "Friday");
         result = dayFridayT.get(inputDate);
         try{
-            if(result.equals("null")) result = "Not a Friday the thirteenth";
+            if (result.equals("null")) result = "Not a Friday the thirteenth";
         }
         catch (NullPointerException e)
         {
@@ -110,15 +106,6 @@ public class MyCalendar
      * @throws ParseException
      */
     public String howManyYearsMonthsDaysHavePassedSinceDate(String targetDate) throws ParseException {
-
-        /*String rightDate = targetDate.replaceAll("\\s", ".");
-        String[] dayMonthYear = rightDate.split("\\.");
-        LocalDate today = LocalDate.now();
-        Date current = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(targetDate);
-        LocalDate targetDay = LocalDate.of(Integer.parseInt(dayMonthYear[2]),Integer.parseInt(dayMonthYear[1]),Integer.parseInt(dayMonthYear[0]));
-        //LocalDate targetDay = LocalDate.fromDateFields(current);
-        Period period = Period.between(targetDay, today);
-        //Period period = Period.fieldDifference(today, targetDay);*/
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(targetDate));
         DateTime dateTime = DateTime.now();
@@ -137,7 +124,15 @@ public class MyCalendar
         String canadaTime = localDate.format(dateTimeFormatter.withLocale(Locale.CANADA));
         String germanyTime = localDate.format(dateTimeFormatter.withLocale(Locale.GERMANY));
         String pakistanTime = localDate.format(dateTimeFormatter.withLocale(Locale.ENGLISH));
-        String vietnamTime = localDate.format(dateTimeFormatter.withLocale(Locale.ENGLISH));
+        String vietnamTime ="";
+        Locale[] locales = SimpleDateFormat.getAvailableLocales();
+        for (Locale currloc: locales)
+        {
+            if (currloc.getDisplayCountry().equals("Vietnam"))
+            {
+                vietnamTime = localDate.format(dateTimeFormatter.withLocale(currloc));
+            }
+        }
         return "Canada: "+canadaTime+"\n"+"Germany: "+germanyTime+"\n"+"Pakistan: "+pakistanTime+"\n"+"Vietnam: "+vietnamTime;
     }
 }

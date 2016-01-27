@@ -15,7 +15,7 @@ public class Dates {
 	static void monthLength() {
 		Scanner scan = new Scanner(System.in);
 		String[] months = new DateFormatSymbols().getMonths();
-		System.out.print("1. Enter the year to show the length of each month in it: ");
+		System.out.print("\n1. Enter the year to show the length of each month in it: ");
 		int year = scan.nextInt();
 		for (int i = 0; i < months.length - 1; i++) {
 		String month = months[i];
@@ -27,7 +27,7 @@ public class Dates {
 	static void getDatesOfDays() {
 		try {
 			Scanner scan = new Scanner(System.in);
-			System.out.println("2. Enter the year and month in yyyy/MM format to show all Mondays from:");
+			System.out.println("\n2. Enter the year and month in yyyy/MM format to show all Mondays from:");
 			String ym = scan.next();
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM");
 			Calendar calendar=Calendar.getInstance();
@@ -48,7 +48,7 @@ public class Dates {
 	static void ifFridayTheThirteenth() {
 		try {
 			Scanner scan = new Scanner(System.in);
-			System.out.println("3. Enter the date in yyyy/MM/dd format to check if it's a Friday the 13th:");
+			System.out.println("\n3. Enter the date in yyyy/MM/dd format to check if it's a Friday the 13th:");
 			String ymd = scan.next();
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd");
 			Calendar calendar=Calendar.getInstance();
@@ -64,11 +64,11 @@ public class Dates {
 			e.printStackTrace();
 		}
 	}
-	
+/*
 	static void ymdSinceDate() {
 		try {
 			Scanner scan = new Scanner(System.in);
-			System.out.println("4. Enter the date in yyyy/MM/dd format to check how many years, months and days passed since then:");
+			System.out.println("\n4. Enter the date in yyyy/MM/dd format to check how many years, months and days passed since then:");
 			String ymd = scan.next();
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd");
 			Calendar oldDate=Calendar.getInstance();
@@ -81,5 +81,5 @@ public class Dates {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-	}
+	} */
 }

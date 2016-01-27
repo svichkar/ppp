@@ -1,4 +1,6 @@
 import org.joda.time.*;
+
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,7 +57,7 @@ public class MyCalendar
         String rightYear = String.valueOf(calendar.get(Calendar.YEAR));
         Map<String, Integer> monthLong = lengthForEachMonth(rightYear);
         SimpleDateFormat monthParse = new SimpleDateFormat("MM",Locale.ENGLISH);
-        SimpleDateFormat monthDisplay = new SimpleDateFormat("MMMM",Locale.ENGLISH);
+        SimpleDateFormat monthDisplay = new SimpleDateFormat("MMMM",Locale.ENGLISH); //Formatting for output
         String currMonth = monthDisplay.format(monthParse.parse(rightMonth));
         try {
             for (int i = 1; i <= monthLong.get(currMonth); i++) {
@@ -117,13 +119,12 @@ public class MyCalendar
      * 
      * @return String with current Time in different Locales
      */
-    public String localTimeForCanadaGermanyPakistanVietnam()
-    {
+    public String localTimeForCanadaGermanyPakistanVietnam(){
         java.time.LocalDate localDate = java.time.LocalDate.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);
         String canadaTime = localDate.format(dateTimeFormatter.withLocale(Locale.CANADA));
         String germanyTime = localDate.format(dateTimeFormatter.withLocale(Locale.GERMANY));
-        String pakistanTime = localDate.format(dateTimeFormatter.withLocale(Locale.ENGLISH));
+        String pakistanTime = localDate.format(dateTimeFormatter.withLocale(new Locale("en","PK")));
         String vietnamTime ="";
         Locale[] locales = SimpleDateFormat.getAvailableLocales();
         for (Locale currloc: locales)

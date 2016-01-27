@@ -65,11 +65,11 @@ public class BookDaoImpl implements BookDAO {
         try {
             book = (Book) session.get(Book.class, id);
             transaction.commit();
-            return book;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return book;
     }
 
     @Override
@@ -80,11 +80,11 @@ public class BookDaoImpl implements BookDAO {
         try {
             list = session.createCriteria(Book.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 
     @Override
@@ -95,11 +95,11 @@ public class BookDaoImpl implements BookDAO {
         try {
             list = session.createCriteria(Book.class).add(Restrictions.eq("bookName", bookName)).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 
     @Override
@@ -113,11 +113,11 @@ public class BookDaoImpl implements BookDAO {
             criteria.add(Restrictions.eq("author.authorLastName", authorName));
             list = criteria.list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 
     @Override
@@ -131,10 +131,10 @@ public class BookDaoImpl implements BookDAO {
             criteria.add(Restrictions.eq("category.categoryName", categoryName));
             list = criteria.list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 }

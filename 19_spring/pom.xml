@@ -76,6 +76,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>18_jpa_hibernate</finalName>
+        <finalName>spring</finalName>
     </build>
 </project>

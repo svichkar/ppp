@@ -63,11 +63,11 @@ public class CellDaoImpl implements CellDAO {
         try {
             cell = (Cell) session.get(Cell.class, id);
             transaction.commit();
-            return cell;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return cell;
     }
 
     @Override
@@ -78,10 +78,10 @@ public class CellDaoImpl implements CellDAO {
         try {
             list = session.createCriteria(Cell.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 }

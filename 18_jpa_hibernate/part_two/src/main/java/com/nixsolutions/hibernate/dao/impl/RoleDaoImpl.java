@@ -65,11 +65,11 @@ public class RoleDaoImpl implements RoleDAO {
         try {
             role = (Role) session.get(Role.class, id);
             transaction.commit();
-            return role;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return role;
     }
 
     @Override
@@ -80,11 +80,11 @@ public class RoleDaoImpl implements RoleDAO {
         try {
             role = (Role) session.createCriteria(Role.class).add(Restrictions.eq("roleName", name)).uniqueResult();
             transaction.commit();
-            return role;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return role;
     }
 
     @Override
@@ -95,11 +95,10 @@ public class RoleDaoImpl implements RoleDAO {
         try {
             list = session.createCriteria(Role.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
-
+        return list;
     }
 }

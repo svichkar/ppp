@@ -63,11 +63,11 @@ public class CategoryDaoImpl implements CategoryDAO {
         try {
             category = (Category) session.get(Category.class, id);
             transaction.commit();
-            return category;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return category;
     }
 
     @Override
@@ -78,10 +78,10 @@ public class CategoryDaoImpl implements CategoryDAO {
         try {
             list = session.createCriteria(Category.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 }

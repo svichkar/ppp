@@ -62,11 +62,11 @@ public class AuthorDaoImpl implements AuthorDAO {
         try {
             author = (Author) session.get(Author.class, id);
             transaction.commit();
-            return author;
+
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
-        }
+        } return author;
     }
 
     @Override
@@ -77,10 +77,10 @@ public class AuthorDaoImpl implements AuthorDAO {
         try {
             list = session.createCriteria(Author.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 }

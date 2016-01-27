@@ -63,11 +63,11 @@ public class ClientDaoImpl implements ClientDAO {
         try {
             client = (Client) session.get(Client.class, id);
             transaction.commit();
-            return client;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return client;
     }
 
     @Override
@@ -78,10 +78,10 @@ public class ClientDaoImpl implements ClientDAO {
         try {
             list = session.createCriteria(Client.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 }

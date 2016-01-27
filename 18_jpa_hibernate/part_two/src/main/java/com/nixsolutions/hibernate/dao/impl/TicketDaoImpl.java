@@ -67,11 +67,11 @@ public class TicketDaoImpl implements TicketDAO {
         try {
             ticket = (Ticket) session.get(Ticket.class, id);
             transaction.commit();
-            return ticket;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return ticket;
     }
 
     @Override
@@ -82,11 +82,11 @@ public class TicketDaoImpl implements TicketDAO {
         try {
             list = session.createCriteria(User.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 
     @Override
@@ -99,10 +99,10 @@ public class TicketDaoImpl implements TicketDAO {
             criteria.add(Restrictions.isNull("returnDate"));
             criteria.add(Restrictions.le("expiredDate", new Timestamp(System.currentTimeMillis())));
             list = criteria.list();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 }

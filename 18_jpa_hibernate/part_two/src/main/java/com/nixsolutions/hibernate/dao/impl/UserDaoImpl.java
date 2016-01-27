@@ -64,11 +64,11 @@ public class UserDaoImpl implements UserDAO {
         try {
             user = (User) session.get(User.class, id);
             transaction.commit();
-            return user;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return user;
     }
 
     @Override
@@ -79,11 +79,11 @@ public class UserDaoImpl implements UserDAO {
         try {
             list = session.createCriteria(User.class).list();
             transaction.commit();
-            return list;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return list;
     }
 
     @Override
@@ -94,10 +94,10 @@ public class UserDaoImpl implements UserDAO {
         try {
             user = (User) session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
             transaction.commit();
-            return user;
         } catch (Exception e) {
             transaction.rollback();
             throw new RuntimeException(e);
         }
+        return user;
     }
 }

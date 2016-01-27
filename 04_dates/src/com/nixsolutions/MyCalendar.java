@@ -1,11 +1,12 @@
 import org.joda.time.*;
-
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.time.temporal.TemporalField;
 import java.util.*;
 
 /**
@@ -20,7 +21,7 @@ public class MyCalendar
      * @throws ParseException
      * @throws NoSuchMethodException
      */
-    public Map<String, Integer> lengthForEachMonth(String inputYear) throws ParseException, NoSuchMethodException {
+    public Map<String, Integer> lengthForEachMonth(String inputYear) throws ParseException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Map<String, Integer> daysOfMonth = new LinkedHashMap<String, Integer>();
         Date currentDate = new Date();
         GregorianCalendar calendar = new GregorianCalendar();
@@ -45,7 +46,7 @@ public class MyCalendar
      * @throws ParseException
      * @throws NoSuchMethodException
      */
-    public Map<String, String> listOfDatesThatFallOnMonday(String inputMounthYear,String DayOfWeek) throws ParseException, NoSuchMethodException {
+    public Map<String, String> listOfDatesThatFallOnMonday(String inputMounthYear,String DayOfWeek) throws ParseException, NoSuchMethodException, IllegalAccessException, InstantiationException {
         Map<String, String> dayMonday = new LinkedHashMap<String, String>();
         Date currentDate = new Date();
         String syntDate ="";
@@ -83,8 +84,9 @@ public class MyCalendar
      * @throws ParseException
      * @throws NoSuchMethodException
      */
-    public String dayFridayThirteen(String inputDate,String DayOfWeek) throws ParseException, NoSuchMethodException {
-       Map<String, String> dayFridayT = new LinkedHashMap<String, String>();
+    public String dayFridayThirteen(String inputDate,String DayOfWeek) throws ParseException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        checkDate(inputDate);
+        Map<String, String> dayFridayT = new LinkedHashMap<String, String>();
         Calendar calendar = Calendar.getInstance();
         calendar.setLenient(false);
         Date date = new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(inputDate);
@@ -107,11 +109,14 @@ public class MyCalendar
      * @return
      * @throws ParseException
      */
-    public String howManyYearsMonthsDaysHavePassedSinceDate(String targetDate) throws ParseException {
+    public String howManyYearsMonthsDaysHavePassedSinceDate(String targetDate) throws ParseException, InstantiationException, IllegalAccessException {
+        checkDate(targetDate);
         Calendar calendar = Calendar.getInstance();
         DateTime currDate = DateTime.now();
-        calendar.setTime(new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(targetDate));
-        SimpleDateFormat dateConvert = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+        calendar.setTime(new SimpleDateFormat("d.MM.yyyy",Locale.ENGLISH).parse(targetDate));
+        SimpleDateFormat dateConvert = new SimpleDateFormat("yyyy-MM-d",Locale.ENGLISH);
+        calendar.setLenient(false);
+        dateConvert.setLenient(false);
         String tarDate = dateConvert.format(calendar.getTime());
         Period period = new Period(DateTime.parse(tarDate),currDate, PeriodType.yearMonthDay());
         return period.getYears()+" years "+period.getMonths() + " month "+period.getDays()+" days pass from "+ targetDate;
@@ -136,5 +141,9 @@ public class MyCalendar
             }
         }
         return "Canada: "+canadaTime+"\n"+"Germany: "+germanyTime+"\n"+"Pakistan: "+pakistanTime+"\n"+"Vietnam: "+vietnamTime;
+    }
+    public void checkDate(String dateString) throws IllegalAccessException, InstantiationException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy",Locale.ENGLISH);
+        TemporalAccessor ta= dateTimeFormatter.parse(dateString);
     }
 }

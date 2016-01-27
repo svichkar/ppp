@@ -109,11 +109,12 @@ public class MyCalendar
      */
     public String howManyYearsMonthsDaysHavePassedSinceDate(String targetDate) throws ParseException {
         Calendar calendar = Calendar.getInstance();
+        DateTime currDate = DateTime.now();
         calendar.setTime(new SimpleDateFormat("dd.MM.yyyy",Locale.ENGLISH).parse(targetDate));
-        DateTime dateTime = DateTime.now();
-        Period rentalPeriod = new Period().withYears(calendar.get(Calendar.YEAR)).withMonths(calendar.get(Calendar.MONTH)+1).withDays(calendar.get(Calendar.DATE));
-        DateTime period = dateTime.minus(rentalPeriod).dayOfYear().getDateTime();
-        return period.getYear()+" years "+period.getMonthOfYear()+" month "+period.getDayOfMonth()+" days pass from "+ targetDate;
+        SimpleDateFormat dateConvert = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+        String tarDate = dateConvert.format(calendar.getTime());
+        Period period = new Period(DateTime.parse(tarDate),currDate, PeriodType.yearMonthDay());
+        return period.getYears()+" years "+period.getMonths() + " month "+period.getDays()+" days pass from "+ targetDate;
     }
     /**
      * 

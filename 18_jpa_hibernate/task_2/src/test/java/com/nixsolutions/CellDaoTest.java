@@ -46,8 +46,8 @@ public class CellDaoTest extends DBUnitConfig {
 		Assertion.assertEquals(expectedData.getTable("cell"), actualData.getTable("cell"));
 		Assert.assertEquals(expectedData.getTable("cell").getRowCount(),cells.size());
 	}
-
-	/*public void testShouldDeleteCell() throws Exception {
+/*
+	public void testShouldDeleteCell() throws Exception {
 		Cell cell = factory.getCellDao().getCellById(1l);
 		factory.getCellDao().deleteCell(cell);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellDelete.xml");

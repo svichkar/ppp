@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.AuthorDao;
+import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Author;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
@@ -25,10 +26,15 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Author.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		authors = criteria.list();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Author.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			authors = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(authors);
 	}
 
@@ -39,11 +45,16 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Author.class, "author")
-				.add(Restrictions.eq("author.secondName", name))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		author = (Author) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Author.class, "author")
+					.add(Restrictions.eq("author.secondName", name))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			author = (Author) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(author);
 	}
 
@@ -54,11 +65,16 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Author.class, "author")
-				.add(Restrictions.eq("author.authorId", authorId))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		author = (Author) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Author.class, "author")
+					.add(Restrictions.eq("author.authorId", authorId))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			author = (Author) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(author);
 	}
 
@@ -68,8 +84,13 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.save(author);
-		transaction.commit();
+		try {
+			session.save(author);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return author;
 	}
 
@@ -79,8 +100,14 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.saveOrUpdate(author);
-		transaction.commit();
+		try {
+			session.saveOrUpdate(author);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 	}
 
 	@Override
@@ -89,7 +116,12 @@ public class AuthorDaoImpl implements AuthorDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.delete(author);
-		transaction.commit();
+		try {
+			session.delete(author);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
 }

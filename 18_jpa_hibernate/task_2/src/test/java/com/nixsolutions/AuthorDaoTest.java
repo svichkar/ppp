@@ -48,7 +48,7 @@ public class AuthorDaoTest extends DBUnitConfig {
 		Assert.assertEquals(expectedData.getTable("author").getRowCount(),authors.size());
 	}
 
-/*
+
 	public void testShouldDeleteAuthor() throws Exception {
 		Author author = factory.getAuthorDao().getAuthorById(1l);
 		factory.getAuthorDao().deleteAuthor(author);
@@ -56,7 +56,7 @@ public class AuthorDaoTest extends DBUnitConfig {
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("author"), actualData.getTable("author"));
 	}
-*/
+
 	public void testShouldCreateAuthor() throws Exception {
 		Author authMiha = new Author();
 		authMiha.setFirstName("Michail");

@@ -5,11 +5,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.entity.Role;
 import com.nixsolutions.hibernate.util.HibernateUtil;
@@ -24,10 +26,15 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Role.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		roles = criteria.list();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Role.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			roles = criteria.list();
+			transaction.commit();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(roles);
 	}
 
@@ -38,11 +45,16 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Role.class)
-				.add(Restrictions.eq("roleId", roleId))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		role = (Role) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Role.class)
+					.add(Restrictions.eq("roleId", roleId))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			role = (Role) criteria.uniqueResult();
+			transaction.commit();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(role);
 	}
 
@@ -53,10 +65,15 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Role.class).add(Restrictions.eq("name", name))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		role = (Role) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Role.class).add(Restrictions.eq("name", name))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			role = (Role) criteria.uniqueResult();
+			transaction.commit();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(role);
 	}
 
@@ -66,8 +83,13 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.save(role);
-		transaction.commit();
+		try {
+			session.save(role);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
 
 	@Override
@@ -76,8 +98,13 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.saveOrUpdate(role);
-		transaction.commit();
+		try {
+			session.saveOrUpdate(role);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
 
 	@Override
@@ -86,8 +113,12 @@ public class RoleDaoImpl implements RoleDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.delete(role);
-		transaction.commit();
+		try {
+			session.delete(role);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
-
 }

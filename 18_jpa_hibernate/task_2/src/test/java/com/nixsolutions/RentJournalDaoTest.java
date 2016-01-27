@@ -57,11 +57,11 @@ public class RentJournalDaoTest extends DBUnitConfig {
 		IDataSet actualData = tester.getConnection().createDataSet();
 		Assertion.assertEquals(expectedData.getTable("rent_journal"), actualData.getTable("rent_journal"));
 	}
-/*
+
 	public void testShouldCreateRentJournal() throws Exception {
 		RentJournal rentJournal = new RentJournal();
-		rentJournal.setBookId(5);
-		rentJournal.setClientId(1);
+		rentJournal.setBook(factory.getBookDao().getBookById(5l));
+		rentJournal.setClient(factory.getClientDao().getClientById(1l));
 		rentJournal.setRentDate(Date.valueOf("2015-08-21"));
 		rentJournal.setReturnDate(null);
 		factory.getRentJournalDao().createRent(rentJournal);
@@ -73,14 +73,14 @@ public class RentJournalDaoTest extends DBUnitConfig {
 	}
 
 	public void testShouldUpdateRentJournal() throws Exception {
-		RentJournal rentJournal = factory.getRentJournalDao().getRentById(4);
-		rentJournal.setBookId(5);
-		rentJournal.setClientId(1);
+		RentJournal rentJournal = factory.getRentJournalDao().getRentById(4l);
+		rentJournal.setBook(factory.getBookDao().getBookById(5l));
+		rentJournal.setClient(factory.getClientDao().getClientById(1l));
 		rentJournal.setRentDate(Date.valueOf("2015-06-11"));
 		factory.getRentJournalDao().updateRent(rentJournal);
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/rentJournal/RentJournalUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
 	    Assertion.assertEquals(expectedData.getTable("rent_journal"), actualData.getTable("rent_journal"));
 	}
-	*/
+	
 }

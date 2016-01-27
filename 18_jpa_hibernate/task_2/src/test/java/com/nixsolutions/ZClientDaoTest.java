@@ -22,7 +22,8 @@ public class ZClientDaoTest extends DBUnitConfig {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		beforeData = new FlatXmlDataFileLoader().load("/client/ClientInitialDataSet.xml");
+		//beforeData = new FlatXmlDataFileLoader().load("/client/ClientInitialDataSet.xml");
+		beforeData = new FlatXmlDataFileLoader().load("/book/BookInitialDataSet.xml");
 		tester.setDataSet(beforeData);
 		tester.onSetup();
 	}

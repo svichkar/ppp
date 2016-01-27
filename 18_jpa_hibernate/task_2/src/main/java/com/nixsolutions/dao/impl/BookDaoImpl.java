@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.BookDao;
+import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Book;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
@@ -26,10 +27,16 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		books = criteria.list();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Book.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			books = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 		return LOG.exit(books);
 	}
 
@@ -40,11 +47,16 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class)
-				.add(Restrictions.eq("bookId", bookId))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		book = (Book) criteria.uniqueResult();
-		transaction.commit();
+		try {			
+			Criteria criteria = session.createCriteria(Book.class)
+					.add(Restrictions.eq("bookId", bookId))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			book = (Book) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(book);
 	}
 
@@ -54,11 +66,12 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		try {
+		try {			
 			session.save(book);
 		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		transaction.commit();
 	}
 
@@ -68,8 +81,14 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.saveOrUpdate(book);
-		transaction.commit();
+		try {		
+			session.saveOrUpdate(book);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 	}
 
 	@Override
@@ -78,8 +97,14 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.delete(book);
-		transaction.commit();
+		try {		
+			session.delete(book);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 	}
 
 	@Override
@@ -89,12 +114,18 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class, "book")
-				.createAlias("book.authors", "authors")
-				.add(Restrictions.eq("authors.secondName", name))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		books = criteria.list();
-		transaction.commit();
+		try {			
+			Criteria criteria = session.createCriteria(Book.class, "book")
+					.createAlias("book.authors", "authors")
+					.add(Restrictions.eq("authors.secondName", name))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			books = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 		return LOG.exit(books);
 	}
 
@@ -105,12 +136,18 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class, "book")
-				.createAlias("book.category", "category")
-				.add(Restrictions.eq("category.name", name))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		books = criteria.list();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Book.class, "book")
+					.createAlias("book.category", "category")
+					.add(Restrictions.eq("category.name", name))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			books = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 		return LOG.exit(books);
 	}
 
@@ -121,11 +158,17 @@ public class BookDaoImpl implements BookDao {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Book.class, "book")
-				.add(Restrictions.eq("book.name", name))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		books = criteria.list();
-		transaction.commit();
+		try {			
+			Criteria criteria = session.createCriteria(Book.class, "book")
+					.add(Restrictions.eq("book.name", name))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			books = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 		return LOG.exit(books);
 	}
 }

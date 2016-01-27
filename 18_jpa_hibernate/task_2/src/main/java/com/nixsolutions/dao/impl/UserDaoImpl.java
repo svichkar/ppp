@@ -5,10 +5,12 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.hibernate.util.HibernateUtil;
@@ -23,10 +25,15 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(User.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		users = criteria.list();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(User.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			users = criteria.list();
+			transaction.commit();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(users);
 	}
 
@@ -37,11 +44,16 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq("userName", name)).add(Restrictions.eq("userPassword", pswd))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		user = (User) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(User.class)
+					.add(Restrictions.eq("userName", name)).add(Restrictions.eq("userPassword", pswd))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			user = (User) criteria.uniqueResult();
+			transaction.commit();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(user);
 	}
 
@@ -52,11 +64,16 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(User.class)
-				.add(Restrictions.eq("userId", userId))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		user = (User) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(User.class)
+					.add(Restrictions.eq("userId", userId))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			user = (User) criteria.uniqueResult();
+			transaction.commit();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(user);
 	}
 
@@ -66,8 +83,13 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.save(user);
-		transaction.commit();
+		try {
+			session.save(user);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
 
 	@Override
@@ -76,8 +98,13 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.saveOrUpdate(user);
-		transaction.commit();
+		try {
+			session.saveOrUpdate(user);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
 
 	@Override
@@ -86,8 +113,12 @@ public class UserDaoImpl implements UserDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.delete(user);
-		transaction.commit();
+		try {
+			session.delete(user);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 	}
-
 }

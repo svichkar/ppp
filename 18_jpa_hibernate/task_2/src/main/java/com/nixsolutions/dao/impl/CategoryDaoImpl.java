@@ -11,12 +11,13 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import com.nixsolutions.dao.CategoryDao;
+import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Category;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
-	
+
 	@Override
 	public List<Category> getAllCategories() {
 		LOG.entry();
@@ -24,10 +25,15 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Category.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		categories = criteria.list();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Category.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			categories = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(categories);
 	}
 
@@ -38,11 +44,16 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Category.class, "category")
-				.add(Restrictions.eq("category.categoryId", categoryId))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		category = (Category) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Category.class, "category")
+					.add(Restrictions.eq("category.categoryId", categoryId))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			category = (Category) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(category);
 	}
 
@@ -53,11 +64,16 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		Criteria criteria = session.createCriteria(Category.class, "category")
-				.add(Restrictions.eq("category.name", categoryName))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		category = (Category) criteria.uniqueResult();
-		transaction.commit();
+		try {
+			Criteria criteria = session.createCriteria(Category.class, "category")
+					.add(Restrictions.eq("category.name", categoryName))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			category = (Category) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
 		return LOG.exit(category);
 	}
 
@@ -67,8 +83,14 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.save(category);
-		transaction.commit();
+		try {
+			session.save(category);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 	}
 
 	@Override
@@ -77,8 +99,14 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.saveOrUpdate(category);
-		transaction.commit();
+		try {
+			session.saveOrUpdate(category);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 	}
 
 	@Override
@@ -87,7 +115,13 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
-		session.delete(category);
-		transaction.commit();
+		try {
+			session.delete(category);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			LOG.throwing(new DaoException("not able to finish transaction", e));
+		}
+
 	}
 }

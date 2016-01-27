@@ -20,7 +20,7 @@ public class PrintExp {
                     } else {
                         //if input number in normal form
                         double d = Double.parseDouble(input);
-                        System.out.println("Exponential form: " + d);
+                        System.out.printf("Exponential form: %e\n", d);
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Input value is not a number.");

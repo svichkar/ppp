@@ -13,10 +13,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
-    <listener>
-        <listener-class>com.nixsolutions.hibernate.util.StartHibernate</listener-class>
-    </listener>
-    <error-page>
+   <!-- <error-page>
         <location>/errorPage</location>
-    </error-page>
+    </error-page>-->
 </web-app>

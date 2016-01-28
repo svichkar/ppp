@@ -2,8 +2,6 @@ package com.mixsolutions.hibernate;
 
 import com.nixsolutions.hibernate.dao.AuthorDAO;
 
-import com.nixsolutions.hibernate.dao.DaoFactory;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.Author;
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
@@ -16,6 +14,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileInputStream;
 import java.util.List;
@@ -26,8 +25,8 @@ import java.util.List;
  */
 public class TestAuthor extends DBTestCase {
     private JdbcDatabaseTester tester;
-    protected DaoFactory daoFactory = new DaoFactoryImpl();
-    private Author author;
+    @Autowired
+    private AuthorDAO authorDAO;
 
     public TestAuthor(String name) {
         super(name);
@@ -38,12 +37,12 @@ public class TestAuthor extends DBTestCase {
     }
     @Override
     protected DatabaseOperation getTearDownOperation() throws Exception {
-        return DatabaseOperation.CLEAN_INSERT;
+        return DatabaseOperation.DELETE_ALL;
     }
 
     @Override
     protected DatabaseOperation getSetUpOperation() throws Exception {
-        return DatabaseOperation.DELETE;
+        return DatabaseOperation.CLEAN_INSERT;
     }
     @Override
     protected IDataSet getDataSet() throws Exception {
@@ -57,10 +56,9 @@ public class TestAuthor extends DBTestCase {
     }
 
     public void testCreate() throws Exception {
-        author = new Author();
+        Author author = new Author();
         author.setAuthorFirstName("Aleksandr");
         author.setAuthorLastName("Pushkin");
-        AuthorDAO authorDAO = daoFactory.getAuthorDAO();
         authorDAO.create(author);
         IDataSet expected = new FlatXmlDataFileLoader().load("/Author/Create.xml");
         IDataSet actual = tester.getConnection().createDataSet();
@@ -70,10 +68,9 @@ public class TestAuthor extends DBTestCase {
     }
 
     public void testUpdate() throws Exception {
-        author = new Author();
+        Author author = new Author();
         author.setAuthorFirstName("Aleksandr");
         author.setAuthorLastName("Pushkin");
-        AuthorDAO authorDAO = daoFactory.getAuthorDAO();
         authorDAO.create(author);
         author.setAuthorLastName("Gogol");
         authorDAO.update(author);
@@ -85,10 +82,9 @@ public class TestAuthor extends DBTestCase {
     }
 
     public void testDelete() throws Exception {
-        author = new Author();
+        Author author = new Author();
         author.setAuthorFirstName("Aleksandr");
         author.setAuthorLastName("Pushkin");
-        AuthorDAO authorDAO = daoFactory.getAuthorDAO();
         authorDAO.create(author);
         authorDAO.delete(author);
         IDataSet expected = new FlatXmlDataFileLoader().load("/Author/Delete.xml");
@@ -99,10 +95,9 @@ public class TestAuthor extends DBTestCase {
     }
 
     public void testFindById() throws Exception {
-        author = new Author();
+        Author author = new Author();
         author.setAuthorFirstName("Aleksandr");
         author.setAuthorLastName("Pushkin");
-        AuthorDAO authorDAO = daoFactory.getAuthorDAO();
         authorDAO.create(author);
         Long actualId = author.getAuthorId();
         author = authorDAO.findByID(author.getAuthorId());
@@ -112,10 +107,9 @@ public class TestAuthor extends DBTestCase {
     }
 
     public void testFindAll() throws Exception {
-        author = new Author();
+        Author author = new Author();
         author.setAuthorFirstName("Aleksandr");
         author.setAuthorLastName("Pushkin");
-        AuthorDAO authorDAO = daoFactory.getAuthorDAO();
         authorDAO.create(author);
         List<Author> authorList;
         authorList = authorDAO.findAll();

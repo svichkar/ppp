@@ -6,12 +6,16 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by kozlovskij on 12/22/2015.
  */
+@Repository("categoryDAO")
+@Transactional
 public class CategoryDaoImpl implements CategoryDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 

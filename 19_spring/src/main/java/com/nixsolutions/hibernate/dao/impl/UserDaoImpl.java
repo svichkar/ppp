@@ -7,12 +7,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by kozlovskij on 12/22/2015.
  */
+@Repository("userDAO")
+@Transactional
 public class UserDaoImpl implements UserDAO {
     public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 

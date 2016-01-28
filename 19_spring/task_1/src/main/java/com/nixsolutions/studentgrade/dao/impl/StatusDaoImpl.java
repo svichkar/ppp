@@ -1,25 +1,20 @@
 package com.nixsolutions.studentgrade.dao.impl;
 
-import com.nixsolutions.studentgrade.dao.TermDao;
-import com.nixsolutions.studentgrade.model.Term;
+import com.nixsolutions.studentgrade.dao.StatusDao;
+import com.nixsolutions.studentgrade.model.Status;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * Created by svichkar on 1/27/2016.
+ * Created by svichkar on 1/28/2016.
  */
-
-@Repository
-@Transactional
-public class TermDaoImpl implements TermDao {
+public class StatusDaoImpl implements StatusDao {
 
     private SessionFactory sessionFactory;
 
@@ -28,56 +23,62 @@ public class TermDaoImpl implements TermDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public void create(Term term) {
+    @Override
+    public void create(Status status) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(term);
+        session.save(status);
         transaction.commit();
     }
 
-    public void update(Term term) {
+    @Override
+    public void update(Status status) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(term);
+        session.saveOrUpdate(status);
         transaction.commit();
     }
 
-    public void delete(Term term) {
+    @Override
+    public void delete(Status status) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(term);
+        session.delete(status);
         transaction.commit();
     }
 
-    public List<Term> findAll() {
+    @Override
+    public List<Status> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<Term> list = session.createCriteria(Term.class).list();
+        List<Status> list = session.createCriteria(Status.class).list();
         transaction.commit();
         return list;
     }
 
-    public Term findById(Long id) {
+    @Override
+    public Status findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Term term = (Term) session.get(Term.class, id);
+        Status status = (Status) session.get(Status.class, id);
         transaction.commit();
-        return term;
+        return status;
     }
 
-    public Term findByName(String termName) {
+    @Override
+    public Status findByName(String status) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
-        List<Term> terms = criteria.list();
+        Criteria criteria = session.createCriteria(Status.class);
+        criteria.add(Restrictions.eq("statusName", status)).uniqueResult();
+        List<Status> statuses = criteria.list();
         transaction.commit();
-        return terms.isEmpty() ? null : terms.get(0);
+        return statuses.isEmpty() ? null : statuses.get(0);
     }
 }

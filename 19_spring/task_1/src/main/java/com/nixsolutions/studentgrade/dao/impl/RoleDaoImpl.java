@@ -1,7 +1,7 @@
 package com.nixsolutions.studentgrade.dao.impl;
 
-import com.nixsolutions.studentgrade.dao.TermDao;
-import com.nixsolutions.studentgrade.model.Term;
+import com.nixsolutions.studentgrade.dao.RoleDao;
+import com.nixsolutions.studentgrade.model.Role;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,12 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by svichkar on 1/27/2016.
+ * Created by svichkar on 1/28/2016.
  */
-
 @Repository
 @Transactional
-public class TermDaoImpl implements TermDao {
+public class RoleDaoImpl implements RoleDao {
 
     private SessionFactory sessionFactory;
 
@@ -28,56 +27,62 @@ public class TermDaoImpl implements TermDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public void create(Term term) {
+    @Override
+    public void create(Role role) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(term);
+        session.save(role);
         transaction.commit();
     }
 
-    public void update(Term term) {
+    @Override
+    public void update(Role role) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(term);
+        session.saveOrUpdate(role);
         transaction.commit();
     }
 
-    public void delete(Term term) {
+    @Override
+    public void delete(Role role) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(term);
+        session.delete(role);
         transaction.commit();
     }
 
-    public List<Term> findAll() {
+    @Override
+    public List<Role> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<Term> list = session.createCriteria(Term.class).list();
+        List<Role> list = session.createCriteria(Role.class).list();
         transaction.commit();
         return list;
     }
 
-    public Term findById(Long id) {
+    @Override
+    public Role findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Term term = (Term) session.get(Term.class, id);
+        Role role = (Role) session.get(Role.class, id);
         transaction.commit();
-        return term;
+        return role;
     }
 
-    public Term findByName(String termName) {
+    @Override
+    public Role findByName(String role) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
-        List<Term> terms = criteria.list();
+        Criteria criteria = session.createCriteria(Role.class);
+        criteria.add(Restrictions.eq("roleName", role)).uniqueResult();
+        List<Role> roles = criteria.list();
         transaction.commit();
-        return terms.isEmpty() ? null : terms.get(0);
+        return roles.isEmpty() ? null : roles.get(0);
     }
 }

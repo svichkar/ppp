@@ -1,25 +1,20 @@
 package com.nixsolutions.studentgrade.dao.impl;
 
-import com.nixsolutions.studentgrade.dao.TermDao;
-import com.nixsolutions.studentgrade.model.Term;
+import com.nixsolutions.studentgrade.dao.GradeDao;
+import com.nixsolutions.studentgrade.model.Grade;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * Created by svichkar on 1/27/2016.
+ * Created by svichkar on 1/28/2016.
  */
-
-@Repository
-@Transactional
-public class TermDaoImpl implements TermDao {
+public class GradeDaoImpl implements GradeDao {
 
     private SessionFactory sessionFactory;
 
@@ -28,56 +23,62 @@ public class TermDaoImpl implements TermDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public void create(Term term) {
+    @Override
+    public void create(Grade grade) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(term);
+        session.save(grade);
         transaction.commit();
     }
 
-    public void update(Term term) {
+    @Override
+    public void update(Grade grade) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(term);
+        session.saveOrUpdate(grade);
         transaction.commit();
     }
 
-    public void delete(Term term) {
+    @Override
+    public void delete(Grade grade) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(term);
+        session.delete(grade);
         transaction.commit();
     }
 
-    public List<Term> findAll() {
+    @Override
+    public List<Grade> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<Term> list = session.createCriteria(Term.class).list();
+        List<Grade> list = session.createCriteria(Grade.class).list();
         transaction.commit();
         return list;
     }
 
-    public Term findById(Long id) {
+    @Override
+    public Grade findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Term term = (Term) session.get(Term.class, id);
+        Grade grade = (Grade) session.get(Grade.class, id);
         transaction.commit();
-        return term;
+        return grade;
     }
 
-    public Term findByName(String termName) {
+    @Override
+    public Grade findByName(String gradeName) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
-        List<Term> terms = criteria.list();
+        Criteria criteria = session.createCriteria(Grade.class);
+        criteria.add(Restrictions.eq("gradeName", gradeName)).uniqueResult();
+        List<Grade> grades = criteria.list();
         transaction.commit();
-        return terms.isEmpty() ? null : terms.get(0);
+        return grades.isEmpty() ? null : grades.get(0);
     }
 }

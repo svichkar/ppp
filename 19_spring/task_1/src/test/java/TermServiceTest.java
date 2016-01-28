@@ -4,6 +4,10 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.nixsolutions.studentgrade.model.Term;
 import com.nixsolutions.studentgrade.service.TermService;
 import junit.framework.Assert;
+import org.dbunit.IDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,38 +27,92 @@ import java.util.List;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/spring-config.xml")
+@ContextConfiguration(locations = "classpath:/test-context.xml")
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
 @DatabaseSetup(value = "/term/term-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.CLEAN_INSERT, value = "/term/term-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/term/term-data.xml")
 public class TermServiceTest {
 
     @Autowired
     private TermService termService;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private IDatabaseTester databaseTester;
+
     public void setTermService(TermService termService) {
         this.termService = termService;
     }
 
-    @Autowired
-    private DataSource dataSource;
+    @Test
+    public void findAllShouldReturnAllEntries() throws Exception {
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+        List<Term> termList = termService.findAll();
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("term/term-data-find-all.xml"));
+        ITable expectedTable = dataSet.getTable("term");
+        Assert.assertEquals(termList.size(), expectedTable.getRowCount());
     }
 
     @Test
-    @ExpectedDatabase(value = "/term/term-data-find-all.xml",
+    @ExpectedDatabase(value = "/term/term-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "term")
-    public void findAll() {
+    public void createShouldAddNewEntry() throws Exception {
 
-        List<Term>  termList = termService.findAll();
-        Assert.assertEquals(termList.size(), 4);
+        Term term = new Term();
+        term.setTermName("fifth");
+        termService.create(term);
+    }
 
+    @Test
+    @ExpectedDatabase(value = "/term/term-data-update.xml",
+            assertionMode = DatabaseAssertionMode.NON_STRICT,
+            table = "term")
+    public void updateShouldModifySpecifiedEntry() throws Exception {
+
+        Term term = termService.findAll().get(1);
+        term.setTermName("after first");
+        termService.update(term);
+    }
+
+    @Test
+    @ExpectedDatabase(value = "/term/term-data-delete.xml",
+            assertionMode = DatabaseAssertionMode.NON_STRICT,
+            table = "term")
+    public void deleteShouldRemoveSpecifiedEntry() throws Exception {
+
+        Term term = termService.findAll().get(3);
+        termService.delete(term);
+    }
+
+    @Test
+    public void findByIdShouldReturnSpecifiedEntry() throws Exception {
+
+        Term term = termService.findAll().get(1);
+        Term foundTerm = termService.findById(term.getTermId());
+
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("term/term-data-find-by-id.xml"));
+        ITable expectedTable = dataSet.getTable("term");
+        Assert.assertEquals(foundTerm.getTermName(), expectedTable.getValue(0, "term_name"));
+    }
+
+    @Test
+    public void findByNameShouldReturnSpecifiedEntry() throws Exception {
+
+        Term term = termService.findAll().get(1);
+        Term foundTerm = termService.findByName(term.getTermName());
+
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("term/term-data-find-by-name.xml"));
+        ITable expectedTable = dataSet.getTable("term");
+        Assert.assertEquals(foundTerm.getTermName(), expectedTable.getValue(0, "term_name"));
     }
 }

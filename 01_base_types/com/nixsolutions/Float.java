@@ -5,7 +5,15 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
+/**
+* Converts notation of floating point numbers from one type to another.
+*/
 public class Float {
+  /**
+  * Asks the user to enter floating point number.
+  * Converts the input to another type of notation,
+  * then prints the result on the screen.
+  */
   public static void main(String[] args) {
     String e = "e";
     while (true) {

@@ -3,6 +3,7 @@ package com.nixsolutions;
 
 import java.util.Random;
 
+/** Sorts arrays using different methods. */
 public class Arrays {
   static final int LENGTH = 10000;
   static final int LOOPS = 20;
@@ -45,6 +46,12 @@ public class Arrays {
     System.out.println("java.util.Arrays.sort: " + y/1e9);
   }
   
+  /**
+  * Creates an array, measures time of sorting it using
+  * each of the methods, repeats the whole procedure
+  * multiple times. Then prints average time for each
+  * method.
+  */
   public static void main(String[] args) {
     Arrays arrays = new Arrays();
     long[][] results = new long[2][LENGTH];

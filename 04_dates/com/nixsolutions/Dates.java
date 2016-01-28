@@ -14,6 +14,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Scanner;
 
+/** 
+* Contains methods for performing specific operations with dates,
+* such as checking the length of the month, dates of week days,
+* finding period between dates, printing localized dates.
+*/
 public class Dates {
   private static void monthLength() {
     Scanner scan = new Scanner(System.in);
@@ -127,6 +132,7 @@ public class Dates {
     System.out.println(dateVietnam);
   }
   
+  /** Runs all the methods from this class in sequence. */
   public static void main(String[] args) {
     monthLength();
     getDatesOfDays();

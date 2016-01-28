@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx
@@ -21,8 +21,9 @@
     </bean>
 
     <tx:annotation-driven/>
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <!--**************** DAOs ***********************-->
@@ -42,6 +43,12 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="subjectDao" class="com.nixsolutions.studentgrade.dao.impl.SubjectDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="groupDao" class="com.nixsolutions.studentgrade.dao.impl.StudentGroupDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="journalDao" class="com.nixsolutions.studentgrade.dao.impl.JournalDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
@@ -65,6 +72,11 @@
     <bean id="subjectService" class="com.nixsolutions.studentgrade.service.impl.SubjectServiceImpl">
         <property name="subjectDao" ref="subjectDao"/>
     </bean>
-
+    <bean id="groupService" class="com.nixsolutions.studentgrade.service.impl.StudentGroupServiceImpl">
+        <property name="groupDao" ref="groupDao"/>
+    </bean>
+    <bean id="journalService" class="com.nixsolutions.studentgrade.service.impl.JournalServiceImpl">
+        <property name="journalDao" ref="journalDao"/>
+    </bean>
 
 </beans>

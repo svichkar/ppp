@@ -32,8 +32,8 @@ import java.util.List;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/status/status-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.CLEAN_INSERT, value = "/status/status-data.xml")
+@DatabaseSetup(value = "/dbunit/status/status-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.CLEAN_INSERT, value = "/dbunit/status/status-data.xml")
 public class StatusServiceTest {
 
     @Autowired
@@ -55,7 +55,7 @@ public class StatusServiceTest {
         List<Status> actualList = statusService.findAll();
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("status/status-data-find-all.xml"));
+                .getResourceAsStream("dbunit/status/status-data-find-all.xml"));
         ITable expTable = expected.getTable("status");
         ITable actTable = databaseTester.getConnection().createTable("status");
 
@@ -64,7 +64,7 @@ public class StatusServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/status/status-data-create.xml",
+    @ExpectedDatabase(value = "/dbunit/status/status-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "status")
     public void createShouldAddNewEntity() throws Exception {
@@ -75,7 +75,7 @@ public class StatusServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/status/status-data-update.xml",
+    @ExpectedDatabase(value = "/dbunit/status/status-data-update.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "status")
     public void updateShouldModifySpecifiedEntity() throws Exception {
@@ -86,7 +86,7 @@ public class StatusServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/status/status-data-delete.xml",
+    @ExpectedDatabase(value = "/dbunit/status/status-data-delete.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "status")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
@@ -102,7 +102,7 @@ public class StatusServiceTest {
         Status foundStatus = statusService.findById(statusId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("status/status-data-find-by-id.xml"));
+                .getResourceAsStream("dbunit/status/status-data-find-by-id.xml"));
         ITable expTable = expected.getTable("status");
 
         String sqlQuery = String.format("SELECT * FROM status WHERE status_id = %d", statusId);

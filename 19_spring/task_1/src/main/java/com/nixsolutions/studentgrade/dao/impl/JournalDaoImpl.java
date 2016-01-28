@@ -1,90 +1,89 @@
 package com.nixsolutions.studentgrade.dao.impl;
 
-import com.nixsolutions.studentgrade.dao.TermDao;
-import com.nixsolutions.studentgrade.model.Term;
+import com.nixsolutions.studentgrade.dao.JournalDao;
+import com.nixsolutions.studentgrade.model.Journal;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * Created by svichkar on 1/27/2016.
+ * Created by konstantin on 1/29/2016.
  */
-@Repository
-public class TermDaoImpl implements TermDao {
+public class JournalDaoImpl implements JournalDao {
 
     private SessionFactory sessionFactory;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
+
         this.sessionFactory = sessionFactory;
     }
 
+
     @Override
-    @Transactional
-    public void create(Term term) {
+    public void create(Journal journal) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(term);
+        session.save(journal);
         transaction.commit();
     }
 
     @Override
-    @Transactional
-    public void update(Term term) {
+    public void update(Journal journal) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(term);
+        session.saveOrUpdate(journal);
         transaction.commit();
     }
 
     @Override
-    @Transactional
-    public void delete(Term term) {
+    public void delete(Journal journal) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(term);
+        session.delete(journal);
         transaction.commit();
     }
 
     @Override
-    public List<Term> findAll() {
+    public List<Journal> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<Term> list = session.createCriteria(Term.class).list();
+        List<Journal> list = session.createCriteria(Journal.class).list();
         transaction.commit();
         return list;
     }
 
     @Override
-    public Term findById(Long id) {
+    public Journal findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Term term = (Term) session.get(Term.class, id);
+        Journal grade = (Journal) session.get(Journal.class, id);
         transaction.commit();
-        return term;
+        return grade;
     }
 
     @Override
-    public Term findByName(String termName) {
+    public List<Journal> findByStudentAndTerm(Long studentId, Long termId) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
-        List<Term> terms = criteria.list();
+        Criteria criteria = session.createCriteria(Journal.class);
+        criteria.createAlias("term", "term");
+        criteria.createAlias("student", "student");
+        criteria.add(Restrictions.and(Restrictions.eq("student.studentId", studentId),
+                Restrictions.eq("term.termId", termId)));
+        List<Journal> journals = criteria.list();
         transaction.commit();
-        return terms.isEmpty() ? null : terms.get(0);
+        return journals.isEmpty() ? null : journals;
     }
 }

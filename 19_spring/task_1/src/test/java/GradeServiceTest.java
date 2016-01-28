@@ -32,8 +32,8 @@ import java.util.List;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/grade/grade-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/grade/grade-data.xml")
+@DatabaseSetup(value = "/dbunit/grade/grade-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/grade/grade-data.xml")
 public class GradeServiceTest {
 
     @Autowired
@@ -55,7 +55,7 @@ public class GradeServiceTest {
         List<Grade> actualList = gradeService.findAll();
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("grade/grade-data-find-all.xml"));
+                .getResourceAsStream("dbunit/grade/grade-data-find-all.xml"));
         ITable expTable = expected.getTable("grade");
         ITable actTable = databaseTester.getConnection().createTable("grade");
 
@@ -64,7 +64,7 @@ public class GradeServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/grade/grade-data-create.xml",
+    @ExpectedDatabase(value = "/dbunit/grade/grade-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "grade")
     public void testCreateShouldAddNewEntity() throws Exception {
@@ -75,7 +75,7 @@ public class GradeServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/grade/grade-data-update.xml",
+    @ExpectedDatabase(value = "/dbunit/grade/grade-data-update.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "grade")
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
@@ -86,7 +86,7 @@ public class GradeServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/grade/grade-data-delete.xml",
+    @ExpectedDatabase(value = "/dbunit/grade/grade-data-delete.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "grade")
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
@@ -102,7 +102,7 @@ public class GradeServiceTest {
         Grade foundGrade = gradeService.findById(gradeId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("grade/grade-data-find-by-id.xml"));
+                .getResourceAsStream("dbunit/grade/grade-data-find-by-id.xml"));
         ITable expTable = expected.getTable("grade");
 
         String sqlQuery = String.format("SELECT * FROM grade WHERE grade_id = %d", gradeId);

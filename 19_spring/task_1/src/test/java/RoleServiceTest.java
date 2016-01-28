@@ -32,8 +32,8 @@ import java.util.List;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/role/role-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/role/role-data.xml")
+@DatabaseSetup(value = "/dbunit/role/role-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/role/role-data.xml")
 public class RoleServiceTest {
 
     @Autowired
@@ -54,7 +54,7 @@ public class RoleServiceTest {
 
         List<Role> roleList = roleService.findAll();
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("role/role-data-find-all.xml"));
+                .getResourceAsStream("dbunit/role/role-data-find-all.xml"));
         ITable expTable = expected.getTable("role");
         ITable actTable = databaseTester.getConnection().createTable("role");
 
@@ -64,7 +64,7 @@ public class RoleServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/role/role-data-create.xml",
+    @ExpectedDatabase(value = "/dbunit/role/role-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "role")
     public void createShouldAddNewEntity() throws Exception {
@@ -76,7 +76,7 @@ public class RoleServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/role/role-data-update.xml",
+    @ExpectedDatabase(value = "/dbunit/role/role-data-update.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "role")
     public void updateShouldModifySpecifiedEntity() throws Exception {
@@ -87,7 +87,7 @@ public class RoleServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/role/role-data-delete.xml",
+    @ExpectedDatabase(value = "/dbunit/role/role-data-delete.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "role")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
@@ -103,7 +103,7 @@ public class RoleServiceTest {
         Role foundRole = roleService.findById(roleId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("role/role-data-find-by-id.xml"));
+                .getResourceAsStream("dbunit/role/role-data-find-by-id.xml"));
         ITable expTable = expected.getTable("role");
 
         String sqlQuery = String.format("SELECT * FROM role WHERE role_id = %d", roleId);
@@ -119,7 +119,7 @@ public class RoleServiceTest {
         Role foundRole = roleService.findByName(roleName);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("role/role-data-find-by-name.xml"));
+                .getResourceAsStream("dbunit/role/role-data-find-by-name.xml"));
         ITable expTable = expected.getTable("role");
 
         String sqlQuery = String.format("SELECT * FROM role WHERE role_name = '%s'", roleName);

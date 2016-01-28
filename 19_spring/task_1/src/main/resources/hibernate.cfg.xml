@@ -12,19 +12,16 @@
         <property name="hibernate.connection.autocommit">true</property>
         <property name="current_session_context_class">thread</property>
 
-
-        <!--
-        <mapping class="com.nixsolutions.studentgrade.model.Journal"/>
-        <mapping class="com.nixsolutions.studentgrade.model.Student"/>
-        <mapping class="com.nixsolutions.studentgrade.model.StudentGroup"/>
-
-        -->
         <mapping class="com.nixsolutions.studentgrade.model.Term"/>
         <mapping class="com.nixsolutions.studentgrade.model.User"/>
         <mapping class="com.nixsolutions.studentgrade.model.Role"/>
         <mapping class="com.nixsolutions.studentgrade.model.Grade"/>
         <mapping class="com.nixsolutions.studentgrade.model.Status"/>
         <mapping class="com.nixsolutions.studentgrade.model.Subject"/>
+        <mapping class="com.nixsolutions.studentgrade.model.StudentGroup"/>
+        <mapping class="com.nixsolutions.studentgrade.model.Student"/>
+        <mapping class="com.nixsolutions.studentgrade.model.Journal"/>
+
     </session-factory>
 
 </hibernate-configuration>

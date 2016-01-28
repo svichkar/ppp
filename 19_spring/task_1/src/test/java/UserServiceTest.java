@@ -34,8 +34,8 @@ import java.util.List;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/user/user-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/user/user-data.xml")
+@DatabaseSetup(value = "/dbunit/user/user-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/user/user-data.xml")
 public class UserServiceTest {
 
     @Autowired
@@ -57,13 +57,13 @@ public class UserServiceTest {
         List<User> userList = userService.findAll();
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("user/user-data-find-all.xml"));
+                .getResourceAsStream("dbunit/user/user-data-find-all.xml"));
         ITable expectedTable = expected.getTable("user");
         Assert.assertEquals(expectedTable.getRowCount(), userList.size());
     }
 
     @Test
-    @ExpectedDatabase(value = "/user/user-data-create.xml",
+    @ExpectedDatabase(value = "/dbunit/user/user-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "user")
     public void createShouldAddNewEntry() throws Exception {
@@ -82,7 +82,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/user/user-data-update.xml",
+    @ExpectedDatabase(value = "/dbunit/user/user-data-update.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "user")
     public void updateShouldModifySpecifiedEntry() throws Exception {
@@ -93,7 +93,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/user/user-data-delete.xml",
+    @ExpectedDatabase(value = "/dbunit/user/user-data-delete.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "user")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
@@ -109,7 +109,7 @@ public class UserServiceTest {
         User foundUser = userService.findById(userId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("user/user-data-find-by-id.xml"));
+                .getResourceAsStream("dbunit/user/user-data-find-by-id.xml"));
         ITable expTable = expected.getTable("user");
 
         String sqlQuery = String.format("SELECT * FROM user WHERE user_id = %d", userId);
@@ -125,7 +125,7 @@ public class UserServiceTest {
         User foundUser = userService.findByLogin(login);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("user/user-data-find-by-login.xml"));
+                .getResourceAsStream("dbunit/user/user-data-find-by-login.xml"));
         ITable expTable = expected.getTable("user");
 
         String sqlQuery = String.format("SELECT * FROM user WHERE login = '%s'", login);
@@ -142,7 +142,7 @@ public class UserServiceTest {
         User foundUser = userService.getUserByLoginAndPassword(login, pass);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("user/user-data-find-by-login-and-pass.xml"));
+                .getResourceAsStream("dbunit/user/user-data-find-by-login-and-pass.xml"));
         ITable expTable = expected.getTable("user");
 
         String sqlQuery = String.format("SELECT * FROM user WHERE login = '%s' AND password = '%s'", login, pass);

@@ -8,12 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by svichkar on 1/28/2016.
  */
+@Repository
 public class StatusDaoImpl implements StatusDao {
 
     private SessionFactory sessionFactory;
@@ -24,6 +27,7 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
+    @Transactional
     public void create(Status status) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -33,6 +37,7 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
+    @Transactional
     public void update(Status status) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -42,6 +47,7 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
+    @Transactional
     public void delete(Status status) {
 
         Session session = sessionFactory.getCurrentSession();

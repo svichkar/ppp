@@ -1,7 +1,7 @@
 package com.nixsolutions.studentgrade.dao.impl;
 
-import com.nixsolutions.studentgrade.dao.TermDao;
-import com.nixsolutions.studentgrade.model.Term;
+import com.nixsolutions.studentgrade.dao.StudentGroupDao;
+import com.nixsolutions.studentgrade.model.StudentGroup;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,77 +14,79 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by svichkar on 1/27/2016.
+ * Created by konstantin on 1/28/2016.
  */
 @Repository
-public class TermDaoImpl implements TermDao {
+@Transactional
+public class StudentGroupDaoImpl implements StudentGroupDao {
 
     private SessionFactory sessionFactory;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
+
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     @Transactional
-    public void create(Term term) {
+    public void create(StudentGroup group) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(term);
+        session.save(group);
         transaction.commit();
     }
 
     @Override
     @Transactional
-    public void update(Term term) {
+    public void update(StudentGroup group) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(term);
+        session.saveOrUpdate(group);
         transaction.commit();
     }
 
     @Override
     @Transactional
-    public void delete(Term term) {
+    public void delete(StudentGroup group) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(term);
+        session.delete(group);
         transaction.commit();
     }
 
     @Override
-    public List<Term> findAll() {
+    public List<StudentGroup> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<Term> list = session.createCriteria(Term.class).list();
+        List<StudentGroup> list = session.createCriteria(StudentGroup.class).list();
         transaction.commit();
         return list;
     }
 
     @Override
-    public Term findById(Long id) {
+    public StudentGroup findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Term term = (Term) session.get(Term.class, id);
+        StudentGroup group = (StudentGroup) session.get(StudentGroup.class, id);
         transaction.commit();
-        return term;
+        return group;
     }
 
     @Override
-    public Term findByName(String termName) {
+    public StudentGroup findByName(String group) {
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
-        List<Term> terms = criteria.list();
+        Criteria criteria = session.createCriteria(StudentGroup.class);
+        criteria.add(Restrictions.eq("groupName", group)).uniqueResult();
+        List<StudentGroup> groupList = criteria.list();
         transaction.commit();
-        return terms.isEmpty() ? null : terms.get(0);
+        return groupList.isEmpty() ? null : groupList.get(0);
     }
 }

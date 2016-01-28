@@ -33,8 +33,8 @@ import java.util.List;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/term/term-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/term/term-data.xml")
+@DatabaseSetup(value = "/dbunit/term/term-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/term/term-data.xml")
 public class TermServiceTest {
 
     @Autowired
@@ -55,13 +55,13 @@ public class TermServiceTest {
 
         List<Term> termList = termService.findAll();
         IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("term/term-data-find-all.xml"));
+                .getResourceAsStream("dbunit/term/term-data-find-all.xml"));
         ITable expectedTable = dataSet.getTable("term");
         Assert.assertEquals(termList.size(), expectedTable.getRowCount());
     }
 
     @Test
-    @ExpectedDatabase(value = "/term/term-data-create.xml",
+    @ExpectedDatabase(value = "/dbunit/term/term-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "term")
     public void createShouldAddNewEntry() throws Exception {
@@ -72,7 +72,7 @@ public class TermServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/term/term-data-update.xml",
+    @ExpectedDatabase(value = "/dbunit/term/term-data-update.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "term")
     public void updateShouldModifySpecifiedEntry() throws Exception {
@@ -83,7 +83,7 @@ public class TermServiceTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "/term/term-data-delete.xml",
+    @ExpectedDatabase(value = "/dbunit/term/term-data-delete.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
             table = "term")
     public void deleteShouldRemoveSpecifiedEntry() throws Exception {
@@ -99,7 +99,7 @@ public class TermServiceTest {
         Term foundTerm = termService.findById(term.getTermId());
 
         IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("term/term-data-find-by-id.xml"));
+                .getResourceAsStream("dbunit/term/term-data-find-by-id.xml"));
         ITable expectedTable = dataSet.getTable("term");
         Assert.assertEquals(foundTerm.getTermName(), expectedTable.getValue(0, "term_name"));
     }
@@ -111,7 +111,7 @@ public class TermServiceTest {
         Term foundTerm = termService.findByName(term.getTermName());
 
         IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("term/term-data-find-by-name.xml"));
+                .getResourceAsStream("dbunit/term/term-data-find-by-name.xml"));
         ITable expectedTable = dataSet.getTable("term");
         Assert.assertEquals(foundTerm.getTermName(), expectedTable.getValue(0, "term_name"));
     }

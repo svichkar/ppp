@@ -1,9 +1,8 @@
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.*;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.nixsolutions.studentgrade.model.Subject;
-import com.nixsolutions.studentgrade.model.Term;
-import com.nixsolutions.studentgrade.service.SubjectService;
+import com.nixsolutions.studentgrade.model.StudentGroup;
+import com.nixsolutions.studentgrade.service.StudentGroupService;
 import org.dbunit.Assertion;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.dataset.IDataSet;
@@ -23,8 +22,9 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import javax.sql.DataSource;
 import java.util.List;
 
+
 /**
- * Created by svichkar on 1/28/2016.
+ * Created by konstantin on 1/28/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/test-context.xml")
@@ -33,12 +33,12 @@ import java.util.List;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/dbunit/subject/subject-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.CLEAN_INSERT, value = "/dbunit/subject/subject-data.xml")
-public class SubjectServiceTest {
+@DatabaseSetup(value = "/dbunit/group/group-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/group/group-data.xml")
+public class StudentGroupServiceTest {
 
     @Autowired
-    private SubjectService subjectService;
+    private StudentGroupService groupService;
 
     @Autowired
     private DataSource dataSource;
@@ -46,79 +46,70 @@ public class SubjectServiceTest {
     @Autowired
     private IDatabaseTester databaseTester;
 
-    public void setSubjectService(SubjectService subjectService) {
+    public void setGroupService(StudentGroupService groupService) {
 
-        this.subjectService = subjectService;
+        this.groupService = groupService;
     }
 
-
     @Test
-    public void findAllShouldReturnAllRows() throws Exception {
+    public void testFindAllShouldReturnAllRows() throws Exception {
 
-        List<Subject> actualList = subjectService.findAll();
+        List<StudentGroup> actualList = groupService.findAll();
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("dbunit/subject/subject-data-find-all.xml"));
-        ITable expTable = expected.getTable("subject");
-        ITable actTable = databaseTester.getConnection().createTable("subject");
+                .getResourceAsStream("dbunit/group/group-data-find-all.xml"));
+        ITable expTable = expected.getTable("student_group");
+        ITable actTable = databaseTester.getConnection().createTable("student_group");
 
         Assertion.assertEquals(expTable, actTable);
         Assert.assertEquals(expTable.getRowCount(), actualList.size());
     }
 
     @Test
-    @ExpectedDatabase(value = "/dbunit/subject/subject-data-create.xml",
+    @ExpectedDatabase(value = "/dbunit/group/group-data-create.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
-            table = "subject")
+            table = "student_group")
     public void createShouldAddNewEntity() throws Exception {
 
-        Subject newSubject = new Subject();
-        newSubject.setSubjectName("Chemistry");
-        Term term = new Term();
-        term.setTermId(2L);
-        term.setTermName("second");
-        newSubject.setTerm(term);
-        subjectService.create(newSubject);
+        StudentGroup group = new StudentGroup();
+        group.setGroupName("java 16-1");
+        groupService.create(group);
     }
 
     @Test
-    @ExpectedDatabase(value = "/dbunit/subject/subject-data-update.xml",
+    @ExpectedDatabase(value = "/dbunit/group/group-data-update.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
-            table = "subject")
+            table = "student_group")
     public void updateShouldModifySpecifiedEntity() throws Exception {
 
-        Subject update = subjectService.findAll().get(0);
-        Term term = new Term();
-        term.setTermId(2L);
-        term.setTermName("second");
-        update.setTerm(term);
-        subjectService.update(update);
+        StudentGroup update = groupService.findAll().get(3);
+        update.setGroupName("java 16-2");
+        groupService.update(update);
     }
 
     @Test
-    @ExpectedDatabase(value = "/dbunit/subject/subject-data-delete.xml",
+    @ExpectedDatabase(value = "/dbunit/group/group-data-delete.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT,
-            table = "subject")
+            table = "student_group")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Subject delete = subjectService.findAll().get(2);
-        subjectService.delete(delete);
+        StudentGroup delete = groupService.findAll().get(3);
+        groupService.delete(delete);
     }
 
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        Long subjectId = subjectService.findAll().get(3).getSubjectId();
-        Subject foundSubject = subjectService.findById(subjectId);
+        Long groupId = groupService.findAll().get(4).getGroupId();
+        StudentGroup foundTerm = groupService.findById(groupId);
 
         IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("dbunit/subject/subject-data-find-by-id.xml"));
-        ITable expTable = expected.getTable("subject");
+                .getResourceAsStream("dbunit/group/group-data-find-by-id.xml"));
+        ITable expTable = expected.getTable("student_group");
 
-        String sqlQuery = String.format("SELECT * FROM subject WHERE subject_id = %d", subjectId);
+        String sqlQuery = String.format("SELECT * FROM student_group WHERE group_id = %d", groupId);
         String[] ignore = new String[0];
-        Assertion.assertEqualsByQuery(expTable, databaseTester.getConnection(), "subject", sqlQuery, ignore);
-        Assert.assertEquals(expTable.getValue(0, "subject_name"), foundSubject.getSubjectName());
+        Assertion.assertEqualsByQuery(expTable, databaseTester.getConnection(), "student_group", sqlQuery, ignore);
+        Assert.assertEquals(expTable.getValue(0, "group_name"), foundTerm.getGroupName());
     }
-
 }

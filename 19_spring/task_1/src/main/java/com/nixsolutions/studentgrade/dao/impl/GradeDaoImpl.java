@@ -8,22 +8,28 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by svichkar on 1/28/2016.
  */
+@Repository
 public class GradeDaoImpl implements GradeDao {
 
     private SessionFactory sessionFactory;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
+
         this.sessionFactory = sessionFactory;
     }
 
     @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void create(Grade grade) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -33,6 +39,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void update(Grade grade) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -42,6 +49,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public void delete(Grade grade) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -51,6 +59,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Grade> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
@@ -61,6 +70,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Grade findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -71,6 +81,7 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Grade findByName(String gradeName) {
 
         Session session = sessionFactory.getCurrentSession();

@@ -17,7 +17,6 @@ import java.util.List;
  * Created by svichkar on 1/28/2016.
  */
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao {
 
     private SessionFactory sessionFactory;
@@ -28,6 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public void create(User user) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -37,6 +37,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public void update(User user) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -46,6 +47,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public void delete(User user) {
 
         Session session = sessionFactory.getCurrentSession();

@@ -8,12 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by svichkar on 1/28/2016.
  */
+@Repository
 public class SubjectDaoImpl implements SubjectDao {
 
     private SessionFactory sessionFactory;
@@ -24,6 +27,7 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
+    @Transactional
     public void create(Subject subject) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -33,6 +37,7 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
+    @Transactional
     public void update(Subject subject) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -42,6 +47,7 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
+    @Transactional
     public void delete(Subject subject) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -89,7 +95,7 @@ public class SubjectDaoImpl implements SubjectDao {
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName), Restrictions.eq("term.termId", termId)));
+        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName), Restrictions.eq("dbunit.term.termId", termId)));
         List<Subject> subjectList = criteria.list();
         transaction.commit();
         return subjectList.isEmpty() ? null : subjectList.get(0);
@@ -102,7 +108,7 @@ public class SubjectDaoImpl implements SubjectDao {
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.eq("term.termId", termId));
+        criteria.add(Restrictions.eq("dbunit.term.termId", termId));
         List<Subject> subjectList = criteria.list();
         transaction.commit();
         return subjectList;

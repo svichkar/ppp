@@ -17,7 +17,6 @@ import java.util.List;
  * Created by svichkar on 1/28/2016.
  */
 @Repository
-@Transactional
 public class RoleDaoImpl implements RoleDao {
 
     private SessionFactory sessionFactory;
@@ -28,6 +27,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    @Transactional
     public void create(Role role) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -37,6 +37,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    @Transactional
     public void update(Role role) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -46,6 +47,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    @Transactional
     public void delete(Role role) {
 
         Session session = sessionFactory.getCurrentSession();

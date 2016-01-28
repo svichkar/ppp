@@ -1,5 +1,3 @@
-package com.nixsolutions;
-
 import javax.swing.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -12,25 +10,21 @@ public class ExponentialForm {
     public static void main(String[] args) throws ParseException {
         String input = "";
         float number = 0;
-        boolean isExeption=false;
+        boolean isExeption = false;
         do {
-            try{
+            try {
                 input = JOptionPane.showInputDialog("Please type float number");
                 number = Float.parseFloat(input);
-                isExeption=false;
-            }catch (NumberFormatException e)
-            {
+                isExeption = false;
+            } catch (NumberFormatException e) {
                 isExeption = true;
             }
-        }while (isExeption);
-        DecimalFormat decimalFormat = new DecimalFormat();
-        if(input.equals(String.valueOf(decimalFormat.parse(input))))
-        {
+        } while (isExeption);
+        BigDecimal bigDecimal = new BigDecimal(input);
+        if (input.equals(String.valueOf(bigDecimal))) {
             DecimalFormat newFormatter = new DecimalFormat("0.00E00");
             System.out.println(newFormatter.format(number));
-        }
-        else
-        {
+        } else {
             DecimalFormat newFormatter = new DecimalFormat();
             System.out.println(newFormatter.format(number));
         }

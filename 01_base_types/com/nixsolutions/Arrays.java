@@ -41,7 +41,7 @@ public class Arrays {
   
   private void print(long x, long y){
     System.out.println("Average execution times for each iteration (in seconds):\n");
-    System.out.println("com.nixsolutions.Arrays.sort: " + x/1e9);
+    System.out.println("com.nixsolutions.Arrays.sort: " + x/1e9); // 1e9 == 10^9
     System.out.println("java.util.Arrays.sort: " + y/1e9);
   }
   
@@ -52,7 +52,8 @@ public class Arrays {
     for (int i = 0; i < LOOPS; i++) {
       int[] orig = arrays.randFillArray(LENGTH);
       int[] copy = new int[LENGTH];
-      long start, stop;
+      long start;
+      long stop;
 
       System.arraycopy(orig, 0, copy, 0, LENGTH);
       start = System.nanoTime();

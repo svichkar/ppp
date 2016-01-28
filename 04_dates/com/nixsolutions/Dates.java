@@ -67,6 +67,7 @@ public class Dates {
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
       Calendar calendar=Calendar.getInstance();
       calendar.setTime(dateFormat.parse(ymd));
+      
       int dow = calendar.get(Calendar.DAY_OF_WEEK);
       int dom = calendar.get(Calendar.DAY_OF_MONTH);
       
@@ -96,8 +97,8 @@ public class Dates {
   }
   
   private static void fullDateRegional() {
-    DateFormat dateFormatCanada, dateFormatGermany;
-    String dateFormatPakistan, dateFormatVietnam;
+    DateFormat dateFormatCanada;
+    DateFormat dateFormatGermany;
     
     System.out.println("\n5. Printing current date in full format:");
     System.out.println("\n. ... for Canada and Germany using features available in Java 7:");
@@ -109,17 +110,21 @@ public class Dates {
     System.out.println(dateFormatGermany.format(calendar.getTime()));
     
     System.out.println("\n. ... for Pakistan and Vietnam using features available in Java 8:");
-    dateFormatPakistan = 
+
+    String datePakistan;
+    String dateVietnam;
+    
+    datePakistan = 
       DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
         .withLocale(new Locale("en", "PK"))
         .format(LocalDate.now());
-    dateFormatVietnam = 
+    dateVietnam = 
       DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
         .withLocale(new Locale("vi", "VN"))
         .format(LocalDate.now());
         
-    System.out.println(dateFormatPakistan);
-    System.out.println(dateFormatVietnam);
+    System.out.println(datePakistan);
+    System.out.println(dateVietnam);
   }
   
   public static void main(String[] args) {

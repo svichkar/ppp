@@ -2,7 +2,9 @@ package com.nixsolutions.hibernate.dao.impl;
 
 import com.nixsolutions.hibernate.dao.AuthorDAO;
 import com.nixsolutions.hibernate.entity.Author;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +18,11 @@ import java.util.List;
 @Transactional
 public class AuthorDaoImpl implements AuthorDAO {
     //public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+
+
     @Autowired
     private SessionFactory sessionFactory;
+
 
     @Override
     public void create(Author entity) {
@@ -30,9 +35,13 @@ public class AuthorDaoImpl implements AuthorDAO {
 
     @Override
     public void update(Author entity) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            sessionFactory.getCurrentSession().saveOrUpdate("author", entity);
+            session.saveOrUpdate("author", entity);
+            transaction.commit();
         } catch (Exception e) {
+            transaction.rollback();
             throw new RuntimeException(e);
         }
     }

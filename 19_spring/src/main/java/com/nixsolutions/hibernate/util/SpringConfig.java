@@ -49,7 +49,6 @@ public class SpringConfig {
     private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        properties.put("hibernate.current_session_context_class", "thread");
         properties.put("hibernate.cache.provider_class", "org.hibernate.cache.internal.NoCacheProvider");
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.format_sql", "true");

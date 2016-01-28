@@ -9,20 +9,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.CategoryDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Category;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("CategoryDao")
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	@Autowired
+	public static SessionFactory sessionFactory;
+	
 	@Override
 	public List<Category> getAllCategories() {
 		LOG.entry();
 		List<Category> categories = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -41,7 +45,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	public Category getCategoryById(Long categoryId) {
 		LOG.entry(categoryId);
 		Category category = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -61,7 +65,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	public Category getCategoryByName(String categoryName) {
 		LOG.entry(categoryName);
 		Category category = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -80,7 +84,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Override
 	public void createCategory(Category category) {
 		LOG.entry(category);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -96,7 +100,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Override
 	public void updateCategory(Category category) {
 		LOG.entry(category);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -112,7 +116,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	@Override
 	public void deleteCategory(Category category) {
 		LOG.entry(category);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {

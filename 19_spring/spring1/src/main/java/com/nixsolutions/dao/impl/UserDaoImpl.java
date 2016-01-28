@@ -7,22 +7,27 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("UserDao")
 public class UserDaoImpl implements UserDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	@Autowired
+	private SessionFactory sessionFactory;
+	
 	@Override
 	public List<User> getAllUsers() {
 		LOG.entry();
 		List<User> users = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -41,7 +46,7 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByNameAndPswd(String name, String pswd) {
 		LOG.entry(name, pswd);
 		User user = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -61,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 	public User getUserById(Long userId) {
 		LOG.entry(userId);
 		User user = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -80,7 +85,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void createUser(User user) {
 		LOG.entry(user);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -95,7 +100,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void updateUser(User user) {
 		LOG.entry(user);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -110,7 +115,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void deleteUser(User user) {
 		LOG.entry(user);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {

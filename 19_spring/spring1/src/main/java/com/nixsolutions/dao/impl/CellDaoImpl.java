@@ -10,20 +10,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.CellDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Cell;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("CellDao")
 public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	@Autowired
+	public static SessionFactory sessionFactory;
+	
 	@Override
 	public List<Cell> getAllCells() {
 		LOG.entry();
 		List<Cell> cells = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -43,7 +47,7 @@ public class CellDaoImpl implements CellDao {
 	public Cell getCellById(Long cellId) {
 		LOG.entry(cellId);
 		Cell cell = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -64,7 +68,7 @@ public class CellDaoImpl implements CellDao {
 	public Cell getCellByName(String cellName) {
 		LOG.entry(cellName);
 		Cell cell = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -83,7 +87,7 @@ public class CellDaoImpl implements CellDao {
 	@Override
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		try {
 			transaction.begin();
@@ -98,7 +102,7 @@ public class CellDaoImpl implements CellDao {
 	@Override
 	public void updateCell(Cell cell) {
 		LOG.entry(cell);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -113,7 +117,7 @@ public class CellDaoImpl implements CellDao {
 	@Override
 	public void deleteCell(Cell cell) {
 		LOG.entry(cell);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {

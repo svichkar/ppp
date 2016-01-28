@@ -10,20 +10,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.entity.Role;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("RoleDao")
 public class RoleDaoImpl implements RoleDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	@Autowired
+	public static SessionFactory sessionFactory;
+	
 	@Override
 	public List<Role> getAllRoles() {
 		LOG.entry();
 		List<Role> roles = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -42,7 +46,7 @@ public class RoleDaoImpl implements RoleDao {
 	public Role getRoleById(Long roleId) {
 		LOG.entry(roleId);
 		Role role = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -62,7 +66,7 @@ public class RoleDaoImpl implements RoleDao {
 	public Role getRoleByName(String name) {
 		LOG.entry(name);
 		Role role = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -80,7 +84,7 @@ public class RoleDaoImpl implements RoleDao {
 	@Override
 	public void createRole(Role role) {
 		LOG.entry(role);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -95,7 +99,7 @@ public class RoleDaoImpl implements RoleDao {
 	@Override
 	public void updateRole(Role role) {
 		LOG.entry(role);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -110,7 +114,7 @@ public class RoleDaoImpl implements RoleDao {
 	@Override
 	public void deleteRole(Role role) {
 		LOG.entry(role);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {

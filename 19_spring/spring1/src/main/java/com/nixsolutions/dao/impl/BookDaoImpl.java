@@ -10,15 +10,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.BookDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Book;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("BookDao")
 public class BookDaoImpl implements BookDao {
 	public static final Logger LOG = LogManager.getLogger();
-	public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	
+	@Autowired
+	public static SessionFactory sessionFactory;
 
 	@Override
 	public List<Book> getAllBooks() {

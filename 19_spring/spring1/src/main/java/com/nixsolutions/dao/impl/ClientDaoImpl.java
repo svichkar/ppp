@@ -11,20 +11,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.ClientDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Client;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("ClientDao")
 public class ClientDaoImpl implements ClientDao {
-	public static final Logger LOG = LogManager.getLogger();
-
+	public static final Logger LOG = LogManager.getLogger();	
+	@Autowired
+	public static SessionFactory sessionFactory;
+	
 	@Override
 	public List<Client> getAllClients() {
 		LOG.entry();
 		List<Client> clients = new ArrayList<>();
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -43,7 +47,7 @@ public class ClientDaoImpl implements ClientDao {
 	public Client getClientById(Long clientId) {
 		LOG.entry(clientId);
 		Client client = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -62,7 +66,7 @@ public class ClientDaoImpl implements ClientDao {
 	@Override
 	public void createClient(Client client) {
 		LOG.entry(client);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -77,7 +81,7 @@ public class ClientDaoImpl implements ClientDao {
 	@Override
 	public void updateClient(Client client) {
 		LOG.entry(client);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -92,7 +96,7 @@ public class ClientDaoImpl implements ClientDao {
 	@Override
 	public void deleteClient(Client client) {
 		LOG.entry(client);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -108,7 +112,7 @@ public class ClientDaoImpl implements ClientDao {
 	public Client getClientByName(String readerName) {
 		LOG.entry(readerName);
 		Client client = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -128,7 +132,7 @@ public class ClientDaoImpl implements ClientDao {
 	public List<Client> getClientsByName(String readerName) {
 		LOG.entry(readerName);
 		List<Client> clients = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {

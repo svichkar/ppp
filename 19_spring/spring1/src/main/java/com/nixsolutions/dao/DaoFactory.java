@@ -1,6 +1,6 @@
 package com.nixsolutions.dao;
 
-import com.nixsolutions.hibernate.util.HibernateUtil;
+
 
 public abstract class DaoFactory {
 	public static final int H2 = 1;

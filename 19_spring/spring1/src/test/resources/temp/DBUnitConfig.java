@@ -9,12 +9,14 @@ import org.dbunit.operation.DatabaseOperation;
 import org.h2.tools.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class DBUnitConfig extends DBTestCase {
     protected IDatabaseTester tester;
     protected IDataSet beforeData;
+    @Autowired
     private static SessionFactory sessionFactory;  
     protected Session session;  
     
@@ -28,10 +30,6 @@ public class DBUnitConfig extends DBTestCase {
     }
     
     public void setUp() throws Exception {    
-    	if (sessionFactory == null) {  
-              sessionFactory = HibernateUtil.getSessionFactory("hibernate.test.cfg.xml");  
-          }  
-        session = sessionFactory.openSession();  
     	tester = new JdbcDatabaseTester("org.h2.Driver", "jdbc:h2:mem:sqllabtesting;DB_CLOSE_DELAY=-1", "sa", "");
     }
  

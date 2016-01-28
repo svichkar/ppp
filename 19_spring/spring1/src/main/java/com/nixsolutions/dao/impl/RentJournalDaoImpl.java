@@ -10,20 +10,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
+@Repository("RentJournalDao")
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
-
+	@Autowired
+	public static SessionFactory sessionFactory;
+	
 	@Override
 	public List<RentJournal> getAllRents() {
 		LOG.entry();
 		List<RentJournal> rentJournals = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -42,7 +46,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public RentJournal getRentById(Long rentId) {
 		LOG.entry(rentId);
 		RentJournal rentJournal = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -61,7 +65,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public void createRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal.toString());
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -76,7 +80,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -91,7 +95,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	@Override
 	public void deleteRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {
@@ -107,7 +111,7 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public List<RentJournal> getRentsByClientId(Long clientId) {
 		LOG.entry(clientId);
 		List<RentJournal> rentJournals = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.getTransaction();
 		transaction.begin();
 		try {

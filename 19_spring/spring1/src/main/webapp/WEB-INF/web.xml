@@ -1,0 +1,151 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>Archetype Created Web Application</display-name>
+	
+	
+	<listener>  
+    <listener-class>com.nixsolutions.controllers.HibernateListener</listener-class>  
+</listener> 
+	<!--Servlets-->
+		
+	<servlet>
+		<servlet-name>auth</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.AuthServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>manageusers</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.ManageUsersServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>librarian</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.LibrarianServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>findbook</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.FindBookServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>addbook</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.AddBookServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>addreader</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.AddReaderServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>addcategory</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.AddCategoryServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>readersearch</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.FindReaderServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>loansmanage</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.LoansManageServlet</servlet-class>
+	</servlet>
+<!--<servlet>
+	 	<servlet-name>error</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.ErrorServlet</servlet-class>
+	</servlet>  -->
+<servlet>
+		<servlet-name>home</servlet-name>
+		<servlet-class>com.nixsolutions.controllers.HomePageServlet</servlet-class>
+	</servlet>
+	<!--Servlets mapping-->
+	<servlet-mapping>
+		<servlet-name>auth</servlet-name>
+		<url-pattern>/auth</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>manageusers</servlet-name>
+		<url-pattern>/manageusers</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>librarian</servlet-name>
+		<url-pattern>/librarian</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>findbook</servlet-name>
+		<url-pattern>/findbook</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>addbook</servlet-name>
+		<url-pattern>/addbook</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>addreader</servlet-name>
+		<url-pattern>/addreader</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>addcategory</servlet-name>
+		<url-pattern>/addcategory</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>readersearch</servlet-name>
+		<url-pattern>/readersearch</url-pattern>
+	</servlet-mapping>
+			<servlet-mapping>
+		<servlet-name>loansmanage</servlet-name>
+		<url-pattern>/loansmanage</url-pattern>
+	</servlet-mapping>
+		<!-- <servlet-mapping>
+		<servlet-name>error</servlet-name>
+		<url-pattern>/error-handler</url-pattern>
+	</servlet-mapping> -->
+		<servlet-mapping>
+		<servlet-name>home</servlet-name>
+		<url-pattern>/homepage</url-pattern>
+	</servlet-mapping>
+	<!--Welcome page-->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<!--Errors handling-->
+<error-page>
+<location>/errorhandler</location>
+</error-page>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/errorhandler</location>
+  </error-page>
+   
+  <error-page>
+  <exception-type>javax.servlet.ServletException</exception-type>
+  <location>/errorhandler</location>
+  </error-page>
+
+
+<!--Filters-->
+	 <filter>
+		<filter-name>adminAuth</filter-name>
+		<filter-class>com.nixsolutions.filters.AdminAuthFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>sessionAuth</filter-name>
+		<filter-class>com.nixsolutions.filters.SessionAuthFilter</filter-class>
+	</filter> 
+	<!--Filter Mapping-->
+	<filter-mapping>
+		<filter-name>adminAuth</filter-name>
+		<url-pattern>/manageusers</url-pattern>
+		<url-pattern>/addcategory</url-pattern>
+	</filter-mapping>
+ 	<filter-mapping>
+		<filter-name>sessionAuth</filter-name>
+		<url-pattern>/manageusers</url-pattern>
+		<url-pattern>/librarian</url-pattern>
+		<url-pattern>/findbook</url-pattern>
+		<url-pattern>/addbook</url-pattern>
+		<url-pattern>/addreader</url-pattern>
+		<url-pattern>/addcategory</url-pattern>
+		<url-pattern>/readersearch</url-pattern>
+		<url-pattern>/homepage</url-pattern>
+		<url-pattern>/loansmanage</url-pattern>
+	</filter-mapping> 
+</web-app>

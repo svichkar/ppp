@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<author first_name="Stephen" last_name="King" />
+	<author first_name="Michail" last_name="Bulgakov" />
+	<author first_name="Michail" last_name="Lelyakov" />
+	
+<!-- 	<author_book author_id="1" book_id="4" />
+	<author_book author_id="1" book_id="2" />
+	<author_book author_id="2" book_id="3" />
+	<author_book author_id="3" book_id="4" />  -->
+</dataset>

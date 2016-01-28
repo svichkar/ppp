@@ -2,35 +2,38 @@
 package com.nixsolutions;
 import java.text.*;
 import java.util.*;
-import java.lang.Math;
+import java.time.*;
+import java.time.format.FormatStyle;
+import java.time.format.DateTimeFormatter;
 
 public class Dates {
 	public static void main(String[] args) {
 		monthLength();
 		getDatesOfDays();
 		ifFridayTheThirteenth();
-/* Doesn't work at the moment
-		ymdSinceDate(); */
+		ymdSinceDate();
+		fullDateRegional();
 	}
-	static void monthLength() {
+	private static void monthLength() {
 		Scanner scan = new Scanner(System.in);
 		String[] months = new DateFormatSymbols().getMonths();
-		System.out.print("\n1. Enter the year to show the length of each month in it: ");
+		System.out.println("\n1. Enter the year to show the length of each month in it: ");
 		int year = scan.nextInt();
 		for (int i = 0; i < months.length - 1; i++) {
-		String month = months[i];
-		Calendar calendar = new GregorianCalendar(year, i + 1, 1);
-		int monthLength = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		System.out.println(month + " has " + monthLength + " days");
+			String month = months[i];
+			Calendar calendar = new GregorianCalendar(year, i, 1);
+			int monthLength = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+			System.out.println(month + " has " + monthLength + " days");
 		}
 	}
-	static void getDatesOfDays() {
+	private static void getDatesOfDays() {
 		try {
 			Scanner scan = new Scanner(System.in);
 			System.out.println("\n2. Enter the year and month in yyyy/MM format to show all Mondays from:");
 			String ym = scan.next();
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM");
 			Calendar calendar=Calendar.getInstance();
+			calendar.setLenient(false);
 			calendar.setTime(dateFormat.parse(ym));
 			int month = calendar.get(Calendar.MONTH);
 			System.out.println("The following days of the given month are Mondays:");
@@ -39,13 +42,13 @@ public class Dates {
 				if (day == Calendar.MONDAY) {
 					System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
 				}
-			calendar.add(Calendar.DAY_OF_YEAR, 1);
+				calendar.add(Calendar.DAY_OF_YEAR, 1);
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
-	static void ifFridayTheThirteenth() {
+	private static void ifFridayTheThirteenth() {
 		try {
 			Scanner scan = new Scanner(System.in);
 			System.out.println("\n3. Enter the date in yyyy/MM/dd format to check if it's a Friday the 13th:");
@@ -64,22 +67,35 @@ public class Dates {
 			e.printStackTrace();
 		}
 	}
-/*
-	static void ymdSinceDate() {
-		try {
-			Scanner scan = new Scanner(System.in);
-			System.out.println("\n4. Enter the date in yyyy/MM/dd format to check how many years, months and days passed since then:");
-			String ymd = scan.next();
-			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd");
-			Calendar oldDate=Calendar.getInstance();
-			oldDate.setTime(dateFormat.parse(ymd));
-			Calendar curDate=Calendar.getInstance();
-			long diff = (curDate.getTime()) - (oldDate.getTime());
-			Date results = new Date(diff);
-			Format frmt = new SimpleDateFormat("yy MM dd");
-			System.out.println(frmt.format(results).toString());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	} */
+	private static void ymdSinceDate() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("\n4. Enter the date in yyyy-MM-dd format to check how many years, months and days passed since then:");
+		String ymd = scan.next();
+		LocalDate oldDate = LocalDate.parse(ymd); // Using ISO date formatter
+		LocalDate curDate = LocalDate.now();
+		Period p = Period.between(oldDate,curDate);
+		System.out.println(p.getYears() + " years, " + p.getMonths() + " months, " + p.getDays() + " days");
+	}
+	private static void fullDateRegional() {
+		DateFormat dateFormatCanada, dateFormatGermany;
+		String dateFormatPakistan, dateFormatVietnam;
+		System.out.println("\n5. Printing current date in full format:");
+		System.out.println("\n. ... for Canada and Germany using features available in Java 7:");
+		dateFormatCanada = DateFormat.getDateInstance(DateFormat.FULL, Locale.CANADA);
+		dateFormatGermany = DateFormat.getDateInstance(DateFormat.FULL, Locale.GERMAN);
+		Calendar calendar = Calendar.getInstance();
+		System.out.println(dateFormatCanada.format(calendar.getTime()));
+		System.out.println(dateFormatGermany.format(calendar.getTime()));
+		System.out.println("\n. ... for Pakistan and Vietnam using features available in Java 7:");
+		dateFormatPakistan = 
+			DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+				.withLocale(new Locale("en", "PK"))
+				.format(LocalDate.now());
+		dateFormatVietnam = 
+			DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+				.withLocale(new Locale("vi", "VN"))
+				.format(LocalDate.now());
+		System.out.println(dateFormatPakistan);
+		System.out.println(dateFormatVietnam);
+	}
 }

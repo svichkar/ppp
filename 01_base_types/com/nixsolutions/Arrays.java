@@ -5,7 +5,7 @@ import java.util.Random;
 public class Arrays {
 	static final int LENGTH = 10000;
 	static final int LOOPS = 20;
-	static void sort(int[] a){
+	private static void sort(int[] a){
 		boolean swapped = true;
 		while (swapped) {
 			swapped = false;
@@ -19,7 +19,7 @@ public class Arrays {
 			}
 		}
 	}
-	int[] randFillArray(int arrayLength) {
+	private int[] randFillArray(int arrayLength) {
 		Random rand = new Random();
 		int[] a = new int[arrayLength];
 		for(int i = 0; i < a.length; i++) {
@@ -27,13 +27,13 @@ public class Arrays {
 		}
 		return a;
 	}
-	long avg(long[] a) {
+	private long avg(long[] a) {
 		long sum = 0;
 		for(int i = 0; i < a.length; i++)
 			sum = sum + a[i];
 		return sum;
 	}
-	void print(long x, long y){
+	private void print(long x, long y){
 		System.out.println("Average execution times for each iteration (in seconds):\n");
 		System.out.println("com.nixsolutions.Arrays.sort: " + x/1e9);
 		System.out.println("java.util.Arrays.sort: " + y/1e9);

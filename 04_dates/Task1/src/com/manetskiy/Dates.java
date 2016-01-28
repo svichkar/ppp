@@ -12,11 +12,11 @@ public class Dates {
     private static Calendar calendar;
 
     public static void main(String[] args) {
-        daysInMonths(2016);
-        mondays(1, 2016);
-        System.out.println(isFridayThirteen(new Date()));
-        timePassed(new Date());
-        locales();
+        //daysInMonths(2016);
+        //mondays(1, 2016);
+        //System.out.println(isFridayThirteen(new Date()));
+        //timePassed(new Date());
+        //locales();
     }
 
     private static void daysInMonths(int year){
@@ -66,7 +66,7 @@ public class Dates {
         List<Locale> locales = new ArrayList<Locale>(){
             {add(new Locale("en","CA"));}
             {add(new Locale("de", "DE"));}
-            {add(new Locale("hi", "IN"));}
+            {add(new Locale("en", "PK"));}
             {add(new Locale("vi", "VN"));}
         };
         locales.forEach(locale -> {
@@ -75,8 +75,4 @@ public class Dates {
             System.out.println(localDate.format(dtf.withLocale(locale)));
         });
     }
-
-
-
-
 }

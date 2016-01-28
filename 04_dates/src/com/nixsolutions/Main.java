@@ -14,8 +14,10 @@ public class Main {
             System.out.println(myCalendar.howManyYearsMonthsDaysHavePassedSinceDate("15.03.2011"));
             System.out.println(myCalendar.localTimeForCanadaGermanyPakistanVietnam());
         } catch (ParseException e) {
+            System.out.println("Date can't parse");
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
+            System.out.println("Method is not found");
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();

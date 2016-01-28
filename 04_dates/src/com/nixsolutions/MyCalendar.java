@@ -71,6 +71,7 @@ public class MyCalendar
         }
         catch (ParseException e)
         {
+            System.out.println("Invalid date format");
             e.getStackTrace();
         }
         return dayMonday;
@@ -93,15 +94,14 @@ public class MyCalendar
         calendar.setTime(date);
         String result="";
         dayFridayT = listOfDatesThatFallOnMonday((calendar.get(Calendar.MONTH)+1)+"."+calendar.get(Calendar.YEAR), "Friday");
-        result = dayFridayT.get(inputDate);
+        result = dayFridayT.get((calendar.get(Calendar.DAY_OF_MONTH)+"."+(calendar.get(Calendar.MONTH)+1)+"."+calendar.get(Calendar.YEAR)));
         try{
-            if (result.equals("null")) result = "Not a Friday the thirteenth";
+            if (result==null) return  "Not a Friday the thirteenth";
         }
-        catch (NullPointerException e)
-        {
-            e.getStackTrace();
+        catch (NullPointerException e){
+            //Do not doing anything.
         }
-        return  "This date is Friday thirteenth";
+        return "This date is Friday thirteenth";
     }
     /**
      * calculate period between two dates
@@ -113,7 +113,7 @@ public class MyCalendar
         checkDate(targetDate);
         Calendar calendar = Calendar.getInstance();
         DateTime currDate = DateTime.now();
-        calendar.setTime(new SimpleDateFormat("d.MM.yyyy",Locale.ENGLISH).parse(targetDate));
+        calendar.setTime(new SimpleDateFormat("d.MM.yyyy", Locale.ENGLISH).parse(targetDate));
         SimpleDateFormat dateConvert = new SimpleDateFormat("yyyy-MM-d",Locale.ENGLISH);
         calendar.setLenient(false);
         dateConvert.setLenient(false);
@@ -142,8 +142,8 @@ public class MyCalendar
         }
         return "Canada: "+canadaTime+"\n"+"Germany: "+germanyTime+"\n"+"Pakistan: "+pakistanTime+"\n"+"Vietnam: "+vietnamTime;
     }
-    public void checkDate(String dateString) throws IllegalAccessException, InstantiationException {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy",Locale.ENGLISH);
+    private void checkDate(String dateString) throws IllegalAccessException, InstantiationException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.ENGLISH);
         TemporalAccessor ta= dateTimeFormatter.parse(dateString);
     }
 }

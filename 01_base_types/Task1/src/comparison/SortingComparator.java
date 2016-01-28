@@ -12,18 +12,18 @@ public class SortingComparator {
         int numberOfTimes = 20;
         long[][] elapsedTimes = new long[2][numberOfTimes];
 
-        for (int i = 0; i < numberOfTimes; i++){
+        for (int i = 0; i < numberOfTimes; i++) {
             int[] numbers = getRandomlyFilledArray();
 
             startTime = System.currentTimeMillis();
             com.nixsolutions.Arrays.sort(numbers);
             finishTime = System.currentTimeMillis();
-            elapsedTimes[0][loopCounter] = finishTime-startTime;
+            elapsedTimes[0][loopCounter] = finishTime - startTime;
 
             startTime = System.currentTimeMillis();
             java.util.Arrays.sort(numbers);
             finishTime = System.currentTimeMillis();
-            elapsedTimes[1][loopCounter] = finishTime-startTime;
+            elapsedTimes[1][loopCounter] = finishTime - startTime;
 
             loopCounter++;
         }
@@ -32,20 +32,20 @@ public class SortingComparator {
         System.out.println("Avg time for java.util.Arrays.sort(): " + getAvgTime(elapsedTimes, 1));
     }
 
-    private static int[] getRandomlyFilledArray(){
+    private static int[] getRandomlyFilledArray() {
         Random rand = new Random();
         int[] toReturn = new int[10000];
-        for (int i = 0; i < toReturn.length; i++){
-            toReturn[i] = (rand.nextInt(201)-100);
+        for (int i = 0; i < toReturn.length; i++) {
+            toReturn[i] = (rand.nextInt(201) - 100);
         }
         return toReturn;
     }
 
-    private static double getAvgTime(long[][] a, int firstDimensionIndex){
+    private static double getAvgTime(long[][] a, int firstDimensionIndex) {
         double toReturn = 0;
-        for (int i = 0; i < a[firstDimensionIndex].length; i++){
+        for (int i = 0; i < a[firstDimensionIndex].length; i++) {
             toReturn += a[firstDimensionIndex][i];
         }
-        return toReturn/a[firstDimensionIndex].length;
+        return toReturn / a[firstDimensionIndex].length;
     }
 }

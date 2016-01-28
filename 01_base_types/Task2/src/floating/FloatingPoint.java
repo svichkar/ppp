@@ -19,20 +19,18 @@ public class FloatingPoint {
         }
     }
 
-    private static void convertFloating(String line){
+    private static void convertFloating(String line) {
 
         try {
             BigDecimal parsedLine = new BigDecimal(line);
-            if (line.toUpperCase().contains("E")){
+            if (line.toUpperCase().contains("E")) {
                 System.out.printf(parsedLine.toPlainString());
                 System.out.println();
-            }
-            else{
+            } else {
                 DecimalFormat formatter = new DecimalFormat("0.#######E0");
                 System.out.println(formatter.format(parsedLine));
             }
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.print("Not a valid number. ");
         }
     }

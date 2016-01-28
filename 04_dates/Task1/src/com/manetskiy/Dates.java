@@ -19,55 +19,54 @@ public class Dates {
         //locales();
     }
 
-    private static void daysInMonths(int year){
+    private static void daysInMonths(int year) {
         calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, year);
         String[] months = DateFormatSymbols.getInstance().getMonths();
-        for (int i = 0; i < months.length-1; i++){
+        for (int i = 0; i < months.length - 1; i++) {
             calendar.set(Calendar.MONTH, i);
             String s = months[i];
             System.out.println(s + ": " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
         }
     }
 
-    private static void mondays(int month, int year){
+    private static void mondays(int month, int year) {
         calendar = new GregorianCalendar();
         calendar.setLenient(false);
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
-        for (int i = 1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
+        for (int i = 1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH); i++) {
             calendar.set(Calendar.DAY_OF_MONTH, i);
             if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
                 System.out.println(i);
         }
     }
 
-    private static boolean isFridayThirteen(Date date){
+    private static boolean isFridayThirteen(Date date) {
         calendar = new GregorianCalendar();
         calendar.setTime(date);
-        return (calendar.get(Calendar.DAY_OF_MONTH)==13)&&(calendar.get(Calendar.DAY_OF_WEEK)==Calendar.FRIDAY);
+        return (calendar.get(Calendar.DAY_OF_MONTH) == 13) && (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY);
     }
 
-    private static void timePassed(Date date){
+    private static void timePassed(Date date) {
 
-        if (date.getTime() <= new Date().getTime()){
+        if (date.getTime() <= new Date().getTime()) {
             long diff = new Date().getTime() - date.getTime();
-            Calendar inputDate  = new GregorianCalendar();
+            Calendar inputDate = new GregorianCalendar();
             inputDate.setTimeInMillis(diff);
-            System.out.println((inputDate.get(Calendar.YEAR)-1970) + " year(s) " + inputDate.get(Calendar.MONTH) + " month(s) " +
-                    (inputDate.get(Calendar.DAY_OF_MONTH)-1) + " day(s) passed.");
-        }
-        else {
+            System.out.println((inputDate.get(Calendar.YEAR) - 1970) + " year(s) " + inputDate.get(Calendar.MONTH) + " month(s) " +
+                    (inputDate.get(Calendar.DAY_OF_MONTH) - 1) + " day(s) passed.");
+        } else {
             System.out.println("Cannot accept date that has not yet begun.");
         }
     }
 
-    private static void locales(){
-        List<Locale> locales = new ArrayList<Locale>(){
-            {add(new Locale("en","CA"));}
-            {add(new Locale("de", "DE"));}
-            {add(new Locale("en", "PK"));}
-            {add(new Locale("vi", "VN"));}
+    private static void locales() {
+        List<Locale> locales = new ArrayList<Locale>() {
+            { add(new Locale("en", "CA")); }
+            { add(new Locale("de", "DE")); }
+            { add(new Locale("en", "PK")); }
+            { add(new Locale("vi", "VN")); }
         };
         locales.forEach(locale -> {
             DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL);

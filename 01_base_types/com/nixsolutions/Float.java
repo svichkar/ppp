@@ -1,17 +1,17 @@
 // Float.java
 package com.nixsolutions;
 
-import java.util.Scanner;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Scanner;
 
 /**
 * Converts notation of floating point numbers from one type to another.
 */
 public class Float {
   /**
-  * Asks the user to enter floating point number.
-  * Converts the input to another type of notation,
+  * Asks the user to enter floating point number,
+  * converts the input to another type of notation,
   * then prints the result on the screen.
   */
   public static void main(String[] args) {

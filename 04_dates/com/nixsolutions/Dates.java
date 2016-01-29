@@ -121,12 +121,12 @@ public class Dates {
     
     datePakistan = 
       DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
-        .withLocale(new Locale("en", "PK"))
-        .format(LocalDate.now());
+          .withLocale(new Locale("en", "PK"))
+          .format(LocalDate.now());
     dateVietnam = 
       DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
-        .withLocale(new Locale("vi", "VN"))
-        .format(LocalDate.now());
+          .withLocale(new Locale("vi", "VN"))
+          .format(LocalDate.now());
         
     System.out.println(datePakistan);
     System.out.println(dateVietnam);

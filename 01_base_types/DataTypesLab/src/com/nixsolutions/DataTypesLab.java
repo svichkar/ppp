@@ -14,11 +14,11 @@ public class DataTypesLab {
 
 	public static void main(String[] args) {
 		long[][] arrTimeComparer = new long[ARR_SIZE][2];
+		Random randNum = new Random();
 		System.out.println("Task 1");
 		for (int i = 0; i < ITER_NUMBER; i++) {
 			int[] arr = new int[ARR_SIZE];
-			for (int j = 0; j < arr.length; j++) {
-				Random randNum = new Random();
+			for (int j = 0; j < arr.length; j++) {				
 				arr[j] = randNum.nextInt(MAX_LIMIT + 1 - MIN_LIMIT) + MIN_LIMIT;
 			}
 			long startCustomSort = System.nanoTime();

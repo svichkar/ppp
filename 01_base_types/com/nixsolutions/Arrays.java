@@ -32,10 +32,10 @@ public class Arrays {
   private int[] randFillArray(int arrayLength) {
     Random rand = new Random();
     int[] a = new int[arrayLength];
-    int range = RANGE_TO - RANGE_FROM;
+    int range = RANGE_TO - RANGE_FROM + 1; // Making range inclusive so +1
     int offset = RANGE_FROM;
     for (int i = 0; i < a.length; i++) {
-      a[i] = rand.nextInt(range + 1) + offset;  // Making range inclusive so +1
+      a[i] = rand.nextInt(range) + offset;
     }
     return a;
   }

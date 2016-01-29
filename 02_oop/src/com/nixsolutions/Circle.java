@@ -5,10 +5,11 @@ import java.io.Serializable;
 /**
  * Created by Lexx on 16.11.2015.
  */
-public class Circle extends Figures implements Serializable {
+public class Circle extends Figures {
     private String name;
     private int[] coord_Center;
     private int radius;
+    private double square;
     private JFrame frame;
     private boolean canShift;
     MyCanvas myCanvas = new MyCanvas();
@@ -17,12 +18,16 @@ public class Circle extends Figures implements Serializable {
         super(name);
     }
 
-    public Circle(String name,int[] coord_Center, int radius, JFrame frame) {
+    public Circle(String name, int[] coord_Center, int radius, JFrame frame) {
         super(name);
         this.name = name;
         this.coord_Center = coord_Center;
         this.radius = radius;
         this.frame = frame;
+    }
+    @Override
+    public double getSquare() {
+        return square;
     }
 
     @Override
@@ -37,23 +42,20 @@ public class Circle extends Figures implements Serializable {
     public boolean isCanShift() {
         return canShift;
     }
+
     @Override
-    public void draw(long start) {
-        myCanvas.setCanvas(this.name, this.coord_Center, this.radius,start);
+    public void draw() {
+        myCanvas.setCanvas(this.name, this.coord_Center, this.radius);
         frame.setTitle("Image");
         frame.setSize(500, 500);
-        frame.setLocation(300, 50);
+        //frame.setLocation(300, 50);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
-    /**
-     *
-     */
-    public void re_draw(long start) {
-        myCanvas.setCanvas(name,this.coord_Center,this.radius,start);
+    public void re_draw() {
+        myCanvas.setCanvas(name, this.coord_Center, this.radius);
         frame.getContentPane().add(myCanvas);
         //tr.update(tr.getGraphics());
         frame.repaint();
@@ -62,11 +64,9 @@ public class Circle extends Figures implements Serializable {
 
     @Override
     public void shift(String direction, int step, long start) {
-        if(direction == null)
-        {
+        if (direction == null) {
         }
-        if(!this.canShift)
-        {
+        if (!this.canShift) {
             return;
         }
         if (direction.toLowerCase().equals("up")) {
@@ -81,13 +81,22 @@ public class Circle extends Figures implements Serializable {
         if (direction.toLowerCase().equals("right")) {
             this.coord_Center[0] += step;
         }
-        re_draw(start);
+        re_draw();
 
     }
 
     @Override
+    public <T> void scale(T obj, int scaleModifier) {
+        for (int i = 0; calcSquare() > scaleModifier; i++) {
+            this.radius--;
+        }
+        re_draw();
+    }
+
+    @Override
     public double calcSquare() {
-        return Math.PI*Math.pow(radius,2);
+        square = Math.PI * Math.pow(radius, 2);
+        return square;
     }
 
     class MyCanvas extends JComponent {
@@ -95,21 +104,21 @@ public class Circle extends Figures implements Serializable {
         private int[] coord_Center;
         private int radius;
         private int radius_parameter;
-        private long start;
 
-        public void setCanvas(String name, int[] coord_Center, int radius, long start) {
+        public void setCanvas(String name, int[] coord_Center, int radius) {
             this.name = name;
             this.coord_Center = coord_Center;
             this.radius = radius;
-            radius_parameter = radius*2;
-            this.start = start;
+            radius_parameter = radius * 2;
         }
+
         public MyCanvas() {
 
         }
+
         public void paint(Graphics g) {
-            g.drawOval(this.coord_Center[0], this.coord_Center[1],this.radius_parameter,this.radius_parameter);
-            g.drawString(String.valueOf((int)(System.currentTimeMillis()- start)),this.coord_Center[0],this.coord_Center[1]);
+            g.drawOval(this.coord_Center[0], this.coord_Center[1], this.radius_parameter, this.radius_parameter);
+            //g.drawString( this.coord_Center[0], this.coord_Center[1]);
         }
     }
 }

@@ -1,13 +1,25 @@
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Lexx on 16.11.2015.
  */
-public abstract class Figures implements canShift
-{
-   private String name;
-   private int center;
-   private int square;
-   private int perimeter;
-   private boolean canShift;
+public abstract class Figures implements Geometry {
+    private String name;
+    private int center;
+    private double square;
+    private int perimeter;
+    private boolean canShift;
+    private double scale;
+
+    public double getScale() {
+        return scale;
+    }
+
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
 
     public Figures(String name, int center, int square, int perimeter) {
         this.name = name;
@@ -16,7 +28,8 @@ public abstract class Figures implements canShift
         this.perimeter = perimeter;
     }
 
-    public Figures(){}
+    public Figures() {
+    }
 
     public void setCanShift(boolean canShift) {
         this.canShift = canShift;
@@ -38,7 +51,7 @@ public abstract class Figures implements canShift
         return center;
     }
 
-    public int getSquare() {
+    public double getSquare() {
         return square;
     }
 
@@ -62,8 +75,21 @@ public abstract class Figures implements canShift
         this.perimeter = perimeter;
     }
 
-   protected abstract void draw(long start);
-   public abstract void shift(String direction, int step, long start);
-  // protected abstract void listen();
-   public abstract double calcSquare();
+    protected abstract void draw();
+
+    public abstract void shift(String direction, int step, long start);
+
+    public abstract double calcSquare();
+
+    public String toString()
+    {
+        /*List<String> result = new ArrayList<String>();
+        String resultString="";
+        result.add("Figure name: "+getName()+"Figure square: "+String.valueOf(getSquare())+" by scale coefficient "+getScale());
+        for(String x: result){
+            resultString += x;
+            resultString +="\n";
+        }*/
+        return ("Figure name: "+getName()+". Figure square: "+String.valueOf(getSquare())+" by scale coefficient "+getScale())+"\n";
+    }
 }

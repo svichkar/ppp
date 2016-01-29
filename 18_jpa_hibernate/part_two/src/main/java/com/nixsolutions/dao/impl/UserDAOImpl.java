@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.UserDAO;
 import com.nixsolutions.entities.User;
+import com.nixsolutions.error.CustomDataException;
 
 public class UserDAOImpl implements UserDAO<User> {
 
@@ -25,66 +26,143 @@ public class UserDAOImpl implements UserDAO<User> {
 
 	@Override
 	public void create(User t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(User t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(User t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public User findByPK(long id) {
 		User user = null;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		user = (User) session.get(User.class, id);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			user = (User) session.get(User.class, id);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return user;
 	}
 
 	public User findByName(String username) {
 		User user = null;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		user = (User) session.createCriteria(User.class).add(Restrictions.eq("username", username)).uniqueResult();
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			user = (User) session.createCriteria(User.class).add(Restrictions.eq("username", username)).uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return user;
 	}
 
 	public User findByNameAndPassword(String username, String password) {
 		User user = null;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		user = (User) session.createCriteria(User.class).add(Restrictions.eq("username", username))
-				.add(Restrictions.eq("password", password)).uniqueResult();
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			user = (User) session.createCriteria(User.class).add(Restrictions.eq("username", username))
+					.add(Restrictions.eq("password", password)).uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return user;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAll() {
-		List<User> lUsers = new ArrayList<User>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lUsers.addAll(session.createCriteria(User.class).list());
-		tx.commit();
-		return lUsers;
+		List<User> users = new ArrayList<User>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			users.addAll(session.createCriteria(User.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return users;
 	}
 
 }

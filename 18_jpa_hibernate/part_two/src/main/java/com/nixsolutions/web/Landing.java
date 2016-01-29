@@ -25,10 +25,9 @@ import com.nixsolutions.entities.User;
 public class Landing extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = LogManager.getLogger(Landing.class);
-	private ServiceStationDAOFactoryImpl factory;
 	private UserDAOImpl userImpl;
 	private RoleDAOImpl roleImpl;
-	private OrderInWorkCarStatusBean oiwCS;
+	private OrderInWorkCarStatusBean orderInWorkCarStatusImpl;
 	
 
 	/**
@@ -38,10 +37,9 @@ public class Landing extends HttpServlet {
 	 */
 	public Landing() throws Exception {
 		try {
-			factory = new ServiceStationDAOFactoryImpl();
-			userImpl = (UserDAOImpl) factory.getDao(User.class);
-			roleImpl = (RoleDAOImpl) factory.getDao(Role.class);
-			oiwCS = (OrderInWorkCarStatusBean) factory.getDao(OrderInWorkCarStatus.class);
+			userImpl = ServiceStationDAOFactoryImpl.getUserDao();
+			roleImpl = ServiceStationDAOFactoryImpl.getRoleDao();
+			orderInWorkCarStatusImpl = ServiceStationDAOFactoryImpl.getOrderInWorkCarStatusBean();
 		} catch (Exception ex) {
 			LOG.error(ex, ex);
 		}
@@ -82,7 +80,7 @@ public class Landing extends HttpServlet {
 				request.setAttribute("desctination", "Orders");
 				request.getRequestDispatcher("/navigation").forward(request, response);
 			} else if (foundUserRole.getRolename().equals("user")) {
-				request.setAttribute("oiwcs", oiwCS.getAll());
+				request.setAttribute("oiwcs", orderInWorkCarStatusImpl.getAll());
 				request.setAttribute("title", "Orders status");
 				request.getRequestDispatcher("/WEB-INF/jsp/userpage.jsp").forward(request, response);
 			} else {

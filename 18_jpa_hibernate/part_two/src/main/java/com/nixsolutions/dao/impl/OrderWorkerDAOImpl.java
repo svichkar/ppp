@@ -15,6 +15,7 @@ import com.nixsolutions.dao.OrderWorkerDAO;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.OrderWorker;
 import com.nixsolutions.entities.Worker;
+import com.nixsolutions.error.CustomDataException;
 
 public class OrderWorkerDAOImpl implements OrderWorkerDAO<OrderWorker> {
 
@@ -27,26 +28,59 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO<OrderWorker> {
 
 	@Override
 	public void create(OrderWorker t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(OrderWorker t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(OrderWorker t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
@@ -57,37 +91,71 @@ public class OrderWorkerDAOImpl implements OrderWorkerDAO<OrderWorker> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderWorker> getAll() {
-		List<OrderWorker> lOW = new ArrayList<>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lOW.addAll(session.createCriteria(OrderWorker.class).list());
-		tx.commit();
-		return lOW;
+		List<OrderWorker> orderWorkers = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			orderWorkers.addAll(session.createCriteria(OrderWorker.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return orderWorkers;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<OrderWorker> getAllForOrder(int order_id) {
-		List<OrderWorker> lOW = new ArrayList<>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class).add(Restrictions.eq("order_id", order_id)).uniqueResult();
-		lOW.addAll(session.createCriteria(OrderWorker.class).add(Restrictions.eq("order", oiw)).list());
-		tx.commit();
-		return lOW;
+	public List<OrderWorker> getAllForOrder(long orderid) {
+		List<OrderWorker> orderWorkers = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			OrderInWork orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("order_id", orderid)).uniqueResult();
+			orderWorkers.addAll(
+					session.createCriteria(OrderWorker.class).add(Restrictions.eq("order", orderInWork)).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return orderWorkers;
 	}
 
-	public OrderWorker findbyOrderAndWorker(long order_id, long worker_id) {
-		OrderWorker ow = null;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class).add(Restrictions.eq("order_id", order_id)).uniqueResult();
-		Worker w = (Worker) session.createCriteria(Worker.class).add(Restrictions.eq("worker_id", worker_id)).uniqueResult();
-		
-		ow = (OrderWorker) session.createCriteria(OrderWorker.class)
-				.add(Restrictions.eq("order", oiw))
-				.add(Restrictions.eq("worker", w)).uniqueResult();
-		tx.commit();
-		return ow;
+	public OrderWorker findbyOrderAndWorker(long orderid, long workerid) {
+		OrderWorker orderWorker = null;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			OrderInWork orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("order_id", orderid)).uniqueResult();
+			Worker worker = (Worker) session.createCriteria(Worker.class).add(Restrictions.eq("worker_id", workerid))
+					.uniqueResult();
+			orderWorker = (OrderWorker) session.createCriteria(OrderWorker.class)
+					.add(Restrictions.eq("order", orderInWork)).add(Restrictions.eq("worker", worker)).uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return orderWorker;
 	}
 }

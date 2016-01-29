@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.WorkerSpecificationDAO;
 import com.nixsolutions.entities.WorkerSpecification;
+import com.nixsolutions.error.CustomDataException;
 
 public class WorkerSpecificationDAOImpl implements WorkerSpecificationDAO<WorkerSpecification> {
 
@@ -24,48 +25,103 @@ public class WorkerSpecificationDAOImpl implements WorkerSpecificationDAO<Worker
 
 	@Override
 	public void create(WorkerSpecification t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(WorkerSpecification t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(WorkerSpecification t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public WorkerSpecification findByPK(long id) {
 		WorkerSpecification ws = new WorkerSpecification();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		ws = (WorkerSpecification) session.get(WorkerSpecification.class, id);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			ws = (WorkerSpecification) session.get(WorkerSpecification.class, id);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return ws;
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<WorkerSpecification> getAll() {
-		List<WorkerSpecification> lWS = new ArrayList<>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lWS.addAll(session.createCriteria(WorkerSpecification.class).list());
-		tx.commit();
-		return lWS;
+		List<WorkerSpecification> workerSpecifications = new ArrayList<>();
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			workerSpecifications.addAll(session.createCriteria(WorkerSpecification.class).list());
+			tx.commit();
+
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return workerSpecifications;
 	}
 
 }

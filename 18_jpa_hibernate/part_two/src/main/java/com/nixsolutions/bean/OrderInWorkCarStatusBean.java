@@ -42,53 +42,72 @@ public class OrderInWorkCarStatusBean implements OrderInWorkCarStatusDAO<OrderIn
 	}
 
 	@Override
-	public OrderInWorkCarStatus findByPK(long id) {
-		OrderInWorkCarStatus orderInWorkCS = new OrderInWorkCarStatus();
-
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class).add(Restrictions.eq("order_id", id))
-				.uniqueResult();
-		tx.commit();
-
-		orderInWorkCS.setCar_id(oiw.getCar().getCarId());
-		orderInWorkCS.setDatetime_end(oiw.getDatetime_end());
-		orderInWorkCS.setDatetime_start(oiw.getDatetime_start());
-		orderInWorkCS.setDescription(oiw.getDescription());
-		orderInWorkCS.setId(oiw.getOrderInWorkId());
-		orderInWorkCS.setModel(oiw.getCar().getModel());
-		orderInWorkCS.setOrder_status_id(oiw.getOrder_status().getOrderStatusId());
-		orderInWorkCS.setOrder_status_name(oiw.getOrder_status().getOrder_status_name());
-		orderInWorkCS.setVin(oiw.getCar().getVin());
-
-		return orderInWorkCS;
+	public OrderInWorkCarStatus findByPK(long orderid) {
+		OrderInWorkCarStatus orderInWorkCarStatus = null;
+		Transaction transaction = null;
+		Session session = null;
+		OrderInWork orderInWork = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class).add(Restrictions.eq("order_id", orderid))
+					.uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+		}
+		if (orderInWork != null) {
+			orderInWorkCarStatus = new OrderInWorkCarStatus();
+			orderInWorkCarStatus.setCar_id(orderInWork.getCar().getCarId());
+			orderInWorkCarStatus.setDatetime_end(orderInWork.getDatetime_end());
+			orderInWorkCarStatus.setDatetime_start(orderInWork.getDatetime_start());
+			orderInWorkCarStatus.setDescription(orderInWork.getDescription());
+			orderInWorkCarStatus.setId(orderInWork.getOrderInWorkId());
+			orderInWorkCarStatus.setModel(orderInWork.getCar().getModel());
+			orderInWorkCarStatus.setOrder_status_id(orderInWork.getOrder_status().getOrderStatusId());
+			orderInWorkCarStatus.setOrder_status_name(orderInWork.getOrder_status().getOrder_status_name());
+			orderInWorkCarStatus.setVin(orderInWork.getCar().getVin());
+		}
+		return orderInWorkCarStatus;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderInWorkCarStatus> getAll() {
-		List<OrderInWorkCarStatus> listResult = new ArrayList<>();
-
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		List<OrderInWork> lOIW = session.createCriteria(OrderInWork.class).list();
-		tx.commit();
-
-		for (OrderInWork oiw : lOIW) {
-			OrderInWorkCarStatus orderInWorkCS = new OrderInWorkCarStatus();
-			orderInWorkCS.setCar_id(oiw.getCar().getCarId());
-			orderInWorkCS.setDatetime_end(oiw.getDatetime_end());
-			orderInWorkCS.setDatetime_start(oiw.getDatetime_start());
-			orderInWorkCS.setDescription(oiw.getDescription());
-			orderInWorkCS.setId(oiw.getOrderInWorkId());
-			orderInWorkCS.setModel(oiw.getCar().getModel());
-			orderInWorkCS.setOrder_status_id(oiw.getOrder_status().getOrderStatusId());
-			orderInWorkCS.setOrder_status_name(oiw.getOrder_status().getOrder_status_name());
-			orderInWorkCS.setVin(oiw.getCar().getVin());
-			listResult.add(orderInWorkCS);
+		List<OrderInWorkCarStatus> results = new ArrayList<>();
+		Transaction transaction = null;
+		Session session = null;
+		List<OrderInWork> orderInWorkes = new ArrayList<>();
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			orderInWorkes.addAll(session.createCriteria(OrderInWork.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
 		}
 
-		return listResult;
+		for (OrderInWork orderInWork : orderInWorkes) {
+			OrderInWorkCarStatus orderInWorkCarStatus = new OrderInWorkCarStatus();
+			orderInWorkCarStatus.setCar_id(orderInWork.getCar().getCarId());
+			orderInWorkCarStatus.setDatetime_end(orderInWork.getDatetime_end());
+			orderInWorkCarStatus.setDatetime_start(orderInWork.getDatetime_start());
+			orderInWorkCarStatus.setDescription(orderInWork.getDescription());
+			orderInWorkCarStatus.setId(orderInWork.getOrderInWorkId());
+			orderInWorkCarStatus.setModel(orderInWork.getCar().getModel());
+			orderInWorkCarStatus.setOrder_status_id(orderInWork.getOrder_status().getOrderStatusId());
+			orderInWorkCarStatus.setOrder_status_name(orderInWork.getOrder_status().getOrder_status_name());
+			orderInWorkCarStatus.setVin(orderInWork.getCar().getVin());
+			results.add(orderInWorkCarStatus);
+		}
+
+		return results;
 	}
 
 }

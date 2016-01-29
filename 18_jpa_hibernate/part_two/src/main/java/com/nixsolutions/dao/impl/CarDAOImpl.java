@@ -1,8 +1,5 @@
 package com.nixsolutions.dao.impl;
 
-import java.lang.annotation.Retention;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +12,11 @@ import org.hibernate.Transaction;
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.CarDAO;
 import com.nixsolutions.entities.Car;
+import com.nixsolutions.error.CustomDataException;
 
 public class CarDAOImpl implements CarDAO<Car> {
 
-	private final static Logger LOG = LogManager.getLogger(CarDAOImpl.class);	
+	private final static Logger LOG = LogManager.getLogger(CarDAOImpl.class);
 	public static SessionFactory sessionFactory;
 
 	public CarDAOImpl() {
@@ -27,45 +25,103 @@ public class CarDAOImpl implements CarDAO<Car> {
 
 	@Override
 	public void create(Car t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
+	@Override
 	public void update(Car t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+
+		}
 	}
 
 	@Override
 	public void delete(Car t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public Car findByPK(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		Car car = (Car) session.get(Car.class, id);
-		tx.commit();
+		Car car = null;
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			car = (Car) session.get(Car.class, id);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return car;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Car> getAll() {
-		List<Car> lCars = new ArrayList<>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lCars.addAll(session.createCriteria(Car.class).list());
-		tx.commit();
-		return lCars;
+		List<Car> cars = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			cars.addAll(session.createCriteria(Car.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return cars;
 	}
 
 }

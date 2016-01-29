@@ -31,11 +31,10 @@ public class Navigation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAOImpl userImpl;
 	private RoleDAOImpl roleImpl;
-	private ServiceStationDAOFactoryImpl factory;
 	private PartDAOImpl partImpl;
 	private CustomerDAOImpl customerImpl;
-	private CarCustomerBean carcustomerImpl;
-	private WorkerStatusSpecificationBean workerstatusspecificationImpl;
+	private CarCustomerBean carCustomerImpl;
+	private WorkerStatusSpecificationBean workerStatusSpecificationImpl;
 	private OrderInWorkCarStatusBean orderInWorkCSImpl;
 
 	/**
@@ -43,14 +42,13 @@ public class Navigation extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Navigation() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		userImpl = (UserDAOImpl) factory.getDao(User.class);
-		roleImpl = (RoleDAOImpl) factory.getDao(Role.class);
-		customerImpl = (CustomerDAOImpl) factory.getDao(Customer.class);
-		partImpl = (PartDAOImpl) factory.getDao(Part.class);
-		carcustomerImpl = (CarCustomerBean) factory.getDao(CarCustomer.class);
-		workerstatusspecificationImpl = (WorkerStatusSpecificationBean) factory.getDao(WorkerStatusSpecification.class);
-		orderInWorkCSImpl = (OrderInWorkCarStatusBean) factory.getDao(OrderInWorkCarStatus.class);
+		userImpl = ServiceStationDAOFactoryImpl.getUserDao();
+		roleImpl = ServiceStationDAOFactoryImpl.getRoleDao();
+		customerImpl = ServiceStationDAOFactoryImpl.getCustomerDao();
+		partImpl = ServiceStationDAOFactoryImpl.getPartDao();
+		carCustomerImpl = ServiceStationDAOFactoryImpl.getCarCustomerBean();
+		workerStatusSpecificationImpl = ServiceStationDAOFactoryImpl.getWorkerStatusSpecificationBean();
+		orderInWorkCSImpl = ServiceStationDAOFactoryImpl.getOrderInWorkCarStatusBean();
 	}
 
 	/**
@@ -77,7 +75,7 @@ public class Navigation extends HttpServlet {
 
 		switch (destinaion) {
 		case "Cars":
-			request.setAttribute("carcustomers", carcustomerImpl.getAll());
+			request.setAttribute("carcustomers", carCustomerImpl.getAll());
 			request.setAttribute("title", "Cars");
 			request.getRequestDispatcher("/WEB-INF/jsp/cars.jsp").forward(request, response);
 			break;
@@ -87,7 +85,7 @@ public class Navigation extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/orders.jsp").forward(request, response);
 			break;
 		case "Workers":
-			request.setAttribute("workers", workerstatusspecificationImpl.getAll());
+			request.setAttribute("workers", workerStatusSpecificationImpl.getAll());
 			request.setAttribute("title", "Workers");
 			request.getRequestDispatcher("/WEB-INF/jsp/workers.jsp").forward(request, response);
 			break;

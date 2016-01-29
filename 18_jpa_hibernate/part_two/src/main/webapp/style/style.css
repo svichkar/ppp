@@ -110,6 +110,13 @@ ol li {
 	font-weight: bold;
 }
 
+#menubar input {
+	width: 80px;
+	height: 30px;
+}
+
+
+
 #site_content {
 	overflow: hidden;
 	padding: 20px 20px 20px 20px;

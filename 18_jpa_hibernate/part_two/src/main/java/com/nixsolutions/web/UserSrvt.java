@@ -27,7 +27,6 @@ import com.nixsolutions.entities.User;
 
 public class UserSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private CustomerDAOImpl customerImpl;
 	private UserDAOImpl userImpl;
 	private RoleDAOImpl roleImpl;
@@ -37,10 +36,9 @@ public class UserSrvt extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public UserSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		customerImpl = (CustomerDAOImpl) factory.getDao(Customer.class);
-		userImpl = (UserDAOImpl) factory.getDao(User.class);
-		roleImpl = (RoleDAOImpl) factory.getDao(Role.class);
+		customerImpl = ServiceStationDAOFactoryImpl.getCustomerDao();
+		userImpl = ServiceStationDAOFactoryImpl.getUserDao();
+		roleImpl = ServiceStationDAOFactoryImpl.getRoleDao();
 	}
 
 	/**

@@ -24,22 +24,20 @@ import com.nixsolutions.entities.Worker;
  */
 public class OrderWorkerSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private WorkerDAOImpl workersImpl;
-	private OrderWorkerDAOImpl owImpl;
-	private AllWorkersInOrderBean allWoImpl;
-	private OrderInWorkDAOImpl oiwImpl;
+	private OrderWorkerDAOImpl orderWorkerImpl;
+	private AllWorkersInOrderBean allWorkersInOrderImpl;
+	private OrderInWorkDAOImpl orderInWorkImpl;
 
 	/**
 	 * @throws Exception
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public OrderWorkerSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		owImpl = (OrderWorkerDAOImpl) factory.getDao(OrderWorker.class);
-		workersImpl = (WorkerDAOImpl) factory.getDao(Worker.class);
-		allWoImpl = (AllWorkersInOrderBean) factory.getDao(AllWorkersInOrder.class);
-		oiwImpl = (OrderInWorkDAOImpl) factory.getDao(OrderInWork.class);
+		orderWorkerImpl = ServiceStationDAOFactoryImpl.getOrderWorkerDoa();
+		workersImpl = ServiceStationDAOFactoryImpl.getWorkerDao();
+		allWorkersInOrderImpl = ServiceStationDAOFactoryImpl.getAllWorkersInOrderBean();
+		orderInWorkImpl = ServiceStationDAOFactoryImpl.getOrderInWorkDao();
 	}
 
 	/**
@@ -64,10 +62,10 @@ public class OrderWorkerSrvt extends HttpServlet {
 		long orderId = NumberUtils.isDigits(order_id) ? Integer.parseInt(order_id) : 0;
 		long workerId = NumberUtils.isDigits(worker_id) ? Integer.parseInt(worker_id) : 0;
 		boolean completed = completed_value.length() > 0 ? Boolean.parseBoolean(completed_value) : false;
-		OrderWorker orderworker = owImpl.findbyOrderAndWorker(orderId, workerId);
+		OrderWorker orderworker = orderWorkerImpl.findbyOrderAndWorker(orderId, workerId);
 		///
 		if (orderworker != null) {
-			AllWorkersInOrder allorderworker = allWoImpl.findByOrderAndWorker(orderId, workerId);
+			AllWorkersInOrder allorderworker = allWorkersInOrderImpl.findByOrderAndWorker(orderId, workerId);
 			if (action.equalsIgnoreCase("Edit")) {
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("worker", allorderworker);
@@ -76,16 +74,16 @@ public class OrderWorkerSrvt extends HttpServlet {
 				request.setAttribute("title", "Edit worker in order");
 				request.getRequestDispatcher("/WEB-INF/jsp/editwo.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
-				owImpl.delete(orderworker);
+				orderWorkerImpl.delete(orderworker);
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("action", "Edit");
 				request.setAttribute("title", "Order");
 				request.getRequestDispatcher("/order").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
 				orderworker.setWorker(workersImpl.findByPK(workerId));
-				orderworker.setOrderInWork(oiwImpl.findByPK(orderId));
+				orderworker.setOrderInWork(orderInWorkImpl.findByPK(orderId));
 				orderworker.setCompleted(completed);
-				owImpl.update(orderworker);
+				orderWorkerImpl.update(orderworker);
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("action", "Edit");
 				request.setAttribute("title", "Order");
@@ -99,9 +97,9 @@ public class OrderWorkerSrvt extends HttpServlet {
 				request.setAttribute("title", "Add worker in order");
 				request.getRequestDispatcher("/WEB-INF/jsp/editwo.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
-				OrderWorker orderworkerNew = new OrderWorker(workersImpl.findByPK(workerId), oiwImpl.findByPK(orderId),
-						completed);
-				owImpl.create(orderworkerNew);
+				OrderWorker orderworkerNew = new OrderWorker(workersImpl.findByPK(workerId),
+						orderInWorkImpl.findByPK(orderId), completed);
+				orderWorkerImpl.create(orderworkerNew);
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("action", "Edit");
 				request.setAttribute("title", "Order");

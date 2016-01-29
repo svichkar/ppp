@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.OrderStatusDAO;
 import com.nixsolutions.entities.OrderStatus;
+import com.nixsolutions.error.CustomDataException;
 
 public class OrderStatusDAOImpl implements OrderStatusDAO<OrderStatus> {
 
@@ -24,47 +25,98 @@ public class OrderStatusDAOImpl implements OrderStatusDAO<OrderStatus> {
 
 	@Override
 	public void create(OrderStatus t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(OrderStatus t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(OrderStatus t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public OrderStatus findByPK(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderStatus os = (OrderStatus) session.get(OrderStatus.class, id);
-		tx.commit();
-		return os;
-	}
+		Session session = null;
+		Transaction transaction = null;
+		OrderStatus orderStatus = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			orderStatus = (OrderStatus) session.get(OrderStatus.class, id);
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return orderStatus;
 
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderStatus> getAll() {
-		List<OrderStatus> lOS = new ArrayList<>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lOS.addAll(session.createCriteria(OrderStatus.class).list());
-		tx.commit();
-		return lOS;
+		List<OrderStatus> ordersStatuses = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			ordersStatuses.addAll(session.createCriteria(OrderStatus.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return ordersStatuses;
 	}
 
 }

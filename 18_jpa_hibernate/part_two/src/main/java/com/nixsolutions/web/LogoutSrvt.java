@@ -21,15 +21,12 @@ public class LogoutSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = LogManager.getLogger(LogoutSrvt.class);
 	private UserDAOImpl userImpl;
-	private ServiceStationDAOFactoryImpl factory;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public LogoutSrvt() {
 		try {
-			factory = new ServiceStationDAOFactoryImpl();
-			userImpl = (UserDAOImpl) factory.getDao(User.class);
+			userImpl = ServiceStationDAOFactoryImpl.getUserDao();
 		} catch (Exception ex) {
 			LOG.error(ex, ex);
 		}

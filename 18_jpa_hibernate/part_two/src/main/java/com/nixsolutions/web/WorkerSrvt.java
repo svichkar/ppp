@@ -22,7 +22,7 @@ import com.nixsolutions.entities.WorkerSpecification;
  */
 public class WorkerSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
+
 	private WorkerDAOImpl workerImpl;
 	private StatusDAOImpl statusImpl;
 	private WorkerSpecificationDAOImpl workerspecImpl;
@@ -32,10 +32,9 @@ public class WorkerSrvt extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public WorkerSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		workerImpl = (WorkerDAOImpl) factory.getDao(Worker.class);
-		workerspecImpl = (WorkerSpecificationDAOImpl) factory.getDao(WorkerSpecification.class);
-		statusImpl = (StatusDAOImpl) factory.getDao(Status.class);
+		workerImpl = ServiceStationDAOFactoryImpl.getWorkerDao();
+		workerspecImpl = ServiceStationDAOFactoryImpl.getWorkerSpecificationDao();
+		statusImpl = ServiceStationDAOFactoryImpl.getStatusDao();
 	}
 
 	/**

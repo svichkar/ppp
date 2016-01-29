@@ -13,6 +13,7 @@ import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.StatusDAO;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.Status;
+import com.nixsolutions.error.CustomDataException;
 
 public class StatusDAOImpl implements StatusDAO<Status> {
 
@@ -25,46 +26,101 @@ public class StatusDAOImpl implements StatusDAO<Status> {
 
 	@Override
 	public void create(Status t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(Status t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(Status t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public Status findByPK(long id) {
 		Status status = null;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		status = (Status) session.get(Status.class, id);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			status = (Status) session.get(Status.class, id);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return status;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Status> getAll() {
-		List<Status> lStatus = new ArrayList<Status>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lStatus.addAll(session.createCriteria(Status.class).list());
-		tx.commit();
-		return lStatus;
+		List<Status> statuses = new ArrayList<Status>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			statuses.addAll(session.createCriteria(Status.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return statuses;
 	}
 }

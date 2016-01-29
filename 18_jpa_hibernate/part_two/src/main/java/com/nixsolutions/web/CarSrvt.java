@@ -24,20 +24,18 @@ import com.nixsolutions.entities.OrderInWork;
  */
 public class CarSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private CarDAOImpl carImpl;
 	private CustomerDAOImpl customerImpl;
-	private OrderInWorkDAOImpl oiwImpl;
+	private OrderInWorkDAOImpl orderInWorkImpl;
 
 	/**
 	 * @throws Exception
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public CarSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		carImpl = (CarDAOImpl) factory.getDao(Car.class);
-		customerImpl = (CustomerDAOImpl) factory.getDao(Customer.class);
-		oiwImpl =  (OrderInWorkDAOImpl) factory.getDao(OrderInWork.class);
+		carImpl = ServiceStationDAOFactoryImpl.getCarDao();
+		customerImpl = ServiceStationDAOFactoryImpl.getCustomerDao();
+		orderInWorkImpl = ServiceStationDAOFactoryImpl.getOrderInWorkDao();
 	}
 
 	/**
@@ -77,10 +75,9 @@ public class CarSrvt extends HttpServlet {
 				request.setAttribute("title", "Edit car");
 				request.getRequestDispatcher("/WEB-INF/jsp/car.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
-				List<OrderInWork> lOIW = oiwImpl.getAll();
+				List<OrderInWork> lOIW = orderInWorkImpl.getAll();
 				for (OrderInWork orderInWork : lOIW) {
-					if(orderInWork.getCar().getCarId() == car.getCarId())
-					{
+					if (orderInWork.getCar().getCarId() == car.getCarId()) {
 						throw new WebServiceException("You cannot remove car when it is in order!!");
 					}
 				}

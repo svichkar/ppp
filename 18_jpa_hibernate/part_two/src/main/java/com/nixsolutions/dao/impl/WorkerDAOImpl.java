@@ -18,6 +18,7 @@ import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.WorkerDAO;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.Worker;
+import com.nixsolutions.error.CustomDataException;
 
 public class WorkerDAOImpl implements WorkerDAO<Worker> {
 
@@ -30,49 +31,103 @@ public class WorkerDAOImpl implements WorkerDAO<Worker> {
 
 	@Override
 	public void create(Worker t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(Worker t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(Worker t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public Worker findByPK(long id) {
 		Worker worker = null;
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		worker = (Worker) session.get(Worker.class, id);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			worker = (Worker) session.get(Worker.class, id);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return worker;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Worker> getAll() {
-		List<Worker> lWorkers = new ArrayList<Worker>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lWorkers.addAll(session.createCriteria(Worker.class)
-				.setResultTransformer( DistinctRootEntityResultTransformer.INSTANCE )
-				.list());
-		tx.commit();
-		return lWorkers;
+		List<Worker> workers = new ArrayList<Worker>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			workers.addAll(session.createCriteria(Worker.class)
+					.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return workers;
 	}
 
 }

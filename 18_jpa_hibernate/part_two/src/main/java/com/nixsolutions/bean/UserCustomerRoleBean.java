@@ -26,46 +26,68 @@ public class UserCustomerRoleBean implements GenericDao<UserCustomerRole> {
 	}
 
 	public UserCustomerRole findByUser(User user) {
-		UserCustomerRole ucr = new UserCustomerRole();
+		UserCustomerRole userCustomerRole = new UserCustomerRole();
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		Customer customer = (Customer) session.createCriteria(Customer.class)
-				.add(Restrictions.eq("user_id", user.getUserId())).uniqueResult();
-		tx.commit();
-		ucr.setCustomerId(customer.getCustomerId());
-		ucr.setF_name(customer.getF_name());
-		ucr.setL_name(customer.getL_name());
-		ucr.setCustomerId(customer.getCustomerId());
-		ucr.setPassword(customer.getUser().getPassword());
-		ucr.setRoleId(customer.getUser().getRole().getRoleId());
-		ucr.setRole(customer.getUser().getRole().getRolename());
-		ucr.setUser_id(customer.getUser().getUserId());
-		ucr.setUsername(customer.getUser().getUsername());
-		return ucr;
+		Transaction transaction = null;
+		Customer customer = null;
+		try {
+			transaction = session.beginTransaction();
+			customer = (Customer) session.createCriteria(Customer.class)
+					.add(Restrictions.eq("user_id", user.getUserId())).uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+		}
+		if (customer != null) {
+
+			userCustomerRole.setCustomerId(customer.getCustomerId());
+			userCustomerRole.setF_name(customer.getF_name());
+			userCustomerRole.setL_name(customer.getL_name());
+			userCustomerRole.setCustomerId(customer.getCustomerId());
+			userCustomerRole.setPassword(customer.getUser().getPassword());
+			userCustomerRole.setRoleId(customer.getUser().getRole().getRoleId());
+			userCustomerRole.setRole(customer.getUser().getRole().getRolename());
+			userCustomerRole.setUser_id(customer.getUser().getUserId());
+			userCustomerRole.setUsername(customer.getUser().getUsername());
+		}
+		return userCustomerRole;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<UserCustomerRole> getAll() {
-		List<UserCustomerRole> listResult = new ArrayList<>();
+		List<UserCustomerRole> results = new ArrayList<>();
+		List<Customer> customers = new ArrayList<>();
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		List<Customer> listCustomers = session.createCriteria(Customer.class).list();
-		tx.commit();
-		for (Customer customer : listCustomers) {
-			UserCustomerRole ucr = new UserCustomerRole();
-			ucr.setCustomerId(customer.getCustomerId());
-			ucr.setF_name(customer.getF_name());
-			ucr.setL_name(customer.getL_name());
-			ucr.setCustomerId(customer.getCustomerId());
-			ucr.setPassword(customer.getUser().getPassword());
-			ucr.setRoleId(customer.getUser().getRole().getRoleId());
-			ucr.setRole(customer.getUser().getRole().getRolename());
-			ucr.setUser_id(customer.getUser().getUserId());
-			ucr.setUsername(customer.getUser().getUsername());
-			listResult.add(ucr);
+		Transaction transaction = null;
+
+		try {
+			transaction = session.beginTransaction();
+			customers = session.createCriteria(Customer.class).list();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
 		}
-		return listResult;
+		for (Customer customer : customers) {
+			UserCustomerRole userCustomerRole = new UserCustomerRole();
+			userCustomerRole.setCustomerId(customer.getCustomerId());
+			userCustomerRole.setF_name(customer.getF_name());
+			userCustomerRole.setL_name(customer.getL_name());
+			userCustomerRole.setCustomerId(customer.getCustomerId());
+			userCustomerRole.setPassword(customer.getUser().getPassword());
+			userCustomerRole.setRoleId(customer.getUser().getRole().getRoleId());
+			userCustomerRole.setRole(customer.getUser().getRole().getRolename());
+			userCustomerRole.setUser_id(customer.getUser().getUserId());
+			userCustomerRole.setUsername(customer.getUser().getUsername());
+			results.add(userCustomerRole);
+		}
+		return results;
 	}
 
 	@Deprecated
@@ -87,23 +109,35 @@ public class UserCustomerRoleBean implements GenericDao<UserCustomerRole> {
 	}
 
 	@Override
-	public UserCustomerRole findByPK(long id) {
-		UserCustomerRole ucr = new UserCustomerRole();
+	public UserCustomerRole findByPK(long userid) {
+		UserCustomerRole userCustomerRole = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		Customer customer = (Customer) session.createCriteria(Customer.class)
-				.add(Restrictions.eq("user_id", id)).uniqueResult();
-		tx.commit();
-		ucr.setCustomerId(customer.getCustomerId());
-		ucr.setF_name(customer.getF_name());
-		ucr.setL_name(customer.getL_name());
-		ucr.setCustomerId(customer.getCustomerId());
-		ucr.setPassword(customer.getUser().getPassword());
-		ucr.setRoleId(customer.getUser().getRole().getRoleId());
-		ucr.setRole(customer.getUser().getRole().getRolename());
-		ucr.setUser_id(customer.getUser().getUserId());
-		ucr.setUsername(customer.getUser().getUsername());
-		return ucr;
+		Transaction transaction = null;
+		Customer customer = null;
+		try {
+			transaction = session.beginTransaction();
+			customer = (Customer) session.createCriteria(Customer.class).add(Restrictions.eq("user_id", userid))
+					.uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+		}
+		if (customer != null) {
+			userCustomerRole = new UserCustomerRole();
+			userCustomerRole.setCustomerId(customer.getCustomerId());
+			userCustomerRole.setF_name(customer.getF_name());
+			userCustomerRole.setL_name(customer.getL_name());
+			userCustomerRole.setCustomerId(customer.getCustomerId());
+			userCustomerRole.setPassword(customer.getUser().getPassword());
+			userCustomerRole.setRoleId(customer.getUser().getRole().getRoleId());
+			userCustomerRole.setRole(customer.getUser().getRole().getRolename());
+			userCustomerRole.setUser_id(customer.getUser().getUserId());
+			userCustomerRole.setUsername(customer.getUser().getUsername());
+		}
+		return userCustomerRole;
 	}
 
 }

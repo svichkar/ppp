@@ -8,13 +8,12 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import com.nixsolutions.app.HibernateUtil;
 import com.nixsolutions.dao.PartDAO;
 import com.nixsolutions.entities.Part;
+import com.nixsolutions.error.CustomDataException;
 
 public class PartDAOImpl implements PartDAO<Part> {
 
@@ -27,48 +26,104 @@ public class PartDAOImpl implements PartDAO<Part> {
 
 	@Override
 	public void create(Part t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void update(Part t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.saveOrUpdate(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public void delete(Part t) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		session.delete(t);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			session.delete(t);
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 	}
 
 	@Override
 	public Part findByPK(long id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		Part part = (Part) session.get(Part.class, id);
-		tx.commit();
+		Session session = null;
+		Transaction transaction = null;
+		Part part = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			part = (Part) session.get(Part.class, id);
+			transaction.commit();
+
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
 		return part;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Part> getAll() {
-		List<Part> lParts = new ArrayList<>();
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		lParts.addAll(session.createCriteria(Part.class)
-				.setResultTransformer( DistinctRootEntityResultTransformer.INSTANCE )
-				.list());
-		tx.commit();
-		return lParts;
+		List<Part> parts = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			parts.addAll(session.createCriteria(Part.class)
+					.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			LOG.error(ex, ex);
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+			throw new CustomDataException(ex);
+		}
+		return parts;
 	}
 
 }

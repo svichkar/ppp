@@ -47,37 +47,57 @@ public class WorkerStatusSpecificationBean implements GenericDao<WorkerStatusSpe
 
 	@Override
 	public WorkerStatusSpecification findByPK(long id) {
-		WorkerStatusSpecification wss = new WorkerStatusSpecification();
+		WorkerStatusSpecification workerStatusSpec = null;
+		Session session = null;
+		Transaction transaction = null;
+		Worker worker = null;
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		Worker worker = (Worker) session.createCriteria(Worker.class).add(Restrictions.eq("user_id", id))
-				.uniqueResult();
-		tx.commit();
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			worker = (Worker) session.createCriteria(Worker.class).add(Restrictions.eq("user_id", id)).uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+		}
 
-		wss.setF_name(worker.getF_name());
-		wss.setL_name(worker.getL_name());
-		wss.setId(worker.getWorkerId());
-		wss.setSpec_id(worker.getSpec().getSpecId());
-		wss.setSpec_name(worker.getSpec().getSpec_name());
-		wss.setStatus_id(worker.getStatus().getStatusId());
-		wss.setStatus_name(worker.getStatus().getStatus_name());
+		if (worker != null) {
+			workerStatusSpec = new WorkerStatusSpecification();
+			workerStatusSpec.setF_name(worker.getF_name());
+			workerStatusSpec.setL_name(worker.getL_name());
+			workerStatusSpec.setId(worker.getWorkerId());
+			workerStatusSpec.setSpec_id(worker.getSpec().getSpecId());
+			workerStatusSpec.setSpec_name(worker.getSpec().getSpec_name());
+			workerStatusSpec.setStatus_id(worker.getStatus().getStatusId());
+			workerStatusSpec.setStatus_name(worker.getStatus().getStatus_name());
+		}
 
-		return wss;
+		return workerStatusSpec;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<WorkerStatusSpecification> getAll() {
-		List<WorkerStatusSpecification> listResults = new ArrayList<>();
+		List<WorkerStatusSpecification> results = new ArrayList<>();
+		List<Worker> workers = new ArrayList<>();
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			workers.addAll(session.createCriteria(Worker.class).list());
+			tx.commit();
+		} catch (Exception ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+		}
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-
-		List<Worker> lWorker = session.createCriteria(Worker.class).list();
-		tx.commit();
-
-		for (Worker worker : lWorker) {
+		for (Worker worker : workers) {
 			WorkerStatusSpecification wss = new WorkerStatusSpecification();
 			wss.setF_name(worker.getF_name());
 			wss.setL_name(worker.getL_name());
@@ -86,12 +106,12 @@ public class WorkerStatusSpecificationBean implements GenericDao<WorkerStatusSpe
 			wss.setSpec_name(worker.getSpec().getSpec_name());
 			wss.setStatus_id(worker.getStatus().getStatusId());
 			wss.setStatus_name(worker.getStatus().getStatus_name());
-			if (!listResults.contains(wss)) {
-				listResults.add(wss);
+			if (!results.contains(wss)) {
+				results.add(wss);
 			}
 
 		}
-		return listResults;
+		return results;
 	}
 
 }

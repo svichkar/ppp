@@ -18,7 +18,6 @@ import com.nixsolutions.entities.Part;
  */
 public class PartSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private PartDAOImpl partImpl;
 
 	/**
@@ -26,8 +25,7 @@ public class PartSrvt extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public PartSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		partImpl = (PartDAOImpl) factory.getDao(Part.class);
+		partImpl = ServiceStationDAOFactoryImpl.getPartDao();
 	}
 
 	/**

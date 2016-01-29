@@ -24,22 +24,20 @@ import com.nixsolutions.entities.PartOrder;
  */
 public class OrderPartSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private PartDAOImpl partsImpl;
-	private OrderInWorkDAOImpl oiwImpl;
-	private PartOrderDAOImpl poImpl;
-	private AllPartsInOrderBean allPoImpl;
+	private OrderInWorkDAOImpl orderInWorkImpl;
+	private PartOrderDAOImpl partOrderImpl;
+	private AllPartsInOrderBean allPartsInOrderImpl;
 
 	/**
 	 * @throws Exception
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public OrderPartSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		partsImpl = (PartDAOImpl) factory.getDao(Part.class);
-		poImpl = (PartOrderDAOImpl) factory.getDao(PartOrder.class);
-		allPoImpl = (AllPartsInOrderBean) factory.getDao(AllPartsInOrder.class);
-		oiwImpl = (OrderInWorkDAOImpl) factory.getDao(OrderInWork.class);
+		partsImpl = ServiceStationDAOFactoryImpl.getPartDao();
+		partOrderImpl = ServiceStationDAOFactoryImpl.getPartOrderDao();
+		allPartsInOrderImpl = ServiceStationDAOFactoryImpl.getAllPartsInOrderBean();
+		orderInWorkImpl = ServiceStationDAOFactoryImpl.getOrderInWorkDao();
 	}
 
 	/**
@@ -65,27 +63,27 @@ public class OrderPartSrvt extends HttpServlet {
 		long orderId = NumberUtils.isDigits(order_id) ? Integer.parseInt(order_id) : 0;
 		long partId = NumberUtils.isDigits(part_id) ? Integer.parseInt(part_id) : 0;
 		long amount = NumberUtils.isDigits(amountParts) ? Integer.parseInt(amountParts) : 0;
-		PartOrder orderpart = poImpl.findbyPartAndOrder(orderId, partId);
+		PartOrder orderPart = partOrderImpl.findbyPartAndOrder(orderId, partId);
 		///
-		if (orderpart != null) {
-			AllPartsInOrder allorderpart = allPoImpl.findByPartAndOrder(orderId, partId);
+		if (orderPart != null) {
+			AllPartsInOrder allOrderPart = allPartsInOrderImpl.findByPartAndOrder(orderId, partId);
 			if (action.equalsIgnoreCase("Edit")) {
 				request.setAttribute("title", "Edit order");
 				request.setAttribute("order_id", orderId);
-				request.setAttribute("part", allorderpart);
-				request.setAttribute("parts", poImpl.getAll());
+				request.setAttribute("part", allOrderPart);
+				request.setAttribute("parts", partOrderImpl.getAll());
 				request.setAttribute("action", "Edit");
 				request.getRequestDispatcher("/WEB-INF/jsp/editpo.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
-				poImpl.delete(orderpart);
+				partOrderImpl.delete(orderPart);
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("action", "Edit");
 				request.getRequestDispatcher("/order").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
-				orderpart.setPart(partsImpl.findByPK(partId));
-				orderpart.setOrder(oiwImpl.findByPK(orderId));
-				orderpart.setAmount(amount);
-				poImpl.update(orderpart);
+				orderPart.setPart(partsImpl.findByPK(partId));
+				orderPart.setOrder(orderInWorkImpl.findByPK(orderId));
+				orderPart.setAmount(amount);
+				partOrderImpl.update(orderPart);
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("action", "Edit");
 				request.getRequestDispatcher("/order").forward(request, response);
@@ -98,8 +96,8 @@ public class OrderPartSrvt extends HttpServlet {
 				request.setAttribute("parts", partsImpl.getAll());
 				request.getRequestDispatcher("/WEB-INF/jsp/editpo.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
-				PartOrder orderpartNew = new PartOrder(oiwImpl.findByPK(orderId), partsImpl.findByPK(partId), amount);
-				poImpl.create(orderpartNew);
+				PartOrder orderpartNew = new PartOrder(orderInWorkImpl.findByPK(orderId), partsImpl.findByPK(partId), amount);
+				partOrderImpl.create(orderpartNew);
 				request.setAttribute("title", "Orders");
 				request.setAttribute("order_id", orderId);
 				request.setAttribute("action", "Edit");

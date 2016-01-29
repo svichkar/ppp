@@ -13,12 +13,12 @@
 					<th>
 						<form action="orderPartAdd" method="POST">
 							<input type="hidden" name="action" value="Add">
-							<input type="hidden" name="order_id" value="${oiw.orderInWorkId}">
+							<input type="hidden" name="order_id" value="${orderInWork.orderInWorkId}">
 							<input type="submit" value="Add part">
 						</form>
 					</th>
 				</tr>
-					<c:forEach var="part" items="${po}">
+					<c:forEach var="part" items="${allOrderParts}">
 						<form action="orderPartEdit" method="POST">
 							<tr>
 								<td>
@@ -50,7 +50,7 @@
 		<tr>
 			<td>Order id</td>
 			<td>
-				<c:out value="${oiw.orderInWorkId}" />
+				<c:out value="${orderInWork.orderInWorkId}" />
 			</td>
 		</tr>
 		<tr>
@@ -70,7 +70,7 @@
 			<td>Status:</td>
 			<td>
 				<select name="order_status_id">
-				<c:forEach var="status" items="${os}">
+				<c:forEach var="status" items="${allOrderStatuses}">
 						<option value="${status.orderStatusId}"
 									<c:if test="${status.orderStatusId eq oiw.order_status.orderStatusId}">selected</c:if>>
 										<c:out value="${status.order_status_name}" />
@@ -82,25 +82,25 @@
 		<tr>
 			<td>Description:</td>
 			<td>
-				<input type="text" name="description" value="${oiw.description}" />
+				<input type="text" name="description" value="${orderInWork.description}" />
 			</td>
 		</tr>
 		<tr>
 			<td>Start time:</td>
 			<td>
-				<input type="datetime" name="datetime_start" value="${oiw.datetime_start}" />
+				<input type="datetime" name="datetime_start" value="${orderInWork.datetime_start}" />
 			</td>
 		</tr>
 		<tr>
 			<td>Stop time:</td>
 			<td>
-				<input type="datetime" name="datetime_end" 	value="${oiw.datetime_end}" />
+				<input type="datetime" name="datetime_end" 	value="${orderInWork.datetime_end}" />
 			</td>
 		</tr>
 		<tr>
 			<td colspan=2 align="right">
 				<input type="hidden" name="action" value="Save">
-				<input type="hidden" name="order_id" value="${oiw.orderInWorkId}">
+				<input type="hidden" name="order_id" value="${orderInWork.orderInWorkId}">
 				<input type="submit" value="Save">
 			</td>
 		</tr>
@@ -114,12 +114,12 @@
 					<th>
 						<form action="orderWorkerAdd" method="POST">
 							<input type="hidden" name="action" value="Add"> 
-							<input type="hidden" name="order_id" value="${oiw.orderInWorkId}">
+							<input type="hidden" name="order_id" value="${orderInWork.orderInWorkId}">
 							<input type="submit" value="Add worker">
 						</form>
 					</th>
 				</tr>
-					<c:forEach var="worker" items="${ow}">
+					<c:forEach var="worker" items="${allOrderWorkers}">
 						<form action="orderWorkerEdit" method="POST">
 							<tr>
 								<td>

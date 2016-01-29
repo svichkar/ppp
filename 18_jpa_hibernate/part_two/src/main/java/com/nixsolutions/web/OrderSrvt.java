@@ -19,36 +19,39 @@ import com.nixsolutions.bean.AllWorkersInOrderBean;
 import com.nixsolutions.dao.impl.CarDAOImpl;
 import com.nixsolutions.dao.impl.OrderInWorkDAOImpl;
 import com.nixsolutions.dao.impl.OrderStatusDAOImpl;
+import com.nixsolutions.dao.impl.OrderWorkerDAOImpl;
 import com.nixsolutions.dao.impl.ServiceStationDAOFactoryImpl;
 import com.nixsolutions.entities.AllPartsInOrder;
 import com.nixsolutions.entities.AllWorkersInOrder;
 import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.OrderStatus;
+import com.nixsolutions.entities.OrderWorker;
+import com.nixsolutions.error.CustomWebException;
 
 /**
  * Servlet implementation class OrderSrvt
  */
 public class OrderSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private OrderInWorkDAOImpl orderInWorkImpl;
 	private CarDAOImpl carImpl;
-	private AllWorkersInOrderBean owImpl;
-	private AllPartsInOrderBean poImpl;
-	private OrderStatusDAOImpl osImpl;
+	private AllWorkersInOrderBean allWorkersinOrderImpl;
+	private AllPartsInOrderBean allPartsInOrderImpl;
+	private OrderStatusDAOImpl orderStatusImpl;
+	private OrderWorkerDAOImpl orderWorkerImpl;
 
 	/**
 	 * @throws Exception
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public OrderSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		orderInWorkImpl = (OrderInWorkDAOImpl) factory.getDao(OrderInWork.class);
-		carImpl = (CarDAOImpl) factory.getDao(Car.class);
-		owImpl = (AllWorkersInOrderBean) factory.getDao(AllWorkersInOrder.class);
-		poImpl = (AllPartsInOrderBean) factory.getDao(AllPartsInOrder.class);
-		osImpl = (OrderStatusDAOImpl) factory.getDao(OrderStatus.class);
+		orderInWorkImpl = ServiceStationDAOFactoryImpl.getOrderInWorkDao();
+		carImpl = ServiceStationDAOFactoryImpl.getCarDao();
+		allWorkersinOrderImpl = ServiceStationDAOFactoryImpl.getAllWorkersInOrderBean();
+		allPartsInOrderImpl = ServiceStationDAOFactoryImpl.getAllPartsInOrderBean();
+		orderStatusImpl = ServiceStationDAOFactoryImpl.getOrderStatusDao();
+		orderWorkerImpl = ServiceStationDAOFactoryImpl.getOrderWorkerDoa();
 	}
 
 	/**
@@ -88,53 +91,57 @@ public class OrderSrvt extends HttpServlet {
 		int orderId = NumberUtils.isDigits(order_id) ? Integer.parseInt(order_id) : 0;
 		int carId = NumberUtils.isDigits(car_id) ? Integer.parseInt(car_id) : 0;
 		/// get items for select control
-		List<AllWorkersInOrder> ow = new ArrayList<>();
-		List<AllPartsInOrder> po = new ArrayList<>();
+		List<AllWorkersInOrder> allWorkersInOrder = new ArrayList<>();
+		List<AllPartsInOrder> allPartsInOrder = new ArrayList<>();
 		if (orderId > 0) {
-			ow.addAll(owImpl.getAll(orderId));
-			po.addAll(poImpl.getAll(orderId));
+			allWorkersInOrder.addAll(allWorkersinOrderImpl.getAll(orderId));
+			allPartsInOrder.addAll(allPartsInOrderImpl.getAll(orderId));
 		}
 		List<Car> cars = carImpl.getAll();
-		List<OrderStatus> os = osImpl.getAll();
+		List<OrderStatus> allOrderStatus = orderStatusImpl.getAll();
 
 		if (orderId > 0) {
-			OrderInWork oiw = orderInWorkImpl.findByPK(orderId);
+			OrderInWork selectedOrderInWork = orderInWorkImpl.findByPK(orderId);
 			if (action.equalsIgnoreCase("Edit")) {
-				request.setAttribute("ow", ow);
-				request.setAttribute("po", po);
-				request.setAttribute("oiw", oiw);
+				request.setAttribute("allOrderWorkers", allWorkersInOrder);
+				request.setAttribute("allOrderParts", allPartsInOrder);
+				request.setAttribute("orderInWork", selectedOrderInWork);
 				request.setAttribute("cars", cars);
-				request.setAttribute("os", os);
+				request.setAttribute("allOrderStatuses", allOrderStatus);
 				request.setAttribute("title", "Order");
 				request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
-				/// need to delete related records
-				orderInWorkImpl.delete(oiw);
+				List<OrderWorker> allAssignedWorkes = orderWorkerImpl.getAllForOrder(orderId);
+				if (allAssignedWorkes.size()>0)
+				{
+					throw new CustomWebException("You cannot delete order that has at least one assigned worker!");
+				}
+				orderInWorkImpl.delete(selectedOrderInWork);
 				request.setAttribute("destination", "Orders");
 				request.getRequestDispatcher("/navigation").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
-				oiw.setCar(carImpl.findByPK(carId));
-				oiw.setOrder_status(osImpl.findByPK(orderstatusId));
-				oiw.setDescription(description);
-				oiw.setDatetime_start(datetimeStart);
-				oiw.setDatetime_end(datetimeEnd);
-				oiw.setDescription(description);
-				orderInWorkImpl.update(oiw);
+				selectedOrderInWork.setCar(carImpl.findByPK(carId));
+				selectedOrderInWork.setOrder_status(orderStatusImpl.findByPK(orderstatusId));
+				selectedOrderInWork.setDescription(description);
+				selectedOrderInWork.setDatetime_start(datetimeStart);
+				selectedOrderInWork.setDatetime_end(datetimeEnd);
+				selectedOrderInWork.setDescription(description);
+				orderInWorkImpl.update(selectedOrderInWork);
 				request.setAttribute("destination", "Orders");
 				request.setAttribute("title", "Orders");
 				request.getRequestDispatcher("/navigation").forward(request, response);
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
-				request.setAttribute("po", po);
+				request.setAttribute("allOrderParts", allPartsInOrder);
 				request.setAttribute("cars", cars);
-				request.setAttribute("os", os);
+				request.setAttribute("allOrderStatuses", allOrderStatus);
 				request.setAttribute("title", "Order");
 				request.getRequestDispatcher("/WEB-INF/jsp/order.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Save")) {
-				OrderInWork oiwNew = new OrderInWork(osImpl.findByPK(orderstatusId), description,
+				OrderInWork orderinWorkAdded = new OrderInWork(orderStatusImpl.findByPK(orderstatusId), description,
 						carImpl.findByPK(carId), datetimeStart, datetimeEnd);
-				orderInWorkImpl.create(oiwNew);
+				orderInWorkImpl.create(orderinWorkAdded);
 				request.setAttribute("title", "Orders");
 				request.setAttribute("destination", "Orders");
 				request.getRequestDispatcher("/navigation").forward(request, response);

@@ -54,68 +54,103 @@ public class AllWorkersInOrderBean implements AllWorkersInOrderDAO<AllWorkersInO
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AllWorkersInOrder> getAll() {
-		List<AllWorkersInOrder> listResults = new ArrayList<>();
+		List<AllWorkersInOrder> results = new ArrayList<>();
+		List<OrderWorker> orderWorkers = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		List<OrderWorker> lOW = session.createCriteria(OrderWorker.class).list();
-		tx.commit();
-
-		for (OrderWorker orderWorker : lOW) {
-			AllWorkersInOrder oneWO = new AllWorkersInOrder();
-			oneWO.setCompleted(orderWorker.getCompleted());
-			oneWO.setF_name(orderWorker.getWorker().getF_name());
-			oneWO.setL_name(orderWorker.getWorker().getL_name());
-			oneWO.setId(orderWorker.getOrderInWork().getOrderInWorkId());
-			oneWO.setWorker_id(orderWorker.getWorker().getWorkerId());
-			listResults.add(oneWO);
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			orderWorkers.addAll(session.createCriteria(OrderWorker.class).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
 		}
 
-		return listResults;
+		for (OrderWorker orderWorker : orderWorkers) {
+			AllWorkersInOrder allWorkerInOrder = new AllWorkersInOrder();
+			allWorkerInOrder.setCompleted(orderWorker.getCompleted());
+			allWorkerInOrder.setF_name(orderWorker.getWorker().getF_name());
+			allWorkerInOrder.setL_name(orderWorker.getWorker().getL_name());
+			allWorkerInOrder.setId(orderWorker.getOrderInWork().getOrderInWorkId());
+			allWorkerInOrder.setWorker_id(orderWorker.getWorker().getWorkerId());
+			results.add(allWorkerInOrder);
+		}
+
+		return results;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<AllWorkersInOrder> getAll(long order_id) {
-		List<AllWorkersInOrder> listResults = new ArrayList<>();
+	public List<AllWorkersInOrder> getAll(long orderid) {
+		List<AllWorkersInOrder> results = new ArrayList<>();
+		List<OrderWorker> orderWorkers = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class).add(Restrictions.eq("order_id", order_id)).uniqueResult();
-		List<OrderWorker> lOW = session.createCriteria(OrderWorker.class).add(Restrictions.eq("order", oiw))
-				.list();
-		tx.commit();
-
-		for (OrderWorker orderWorker : lOW) {
-			AllWorkersInOrder oneWO = new AllWorkersInOrder();
-			oneWO.setCompleted(orderWorker.getCompleted());
-			oneWO.setF_name(orderWorker.getWorker().getF_name());
-			oneWO.setL_name(orderWorker.getWorker().getL_name());
-			oneWO.setId(orderWorker.getOrderInWork().getOrderInWorkId());
-			oneWO.setWorker_id(orderWorker.getWorker().getWorkerId());
-			listResults.add(oneWO);
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			OrderInWork orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("order_id", orderid)).uniqueResult();
+			orderWorkers.addAll(
+					session.createCriteria(OrderWorker.class).add(Restrictions.eq("order", orderInWork)).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
 		}
 
-		return listResults;
+		for (OrderWorker orderWorker : orderWorkers) {
+			AllWorkersInOrder allWorkerInOrder = new AllWorkersInOrder();
+			allWorkerInOrder.setCompleted(orderWorker.getCompleted());
+			allWorkerInOrder.setF_name(orderWorker.getWorker().getF_name());
+			allWorkerInOrder.setL_name(orderWorker.getWorker().getL_name());
+			allWorkerInOrder.setId(orderWorker.getOrderInWork().getOrderInWorkId());
+			allWorkerInOrder.setWorker_id(orderWorker.getWorker().getWorkerId());
+			results.add(allWorkerInOrder);
+		}
+
+		return results;
 	}
 
-	public AllWorkersInOrder findByOrderAndWorker(long order_id, long worker_id) {
+	public AllWorkersInOrder findByOrderAndWorker(long orderid, long worderid) {
+		Session session = null;
+		Transaction transaction = null;
+		OrderWorker orderWorker = null;
+		AllWorkersInOrder allWorkerInOrder = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			OrderInWork orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("order_id", orderid)).uniqueResult();
+			Worker worker = (Worker) session.createCriteria(Worker.class).add(Restrictions.eq("worker_id", worderid))
+					.uniqueResult();
+			orderWorker = (OrderWorker) session.createCriteria(OrderWorker.class)
+					.add(Restrictions.eq("order", orderInWork)).add(Restrictions.eq("worker", worker)).uniqueResult();
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+		}
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class).add(Restrictions.eq("order_id", order_id)).uniqueResult();
-		Worker w = (Worker) session.createCriteria(Worker.class).add(Restrictions.eq("worker_id", worker_id)).uniqueResult();
-		OrderWorker ow = (OrderWorker) session.createCriteria(OrderWorker.class)
-				.add(Restrictions.eq("order", oiw)).add(Restrictions.eq("worker", w)).uniqueResult();
-		tx.commit();
+		if (orderWorker != null) {
+			allWorkerInOrder = new AllWorkersInOrder();
+			allWorkerInOrder.setCompleted(orderWorker.getCompleted());
+			allWorkerInOrder.setF_name(orderWorker.getWorker().getF_name());
+			allWorkerInOrder.setL_name(orderWorker.getWorker().getL_name());
+			allWorkerInOrder.setId(orderWorker.getOrderInWork().getOrderInWorkId());
+			allWorkerInOrder.setWorker_id(orderWorker.getWorker().getWorkerId());
+		}
 
-		AllWorkersInOrder oneWO = new AllWorkersInOrder();
-		oneWO.setCompleted(ow.getCompleted());
-		oneWO.setF_name(ow.getWorker().getF_name());
-		oneWO.setL_name(ow.getWorker().getL_name());
-		oneWO.setId(ow.getOrderInWork().getOrderInWorkId());
-		oneWO.setWorker_id(ow.getWorker().getWorkerId());
-
-		return oneWO;
+		return allWorkerInOrder;
 	}
 
 }

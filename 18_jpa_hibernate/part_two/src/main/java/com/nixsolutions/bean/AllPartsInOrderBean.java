@@ -53,71 +53,106 @@ public class AllPartsInOrderBean implements AllPartsInOrderDAO<AllPartsInOrder> 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AllPartsInOrder> getAll() {
-		List<AllPartsInOrder> listResults = new ArrayList<>();
+		List<AllPartsInOrder> results = new ArrayList<>();
+		List<PartOrder> partOrders = new ArrayList<>();
+		Transaction tx = null;
+		Session session = null;
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		List<PartOrder> lPO = session.createCriteria(PartOrder.class).list();
-		tx.commit();
+		try {
+			session = sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			partOrders.addAll(session.createCriteria(PartOrder.class).list());
+			tx.commit();
+		} catch (Exception ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+		}
 
-		for (PartOrder partOrder : lPO) {
+		for (PartOrder partOrder : partOrders) {
 			AllPartsInOrder allpart = new AllPartsInOrder();
 			allpart.setAmount(partOrder.getAmount());
 			allpart.setId(partOrder.getOrder().getOrderInWorkId());
 			allpart.setPart_id(partOrder.getPart().getPartId());
 			allpart.setPart_name(partOrder.getPart().getPart_name());
 			allpart.setVendor(partOrder.getPart().getVendor());
-			if (!listResults.contains(allpart)) {
-				listResults.add(allpart);
+			if (!results.contains(allpart)) {
+				results.add(allpart);
 			}
 		}
-		return listResults;
+		return results;
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<AllPartsInOrder> getAll(long order_id) {
+	public List<AllPartsInOrder> getAll(long orderid) {
+		List<AllPartsInOrder> results = new ArrayList<>();
+		List<PartOrder> partOrders = new ArrayList<>();
+		Session session = null;
+		Transaction transaction = null;
 
-		List<AllPartsInOrder> listResults = new ArrayList<>();
+		try {
+			session = sessionFactory.getCurrentSession();
+			transaction = session.beginTransaction();
+			OrderInWork orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("order_id", orderid)).uniqueResult();
+			partOrders
+					.addAll(session.createCriteria(PartOrder.class).add(Restrictions.eq("order", orderInWork)).list());
+			transaction.commit();
+		} catch (Exception ex) {
+			if (transaction != null) {
+				transaction.rollback();
+				session.close();
+			}
+		}
 
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class)
-				.add(Restrictions.eq("order_id", order_id)).uniqueResult();
-		List<PartOrder> lPO = session.createCriteria(PartOrder.class).add(Restrictions.eq("order", oiw)).list();
-		tx.commit();
-
-		for (PartOrder partOrder : lPO) {
+		for (PartOrder partOrder : partOrders) {
 			AllPartsInOrder allpart = new AllPartsInOrder();
 			allpart.setAmount(partOrder.getAmount());
 			allpart.setId(partOrder.getOrder().getOrderInWorkId());
 			allpart.setPart_id(partOrder.getPart().getPartId());
 			allpart.setPart_name(partOrder.getPart().getPart_name());
 			allpart.setVendor(partOrder.getPart().getVendor());
-			if (!listResults.contains(allpart)) {
-				listResults.add(allpart);
+			if (!results.contains(allpart)) {
+				results.add(allpart);
 			}
 		}
-		return listResults;
+		return results;
 	}
 
 	@SuppressWarnings("unchecked")
-	public AllPartsInOrder findByPartAndOrder(long order_id, long part_id) {
-		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.beginTransaction();
-		OrderInWork oiw = (OrderInWork) session.createCriteria(OrderInWork.class)
-				.add(Restrictions.eq("order_id", order_id)).uniqueResult();
-		Part part = (Part) session.createCriteria(Part.class).add(Restrictions.eq("part_id", part_id)).uniqueResult();
-		PartOrder partOrder = (PartOrder) session.createCriteria(PartOrder.class).add(Restrictions.eq("order", oiw))
-				.add(Restrictions.eq("part", part)).uniqueResult();
-		tx.commit();
-		AllPartsInOrder allpart = new AllPartsInOrder();
-		allpart.setAmount(partOrder.getAmount());
-		allpart.setId(partOrder.getOrder().getOrderInWorkId());
-		allpart.setPart_id(partOrder.getPart().getPartId());
-		allpart.setPart_name(partOrder.getPart().getPart_name());
-		allpart.setVendor(partOrder.getPart().getVendor());
+	public AllPartsInOrder findByPartAndOrder(long orderid, long partid) {
+		Session session = null;
+		Transaction tx = null;
+		PartOrder partOrder = null;
+		AllPartsInOrder allDetailsPartInOrder = null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			OrderInWork orderInWork = (OrderInWork) session.createCriteria(OrderInWork.class)
+					.add(Restrictions.eq("order_id", orderid)).uniqueResult();
+			Part part = (Part) session.createCriteria(Part.class).add(Restrictions.eq("part_id", partid))
+					.uniqueResult();
+			partOrder = (PartOrder) session.createCriteria(PartOrder.class).add(Restrictions.eq("order", orderInWork))
+					.add(Restrictions.eq("part", part)).uniqueResult();
+			tx.commit();
+		} catch (Exception ex) {
+			if (tx != null) {
+				tx.rollback();
+				session.close();
+			}
+		}
 
-		return allpart;
+		if (partOrder != null) {
+			allDetailsPartInOrder = new AllPartsInOrder();
+			allDetailsPartInOrder.setAmount(partOrder.getAmount());
+			allDetailsPartInOrder.setId(partOrder.getOrder().getOrderInWorkId());
+			allDetailsPartInOrder.setPart_id(partOrder.getPart().getPartId());
+			allDetailsPartInOrder.setPart_name(partOrder.getPart().getPart_name());
+			allDetailsPartInOrder.setVendor(partOrder.getPart().getVendor());
+		}
+
+		return allDetailsPartInOrder;
 	}
 
 }

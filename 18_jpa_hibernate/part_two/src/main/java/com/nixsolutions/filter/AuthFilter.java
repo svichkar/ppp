@@ -24,18 +24,16 @@ import com.nixsolutions.entities.User;
  * Servlet Filter implementation class AuthFilter
  */
 public class AuthFilter implements Filter {
-	private ServiceStationDAOFactoryImpl factory;
 	private UserDAOImpl userImpl;
 	private RoleDAOImpl roleImpl;
-	private OrderInWorkCarStatusBean oiwCS;
+	private OrderInWorkCarStatusBean orderInWorkCarStatus;
 
 	protected ServletContext srvtContext;
 
 	public AuthFilter() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		userImpl = (UserDAOImpl) factory.getDao(User.class);
-		roleImpl = (RoleDAOImpl) factory.getDao(Role.class);
-		oiwCS = (OrderInWorkCarStatusBean) factory.getDao(OrderInWorkCarStatus.class);
+		userImpl = ServiceStationDAOFactoryImpl.getUserDao();
+		roleImpl = ServiceStationDAOFactoryImpl.getRoleDao();
+		orderInWorkCarStatus = ServiceStationDAOFactoryImpl.getOrderInWorkCarStatusBean();
 	}
 
 	/**
@@ -65,7 +63,7 @@ public class AuthFilter implements Filter {
 				if (foundUserRole.getRolename().equalsIgnoreCase("admin")) {
 					chain.doFilter(request, response);
 				} else {
-					request.setAttribute("oiwcs", oiwCS.getAll());
+					request.setAttribute("oiwcs", orderInWorkCarStatus.getAll());
 					request.getRequestDispatcher("/WEB-INF/jsp/userpage.jsp").forward(request, response);
 				}
 			} else {

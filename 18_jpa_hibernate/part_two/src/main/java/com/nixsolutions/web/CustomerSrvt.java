@@ -25,20 +25,18 @@ import com.nixsolutions.entities.User;
  */
 public class CustomerSrvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServiceStationDAOFactoryImpl factory;
 	private CustomerDAOImpl customerImpl;
 	private UserDAOImpl userImpl;
-	private OrderInWorkDAOImpl oiwImpl;
+	private OrderInWorkDAOImpl orderInWorkImpl;
 
 	/**
 	 * @throws Exception
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public CustomerSrvt() throws Exception {
-		factory = new ServiceStationDAOFactoryImpl();
-		customerImpl = (CustomerDAOImpl) factory.getDao(Customer.class);
-		userImpl = (UserDAOImpl) factory.getDao(User.class);
-		oiwImpl =  (OrderInWorkDAOImpl) factory.getDao(OrderInWork.class);
+		customerImpl = ServiceStationDAOFactoryImpl.getCustomerDao();
+		userImpl = ServiceStationDAOFactoryImpl.getUserDao();
+		orderInWorkImpl =  ServiceStationDAOFactoryImpl.getOrderInWorkDao();
 	}
 
 	/**
@@ -73,7 +71,7 @@ public class CustomerSrvt extends HttpServlet {
 				request.setAttribute("title", "Edit customer");
 				request.getRequestDispatcher("/WEB-INF/jsp/customer.jsp").forward(request, response);
 			} else if (action.equalsIgnoreCase("Delete")) {
-				List<OrderInWork> lOIW = oiwImpl.getAll();
+				List<OrderInWork> lOIW = orderInWorkImpl.getAll();
 				for (OrderInWork orderInWork : lOIW) {
 					if(orderInWork.getCar().getCustomer().getCustomerId() == customer.getCustomerId())
 					{

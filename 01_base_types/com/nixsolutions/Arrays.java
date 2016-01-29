@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-public class Arrays {
+class Arrays {
 
     public static int[] sort(int[] arr) {
         int[] sortArray = java.util.Arrays.copyOf(arr, arr.length);

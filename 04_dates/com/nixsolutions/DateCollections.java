@@ -17,6 +17,7 @@ public class DateCollections {
     public static void daysInEachMonth(int year) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
+        c.set(Calendar.DAY_OF_MONTH, 1); //added row
         for (int i = 0; i < 12; i++) {
             c.set(Calendar.MONTH, i);
             System.out.println(months[i] + ": " +c.getActualMaximum(Calendar.DAY_OF_MONTH));

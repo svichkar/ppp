@@ -4,5 +4,6 @@
     <employee first_name="Serg" last_name="Koz" employee_category_id="4"/>
     <employee first_name="Jax" last_name="Kryzh" employee_category_id="5"/>
     <employee first_name="Max" last_name="Novikov" employee_category_id="3"/>
+    <employee first_name="Kate" last_name="Ginger" employee_category_id="2"/>
     <employee first_name="Steve" last_name="Stevenson" employee_category_id="2"/>
 </dataset>

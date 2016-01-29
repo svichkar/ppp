@@ -3,7 +3,7 @@ package com.nixsolutions.servicestation.dao.impl;
 import com.nixsolutions.servicestation.entity.Employee;
 import com.nixsolutions.servicestation.entity.EmployeeCategory;
 import com.nixsolutions.servicestation.service.EmployeeService;
-import com.nixsolutions.servicestation.util.AppConfig;
+import com.nixsolutions.servicestation.util.HiberUtil;
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
 import org.dbunit.JdbcDatabaseTester;
@@ -18,8 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -30,8 +29,11 @@ import java.util.Set;
  * Created by rybkinrolla on 05.01.2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = HiberUtil.class)
 public class EmployeeDAOTest extends DBTestCase {
+    @Autowired
+    ApplicationContext context;
+
     @Autowired
     private EmployeeService employeeService;
     private JdbcDatabaseTester tester;
@@ -59,9 +61,9 @@ public class EmployeeDAOTest extends DBTestCase {
         tester = new JdbcDatabaseTester("org.h2.Driver",
                 "jdbc:h2:mem:sqllab", "root", "root");
         tester.setDataSet(getDataSet());
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         employeeService = (EmployeeService) context.getBean("employeeService");
     }
+
     @Test
     public void testCreate() throws Exception {
         Employee employee = new Employee();
@@ -77,6 +79,7 @@ public class EmployeeDAOTest extends DBTestCase {
                 expectedResult.getTableMetaData("employee").getColumns());
         Assertion.assertEquals(expectedResult.getTable("employee"), table);
     }
+
     @Test
     public void testDelete() throws Exception {
         Employee employee = employeeService.findById(5L);
@@ -87,9 +90,10 @@ public class EmployeeDAOTest extends DBTestCase {
                 expectedResult.getTableMetaData("employee").getColumns());
         Assertion.assertEquals(expectedResult.getTable("employee"), table);
     }
+
     @Test
     public void testUpdate() throws Exception {
-        Employee employee = employeeService.findById(1L);
+        Employee employee = employeeService.findById(6L);
         employee.setLastName("S");
         employeeService.update(employee);
         IDataSet expectedResult = new FlatXmlDataFileLoader().load("/Employee/update.xml");
@@ -98,6 +102,7 @@ public class EmployeeDAOTest extends DBTestCase {
                 expectedResult.getTableMetaData("employee").getColumns());
         Assertion.assertEquals(expectedResult.getTable("employee"), table);
     }
+
     @Test
     public void testFindById() throws Exception {
         Employee employee = employeeService.findById(1L);

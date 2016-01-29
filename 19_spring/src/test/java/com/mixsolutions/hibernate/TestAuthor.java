@@ -1,41 +1,93 @@
 package com.mixsolutions.hibernate;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.nixsolutions.hibernate.dao.AuthorDAO;
 
 import com.nixsolutions.hibernate.entity.Author;
-import org.dbunit.Assertion;
-import org.dbunit.DBTestCase;
-import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ITable;
-import org.dbunit.dataset.filter.DefaultColumnFilter;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.dbunit.operation.DatabaseOperation;
-import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
-import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.FileInputStream;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+
 import java.util.List;
 
 
 /**
  * Created by kozlovskij on 12/24/2015.
  */
-public class TestAuthor extends DBTestCase {
-    private JdbcDatabaseTester tester;
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:Test-context.xml")
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+public class TestAuthor {
     @Autowired
     private AuthorDAO authorDAO;
 
-    public TestAuthor(String name) {
-        super(name);
-        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
-        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:mem:sqllab");
-        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "root");
-        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "root");
+    @Test
+    @DirtiesContext
+    @Rollback(false)
+    @DatabaseSetup("classpath:Author/Init.xml")
+    @ExpectedDatabase("classpath:Author/Create.xml")
+    public void testCreate () throws Exception {
+        Author author = new Author();
+        author.setAuthorFirstName("test");
+        author.setAuthorLastName("test");
+        authorDAO.create(author);
     }
-    @Override
+
+    @Test
+    @DirtiesContext
+    @Rollback(false)
+    @DatabaseSetup("classpath:Author/Init.xml")
+    @ExpectedDatabase("classpath:Author/Update.xml")
+    public void testUpdate () throws Exception {
+        Author author = authorDAO.findByID(1L);
+        author.setAuthorFirstName("test");
+        author.setAuthorLastName("test");
+        authorDAO.update(author);
+    }
+
+    @Test
+    @DirtiesContext
+    @Rollback(false)
+    @DatabaseSetup("classpath:Author/Init.xml")
+    @ExpectedDatabase("classpath:Author/Delete.xml")
+    public void testDelete () throws Exception {
+        Author author = authorDAO.findByID(1L);
+        authorDAO.delete(author);
+    }
+    @Test
+    @DirtiesContext
+    @Rollback(false)
+    @DatabaseSetup("classpath:Author/Init.xml")
+    public void testFindById () throws Exception {
+        Author author = authorDAO.findByID(1L);
+        Assert.assertEquals(new Long(1),author.getAuthorId());
+        Assert.assertEquals("Aleksandr",author.getAuthorFirstName());
+        Assert.assertEquals("Pushkin",author.getAuthorLastName());
+    }
+
+    @Test
+    @DirtiesContext
+    @Rollback(false)
+    @DatabaseSetup("classpath:Author/Init.xml")
+    public void testFindAll () throws Exception {
+        List<Author> authors = authorDAO.findAll();
+        Assert.assertEquals(1,authors.size());
+        Assert.assertEquals(new Long(1),authors.get(0).getAuthorId());
+        Assert.assertEquals("Aleksandr",authors.get(0).getAuthorFirstName());
+        Assert.assertEquals("Pushkin",authors.get(0).getAuthorLastName());
+    }
+
+   /* @Override
     protected DatabaseOperation getTearDownOperation() throws Exception {
         return DatabaseOperation.DELETE_ALL;
     }
@@ -119,5 +171,5 @@ public class TestAuthor extends DBTestCase {
         Assert.assertEquals(new Long(1), author.getAuthorId());
         Assert.assertEquals("Aleksandr", author.getAuthorFirstName());
         Assert.assertEquals("Pushkin", author.getAuthorLastName());
-    }
+    }*/
 }

@@ -20,7 +20,7 @@ import com.nixsolutions.entity.Category;
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
-	public static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<Category> getAllCategories() {

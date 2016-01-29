@@ -6,18 +6,17 @@ import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.operation.DatabaseOperation;
-import org.h2.tools.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.nixsolutions.hibernate.util.HibernateUtil;
 
 public class DBUnitConfig extends DBTestCase {
     protected IDatabaseTester tester;
     protected IDataSet beforeData;
-    @Autowired
-    private static SessionFactory sessionFactory;  
+ 
+    private SessionFactory sessionFactory;  
     protected Session session;  
     
     public DBUnitConfig(String name) {
@@ -25,12 +24,16 @@ public class DBUnitConfig extends DBTestCase {
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:mem:sqllabtesting;DB_CLOSE_DELAY=-1");
         System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa");
-        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "");
-       // System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, "");
+        System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "");      
     }
     
     public void setUp() throws Exception {    
+    	ApplicationContext context = new ClassPathXmlApplicationContext("persistence-beans.xml");
+    	sessionFactory = (SessionFactory) context.getBean("sessionFactory");
+		session = sessionFactory.getCurrentSession();
+    	
     	tester = new JdbcDatabaseTester("org.h2.Driver", "jdbc:h2:mem:sqllabtesting;DB_CLOSE_DELAY=-1", "sa", "");
+    	
     }
  
     @Override

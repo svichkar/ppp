@@ -22,7 +22,7 @@ public class BookDaoImpl implements BookDao {
 	public static final Logger LOG = LogManager.getLogger();
 	
 	@Autowired
-	public static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	@Override
 	public List<Book> getAllBooks() {

@@ -21,7 +21,7 @@ import com.nixsolutions.entity.RentJournal;
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
-	public static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<RentJournal> getAllRents() {

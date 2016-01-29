@@ -21,7 +21,7 @@ import com.nixsolutions.entity.Role;
 public class RoleDaoImpl implements RoleDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
-	public static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<Role> getAllRoles() {

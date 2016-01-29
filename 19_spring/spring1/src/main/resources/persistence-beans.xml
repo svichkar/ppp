@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
- <!-- we can use annotations -->
-    <context:annotation-config />  
- 
- <!-- package to look for annotated classes -->
-    <context:component-scan base-package="com.nixsolutions" />
+	<!-- we can use annotations -->
+	<context:annotation-config />
 
-<!-- we will manage transactions with annotations -->
-    <tx:annotation-driven />
-    
- <!-- data source for our database -->
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.h2.Driver" />
-        <property name="url" value="jdbc:h2:tcp://localhost/~/sqllabtest" />
-        <property name="username" value="sa" />
-        <property name="password" value="" />
-    </bean>
- 
- <!-- configure hibernate session factory -->
-    <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-      <!--    <property name="annotatedClasses" >
-            <list>
-                <value>com.nixsolutions.entity.Author</value>
-                <value>com.nixsolutions.entity.Book</value>
-                <value>com.nixsolutions.entity.Category</value>
-                <value>com.nixsolutions.entity.Cell</value>
-                <value>com.nixsolutions.entity.Client</value>
-                <value>com.nixsolutions.entity.RentJournal</value>
-                <value>com.nixsolutions.entity.Role</value>
-                <value>com.nixsolutions.entity.User</value>
-            </list>
-        </property> -->
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.connection.autocommit">true</prop>
-                <prop key="current_session_context_class">thread</prop>
-                <prop key="hibernate.hbm2ddl.import_files">dml.sql</prop>
-            </props>
-        </property>   
-    </bean>   
-    
-    <!-- Declare a transaction manager-->
- <bean id="transactionManager"
+	<!-- package to look for annotated classes -->
+	<context:component-scan base-package="com.nixsolutions" />
+
+	<!-- we will manage transactions with annotations -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- data source for our database -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:tcp://localhost/~/sqllabtest" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<!-- configure hibernate session factory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.nixsolutions.entity" />
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="current_session_context_class">thread</prop> 
+				<prop key="hibernate.hbm2ddl.import_files">dml.sql</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- Declare a transaction manager -->
+	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	 
+
 </beans>

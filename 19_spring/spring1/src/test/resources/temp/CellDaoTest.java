@@ -39,7 +39,7 @@ public class CellDaoTest extends DBUnitConfig {
 		Assert.assertNull(auth);
 	}
 	
-	public void testShouldRetrieveAllUthors() throws Exception {
+	public void testShouldRetrieveAllCells() throws Exception {
 		List<Cell> cells = factory.getCellDao().getAllCells();
 		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();

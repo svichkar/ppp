@@ -22,7 +22,7 @@ import com.nixsolutions.entity.Client;
 public class ClientDaoImpl implements ClientDao {
 	public static final Logger LOG = LogManager.getLogger();	
 	@Autowired
-	public static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<Client> getAllClients() {

@@ -8,7 +8,6 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,22 +20,18 @@ import com.nixsolutions.entity.Cell;
 public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
-	public static SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
 	@Override
 	public List<Cell> getAllCells() {
 		LOG.entry();
 		List<Cell> cells = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
 		try {
 			Criteria criteria = session.createCriteria(Cell.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			cells = criteria.list();
-			transaction.commit();
 		} catch (Exception e) {
-			transaction.rollback();
 			LOG.throwing(new DaoException("not able to finish transaction", e));
 		}
 
@@ -48,16 +43,12 @@ public class CellDaoImpl implements CellDao {
 		LOG.entry(cellId);
 		Cell cell = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
 		try {
 			Criteria criteria = session.createCriteria(Cell.class)
 					.add(Restrictions.eq("cellId", cellId))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			cell = (Cell) criteria.uniqueResult();
-			transaction.commit();
 		} catch (Exception e) {
-			transaction.rollback();
 			LOG.throwing(new DaoException("not able to finish transaction", e));
 		}
 
@@ -69,16 +60,12 @@ public class CellDaoImpl implements CellDao {
 		LOG.entry(cellName);
 		Cell cell = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
 		try {
 			Criteria criteria = session.createCriteria(Cell.class)
 					.add(Restrictions.eq("name", cellName))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			cell = (Cell) criteria.uniqueResult();
-			transaction.commit();
 		} catch (HibernateException e) {
-			transaction.rollback();
 			LOG.throwing(new DaoException("not able to finish transaction", e));
 		}
 		return LOG.exit(cell);
@@ -88,13 +75,9 @@ public class CellDaoImpl implements CellDao {
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
 		try {
-			transaction.begin();
 			session.save(cell);
-			transaction.commit();
 		} catch (Exception e) {
-			transaction.rollback();
 			LOG.throwing(new DaoException("not able to finish transaction", e));
 		}
 	}
@@ -103,13 +86,9 @@ public class CellDaoImpl implements CellDao {
 	public void updateCell(Cell cell) {
 		LOG.entry(cell);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
 		try {
 			session.saveOrUpdate(cell);
-			transaction.commit();
 		} catch (Exception e) {
-			transaction.rollback();
 			LOG.throwing(new DaoException("not able to finish transaction", e));
 		}
 	}
@@ -118,13 +97,9 @@ public class CellDaoImpl implements CellDao {
 	public void deleteCell(Cell cell) {
 		LOG.entry(cell);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
 		try {
 			session.delete(cell);
-			transaction.commit();
 		} catch (Exception e) {
-			transaction.rollback();
 			LOG.throwing(new DaoException("not able to finish transaction", e));
 		}
 	}

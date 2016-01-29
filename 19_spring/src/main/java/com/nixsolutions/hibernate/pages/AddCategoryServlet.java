@@ -1,9 +1,8 @@
 package com.nixsolutions.hibernate.pages;
 
 import com.nixsolutions.hibernate.dao.CategoryDAO;
-import com.nixsolutions.hibernate.dao.DaoFactory;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.Category;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,13 +17,8 @@ import java.util.List;
  */
 @WebServlet("/categoryManagement")
 public class AddCategoryServlet extends HttpServlet{
-    private static CategoryDAO categoryDAO;
-
-    @Override
-    public void init() throws ServletException {
-        DaoFactory daoFactory = new DaoFactoryImpl();
-        categoryDAO = daoFactory.getCategoryDAO();
-    }
+    @Autowired
+    private CategoryDAO categoryDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

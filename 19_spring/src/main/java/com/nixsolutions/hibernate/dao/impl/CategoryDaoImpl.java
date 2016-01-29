@@ -1,12 +1,8 @@
 package com.nixsolutions.hibernate.dao.impl;
 
 import com.nixsolutions.hibernate.dao.CategoryDAO;
-import com.nixsolutions.hibernate.entity.Book;
 import com.nixsolutions.hibernate.entity.Category;
-import com.nixsolutions.hibernate.util.HibernateUtil;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

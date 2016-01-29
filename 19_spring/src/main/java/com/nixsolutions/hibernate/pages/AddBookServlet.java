@@ -1,9 +1,9 @@
 package com.nixsolutions.hibernate.pages;
 
 import com.nixsolutions.hibernate.dao.*;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.Author;
 import com.nixsolutions.hibernate.entity.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,19 +20,15 @@ import java.util.List;
  */
 @WebServlet("/addBook")
 public class AddBookServlet extends HttpServlet {
-    private static BookDAO bookDAO;
-    private static CellDAO cellDAO;
-    private static CategoryDAO categoryDAO;
-    private static AuthorDAO authorDAO;
+    @Autowired
+    private BookDAO bookDAO;
+    @Autowired
+    private CellDAO cellDAO;
+    @Autowired
+    private CategoryDAO categoryDAO;
+    @Autowired
+    private AuthorDAO authorDAO;
 
-    @Override
-    public void init() throws ServletException {
-        DaoFactory daoFactory = new DaoFactoryImpl();
-        bookDAO = daoFactory.getBookDAO();
-        cellDAO = daoFactory.getCellDAO();
-        categoryDAO = daoFactory.getCategoryDAO();
-        authorDAO = daoFactory.getAuthorDAO();
-    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("categories", categoryDAO.findAll());

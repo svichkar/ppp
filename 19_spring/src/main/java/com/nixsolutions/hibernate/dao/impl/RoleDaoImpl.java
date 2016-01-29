@@ -2,10 +2,7 @@ package com.nixsolutions.hibernate.dao.impl;
 
 import com.nixsolutions.hibernate.dao.RoleDAO;
 import com.nixsolutions.hibernate.entity.Role;
-import com.nixsolutions.hibernate.util.HibernateUtil;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

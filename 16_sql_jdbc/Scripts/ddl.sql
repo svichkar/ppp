@@ -48,7 +48,7 @@ FOREIGN KEY (book_id) REFERENCES book (book_id),
 FOREIGN KEY (author_id) REFERENCES author (author_id),
 );
 
-CREATE TABLE rent_journal
+CREATE TABLE ticket
 (
 ticket_id IDENTITY,
 book_id BIGINT,

@@ -1,9 +1,8 @@
 package com.nixsolutions.hibernate.pages;
 
 import com.nixsolutions.hibernate.dao.ClientDAO;
-import com.nixsolutions.hibernate.dao.DaoFactory;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.Client;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,13 +17,8 @@ import java.util.List;
  */
 @WebServlet("/addReader")
 public class AddReader extends HttpServlet {
-    private static ClientDAO clientDAO;
-
-    @Override
-    public void init() throws ServletException {
-        DaoFactory daoFactory = new DaoFactoryImpl();
-        clientDAO = daoFactory.getClientDAO();
-    }
+    @Autowired
+    private ClientDAO clientDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

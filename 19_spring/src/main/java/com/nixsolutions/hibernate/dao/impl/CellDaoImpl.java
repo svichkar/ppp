@@ -2,10 +2,7 @@ package com.nixsolutions.hibernate.dao.impl;
 
 import com.nixsolutions.hibernate.dao.CellDAO;
 import com.nixsolutions.hibernate.entity.Cell;
-import com.nixsolutions.hibernate.util.HibernateUtil;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

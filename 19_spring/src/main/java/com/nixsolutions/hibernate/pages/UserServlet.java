@@ -1,11 +1,10 @@
 package com.nixsolutions.hibernate.pages;
 
-import com.nixsolutions.hibernate.dao.DaoFactory;
 import com.nixsolutions.hibernate.dao.RoleDAO;
 import com.nixsolutions.hibernate.dao.UserDAO;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.Role;
 import com.nixsolutions.hibernate.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,15 +19,10 @@ import java.util.List;
  */
 @WebServlet("/userManagement")
 public class UserServlet extends HttpServlet {
-    private static UserDAO userDAO;
-    private static RoleDAO roleDAO;
-
-    @Override
-    public void init() throws ServletException {
-        DaoFactory daoFactory = new DaoFactoryImpl();
-        userDAO = daoFactory.getUserDAO();
-        roleDAO = daoFactory.getRoleDAO();
-    }
+    @Autowired
+    private UserDAO userDAO;
+    @Autowired
+    private RoleDAO roleDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -1,10 +1,9 @@
 package com.nixsolutions.hibernate.pages;
 
 import com.nixsolutions.hibernate.dao.*;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
-import com.nixsolutions.hibernate.entity.Author;
 import com.nixsolutions.hibernate.entity.Book;
 import com.nixsolutions.hibernate.entity.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,17 +20,12 @@ import java.util.List;
  */
 @WebServlet("/loanManagement")
 public class LoanBookServlet extends HttpServlet {
-    private static BookDAO bookDAO;
-    private static ClientDAO clientDAO;
-    private static TicketDAO ticketDAO;
-
-    @Override
-    public void init() throws ServletException {
-        DaoFactory daoFactory = new DaoFactoryImpl();
-        bookDAO = daoFactory.getBookDAO();
-        clientDAO = daoFactory.getClientDAO();
-        ticketDAO = daoFactory.getTicketDAO();
-    }
+    @Autowired
+    private BookDAO bookDAO;
+    @Autowired
+    private ClientDAO clientDAO;
+    @Autowired
+    private TicketDAO ticketDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

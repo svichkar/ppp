@@ -1,8 +1,8 @@
 package com.nixsolutions.hibernate.pages;
 
 import com.nixsolutions.hibernate.dao.*;
-import com.nixsolutions.hibernate.dao.impl.DaoFactoryImpl;
 import com.nixsolutions.hibernate.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,18 +16,12 @@ import java.io.IOException;
  */
 @WebServlet("/mainPage")
 public class LoginServlet extends HttpServlet {
-    private static UserDAO userDAO;
-    private static RoleDAO roleDAO;
-    private static TicketDAO ticketDAO;
-
-
-    @Override
-    public void init() throws ServletException {
-        DaoFactory daoFactory = new DaoFactoryImpl();
-        userDAO = daoFactory.getUserDAO();
-        roleDAO = daoFactory.getRoleDAO();
-        ticketDAO = daoFactory.getTicketDAO();
-    }
+    @Autowired
+    private UserDAO userDAO;
+    @Autowired
+    private RoleDAO roleDAO;
+    @Autowired
+    private TicketDAO ticketDAO;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

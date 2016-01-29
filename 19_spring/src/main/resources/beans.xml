@@ -30,12 +30,13 @@
         <property name="packagesToScan" value="com.nixsolutions.hibernate.entity"/>
         <property name="hibernateProperties">
             <props>
+                <prop key="hibernate.default_schema">SQLLAB</prop>
                 <prop key="hibernate.connection.pool_size">20</prop>
                 <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
-                <prop key="hbm2ddl.auto">create-drop</prop>
+                <prop key="hbm2ddl.auto">create</prop>
                 <prop key="hibernate.hbm2ddl.import_files">dml.sql</prop>
             </props>
         </property>

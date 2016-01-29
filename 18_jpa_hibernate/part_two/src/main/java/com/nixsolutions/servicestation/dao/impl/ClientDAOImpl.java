@@ -2,7 +2,6 @@ package com.nixsolutions.servicestation.dao.impl;
 
 import com.nixsolutions.servicestation.dao.ClientDAO;
 import com.nixsolutions.servicestation.entity.Client;
-import com.nixsolutions.servicestation.entity.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,11 +17,16 @@ public class ClientDAOImpl extends GenericAbstractDAO<Client> implements ClientD
         Set<Client> ucSet;
         Session session = sFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Criteria criteria = session.createCriteria(Client.class, "c");
-        criteria.createAlias("c.user", "user");
-        criteria.createAlias("user.role", "role");
-        ucSet = new HashSet<Client>(criteria.list());
-        transaction.commit();
+        try {
+            Criteria criteria = session.createCriteria(Client.class, "c");
+            criteria.createAlias("c.user", "user");
+            criteria.createAlias("user.role", "role");
+            ucSet = new HashSet<Client>(criteria.list());
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
+        }
         return ucSet;
     }
 

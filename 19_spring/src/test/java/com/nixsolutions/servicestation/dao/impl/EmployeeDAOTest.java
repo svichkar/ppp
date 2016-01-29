@@ -1,7 +1,5 @@
 package com.nixsolutions.servicestation.dao.impl;
 
-import com.nixsolutions.servicestation.dao.EmployeeCategoryDAO;
-import com.nixsolutions.servicestation.dao.EmployeeDAO;
 import com.nixsolutions.servicestation.entity.Employee;
 import com.nixsolutions.servicestation.entity.EmployeeCategory;
 import com.nixsolutions.servicestation.service.EmployeeService;
@@ -9,7 +7,6 @@ import com.nixsolutions.servicestation.util.AppConfig;
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
 import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
@@ -22,12 +19,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.io.FileInputStream;
 import java.util.Set;

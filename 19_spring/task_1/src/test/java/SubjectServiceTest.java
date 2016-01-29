@@ -34,7 +34,7 @@ import java.util.List;
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
 @DatabaseSetup(value = "/dbunit/subject/subject-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.CLEAN_INSERT, value = "/dbunit/subject/subject-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/subject/subject-data.xml")
 public class SubjectServiceTest {
 
     @Autowired
@@ -57,7 +57,7 @@ public class SubjectServiceTest {
 
         List<Subject> actualList = subjectService.findAll();
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/subject/subject-data-find-all.xml"));
         ITable expTable = expected.getTable("subject");
         ITable actTable = databaseTester.getConnection().createTable("subject");
@@ -111,7 +111,7 @@ public class SubjectServiceTest {
         Long subjectId = subjectService.findAll().get(3).getSubjectId();
         Subject foundSubject = subjectService.findById(subjectId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/subject/subject-data-find-by-id.xml"));
         ITable expTable = expected.getTable("subject");
 

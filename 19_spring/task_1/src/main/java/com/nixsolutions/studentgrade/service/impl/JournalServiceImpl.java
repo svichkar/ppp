@@ -5,12 +5,16 @@ import com.nixsolutions.studentgrade.model.Journal;
 import com.nixsolutions.studentgrade.service.JournalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by konstantin on 1/29/2016.
  */
+@Service
+@Transactional
 public class JournalServiceImpl implements JournalService {
 
     private JournalDao journalDao;

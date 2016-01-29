@@ -33,7 +33,7 @@ import java.util.List;
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
 @DatabaseSetup(value = "/dbunit/status/status-data.xml")
-@DatabaseTearDown(type = DatabaseOperation.CLEAN_INSERT, value = "/dbunit/status/status-data.xml")
+@DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/status/status-data.xml")
 public class StatusServiceTest {
 
     @Autowired
@@ -46,6 +46,7 @@ public class StatusServiceTest {
     private IDatabaseTester databaseTester;
 
     public void setStatusService(StatusService statusService) {
+
         this.statusService = statusService;
     }
 
@@ -54,7 +55,7 @@ public class StatusServiceTest {
 
         List<Status> actualList = statusService.findAll();
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/status/status-data-find-all.xml"));
         ITable expTable = expected.getTable("status");
         ITable actTable = databaseTester.getConnection().createTable("status");
@@ -80,7 +81,8 @@ public class StatusServiceTest {
             table = "status")
     public void updateShouldModifySpecifiedEntity() throws Exception {
 
-        Status update = statusService.findAll().get(1);
+        Status update = new Status();
+        update.setStatusId(2L);
         update.setStatusName("waiting");
         statusService.update(update);
     }
@@ -91,17 +93,19 @@ public class StatusServiceTest {
             table = "status")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Status delete = statusService.findAll().get(1);
+        Status delete = new Status();
+        delete.setStatusId(2L);
+        delete.setStatusName("academic vacation");
         statusService.delete(delete);
     }
 
     @Test
     public void findByIdShouldReturnRequestedEntity() throws Exception {
 
-        Long statusId = statusService.findAll().get(2).getStatusId();
+        Long statusId = 3L;
         Status foundStatus = statusService.findById(statusId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/status/status-data-find-by-id.xml"));
         ITable expTable = expected.getTable("status");
 

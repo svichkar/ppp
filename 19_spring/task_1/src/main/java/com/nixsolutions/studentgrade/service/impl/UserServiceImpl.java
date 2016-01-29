@@ -5,12 +5,16 @@ import com.nixsolutions.studentgrade.model.User;
 import com.nixsolutions.studentgrade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by svichkar on 1/28/2016.
  */
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;

@@ -56,7 +56,7 @@ public class JournalServiceTest {
 
         List<Journal> actualList = journalService.findAll();
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/journal/journal-data-find-all.xml"));
         ITable expTable = expected.getTable("journal");
         ITable actTable = databaseTester.getConnection().createTable("journal");
@@ -108,11 +108,35 @@ public class JournalServiceTest {
             table = "journal")
     public void updateShouldModifySpecifiedEntity() throws Exception {
 
-        Journal update = journalService.findAll().get(3);
+        Journal update = new Journal();
+        update.setJournalId(4L);
         Grade grade = new Grade();
         grade.setGradeId(4L);
         grade.setGradeName("good");
         update.setGrade(grade);
+        Subject subject = new Subject();
+        subject.setSubjectId(2L);
+        subject.setSubjectName("Mathematics");
+        Term term = new Term();
+        term.setTermId(2L);
+        term.setTermName("second");
+        subject.setTerm(term);
+        update.setSubject(subject);
+        Student student = new Student();
+        student.setStudentId(2L);
+        student.setFirstName("Nick");
+        student.setLastName("Dodson");
+        student.setAdmissionDate(Date.valueOf("2015-07-03"));
+        Status status = new Status();
+        status.setStatusId(1L);
+        status.setStatusName("active");
+        student.setStatus(status);
+        StudentGroup group = new StudentGroup();
+        group.setGroupId(2L);
+        group.setGroupName("java 15-2");
+        student.setStudentGroup(group);
+        student.setTerm(term);
+        update.setStudent(student);
         journalService.update(update);
     }
 
@@ -132,7 +156,7 @@ public class JournalServiceTest {
         Long journalId = journalService.findAll().get(6).getJournalId();
         Journal foundJournal = journalService.findById(journalId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/journal/journal-data-find-by-id.xml"));
         ITable expTable = expected.getTable("journal");
 

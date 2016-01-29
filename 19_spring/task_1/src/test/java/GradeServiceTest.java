@@ -54,7 +54,7 @@ public class GradeServiceTest {
 
         List<Grade> actualList = gradeService.findAll();
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/grade/grade-data-find-all.xml"));
         ITable expTable = expected.getTable("grade");
         ITable actTable = databaseTester.getConnection().createTable("grade");
@@ -80,7 +80,8 @@ public class GradeServiceTest {
             table = "grade")
     public void testUpdateShouldModifySpecifiedEntity() throws Exception {
 
-        Grade update = gradeService.findAll().get(3);
+        Grade update = new Grade();
+        update.setGradeId(4L);
         update.setGradeName("not bad, man!");
         gradeService.update(update);
     }
@@ -91,17 +92,19 @@ public class GradeServiceTest {
             table = "grade")
     public void testDeleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Grade delete = gradeService.findAll().get(3);
+        Grade delete = new Grade();
+        delete.setGradeId(4L);
+        delete.setGradeName("good");
         gradeService.delete(delete);
     }
 
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        Long gradeId = gradeService.findAll().get(1).getGradeId();
+        Long gradeId = 2L;
         Grade foundGrade = gradeService.findById(gradeId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/grade/grade-data-find-by-id.xml"));
         ITable expTable = expected.getTable("grade");
 

@@ -5,11 +5,9 @@ import com.nixsolutions.studentgrade.model.Role;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,64 +25,49 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    @Transactional
     public void create(Role role) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(role);
-        transaction.commit();
+        sessionFactory.getCurrentSession().save(role);
     }
 
     @Override
-    @Transactional
     public void update(Role role) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(role);
-        transaction.commit();
+        sessionFactory.getCurrentSession().saveOrUpdate(role);
     }
 
     @Override
-    @Transactional
     public void delete(Role role) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(role);
-        transaction.commit();
+        sessionFactory.getCurrentSession().delete(role);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Role> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         List<Role> list = session.createCriteria(Role.class).list();
-        transaction.commit();
         return list;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Role findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         Role role = (Role) session.get(Role.class, id);
-        transaction.commit();
         return role;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Role findByName(String role) {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Role.class);
         criteria.add(Restrictions.eq("roleName", role)).uniqueResult();
         List<Role> roles = criteria.list();
-        transaction.commit();
         return roles.isEmpty() ? null : roles.get(0);
     }
 }

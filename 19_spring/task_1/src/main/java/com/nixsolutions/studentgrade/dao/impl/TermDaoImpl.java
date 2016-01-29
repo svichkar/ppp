@@ -5,11 +5,9 @@ import com.nixsolutions.studentgrade.model.Term;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,64 +25,49 @@ public class TermDaoImpl implements TermDao {
     }
 
     @Override
-    @Transactional
     public void create(Term term) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(term);
-        transaction.commit();
+        sessionFactory.getCurrentSession().save(term);
     }
 
     @Override
-    @Transactional
     public void update(Term term) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(term);
-        transaction.commit();
+        sessionFactory.getCurrentSession().saveOrUpdate(term);
     }
 
     @Override
-    @Transactional
     public void delete(Term term) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(term);
-        transaction.commit();
+        sessionFactory.getCurrentSession().delete(term);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Term> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         List<Term> list = session.createCriteria(Term.class).list();
-        transaction.commit();
         return list;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Term findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         Term term = (Term) session.get(Term.class, id);
-        transaction.commit();
         return term;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Term findByName(String termName) {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Term.class);
         criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
         List<Term> terms = criteria.list();
-        transaction.commit();
         return terms.isEmpty() ? null : terms.get(0);
     }
 }

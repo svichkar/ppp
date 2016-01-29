@@ -5,12 +5,16 @@ import com.nixsolutions.studentgrade.model.Role;
 import com.nixsolutions.studentgrade.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by svichkar on 1/28/2016.
  */
+@Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
     private RoleDao roleDao;

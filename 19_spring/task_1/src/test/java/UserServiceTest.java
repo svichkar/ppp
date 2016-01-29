@@ -56,7 +56,7 @@ public class UserServiceTest {
 
         List<User> userList = userService.findAll();
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/user/user-data-find-all.xml"));
         ITable expectedTable = expected.getTable("user");
         Assert.assertEquals(expectedTable.getRowCount(), userList.size());
@@ -108,7 +108,7 @@ public class UserServiceTest {
         Long userId = userService.findAll().get(1).getUserId();
         User foundUser = userService.findById(userId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/user/user-data-find-by-id.xml"));
         ITable expTable = expected.getTable("user");
 
@@ -124,7 +124,7 @@ public class UserServiceTest {
         String login = userService.findAll().get(1).getLogin();
         User foundUser = userService.findByLogin(login);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/user/user-data-find-by-login.xml"));
         ITable expTable = expected.getTable("user");
 
@@ -141,7 +141,7 @@ public class UserServiceTest {
         String pass = userService.findAll().get(1).getUserPassword();
         User foundUser = userService.getUserByLoginAndPassword(login, pass);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/user/user-data-find-by-login-and-pass.xml"));
         ITable expTable = expected.getTable("user");
 

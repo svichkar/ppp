@@ -5,11 +5,9 @@ import com.nixsolutions.studentgrade.model.Status;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,64 +25,49 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    @Transactional
     public void create(Status status) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(status);
-        transaction.commit();
+       sessionFactory.getCurrentSession().save(status);
     }
 
     @Override
-    @Transactional
     public void update(Status status) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(status);
-        transaction.commit();
+        sessionFactory.getCurrentSession().saveOrUpdate(status);
     }
 
     @Override
-    @Transactional
     public void delete(Status status) {
 
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(status);
-        transaction.commit();
+        sessionFactory.getCurrentSession().delete(status);
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Status> findAll() {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         List<Status> list = session.createCriteria(Status.class).list();
-        transaction.commit();
         return list;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Status findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         Status status = (Status) session.get(Status.class, id);
-        transaction.commit();
         return status;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Status findByName(String status) {
 
         Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Status.class);
         criteria.add(Restrictions.eq("statusName", status)).uniqueResult();
         List<Status> statuses = criteria.list();
-        transaction.commit();
         return statuses.isEmpty() ? null : statuses.get(0);
     }
 }

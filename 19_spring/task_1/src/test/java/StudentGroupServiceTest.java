@@ -56,7 +56,7 @@ public class StudentGroupServiceTest {
 
         List<StudentGroup> actualList = groupService.findAll();
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/group/group-data-find-all.xml"));
         ITable expTable = expected.getTable("student_group");
         ITable actTable = databaseTester.getConnection().createTable("student_group");
@@ -82,7 +82,8 @@ public class StudentGroupServiceTest {
             table = "student_group")
     public void updateShouldModifySpecifiedEntity() throws Exception {
 
-        StudentGroup update = groupService.findAll().get(3);
+        StudentGroup update = new StudentGroup();
+        update.setGroupId(4L);
         update.setGroupName("java 16-2");
         groupService.update(update);
     }
@@ -93,17 +94,19 @@ public class StudentGroupServiceTest {
             table = "student_group")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        StudentGroup delete = groupService.findAll().get(3);
+        StudentGroup delete = new StudentGroup();
+        delete.setGroupId(4L);
+        delete.setGroupName("java 15-4");
         groupService.delete(delete);
     }
 
     @Test
     public void testFindByIdShouldReturnRequestedEntity() throws Exception {
 
-        Long groupId = groupService.findAll().get(4).getGroupId();
+        Long groupId = 5L;
         StudentGroup foundTerm = groupService.findById(groupId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/group/group-data-find-by-id.xml"));
         ITable expTable = expected.getTable("student_group");
 

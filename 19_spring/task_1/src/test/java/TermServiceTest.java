@@ -54,7 +54,7 @@ public class TermServiceTest {
     public void findAllShouldReturnAllEntries() throws Exception {
 
         List<Term> termList = termService.findAll();
-        IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/term/term-data-find-all.xml"));
         ITable expectedTable = dataSet.getTable("term");
         Assert.assertEquals(termList.size(), expectedTable.getRowCount());
@@ -98,7 +98,7 @@ public class TermServiceTest {
         Term term = termService.findAll().get(1);
         Term foundTerm = termService.findById(term.getTermId());
 
-        IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/term/term-data-find-by-id.xml"));
         ITable expectedTable = dataSet.getTable("term");
         Assert.assertEquals(foundTerm.getTermName(), expectedTable.getValue(0, "term_name"));
@@ -110,7 +110,7 @@ public class TermServiceTest {
         Term term = termService.findAll().get(1);
         Term foundTerm = termService.findByName(term.getTermName());
 
-        IDataSet dataSet = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet dataSet = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/term/term-data-find-by-name.xml"));
         ITable expectedTable = dataSet.getTable("term");
         Assert.assertEquals(foundTerm.getTermName(), expectedTable.getValue(0, "term_name"));

@@ -53,7 +53,7 @@ public class RoleServiceTest {
     public void findAllShouldReturnAllRows() throws Exception {
 
         List<Role> roleList = roleService.findAll();
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/role/role-data-find-all.xml"));
         ITable expTable = expected.getTable("role");
         ITable actTable = databaseTester.getConnection().createTable("role");
@@ -81,7 +81,8 @@ public class RoleServiceTest {
             table = "role")
     public void updateShouldModifySpecifiedEntity() throws Exception {
 
-        Role update = roleService.findAll().get(1);
+        Role update = new Role();
+        update.setRoleId(2L);
         update.setRoleName("teacher");
         roleService.update(update);
     }
@@ -92,17 +93,19 @@ public class RoleServiceTest {
             table = "role")
     public void deleteShouldRemoveSpecifiedEntity() throws Exception {
 
-        Role delete = roleService.findAll().get(0);
+        Role delete = new Role();
+        delete.setRoleId(1L);
+        delete.setRoleName("admin");
         roleService.delete(delete);
     }
 
     @Test
     public void findByIdShouldReturnRequestedEntity() throws Exception {
 
-        Long roleId = roleService.findAll().get(1).getRoleId();
+        Long roleId = 2L;
         Role foundRole = roleService.findById(roleId);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/role/role-data-find-by-id.xml"));
         ITable expTable = expected.getTable("role");
 
@@ -115,10 +118,10 @@ public class RoleServiceTest {
     @Test
     public void testFindByNameShouldReturnRequestedEntity() throws Exception {
 
-        String roleName = roleService.findAll().get(0).getRoleName();
+        String roleName = "admin";
         Role foundRole = roleService.findByName(roleName);
 
-        IDataSet expected = new FlatXmlDataSetBuilder().build(Thread.currentThread().getContextClassLoader()
+        IDataSet expected = new FlatXmlDataSetBuilder().build(getClass()
                 .getResourceAsStream("dbunit/role/role-data-find-by-name.xml"));
         ITable expTable = expected.getTable("role");
 

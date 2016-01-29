@@ -7,6 +7,8 @@ import java.util.Random;
 public class Arrays {
   static final int LENGTH = 10000;
   static final int LOOPS = 20;
+  static final int RANGE_FROM = -100; 
+  static final int RANGE_TO = 100;
   
   /**
   * Performs sorting of integer array taken as an argument,
@@ -17,9 +19,9 @@ public class Arrays {
     while (swapped) {
       swapped = false;
       for(int i = 1; i < a.length; i++) {
-        if (a[i-1] > a[i]) {
-          int temp = a[i-1];
-          a[i-1] = a[i];
+        if (a[i - 1] > a[i]) {
+          int temp = a[i - 1];
+          a[i - 1] = a[i];
           a[i] = temp;
           swapped = true;
         }
@@ -30,8 +32,10 @@ public class Arrays {
   private int[] randFillArray(int arrayLength) {
     Random rand = new Random();
     int[] a = new int[arrayLength];
+    int range = RANGE_TO - RANGE_FROM;
+    int offset = RANGE_FROM;
     for (int i = 0; i < a.length; i++) {
-      a[i] = rand.nextInt(200)-100;
+      a[i] = rand.nextInt(range + 1) + offset;  // Making range inclusive so +1
     }
     return a;
   }

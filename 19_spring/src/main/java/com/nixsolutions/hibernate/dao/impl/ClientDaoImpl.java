@@ -1,11 +1,13 @@
 package com.nixsolutions.hibernate.dao.impl;
 
 import com.nixsolutions.hibernate.dao.ClientDAO;
+import com.nixsolutions.hibernate.entity.Cell;
 import com.nixsolutions.hibernate.entity.Client;
 import com.nixsolutions.hibernate.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,17 +18,14 @@ import java.util.List;
  */@Repository("clientDAO")
 @Transactional
 public class ClientDaoImpl implements ClientDAO {
-    public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public void create(Client entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.save(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().save("client", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
@@ -34,55 +33,39 @@ public class ClientDaoImpl implements ClientDAO {
 
     @Override
     public void update(Client entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.saveOrUpdate(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().saveOrUpdate("client", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public void delete(Client entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.delete(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().delete("client", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Client findByID(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Client client = null;
-        Transaction transaction = session.beginTransaction();
+        Client entity = null;
         try {
-            client = (Client) session.get(Client.class, id);
-            transaction.commit();
+            entity = (Client) sessionFactory.getCurrentSession().byId(Client.class).load(id);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
-        return client;
+        return entity;
     }
 
     @Override
     public List<Client> findAll() {
-        Session session = sessionFactory.getCurrentSession();
         List<Client> list = null;
-        Transaction transaction = session.beginTransaction();
         try {
-            list = session.createCriteria(Client.class).list();
-            transaction.commit();
+            list = sessionFactory.getCurrentSession().createCriteria(Cell.class).list();
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
         return list;

@@ -6,6 +6,7 @@ import com.nixsolutions.hibernate.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,17 +18,14 @@ import java.util.List;
 @Repository("cellDAO")
 @Transactional
 public class CellDaoImpl implements CellDAO {
-    public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public void create(Cell entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.save(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().save("cell", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
@@ -35,55 +33,39 @@ public class CellDaoImpl implements CellDAO {
 
     @Override
     public void update(Cell entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.saveOrUpdate(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().saveOrUpdate("cell", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public void delete(Cell entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.delete(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().delete("cell", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Cell findByID(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Cell cell = null;
-        Transaction transaction = session.beginTransaction();
+        Cell entity = null;
         try {
-            cell = (Cell) session.get(Cell.class, id);
-            transaction.commit();
+            entity = (Cell) sessionFactory.getCurrentSession().byId(Cell.class).load(id);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
-        return cell;
+        return entity;
     }
 
     @Override
     public List<Cell> findAll() {
-        Session session = sessionFactory.getCurrentSession();
         List<Cell> list = null;
-        Transaction transaction = session.beginTransaction();
         try {
-            list = session.createCriteria(Cell.class).list();
-            transaction.commit();
+            list = sessionFactory.getCurrentSession().createCriteria(Cell.class).list();
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
         return list;

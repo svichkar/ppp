@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,17 +19,14 @@ import java.util.List;
 @Repository("roleDAO")
 @Transactional
 public class RoleDaoImpl implements RoleDAO {
-    public static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @Override
     public void create(Role entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.save(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().save("role", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
@@ -36,70 +34,50 @@ public class RoleDaoImpl implements RoleDAO {
 
     @Override
     public void update(Role entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.saveOrUpdate(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().saveOrUpdate("role", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public void delete(Role entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
         try {
-            session.delete(entity);
-            transaction.commit();
+            sessionFactory.getCurrentSession().delete("role", entity);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public Role findByID(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Role role = null;
-        Transaction transaction = session.beginTransaction();
+        Role entity = null;
         try {
-            role = (Role) session.get(Role.class, id);
-            transaction.commit();
+            entity = (Role) sessionFactory.getCurrentSession().byId(Role.class).load(id);
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
-        return role;
+        return entity;
     }
 
     @Override
     public Role findByName(String name) {
-        Session session = sessionFactory.getCurrentSession();
-        Role role = null;
-        Transaction transaction = session.beginTransaction();
+        Role entity = null;
         try {
-            role = (Role) session.createCriteria(Role.class).add(Restrictions.eq("roleName", name)).uniqueResult();
-            transaction.commit();
+           entity = (Role) sessionFactory.getCurrentSession().createCriteria(Role.class).add(Restrictions.eq("name", name)).uniqueResult();
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
-        return role;
+        return entity;
     }
 
     @Override
     public List<Role> findAll() {
-        Session session = sessionFactory.getCurrentSession();
         List<Role> list = null;
-        Transaction transaction = session.beginTransaction();
         try {
-            list = session.createCriteria(Role.class).list();
-            transaction.commit();
+            list = sessionFactory.getCurrentSession().createCriteria(Role.class).list();
         } catch (Exception e) {
-            transaction.rollback();
             throw new RuntimeException(e);
         }
         return list;

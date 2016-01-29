@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <author author_id="1" first_name="Aleksandr" last_name="Pushkin"/>
+    <author/>
+    <category category_id="1" name="a"/>
+    <cell cell_id="1" name="a"/>
     <author_book/>
-    <category/>
-    <cell/>
     <book/>
     <client/>
     <role/>

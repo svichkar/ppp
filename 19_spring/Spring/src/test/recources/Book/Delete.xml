@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <author/>
+    <category category_id="1" name="a"/>
+    <cell cell_id="1" name="a"/>
+    <author_book/>
+    <book/>
+    <client/>
+    <role/>
+    <ticket/>
+    <user/>
+</dataset>

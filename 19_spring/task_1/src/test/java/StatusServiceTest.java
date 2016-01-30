@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,13 +27,14 @@ import java.util.List;
  * Created by svichkar on 1/28/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
+@DirtiesContext
 @ContextConfiguration(locations = "classpath:/test-context.xml")
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DbUnitConfiguration(databaseConnection = "dataSource")
-@DatabaseSetup(value = "/dbunit/status/status-data.xml")
+@DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/dbunit/status/status-data.xml")
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = "/dbunit/status/status-data.xml")
 public class StatusServiceTest {
 

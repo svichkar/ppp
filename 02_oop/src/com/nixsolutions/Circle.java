@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serializable;
 
 /**
  * Created by Lexx on 16.11.2015.
@@ -13,18 +12,23 @@ public class Circle extends Figures {
     private JFrame frame;
     private boolean canShift;
     MyCanvas myCanvas = new MyCanvas();
+    private double scale;
 
     public Circle(String name) {
         super(name);
     }
 
-    public Circle(String name, int[] coord_Center, int radius, JFrame frame) {
+    public Circle(String name, int[] coord_Center, int radius, double scale, JFrame frame) {
         super(name);
         this.name = name;
         this.coord_Center = coord_Center;
         this.radius = radius;
         this.frame = frame;
+        this.scale = scale;
+        calcSquare();
+        scaling();
     }
+
     @Override
     public double getSquare() {
         return square;
@@ -33,6 +37,11 @@ public class Circle extends Figures {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public double getScale() {
+        return scale;
     }
 
     public void setCanShift(boolean canShift) {
@@ -48,7 +57,6 @@ public class Circle extends Figures {
         myCanvas.setCanvas(this.name, this.coord_Center, this.radius);
         frame.setTitle("Image");
         frame.setSize(500, 500);
-        //frame.setLocation(300, 50);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,9 +65,7 @@ public class Circle extends Figures {
     public void re_draw() {
         myCanvas.setCanvas(name, this.coord_Center, this.radius);
         frame.getContentPane().add(myCanvas);
-        //tr.update(tr.getGraphics());
         frame.repaint();
-        //tr.setVisible(true);
     }
 
     @Override
@@ -86,17 +92,17 @@ public class Circle extends Figures {
     }
 
     @Override
-    public <T> void scale(T obj, int scaleModifier) {
+    public double calcSquare() {
+        square = Math.PI * Math.pow(radius, 2);
+        return square;
+    }
+
+    public void scaling() {
+        double scaleModifier = this.square * this.scale;
         for (int i = 0; calcSquare() > scaleModifier; i++) {
             this.radius--;
         }
         re_draw();
-    }
-
-    @Override
-    public double calcSquare() {
-        square = Math.PI * Math.pow(radius, 2);
-        return square;
     }
 
     class MyCanvas extends JComponent {
@@ -113,12 +119,10 @@ public class Circle extends Figures {
         }
 
         public MyCanvas() {
-
         }
 
         public void paint(Graphics g) {
             g.drawOval(this.coord_Center[0], this.coord_Center[1], this.radius_parameter, this.radius_parameter);
-            //g.drawString( this.coord_Center[0], this.coord_Center[1]);
         }
     }
 }

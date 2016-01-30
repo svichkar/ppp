@@ -14,6 +14,7 @@ public class Triangle extends Figures {
     private boolean canShift;
     private JFrame frame;
     MyCanvas myCanvas = new MyCanvas();
+    private double scale;
 
     public Triangle(String name) {
         super(name);
@@ -32,12 +33,20 @@ public class Triangle extends Figures {
         return name;
     }
 
-    public Triangle(String name, int[] xSides, int[] ySides, int nCorners, JFrame frame) {
+    @Override
+    public double getScale() {
+        return scale;
+    }
+
+    public Triangle(String name, int[] xSides, int[] ySides, int nCorners, double scale, JFrame frame) {
         super(name);
         this.name = name;
         this.xSides = xSides;
         this.ySides = ySides;
         this.frame = frame;
+        this.scale = scale;
+        calcSquare();
+        scaling();
     }
 
     @Override
@@ -45,7 +54,6 @@ public class Triangle extends Figures {
         myCanvas.setCanvas(this.name, this.xSides, this.ySides, this.nCorners);
         frame.setTitle("Image");
         frame.setSize(500, 500);
-        //frame.setLocation(300, 50);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,9 +65,7 @@ public class Triangle extends Figures {
     public void re_draw() {
         myCanvas.setCanvas(this.name, this.xSides, this.ySides, this.nCorners);
         frame.getContentPane().add(myCanvas);
-        //tr.update(tr.getGraphics());
         frame.repaint();
-        //tr.setVisible(true);
     }
 
     @Override
@@ -93,9 +99,9 @@ public class Triangle extends Figures {
 
     }
 
-    @Override
-    public <T> void scale(T obj, int scaleModifier) {
-        for (int i = 0; calcSquare() > scaleModifier; i++) {
+    public void scaling() {
+        double scaleModifier = this.square * this.scale;
+        while (calcSquare() > scaleModifier) {
             this.ySides[1]++;
             this.xSides[0]++;
             this.xSides[1]--;
@@ -141,7 +147,6 @@ public class Triangle extends Figures {
         }
 
         public MyCanvas() {
-
         }
 
         public void paint(Graphics g) {

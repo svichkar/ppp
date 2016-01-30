@@ -6,6 +6,7 @@ public interface Geometry {
     public double square = 0;
     public int scale = 0;
 
-    void shift (String direction, int step, long start);
-    <T> void scale (T obj, int scaleModifier);
+    void shift(String direction, int step, long start);
+
+    void scaling();
 }

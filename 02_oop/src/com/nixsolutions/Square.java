@@ -6,23 +6,28 @@ import java.io.Serializable;
  * Created by Lexx on 16.11.2015.
  */
 public class Square extends Figures {
-    MyCanvas myCanvas = new MyCanvas();
+    //MyCanvas myCanvas = new MyCanvas();
+    Canvas myCanvas = new Canvas();
     private String name;
     private JFrame frame;
     private double square;
+    private double scale;
     private int[] coord_LeftLowerCorner = new int[2];
     private int[] coord_RightLowerCorner = new int[2];
     private int[] coord_LeftUpperCorner = new int[2];
     private int[] coord_RightUpperCorner = new int[2];
-    private double side_A_Length;
-    private double side_B_Length;
+    private int coord_LeftUpperCornerX = 0;
+    private int coord_LeftUpperCornerY = 0;
+    private int side_A = 0;
+    private int side_B = 0;
     private boolean canShift;
+
 
     public Square(String name, int center, int square, int perimeter) {
         super(name);
     }
 
-    public Square(String name, int[] coord_LeftLowerCorner, int[] coord_RightLowerCorner, int[] coord_LeftUpperCorner, int[] coord_RightUpperCorner, JFrame frame) {
+    public Square(String name, int[] coord_LeftLowerCorner, int[] coord_RightLowerCorner, int[] coord_LeftUpperCorner, int[] coord_RightUpperCorner, double scale, JFrame frame) {
         super(name);
         this.coord_LeftLowerCorner = coord_LeftLowerCorner;
         this.coord_RightLowerCorner = coord_RightLowerCorner;
@@ -30,6 +35,9 @@ public class Square extends Figures {
         this.coord_RightUpperCorner = coord_RightUpperCorner;
         this.frame = frame;
         this.name = name;
+        this.scale = scale;
+        calcSquare();
+        scaling();
     }
 
     public boolean isCanShift() {
@@ -40,12 +48,19 @@ public class Square extends Figures {
         this.canShift = canShift;
     }
 
-    @Override public String getName() {
+    @Override
+    public String getName() {
         return name;
     }
 
-    @Override public double getSquare() {
+    @Override
+    public double getSquare() {
         return square;
+    }
+
+    @Override
+    public double getScale() {
+        return scale;
     }
 
     public double calc_A() {
@@ -56,7 +71,8 @@ public class Square extends Figures {
         return Math.sqrt((Math.pow(coord_RightUpperCorner[0] - coord_LeftUpperCorner[0], 2)) + (Math.pow(coord_RightUpperCorner[1] - coord_LeftUpperCorner[1], 2)));
     }
 
-    @Override public void draw() {
+    @Override
+    public void draw() {
         draw(coord_LeftUpperCorner, coord_LeftUpperCorner, ((int) calc_A()), (int) calc_B());
     }
 
@@ -66,22 +82,22 @@ public class Square extends Figures {
     }
 
     public void draw(int[] coord_LeftUpperCorner, int[] coord_LeftLowerCorner, int side_A, int side_B) {
-        myCanvas.setCanvas(coord_LeftUpperCorner[0], coord_LeftUpperCorner[1], side_A, side_B);
+        myCanvas.setCanvasSquare(coord_LeftUpperCorner[0], coord_LeftUpperCorner[1], side_A, side_B);
         frame.setTitle("Image");
         frame.setSize(500, 500);
-        //frame.setLocation(300, 50);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void re_draw() {
-        myCanvas.setCanvas(coord_LeftUpperCorner[0], coord_LeftUpperCorner[1], calc_A(), calc_B());
+        myCanvas.setCanvasSquare(coord_LeftUpperCorner[0], coord_LeftUpperCorner[1], calc_A(), calc_B());
         frame.getContentPane().add(myCanvas);
         frame.repaint();
     }
 
-    @Override public void shift(String direction, int step, long start) {
+    @Override
+    public void shift(String direction, int step, long start) {
         if (direction == null) {
 
         }
@@ -115,23 +131,22 @@ public class Square extends Figures {
         re_draw();
     }
 
-    @Override public <T> void scale(T obj, int scaleModifier) {
-        for (int i = 0; calcSquare() > scaleModifier; i++) {
+    public void scaling() {
+        double scaleModifier = this.square * this.scale;
+        while (calcSquare() > scaleModifier) {
             this.coord_LeftLowerCorner[1]--;
             this.coord_RightUpperCorner[0]--;
         }
         re_draw();
     }
 
-    class MyCanvas extends JComponent {
-
+    /*class MyCanvas extends JComponent {
         private int coord_LeftLowerCorner = 0;
         private int coord_LeftUpperCorner = 0;
         private int side_A = 0;
         private int side_B = 0;
 
         public MyCanvas() {
-
         }
 
         public void setCanvas(int coord_LeftLowerCorner, int coord_LeftUpperCorner, double side_A_length, double side_B_length) {
@@ -145,6 +160,5 @@ public class Square extends Figures {
             g.drawRect(this.coord_LeftLowerCorner, this.coord_LeftUpperCorner, ((int) side_A), ((int) side_B));
             //g.drawString(Square.class.getName(), this.coord_LeftLowerCorner, this.coord_LeftUpperCorner);
         }
-    }
-
+    }*/
 }

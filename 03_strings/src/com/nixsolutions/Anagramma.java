@@ -5,10 +5,10 @@ import java.util.Arrays;
  */
 public class Anagramma {
     /**
-     *
-     * @param firstString
-     * @param secondString
-     * @return
+     *Check that input strings are anagram
+     * @param firstString first input string
+     * @param secondString second input string
+     * @return return false or true (true if strings are anagram, false if not)
      */
     public static boolean anagramma(String firstString, String secondString){
         char[] firstStringArray = firstString.replaceAll(" ", "").toCharArray();

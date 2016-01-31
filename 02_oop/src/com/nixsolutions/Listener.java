@@ -4,8 +4,25 @@ import java.awt.event.KeyListener;
 
 /**
  * Created by Lexx on 21.11.2015.
+ * Class for listen keyboard actions.
  */
 public class Listener {
+    /**
+     * Listen keyboard actions.
+     * can react on press keys 'WASD'
+     * actions:
+     * press w - all (or selected) a figure(s) move up;
+     * press a - all (or selected) a figure(s) move left;
+     * press s - all (or selected) a figure(s) move down;
+     * press d - all (or selected) a figure(s) move right;
+     * Also can select a figure by number of his name. (example: square_5 - number is 5)
+     * Or press 0 if you want to select all
+     * Note: known issue: a figure with number 0 is not select
+     *
+     * @param obj    - current figure
+     * @param frame  - current frame
+     * @param isStop - listen or not
+     */
     public void listen(final Figures obj, JFrame frame, boolean isStop) {
         if (isStop) {
             return;

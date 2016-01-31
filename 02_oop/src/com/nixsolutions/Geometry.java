@@ -1,5 +1,6 @@
 /**
  * Created by sobolenko on 1/29/2016.
+ * Used for shiftable figures
  */
 public interface Geometry {
     public String name = "";

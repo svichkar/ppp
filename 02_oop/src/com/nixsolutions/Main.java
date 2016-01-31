@@ -9,7 +9,9 @@ public class Main {
     private static List<Figures> figures = new ArrayList<Figures>();
 
     /**
-     * @param obj
+     * Note: needs to graphical debugger option
+     * Set for figure with appropriate name, canShift option to true, others set to false.
+     * @param obj appropriate figure number (ex. triangle_5, number is 5)
      */
     public static void turnOff(int obj) {
         for (Figures x : figures) {
@@ -22,7 +24,8 @@ public class Main {
     }
 
     /**
-     *
+     * Note: needs to graphical debugger option
+     * Set for all figures, canShift option to true.
      */
     public static void turnOnAll() {
         for (Figures x : figures) {
@@ -50,6 +53,10 @@ public class Main {
     }
 
     /**
+     * Method consist with 2 parts:
+     * 1. Generate different 10 figures, with different shapes(square, triangle, circle) and dimensions.
+     * Note: (each finger can move through keys 'WASD') and render in frame. That use this ability uncomment line: x.draw();
+     * 2. Array with figures are sorting for square.
      * @param args
      * @throws InterruptedException
      */
@@ -58,13 +65,12 @@ public class Main {
         Listener listener = new Listener();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            int choise = random.nextInt(3);
-            double scale = random.nextDouble();
+            int choise = random.nextInt(3); //generate random number (number matches figure shape (0 - square, 1 - triangle, 3 - circle))
+            double scale = random.nextDouble(); //generate random scale number
             switch (choise) {
                 case 0:
                     int rndX = random.nextInt(50);
                     int rndY = random.nextInt(50);
-
                     int[] coord_LeftLowerCorner = {0, 50};
                     coord_LeftLowerCorner[0] = coord_LeftLowerCorner[0] + rndX;
                     coord_LeftLowerCorner[1] = coord_LeftLowerCorner[1] + rndY;
@@ -99,13 +105,13 @@ public class Main {
         /**
          *
          */
-        for (Figures x : figures) {
-            x.draw();
+        for (Figures x : figures) { //render figures and start listener.
+            //x.draw();
             listener.listen(x, frame, false);
             x.setCanShift(true);
         }
-        System.out.print(figures.toString());
-        System.out.print("\nFigures sorted by suare: \n" + sortingBySquare(figures));
+        System.out.print("Figures which was generated: \n"+figures.toString());
+        System.out.print("\nFigures which sorted by square: \n" + sortingBySquare(figures));
     }
 }
 

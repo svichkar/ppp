@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * Created by Lexx on 16.11.2015.
+ * Class determine the figure Triangle.
+ * Note: variable nCorners = 3, and not possible to change
  */
 public class Triangle extends Figures {
     private String name;
@@ -24,6 +26,11 @@ public class Triangle extends Figures {
         this.canShift = canShift;
     }
 
+    /**
+     * Set variable which means, whether shiftable the figure or not
+     *
+     * @return boolean (true - yes, false - not)
+     */
     public boolean isCanShift() {
         return canShift;
     }
@@ -38,6 +45,16 @@ public class Triangle extends Figures {
         return scale;
     }
 
+    /**
+     * Constructor
+     *
+     * @param name     - name of Figure
+     * @param xSides   - X coordinates of sides vertices
+     * @param ySides   - Y coordinates of sides vertices
+     * @param nCorners - deprecated
+     * @param scale    - scale of figure
+     * @param frame    - current frame
+     */
     public Triangle(String name, int[] xSides, int[] ySides, int nCorners, double scale, JFrame frame) {
         super(name);
         this.name = name;
@@ -49,14 +66,19 @@ public class Triangle extends Figures {
         scaling();
     }
 
+    /**
+     * Draw a figure into the frame.
+     * uses coordinates of sides vertices
+     */
     @Override
     public void draw() {
         myCanvas.setCanvasTriangle(frame, this.name, this.xSides, this.ySides, this.nCorners);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
     }
+
     /**
-     *
+     * Uses for correct 'the figure's state' update after shift
      */
     public void re_draw() {
         myCanvas.setCanvasTriangle(frame, this.name, this.xSides, this.ySides, this.nCorners);
@@ -64,6 +86,13 @@ public class Triangle extends Figures {
         frame.repaint();
     }
 
+    /**
+     * Shifting a figure through adding or subtraction step length from current coordinates.
+     *
+     * @param direction of shifting (values: up, down, left, right)
+     * @param step      of shifting
+     * @param start     not used
+     */
     @Override
     public void shift(String direction, int step, long start) {
         if (direction == null) {
@@ -96,6 +125,14 @@ public class Triangle extends Figures {
 
     }
 
+    /**
+     * Change figure dimension through subtraction coordinates of corners
+     * subtraction occur in cycle, until the calcSquare() return bigger value;
+     * example:
+     * the Square = 134;
+     * scale  = 0.5;
+     * result 134 * 0.5 = 67.
+     */
     public void scaling() {
         double scaleModifier = this.square * this.scale;
         while (calcSquare() > scaleModifier) {
@@ -107,14 +144,29 @@ public class Triangle extends Figures {
         re_draw();
     }
 
+    /**
+     * Calculate length through coordinates corners
+     *
+     * @return length of A side
+     */
     public double calc_A() {
         return Math.sqrt((Math.pow(xSides[1] - xSides[0], 2)) + (Math.pow(ySides[1] - ySides[0], 2)));
     }
 
+    /**
+     * Calculate length through coordinates corners
+     *
+     * @return length of B side
+     */
     public double calc_B() {
         return Math.sqrt((Math.pow(xSides[2] - xSides[1], 2)) + (Math.pow(ySides[2] - ySides[1], 2)));
     }
 
+    /**
+     * Calculate length through coordinates corners
+     *
+     * @return length of C side
+     */
     public double calc_C() {
         return Math.sqrt((Math.pow(xSides[2] - xSides[0], 2)) + (Math.pow(ySides[2] - ySides[0], 2)));
     }

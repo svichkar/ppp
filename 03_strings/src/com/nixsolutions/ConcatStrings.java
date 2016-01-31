@@ -5,7 +5,7 @@ import java.util.List;
  */
 public class ConcatStrings {
     /**
-     *
+     *Concatinate strings
      * @param inputString
      */
     public static void concatStrings(List<String> inputString)

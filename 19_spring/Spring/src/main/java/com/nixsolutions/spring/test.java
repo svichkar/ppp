@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class test {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("context/spring-base-context.xml");
         AuthorDAO authorDAO = (AuthorDAO) context.getBean("authorDAO");
         System.out.println(authorDAO.findAll().size());
     }

@@ -2,6 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StudentGroupDao;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -22,9 +23,13 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.saveOrUpdate(group);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(group);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -33,9 +38,13 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.update(group);
-        transaction.commit();
+        try {
+            session.update(group);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -44,9 +53,13 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.delete(group);
-        transaction.commit();
+        try {
+            session.delete(group);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -56,9 +69,14 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        List<StudentGroup> list = session.createCriteria(StudentGroup.class).list();
-        transaction.commit();
-
+        List<StudentGroup> list;
+        try {
+            list = session.createCriteria(StudentGroup.class).list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return list;
     }
 
@@ -68,18 +86,15 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(StudentGroup.class);
-        criteria.add(Restrictions.idEq(id));
-        List<StudentGroup> results = criteria.list();
-        transaction.commit();
-
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        StudentGroup group;
+        try {
+            group = (StudentGroup) session.get(StudentGroup.class, id);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return group;
     }
 
     @Override
@@ -91,13 +106,14 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
         Criteria criteria = session.createCriteria(StudentGroup.class);
         criteria.add(Restrictions.eq("groupName", groupName));
-        List<StudentGroup> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        List<StudentGroup> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return results.isEmpty() ? null : results.get(0);
     }
 }

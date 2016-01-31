@@ -2,6 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.StatusDao;
 import com.nixsolutions.studentgrade.entity.Status;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -23,8 +24,13 @@ public class StatusDaoImpl implements StatusDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.saveOrUpdate(status);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(status);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -33,9 +39,13 @@ public class StatusDaoImpl implements StatusDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.update(status);
-        transaction.commit();
+        try {
+            session.update(status);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -44,9 +54,13 @@ public class StatusDaoImpl implements StatusDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        session.delete(status);
-        transaction.commit();
+        try {
+            session.delete(status);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -55,10 +69,14 @@ public class StatusDaoImpl implements StatusDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        List<Status> list = session.createCriteria(Status.class).list();
-        transaction.commit();
-
+        List<Status> list;
+        try {
+            list = session.createCriteria(Status.class).list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return list;
     }
 
@@ -68,17 +86,15 @@ public class StatusDaoImpl implements StatusDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
-        Criteria criteria = session.createCriteria(Status.class);
-        criteria.add(Restrictions.idEq(id));
-        List<Status> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        Status status;
+        try {
+            status = (Status) session.get(Status.class, id);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return status;
     }
 
     @Override
@@ -90,13 +106,14 @@ public class StatusDaoImpl implements StatusDao {
 
         Criteria criteria = session.createCriteria(Status.class);
         criteria.add(Restrictions.eq("statusName", statusName));
-        List<Status> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        List<Status> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return results.isEmpty() ? null : results.get(0);
     }
 }

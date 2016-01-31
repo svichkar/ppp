@@ -3,6 +3,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.entity.User;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -23,8 +24,13 @@ public class UserDaoImpl implements UserDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(user);
-        transaction.commit();
+        try {
+            session.save(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -33,8 +39,13 @@ public class UserDaoImpl implements UserDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(user);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -43,8 +54,13 @@ public class UserDaoImpl implements UserDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(user);
-        transaction.commit();
+        try {
+            session.delete(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -53,8 +69,14 @@ public class UserDaoImpl implements UserDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<User> list = session.createCriteria(User.class).list();
-        transaction.commit();
+        List<User> list;
+        try {
+            list = session.createCriteria(User.class).list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return list;
     }
 
@@ -64,8 +86,14 @@ public class UserDaoImpl implements UserDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        User user = (User) session.get(User.class, id);
-        transaction.commit();
+        User user;
+        try {
+            user = (User) session.get(User.class, id);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return user;
     }
 
@@ -77,14 +105,15 @@ public class UserDaoImpl implements UserDao {
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("login", user));
-        List<Subject> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty()) {
-            return false;
-        } else {
-            return true;
+        List<Subject> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return !results.isEmpty();
     }
 
     @Override
@@ -96,15 +125,15 @@ public class UserDaoImpl implements UserDao {
 
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.and(Restrictions.eq("login", user), Restrictions.eq("userPassword", pass)));
-        List<User> results = criteria.list();
-        transaction.commit();
-
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        List<User> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override
@@ -116,14 +145,15 @@ public class UserDaoImpl implements UserDao {
 
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("login", userLogin));
-        List<User> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        List<User> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return results.isEmpty() ? null : results.get(0);
     }
 
 }

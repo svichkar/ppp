@@ -2,6 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.SubjectDao;
 import com.nixsolutions.studentgrade.entity.Subject;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -22,8 +23,13 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(subject);
-        transaction.commit();
+        try {
+            session.save(subject);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -32,8 +38,13 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(subject);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(subject);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -42,8 +53,13 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(subject);
-        transaction.commit();
+        try {
+            session.delete(subject);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -52,8 +68,14 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        List<Subject> list = session.createCriteria(Subject.class).list();
-        transaction.commit();
+        List<Subject> list;
+        try {
+            list = session.createCriteria(Subject.class).list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return list;
     }
 
@@ -63,8 +85,14 @@ public class SubjectDaoImpl implements SubjectDao {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        Subject result = (Subject) session.get(Subject.class, id);
-        transaction.commit();
+        Subject result;
+        try {
+            result = (Subject) session.get(Subject.class, id);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return result;
     }
 
@@ -75,14 +103,16 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.eq("subjectName", subjectName).ignoreCase());
-        List<Subject> results = criteria.list();
-        transaction.commit();
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        criteria.add(Restrictions.eq("subjectName", subjectName).ignoreCase()).uniqueResult();
+        List<Subject> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override
@@ -94,15 +124,16 @@ public class SubjectDaoImpl implements SubjectDao {
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
         criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(),
-                Restrictions.eq("term.termId", termId)));
-        List<Subject> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+                Restrictions.eq("term.termId", termId))).uniqueResult();
+        List<Subject> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @Override
@@ -113,9 +144,15 @@ public class SubjectDaoImpl implements SubjectDao {
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.eq("term.termId", termId));
-        List<Subject> results = criteria.list();
-        transaction.commit();
+        criteria.add(Restrictions.eq("term.termId", termId)).uniqueResult();
+        List<Subject> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return results;
     }
 }

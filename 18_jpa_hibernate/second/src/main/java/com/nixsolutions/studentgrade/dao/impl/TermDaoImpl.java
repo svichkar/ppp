@@ -2,14 +2,11 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.TermDao;
 import com.nixsolutions.studentgrade.entity.Term;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,77 +14,85 @@ import java.util.List;
  */
 public class TermDaoImpl implements TermDao {
 
-    @Override
     public void create(Term term) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.saveOrUpdate(term);
-        transaction.commit();
+        try {
+            session.saveOrUpdate(term);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
-    @Override
     public void update(Term term) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.update(term);
-        transaction.commit();
+        try {
+            session.update(term);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
-    @Override
     public void delete(Term term) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        Serializable id = term.getTermId();
-        Object persistentInstance = session.load(Term.class, id);
-        if (persistentInstance != null) {
-            session.delete(persistentInstance);
-            session.flush();
+        try {
+            session.delete(term);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
-        transaction.commit();
     }
 
-    @Override
     public List<Term> findAll() {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Term> list = session.createCriteria(Term.class).list();
-        transaction.commit();
-
-        return list;
+        List<Term> list;
+        try {
+            list = session.createCriteria(Term.class).list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
-    @Override
     public Term findById(Long id) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
+        Term term;
 
-        Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.idEq(id));
-        List<Term> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        try {
+            term = (Term) session.load(Term.class, id);
+            transaction.commit();
+            return term;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
     }
 
-    @Override
     public Term findByName(String termName) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -95,14 +100,16 @@ public class TermDaoImpl implements TermDao {
         Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName));
-        List<Term> results = criteria.list();
-        transaction.commit();
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
+        Term term;
+        try {
+            term = (Term) criteria.list();
+            transaction.commit();
+            return term;
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
     }
 }
+

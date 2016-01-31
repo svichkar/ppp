@@ -2,6 +2,7 @@ package com.nixsolutions.studentgrade.dao.impl;
 
 import com.nixsolutions.studentgrade.dao.JournalDao;
 import com.nixsolutions.studentgrade.entity.Journal;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -23,10 +24,13 @@ public class JournalDaoImpl implements JournalDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.saveOrUpdate(journal);
-        transaction.commit();
-
-
+        try {
+            session.saveOrUpdate(journal);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -36,8 +40,13 @@ public class JournalDaoImpl implements JournalDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.update(journal);
-        transaction.commit();
+        try {
+            session.update(journal);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -47,8 +56,13 @@ public class JournalDaoImpl implements JournalDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        session.delete(journal);
-        transaction.commit();
+        try {
+            session.delete(journal);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
     }
 
     @Override
@@ -58,9 +72,14 @@ public class JournalDaoImpl implements JournalDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Journal> list = session.createCriteria(Journal.class).list();
-        transaction.commit();
-
+        List<Journal> list;
+        try {
+            list = session.createCriteria(Journal.class).list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return list;
     }
 
@@ -71,17 +90,15 @@ public class JournalDaoImpl implements JournalDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
-        Criteria criteria = session.createCriteria(Journal.class);
-        criteria.add(Restrictions.idEq(id));
-        List<Journal> results = criteria.list();
-        transaction.commit();
-
-
-        if (results.isEmpty() == false) {
-            return results.get(0);
-        } else {
-            return null;
+        Journal journal;
+        try {
+            journal = (Journal) session.get(Journal.class, id);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
         }
+        return journal;
     }
 
     @Override
@@ -97,9 +114,15 @@ public class JournalDaoImpl implements JournalDao {
         criteria.createAlias("subject.term", "term");
         criteria.add(Restrictions.and(Restrictions.eq("student.studentId", studentId),
                 Restrictions.eq("term.termId", termId)));
-        List<Journal> results = criteria.list();
-        transaction.commit();
 
+        List<Journal> results;
+        try {
+            results = criteria.list();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw new CustomDaoException(e);
+        }
         return results;
     }
 }

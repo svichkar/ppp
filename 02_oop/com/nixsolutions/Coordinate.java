@@ -1,5 +1,12 @@
 package com.nixsolutions;
 
+/**
+ * The class Coordinate provides common fields and
+ * methods for Cartesian coordinate system
+ *
+ * @author Dmitry Zonovyi
+ * @version 0.1
+ */
 public class Coordinate {
 
     private double x;

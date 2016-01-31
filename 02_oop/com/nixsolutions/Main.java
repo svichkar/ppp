@@ -53,7 +53,7 @@ public class Main {
         Collections.sort(listFigures);
         System.out.println();
         System.out.println();
-        System.out.println("2. Sorted figures:");
+        System.out.println("3. Sorted figures:");
         //after sort
         for (Figure figure : listFigures) {
             System.out.println(figure);

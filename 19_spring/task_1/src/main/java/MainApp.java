@@ -11,7 +11,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("root-context.xml");
 
         TermDao termDao = (TermDao) context.getBean("termDao");
         Term term = new Term();

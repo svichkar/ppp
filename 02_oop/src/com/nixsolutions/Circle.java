@@ -11,7 +11,7 @@ public class Circle extends Figures {
     private double square;
     private JFrame frame;
     private boolean canShift;
-    MyCanvas myCanvas = new MyCanvas();
+    Canvas myCanvas = new Canvas();
     private double scale;
 
     public Circle(String name) {
@@ -54,16 +54,13 @@ public class Circle extends Figures {
 
     @Override
     public void draw() {
-        myCanvas.setCanvas(this.name, this.coord_Center, this.radius);
-        frame.setTitle("Image");
-        frame.setSize(500, 500);
+        myCanvas.setCanvasCircle(frame, this.name, this.coord_Center, this.radius);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void re_draw() {
-        myCanvas.setCanvas(name, this.coord_Center, this.radius);
+        myCanvas.setCanvasCircle(frame, name, this.coord_Center, this.radius);
         frame.getContentPane().add(myCanvas);
         frame.repaint();
     }
@@ -71,6 +68,7 @@ public class Circle extends Figures {
     @Override
     public void shift(String direction, int step, long start) {
         if (direction == null) {
+            System.out.print("Direction is null");
         }
         if (!this.canShift) {
             return;
@@ -103,26 +101,5 @@ public class Circle extends Figures {
             this.radius--;
         }
         re_draw();
-    }
-
-    class MyCanvas extends JComponent {
-        private String name;
-        private int[] coord_Center;
-        private int radius;
-        private int radius_parameter;
-
-        public void setCanvas(String name, int[] coord_Center, int radius) {
-            this.name = name;
-            this.coord_Center = coord_Center;
-            this.radius = radius;
-            radius_parameter = radius * 2;
-        }
-
-        public MyCanvas() {
-        }
-
-        public void paint(Graphics g) {
-            g.drawOval(this.coord_Center[0], this.coord_Center[1], this.radius_parameter, this.radius_parameter);
-        }
     }
 }

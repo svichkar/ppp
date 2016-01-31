@@ -13,7 +13,7 @@ public class Triangle extends Figures {
     private int nCorners = 3;
     private boolean canShift;
     private JFrame frame;
-    MyCanvas myCanvas = new MyCanvas();
+    Canvas myCanvas = new Canvas();
     private double scale;
 
     public Triangle(String name) {
@@ -51,19 +51,15 @@ public class Triangle extends Figures {
 
     @Override
     public void draw() {
-        myCanvas.setCanvas(this.name, this.xSides, this.ySides, this.nCorners);
-        frame.setTitle("Image");
-        frame.setSize(500, 500);
+        myCanvas.setCanvasTriangle(frame, this.name, this.xSides, this.ySides, this.nCorners);
         frame.getContentPane().add(myCanvas);
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
     /**
      *
      */
     public void re_draw() {
-        myCanvas.setCanvas(this.name, this.xSides, this.ySides, this.nCorners);
+        myCanvas.setCanvasTriangle(frame, this.name, this.xSides, this.ySides, this.nCorners);
         frame.getContentPane().add(myCanvas);
         frame.repaint();
     }
@@ -71,6 +67,7 @@ public class Triangle extends Figures {
     @Override
     public void shift(String direction, int step, long start) {
         if (direction == null) {
+            System.out.print("Direction is null");
         }
         if (!this.canShift) {
             return;
@@ -132,25 +129,5 @@ public class Triangle extends Figures {
     @Override
     public double getSquare() {
         return square;
-    }
-
-    class MyCanvas extends JComponent {
-        private String name;
-        private int[] xSides;
-        private int[] ySides;
-        private int nCorners = 3;
-
-        public void setCanvas(String name, int[] xSides, int[] ySides, int nCorners) {
-            this.name = name;
-            this.xSides = xSides;
-            this.ySides = ySides;
-        }
-
-        public MyCanvas() {
-        }
-
-        public void paint(Graphics g) {
-            g.drawPolygon(this.xSides, this.ySides, this.nCorners);
-        }
     }
 }

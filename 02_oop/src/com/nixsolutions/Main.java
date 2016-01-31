@@ -1,18 +1,14 @@
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Lexx on 16.11.2015.
  */
 public class Main {
-    protected static List<Figures> figures = new ArrayList<Figures>();
+    private static List<Figures> figures = new ArrayList<Figures>();
 
     /**
-     *
      * @param obj
      */
     public static void turnOff(int obj) {
@@ -34,8 +30,26 @@ public class Main {
         }
     }
 
+    public static List<Figures> sortingBySquare(List<Figures> figuresNotSort) {
+        List<Figures> sortedList = new ArrayList<Figures>();
+        double[] maxSquares = new double[figuresNotSort.size()];
+        int i = 0;
+        for (Figures obj : figuresNotSort) {
+            maxSquares[i++] = (obj.getSquare());
+        }
+        Arrays.sort(maxSquares);
+        for (double d : maxSquares) {
+            for (Figures obj : figuresNotSort) {
+                if (obj.getSquare() == d) {
+                    sortedList.add(obj);
+                    i++;
+                }
+            }
+        }
+        return sortedList;
+    }
+
     /**
-     *
      * @param args
      * @throws InterruptedException
      */
@@ -91,6 +105,7 @@ public class Main {
             x.setCanShift(true);
         }
         System.out.print(figures.toString());
+        System.out.print("\nFigures sorted by suare: \n" + sortingBySquare(figures));
     }
 }
 

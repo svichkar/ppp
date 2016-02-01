@@ -48,7 +48,7 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(resultArray, size());
     }
 
     public boolean add(Object o) {
@@ -69,8 +69,7 @@ public class NewCollections<E> implements Collection<E> {
         boolean result = false;
         int it = 0;
         int cap = 0;
-        if(!contains(o))
-        {
+        if (!contains(o)) {
             return false;
         }
         for (Object obj : resultArray) {
@@ -92,11 +91,19 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public boolean addAll(Collection c) {
+        Object[] newArray = c.toArray();
+        int oldHash = Arrays.hashCode(resultArray);
+        int oldLength = resultArray.length;
+        resultArray = Arrays.copyOf(resultArray, resultArray.length + newArray.length);
+        System.arraycopy(newArray, 0, resultArray, oldLength, newArray.length);
+        int newHash = Arrays.hashCode(resultArray);
+        if (oldHash != newHash) {
+            return true;
+        }
         return false;
     }
 
     public void clear() {
-
     }
 
     public boolean retainAll(Collection c) {
@@ -104,6 +111,17 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public boolean removeAll(Collection c) {
+        Object[] newArray = c.toArray();
+        int oldHash = Arrays.hashCode(resultArray);
+        int oldLength = resultArray.length;
+        for(Object x: newArray)
+        {
+            remove(x);
+        }
+        int newHash = Arrays.hashCode(resultArray);
+        if (oldHash != newHash) {
+            return true;
+        }
         return false;
     }
 
@@ -112,7 +130,10 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public <T> T[] toArray(T[] a) {
-        T[] array = (T[]) new Object[1];
+        T[] array = (T[]) new Object[resultArray.length];
+        for (int i = 0; i < resultArray.length; i++) {
+            array[i] = (T) resultArray[i];
+        }
         return array;
     }
 }

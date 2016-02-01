@@ -9,7 +9,7 @@ class FeltTipPen extends WritingInstrument {
   private final BigDecimal PERCENT_LVL_1 = new BigDecimal("1");
   private final BigDecimal PERCENT_LVL_2 = new BigDecimal("1.09");
   private final BigDecimal PERCENT_LVL_3 = new BigDecimal("1.21");
-  private final int LVL_1_MAX = 20; // TODO: Ambiguity in the requirement, need to clarify
+  private final int LVL_1_MAX = 20;
   private final int LVL_2_MAX = 40;
 
   @Override
@@ -61,11 +61,11 @@ class FeltTipPen extends WritingInstrument {
    * to the specified logic of the item.
    */
   protected void setPercent() {
-    if (charsWritten < LVL_1_MAX) {
+    if (charsWritten <= LVL_1_MAX) {
       pigmentPercentPerChar = PERCENT_LVL_1;
-    } else if (charsWritten >= LVL_1_MAX && charsWritten < LVL_2_MAX) {
+    } else if (charsWritten > LVL_1_MAX && charsWritten <= LVL_2_MAX) {
       pigmentPercentPerChar = PERCENT_LVL_2;
-    } else if (charsWritten >= LVL_2_MAX) {
+    } else if (charsWritten > LVL_2_MAX) {
       pigmentPercentPerChar = PERCENT_LVL_3;
     }
   }

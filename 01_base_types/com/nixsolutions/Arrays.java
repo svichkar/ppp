@@ -14,7 +14,9 @@ public class Arrays {
   * Performs sorting of integer array taken as an argument,
   * in ascending order, using non-optimized bubble sorting method.
   */
-  public static void sort(int[] a){
+  public static void sort(int[] originalArray){
+    int[] a = new int[LENGTH];
+    System.arraycopy(originalArray, 0, a, 0, LENGTH);
     boolean swapped = true;
     while (swapped) {
       swapped = false;
@@ -66,20 +68,17 @@ public class Arrays {
     long[][] results = new long[2][LOOPS];
     System.out.println("Sorting arrays " + LOOPS + " times by each of the methods...\n");
     for (int i = 0; i < LOOPS; i++) {
-      int[] orig = arrays.randFillArray(LENGTH);
-      int[] copy = new int[LENGTH];
+      int[] array = arrays.randFillArray(LENGTH);
       long start;
       long stop;
 
-      System.arraycopy(orig, 0, copy, 0, LENGTH);
       start = System.nanoTime();
-      arrays.sort(copy);
+      arrays.sort(array);
       stop = System.nanoTime();
       results[0][i] = stop - start;
 
-      System.arraycopy(orig, 0, copy, 0, LENGTH);
       start = System.nanoTime();
-      java.util.Arrays.sort(copy);
+      java.util.Arrays.sort(array);
       stop = System.nanoTime();
       results[1][i] = stop - start;
     }

@@ -106,14 +106,14 @@ public class StatusDaoImpl implements StatusDao {
 
         Criteria criteria = session.createCriteria(Status.class);
         criteria.add(Restrictions.eq("statusName", statusName));
-        List<Status> results;
+        Status status;
         try {
-            results = criteria.list();
+            status = (Status) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return status;
     }
 }

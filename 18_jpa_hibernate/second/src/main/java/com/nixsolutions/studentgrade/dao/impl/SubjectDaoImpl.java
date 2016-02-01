@@ -103,16 +103,16 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.eq("subjectName", subjectName).ignoreCase()).uniqueResult();
-        List<Subject> results;
+        criteria.add(Restrictions.eq("subjectName", subjectName).ignoreCase());
+        Subject subject;
         try {
-            results = criteria.list();
+            subject = (Subject) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return subject;
     }
 
     @Override
@@ -124,16 +124,16 @@ public class SubjectDaoImpl implements SubjectDao {
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
         criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(),
-                Restrictions.eq("term.termId", termId))).uniqueResult();
-        List<Subject> results;
+                Restrictions.eq("term.termId", termId)));
+        Subject subject;
         try {
-            results = criteria.list();
+            subject = (Subject) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return subject;
     }
 
     @Override
@@ -144,7 +144,7 @@ public class SubjectDaoImpl implements SubjectDao {
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.eq("term.termId", termId)).uniqueResult();
+        criteria.add(Restrictions.eq("term.termId", termId));
         List<Subject> results;
         try {
             results = criteria.list();

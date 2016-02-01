@@ -117,23 +117,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByLoginAndPassword(String user, String pass) {
+    public User getUserByLoginAndPassword(String login, String pass) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(User.class);
-        criteria.add(Restrictions.and(Restrictions.eq("login", user), Restrictions.eq("userPassword", pass)));
-        List<User> results;
+        criteria.add(Restrictions.and(Restrictions.eq("login", login), Restrictions.eq("userPassword", pass)));
+        User user;
         try {
-            results = criteria.list();
+            user = (User) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return user;
     }
 
     @Override
@@ -145,15 +145,15 @@ public class UserDaoImpl implements UserDao {
 
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.eq("login", userLogin));
-        List<User> results;
+        User user;
         try {
-            results = criteria.list();
+            user = (User) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return user;
     }
 
 }

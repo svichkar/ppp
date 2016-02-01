@@ -6,7 +6,7 @@ import com.nixsolutions.studentgrade.dao.SubjectDao;
 import com.nixsolutions.studentgrade.dao.TermDao;
 import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.entity.Term;
-import org.hibernate.exception.ConstraintViolationException;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -168,7 +168,8 @@ public class SubjectServlet extends HttpServlet {
                     dao.delete(subject);
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
-                } catch (ConstraintViolationException e) {
+                } catch (CustomDaoException e) {
+                    getServletContext().log(e.toString());
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                             "Subject can't be deleted</h4></p>");
                 }

@@ -2,7 +2,7 @@ package com.nixsolutions.studentgrade.servlet;
 
 import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.entity.Term;
-import org.hibernate.exception.ConstraintViolationException;
+import com.nixsolutions.studentgrade.exception.CustomDaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -93,10 +93,10 @@ public class TermServlet extends HttpServlet {
                     daoFactory.getTermDao().delete(term);
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
                             "Success</h4></p>");
-                } catch (ConstraintViolationException e) {
+                } catch (CustomDaoException e) {
+                    getServletContext().log(e.toString());
                     request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
                             "Term is linked with students and can't be deleted</h4></p>");
-
                 }
 
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());

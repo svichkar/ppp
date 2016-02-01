@@ -108,16 +108,15 @@ public class GradeDaoImpl implements GradeDao {
         Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(Grade.class);
-        criteria.add(Restrictions.eq("gradeName", gradeName)).uniqueResult();
-        List<Grade> results;
+        criteria.add(Restrictions.eq("gradeName", gradeName));
+        Grade grade;
         try {
-            results = criteria.list();
+            grade = (Grade) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-
-        return results.isEmpty() ? null : results.get(0);
+        return grade;
     }
 }

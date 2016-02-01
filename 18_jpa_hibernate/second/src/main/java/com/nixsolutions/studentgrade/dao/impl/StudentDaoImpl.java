@@ -105,16 +105,16 @@ public class StudentDaoImpl implements StudentDao {
 
         Criteria criteria = session.createCriteria(Student.class);
         criteria.add(Restrictions.and(Restrictions.eq("firstName", firsName).ignoreCase(),
-                Restrictions.eq("lastName", lastName).ignoreCase())).uniqueResult();
-        List<Student> results;
+                Restrictions.eq("lastName", lastName).ignoreCase()));
+        Student student;
         try {
-            results = criteria.list();
+            student = (Student) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return student;
     }
 
     @Override

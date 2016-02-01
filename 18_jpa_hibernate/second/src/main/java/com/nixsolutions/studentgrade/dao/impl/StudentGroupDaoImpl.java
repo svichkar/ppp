@@ -106,14 +106,14 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
         Criteria criteria = session.createCriteria(StudentGroup.class);
         criteria.add(Restrictions.eq("groupName", groupName));
-        List<StudentGroup> results;
+        StudentGroup group;
         try {
-            results = criteria.list();
+            group = (StudentGroup) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return results.isEmpty() ? null : results.get(0);
+        return group;
     }
 }

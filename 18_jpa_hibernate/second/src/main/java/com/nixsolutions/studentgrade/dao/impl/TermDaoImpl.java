@@ -100,16 +100,16 @@ public class TermDaoImpl implements TermDao {
         Transaction transaction = session.beginTransaction();
 
         Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
+        criteria.add(Restrictions.eq("termName", termName));
         Term term;
         try {
-            term = (Term) criteria.list();
+            term = (Term) criteria.uniqueResult();
             transaction.commit();
-            return term;
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
+        return term;
     }
 }
 

@@ -94,21 +94,21 @@ public class RoleDaoImpl implements RoleDao {
         return role;
     }
 
-    public Role findByName(String role) {
+    public Role findByName(String roleName) {
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Criteria criteria = session.createCriteria(Role.class);
-        criteria.add(Restrictions.eq("roleName", role)).uniqueResult();
-        List<Role> roles;
+        criteria.add(Restrictions.eq("roleName", roleName));
+        Role role;
         try {
-            roles = criteria.list();
+            role = (Role) criteria.uniqueResult();
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
             throw new CustomDaoException(e);
         }
-        return roles.isEmpty() ? null : roles.get(0);
+        return role;
     }
 }

@@ -11,11 +11,12 @@ import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.nixsolutions.studentgrade.app.DAOApp;
 import com.nixsolutions.studentgrade.dao.DAOFactory;
 import com.nixsolutions.studentgrade.dao.SubjectDAO;
 import com.nixsolutions.studentgrade.dao.TermDAO;
@@ -23,21 +24,22 @@ import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.util.ConnectionManager;
 
 public class SubjectDAOTest {
-	private Connection conn;
-	private IDatabaseConnection iconn;
-	private SubjectDAO subject;
-	private TermDAO term;
+	private static Connection conn;
+	private static IDatabaseConnection iconn;
+	private static SubjectDAO subject;
+	private static TermDAO term;
 
-	@Before
-	public void setUp() throws DatabaseUnitException {
+	@BeforeClass
+	public static void setUp() throws DatabaseUnitException {
 		conn = ConnectionManager.getConnection();
 		iconn = new DatabaseConnection(conn);
 		subject = DAOFactory.getSubject();
 		term = DAOFactory.getTerm();
+		DAOApp.main(null);
 	}
 
-	@After
-	public void tearDown() throws SQLException {
+	@AfterClass
+	public static void tearDown() throws SQLException {
 		conn.close();
 		iconn.close();
 	}

@@ -13,36 +13,46 @@ import com.nixsolutions.studentgrade.entity.User;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 
 public class UserDAOImpl implements UserDAO {
-	
+
 	private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(user);
-		transaction.commit();
+		try {
+			session.save(user);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(user);
-		transaction.commit();
+		try {
+			session.update(user);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(user);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -50,8 +60,13 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		User user = null;
 		Transaction transaction = session.beginTransaction();
-		user = (User) session.get(User.class, userId);
-		transaction.commit();
+		try {
+			user = (User) session.get(User.class, userId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return user;
 	}
 
@@ -60,8 +75,13 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		User user = null;
 		Transaction transaction = session.beginTransaction();
-		user = (User) session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
-		transaction.commit();
+		try {
+			user = (User) session.createCriteria(User.class).add(Restrictions.eq("login", login)).uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return user;
 	}
 
@@ -70,8 +90,13 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<User> users = new ArrayList<User>();
 		Transaction transaction = session.beginTransaction();
-		users = session.createCriteria(User.class).list();
-		transaction.commit();
+		try {
+			users = session.createCriteria(User.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return users;
 	}
 

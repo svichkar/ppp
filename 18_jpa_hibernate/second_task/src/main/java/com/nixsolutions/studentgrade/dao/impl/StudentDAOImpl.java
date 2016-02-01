@@ -20,29 +20,39 @@ public class StudentDAOImpl implements StudentDAO {
 	public void createStudent(Student student) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(student);
-		transaction.commit();
+		try {
+			session.save(student);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateStudent(Student student) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(student);
-		transaction.commit();
+		try {
+			session.update(student);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteStudent(Student student) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(student);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -50,8 +60,13 @@ public class StudentDAOImpl implements StudentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Student student = null;
 		Transaction transaction = session.beginTransaction();
-		student = (Student) session.get(Student.class, studentId);
-		transaction.commit();
+		try {
+			student = (Student) session.get(Student.class, studentId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return student;
 	}
 
@@ -60,8 +75,13 @@ public class StudentDAOImpl implements StudentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Student> students = new ArrayList<Student>();
 		Transaction transaction = session.beginTransaction();
-		students = session.createCriteria(Student.class).list();
-		transaction.commit();
+		try {
+			students = session.createCriteria(Student.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return students;
 	}
 
@@ -70,9 +90,14 @@ public class StudentDAOImpl implements StudentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Student> students = new ArrayList<Student>();
 		Transaction transaction = session.beginTransaction();
-		students = session.createCriteria(Student.class).add(Restrictions.eq("lastName", lastName))
-				.add(Restrictions.eq("group.groupId", groupId)).list();
-		transaction.commit();
+		try {
+			students = session.createCriteria(Student.class).add(Restrictions.eq("lastName", lastName))
+					.add(Restrictions.eq("group.groupId", groupId)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return students;
 	}
 
@@ -81,8 +106,13 @@ public class StudentDAOImpl implements StudentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Student> students = new ArrayList<Student>();
 		Transaction transaction = session.beginTransaction();
-		students = session.createCriteria(Student.class).add(Restrictions.eq("lastName", lastName)).list();
-		transaction.commit();
+		try {
+			students = session.createCriteria(Student.class).add(Restrictions.eq("lastName", lastName)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return students;
 	}
 
@@ -91,8 +121,13 @@ public class StudentDAOImpl implements StudentDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Student> students = new ArrayList<Student>();
 		Transaction transaction = session.beginTransaction();
-		students = session.createCriteria(Student.class).add(Restrictions.eq("group.groupId", groupId)).list();
-		transaction.commit();
+		try {
+			students = session.createCriteria(Student.class).add(Restrictions.eq("group.groupId", groupId)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return students;
 	}
 

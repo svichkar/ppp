@@ -18,8 +18,7 @@ import com.nixsolutions.studentgrade.entity.User;
 public class MainPageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -33,7 +32,7 @@ public class MainPageServlet extends HttpServlet {
 			request.getSession().setAttribute("role", role.getRoleName());
 			if ("admin".equals(role.getRoleName()))
 				response.sendRedirect("users");
-			else
+			else				
 				response.sendRedirect("students");
 		} else {
 			response.sendRedirect("index.jsp?message=Your login or password is incorrect. Please try again.");

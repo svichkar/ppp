@@ -16,6 +16,4 @@ public interface TermDAO {
 
 	public List<Term> findAllTerms();
 	
-	public List<Term> findTermsByStudentId(Long studentId);
-
 }

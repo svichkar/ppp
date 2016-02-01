@@ -13,36 +13,46 @@ import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.util.HibernateUtil;
 
 public class RoleDAOImpl implements RoleDAO {
-	
+
 	private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public void createRole(Role role) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(role);
-		transaction.commit();
+		try {
+			session.save(role);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateRole(Role role) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(role);
-		transaction.commit();
+		try {
+			session.update(role);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteRole(Role role) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(role);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -50,8 +60,13 @@ public class RoleDAOImpl implements RoleDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Role role = null;
 		Transaction transaction = session.beginTransaction();
-		role = (Role) session.get(Role.class, roleId);
-		transaction.commit();
+		try {
+			role = (Role) session.get(Role.class, roleId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return role;
 	}
 
@@ -60,8 +75,13 @@ public class RoleDAOImpl implements RoleDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Role role = null;
 		Transaction transaction = session.beginTransaction();
-		role = (Role) session.createCriteria(Role.class).add(Restrictions.eq("roleName", roleName)).uniqueResult();
-		transaction.commit();
+		try {
+			role = (Role) session.createCriteria(Role.class).add(Restrictions.eq("roleName", roleName)).uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return role;
 	}
 
@@ -70,8 +90,13 @@ public class RoleDAOImpl implements RoleDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Role> roles = new ArrayList<Role>();
 		Transaction transaction = session.beginTransaction();
-		roles = session.createCriteria(Role.class).list();
-		transaction.commit();
+		try {
+			roles = session.createCriteria(Role.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return roles;
 	}
 

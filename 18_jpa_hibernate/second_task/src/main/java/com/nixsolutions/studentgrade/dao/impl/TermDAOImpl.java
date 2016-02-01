@@ -3,7 +3,6 @@ package com.nixsolutions.studentgrade.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,29 +19,39 @@ public class TermDAOImpl implements TermDAO {
 	public void createTerm(Term term) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(term);
-		transaction.commit();
+		try {
+			session.save(term);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateTerm(Term term) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(term);
-		transaction.commit();
+		try {
+			session.update(term);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteTerm(Term term) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(term);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -50,8 +59,13 @@ public class TermDAOImpl implements TermDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Term term = null;
 		Transaction transaction = session.beginTransaction();
-		term = (Term) session.get(Term.class, termId);
-		transaction.commit();
+		try {
+			term = (Term) session.get(Term.class, termId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return term;
 	}
 
@@ -60,27 +74,14 @@ public class TermDAOImpl implements TermDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Term> terms = new ArrayList<Term>();
 		Transaction transaction = session.beginTransaction();
-		terms = session.createCriteria(Term.class).list();
-		transaction.commit();
+		try {
+			terms = session.createCriteria(Term.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return terms;
 	}
 
-	@Override
-	public List<Term> findTermsByStudentId(Long studentId) {
-		Session session = sessionFactory.getCurrentSession();
-		List<Term> terms = new ArrayList<Term>();		
-		Transaction transaction = session.beginTransaction();        
-		Query query = session
-				.createQuery("select term.termId, term.termName FROM Student student join student.term term where student.studentId=?");
-		query.setParameter(0, studentId);
-		List<Object[]> resultList = query.list();
-        for(Object[] t : resultList){
-        	Term term = new Term();
-        	term.setTermId(Long.valueOf(t[0].toString()));
-        	term.setTermName(t[1].toString());
-        	terms.add(term);
-        }
-		transaction.commit();
-		return terms;
-	}
 }

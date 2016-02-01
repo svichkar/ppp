@@ -19,29 +19,39 @@ public class StatusDAOImpl implements StatusDAO {
 	public void createStatus(Status status) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(status);
-		transaction.commit();
+		try {
+			session.save(status);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateStatus(Status status) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(status);
-		transaction.commit();
+		try {
+			session.update(status);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteStatus(Status status) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(status);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -49,8 +59,13 @@ public class StatusDAOImpl implements StatusDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Status status = null;
 		Transaction transaction = session.beginTransaction();
-		status = (Status) session.get(Status.class, statusId);
-		transaction.commit();
+		try {
+			status = (Status) session.get(Status.class, statusId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return status;
 	}
 
@@ -59,8 +74,13 @@ public class StatusDAOImpl implements StatusDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Status> statuses = new ArrayList<Status>();
 		Transaction transaction = session.beginTransaction();
-		statuses = session.createCriteria(Status.class).list();
-		transaction.commit();
+		try {
+			statuses = session.createCriteria(Status.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return statuses;
 	}
 }

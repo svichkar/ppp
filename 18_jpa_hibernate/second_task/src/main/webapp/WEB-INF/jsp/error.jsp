@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page isErrorPage="true"%>
 <t:template title="Error Page">
 	<jsp:attribute name="content_area">
        <div class="error-page-wrap">

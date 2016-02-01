@@ -21,29 +21,39 @@ public class JournalDAOImpl implements JournalDAO {
 	public void createJournal(Journal journal) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(journal);
-		transaction.commit();
+		try {
+			session.save(journal);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateJournal(Journal journal) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(journal);
-		transaction.commit();
+		try {
+			session.update(journal);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteJournal(Journal journal) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(journal);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -51,8 +61,13 @@ public class JournalDAOImpl implements JournalDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		Journal journal = null;
-		journal = (Journal) session.get(Journal.class, journalId);
-		transaction.commit();
+		try {
+			journal = (Journal) session.get(Journal.class, journalId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return journal;
 	}
 
@@ -61,8 +76,13 @@ public class JournalDAOImpl implements JournalDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Journal> journals = new ArrayList<Journal>();
 		Transaction transaction = session.beginTransaction();
-		journals = session.createCriteria(Journal.class).list();
-		transaction.commit();
+		try {
+			journals = session.createCriteria(Journal.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return journals;
 	}
 
@@ -71,10 +91,15 @@ public class JournalDAOImpl implements JournalDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Journal> journals = new ArrayList<Journal>();
 		Transaction transaction = session.beginTransaction();
-		journals = session.createCriteria(Journal.class, "journal").createAlias("journal.subject", "subject")
-				.createAlias("subject.term", "term").add(Restrictions.eq("term.termId", termId))
-				.add(Restrictions.eq("student.studentId", studentId)).list();
-		transaction.commit();
+		try {
+			journals = session.createCriteria(Journal.class, "journal").createAlias("journal.subject", "subject")
+					.createAlias("subject.term", "term").add(Restrictions.eq("term.termId", termId))
+					.add(Restrictions.eq("student.studentId", studentId)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return journals;
 	}
 
@@ -82,11 +107,18 @@ public class JournalDAOImpl implements JournalDAO {
 	public Long findGPAByStudentIdAndTermId(Long studentId, Long termId) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
+		Long gpa;
+		try {
 		Query query = session.createQuery(
-				"select avg(journal.grade.gradeId) FROM Journal journal where journal.student.studentId=? and journal.subject.term.termId=?");
-		Long gpa = Long.valueOf(Math.round(
-				Double.valueOf(query.setParameter(0, studentId).setParameter(1, termId).uniqueResult().toString())));
+				"select avg(journal.grade.gradeId) FROM Journal journal where journal.student.studentId = :studentId and journal.subject.term.termId = :termId");
+		gpa = Long.valueOf(Math.round(
+				Double.valueOf(query.setParameter("studentId", studentId).setParameter("termId", termId).uniqueResult().toString())));
 		transaction.commit();
+		}
+		catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return gpa;
 	}
 

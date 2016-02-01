@@ -47,10 +47,10 @@
 						<td>Term Name : </td>
 						<td><select name="term_id" size="1" required>
        <option selected disabled>--Select term--</option>
-       <c:forEach var="term" items="${terms}">
+       <!--  c:forEach var="term" items="${terms}"-->
        <option value="<c:out value="${term.termId}"/>"><c:out
 										value="${term.termName}" /></option>
-       </c:forEach>
+       <!-- /c:forEach-->
 			</select></td>
 					</tr>                          
 		</table>

@@ -15,34 +15,44 @@ import com.nixsolutions.studentgrade.util.HibernateUtil;
 public class SubjectDAOImpl implements SubjectDAO {
 
 	private static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-	
+
 	@Override
 	public void createSubject(Subject subject) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(subject);
-		transaction.commit();
+		try {
+			session.save(subject);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateSubject(Subject subject) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(subject);
-		transaction.commit();
+		try {
+			session.update(subject);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteSubject(Subject subject) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(subject);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -50,8 +60,13 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Subject subject = null;
 		Transaction transaction = session.beginTransaction();
-		subject = (Subject) session.get(Subject.class, subjectId);
-		transaction.commit();
+		try {
+			subject = (Subject) session.get(Subject.class, subjectId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return subject;
 	}
 
@@ -60,8 +75,13 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Subject> subjects = new ArrayList<Subject>();
 		Transaction transaction = session.beginTransaction();
-		subjects = session.createCriteria(Subject.class).list();
-		transaction.commit();
+		try {
+			subjects = session.createCriteria(Subject.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return subjects;
 	}
 
@@ -70,8 +90,13 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Subject> subjects = new ArrayList<Subject>();
 		Transaction transaction = session.beginTransaction();
-		subjects = session.createCriteria(Subject.class).add(Restrictions.eq("subjectName", subjectName)).list();
-		transaction.commit();
+		try {
+			subjects = session.createCriteria(Subject.class).add(Restrictions.eq("subjectName", subjectName)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return subjects;
 	}
 
@@ -80,8 +105,13 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Subject> subjects = new ArrayList<Subject>();
 		Transaction transaction = session.beginTransaction();
-		subjects = session.createCriteria(Subject.class).add(Restrictions.eq("term.termId", termId)).list();
-		transaction.commit();
+		try {
+			subjects = session.createCriteria(Subject.class).add(Restrictions.eq("term.termId", termId)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return subjects;
 	}
 
@@ -90,9 +120,14 @@ public class SubjectDAOImpl implements SubjectDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<Subject> subjects = new ArrayList<Subject>();
 		Transaction transaction = session.beginTransaction();
-		subjects = session.createCriteria(Subject.class).add(Restrictions.eq("subjectName", subjectName))
-				.add(Restrictions.eq("term.termId", termId)).list();
-		transaction.commit();
+		try {
+			subjects = session.createCriteria(Subject.class).add(Restrictions.eq("subjectName", subjectName))
+					.add(Restrictions.eq("term.termId", termId)).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return subjects;
 	}
 

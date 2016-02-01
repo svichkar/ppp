@@ -19,29 +19,39 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 	public void createStudentGroup(StudentGroup group) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.save(group);
-		transaction.commit();
+		try {
+			session.save(group);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void updateStudentGroup(StudentGroup group) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();
-		session.update(group);
-		transaction.commit();
+		try {
+			session.update(group);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public void deleteStudentGroup(StudentGroup group) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = null;
+		Transaction transaction = session.beginTransaction();
 		try {
-			transaction = session.beginTransaction();
 			session.delete(group);
 			transaction.commit();
-		} catch (Exception ex) {
+		} catch (Exception e) {
 			transaction.rollback();
-		} 
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -49,8 +59,13 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 		Session session = sessionFactory.getCurrentSession();
 		StudentGroup group = null;
 		Transaction transaction = session.beginTransaction();
-		group = (StudentGroup) session.get(StudentGroup.class, groupId);
-		transaction.commit();
+		try {
+			group = (StudentGroup) session.get(StudentGroup.class, groupId);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return group;
 	}
 
@@ -59,8 +74,13 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List<StudentGroup> groups = new ArrayList<StudentGroup>();
 		Transaction transaction = session.beginTransaction();
-		groups = session.createCriteria(StudentGroup.class).list();
-		transaction.commit();
+		try {
+			groups = session.createCriteria(StudentGroup.class).list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			throw new RuntimeException(e);
+		}
 		return groups;
 	}
 

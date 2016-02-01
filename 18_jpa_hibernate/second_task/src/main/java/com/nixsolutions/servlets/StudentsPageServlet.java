@@ -42,7 +42,7 @@ public class StudentsPageServlet extends HttpServlet {
 			request.setAttribute("students", studentDao.findAllStudents());
 			request.setAttribute("groups", groupDao.findAllStudentGroups());
 			request.setAttribute("statuses", statusDao.findAllStatuses());
-			request.setAttribute("terms", termDao.findAllTerms());
+			request.setAttribute("terms", termDao.findAllTerms());	
 			request.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(request, response);
 		} else {
 			response.sendRedirect(

@@ -30,7 +30,7 @@
 
 <td style="background: transparent; border: none; padding:10 0 0 10; margin: 0;">
 <ul id="menu">
-     <li><a href="<c:url value="/logout"/>">Logout</a></li>
+     <li><a href="<c:url value="/j_spring_security_logout"/>">Logout</a></li>
 </ul>
 </td>
 

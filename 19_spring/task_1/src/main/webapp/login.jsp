@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url value="j_spring_security_check" var="loginUrl" />
+<c:url value="/j_spring_security_check" var="loginUrl" />
 <html>
 <head>
     <meta charset="UTF-8">

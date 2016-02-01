@@ -2,6 +2,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
+
 /**
  * Created by sobolenko on 2/1/2016.
  */
@@ -48,7 +49,10 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public Object[] toArray() {
-        return Arrays.copyOf(resultArray, size());
+        //return Arrays.copyOf(resultArray, size());
+        Object[] newArray = new Object[resultArray.length];
+        System.arraycopy(resultArray,0,newArray,0,resultArray.length);
+        return  newArray;
     }
 
     public boolean add(Object o) {
@@ -69,7 +73,7 @@ public class NewCollections<E> implements Collection<E> {
         boolean result = false;
         int it = 0;
         int cap = 0;
-        if (!contains(o)) {
+        if (!this.contains(o)) {
             return false;
         }
         for (Object obj : resultArray) {
@@ -107,15 +111,25 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public boolean retainAll(Collection c) {
+        Object[] newArray = c.toArray();
+        Object[] array = toArray(resultArray);
+        int oldHash = Arrays.hashCode(resultArray);
+        for (int i=0;i<size;i++) {
+            if (c.contains(newArray[i])) {
+                remove(newArray[i]);
+            }
+        }
+        int newHash = Arrays.hashCode(resultArray);
+        if (oldHash != newHash) {
+            return true;
+        }
         return false;
     }
 
     public boolean removeAll(Collection c) {
         Object[] newArray = c.toArray();
         int oldHash = Arrays.hashCode(resultArray);
-        int oldLength = resultArray.length;
-        for(Object x: newArray)
-        {
+        for (Object x : newArray) {
             remove(x);
         }
         int newHash = Arrays.hashCode(resultArray);

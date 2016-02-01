@@ -1,9 +1,14 @@
+
 /**
  * Created by sobolenko on 2/1/2016.
  */
 public class Main {
     public static  void main(String args[])
     {
+        NewCollections <String> retainTest = new NewCollections<String>();
+        retainTest.add("1");
+        retainTest.add("f");
+        retainTest.add("k");
         NewCollections <String> addTest = new NewCollections<String>();
         addTest.add("f");
         addTest.add("k");
@@ -31,6 +36,7 @@ public class Main {
         System.out.println("-------------------------");
         System.out.println(collections.size);
         System.out.println(collections.removeAll(remTest));
+        System.out.println(collections.retainAll(retainTest));
         //System.out.println(collections);
     }
 }

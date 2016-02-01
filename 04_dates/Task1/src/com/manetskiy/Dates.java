@@ -12,7 +12,7 @@ public class Dates {
     private static Calendar calendar;
 
     public static void main(String[] args) {
-        //daysInMonths(2016);
+        //daysInMonths(2000);
         //mondays(1, 2016);
         //System.out.println(isFridayThirteen(new Date()));
         //timePassed(new Date());
@@ -20,8 +20,7 @@ public class Dates {
     }
 
     private static void daysInMonths(int year) {
-        calendar = new GregorianCalendar();
-        calendar.set(Calendar.YEAR, year);
+        calendar = new GregorianCalendar(year, Calendar.MONTH, Calendar.DAY_OF_MONTH);
         String[] months = DateFormatSymbols.getInstance().getMonths();
         for (int i = 0; i < months.length - 1; i++) {
             calendar.set(Calendar.MONTH, i);
@@ -49,13 +48,12 @@ public class Dates {
     }
 
     private static void timePassed(Date date) {
-
-        if (date.getTime() <= new Date().getTime()) {
+            if (date.getTime() <= new Date().getTime()) {
             long diff = new Date().getTime() - date.getTime();
             Calendar inputDate = new GregorianCalendar();
             inputDate.setTimeInMillis(diff);
-            System.out.println((inputDate.get(Calendar.YEAR) - 1970) + " year(s) " + inputDate.get(Calendar.MONTH) + " month(s) " +
-                    (inputDate.get(Calendar.DAY_OF_MONTH) - 1) + " day(s) passed.");
+            System.out.println((inputDate.get(Calendar.YEAR) - 1970) + " year(s) " + inputDate.get(Calendar.MONTH) +
+                    " month(s) " + (inputDate.get(Calendar.DAY_OF_MONTH) - 1) + " day(s) passed.");
         } else {
             System.out.println("Cannot accept date that has not yet begun.");
         }

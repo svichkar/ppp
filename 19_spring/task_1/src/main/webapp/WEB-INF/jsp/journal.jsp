@@ -29,23 +29,23 @@
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="id" value="${current.id}" hidden/>
-<input type="text" name="name" value="${current.name}" readOnly/>
+<input type="text" name="id" value="${current.journalId}" hidden/>
+<input type="text" name="name" value="${current.student.firstName}" readOnly/>
 </td>
 <td>
-<input type="text" name="lastName" value="${current.lastName}" readOnly/>
+<input type="text" name="lastName" value="${current.student.lastName}" readOnly/>
 </td>
 <td>
-<input type="text" name="group" value="${current.group}" readOnly/>
+<input type="text" name="group" value="${current.student.studentGroup.groupName}" readOnly/>
  </td>
 <td>
-<input type="text" name="subject" value="${current.subject}" readOnly/>
+<input type="text" name="subject" value="${current.subject.subjectName}" readOnly/>
 </td>
 <td>
     <select name="grade">
     <c:forEach items="${grades}" var="gr">
     <c:choose>
-        <c:when test="${gr.gradeId == current.gradeId}">
+        <c:when test="${gr.gradeId == current.grade.gradeId}">
            <option value="${gr.gradeName}" selected>${gr.gradeName}</option>
         </c:when>
         <c:otherwise>

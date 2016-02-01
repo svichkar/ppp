@@ -49,14 +49,14 @@ ${errorSearch}
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="subjectId" value="${current.id}" hidden/>
-<input type="text" name="subjectName" value="${current.name}" required/>
+<input type="text" name="subjectId" value="${current.subjectId}" hidden/>
+<input type="text" name="subjectName" value="${current.subjectName}" required/>
 </td>
 <td>
 <select name="selectedTerm">
 <c:forEach items="${terms}" var="t">
 <c:choose>
-    <c:when test="${t.termId == current.termId}">
+    <c:when test="${t.termId == current.term.termId}">
        <option value="${t.termName}" selected>${t.termName}</option>
     </c:when>
     <c:otherwise>

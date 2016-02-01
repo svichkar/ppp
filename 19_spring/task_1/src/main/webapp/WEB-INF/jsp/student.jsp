@@ -59,20 +59,20 @@ ${errorSearch}
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="id" value="${current.id}" hidden/>
-<input type="text" name="name" value="${current.name}" required/>
+<input type="text" name="id" value="${current.studentId}" hidden/>
+<input type="text" name="name" value="${current.firstName}" required/>
 </td>
 <td>
 <input type="text" name="lastName" value="${current.lastName}" required/>
 </td>
 <td>
-<input type="date" name="date" value="${current.date}" style="background: #E5E5DB;border: none;font-size: 15;" required/>
+<input type="date" name="date" value="${current.admissionDate}" style="background: #E5E5DB;border: none;font-size: 15;" required/>
 </td>
 <td>
 <select name="group">
 <c:forEach items="${groups}" var="g">
 <c:choose>
-    <c:when test="${g.groupId == current.groupId}">
+    <c:when test="${g.groupId == current.studentGroup.groupId}">
        <option value="${g.groupName}" selected>${g.groupName}</option>
     </c:when>
     <c:otherwise>
@@ -86,7 +86,7 @@ ${errorSearch}
 <select name="term">
 <c:forEach items="${terms}" var="t">
 <c:choose>
-    <c:when test="${t.termId == current.termId}">
+    <c:when test="${t.termId == current.term.termId}">
        <option value="${t.termName}" selected>${t.termName}</option>
     </c:when>
     <c:otherwise>
@@ -100,7 +100,7 @@ ${errorSearch}
 <select name="status">
 <c:forEach items="${statusList}" var="status">
 <c:choose>
-    <c:when test="${status.statusId == current.statusId}">
+    <c:when test="${status.statusId == current.status.statusId}">
        <option value="${status.statusName}" selected>${status.statusName}</option>
     </c:when>
     <c:otherwise>
@@ -118,7 +118,7 @@ ${errorSearch}
 
 <form method="get" action="<c:url value="/journal/student"/>">
 <td>
-<input type="text" name="id" value="${current.id}" hidden/>
+<input type="text" name="id" value="${current.studentId}" hidden/>
 <input type="submit" name="operation" value="details"/>
 </td>
 </form>

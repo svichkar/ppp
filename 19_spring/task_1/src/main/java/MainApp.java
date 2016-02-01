@@ -1,6 +1,6 @@
-import com.nixsolutions.studentgrade.dao.TermDao;
-import com.nixsolutions.studentgrade.model.Term;
-import com.nixsolutions.studentgrade.service.TermService;
+import com.nixsolutions.studentgrade.service.JournalService;
+import com.nixsolutions.studentgrade.service.StatusService;
+import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,17 +13,12 @@ public class MainApp {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("root-context.xml");
 
-        TermDao termDao = (TermDao) context.getBean("termDao");
-        Term term = new Term();
-        term.setTermName("springmother!");
-        termDao.create(term);
-        System.out.println(termDao.findAll().get(0).getTermName());
+        StudentService studentService = (StudentService) context.getBean("studentService");
+        StatusService statusService = (StatusService) context.getBean("statusService");
+        JournalService journalService = (JournalService) context.getBean("journalService");
 
 
-        TermService termService = (TermService) context.getBean("termService");
-        Term term2 = new Term();
-        term2.setTermName("service");
-        termService.create(term2);
-        System.out.println(termDao.findAll().get(1).getTermName());
+        journalService.findAll();
+
     }
 }

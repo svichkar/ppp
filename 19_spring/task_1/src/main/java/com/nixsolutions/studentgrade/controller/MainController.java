@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by svichkar on 2/1/2016.
+ * Created by konstantin on 2/1/2016.
  */
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/")
+public class MainController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String loginPage(Model model) {
+    public String start(Model model) {
         return "login";
     }
 }

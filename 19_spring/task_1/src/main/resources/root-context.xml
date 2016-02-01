@@ -52,6 +52,9 @@
     <bean id="journalDao" class="com.nixsolutions.studentgrade.dao.impl.JournalDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="studentDao" class="com.nixsolutions.studentgrade.dao.impl.StudentDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
     <!--**************** Services ***********************-->
     <bean id="termService" class="com.nixsolutions.studentgrade.service.impl.TermServiceImpl">
@@ -78,9 +81,11 @@
     <bean id="journalService" class="com.nixsolutions.studentgrade.service.impl.JournalServiceImpl">
         <property name="journalDao" ref="journalDao"/>
     </bean>
+    <bean id="studentService" class="com.nixsolutions.studentgrade.service.impl.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao"/>
+    </bean>
 
     <!--bean id="userDetailsService" class="com.nixsolutions.studentgrade.service.impl.UserDetailsServiceImpl">
         <property name="userService" ref="userService"/>
     </bean-->
-
 </beans>

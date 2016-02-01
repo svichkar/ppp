@@ -1,9 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@attribute name="title"%>
 <%@attribute name="head_area" fragment="true"%>
 <%@attribute name="content_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl"/>
 <c:url value="/images/header.png" var="logoUrl"/>
+<c:url value="/j_spring_security_logout" var="logoutUrl"/>
 <html>
 
 <head>
@@ -37,7 +39,7 @@
 
 <td style="background: transparent; border: none; padding:10 0 0 10; margin: 0;">
 <ul id="menu">
-     <li><a href="<c:url value="/j_spring_security_logout"/>">Logout</a></li>
+     <li><a  href="${logoutUrl}">Logout</a></li>
 </ul>
 </td>
 
@@ -54,5 +56,9 @@
         Copyright &copy; 2016 | All Rights Reserved
     </div>
   </div>
+<form>
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<input type="submit" name="csrf" hidden/>
+</form>
 </body>
 </html>

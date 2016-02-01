@@ -10,14 +10,12 @@
     <http security="none" pattern="/style/**"/>
 
     <http auto-config="false" use-expressions="true">
-        <intercept-url pattern="/**" access="hasRole('USER')"/>
-        <intercept-url pattern="/admin**" access="hasRole('ADMIN')"/>
-        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/**" access="permitAll"/>
         <form-login login-page="/login"
                     username-parameter="j_username"
                     password-parameter="j_password"
                     login-processing-url="/j_spring_security_check"
-                    authentication-failure-url="/login?login_error=1"
+                    authentication-failure-url="/login?login_error=true"
         />
         <logout logout-success-url="/login" logout-url="/j_spring_security_logout" invalidate-session="true"/>
     </http>

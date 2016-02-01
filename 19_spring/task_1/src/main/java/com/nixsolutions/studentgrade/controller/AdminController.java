@@ -24,7 +24,7 @@ public class AdminController {
     public ModelAndView adminPage() {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Admin PAge");
+        model.addObject("title", "Admin Page");
         model.addObject("message", "This page is for ROLE_ADMIN only!");
         model.addObject("users", userService.findAll());
         model.addObject("roles", roleService.findAll());
@@ -36,7 +36,7 @@ public class AdminController {
     public ModelAndView addUser() {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Admin PAge");
+        model.addObject("title", "Admin Page");
         model.addObject("message", "This page is for ROLE_ADMIN only!");
         model.addObject("users", userService.findAll());
         model.addObject("roles", roleService.findAll());

@@ -1,27 +1,9 @@
 import java.util.Random;
 
 /**
- * Created by sobolenko on 1/25/2016.
+ * Created by sobolenko on 2/1/2016.
  */
-
-public class Arrays {
-    /**
-     * @param arr
-     * @return
-     */
-    public static int[] sort(int[] arr) {
-        int a = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr.length - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    a = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = a;
-                }
-            }
-        }
-        return arr;
-    }
+public class ArraysComparsion {
     /**
      * calculate average time
      *
@@ -53,7 +35,7 @@ public class Arrays {
                 array[i] = random.nextInt(201) - 100;
             }
             long startBulbTimer = System.nanoTime();
-            arrayCopy = sort(java.util.Arrays.copyOf(array, array.length));
+            arrayCopy = Arrays.sort(java.util.Arrays.copyOf(array, array.length));
             long endBulbTimer = System.nanoTime();
             //----------------------------------
             long startTimer = System.nanoTime();

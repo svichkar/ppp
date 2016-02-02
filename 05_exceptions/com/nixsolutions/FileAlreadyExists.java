@@ -6,7 +6,7 @@ package com.nixsolutions;
  *
  * @author Dmitry Zinovyi
  */
-public class FileAlreadyExists extends Exception{
+public class FileAlreadyExists extends Exception {
 
     public FileAlreadyExists() {
         super("File ready for work");

@@ -1,6 +1,7 @@
 package com.nixsolutions.spring.controller;
 
 import com.nixsolutions.spring.dao.TicketDAO;
+import com.nixsolutions.spring.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
     @Autowired
-    private TicketDAO ticketDAO;
+    private MainService mainService;
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String main(Model model) {
-        model.addAttribute("overdueTickets", ticketDAO.findOverdueTicket());
+    protected String mainPage(Model model) {
+        model.addAttribute("overdueTickets", mainService.findOverdueTicket());
         return "homePage";
     }
 }

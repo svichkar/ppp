@@ -24,8 +24,8 @@
                     </c:if>
     </jsp:attribute>
     <jsp:attribute name="message_area">
-        <c:if test="${not empty param.message}">
-            <p align="center"><c:out value="${param.message}"/></p>
+        <c:if test="${not empty msg}">
+            <p align="center"><c:out value="${msg}"/></p>
         </c:if>
     </jsp:attribute>
 </t:template>

@@ -67,8 +67,8 @@ public class GradeDaoImpl implements GradeDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Grade.class);
-        criteria.add(Restrictions.eq("gradeName", gradeName)).uniqueResult();
-        List<Grade> grades = criteria.list();
-        return grades.isEmpty() ? null : grades.get(0);
+        criteria.add(Restrictions.eq("gradeName", gradeName));
+        Grade grade = (Grade) criteria.uniqueResult();
+        return grade;
     }
 }

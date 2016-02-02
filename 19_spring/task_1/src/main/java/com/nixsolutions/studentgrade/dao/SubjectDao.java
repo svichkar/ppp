@@ -24,4 +24,8 @@ public interface SubjectDao {
     public Subject findByNameAndTermId(String subjectName, Long termId);
 
     public List<Subject> findByTermId(Long termId);
+
+    public List<Subject> findByTermName(String termName);
+
+    public Subject findByNameAndTerm(String subjectName, String termName);
 }

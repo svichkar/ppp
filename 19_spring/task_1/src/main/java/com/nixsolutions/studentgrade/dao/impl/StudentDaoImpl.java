@@ -68,8 +68,8 @@ public class StudentDaoImpl implements StudentDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Student.class);
         criteria.add(Restrictions.and(Restrictions.eq("firstName", name), Restrictions.eq("lastName", lastName)));
-        List<Student> students = criteria.list();
-        return students.isEmpty() ? null : students.get(0);
+        Student student = (Student) criteria.uniqueResult();
+        return student;
     }
 
     @Override

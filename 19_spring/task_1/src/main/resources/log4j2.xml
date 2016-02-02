@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration dbunit.status="WARN">
     <Appenders>
-        <Console name="Console" target="SYSTEM_OUT">
+        <File name="File" fileName="${catalina.home}/logs/studentApp.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-        </Console>
+        </File>
     </Appenders>
     <Loggers>
         <Root level="TRACE">
             <AppenderRef ref="Console"/>
         </Root>
         <Logger name="com.nixsolutions.studentgrade" level="TRACE"  additivity="false">
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Logger>
     </Loggers>
 </Configuration>

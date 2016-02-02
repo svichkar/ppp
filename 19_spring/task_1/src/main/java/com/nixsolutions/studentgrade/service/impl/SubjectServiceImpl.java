@@ -72,4 +72,14 @@ public class SubjectServiceImpl implements SubjectService {
 
         return subjectDao.findByTermId(termId);
     }
+
+    @Override
+    public List<Subject> findByTermName(String termName) {
+        return subjectDao.findByTermName(termName);
+    }
+
+    @Override
+    public Subject findByNameAndTerm(String subjectName, String termName) {
+        return subjectDao.findByNameAndTerm(subjectName, termName);
+    }
 }

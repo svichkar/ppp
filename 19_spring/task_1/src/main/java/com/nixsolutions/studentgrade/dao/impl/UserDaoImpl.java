@@ -78,8 +78,8 @@ public class UserDaoImpl implements UserDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(User.class);
         criteria.add(Restrictions.and(Restrictions.eq("login", login), Restrictions.eq("userPassword", pass)));
-        List<User> users = criteria.list();
-        return users.isEmpty() ? null : users.get(0);
+        User user = (User) criteria.uniqueResult();
+        return user;
     }
 
     @Override
@@ -88,8 +88,8 @@ public class UserDaoImpl implements UserDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(User.class);
-        criteria.add(Restrictions.eq("login", login)).uniqueResult();
-        List<User> users = criteria.list();
-        return users.isEmpty() ? null : users.get(0);
+        criteria.add(Restrictions.eq("login", login));
+        User user = (User) criteria.uniqueResult();
+        return user;
     }
 }

@@ -39,7 +39,12 @@
 
 <td style="background: transparent; border: none; padding:10 0 0 10; margin: 0;">
 <ul id="menu">
-     <li><a  href="${logoutUrl}">Logout</a></li>
+          <li>
+          <form action="${logoutUrl}" method="post">
+            <input type="submit" value="Logout" style="background: transparent;background-color: transparent;border: none;letter-spacing: 0.1em;font-family: sans-serif;font-size: 100%;display: block;float: left;height: 20px;text-decoration: none;font-weight: normal;text-align: center;color: #0C1BE6;">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+          </form>
+          </li>
 </ul>
 </td>
 
@@ -56,8 +61,8 @@
         Copyright &copy; 2016 | All Rights Reserved
     </div>
   </div>
-<form>
-<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<form method="post">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 <input type="submit" name="csrf" hidden/>
 </form>
 </body>

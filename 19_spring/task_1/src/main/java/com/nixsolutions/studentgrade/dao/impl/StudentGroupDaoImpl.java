@@ -63,12 +63,12 @@ public class StudentGroupDaoImpl implements StudentGroupDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public StudentGroup findByName(String group) {
+    public StudentGroup findByName(String groupName) {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(StudentGroup.class);
-        criteria.add(Restrictions.eq("groupName", group)).uniqueResult();
-        List<StudentGroup> groupList = criteria.list();
-        return groupList.isEmpty() ? null : groupList.get(0);
+        criteria.add(Restrictions.eq("groupName", groupName)).uniqueResult();
+        StudentGroup group = (StudentGroup) criteria.uniqueResult();
+        return group;
     }
 }

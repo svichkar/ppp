@@ -66,8 +66,8 @@ public class TermDaoImpl implements TermDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Term.class);
-        criteria.add(Restrictions.eq("termName", termName)).uniqueResult();
-        List<Term> terms = criteria.list();
-        return terms.isEmpty() ? null : terms.get(0);
+        criteria.add(Restrictions.eq("termName", termName));
+        Term term = (Term) criteria.uniqueResult();
+        return term;
     }
 }

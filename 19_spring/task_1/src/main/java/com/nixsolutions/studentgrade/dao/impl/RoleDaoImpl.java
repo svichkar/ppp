@@ -62,12 +62,12 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Role findByName(String role) {
+    public Role findByName(String roleName) {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Role.class);
-        criteria.add(Restrictions.eq("roleName", role)).uniqueResult();
-        List<Role> roles = criteria.list();
-        return roles.isEmpty() ? null : roles.get(0);
+        criteria.add(Restrictions.eq("roleName", roleName));
+        Role role = (Role) criteria.uniqueResult();
+        return role;
     }
 }

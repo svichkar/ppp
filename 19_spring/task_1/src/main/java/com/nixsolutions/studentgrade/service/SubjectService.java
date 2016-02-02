@@ -24,4 +24,8 @@ public interface SubjectService {
     public Subject findByNameAndTermId(String subjectName, Long termId);
 
     public List<Subject> findByTermId(Long termId);
+
+    public List<Subject> findByTermName(String term);
+
+    public Subject findByNameAndTerm(String subject, String term);
 }

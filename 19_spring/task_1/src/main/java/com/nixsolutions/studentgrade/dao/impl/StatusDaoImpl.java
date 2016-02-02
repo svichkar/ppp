@@ -62,12 +62,12 @@ public class StatusDaoImpl implements StatusDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Status findByName(String status) {
+    public Status findByName(String statusName) {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Status.class);
-        criteria.add(Restrictions.eq("statusName", status)).uniqueResult();
-        List<Status> statuses = criteria.list();
-        return statuses.isEmpty() ? null : statuses.get(0);
+        criteria.add(Restrictions.eq("statusName", statusName));
+        Status status = (Status) criteria.uniqueResult();
+        return status;
     }
 }

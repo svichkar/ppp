@@ -66,9 +66,9 @@ public class SubjectDaoImpl implements SubjectDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.eq("subjectName", subjectName)).uniqueResult();
-        List<Subject> subjectList = criteria.list();
-        return subjectList.isEmpty() ? null : subjectList.get(0);
+        criteria.add(Restrictions.eq("subjectName", subjectName));
+        Subject subject = (Subject) criteria.uniqueResult();
+        return subject;
     }
 
     @Override
@@ -78,9 +78,9 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName), Restrictions.eq("dbunit.term.termId", termId)));
-        List<Subject> subjectList = criteria.list();
-        return subjectList.isEmpty() ? null : subjectList.get(0);
+        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(), Restrictions.eq("term.termId", termId)));
+        Subject subject = (Subject) criteria.uniqueResult();
+        return subject;
     }
 
     @Override
@@ -90,8 +90,32 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.eq("dbunit.term.termId", termId));
+        criteria.add(Restrictions.eq("term.termId", termId));
         List<Subject> subjectList = criteria.list();
         return subjectList;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Subject> findByTermName(String termName) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Subject.class);
+        criteria.createAlias("term", "term");
+        criteria.add(Restrictions.eq("term.termName", termName));
+        List<Subject> subjectList = criteria.list();
+        return subjectList;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Subject findByNameAndTerm(String subjectName, String termName) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Subject.class);
+        criteria.createAlias("term", "term");
+        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(), Restrictions.eq("term.termName", termName)));
+        Subject subject = (Subject) criteria.uniqueResult();
+        return subject;
     }
 }

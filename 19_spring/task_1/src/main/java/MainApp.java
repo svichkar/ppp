@@ -1,6 +1,4 @@
-import com.nixsolutions.studentgrade.service.JournalService;
-import com.nixsolutions.studentgrade.service.StatusService;
-import com.nixsolutions.studentgrade.service.StudentService;
+import com.nixsolutions.studentgrade.service.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,9 +14,13 @@ public class MainApp {
         StudentService studentService = (StudentService) context.getBean("studentService");
         StatusService statusService = (StatusService) context.getBean("statusService");
         JournalService journalService = (JournalService) context.getBean("journalService");
+        SubjectService subjectService = (SubjectService) context.getBean("subjectService");
+        TermService termService = (TermService) context.getBean("termService");
 
 
         journalService.findAll();
 
+
+        subjectService.findByNameAndTermId("java", 1L);
     }
 }

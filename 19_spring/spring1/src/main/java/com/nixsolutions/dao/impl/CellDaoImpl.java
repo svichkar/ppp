@@ -18,7 +18,6 @@ import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Cell;
 
 @Repository("cellDao")
-@Transactional
 public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

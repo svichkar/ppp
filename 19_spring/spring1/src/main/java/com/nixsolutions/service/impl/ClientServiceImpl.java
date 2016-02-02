@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.ClientDao;
 import com.nixsolutions.entity.Client;
 import com.nixsolutions.service.ClientService;
 
-@Service
+@Service("clientService")
+@Transactional
 public class ClientServiceImpl implements ClientService{
 
 	@Autowired

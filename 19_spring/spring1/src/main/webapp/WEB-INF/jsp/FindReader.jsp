@@ -7,7 +7,7 @@
 <jsp:attribute name="content_area">
 <h2>Loans</h2>
 <div class = "submit">
-<form id="find" action=readersearch method="post">
+<form id="find" action=findreader method="post">
 
 				<label for="rfname">Please search for reader</label>
 				<input class = "submit" type="text" name="search input" placeholder="Reader name" /> <%-- add search all readers / by name / combinations  --%>

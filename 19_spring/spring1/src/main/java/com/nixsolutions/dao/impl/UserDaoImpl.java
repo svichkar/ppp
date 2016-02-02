@@ -19,7 +19,6 @@ import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
 
 @Repository("userDao")
-@Transactional
 public class UserDaoImpl implements UserDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
@@ -30,17 +29,9 @@ public class UserDaoImpl implements UserDao {
 		LOG.entry();
 		List<User> users = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			Criteria criteria = session.createCriteria(User.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			users = criteria.list();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(users);
 	}
 
@@ -49,18 +40,10 @@ public class UserDaoImpl implements UserDao {
 		LOG.entry(name, pswd);
 		User user = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			Criteria criteria = session.createCriteria(User.class)
 					.add(Restrictions.eq("userName", name)).add(Restrictions.eq("userPassword", pswd))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			user = (User) criteria.uniqueResult();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(user);
 	}
 
@@ -69,18 +52,10 @@ public class UserDaoImpl implements UserDao {
 		LOG.entry(userId);
 		User user = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			Criteria criteria = session.createCriteria(User.class)
 					.add(Restrictions.eq("userId", userId))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			user = (User) criteria.uniqueResult();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(user);
 	}
 
@@ -88,44 +63,20 @@ public class UserDaoImpl implements UserDao {
 	public void createUser(User user) {
 		LOG.entry(user);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			session.save(user);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
 	public void updateUser(User user) {
 		LOG.entry(user);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			session.saveOrUpdate(user);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
 	public void deleteUser(User user) {
 		LOG.entry(user);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			session.delete(user);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 }

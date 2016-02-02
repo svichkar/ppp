@@ -14,27 +14,30 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.nixsolutions.dao.DaoFactory;
 import com.nixsolutions.dao.H2DaoFactory;
+import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
+import com.nixsolutions.service.RentJournalService;
 
-@SuppressWarnings("serial")
-public class HomePageServlet extends HttpServlet {
-	private static final Logger LOG = LogManager.getLogger();
-	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
+@Controller
+@RequestMapping("/homepage")
+public class HomePageController extends HttpServlet {
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		processHomePage(request, response);
+	@Autowired
+	private RentJournalService rentJournalService;
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/HomePage.jsp");
-		rd.forward(request, response);
-	}
-
-	private void processHomePage(HttpServletRequest request, HttpServletResponse response) {
-		LOG.entry(request.getSession().getAttribute("usrRole"));
-
-		List<RentJournal> rents = factory.getRentJournalDao().getAllRents();
+	@RequestMapping(method = RequestMethod.GET)
+	public String showWelcome(Model model){
+		
+		
+		List<RentJournal> rents = rentJournalService.getAllRents();
 		List<RentJournal> expiredloans = new ArrayList<>();
 
 		for (RentJournal loan : rents) {
@@ -47,6 +50,10 @@ public class HomePageServlet extends HttpServlet {
 				expiredloans.add(loan);
 			}
 		}
-		request.setAttribute("loans", expiredloans);
+		model.addAttribute("loans", expiredloans);
+		
+		model.addAttribute("usrRole", "admin");
+		
+		return "HomePage";
 	}
 }

@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
 import com.nixsolutions.service.RentJournalService;
 
-@Service
+@Service("rentJournalService")
+@Transactional
 public class RentJournalServiceImpl implements RentJournalService{
 
 	@Autowired

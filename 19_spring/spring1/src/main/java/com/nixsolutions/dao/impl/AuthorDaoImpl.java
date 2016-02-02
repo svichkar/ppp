@@ -17,7 +17,6 @@ import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Author;
 
 @Repository("authorDao")
-@Transactional
 public class AuthorDaoImpl implements AuthorDao {
 	public static final Logger LOG = LogManager.getLogger();
 	
@@ -29,13 +28,9 @@ public class AuthorDaoImpl implements AuthorDao {
 		LOG.entry();
 		List<Author> authors = null;
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			Criteria criteria = session.createCriteria(Author.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			authors = criteria.list();
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(authors);
 	}
 
@@ -44,14 +39,10 @@ public class AuthorDaoImpl implements AuthorDao {
 		LOG.entry(name);
 		Author author = null;
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			Criteria criteria = session.createCriteria(Author.class, "author")
 					.add(Restrictions.eq("author.secondName", name))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			author = (Author) criteria.uniqueResult();
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(author);
 	}
 
@@ -60,14 +51,10 @@ public class AuthorDaoImpl implements AuthorDao {
 		LOG.entry(authorId);
 		Author author = null;
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			Criteria criteria = session.createCriteria(Author.class, "author")
 					.add(Restrictions.eq("author.authorId", authorId))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			author = (Author) criteria.uniqueResult();
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(author);
 	}
 
@@ -75,11 +62,7 @@ public class AuthorDaoImpl implements AuthorDao {
 	public Author createAuthor(Author author) {
 		LOG.entry(author);
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			session.save(author);
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return author;
 	}
 
@@ -87,22 +70,13 @@ public class AuthorDaoImpl implements AuthorDao {
 	public void updateAuthor(Author author) {
 		LOG.entry(author);
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			session.saveOrUpdate(author);
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
-
 	}
 
 	@Override
 	public void deleteAuthor(Author author) {
 		LOG.entry(author);
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			session.delete(author);
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 }

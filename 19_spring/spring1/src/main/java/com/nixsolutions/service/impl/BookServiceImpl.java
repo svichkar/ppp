@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.BookDao;
 import com.nixsolutions.entity.Book;
 import com.nixsolutions.service.BookService;
 
-@Service
+@Service("bookService")
+@Transactional
 public class BookServiceImpl implements BookService{
 
 	@Autowired

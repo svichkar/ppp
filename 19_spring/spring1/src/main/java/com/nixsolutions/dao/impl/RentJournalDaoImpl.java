@@ -19,7 +19,6 @@ import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
 
 @Repository("rentJournalDao")
-@Transactional
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
@@ -30,17 +29,10 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		LOG.entry();
 		List<RentJournal> rentJournals = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			Criteria criteria = session.createCriteria(RentJournal.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			rentJournals = criteria.list();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
+
 		return LOG.exit(rentJournals);
 	}
 
@@ -49,18 +41,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		LOG.entry(rentId);
 		RentJournal rentJournal = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			Criteria criteria = session.createCriteria(RentJournal.class)
 					.add(Restrictions.eq("rentId", rentId))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			rentJournal = (RentJournal) criteria.uniqueResult();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
+
 		return LOG.exit(rentJournal);
 	}
 
@@ -68,45 +53,21 @@ public class RentJournalDaoImpl implements RentJournalDao {
 	public void createRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal.toString());
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			session.save(rentJournal);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
 	public void updateRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			session.saveOrUpdate(rentJournal);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
 	public void deleteRent(RentJournal rentJournal) {
 		LOG.entry(rentJournal);
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			session.delete(rentJournal);
-			transaction.commit();
-		} catch (Exception e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
@@ -114,19 +75,11 @@ public class RentJournalDaoImpl implements RentJournalDao {
 		LOG.entry(clientId);
 		List<RentJournal> rentJournals = null;
 		Session session = sessionFactory.getCurrentSession();
-		Transaction transaction = session.getTransaction();
-		transaction.begin();
-		try {
 			Criteria criteria = session.createCriteria(RentJournal.class, "journal")
 					.createAlias("journal.client", "client")
 					.add(Restrictions.eq("client.clientId", clientId))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			rentJournals = criteria.list();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 		return LOG.exit(rentJournals);
 	}
 }

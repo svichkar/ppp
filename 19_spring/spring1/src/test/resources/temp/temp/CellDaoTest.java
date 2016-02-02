@@ -35,7 +35,7 @@ public class CellDaoTest {
     @Autowired
     public CellDao cellDao;
 
-    @Test
+   // @Test
 	public void testShouldretrieveCellById() throws Exception {
 		Cell cell = cellDao.getCellById(1l);
 		Assert.assertEquals(new Long(1), cell.getCellId());

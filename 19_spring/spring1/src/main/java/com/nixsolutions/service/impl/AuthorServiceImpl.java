@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 
 import com.nixsolutions.dao.AuthorDao;
 import com.nixsolutions.entity.Author;
 import com.nixsolutions.service.AuthorService;
 
-@Service
+@Service("authorService")
+@Transactional(propagation= Propagation.REQUIRED, readOnly=false)
 public class AuthorServiceImpl implements AuthorService{
 
 	@Autowired

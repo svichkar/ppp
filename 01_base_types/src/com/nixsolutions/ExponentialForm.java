@@ -1,3 +1,5 @@
+package com.nixsolutions;
+
 import javax.swing.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

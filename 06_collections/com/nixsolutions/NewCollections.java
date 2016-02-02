@@ -1,3 +1,5 @@
+package nixsolutions;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -17,6 +19,10 @@ public class NewCollections<E> implements Collection<E> {
         clear();
     }
 
+    /**
+     *
+     * @return
+     */
     public int size() {
         double capasity = 0;
         for (Object obj : resultArray) {

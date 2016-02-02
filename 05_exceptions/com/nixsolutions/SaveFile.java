@@ -1,5 +1,6 @@
 import exception.Save;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,21 +13,28 @@ public class SaveFile implements Save {
     public void save(String data, String fileName) {
         String pathName = System.getProperty("user.dir");
         File outputFile = new File(pathName + "\\Test.txt");
+        boolean reWrite = false;
         FileWriter fwriter = null;
         try {
-            fwriter = new FileWriter(outputFile);
             if (!outputFile.exists()) {
+                fwriter = new FileWriter(outputFile);
                 fwriter.write("");
             } else {
-                fwriter.close();
-                throw new CustomExeption();
+                JFrame frame = new JFrame();
+                int result = JOptionPane.showConfirmDialog(frame, "File already exists, overwrite it?", "", JOptionPane.OK_CANCEL_OPTION);
+                frame.dispose();
+                if (result == 0) {
+                    outputFile.delete();
+                    fwriter = new FileWriter(outputFile);
+                    fwriter.write(data);
+                    fwriter.close();
+                }
+                throw new CustomExeption("File already exists");
             }
             fwriter.write(data);
             fwriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CustomExeption customExeption) {
-            customExeption.printStackTrace();
+        } catch (IOException io) {
+            throw new CustomExeption(io);
         }
     }
 }

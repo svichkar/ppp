@@ -1,3 +1,4 @@
+package nixsolutions;
 
 /**
  * Created by sobolenko on 2/1/2016.

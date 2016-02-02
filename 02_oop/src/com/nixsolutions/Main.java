@@ -106,7 +106,7 @@ public class Main {
          *
          */
         for (Figures x : figures) { //render figures and start listener.
-            //x.draw();
+            x.draw();
             listener.listen(x, frame, false);
             x.setCanShift(true);
         }

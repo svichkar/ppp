@@ -1,25 +1,17 @@
-import javax.swing.*;
-import java.awt.*;
-import java.io.Serializable;
+package com.nixsolutions;
 
 /**
  * Created by Lexx on 16.11.2015.
  * Class determine the figure Square.
  */
 public class Square extends Figures {
-    Canvas myCanvas = new Canvas();
     private String name;
-    private JFrame frame;
     private double square;
     private double scale;
     private int[] coord_LeftLowerCorner = new int[2];
     private int[] coord_RightLowerCorner = new int[2];
     private int[] coord_LeftUpperCorner = new int[2];
     private int[] coord_RightUpperCorner = new int[2];
-    /**
-     * canShift - indicates, can the figure shift (true - yes, false - not)
-     */
-    private boolean canShift;
 
     public Square(String name, int center, int square, int perimeter) {
         super(name);
@@ -34,15 +26,13 @@ public class Square extends Figures {
      * @param coord_LeftUpperCorner  - left upper corner coordinates (array[X,Y])
      * @param coord_RightUpperCorner - right lower corner coordinates (array[X,Y])
      * @param scale                  -  scale of figure
-     * @param frame                  - current frame
      */
-    public Square(String name, int[] coord_LeftLowerCorner, int[] coord_RightLowerCorner, int[] coord_LeftUpperCorner, int[] coord_RightUpperCorner, double scale, JFrame frame) {
+    public Square(String name, int[] coord_LeftLowerCorner, int[] coord_RightLowerCorner, int[] coord_LeftUpperCorner, int[] coord_RightUpperCorner, double scale) {
         super(name);
         this.coord_LeftLowerCorner = coord_LeftLowerCorner;
         this.coord_RightLowerCorner = coord_RightLowerCorner;
         this.coord_LeftUpperCorner = coord_LeftUpperCorner;
         this.coord_RightUpperCorner = coord_RightUpperCorner;
-        this.frame = frame;
         this.name = name;
         this.scale = scale;
         calcSquare();
@@ -50,19 +40,13 @@ public class Square extends Figures {
     }
 
     /**
-     * @return shiftable whether a figure
-     */
-    public boolean isCanShift() {
-        return canShift;
-    }
-
-    /**
-     * Set variable which means, whether shiftable the figure or not
+     * Set scale coefficient
      *
-     * @param canShift boolean (true - yes, false - not)
+     * @param scale coefficient
      */
-    public void setCanShift(boolean canShift) {
-        this.canShift = canShift;
+    @Override
+    public void setScale(double scale) {
+        this.scale = scale;
     }
 
     @Override
@@ -100,11 +84,6 @@ public class Square extends Figures {
         return Math.sqrt((Math.pow(coord_RightUpperCorner[0] - coord_LeftUpperCorner[0], 2)) + (Math.pow(coord_RightUpperCorner[1] - coord_LeftUpperCorner[1], 2)));
     }
 
-    @Override
-    public void draw() {
-        draw(coord_LeftUpperCorner, coord_LeftUpperCorner, ((int) calc_A()), (int) calc_B());
-    }
-
     /**
      * Calculate the Square, as lendth A side * length B side
      *
@@ -116,43 +95,15 @@ public class Square extends Figures {
     }
 
     /**
-     * Draw a figure into the frame.
-     * uses coordinates of corners and side length
-     *
-     * @param coord_LeftUpperCorner
-     * @param coord_LeftLowerCorner
-     * @param side_A                (int) length
-     * @param side_B                (int) length
-     */
-    public void draw(int[] coord_LeftUpperCorner, int[] coord_LeftLowerCorner, int side_A, int side_B) {
-        myCanvas.setCanvasSquare(frame, name, coord_LeftUpperCorner[0], coord_LeftUpperCorner[1], side_A, side_B);
-        frame.getContentPane().add(myCanvas);
-        frame.setVisible(true);
-    }
-
-    /**
-     * Uses for correct 'the figure's state' update after shift
-     */
-    public void re_draw() {
-        myCanvas.setCanvasSquare(frame, name, coord_LeftUpperCorner[0], coord_LeftUpperCorner[1], calc_A(), calc_B());
-        frame.getContentPane().add(myCanvas);
-        frame.repaint();
-    }
-
-    /**
      * Shifting a figure through adding or subtraction step length from current coordinates.
      *
      * @param direction of shifting (values: up, down, left, right)
      * @param step      of shifting
-     * @param start     not used
      */
     @Override
-    public void shift(String direction, int step, long start) {
+    public void shift(String direction, int step) {
         if (direction == null) {
             System.out.print("Direction is null");
-        }
-        if (!this.canShift) {
-            return;
         }
         if (direction.toLowerCase().equals("up")) {
             this.coord_LeftLowerCorner[1] -= step;
@@ -178,9 +129,9 @@ public class Square extends Figures {
             this.coord_RightLowerCorner[0] += step;
             this.coord_RightUpperCorner[0] += step;
         }
-        re_draw();
     }
 
+    @Override
     /**
      * Change figure dimension through subtraction coordinates of corners
      * subtraction occur in cycle, until the calcSquare() return bigger value;
@@ -195,6 +146,5 @@ public class Square extends Figures {
             this.coord_LeftLowerCorner[1]--;
             this.coord_RightUpperCorner[0]--;
         }
-        re_draw();
     }
 }

@@ -1,15 +1,12 @@
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+package com.nixsolutions;
 
 /**
  * Created by Lexx on 16.11.2015.
  * Abstract class which determinate mutual characteristics of all figures.
  */
-public abstract class Figures implements Geometry {
+public abstract class Figures {
     private String name;
     private double square;
-    private boolean canShift;
     private double scale;
 
     public void setScale(double scale) {
@@ -22,24 +19,6 @@ public abstract class Figures implements Geometry {
     }
 
     public Figures() {
-    }
-
-    /**
-     * setCanShift(boolean canShift) - set true or false(true - yes, false - not)
-     *
-     * @param canShift boolean
-     */
-    public void setCanShift(boolean canShift) {
-        this.canShift = canShift;
-    }
-
-    /**
-     * isCanShift()
-     *
-     * @return true or false(true - yes, false - not)
-     */
-    public boolean isCanShift() {
-        return canShift;
     }
 
     /**
@@ -78,18 +57,12 @@ public abstract class Figures implements Geometry {
     }
 
     /**
-     * draw() - render the figure
-     */
-    protected abstract void draw();
-
-    /**
      * shift(String direction, int step, long start) - shifting the figure.
      *
      * @param direction - how direction you want to shift
      * @param step      - which step of shifting (how many pixels)
-     * @param start
      */
-    public abstract void shift(String direction, int step, long start);
+    public abstract void shift(String direction, int step);
 
     public abstract double calcSquare();
 
@@ -101,4 +74,6 @@ public abstract class Figures implements Geometry {
     public String toString() {
         return ("Figure name: " + getName() + ". Figure square: " + String.format("%.2f", getSquare()) + " by scale coefficient " + String.format("%.5f", getScale())) + "\n";
     }
+
+    public abstract void scaling();
 }

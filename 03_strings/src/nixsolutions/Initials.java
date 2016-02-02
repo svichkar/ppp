@@ -1,3 +1,5 @@
+package nixsolutions;
+
 /**
  * Created by w700 on 30.01.2016.
  */

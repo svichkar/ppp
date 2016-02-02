@@ -1,3 +1,5 @@
+package nixsolutions;
+
 import java.util.Arrays;
 
 /**

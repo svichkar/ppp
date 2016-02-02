@@ -1,6 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
-import java.io.Serializable;
+package com.nixsolutions;
 
 /**
  * Created by Lexx on 16.11.2015.
@@ -13,26 +11,20 @@ public class Triangle extends Figures {
     private int[] ySides;
     private double square;
     private int nCorners = 3;
-    private boolean canShift;
-    private JFrame frame;
-    Canvas myCanvas = new Canvas();
     private double scale;
 
     public Triangle(String name) {
         super(name);
     }
 
-    public void setCanShift(boolean canShift) {
-        this.canShift = canShift;
-    }
-
     /**
-     * Set variable which means, whether shiftable the figure or not
+     * Set scale coefficient
      *
-     * @return boolean (true - yes, false - not)
+     * @param scale coefficient
      */
-    public boolean isCanShift() {
-        return canShift;
+    @Override
+    public void setScale(double scale) {
+        this.scale = scale;
     }
 
     @Override
@@ -53,37 +45,15 @@ public class Triangle extends Figures {
      * @param ySides   - Y coordinates of sides vertices
      * @param nCorners - deprecated
      * @param scale    - scale of figure
-     * @param frame    - current frame
      */
-    public Triangle(String name, int[] xSides, int[] ySides, int nCorners, double scale, JFrame frame) {
+    public Triangle(String name, int[] xSides, int[] ySides, int nCorners, double scale) {
         super(name);
         this.name = name;
         this.xSides = xSides;
         this.ySides = ySides;
-        this.frame = frame;
         this.scale = scale;
         calcSquare();
         scaling();
-    }
-
-    /**
-     * Draw a figure into the frame.
-     * uses coordinates of sides vertices
-     */
-    @Override
-    public void draw() {
-        myCanvas.setCanvasTriangle(frame, this.name, this.xSides, this.ySides, this.nCorners);
-        frame.getContentPane().add(myCanvas);
-        frame.setVisible(true);
-    }
-
-    /**
-     * Uses for correct 'the figure's state' update after shift
-     */
-    public void re_draw() {
-        myCanvas.setCanvasTriangle(frame, this.name, this.xSides, this.ySides, this.nCorners);
-        frame.getContentPane().add(myCanvas);
-        frame.repaint();
     }
 
     /**
@@ -91,15 +61,11 @@ public class Triangle extends Figures {
      *
      * @param direction of shifting (values: up, down, left, right)
      * @param step      of shifting
-     * @param start     not used
      */
     @Override
-    public void shift(String direction, int step, long start) {
+    public void shift(String direction, int step) {
         if (direction == null) {
             System.out.print("Direction is null");
-        }
-        if (!this.canShift) {
-            return;
         }
         if (direction.toLowerCase().equals("up")) {
             this.ySides[0] -= step;
@@ -121,10 +87,10 @@ public class Triangle extends Figures {
             this.xSides[1] += step;
             this.xSides[2] += step;
         }
-        re_draw();
 
     }
 
+    @Override
     /**
      * Change figure dimension through subtraction coordinates of corners
      * subtraction occur in cycle, until the calcSquare() return bigger value;
@@ -141,7 +107,6 @@ public class Triangle extends Figures {
             this.xSides[1]--;
             this.xSides[2]--;
         }
-        re_draw();
     }
 
     /**

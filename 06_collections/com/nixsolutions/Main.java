@@ -5,12 +5,20 @@
 public class Main {
     public static  void main(String args[])
     {
+        NewCollections <String> containsAllTest = new NewCollections<String>();
+        containsAllTest.add(9);
+        containsAllTest.add("rt");
+        containsAllTest.add("l");
         NewCollections <String> retainTest = new NewCollections<String>();
-        retainTest.add("1");
+        retainTest.add(1);
         retainTest.add("f");
-        retainTest.add("k");
+        retainTest.add("l");
+        retainTest.add("q");
         NewCollections <String> addTest = new NewCollections<String>();
         addTest.add("f");
+        addTest.add(9);
+        addTest.add("rt");
+        addTest.add("q");
         addTest.add("k");
         addTest.add("l");
         NewCollections <String> remTest = new NewCollections<String>();
@@ -37,6 +45,15 @@ public class Main {
         System.out.println(collections.size);
         System.out.println(collections.removeAll(remTest));
         System.out.println(collections.retainAll(retainTest));
-        //System.out.println(collections);
+        System.out.println(collections.containsAll(containsAllTest));
+        //collections.clear();
+        //System.out.println(collections.isEmpty());
+        System.out.println(collections.iterator().hasNext());
+        System.out.println(collections.iterator().next());
+        System.out.println(collections.iterator().next());
+        collections.iterator().remove();
+        System.out.println(collections.iterator().next());
+        System.out.println(collections.iterator().next());
+        System.out.println(collections.iterator().hasNext());
     }
 }

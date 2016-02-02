@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -9,9 +10,11 @@ import java.util.Iterator;
 public class NewCollections<E> implements Collection<E> {
     Object[] initArray = new Object[0];
     Object[] resultArray = {};
+    private int currentPosition = -1;
     public int size;
 
     public NewCollections() {
+        clear();
     }
 
     public int size() {
@@ -45,14 +48,13 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public Iterator iterator() {
-        return null;
+        return new NewIterator();
     }
 
     public Object[] toArray() {
-        //return Arrays.copyOf(resultArray, size());
         Object[] newArray = new Object[resultArray.length];
-        System.arraycopy(resultArray,0,newArray,0,resultArray.length);
-        return  newArray;
+        System.arraycopy(resultArray, 0, newArray, 0, resultArray.length);
+        return newArray;
     }
 
     public boolean add(Object o) {
@@ -64,6 +66,7 @@ public class NewCollections<E> implements Collection<E> {
         }
         resultArray = Arrays.copyOf(resultArray, resultArray.length + 1);
         resultArray[size] = o;
+        size();
         return true;
     }
 
@@ -71,26 +74,28 @@ public class NewCollections<E> implements Collection<E> {
         size();
         Object[] tempArray = new Object[resultArray.length - 1];
         boolean result = false;
+        boolean flag = false;
         int it = 0;
         int cap = 0;
-        if (!this.contains(o)) {
+        if (!contains(o)) {
             return false;
         }
         for (Object obj : resultArray) {
             if (obj.equals(o)) {
                 for (Object object : resultArray) {
-                    if (cap != it) {
+                    if (cap != it || flag) {
                         tempArray[cap] = object;
                         result = true;
                         cap++;
                     } else {
-                        it = 0;
+                        flag = true;
                     }
                 }
             }
             it++;
         }
         resultArray = Arrays.copyOf(tempArray, tempArray.length);
+        size();
         return result;
     }
 
@@ -101,6 +106,7 @@ public class NewCollections<E> implements Collection<E> {
         resultArray = Arrays.copyOf(resultArray, resultArray.length + newArray.length);
         System.arraycopy(newArray, 0, resultArray, oldLength, newArray.length);
         int newHash = Arrays.hashCode(resultArray);
+        size();
         if (oldHash != newHash) {
             return true;
         }
@@ -108,18 +114,20 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public void clear() {
+        resultArray = Arrays.copyOf(resultArray, 0);
+        size();
     }
 
     public boolean retainAll(Collection c) {
-        Object[] newArray = c.toArray();
         Object[] array = toArray(resultArray);
         int oldHash = Arrays.hashCode(resultArray);
-        for (int i=0;i<size;i++) {
-            if (c.contains(newArray[i])) {
-                remove(newArray[i]);
+        for (int i = 0; i < size; i++) {
+            if (c.contains(array[i])) {
+                remove(array[i]);
             }
         }
         int newHash = Arrays.hashCode(resultArray);
+        size();
         if (oldHash != newHash) {
             return true;
         }
@@ -132,6 +140,7 @@ public class NewCollections<E> implements Collection<E> {
         for (Object x : newArray) {
             remove(x);
         }
+        size();
         int newHash = Arrays.hashCode(resultArray);
         if (oldHash != newHash) {
             return true;
@@ -140,7 +149,21 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     public boolean containsAll(Collection c) {
-        return false;
+        Object[] newArray = c.toArray();
+        String result = "";
+        for (Object obj : newArray) {
+            for (Object ra : resultArray) {
+                if (obj.equals(ra)) {
+                    result += true + ",";
+                    break;
+                }
+            }
+        }
+        String[] tempResult = result.split(",");
+        if (tempResult.length < 3) {
+            return false;
+        }
+        return true;
     }
 
     public <T> T[] toArray(T[] a) {
@@ -149,5 +172,47 @@ public class NewCollections<E> implements Collection<E> {
             array[i] = (T) resultArray[i];
         }
         return array;
+    }
+
+    //--------------------------------------------------------------
+    public class NewIterator implements Iterator {
+
+        public boolean hasNext() {
+            if (currentPosition != size-1) {
+                return true;
+            }
+            return false;
+        }
+
+        public Object next() {
+            if (currentPosition >= size)
+                throw new NoSuchElementException();
+            currentPosition++;
+            return resultArray[currentPosition];
+        }
+
+        public void remove() {
+            if (currentPosition >= size)
+                throw new NoSuchElementException();
+            Object[] tempArray = new Object[resultArray.length - 1];
+            boolean flag = false;
+            int it = 0;
+            int cap = 0;
+            for (Object obj : resultArray) {
+                if (obj.equals(resultArray[currentPosition])) {
+                    for (Object object : resultArray) {
+                        if (cap != it || flag) {
+                            tempArray[cap] = object;
+                            cap++;
+                        } else {
+                            flag = true;
+                        }
+                    }
+                }
+                it++;
+            }
+            resultArray = Arrays.copyOf(tempArray, tempArray.length);
+            size();
+        }
     }
 }

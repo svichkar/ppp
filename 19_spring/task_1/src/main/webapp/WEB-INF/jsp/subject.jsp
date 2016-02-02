@@ -43,12 +43,10 @@
 </form:form>
 </tr>
 
-<!-- http://www.mkyong.com/spring-mvc/spring-mvc-dropdown-box-example/-->
-
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${subjects}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form:form method="post" action="subject">
+<form:form method="post" modelAttribute="subjectForm" action="subject">
 <tr>
 <td>${count}</td>
 <td>
@@ -56,18 +54,10 @@
 <input type="text" name="subjectName" value="${current.subjectName}" required/>
 </td>
 <td>
-<select name="selectedTerm">
-<c:forEach items="${terms}" var="t">
-<c:choose>
-    <c:when test="${t.termId == current.term.termId}">
-       <option value="${t.termName}" selected>${t.termName}</option>
-    </c:when>
-    <c:otherwise>
-        <option value="${t.termName}">${t.termName}</option>
-    </c:otherwise>
-</c:choose>
-</c:forEach>
-</select>
+<form:select  path="term.termName">
+<form:option value="${current.term.termName}"/>
+<form:options items="${terms}" itemValue="termId" itemLabel="termName"/>
+</form:select>
 </td>
 <td>
 <input type="submit" name="update" value="update"/>
@@ -77,7 +67,7 @@
 </form:form>
 </c:forEach>
 
-<form:form method="post" action="subject">
+<form:form method="post" modelAttribute="subjectForm" action="subject">
 <tr>
 <td readOnly></td>
 <td>

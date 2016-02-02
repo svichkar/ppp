@@ -66,7 +66,7 @@ public class SubjectDaoImpl implements SubjectDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Subject.class);
-        criteria.add(Restrictions.eq("subjectName", subjectName));
+        criteria.add(Restrictions.eq("subjectName", subjectName).ignoreCase());
         Subject subject = (Subject) criteria.uniqueResult();
         return subject;
     }
@@ -78,7 +78,8 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(), Restrictions.eq("term.termId", termId)));
+        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(),
+                Restrictions.eq("term.termId", termId)));
         Subject subject = (Subject) criteria.uniqueResult();
         return subject;
     }
@@ -114,7 +115,8 @@ public class SubjectDaoImpl implements SubjectDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Subject.class);
         criteria.createAlias("term", "term");
-        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(), Restrictions.eq("term.termName", termName)));
+        criteria.add(Restrictions.and(Restrictions.eq("subjectName", subjectName).ignoreCase(),
+                Restrictions.eq("term.termName", termName)));
         Subject subject = (Subject) criteria.uniqueResult();
         return subject;
     }

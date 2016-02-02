@@ -37,6 +37,7 @@ public class SubjectController {
         model.addObject("title", "Subject Page");
         model.addObject("subjects", subjectService.findAll());
         model.addObject("terms", termService.findAll());
+        model.addObject("subjectForm", new Subject());
         model.setViewName("subject");
         return model;
     }
@@ -46,6 +47,7 @@ public class SubjectController {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Subject Page");
+        model.addObject("subjectForm", new Subject());
         return "redirect:subjectResult";
     }
 
@@ -73,7 +75,7 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "add", method = RequestMethod.POST)
-    public String addTerm(@ModelAttribute("subject") Subject subject, Model model) {
+    public String addTerm(@ModelAttribute("subjectForm") Subject subject, Model model) {
         try {
             subjectService.create(subject);
             model.addAttribute("message", "Successes");
@@ -87,7 +89,7 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "update", method = RequestMethod.POST)
-    public String updateTerm(@ModelAttribute("subject") Subject subject, Model model) {
+    public String updateTerm(@ModelAttribute("subjectForm") Subject subject, Model model) {
         try {
             subjectService.update(subject);
             model.addAttribute("message", "Successes");
@@ -101,7 +103,7 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "delete", method = RequestMethod.POST)
-    public String deleteTerm(@ModelAttribute("subject") Subject subject, Model model) {
+    public String deleteTerm(@ModelAttribute("subjectForm") Subject subject, Model model) {
         try {
             subjectService.delete(subject);
             model.addAttribute("message", "Successes");

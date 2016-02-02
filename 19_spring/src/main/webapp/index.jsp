@@ -13,7 +13,7 @@
     <input type="text" name="login" placeholder="Login"><br>
     <input type="password" name="pass" placeholder="Password"><br>
     <input type="submit" value="Sign in"><br>
-    <c:out value="${param.cantLogin}"/>
+    <c:out value="${param.message}"/>
     </div>
    </div>
   </form>

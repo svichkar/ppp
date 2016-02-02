@@ -14,12 +14,13 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
   <jsp:invoke fragment="head_area" />
-  <p id="header">Your are logged in as: <c:out value="${sessionScope.role}"/><p>
+  <p id="header">Your are logged in as: <c:out value="${role}" /></p>
 </head>
 <body>
 <div id=container>
     <div id="sidebar">
-        <c:if test="${sessionScope.role == 'manager'}">
+        <c:set var="roleName"><c:out value="${role}" /></c:set>
+        <c:if test="${roleName == 'manager'}">
             <p><a href="homepage" class="customLink">Home Page</a></p>
             <p><a href="orders" class="customLink">Orders</a></p>
             <p><a href="workers" class="customLink">Workers</a></p>

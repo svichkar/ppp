@@ -3,7 +3,7 @@ package com.nixsolutions.servicestation.dao.impl;
 import com.nixsolutions.servicestation.entity.Employee;
 import com.nixsolutions.servicestation.entity.EmployeeCategory;
 import com.nixsolutions.servicestation.service.EmployeeService;
-import com.nixsolutions.servicestation.util.HiberUtil;
+import com.nixsolutions.servicestation.util.AppConfig;
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
 import org.dbunit.JdbcDatabaseTester;
@@ -18,9 +18,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.FileInputStream;
 import java.util.Set;
@@ -28,14 +29,17 @@ import java.util.Set;
 /**
  * Created by rybkinrolla on 05.01.2016.
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = HiberUtil.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = AppConfig.class)
 public class EmployeeDAOTest extends DBTestCase {
     @Autowired
-    ApplicationContext context;
+    AbstractApplicationContext context;
 
     @Autowired
     private EmployeeService employeeService;
+
     private JdbcDatabaseTester tester;
 
     public EmployeeDAOTest() {

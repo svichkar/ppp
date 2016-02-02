@@ -22,8 +22,8 @@
                                 <td><input type="text" name="brand" value ="<c:out value="${car.carType.brand}"/>"></td>
                                 <td><input type="text" name="model_name" value ="<c:out value="${car.carType.modelName}"/>"></td>
                                 <td><input type="text" name="VIN" value ="<c:out value="${car.serialVIN}"/>"></td>
-                                <td><input type="submit" value="edit" name="edit"></td>
-                                <td><input type="submit" value="delete" name="delete"></td>
+                                <td><input type="submit" value="edit" name="submitButton"></td>
+                                <td><input type="submit" value="delete" name="submitButton"></td>
                             </form>
                         </tr>
                     </c:forEach>
@@ -49,10 +49,10 @@
                             <td><input type="text" name="brand" required/></td>
                             <td><input type="text" name="model_name" required/></td>
                             <td><input type="text" name="VIN" required/></td>
-                            <td><input type="submit" value="add" name="add"></td>
+                            <td><input type="submit" value="add" name="submitButton"></td>
                         </form>
                     </tr>
             </table>
-            <c:out value="${param.message}"/>
+            <c:out value="${msg}"/>
     </jsp:attribute>
 </t:general>

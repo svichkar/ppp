@@ -30,8 +30,8 @@
                                     </select></td>
                                 <td><input type="text" name="startDate" value ="<c:out value="${co.startDate}"/>"readonly></td>
                                 <td><input type="text" value ="<c:out value="${co.endDate}"/>"readonly></td>
-                                <td><input type="submit" value="edit" name="edit"></td>
-                                <td><input type="submit" value="delete" name="delete"></td>
+                                <td><input type="submit" value="edit" name="submitButton"></td>
+                                <td><input type="submit" value="delete" name="submitButton"></td>
                             </form>
                         </tr>
                     </c:forEach>
@@ -55,7 +55,7 @@
                                         <option value="<c:out value="${status.carOrderStatusId}"/>"><c:out value="${status.carOrderStatusName}"/></option>
                                     </c:forEach>
                                 </select></td>
-                            <td><input type="submit" value="add" name="add"></td>
+                            <td><input type="submit" value="add" name="submitButton"></td>
                         </form>
                     </tr>
             </table>
@@ -78,10 +78,10 @@
                                                     <option value="<c:out value="${order.carOrderId}"/>"><c:out value="${order.car.carType.getFullName()} ${order.car.serialVIN}"/></option>
                                                 </c:forEach>
                                             </select></td>
-                                        <td><input type="submit" value="reOrder" name="reOrder"></td>
+                                        <td><input type="submit" value="reOrder" name="submitButton"></td>
                                     </form>
                                 </tr>
                         </table>
-            <c:out value="${param.message}"/>
+            <c:out value="${msg}"/>
     </jsp:attribute>
 </t:general>

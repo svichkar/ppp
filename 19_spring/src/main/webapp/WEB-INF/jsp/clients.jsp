@@ -29,8 +29,8 @@
                                                 </c:if>
                                             </c:forEach>
                                     </select></td>
-                                <td><input type="submit" value="edit" name="edit"></td>
-                                <td><input type="submit" value="delete" name="delete"></td>
+                                <td><input type="submit" value="edit" name="submitButton"></td>
+                                <td><input type="submit" value="delete" name="submitButton"></td>
                             </form>
                         </tr>
                     </c:forEach>
@@ -56,10 +56,10 @@
                                         <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                     </c:forEach>
                                 </select></td>
-                            <td><input type="submit" value="add" name="add"></td>
+                            <td><input type="submit" value="add" name="submitButton"></td>
                         </form>
                     </tr>
             </table>
-            <c:out value="${param.message}"/>
+            <c:out value="${msg}"/>
     </jsp:attribute>
 </t:general>

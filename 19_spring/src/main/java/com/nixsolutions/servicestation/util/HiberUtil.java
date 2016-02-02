@@ -21,7 +21,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.nixsolutions.servicestation")
+@ComponentScan({"com.nixsolutions.util"})
 @PropertySource(value = { "classpath:springhiber.properties" })
 public class HiberUtil {
     @Autowired

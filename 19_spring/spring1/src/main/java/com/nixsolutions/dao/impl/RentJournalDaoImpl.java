@@ -12,12 +12,14 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.RentJournalDao;
 import com.nixsolutions.entity.RentJournal;
 
-@Repository("RentJournalDao")
+@Repository("rentJournalDao")
+@Transactional
 public class RentJournalDaoImpl implements RentJournalDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

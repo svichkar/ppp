@@ -10,12 +10,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.AuthorDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Author;
 
-@Repository("AuthorDao")
+@Repository("authorDao")
+@Transactional
 public class AuthorDaoImpl implements AuthorDao {
 	public static final Logger LOG = LogManager.getLogger();
 	

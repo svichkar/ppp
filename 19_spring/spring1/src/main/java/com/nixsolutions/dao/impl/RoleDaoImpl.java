@@ -12,12 +12,14 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.entity.Role;
 
-@Repository("RoleDao")
+@Repository("roleDao")
+@Transactional
 public class RoleDaoImpl implements RoleDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

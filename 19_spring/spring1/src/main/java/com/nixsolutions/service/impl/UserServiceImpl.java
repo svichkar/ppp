@@ -1,0 +1,48 @@
+package com.nixsolutions.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nixsolutions.dao.UserDao;
+import com.nixsolutions.entity.User;
+import com.nixsolutions.service.UserService;
+
+@Service
+public class UserServiceImpl implements UserService{
+
+	@Autowired
+	private UserDao userDao;
+	
+	@Override
+	public List<User> getAllUsers() {
+		return userDao.getAllUsers();
+	}
+
+	@Override
+	public User getUserById(Long userId) {
+		return userDao.getUserById(userId);
+	}
+
+	@Override
+	public void createUser(User user) {
+		userDao.createUser(user);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userDao.updateUser(user);
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		userDao.deleteUser(user);
+	}
+
+	@Override
+	public User getUserByNameAndPswd(String name, String pswd) {
+		return userDao.getUserByNameAndPswd(name, pswd);
+	}
+
+}

@@ -4,7 +4,8 @@
 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>Archetype Created Web Application</display-name>
-	
+
+	<!-- Spring setup -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:/persistence-beans.xml</param-value>
@@ -13,8 +14,19 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!--Servlets-->
-		
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+	<!--Servlets -->
+
 	<servlet>
 		<servlet-name>auth</servlet-name>
 		<servlet-class>com.nixsolutions.controllers.AuthServlet</servlet-class>
@@ -51,15 +63,13 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<servlet-name>loansmanage</servlet-name>
 		<servlet-class>com.nixsolutions.controllers.LoansManageServlet</servlet-class>
 	</servlet>
-<!--<servlet>
-	 	<servlet-name>error</servlet-name>
-		<servlet-class>com.nixsolutions.controllers.ErrorServlet</servlet-class>
-	</servlet>  -->
-<servlet>
+	<!--<servlet> <servlet-name>error</servlet-name> <servlet-class>com.nixsolutions.controllers.ErrorServlet</servlet-class> 
+		</servlet> -->
+	<servlet>
 		<servlet-name>home</servlet-name>
 		<servlet-class>com.nixsolutions.controllers.HomePageServlet</servlet-class>
 	</servlet>
-	<!--Servlets mapping-->
+	<!--Servlets mapping -->
 	<servlet-mapping>
 		<servlet-name>auth</servlet-name>
 		<url-pattern>/auth</url-pattern>
@@ -88,59 +98,57 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<servlet-name>addcategory</servlet-name>
 		<url-pattern>/addcategory</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>readersearch</servlet-name>
 		<url-pattern>/readersearch</url-pattern>
 	</servlet-mapping>
-			<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>loansmanage</servlet-name>
 		<url-pattern>/loansmanage</url-pattern>
 	</servlet-mapping>
-		<!-- <servlet-mapping>
-		<servlet-name>error</servlet-name>
-		<url-pattern>/error-handler</url-pattern>
-	</servlet-mapping> -->
-		<servlet-mapping>
+	<!-- <servlet-mapping> <servlet-name>error</servlet-name> <url-pattern>/error-handler</url-pattern> 
+		</servlet-mapping> -->
+	<servlet-mapping>
 		<servlet-name>home</servlet-name>
 		<url-pattern>/homepage</url-pattern>
 	</servlet-mapping>
-	<!--Welcome page-->
+	<!--Welcome page -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	
-	<!--Errors handling-->
-<error-page>
-<location>/errorhandler</location>
-</error-page>
 
-  <error-page>
-    <error-code>404</error-code>
-    <location>/errorhandler</location>
-  </error-page>
-   
-  <error-page>
-  <exception-type>javax.servlet.ServletException</exception-type>
-  <location>/errorhandler</location>
-  </error-page>
+	<!--Errors handling -->
+	<error-page>
+		<location>/errorhandler</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errorhandler</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>
+		<location>/errorhandler</location>
+	</error-page>
 
 
-<!--Filters-->
-	 <filter>
+	<!--Filters -->
+	<filter>
 		<filter-name>adminAuth</filter-name>
 		<filter-class>com.nixsolutions.filters.AdminAuthFilter</filter-class>
 	</filter>
 	<filter>
 		<filter-name>sessionAuth</filter-name>
 		<filter-class>com.nixsolutions.filters.SessionAuthFilter</filter-class>
-	</filter> 
-	<!--Filter Mapping-->
+	</filter>
+	<!--Filter Mapping -->
 	<filter-mapping>
 		<filter-name>adminAuth</filter-name>
 		<url-pattern>/manageusers</url-pattern>
 		<url-pattern>/addcategory</url-pattern>
 	</filter-mapping>
- 	<filter-mapping>
+	<filter-mapping>
 		<filter-name>sessionAuth</filter-name>
 		<url-pattern>/manageusers</url-pattern>
 		<url-pattern>/librarian</url-pattern>
@@ -151,5 +159,5 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<url-pattern>/readersearch</url-pattern>
 		<url-pattern>/homepage</url-pattern>
 		<url-pattern>/loansmanage</url-pattern>
-	</filter-mapping> 
+	</filter-mapping>
 </web-app>

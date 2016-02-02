@@ -11,12 +11,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.CellDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Cell;
 
-@Repository("CellDao")
+@Repository("cellDao")
+@Transactional
 public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

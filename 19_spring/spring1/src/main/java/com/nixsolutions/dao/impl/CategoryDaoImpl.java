@@ -11,12 +11,14 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.CategoryDao;
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Category;
 
-@Repository("CategoryDao")
+@Repository("categoryDao")
+@Transactional
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

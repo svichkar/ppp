@@ -12,12 +12,14 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
 
-@Repository("UserDao")
+@Repository("userDao")
+@Transactional
 public class UserDaoImpl implements UserDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

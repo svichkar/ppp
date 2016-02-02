@@ -16,7 +16,7 @@ public class AddBookController {
     AddBookService addBookService;
 
     @RequestMapping(value = "/addBook")
-    protected String findBook(
+    protected String addBook(
             @RequestParam(value = "bookName", required = false) String bookName,
             @RequestParam(value = "categoryId", required = false) Long categoryId,
             @RequestParam(value = "cellId", required = false) Long cellId,

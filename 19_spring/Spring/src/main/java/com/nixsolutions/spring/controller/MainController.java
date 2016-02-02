@@ -13,6 +13,6 @@ public class MainController {
     @RequestMapping("/main")
     public String main (@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
-        return "mainPage.jsp";
+        return "mainPage";
     }
 }

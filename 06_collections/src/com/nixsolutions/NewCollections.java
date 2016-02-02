@@ -1,4 +1,4 @@
-package nixsolutions;
+package com.nixsolutions;
 
 import java.util.Arrays;
 import java.util.Collection;

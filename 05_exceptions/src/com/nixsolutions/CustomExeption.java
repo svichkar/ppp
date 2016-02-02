@@ -1,5 +1,4 @@
-import java.io.PrintStream;
-
+package com.nixsolutions;
 /**
  * Created by sobolenko on 2/2/2016.
  */

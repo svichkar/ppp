@@ -1,4 +1,4 @@
-package nixsolutions;
+package com.nixsolutions;
 
 /**
  * Created by sobolenko on 2/1/2016.

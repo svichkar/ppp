@@ -1,6 +1,7 @@
 /**
  * Created by sobolenko on 1/25/2016.
  */
+package com.nixsolutions;
 
 public class Arrays {
     /**

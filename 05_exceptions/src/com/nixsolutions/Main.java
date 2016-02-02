@@ -1,6 +1,7 @@
 /**
  * Created by sobolenko on 2/2/2016.
  */
+package com.nixsolutions;
 public class Main {
     public static void main(String[] args)
     {

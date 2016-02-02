@@ -1,3 +1,4 @@
+package com.nixsolutions;
 import exception.Save;
 
 import javax.swing.*;

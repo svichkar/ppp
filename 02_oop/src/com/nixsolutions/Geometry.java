@@ -2,6 +2,7 @@
  * Created by sobolenko on 1/29/2016.
  * Used for shiftable figures
  */
+package com.nixsolutions;
 public interface Geometry {
     public String name = "";
     public double square = 0;

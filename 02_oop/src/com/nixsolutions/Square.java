@@ -1,3 +1,4 @@
+package com.nixsolutions;
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;

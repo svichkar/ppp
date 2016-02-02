@@ -1,4 +1,4 @@
-
+package com.nixsolutions;
 import javax.swing.*;
 import java.util.*;
 

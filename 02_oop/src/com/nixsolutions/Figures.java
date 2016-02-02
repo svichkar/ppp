@@ -1,6 +1,4 @@
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+package com.nixsolutions;
 
 /**
  * Created by Lexx on 16.11.2015.

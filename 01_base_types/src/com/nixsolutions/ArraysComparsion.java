@@ -1,5 +1,7 @@
 package com.nixsolutions;
 
+import com.nixsolutions.Arrays.Arrays;
+
 import java.util.Random;
 
 /**

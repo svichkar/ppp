@@ -1,7 +1,7 @@
 /**
  * Created by sobolenko on 1/25/2016.
  */
-package com.nixsolutions;
+package com.nixsolutions.Arrays;
 
 public class Arrays {
     /**

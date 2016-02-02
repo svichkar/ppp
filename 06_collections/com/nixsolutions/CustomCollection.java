@@ -1,6 +1,7 @@
 package com.nixsolutions;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class CustomCollection<E> implements Collection<E> {
 
@@ -13,13 +14,22 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public int size() {
-        return size;
+    public boolean add(E o) {
+        //overflow check
+        if (size == capacity) {
+            capacity *= 2;
+            this.array = java.util.Arrays.copyOf(array, capacity);
+        }
+        array[size++] = o;
+        return true;
     }
 
     @Override
-    public boolean isEmpty() {
-        return size == 0;
+    public boolean addAll(Collection<? extends E> c) {
+        for (Object o : c.toArray()) {
+            add((E) o);
+        }
+        return false;
     }
 
     @Override
@@ -34,19 +44,30 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public Iterator<E> iterator() {
-        return new MyIterator();
+    public boolean containsAll(Collection c) {
+        for (Object o : c) {
+            if (!contains(o)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
-    public boolean add(E o) {
-        //overflow check
-        if (size == capacity) {
-            capacity *= 2;
-            this.array = java.util.Arrays.copyOf(array, capacity);
-        }
-        array[size++] = o;
-        return true;
+    public void clear() {
+        size = 0;
+        capacity = 10;
+        array = (E[]) new Object[capacity];
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new MyIterator();
     }
 
     @Override
@@ -75,18 +96,13 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
-        for (Object o : c.toArray()) {
-            add((E) o);
+    public boolean removeAll(Collection c) {
+        boolean retFlag = false;
+        for (Object o : c) {
+            retFlag = true;
+            remove(o);
         }
-        return false;
-    }
-
-    @Override
-    public void clear() {
-        size = 0;
-        capacity = 10;
-        array = (E[]) new Object[capacity];
+        return retFlag;
     }
 
     @Override
@@ -111,33 +127,18 @@ public class CustomCollection<E> implements Collection<E> {
     }
 
     @Override
-    public boolean removeAll(Collection c) {
-        boolean retFlag = false;
-        for (Object o : c) {
-            retFlag = true;
-            remove(o);
-        }
-        return retFlag;
-    }
-
-    @Override
-    public boolean containsAll(Collection c) {
-        for (Object o : c) {
-            if (!contains(o)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public <E> E[] toArray(E[] a) {
-        return (E[]) java.util.Arrays.copyOf(array, size, a.getClass());
+    public int size() {
+        return size;
     }
 
     @Override
     public E[] toArray() {
         return java.util.Arrays.copyOf(array, size);
+    }
+
+    @Override
+    public <E> E[] toArray(E[] a) {
+        return (E[]) java.util.Arrays.copyOf(array, size, a.getClass());
     }
 
     /**
@@ -162,6 +163,14 @@ public class CustomCollection<E> implements Collection<E> {
                 return array[++currentPos];
             }
             return null;
+        }
+
+        @Override
+        public void remove() {
+            if (currentPos <= -1 || currentPos >= size) {
+                throw new ArrayIndexOutOfBoundsException("Index '" + currentPos + "' out of the bounds size");
+            }
+            CustomCollection.this.remove(currentPos--);
         }
     }
 

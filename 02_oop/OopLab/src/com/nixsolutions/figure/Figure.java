@@ -44,7 +44,7 @@ public abstract class Figure {
 	 * 
 	 * @return An area of a two-dimensional figure.
 	 */
-	abstract public double calculateArea();
+	public abstract double calculateArea();
 
 	/**
 	 * The method moves geometric figure on a coordinate plane on given

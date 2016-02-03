@@ -73,7 +73,7 @@ public class AdminPageServlet extends HttpServlet{
 				}
 
 				if (request.getParameter("create") != null) {
-					int userId = Integer.valueOf(request.getParameter("id"));
+					int userId = userDao.findAllUsers().size() + 1;
 					String login = request.getParameter("login");
 					String password = request.getParameter("password");
 					String email = request.getParameter("email");
@@ -133,27 +133,28 @@ public class AdminPageServlet extends HttpServlet{
 				+ "<head><title>Admin Page</title></head>"
 				+ "<body>"
 				+ "<h2>Users</h2>"
-				+ "<table border=\"1\"><tr><th>USER_ID</th><th>LOGIN</th><th>PASSWORD</th><th>EMAIL</th><th>ROLE</th><th>ACTION</th></tr>");
+				+ "<table border=\"1\"><tr><th>LOGIN</th><th>PASSWORD</th><th>EMAIL</th><th>ROLE</th><th>ACTION</th></tr>");
 		for (User u : listUsers) {
-			out.print("<tr><td>" + u.getUserId() + "</td>"
-                    + "<td>" + u.getLogin() + "</td>"
+			out.print("<tr><td>" + u.getLogin() + "</td>"
                     + "<td>**********</td>"
                     + "<td>" + u.getEmail() + "</td>"
                     + "<td>" + roleDao.findRoleById(u.getRoleId()).getRoleName() + "</td>"
-                    + "<td><form action=\"admin\" method=\"post\">"
+                    + "<td><form action=\"edit\" method=\"get\">"
                     + "<input type=\"hidden\" name=\"id\" value=\"" + u.getUserId() + "\">"
                     + "<input type=\"hidden\" name=\"role\" value=\"" + roleDao.findRoleById(u.getRoleId()).getRoleName() + "\">"
-                    + "<br /><input type=\"submit\" name=\"delete\" value=\"Delete User\"></form></td>"
+                    + "<br /><input type=\"submit\" name=\"edit\" value=\"Edit User\"></form>"
+                    + "<form action=\"admin\" method=\"post\">"
+                    + "<input type=\"hidden\" name=\"id\" value=\"" + u.getUserId() + "\">"
+                    + "<input type=\"hidden\" name=\"role\" value=\"" + roleDao.findRoleById(u.getRoleId()).getRoleName() + "\">"
+                    + "<input type=\"submit\" name=\"delete\" value=\"Delete User\"></form></td>"
                     + "</tr>");
 			}
 		out.println("<form action=\"admin\" method=\"post\""
-				+ "<tr><td><input type=\"text\" maxlength=\"10\" size=\"10\" name=\"id\"></td>"
-                + "<td><input type=\"text\" maxlength=\"25\" size=\"40\" name=\"login\"></td>"
+				+ "<tr><td><input type=\"text\" maxlength=\"25\" size=\"40\" name=\"login\"></td>"
                 + "<td><input type=\"password\" maxlength=\"25\" size=\"40\" name=\"password\"></td>"
                 + "<td><input type=\"text\" maxlength=\"25\" size=\"40\" name=\"email\"></td>"
                 + "<td><input type=\"text\" maxlength=\"25\" size=\"40\" name=\"role\"></td>"
-                + "<td><p><input type=\"submit\" name=\"create\" value=\"Create User\">   "
-                + "<input type=\"submit\" name=\"edit\" value=\"Edit User\"></p>"
+                + "<td><p><input type=\"submit\" name=\"create\" value=\"Create User\"></p>"
                 + "</td></tr></form>"
 				+ "</table>"
 				+ "<br /><form action=\"main\" method=\"get\">"

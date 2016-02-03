@@ -24,6 +24,15 @@ public class Pencil extends WritingInstrument {
     }
 
     /**
+     * Deletes one character
+     *
+     * @param inputString - string from where to delete
+     */
+    public void erase(StringBuilder inputString) {
+        inputString.deleteCharAt(inputString.length() - 1);
+    }
+
+    /**
      * Returns the percent of the remaining writing material
      *
      * @return - float denoting the percent of the remaining writing material

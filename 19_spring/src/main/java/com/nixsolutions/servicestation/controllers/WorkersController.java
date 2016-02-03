@@ -27,8 +27,7 @@ public class WorkersController {
 
     @RequestMapping(value = "/workers", method = RequestMethod.GET)
     protected String getWorkers(Model model) {
-        model.addAttribute("employeeSet", employeeService.findAll());
-        model.addAttribute("employeeCategorySet", employeeCategoryService.findAll());
+        fillPage(model);
         return "workers";
     }
 
@@ -59,9 +58,13 @@ public class WorkersController {
             employeeService.create(employee);
             model.addAttribute("msg","New row was created");
         }
+        fillPage(model);
+        return "workers";
+    }
+
+    private void fillPage(Model model){
         model.addAttribute("employeeSet", employeeService.findAll());
         model.addAttribute("employeeCategorySet", employeeCategoryService.findAll());
-        return "workers";
     }
 }
 

@@ -24,6 +24,12 @@ public class User implements Serializable{
     public User() {
     }
 
+    public User(String login, String password, String roleName) {
+        this.login = login;
+        this.password = password;
+        this.role.setRoleName(roleName);
+    }
+
     public Long getUserId() {
         return userId;
     }

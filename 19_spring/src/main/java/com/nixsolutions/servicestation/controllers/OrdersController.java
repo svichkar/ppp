@@ -38,10 +38,7 @@ public class OrdersController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     protected String getOrders(Model model) {
-        model.addAttribute("employeeSet", employeeService.findAll());
-        model.addAttribute("cosSet", carOrderStatusService.findAll());
-        model.addAttribute("coSet", carOrderService.findAll());
-        model.addAttribute("cSet", carService.getCarWithoutOrder());
+        fillPage(model);
         return "orders";
     }
 
@@ -91,10 +88,14 @@ public class OrdersController {
             carOrderService.update(carOrder);
             model.addAttribute("msg","Row with order_id = " + carOrder.getCarOrderId() + " was edited");
         }
+        fillPage(model);
+        return "orders";
+    }
+
+    private void fillPage(Model model){
         model.addAttribute("employeeSet", employeeService.findAll());
         model.addAttribute("cosSet", carOrderStatusService.findAll());
         model.addAttribute("coSet", carOrderService.findAll());
         model.addAttribute("cSet", carService.getCarWithoutOrder());
-        return "orders";
     }
 }

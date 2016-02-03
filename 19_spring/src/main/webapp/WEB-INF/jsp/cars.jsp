@@ -24,6 +24,7 @@
                                 <td><input type="text" name="VIN" value ="<c:out value="${car.serialVIN}"/>"></td>
                                 <td><input type="submit" value="edit" name="submitButton"></td>
                                 <td><input type="submit" value="delete" name="submitButton"></td>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </tr>
                     </c:forEach>
@@ -50,6 +51,7 @@
                             <td><input type="text" name="model_name" required/></td>
                             <td><input type="text" name="VIN" required/></td>
                             <td><input type="submit" value="add" name="submitButton"></td>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
                     </tr>
             </table>

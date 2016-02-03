@@ -7,15 +7,19 @@
 <link href="${cssLink}" type="text/css" rel="stylesheet"/>
 </head>
 <body>
-  <form action="homepage" method="post"/>
+  <form action="<c:url value="/j_spring_security_check"></c:url>" method="post"/>
   <div class="horizon">
    <div class="centeroid">
     <input type="text" name="login" placeholder="Login"><br>
-    <input type="password" name="pass" placeholder="Password"><br>
+    <input type="password" name="password" placeholder="Password"><br>
     <input type="submit" value="Sign in"><br>
-    <c:out value="${param.message}"/>
+       <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
+             ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+       </c:if>
+       <c:out value="${param.msg}"/>
     </div>
    </div>
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
   </form>
 </body>
 </html>

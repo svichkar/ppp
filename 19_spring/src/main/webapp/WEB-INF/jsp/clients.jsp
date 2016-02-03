@@ -31,6 +31,7 @@
                                     </select></td>
                                 <td><input type="submit" value="edit" name="submitButton"></td>
                                 <td><input type="submit" value="delete" name="submitButton"></td>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             </form>
                         </tr>
                     </c:forEach>
@@ -57,6 +58,7 @@
                                     </c:forEach>
                                 </select></td>
                             <td><input type="submit" value="add" name="submitButton"></td>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
                     </tr>
             </table>

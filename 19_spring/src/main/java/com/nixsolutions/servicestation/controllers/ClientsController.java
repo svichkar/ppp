@@ -1,9 +1,11 @@
 
 package com.nixsolutions.servicestation.controllers;
 
+import com.nixsolutions.servicestation.entity.Car;
 import com.nixsolutions.servicestation.entity.Client;
 import com.nixsolutions.servicestation.entity.Role;
 import com.nixsolutions.servicestation.entity.User;
+import com.nixsolutions.servicestation.service.CarService;
 import com.nixsolutions.servicestation.service.ClientService;
 import com.nixsolutions.servicestation.service.RoleService;
 import com.nixsolutions.servicestation.service.UserService;
@@ -29,11 +31,12 @@ public class ClientsController {
     private ClientService clientService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private CarService carService;
 
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
     protected String getClients(Model model) {
-        model.addAttribute("ucSet", clientService.findClientsUsers());
-        model.addAttribute("roleSet", roleService.findAll());
+        fillPage(model);
         return "clients";
     }
 
@@ -69,8 +72,7 @@ public class ClientsController {
                 } else {
                     flag = false;
                     model.addAttribute("msg","This login is already in use");
-                    model.addAttribute("ucSet", clientService.findClientsUsers());
-                    model.addAttribute("roleSet", roleService.findAll());
+                    fillPage(model);
                     return "clients";
                 }
             }
@@ -93,6 +95,12 @@ public class ClientsController {
         }
         if (submitButton.equals("delete")) {
             if (!role.getRoleName().equals("manager")) {
+                Set<Car> carSet = carService.findAll();
+                for (Car car:carSet) {
+                    if(car.getClient().getClientId().equals(clientId)){
+                        carService.delete(car);
+                    }
+                }
                 client.setClientId(clientId);
                 clientService.delete(client);
                 user.setUserId(userId);
@@ -101,14 +109,17 @@ public class ClientsController {
             } else {
                 model.addAttribute("msg","You can't delete manager from here." +
                         " Please enter database and delete it there");
-                model.addAttribute("ucSet", clientService.findClientsUsers());
-                model.addAttribute("roleSet", roleService.findAll());
+                fillPage(model);
                 return "clients";
             }
         }
+        fillPage(model);
+        return "clients";
+    }
+
+    private void fillPage(Model model){
         model.addAttribute("ucSet", clientService.findClientsUsers());
         model.addAttribute("roleSet", roleService.findAll());
-        return "clients";
     }
 }
 

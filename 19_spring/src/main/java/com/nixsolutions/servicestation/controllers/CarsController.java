@@ -36,8 +36,7 @@ public class CarsController {
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     protected String getCars(Model model) {
-        model.addAttribute("carsSet", carService.findAll());
-        model.addAttribute("clientsSet", clientService.findAll());
+        fillPage(model);
         return "cars";
     }
 
@@ -92,9 +91,13 @@ public class CarsController {
             carService.delete(car);
             model.addAttribute("msg", "Row with car_id = " + car.getCarId() + " was deleted");
         }
+        fillPage(model);
+        return "cars";
+    }
+
+    private void fillPage(Model model){
         model.addAttribute("carsSet", carService.findAll());
         model.addAttribute("clientsSet", clientService.findAll());
-        return "cars";
     }
 }
 

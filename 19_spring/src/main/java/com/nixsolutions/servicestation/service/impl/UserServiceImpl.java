@@ -1,13 +1,19 @@
 package com.nixsolutions.servicestation.service.impl;
 
 import com.nixsolutions.servicestation.dao.UserDAO;
+import com.nixsolutions.servicestation.entity.Role;
 import com.nixsolutions.servicestation.entity.User;
 import com.nixsolutions.servicestation.service.UserService;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -52,4 +58,5 @@ public class UserServiceImpl implements UserService {
         Set<User> userSet = userDAO.findAll();
         return userSet;
     }
+
 }

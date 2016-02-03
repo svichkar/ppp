@@ -38,9 +38,9 @@
                         </table>
                     </c:if>
                     <form action="userManagement" method="post">
-                                 User login : <input type="text" name="newUserLogin">
-                                 User password : <input type="text" name="newUserPassword">
-                                 User role:  <select name="newUserRole" size="1" required>
+                                 User login : <input type="text" name="userLogin">
+                                 User password : <input type="text" name="userPassword">
+                                 User role:  <select name="userRole" size="1" required>
                                                <c:forEach var="role" items="${roles}">
                                                    <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                                </c:forEach>

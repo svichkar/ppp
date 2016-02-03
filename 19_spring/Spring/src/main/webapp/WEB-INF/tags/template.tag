@@ -16,6 +16,9 @@
   <jsp:invoke fragment="head_area" />
 </head>
 <body>
+        <form action="<c:url value="/logout"></c:url>" method="get"/>
+                <input type="submit" value="Logout">
+        </form>
     <div id="site_content">
         <article id="content">
             <jsp:invoke fragment="content_area" />
@@ -23,7 +26,7 @@
         <aside id="sidebar">
                 <jsp:invoke fragment="sidebar_area" />
                 <p>Welcome</p>
-                                    <%-- <p>Your role is: <c:out value="${sessionScope.role}"/><p> --%>
+                                    <p><sec:authentication property="principal.username"/><p>
                                     <p><a href="bookManagement">Find book</a></p>
                                     <p><a href="addBook">Add book</a></p>
                                     <p><a href="addReader">Add reader</a></p>
@@ -37,6 +40,7 @@
             <jsp:invoke fragment="message_area" />
         </div>
     </div>
+
     <footer id="footer" align="right">
         <img src="webContent/images/Footer.png">
     </footer>

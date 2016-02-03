@@ -1,14 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Subjects">
 <jsp:attribute name="content_area">
 
-<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">${error}</h4></p>
-<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">${errorSearch}</h4></p>
-<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color:#15DC13;">${message}</h4></p>
+${message}
+${error}
+${errorSearch}
 
 <div>
 <table>
@@ -24,7 +24,7 @@
 
 <tr>
 <td readOnly></td>
-<form:form  action="subject" method="get">
+<form:form action="subject" method="get">
 <td>
 <input type="text" name="subjectName" placeholder="enter subject name"/>
 </td>
@@ -46,7 +46,7 @@
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${subjects}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form:form method="post" modelAttribute="subjectForm" action="subject">
+<form:form method="post" action="subject">
 <tr>
 <td>${count}</td>
 <td>
@@ -54,10 +54,18 @@
 <input type="text" name="subjectName" value="${current.subjectName}" required/>
 </td>
 <td>
-<form:select  path="term.termName">
-<form:option value="${current.term.termName}"/>
-<form:options items="${terms}" itemValue="termId" itemLabel="termName"/>
-</form:select>
+<select name="selectedTerm">
+<c:forEach items="${terms}" var="t">
+<c:choose>
+    <c:when test="${t.termId == current.term.termId}">
+       <option value="${t.termName}" selected>${t.termName}</option>
+    </c:when>
+    <c:otherwise>
+        <option value="${t.termName}">${t.termName}</option>
+    </c:otherwise>
+</c:choose>
+</c:forEach>
+</select>
 </td>
 <td>
 <input type="submit" name="update" value="update"/>
@@ -67,7 +75,7 @@
 </form:form>
 </c:forEach>
 
-<form:form method="post" modelAttribute="subjectForm" action="subject">
+<form:form method="post" action="subject">
 <tr>
 <td readOnly></td>
 <td>

@@ -26,4 +26,8 @@ public interface StudentDao {
     public List<Student> findByGroupId(Long groupId);
 
     public List<Student> findByLastNameAndGroupId(String lastName, Long groupId);
+
+    public List<Student> findByLastNameAndGroup(String lastName, String groupName);
+
+    public List<Student> findByGroup(String groupName);
 }

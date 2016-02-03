@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Students">
     <jsp:attribute name="content_area">
@@ -29,7 +30,7 @@ ${errorSearch}
 <tr>
 <td readOnly></td>
 <td readOnly></td>
-<form action="student" method="get">
+<form:form action="student" method="get">
 <td>
 <input type="text" name="lastName" placeholder="enter last name"/>
 </td>
@@ -49,13 +50,13 @@ ${errorSearch}
 <input type="submit" value="Search">
 </td>
 <td readOnly></td>
-</form>
+</form:form>
 </tr>
 
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${students}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form method="post" action="student">
+<form:form method="post" action="student">
 <tr>
 <td>${count}</td>
 <td>
@@ -114,19 +115,19 @@ ${errorSearch}
 <input type="submit" name="operation" value="update"/>
 <input type="submit" name="operation" value="delete"/>
 </td>
-</form>
+</form:form>
 
-<form method="get" action="<c:url value="/journal/student"/>">
+<form:form method="get" action="journal/student">
 <td>
 <input type="text" name="id" value="${current.studentId}" hidden/>
 <input type="submit" name="operation" value="details"/>
 </td>
-</form>
+</form:form>
 
 </tr>
 </c:forEach>
 
-<form method="post" action="student">
+<form:form method="post" action="student">
 <tr>
 <td readOnly></td>
 <td>
@@ -167,7 +168,7 @@ ${errorSearch}
 </td>
 <td readOnly></td>
 </tr>
-</form>
+</form:form>
 
 </tbody>
 </table>

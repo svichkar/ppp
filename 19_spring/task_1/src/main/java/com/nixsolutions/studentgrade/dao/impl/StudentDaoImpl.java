@@ -106,4 +106,27 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> students = criteria.list();
         return students.isEmpty() ? null : students;
     }
+
+    @Override
+    public List<Student> findByLastNameAndGroup(String lastName, String groupName) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.createAlias("studentGroup", "studentGroup");
+        criteria.add(Restrictions.and(Restrictions.eq("studentGroup.groupName", groupName),
+                Restrictions.eq("lastName", lastName).ignoreCase()));
+        List<Student> students = criteria.list();
+        return students.isEmpty() ? null : students;
+    }
+
+    @Override
+    public List<Student> findByGroup(String groupName) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Student.class);
+        criteria.createAlias("studentGroup", "studentGroup");
+        criteria.add(Restrictions.eq("studentGroup.groupName", groupName));
+        List<Student> students = criteria.list();
+        return students.isEmpty() ? null : students;
+    }
 }

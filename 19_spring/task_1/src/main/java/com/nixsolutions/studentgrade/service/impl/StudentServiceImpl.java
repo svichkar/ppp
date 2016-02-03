@@ -78,4 +78,14 @@ public class StudentServiceImpl implements StudentService {
 
         return studentDao.findByLastNameAndGroupId(lastName, groupId);
     }
+
+    @Override
+    public List<Student> findByLastNameAndGroup(String lastName, String groupName) {
+        return studentDao.findByLastNameAndGroup(lastName, groupName);
+    }
+
+    @Override
+    public List<Student> findByGroup(String groupName) {
+        return studentDao.findByGroup(groupName);
+    }
 }

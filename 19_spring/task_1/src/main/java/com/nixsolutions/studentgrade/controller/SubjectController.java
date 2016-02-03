@@ -1,6 +1,7 @@
 package com.nixsolutions.studentgrade.controller;
 
 import com.nixsolutions.studentgrade.model.Subject;
+import com.nixsolutions.studentgrade.model.Term;
 import com.nixsolutions.studentgrade.service.SubjectService;
 import com.nixsolutions.studentgrade.service.TermService;
 import org.apache.logging.log4j.LogManager;
@@ -89,13 +90,15 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "update", method = RequestMethod.POST)
-    public String updateTerm(@ModelAttribute("subjectForm") Subject subject, Model model) {
+    public String updateTerm(@ModelAttribute("subject") Subject subject, @ModelAttribute("selectedTerm") String selectedTerm, Model model) {
         try {
+            Term term = termService.findByName(selectedTerm);
+            subject.setTerm(term);
             subjectService.update(subject);
             model.addAttribute("message", "Successes");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Term cannot be updeted");
+            model.addAttribute("error", "Subject cannot be updeted");
         }
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("terms", termService.findAll());
@@ -109,7 +112,8 @@ public class SubjectController {
             model.addAttribute("message", "Successes");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Term cannot be deleted");
+            System.out.println(e);
+            model.addAttribute("error", "Subject cannot be deleted");
         }
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("terms", termService.findAll());

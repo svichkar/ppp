@@ -76,8 +76,10 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "add", method = RequestMethod.POST)
-    public String addTerm(@ModelAttribute("subjectForm") Subject subject, Model model) {
+    public String addTerm(@ModelAttribute("subject") Subject subject, @ModelAttribute("selectedTerm") String selectedTerm, Model model) {
         try {
+            Term term = termService.findByName(selectedTerm);
+            subject.setTerm(term);
             subjectService.create(subject);
             model.addAttribute("message", "Successes");
         } catch (Exception e) {

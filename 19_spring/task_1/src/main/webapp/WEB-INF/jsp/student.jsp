@@ -60,8 +60,8 @@ ${errorSearch}
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="id" value="${current.studentId}" hidden/>
-<input type="text" name="name" value="${current.firstName}" required/>
+<input type="text" name="studentId" value="${current.studentId}" hidden/>
+<input type="text" name="firstName" value="${current.firstName}" required/>
 </td>
 <td>
 <input type="text" name="lastName" value="${current.lastName}" required/>
@@ -70,7 +70,7 @@ ${errorSearch}
 <input type="date" name="date" value="${current.admissionDate}" style="background: #E5E5DB;border: none;font-size: 15;" required/>
 </td>
 <td>
-<select name="group">
+<select name="selectedGroup">
 <c:forEach items="${groups}" var="g">
 <c:choose>
     <c:when test="${g.groupId == current.studentGroup.groupId}">
@@ -84,7 +84,7 @@ ${errorSearch}
 </select>
 </td>
 <td>
-<select name="term">
+<select name="selectedTerm">
 <c:forEach items="${terms}" var="t">
 <c:choose>
     <c:when test="${t.termId == current.term.termId}">
@@ -98,7 +98,7 @@ ${errorSearch}
 </select>
 </td>
 <td>
-<select name="status">
+<select name="selectedStatus">
 <c:forEach items="${statusList}" var="status">
 <c:choose>
     <c:when test="${status.statusId == current.status.statusId}">
@@ -112,8 +112,8 @@ ${errorSearch}
 </select>
 </td>
 <td>
-<input type="submit" name="operation" value="update"/>
-<input type="submit" name="operation" value="delete"/>
+<input type="submit" name="update" value="update"/>
+<input type="submit" name="delete" value="delete"/>
 </td>
 </form:form>
 
@@ -131,7 +131,7 @@ ${errorSearch}
 <tr>
 <td readOnly></td>
 <td>
-<input type="text" name="name" placeholder="enter first name" required/>
+<input type="text" name="firstName" placeholder="enter first name" required/>
 </td>
 <td>
 <input type="text" name="lastName" placeholder="enter last name" required/>
@@ -140,7 +140,7 @@ ${errorSearch}
 <input type="date" name="date" style="background: #E5E5DB;border: none;font-size: 15;" required/>
 </td>
 <td>
-<select name="group" required>
+<select name="selectedGroup" required>
 <option value="" selected disabled></option>
 <c:forEach items="${groups}" var="g">
     <option value="${g.groupName}">${g.groupName}</option>
@@ -148,7 +148,7 @@ ${errorSearch}
 </select>
 </td>
 <td>
-<select name="term" required>
+<select name="selectedTerm" required>
 <option value="" selected disabled></option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>
@@ -156,7 +156,7 @@ ${errorSearch}
 </select>
 </td>
 <td>
-<select name="status" required>
+<select name="selectedStatus" required>
 <option value="" selected disabled></option>
 <c:forEach items="${statusList}" var="status">
     <option value="${status.statusName}">${status.statusName}</option>
@@ -164,7 +164,7 @@ ${errorSearch}
 </select>
 </td>
 <td>
-<input type="submit" name="operation" value="add"/>
+<input type="submit" name="add" value="add"/>
 </td>
 <td readOnly></td>
 </tr>

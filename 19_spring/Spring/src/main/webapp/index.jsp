@@ -18,6 +18,9 @@
                     </tr>
                 </table>
             </form>
-
+            <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
+                ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+            </c:if>
+            <c:out value="${param.msg}"/>
     </body>
 </html>

@@ -6,10 +6,10 @@ package com.nixsolutions;
  *
  * @author Dmitry Zinovyi
  */
-public class FileAlreadyExists extends Exception {
+public class FileAlreadyExists extends RuntimeException {
 
     public FileAlreadyExists() {
-        super("File ready for work");
+        super("File is already exist");
     }
 
     public FileAlreadyExists(String message) {

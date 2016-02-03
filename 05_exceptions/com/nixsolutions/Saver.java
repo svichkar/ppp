@@ -18,28 +18,30 @@ public class Saver implements Save {
      *
      * @param input      saving string
      * @param pathToFile path to the file
-     * @throws java.nio.file.FileAlreadyExistsException
+     * @throws FileAlreadyExists
      */
     @Override
     public void save(String input, String pathToFile) {
         File file = new File(pathToFile);
-
+        FileWriter fw = null;
         if (!file.exists()) {
             try {
                 file.createNewFile();
+                fw = new FileWriter(file);
+                fw.write(input);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            }
-        } else {
-            try {
-                throw new FileAlreadyExists();
-            } catch (FileAlreadyExists fileAlreadyExists) {
-                try (FileWriter fw = new FileWriter(file)) {
-                    fw.write(input);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+            } finally {
+                if (fw != null) {
+                    try {
+                        fw.close();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
+        } else {
+            throw new FileAlreadyExists();
         }
     }
 

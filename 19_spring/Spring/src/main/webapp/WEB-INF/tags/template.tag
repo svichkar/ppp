@@ -31,10 +31,10 @@
                                     <p><a href="addBook">Add book</a></p>
                                     <p><a href="addReader">Add reader</a></p>
                                     <p><a href="loanManagement">Loan book</a></p>
-                                    <%-- <c:if test="${sessionScope.role=='admin'}"> --%>
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                                         <p><a href="userManagement">Add user</a></p>
                                         <p><a href="categoryManagement">Add Category</a></p>
-                                    <%-- </c:if> --%>
+                                    </sec:authorize>
              </aside>
         <div id="message">
             <jsp:invoke fragment="message_area" />

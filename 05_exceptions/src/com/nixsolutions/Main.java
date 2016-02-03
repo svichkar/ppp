@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args)
     {
         SaveFile saveFile = new SaveFile();
-        saveFile.save("test","TestFile.txt");
+        saveFile.save("test","d:\\TestFile.txt");
     }
 }

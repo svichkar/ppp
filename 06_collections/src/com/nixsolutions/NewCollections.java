@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-
 /**
  * Created by sobolenko on 2/1/2016.
  */
@@ -20,8 +19,7 @@ public class NewCollections<E> implements Collection<E> {
     }
 
     /**
-     *
-     * @return
+     * @return size of collection
      */
     public int size() {
         double capasity = 0;
@@ -36,6 +34,11 @@ public class NewCollections<E> implements Collection<E> {
         return (int) capasity;
     }
 
+    /**
+     * Check that collection is empty
+     *
+     * @return true if empty, false if not empty
+     */
     public boolean isEmpty() {
         double capasity = 0;
         if (resultArray.length == 0) {
@@ -44,6 +47,12 @@ public class NewCollections<E> implements Collection<E> {
         return false;
     }
 
+    /**
+     * Returns true if this collection contains the specified element.
+     *
+     * @param o element whose presence in this collection
+     * @return true if this collection contains the element
+     */
     public boolean contains(Object o) {
         for (Object obj : resultArray) {
             if (obj.equals(o)) {
@@ -53,16 +62,32 @@ public class NewCollections<E> implements Collection<E> {
         return false;
     }
 
+    /**
+     * Returns an iterator over the elements in this collection.
+     *
+     * @return
+     */
     public Iterator iterator() {
         return new NewIterator();
     }
 
+    /**
+     * Convert collection to array
+     *
+     * @return array
+     */
     public Object[] toArray() {
         Object[] newArray = new Object[resultArray.length];
         System.arraycopy(resultArray, 0, newArray, 0, resultArray.length);
         return newArray;
     }
 
+    /**
+     * Appends the element to the end of this collection.
+     *
+     * @param o element to be appended
+     * @return true if colletion changed
+     */
     public boolean add(Object o) {
         size();
         for (Object obj : initArray) {
@@ -70,12 +95,22 @@ public class NewCollections<E> implements Collection<E> {
                 return false;
             }
         }
-        resultArray = Arrays.copyOf(resultArray, resultArray.length + 1);
+        try {
+            resultArray = Arrays.copyOf(resultArray, resultArray.length + 1);
+        } catch (OutOfMemoryError error) {
+            throw new OutOfMemoryError();
+        }
         resultArray[size] = o;
         size();
         return true;
     }
 
+    /**
+     * Remove the element to the end of this collection.
+     *
+     * @param o element to be removed
+     * @return true if colletion changed
+     */
     public boolean remove(Object o) {
         size();
         Object[] tempArray = new Object[resultArray.length - 1];
@@ -105,11 +140,21 @@ public class NewCollections<E> implements Collection<E> {
         return result;
     }
 
+    /**
+     * Appends all elements to the end of this collection.
+     *
+     * @param c collection with element to be added
+     * @return true if successful (collection changed)
+     */
     public boolean addAll(Collection c) {
         Object[] newArray = c.toArray();
         int oldHash = Arrays.hashCode(resultArray);
         int oldLength = resultArray.length;
-        resultArray = Arrays.copyOf(resultArray, resultArray.length + newArray.length);
+        try {
+            resultArray = Arrays.copyOf(resultArray, resultArray.length + newArray.length);
+        } catch (OutOfMemoryError error) {
+            throw new OutOfMemoryError();
+        }
         System.arraycopy(newArray, 0, resultArray, oldLength, newArray.length);
         int newHash = Arrays.hashCode(resultArray);
         size();
@@ -119,11 +164,20 @@ public class NewCollections<E> implements Collection<E> {
         return false;
     }
 
+    /**
+     * erase all elements
+     */
     public void clear() {
         resultArray = Arrays.copyOf(resultArray, 0);
         size();
     }
 
+    /**
+     * Save only elements that are contained in the specified collection
+     *
+     * @param c specified collection
+     * @return true if collection changed
+     */
     public boolean retainAll(Collection c) {
         Object[] array = toArray(resultArray);
         int oldHash = Arrays.hashCode(resultArray);
@@ -140,6 +194,12 @@ public class NewCollections<E> implements Collection<E> {
         return false;
     }
 
+    /**
+     * Remove only elements that are contained in the specified collection
+     *
+     * @param c specified collection
+     * @return true if collection changed
+     */
     public boolean removeAll(Collection c) {
         Object[] newArray = c.toArray();
         int oldHash = Arrays.hashCode(resultArray);
@@ -154,6 +214,12 @@ public class NewCollections<E> implements Collection<E> {
         return false;
     }
 
+    /**
+     * Returns true if this collection contains the specified collection.
+     *
+     * @param c specified collection
+     * @return
+     */
     public boolean containsAll(Collection c) {
         Object[] newArray = c.toArray();
         String result = "";
@@ -172,6 +238,13 @@ public class NewCollections<E> implements Collection<E> {
         return true;
     }
 
+    /**
+     * Convert collection to array
+     *
+     * @param a   array
+     * @param <T>
+     * @return specified array
+     */
     public <T> T[] toArray(T[] a) {
         T[] array = (T[]) new Object[resultArray.length];
         for (int i = 0; i < resultArray.length; i++) {
@@ -182,14 +255,21 @@ public class NewCollections<E> implements Collection<E> {
 
     //--------------------------------------------------------------
     public class NewIterator implements Iterator {
-
+        /**
+         * True if next element exist
+         *
+         * @return
+         */
         public boolean hasNext() {
-            if (currentPosition != size-1) {
+            if (currentPosition != size - 1) {
                 return true;
             }
             return false;
         }
 
+        /**
+         * @return next element
+         */
         public Object next() {
             if (currentPosition >= size)
                 throw new NoSuchElementException();
@@ -197,6 +277,9 @@ public class NewCollections<E> implements Collection<E> {
             return resultArray[currentPosition];
         }
 
+        /**
+         * remove current element
+         */
         public void remove() {
             if (currentPosition >= size)
                 throw new NoSuchElementException();

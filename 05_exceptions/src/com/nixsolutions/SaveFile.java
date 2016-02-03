@@ -11,9 +11,9 @@ import java.io.IOException;
  */
 public class SaveFile implements Save {
     @Override
-    public void save(String data, String fileName) {
+    public void save(String data, String fileName){
         String pathName = System.getProperty("user.dir");
-        File outputFile = new File(pathName + "\\Test.txt");
+        File outputFile = new File(fileName);
         boolean reWrite = false;
         FileWriter fwriter = null;
         try {
@@ -21,15 +21,6 @@ public class SaveFile implements Save {
                 fwriter = new FileWriter(outputFile);
                 fwriter.write("");
             } else {
-                JFrame frame = new JFrame();
-                int result = JOptionPane.showConfirmDialog(frame, "File already exists, overwrite it?", "", JOptionPane.OK_CANCEL_OPTION);
-                frame.dispose();
-                if (result == 0) {
-                    outputFile.delete();
-                    fwriter = new FileWriter(outputFile);
-                    fwriter.write(data);
-                    fwriter.close();
-                }
                 throw new CustomExeption("File already exists");
             }
             fwriter.write(data);
@@ -39,3 +30,19 @@ public class SaveFile implements Save {
         }
     }
 }
+
+/*JFrame frame = new JFrame();
+int result = JOptionPane.showConfirmDialog(frame, "File already exists, overwrite it?", "", JOptionPane.OK_CANCEL_OPTION);
+frame.dispose();
+        if (result == 0) {
+        try {
+        outputFile.delete();
+        fwriter = new FileWriter(outputFile);
+        fwriter.write(data);
+        fwriter.close();
+        } catch (IOException e) {
+        e.printStackTrace();
+        }
+        }
+        }
+        }*/

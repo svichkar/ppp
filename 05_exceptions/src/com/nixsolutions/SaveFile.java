@@ -25,6 +25,8 @@ public class SaveFile implements Save {
             if (!fileName.exists()) {
                 if (fileName.createNewFile()) {
                     writeToFile(stringToBeSaved, absolutePath);
+                } else {
+                    throw new Exception("The file with the name " + fileName + " has not been created");
                 }
             } else {
                 throw new IOException("The file with the name " + fileName + " already exists");
@@ -35,6 +37,8 @@ public class SaveFile implements Save {
             } else {
                 System.out.println(e.toString());
             }
+        } catch (Exception e) {
+            save(stringToBeSaved, absolutePath);
         }
     }
 

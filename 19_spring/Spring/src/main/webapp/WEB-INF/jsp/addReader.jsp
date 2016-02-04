@@ -5,7 +5,7 @@
     <jsp:attribute name="content_area">
         <form action="addReader" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>First name</th>

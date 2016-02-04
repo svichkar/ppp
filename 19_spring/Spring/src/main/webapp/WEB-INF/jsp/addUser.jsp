@@ -4,7 +4,7 @@
 <t:template title="Find book">
     <jsp:attribute name="content_area">
         <c:if test="${not empty users}">
-                        <table border="1">
+                        <table border="1" class="table">
                              <thead>
                                  <tr><th>userId</th><th>userName</th><th>userRole</th><th>edit</th><th>delete</th></tr>
                              </thead>

@@ -9,7 +9,7 @@
              <input type="submit" value="Add new category">
         </form>
         <c:if test="${not empty categories}">
-                        <table border="1">
+                        <table border="1" class="table">
                              <thead>
                                  <tr><th>categoryId</th><th>categoryName</th></tr>
                              </thead>

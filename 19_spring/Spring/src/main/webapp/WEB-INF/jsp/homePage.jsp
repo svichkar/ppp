@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <t:template title="Main page">
     <jsp:attribute name="content_area">
-        <table border="1">
+        <table border="1" class="table">
             <thead>
                 <tr><th>ticketId</th><th>clientName</th><th>clientPhone</th><th>clientEmail</th><th>bookName</th><th>expiredDate</th></tr>
             </thead>

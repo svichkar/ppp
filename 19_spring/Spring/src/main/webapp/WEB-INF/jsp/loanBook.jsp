@@ -5,7 +5,7 @@
     <jsp:attribute name="content_area">
         <p><a href="bookManagement">Choose book</a></p>
         <c:if test="${not empty param.bookId}">
-            <table border="1">
+            <table border="1" class="table">
                      <thead>
                          <tr><th>Give to client</th><th>bookId</th><th>bookName</th><th>category</th><th>cell</th><th>author</th></tr>
                      </thead>

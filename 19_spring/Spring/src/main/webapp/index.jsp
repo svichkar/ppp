@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <html>
     <body>
+
         <form action="j_spring_security_check" method="POST">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <table>
                     <tr>
                         <td>Username:</td>
-                        <td><input type="text" name="login" /></td>
+                        <td><input type="text" name="login" title="not empty"/></td>
                     </tr>
                     <tr>
                         <td>Password:</td>
@@ -22,5 +23,6 @@
                 ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
             </c:if>
             <c:out value="${param.msg}"/>
+            <script type="text/javascript" src="script/tooltip.js"></script>
     </body>
 </html>

@@ -20,14 +20,7 @@ ${error}
         <input type="text" name="j_username" placeholder="Login" maxlength="50">
         <input type="password" name="j_password" placeholder="Password" maxlength="20">
         <input type="submit" name="submit" class="login login-submit" value="Login">
-        <!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/-->
 </form:form>
 </div>
-    <sec:authorize access="hasRole('ROLE_admin')">"
-        <c:redirect url="/admin"/>
-    </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_manager')">"
-        <c:redirect url="/home"/>
-    </sec:authorize>
 </body>
 </html>

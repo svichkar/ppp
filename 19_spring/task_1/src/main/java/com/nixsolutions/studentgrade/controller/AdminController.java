@@ -1,9 +1,14 @@
 package com.nixsolutions.studentgrade.controller;
 
+import com.nixsolutions.studentgrade.model.Role;
+import com.nixsolutions.studentgrade.model.User;
 import com.nixsolutions.studentgrade.service.RoleService;
 import com.nixsolutions.studentgrade.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class AdminController {
+
+    private static final Logger LOG = LogManager.getLogger(AdminController.class);
 
     @Autowired
     RoleService roleService;
@@ -24,20 +31,26 @@ public class AdminController {
     public ModelAndView adminPage() {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Admin Page");
-        model.addObject("message", "This page is for ROLE_ADMIN only!");
         model.addObject("users", userService.findAll());
         model.addObject("roles", roleService.findAll());
         model.setViewName("admin");
         return model;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public ModelAndView addUser() {
+    @RequestMapping(value = "/admin", params = "add", method = RequestMethod.POST)
+    public ModelAndView addUser(@ModelAttribute("user") User user,
+                                @ModelAttribute("selectedRole") String selectedRole) {
 
         ModelAndView model = new ModelAndView();
-        model.addObject("title", "Admin Page");
-        model.addObject("message", "This page is for ROLE_ADMIN only!");
+        Role role = roleService.findByName(selectedRole);
+        user.setRole(role);
+        try {
+            userService.create(user);
+            model.addObject("message", "Success");
+        } catch (Exception e) {
+            model.addObject("message", "User can't be added");
+        }
+
         model.addObject("users", userService.findAll());
         model.addObject("roles", roleService.findAll());
         model.setViewName("admin");

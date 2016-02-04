@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:admin_template title="Admin Page">
     <jsp:attribute name="content_area">
@@ -26,7 +27,7 @@ ${message}
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${users}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form action="admin" method="post">
+<form:form action="admin" method="post">
 <tr>
 <td readonly>${count}</td>
 <td>
@@ -64,19 +65,19 @@ ${message}
 <input type="submit" name="operation" value="delete"/>
 </td>
 </tr>
-</form>
+</form:form>
 </c:forEach>
 
 <tr>
-<form action="admin" method="post">
+<form:form  action="admin" method="post">
 <td readonly></td>
-<td><input type="text" name="name" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
+<td><input type="text" name="firstName" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
 <td><input type="text" name="lastName" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
 <td><input type="text" name="email" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td>
 <td><input type="text" name="login" required placeholder="login"></input></td>
-<td><input type="text" name="pass" required placeholder="password"></input></td>
+<td><input type="text" name="userPassword" required placeholder="password"></input></td>
 <td>
-<select name="role" required>
+<select name="selectedRole" required>
 <option value="" selected disabled></option>
 <c:forEach items="${roles}" var="r">
     <option value="${r.roleName}">${r.roleName}</option>
@@ -84,9 +85,9 @@ ${message}
 </select>
 </td>
 <td>
-<input type="submit" name="operation" value="add""/>
+<input type="submit" name="add" value="add""/>
 </td>
-</form>
+</form:form>
 </tr>
 
 </tbody>

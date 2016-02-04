@@ -12,6 +12,7 @@
     <http auto-config="false" use-expressions="true">
         <intercept-url pattern="/**" access="permitAll"/>
         <form-login login-page="/login"
+                    authentication-success-handler-ref="customAuthenticationSuccessHandler"
                     username-parameter="j_username"
                     password-parameter="j_password"
                     login-processing-url="/j_spring_security_check"
@@ -31,5 +32,8 @@
     <beans:bean id="userDetailsService" class="com.nixsolutions.studentgrade.service.impl.UserDetailsServiceImpl">
         <beans:property name="userService" ref="userService"/>
     </beans:bean>
+
+    <beans:bean id="customAuthenticationSuccessHandler"
+                class="com.nixsolutions.studentgrade.controller.handler.CustomAuthenticationSuccessHandler"/>
 
 </beans:beans>

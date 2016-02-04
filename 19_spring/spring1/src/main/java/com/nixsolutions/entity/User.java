@@ -33,14 +33,6 @@ public class User implements Serializable, UserDetails {
 	@Size(min = 3, max = 10)
 	@Column(name = "USER_NAME")
 	private String userName;
-	public String getUserName() {
-		return userName;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
 	@NotNull
 	@Size(min = 1, max = 12)
 	@Column(name = "USER_PASSWORD")
@@ -66,6 +58,14 @@ public class User implements Serializable, UserDetails {
 		this.userId = userId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -143,6 +143,7 @@ public class User implements Serializable, UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
+	
 		Collection<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(this.getRole().getName()));
 		return authorities;

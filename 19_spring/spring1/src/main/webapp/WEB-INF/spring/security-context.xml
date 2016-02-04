@@ -11,29 +11,24 @@
 	
 	<http use-expressions="true"  auto-config="true">
 	<intercept-url pattern="/WEB-INF/jsp/Login.jsp" access="permitAll" />
+	<intercept-url pattern="/manageusers" access="hasRole('ADMIN')" />
+	<intercept-url pattern="/addcategory" access="hasRole('ADMIN')" />
+	<intercept-url pattern="/**" access="isAuthenticated()" />  
 	<form-login   
 	login-page="/login"
 	username-parameter="j_username" 
 	password-parameter="j_password" 
 	login-processing-url="/j_spring_security_check"
 	default-target-url="/homepage" 
-	always-use-default-target="true"/> <!--  -->
-	<intercept-url pattern="/**" access="isAuthenticated()" />
+	always-use-default-target="true"
+	/>
+	<logout logout-success-url="/" logout-url="/j_spring_security_logout" />
 	<csrf disabled="true"/>
 	</http>
 
 	<authentication-manager>
 		<authentication-provider user-service-ref="userService">
-		
-		<!-- <user-service>		
-		<user name="admin" password="admin" authorities='admin'/>
-		<user name="librarian" password="librarian" authorities='librarian'/> 
-		</user-service>-->
 		</authentication-provider>
 	</authentication-manager>
-	
-	<!-- <b:bean class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-	<b:constructor-arg value="/login"/>
-</b:bean> -->
 	
 </beans:beans>

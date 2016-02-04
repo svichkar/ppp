@@ -31,7 +31,7 @@ INSERT INTO client (first_name, last_name, phone) VALUES ('Vitaliy', 'Rybkin', '
 --rent_journal
 INSERT INTO rent_journal (book_id, client_id, rent_date, return_date) VALUES (1, 1, '2015-12-02', NULL), (3, 1, '2015-07-08', NULL), (5, 1, '2015-09-10', NULL), (7, 2, '2015-09-25', '2015-10-25'), (15, 3, '2015-04-05', NULL), (9, 4, '2015-09-13', NULL), (10, 4, '2015-08-13', NULL);
 --role
-INSERT INTO role (role_id, role_name) VALUES (1, 'admin'), (2, 'regular');
+INSERT INTO role (role_id, role_name) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
 --user
 INSERT INTO user (user_id, user_name, user_password, role_id) VALUES (1, 'admin', 'admin', 1), (2, 'librarian', 'librarian', 2), (3, 'jax', 'jax', 1);
 --author_book

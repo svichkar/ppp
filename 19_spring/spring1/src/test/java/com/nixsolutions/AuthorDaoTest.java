@@ -6,11 +6,14 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -24,45 +27,45 @@ import com.nixsolutions.entity.Author;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:persistence-beans-test.xml")
+@WebAppConfiguration
 @Transactional
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DirtiesContextTestExecutionListener.class,
-   // TransactionalTestExecutionListener.class,
-    DbUnitTestExecutionListener.class,
-    TransactionDbUnitTestExecutionListener.class
-    })
-@DatabaseSetup("/book/BookInitialDataSet.xml")
-@DatabaseTearDown("/book/BookInitialDataSet.xml")
+		DirtiesContextTestExecutionListener.class,
+		 //TransactionalTestExecutionListener.class,
+		DbUnitTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class })
+@DatabaseSetup("/author/AuthorInitialDataSet.xml")
+//@DatabaseTearDown("/author/AuthorInitialDataSet.xml")
 public class AuthorDaoTest {
 
-    @Autowired
-    public AuthorDao authorDao;
+	@Autowired
+	public AuthorDao authorDao;
 
-    @Test
-    public void testShouldretrieveAuthorById() throws Exception {
+	@Test
+	public void testShouldretrieveAuthorById() throws Exception {
 		Author auth = authorDao.getAuthorById(1l);
 		Assert.assertEquals(new Long(1), auth.getAuthorId());
 		Assert.assertEquals("Stephen", auth.getFirstName());
 		Assert.assertEquals("King", auth.getSecondName());
 	}
-    
-  //  @Test  
-    @ExpectedDatabase("/book/BookInitialDataSet.xml")
+
+	@Test
 	public void testShouldRetrieveAllUthors() throws Exception {
 		List<Author> authors = authorDao.getAllAuthors();
+		Assert.assertEquals(authors.size(), 3);
 	}
-    
- //   @Test
-    @ExpectedDatabase("/author/AuthorDelete.xml")
-    @Transactional
-    public void testShouldDeleteAuthor() throws Exception {
+
+	@Test
+	@DatabaseSetup("/author/AuthorInitialDataSet.xml")
+	@ExpectedDatabase("/author/AuthorDelete.xml")
+	//@Transactional
+	public void testShouldDeleteAuthor() throws Exception {
 		Author author = authorDao.getAuthorById(1l);
 		authorDao.deleteAuthor(author);
 	}
 
-  //  @Test
-    @ExpectedDatabase("/author/AuthorCreate.xml")
-   @Transactional
+	@Test
+	@ExpectedDatabase("/author/AuthorCreate.xml")
+	//@Transactional
 	public void testShouldCreateAuthor() throws Exception {
 		Author authMiha = new Author();
 		authMiha.setFirstName("Michail");
@@ -70,9 +73,9 @@ public class AuthorDaoTest {
 		authorDao.createAuthor(authMiha);
 	}
 
-  //  @Test
-    @ExpectedDatabase("/author/AuthorUpdate.xml")
-   // @Transactional
+	@Test
+	@ExpectedDatabase("/author/AuthorUpdate.xml")
+	//@Transactional
 	public void testShouldUpdateAuthor() throws Exception {
 		Author updAuth = authorDao.getAuthorById(3l);
 		updAuth.setFirstName("Michail");

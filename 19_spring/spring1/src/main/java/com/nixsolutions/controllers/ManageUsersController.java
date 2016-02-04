@@ -69,6 +69,6 @@ public class ManageUsersController {
 			userService.createUser(createUser);
 		}		
 
-		return "ManageUsers";
+		return "redirect:/manageusers";
 	}
 }

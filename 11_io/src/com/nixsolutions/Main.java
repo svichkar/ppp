@@ -10,7 +10,7 @@ public class Main {
         FileCopy fileCopy = new FileCopy();
         try {
             //fileCopy.makeCopyWithJavaIo("D:\\s", "D:\\fz");
-            fileCopy.makeCopyWithJavaNio("D:\\s", "D:\\fz");
+            fileCopy.makeCopyWithJavaNio("C:\\s", "C:\\fz");
         } catch (IOException e) {
             e.printStackTrace();
         }

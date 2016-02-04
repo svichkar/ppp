@@ -1,7 +1,6 @@
 package com.nixsolutions;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -32,13 +31,20 @@ public class FileCopy {
 
         Files.walkFileTree(folder, new FileVisitor<Path>() {
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-
+                Path newd = destDir.resolve(folder.relativize(dir));
+                if (!Files.exists(newd.getParent())) {
+                    Files.createDirectory(newd.getParent());
+                }
                 return FileVisitResult.CONTINUE;
             }
+
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 System.out.println("visit file: " + file);
                 Path newd = destDir.resolve(folder.relativize(file));
-                Files.copy(file,newd,StandardCopyOption.REPLACE_EXISTING);
+                if (!Files.exists(newd.getParent())) {
+                    Files.createDirectory(newd.getParent());
+                }
+                Files.copy(file, newd, StandardCopyOption.REPLACE_EXISTING);
                 return FileVisitResult.CONTINUE;
             }
 
@@ -86,7 +92,7 @@ public class FileCopy {
         File srcFile = new File(srcFolder);
         Path sourceFolder = Paths.get(srcFolder);
         Path destDir = Paths.get(destFolder);
-        getAllFilesFromDirectoryNIO(sourceFolder,destDir);
+        getAllFilesFromDirectoryNIO(sourceFolder, destDir);
         //FileOutputStream fos = new FileOutputStream();
         //Files.copy(sourceFolder, destPath, StandardCopyOption.REPLACE_EXISTING);
     }

@@ -122,3 +122,5 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+# JAR files
+.jar

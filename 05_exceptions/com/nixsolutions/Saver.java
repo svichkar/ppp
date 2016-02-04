@@ -29,6 +29,7 @@ public class Saver implements Save {
                 file.createNewFile();
                 fw = new FileWriter(file);
                 fw.write(input);
+                fw.flush();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {

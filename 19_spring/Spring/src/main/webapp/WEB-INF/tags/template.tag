@@ -20,6 +20,7 @@
         <form action="<c:url value="/logout"></c:url>" method="get"/>
                 <input type="submit" value="Logout">
         </form>
+        <script type="text/javascript" src="script/clickTable.js"></script>
     <div id="site_content">
         <article id="content">
             <jsp:invoke fragment="content_area" />

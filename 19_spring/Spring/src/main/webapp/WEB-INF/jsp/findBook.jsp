@@ -4,6 +4,7 @@
 <t:template title="Find book">
     <jsp:attribute name="content_area">
         <form action="bookManagement" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              <p><input type="radio" checked name="searchCriteria" value="all">Find all<p>
              <p><input type="radio" name="searchCriteria" value="name">By name<p>
              <p><input type="radio" name="searchCriteria" value="author">By author<p>
@@ -11,8 +12,9 @@
              <p><input type="text" name="searchWord"></p>
              <p><input type="submit" value="Search"></p>
         </form>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <c:if test="${not empty books}">
-                <table border="1">
+                <table border="1" class="table">
                      <thead>
                          <tr><th></th><th>bookId</th><th>bookName</th><th>category</th><th>cell</th><th>author</th><th>ticket id if book in rent</th></tr>
                      </thead>

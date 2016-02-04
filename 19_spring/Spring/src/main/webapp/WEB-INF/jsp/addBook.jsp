@@ -4,6 +4,7 @@
 <t:template title="Find book">
     <jsp:attribute name="content_area">
         <form action="addBook" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <table>
                 <thead>
                     <tr>

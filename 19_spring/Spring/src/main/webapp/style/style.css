@@ -24,3 +24,5 @@ width: 100%;}
 #footer {
     clear:both;
 }
+.table {background: white; color: black}
+.table tr.act {background: silver; color: black}

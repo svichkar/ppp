@@ -12,6 +12,7 @@
                                     <c:forEach var="user" items="${users}">
                                        <tr>
                                             <form action="userManagement" name="editDelete" method="post">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                 <td><input type="text" name="userId" value ="<c:out value="${user.userId}"/>" readonly></td>
                                                 <td>
                                                     <input type="text" name="userLogin" value ="<c:out value="${user.login}"/>" required>
@@ -38,6 +39,7 @@
                         </table>
                     </c:if>
                     <form action="userManagement" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                  User login : <input type="text" name="userLogin">
                                  User password : <input type="text" name="userPassword">
                                  User role:  <select name="userRole" size="1" required>

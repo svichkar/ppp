@@ -11,6 +11,7 @@
                      </thead>
                      <tbody>
                             <form action="loanManagement" method="post" name="createTicket">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input type="hidden" name="giveBook" value="true">
                             <c:forEach var="book" items="${books}">
                                <tr>

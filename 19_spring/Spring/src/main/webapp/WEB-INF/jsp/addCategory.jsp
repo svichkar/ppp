@@ -4,6 +4,7 @@
 <t:template title="Find book">
     <jsp:attribute name="content_area">
         <form action="categoryManagement" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              Category name : <input type="text" name="categoryName" required>
              <input type="submit" value="Add new category">
         </form>

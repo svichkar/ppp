@@ -67,11 +67,11 @@ public class JournalDaoImpl implements JournalDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Journal.class);
-        criteria.createAlias("term", "term");
         criteria.createAlias("student", "student");
+        criteria.createAlias("subject.term", "subject_term");
         criteria.add(Restrictions.and(Restrictions.eq("student.studentId", studentId),
-                Restrictions.eq("term.termId", termId)));
+                Restrictions.eq("subject_term.termId", termId)));
         List<Journal> journals = criteria.list();
-        return journals.isEmpty() ? null : journals;
+        return journals;
     }
 }

@@ -30,4 +30,6 @@ public interface StudentDao {
     public List<Student> findByLastNameAndGroup(String lastName, String groupName);
 
     public List<Student> findByGroup(String groupName);
+
+    public boolean isExist(String firstName, String lastName);
 }

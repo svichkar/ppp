@@ -1,11 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<c:url value="/student/journal" var="linkDetails"/>
 <t:general_template title="Student Grade Details">
 <jsp:attribute name="content_area">
 
-${pageTitle}
+<p>
+<h3>Detailed grade statistic for <b>${student.firstName} ${student.lastName}</b>. <a href="/student-grades/student">Back to Students List</a></h3>
+</p>
 ${message}
 
  <div>
@@ -20,8 +24,8 @@ ${message}
  <tbody>
  <tr>
  <td colspan="3">
- <form method="get" action="<c:url value="/journal/student"/>">
- <input type="text" name="id" value="${id}" hidden/>
+<form:form method="get" action="${linkDetails}">
+ <input type="text" name="studentId" value="${student.studentId}" hidden/>
  <select name="term" style="font-style: italic;">
  <option value="" disabled style="font-style: italic;font-size: 12;">select term for details</option>
  <c:forEach items="${terms}" var="t">
@@ -37,7 +41,7 @@ ${message}
  </c:forEach>
  </select>
  <input type="submit" name="operation" value="show"/>
- </form>
+</form:form>
 </td>
 </tr>
 <c:set var="count" value="0" scope="page" />
@@ -45,8 +49,8 @@ ${message}
 <c:set var="count" value="${count + 1}" scope="page"/>
 <tr>
 <td>${count}</td>
-<td>${current.subject}</td>
-<td>${current.grade}</td>
+<td>${current.subject.subjectName}</td>
+<td>${current.grade.gradeName}</td>
 </c:forEach>
 </tr>
 

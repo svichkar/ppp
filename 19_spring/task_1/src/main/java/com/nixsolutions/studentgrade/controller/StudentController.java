@@ -4,10 +4,7 @@ import com.nixsolutions.studentgrade.model.Status;
 import com.nixsolutions.studentgrade.model.Student;
 import com.nixsolutions.studentgrade.model.StudentGroup;
 import com.nixsolutions.studentgrade.model.Term;
-import com.nixsolutions.studentgrade.service.StatusService;
-import com.nixsolutions.studentgrade.service.StudentGroupService;
-import com.nixsolutions.studentgrade.service.StudentService;
-import com.nixsolutions.studentgrade.service.TermService;
+import com.nixsolutions.studentgrade.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +36,9 @@ public class StudentController {
     @Autowired
     StatusService statusService;
 
+    @Autowired
+    JournalService journalService;
+
     @RequestMapping(value = "/student", method = RequestMethod.GET)
     public ModelAndView studentPage() {
 
@@ -54,7 +54,7 @@ public class StudentController {
 
 
     @RequestMapping(value = "/student", params = "operation", method = RequestMethod.GET)
-    public String searchSubject(@ModelAttribute("lastName") String lastName,
+    public String searchStudent(@ModelAttribute("lastName") String lastName,
                                 @ModelAttribute("group") String group) {
 
         ModelAndView model = new ModelAndView();
@@ -115,12 +115,12 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/student", params = "update", method = RequestMethod.POST)
-    public String updateTerm(@ModelAttribute("student") Student student,
-                             @ModelAttribute("date") String date,
-                             @ModelAttribute("selectedGroup") String selectedGroup,
-                             @ModelAttribute("selectedTerm") String selectedTerm,
-                             @ModelAttribute("selectedStatus") String selectedStatus,
-                             Model model) {
+    public String updateStudent(@ModelAttribute("student") Student student,
+                                @ModelAttribute("date") String date,
+                                @ModelAttribute("selectedGroup") String selectedGroup,
+                                @ModelAttribute("selectedTerm") String selectedTerm,
+                                @ModelAttribute("selectedStatus") String selectedStatus,
+                                Model model) {
 
         try {
             StudentGroup group = groupService.findByName(selectedGroup);
@@ -144,8 +144,8 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/student", params = "delete", method = RequestMethod.POST)
-    public String deleteTerm(@ModelAttribute("studentId") String studentId,
-                             Model model) {
+    public String deleteStudent(@ModelAttribute("studentId") String studentId,
+                                Model model) {
 
         try {
             Student st = studentService.findById(Long.valueOf(studentId));
@@ -164,5 +164,42 @@ public class StudentController {
         model.addAttribute("terms", termService.findAll());
         model.addAttribute("statusList", statusService.findAll());
         return "student";
+    }
+
+    @RequestMapping(value = "/student", params = "show", method = RequestMethod.GET)
+    public ModelAndView studentDetails(@ModelAttribute("studentId") String studentId,
+                                       @ModelAttribute("student") Student student) {
+
+        ModelAndView model = new ModelAndView();
+        student = studentService.findById(Long.valueOf(studentId));
+        model.addObject("student", student);
+        model.setViewName("redirect:student/journal");
+        return model;
+    }
+
+    @RequestMapping(value = "/student/journal", method = RequestMethod.GET)
+    public ModelAndView journalDetails(@ModelAttribute("studentId") String studentId) {
+
+        ModelAndView model = new ModelAndView();
+        Student student = studentService.findById(Long.valueOf(studentId));
+        model.addObject("student", student);
+        model.addObject("terms", termService.findAll());
+        model.setViewName("studentJournal");
+        return model;
+    }
+
+    @RequestMapping(value = "/student/journal", params = "operation", method = RequestMethod.GET)
+    public ModelAndView showDetails(@ModelAttribute("studentId") String studentId,
+                                    @ModelAttribute("term") String term) {
+
+        ModelAndView model = new ModelAndView();
+        Term t = termService.findByName(term);
+        model.addObject("selectedTerm", t);
+        model.addObject("student", studentService.findById(Long.valueOf(studentId)));
+        model.addObject("journals", journalService.findByStudentAndTerm(Long.valueOf(studentId), t.getTermId()));
+        model.addObject("terms", termService.findAll());
+        model.addObject("score", journalService.getAverageScore(Long.valueOf(studentId), t.getTermId()));
+        model.setViewName("studentJournal");
+        return model;
     }
 }

@@ -67,9 +67,9 @@ public class StudentDaoImpl implements StudentDao {
 
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Student.class);
-        criteria.add(Restrictions.and(Restrictions.eq("firstName", name), Restrictions.eq("lastName", lastName)));
-        Student student = (Student) criteria.uniqueResult();
-        return student;
+        criteria.add(Restrictions.and(Restrictions.eq("firstName", name).ignoreCase(),
+                Restrictions.eq("lastName", lastName).ignoreCase()));
+        return (Student) criteria.uniqueResult();
     }
 
     @Override
@@ -128,5 +128,10 @@ public class StudentDaoImpl implements StudentDao {
         criteria.add(Restrictions.eq("studentGroup.groupName", groupName));
         List<Student> students = criteria.list();
         return students.isEmpty() ? null : students;
+    }
+
+    @Override
+    public boolean isExist(String firstName, String lastName) {
+        return findByNameAndLastName(firstName, lastName) != null;
     }
 }

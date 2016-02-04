@@ -47,7 +47,7 @@ ${errorSearch}
 <td readOnly></td>
 <td readOnly></td>
 <td>
-<input type="submit" value="Search">
+<input type="submit" value="search">
 </td>
 <td readOnly></td>
 </form:form>
@@ -117,10 +117,10 @@ ${errorSearch}
 </td>
 </form:form>
 
-<form:form method="get" action="journal/student">
+<form:form method="get" action="student">
 <td>
-<input type="text" name="id" value="${current.studentId}" hidden/>
-<input type="submit" name="operation" value="details"/>
+<input type="text" name="studentId" value="${current.studentId}" hidden/>
+<input type="submit" name="show" value="details"/>
 </td>
 </form:form>
 

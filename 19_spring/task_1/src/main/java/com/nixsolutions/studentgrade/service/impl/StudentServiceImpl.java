@@ -24,10 +24,10 @@ public class StudentServiceImpl implements StudentService {
     public void setStudentDao(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
-    
+
     @Override
     public void create(Student student) {
-        
+
         studentDao.create(student);
     }
 
@@ -45,19 +45,19 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findAll() {
-        
+
         return studentDao.findAll();
     }
 
     @Override
     public Student findById(Long id) {
-        
+
         return studentDao.findById(id);
     }
 
     @Override
     public Student findByNameAndLastName(String name, String lastName) {
-        
+
         return studentDao.findByNameAndLastName(name, lastName);
     }
 
@@ -87,5 +87,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findByGroup(String groupName) {
         return studentDao.findByGroup(groupName);
+    }
+
+    @Override
+    public boolean isExist(String firstName, String lastName) {
+        return studentDao.isExist(firstName, lastName);
     }
 }

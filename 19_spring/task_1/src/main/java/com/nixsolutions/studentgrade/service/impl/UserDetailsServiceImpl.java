@@ -24,13 +24,13 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 
+    @Autowired
     private UserService userService;
 
     public UserService getUserService() {
         return userService;
     }
 
-    @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

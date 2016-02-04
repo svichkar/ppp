@@ -20,4 +20,6 @@ public interface JournalService {
     public Journal findById(Long id);
 
     public List<Journal> findByStudentAndTerm(Long studentId, Long termId);
+
+    public String getAverageScore(Long studentId, Long termId);
 }

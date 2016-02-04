@@ -24,20 +24,12 @@
     <beans:import resource="classpath:/root-context.xml"/>
 
     <authentication-manager>
-    <authentication-provider>
-        <user-service>
-            <user name="admin" authorities="ROLE_ADMIN" password="admin"/>
-            <user name="user" authorities="ROLE_USER" password="user"/>
-        </user-service>
-    </authentication-provider>
-  </authentication-manager>
-
-    <!--   <authentication-provider user-service-ref="userDetailsService">
-            <password-encoder hash="bcrypt"/>
+        <authentication-provider user-service-ref="userDetailsService">
         </authentication-provider>
+    </authentication-manager>
+
     <beans:bean id="userDetailsService" class="com.nixsolutions.studentgrade.service.impl.UserDetailsServiceImpl">
         <beans:property name="userService" ref="userService"/>
     </beans:bean>
-    -->
 
 </beans:beans>

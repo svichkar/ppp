@@ -44,7 +44,8 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "operation", method = RequestMethod.GET)
-    public String searchSubject(@ModelAttribute("subjectName") String subject, @ModelAttribute("selectedTerm") String term) {
+    public String searchSubject(@ModelAttribute("subjectName") String subject,
+                                @ModelAttribute("selectedTerm") String term) {
 
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Subject Page");
@@ -53,7 +54,8 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subjectResult", method = RequestMethod.GET)
-    public ModelAndView showResults(@ModelAttribute("subjectName") String subject, @ModelAttribute("selectedTerm") String term) {
+    public ModelAndView showResults(@ModelAttribute("subjectName") String subject,
+                                    @ModelAttribute("selectedTerm") String term) {
         ModelAndView model = new ModelAndView();
         List<Subject> subjectList = new ArrayList<>();
         Subject sub;
@@ -76,7 +78,8 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "add", method = RequestMethod.POST)
-    public String addTerm(@ModelAttribute("subject") Subject subject, @ModelAttribute("selectedTerm") String selectedTerm, Model model) {
+    public String addTerm(@ModelAttribute("subject") Subject subject,
+                          @ModelAttribute("selectedTerm") String selectedTerm, Model model) {
         try {
             Term term = termService.findByName(selectedTerm);
             subject.setTerm(term);
@@ -92,7 +95,8 @@ public class SubjectController {
     }
 
     @RequestMapping(value = "/subject", params = "update", method = RequestMethod.POST)
-    public String updateTerm(@ModelAttribute("subject") Subject subject, @ModelAttribute("selectedTerm") String selectedTerm, Model model) {
+    public String updateTerm(@ModelAttribute("subject") Subject subject,
+                             @ModelAttribute("selectedTerm") String selectedTerm, Model model) {
         try {
             Term term = termService.findByName(selectedTerm);
             subject.setTerm(term);

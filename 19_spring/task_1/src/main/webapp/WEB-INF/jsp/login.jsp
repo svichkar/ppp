@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:url value="/j_spring_security_check" var="loginUrl" />
 <html>
@@ -14,17 +16,17 @@
 ${error}
 <div class="login-card">
     <h1>Student Grade Management</h1><br>
-    <form action="${loginUrl}" method="POST">
+<form:form action="${loginUrl}" method="POST">
         <input type="text" name="j_username" placeholder="Login" maxlength="50">
         <input type="password" name="j_password" placeholder="Password" maxlength="20">
         <input type="submit" name="submit" class="login login-submit" value="Login">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    </form>
+        <!--input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/-->
+</form:form>
 </div>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">"
+    <sec:authorize access="hasRole('ROLE_admin')">"
         <c:redirect url="/admin"/>
     </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_USER')">"
+    <sec:authorize access="hasRole('ROLE_manager')">"
         <c:redirect url="/home"/>
     </sec:authorize>
 </body>

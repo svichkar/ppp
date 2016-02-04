@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -59,5 +60,28 @@ public class JournalServiceImpl implements JournalService {
     public List<Journal> findByStudentAndTerm(Long studentId, Long termId) {
 
         return journalDao.findByStudentAndTerm(studentId, termId);
+    }
+
+    @Override
+    public String getAverageScore(Long studentId, Long termId) {
+
+        Long sum = 0L;
+        List<Journal> list = findByStudentAndTerm(studentId, termId);
+
+        if (!list.isEmpty()) {
+            for (Journal j : list) {
+                sum += j.getGrade().getGradeId();
+            }
+
+            Float score = 0f;
+            if (list.size() != 0) {
+                score = Float.valueOf(sum) / list.size();
+            }
+            DecimalFormat df = new DecimalFormat();
+            df.setMaximumFractionDigits(2);
+            return df.format(score);
+        } else {
+            return null;
+        }
     }
 }

@@ -18,7 +18,6 @@
 <meta http-equiv="content-type"
 	content="text/html; charset=windows-1252" />
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -26,22 +25,20 @@
 <jsp:invoke fragment="head_area" />
 </div>
 
-	
-		<a href="logout"><spring:message/></a>
 <div id="nav">
 
 	<ul>
-		<li><a class="active">Hi, <spring:message /><sec:authentication property="name"/> <sec:authentication property="authorities"/>!</a></li>
+		<li><a class="active">Hi, <sec:authentication property="name"/> <sec:authentication property="authorities"/>!</a></li>
 	 
 		<li><a href="homepage">Home</a></li>
 		<li><a href="findbook">Find book</a></li>
 		<li><a href="addbook">Add book</a></li>
 		<li><a href="addreader">Add reader</a></li>
 		<li><a href="findreader">Loan book</a></li>
-		<c:if test="${usrRole == 'admin'}">
+		 <sec:authorize access="!isAuthenticated()">
 			<li><a href="manageusers">Add user</a></li>
 			<li><a href="addcategory">Add category</a></li>
-		</c:if>
+		</sec:authorize>
 	</ul>
 
 </div>

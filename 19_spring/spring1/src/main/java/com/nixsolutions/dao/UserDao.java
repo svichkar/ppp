@@ -11,4 +11,5 @@ public interface UserDao {
 	public void updateUser(User user);
 	public void deleteUser(User user);
 	public User getUserByNameAndPswd(String name, String pswd);
+	public User getUserByName(String name);
 }

@@ -1,6 +1,7 @@
 package com.nixsolutions.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
@@ -31,6 +33,14 @@ public class User implements Serializable, UserDetails {
 	@Size(min = 3, max = 10)
 	@Column(name = "USER_NAME")
 	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
 	@NotNull
 	@Size(min = 1, max = 12)
 	@Column(name = "USER_PASSWORD")
@@ -64,17 +74,11 @@ public class User implements Serializable, UserDetails {
 		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
-	}
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
@@ -139,43 +143,38 @@ public class User implements Serializable, UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(this.getRole().getName()));
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.userPassword;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.userName;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

@@ -7,34 +7,33 @@
                     http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
 	<http pattern="/css/**" security="none" />
-
-	<!-- <http auto-config="true">
-		<intercept-url pattern="/secure/**" access="ROLE_USER" />
-		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<form-login login-page="/signin"
-			authentication-failure-url="/signin-failure" default-target-url="/" />
-	</http> 
+	<http pattern="/login" security="none"/>
 	
-	<authentication-manager>
-		<authentication-provider user-service-ref="userDetailsService">
-		</authentication-provider>
-	</authentication-manager>
-	-->
-	
-	<http use-expressions="true">
+	<http use-expressions="true"  auto-config="true">
+	<intercept-url pattern="/WEB-INF/jsp/Login.jsp" access="permitAll" />
+	<form-login   
+	login-page="/login"
+	username-parameter="j_username" 
+	password-parameter="j_password" 
+	login-processing-url="/j_spring_security_check"
+	default-target-url="/homepage" 
+	always-use-default-target="true"/> <!--  -->
 	<intercept-url pattern="/**" access="isAuthenticated()" />
-	<form-login/>
-	<logout logout-url="/logout" logout-success-url="/index"/>
+	<csrf disabled="true"/>
 	</http>
 
 	<authentication-manager>
-		<authentication-provider>
-		<user-service>
-		<user name="admin" password="admin" authorities="Admin"/>
-		<user name="librarian" password="librarian" authorities="Librarian"/>
-		</user-service>
+		<authentication-provider user-service-ref="userService">
+		
+		<!-- <user-service>		
+		<user name="admin" password="admin" authorities='admin'/>
+		<user name="librarian" password="librarian" authorities='librarian'/> 
+		</user-service>-->
 		</authentication-provider>
 	</authentication-manager>
+	
+	<!-- <b:bean class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+	<b:constructor-arg value="/login"/>
+</b:bean> -->
 	
 </beans:beans>

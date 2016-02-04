@@ -79,4 +79,16 @@ public class UserDaoImpl implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 			session.delete(user);
 	}
+
+	@Override
+	public User getUserByName(String name) {
+		LOG.entry(name);
+		User user = null;
+		Session session = sessionFactory.getCurrentSession();
+			Criteria criteria = session.createCriteria(User.class)
+					.add(Restrictions.eq("userName", name))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			user = (User) criteria.uniqueResult();
+		return LOG.exit(user);
+	}
 }

@@ -18,10 +18,10 @@ public class SaveFile implements Save {
      * @param outputFile file name
      */
     public static void reWrite(String data, File outputFile) {
-        try {
+        try (FileWriter fwriter = new FileWriter(outputFile)) {
             outputFile.delete();
-            FileWriter fwriter = new FileWriter(outputFile);
             fwriter.write(data);
+            fwriter.flush();
             fwriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,14 +35,13 @@ public class SaveFile implements Save {
         outputFile.getParentFile().mkdirs();
         FileWriter fwriter = null;
         try {
-
             if (!outputFile.exists()) {
                 fwriter = new FileWriter(outputFile);
                 fwriter.write(data);
             } else {
                 throw new CustomException("File already exists");
             }
-            fwriter.write(data);
+            fwriter.flush();
             fwriter.close();
         } catch (IOException io) {
             throw new CustomException(io);

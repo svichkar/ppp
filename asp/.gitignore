@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.settings/
+/.idea/
+/target/
+/asp.iml
+/.classpath
+/.project
+/.springBeans
+/log.log
+/bin/

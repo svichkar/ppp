@@ -221,21 +221,16 @@ public class NewCollections<E> implements Collection<E> {
      * @return
      */
     public boolean containsAll(Collection c) {
-        Object[] newArray = c.toArray();
-        String result = "";
-        for (Object obj : newArray) {
-            for (Object ra : resultArray) {
-                if (obj.equals(ra)) {
-                    result += true + ",";
-                    break;
-                }
+
+        boolean result = false;
+        for (Object x : c) {
+            if (contains(x)) {
+                result = true;
+            } else {
+                return false;
             }
         }
-        String[] tempResult = result.split(",");
-        if (tempResult.length < 3) {
-            return false;
-        }
-        return true;
+        return result;
     }
 
     /**

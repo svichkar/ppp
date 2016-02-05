@@ -45,15 +45,6 @@ public class SaveFile implements Save {
             fwriter.close();
         } catch (IOException io) {
             throw new CustomException(io);
-        } catch (CustomException ex) {
-            JFrame frame = new JFrame();
-            int result = JOptionPane.showConfirmDialog(frame, "File already exists, overwrite it?", "", JOptionPane.OK_CANCEL_OPTION);
-            frame.dispose();
-            if (result == 0) {
-                reWrite(data, outputFile);
-            } else {
-                ex.printStackTrace();
-            }
         }
     }
 }

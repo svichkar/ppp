@@ -6,7 +6,7 @@ package com.nixsolutions;
 public class CollectionTest {
     public static void main(String args[]) {
         NewCollections<String> containsAllTest = new NewCollections<String>();
-        containsAllTest.add(9);
+        containsAllTest.add("9");
         containsAllTest.add("rt");
         containsAllTest.add("l");
         NewCollections<String> retainTest = new NewCollections<String>();

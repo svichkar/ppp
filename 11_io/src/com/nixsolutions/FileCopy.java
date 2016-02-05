@@ -1,5 +1,7 @@
 package com.nixsolutions;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -89,12 +91,16 @@ public class FileCopy {
     }
 
     public void makeCopyWithJavaNio(String srcFolder, String destFolder) throws IOException {
-        File srcFile = new File(srcFolder);
         Path sourceFolder = Paths.get(srcFolder);
         Path destDir = Paths.get(destFolder);
         getAllFilesFromDirectoryNIO(sourceFolder, destDir);
-        //FileOutputStream fos = new FileOutputStream();
-        //Files.copy(sourceFolder, destPath, StandardCopyOption.REPLACE_EXISTING);
     }
+
+    public void makeCopyWithApacheCommonsIo(String srcFolder, String destFolder) throws IOException {
+        File destDir = new File(destFolder);
+        File srcDir = new File(srcFolder);
+        FileUtils.copyDirectory(srcDir, destDir);
+    }
+
 }
 

@@ -57,34 +57,4 @@ public class FindReaderController {
 		}	
 		return "FindReader";
 	}
-	
-	/*
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-
-		processFindReaders(request, response);
-
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindReader.jsp");
-		rd.forward(request, response);
-	}
-
-	private void processFindReaders(HttpServletRequest request, HttpServletResponse response) {
-		LOG.debug("entered the method");
-		String[] booksIds = request.getParameterValues("loaned");
-		List<Client> readers = new ArrayList<>();
-
-		// loaned book list section
-		List<Book> toBeloaned = new ArrayList<>();
-		if (booksIds != null) {
-			for (String bookId : booksIds) {
-				toBeloaned.add(factory.getBookDao().getBookById(Long.valueOf(bookId)));
-			}
-			request.setAttribute("toBeloaned", toBeloaned);
-		}
-
-		if ("search".equals(request.getParameter("button"))) {
-			readers = factory.getClientDao().getClientsByName(request.getParameter("search input"));
-			request.setAttribute("readers", readers);
-		}
-	}*/
 }

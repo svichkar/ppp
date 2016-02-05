@@ -3,4 +3,14 @@
 	<cell cell_id="2" name="cell B" />
 	<cell cell_id="3" name="cell C" />
 
+
+
+<category />
+	<author />
+	<book />
+	<author_book />
+	<client />
+	<rent_journal />
+	<user />
+	<role />
 </dataset>

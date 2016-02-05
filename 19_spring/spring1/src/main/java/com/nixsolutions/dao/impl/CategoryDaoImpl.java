@@ -10,10 +10,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.nixsolutions.dao.CategoryDao;
 import com.nixsolutions.entity.Category;
 
 @Repository("categoryDao")
+@Transactional
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
@@ -38,6 +41,7 @@ public class CategoryDaoImpl implements CategoryDao {
 		Criteria criteria = session.createCriteria(Category.class, "category")
 				.add(Restrictions.eq("category.categoryId", categoryId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		category = (Category) criteria.uniqueResult();
 		return LOG.exit(category);
 	}
 

@@ -32,12 +32,7 @@ public class AddReaderController {
 			@RequestParam("email")String email,
 			Model model){
 	LOG.entry(firstName, lastName, email);
-	
-	Client client = new Client();
-	client.setFirstName(firstName);
-	client.setSecondName(lastName);
-	client.setEmail(email);
-	clientService.createClient(client);	
+	clientService.createClient(firstName, lastName, email);	
 		return "AddReader";
 	}
 }

@@ -18,6 +18,7 @@ import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Cell;
 
 @Repository("cellDao")
+@Transactional
 public class CellDaoImpl implements CellDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
@@ -73,35 +74,26 @@ public class CellDaoImpl implements CellDao {
 	}
 
 	@Override
+	@Transactional
 	public void createCell(Cell cell) {
 		LOG.entry(cell);
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			session.save(cell);
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
+	@Transactional
 	public void updateCell(Cell cell) {
 		LOG.entry(cell);
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			session.saveOrUpdate(cell);
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 
 	@Override
+	@Transactional
 	public void deleteCell(Cell cell) {
 		LOG.entry(cell);
 		Session session = sessionFactory.getCurrentSession();
-		try {
 			session.delete(cell);
-		} catch (Exception e) {
-			LOG.throwing(new DaoException("not able to finish transaction", e));
-		}
 	}
 }

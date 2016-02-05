@@ -2,6 +2,8 @@ package com.nixsolutions.service;
 
 import java.util.List;
 
+import com.nixsolutions.entity.Book;
+import com.nixsolutions.entity.Client;
 import com.nixsolutions.entity.RentJournal;
 
 public interface RentJournalService {
@@ -11,4 +13,7 @@ public interface RentJournalService {
 	public void createRent(RentJournal rent);
 	public void updateRent(RentJournal rent);
 	public void deleteRent(RentJournal rent);
+	public void returnedBooks(String[] returnedBooks);
+	public void submitBooks(String[] selectedBooks, Client reader);
+	public List<Book> checkBooksInList(String[] booksIds);
 }

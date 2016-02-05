@@ -1,20 +1,16 @@
 package com.nixsolutions;
 
-import java.io.File;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.dbunit.Assertion;
 import org.dbunit.DBTestCase;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseDataSourceConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.DefaultColumnFilter;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.FlatXmlDataFileLoader;
 import org.junit.After;
@@ -30,19 +26,11 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
-import com.nixsolutions.dao.AuthorDao;
-import com.nixsolutions.dao.CellDao;
-import com.nixsolutions.entity.Author;
-import com.nixsolutions.entity.Cell;
+import com.nixsolutions.dao.CategoryDao;
+import com.nixsolutions.entity.Category;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:persistence-beans-test.xml")
@@ -52,7 +40,7 @@ import com.nixsolutions.entity.Cell;
    //TransactionalTestExecutionListener.class
     })
 @Transactional
-public class CellDaoTest extends DBTestCase {
+public class CategoryDaoTest extends DBTestCase {
 	 protected IDatabaseTester tester;
 	 protected IDataSet dataSet;
 	 protected IDatabaseConnection dbConn;
@@ -61,10 +49,10 @@ public class CellDaoTest extends DBTestCase {
 	org.springframework.jdbc.datasource.DriverManagerDataSource dataSource;
 	
 	@Autowired
-	CellDao cellDao;
+	CategoryDao categoryDao;
 	
 	@Before public void setUp() throws Exception {
-	dataSet = new FlatXmlDataFileLoader().load("/cell/CellInitialDataSet.xml");
+	dataSet = new FlatXmlDataFileLoader().load("/category/CategoryInitialDataSet.xml");
 	dbConn = new DatabaseDataSourceConnection(dataSource);
 	DatabaseOperation.CLEAN_INSERT.execute(dbConn, dataSet);
 	tester = new JdbcDatabaseTester("org.h2.Driver", "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", "sa", "");
@@ -83,67 +71,67 @@ public class CellDaoTest extends DBTestCase {
 	@Test
 	@DirtiesContext
 	@Rollback(false)
-	public void testShouldretrieveCellById() throws Exception {
-		Cell cell = cellDao.getCellById(1l);
-		Assert.assertEquals(new Long(1), cell.getCellId());
-		Assert.assertEquals("cell A", cell.getName());
+	public void testShouldretrieveCategoryById() throws Exception {
+		Category category = categoryDao.getCategoryById(1l);
+		Assert.assertEquals(new Long(1), category.getCategoryId());
+		Assert.assertEquals("Horror", category.getName());
 	}
 	
 	@Test
 	@DirtiesContext
 	@Rollback(false)
-	public void testShouldReturnNullIfQueryReturnedNoResultsCellById() throws Exception {
-		Cell auth = cellDao.getCellById(5l);
+	public void testShouldReturnNullIfQueryReturnedNoResultsCategoryById() throws Exception {
+		Category auth = categoryDao.getCategoryById(5l);
 		Assert.assertNull(auth);
 	}
 	
 	@Test
 	@DirtiesContext
 	@Rollback(false)
-	public void testShouldRetrieveAllCells() throws Exception {
-		List<Cell> cells = cellDao.getAllCells();
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellInitialDataSet.xml");
+	public void testShouldRetrieveAllCategories() throws Exception {
+		List<Category> categories = categoryDao.getAllCategories();
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryInitialDataSet.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
-		Assertion.assertEquals(expectedData.getTable("cell"), actualData.getTable("cell"));
-		Assert.assertEquals(expectedData.getTable("cell").getRowCount(),cells.size());
+		Assertion.assertEquals(expectedData.getTable("category"), actualData.getTable("category"));
+		Assert.assertEquals(expectedData.getTable("category").getRowCount(),categories.size());
 	}
 	
 	@Test
 	@DirtiesContext
 	@Rollback(false)
-	public void testShouldDeleteCell() throws Exception {
-		Cell cell = cellDao.getCellById(1l);
-		cellDao.deleteCell(cell);
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellDelete.xml");
+	public void testShouldDeleteCategory() throws Exception {
+		Category category = categoryDao.getCategoryById(1l);
+		categoryDao.deleteCategory(category);
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryDelete.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
-		Assertion.assertEquals(expectedData.getTable("cell"), actualData.getTable("cell"));
+		Assertion.assertEquals(expectedData.getTable("category"), actualData.getTable("category"));
 	}
 	
 	@Test
 	@DirtiesContext
 	@Rollback(false)
-	public void testShouldCreateCell() throws Exception {
-		Cell drama = new Cell("cell D");
-		cellDao.createCell(drama);
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellCreate.xml");
+	public void testShouldCreateCategory() throws Exception {
+		Category drama = new Category("Drama");
+		categoryDao.createCategory(drama);
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryCreate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
-		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("cell"), 
-	            expectedData.getTable("cell").getTableMetaData().getColumns());
-	    Assertion.assertEquals(expectedData.getTable("cell"), filteredTable); 
+		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("category"), 
+	            expectedData.getTable("category").getTableMetaData().getColumns());
+	    Assertion.assertEquals(expectedData.getTable("category"), filteredTable); 
 	}
 	
 	@Test
 	@DirtiesContext
 	@Rollback(false)
-	public void testShouldUpdateCell() throws Exception {
-		Cell updCell = cellDao.getCellById(3l);
-		updCell.setName("cell E");
-		cellDao.updateCell(updCell);
-		IDataSet expectedData = new FlatXmlDataFileLoader().load("/cell/CellUpdate.xml");
+	public void testShouldUpdateCategory() throws Exception {
+		Category updCategory = categoryDao.getCategoryById(3l);
+		updCategory.setName("SciFi");
+		categoryDao.updateCategory(updCategory);
+		IDataSet expectedData = new FlatXmlDataFileLoader().load("/category/CategoryUpdate.xml");
 		IDataSet actualData = tester.getConnection().createDataSet();
-		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("cell"), 
-	            expectedData.getTable("cell").getTableMetaData().getColumns());
-	    Assertion.assertEquals(expectedData.getTable("cell"), filteredTable);
+		ITable filteredTable = DefaultColumnFilter.includedColumnsTable(actualData.getTable("category"), 
+	            expectedData.getTable("category").getTableMetaData().getColumns());
+	    Assertion.assertEquals(expectedData.getTable("category"), filteredTable);
 	}
 
 	@Override

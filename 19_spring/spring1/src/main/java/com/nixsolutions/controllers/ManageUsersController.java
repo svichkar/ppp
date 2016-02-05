@@ -47,15 +47,9 @@ public class ManageUsersController {
 			Model model){
 		LOG.entry("User name: " + usr + "; pass: " + pswd + "; role: " + roleName + "; usrId: "
 				+ userId + "; button: " + buttnName);
-		Role role = roleService.getRoleByName(roleName);
-
-		if (buttnName.equals("edit user")) {
-			User updUser = userService
-					.getUserById(Long.parseLong(userId));
-			updUser.setRole(role);
-			updUser.setUserName(usr);
-			updUser.setUserPassword(pswd);
-			userService.updateUser(updUser);
+		
+		if (buttnName.equals("edit user")) {		
+			userService.updateUser(userId, roleName, usr, pswd);
 		}
 
 		if (buttnName.equals("delete user")) {
@@ -65,8 +59,7 @@ public class ManageUsersController {
 		}
 
 		if (buttnName.equals("create user")) {
-			User createUser = new User(usr, pswd, role);
-			userService.createUser(createUser);
+			userService.createUser(roleName, usr, pswd);
 		}		
 
 		return "redirect:/manageusers";

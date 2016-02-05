@@ -7,7 +7,7 @@ import com.nixsolutions.entity.Client;
 public interface ClientService {
 	public List<Client> getAllClients();
 	public Client getClientById(Long clientId);
-	public void createClient(Client client);
+	public void createClient(String firstName, String lastName, String email);
 	public void updateClient(Client client);
 	public void deleteClient(Client client);
 	public Client getClientByName(String readerName);

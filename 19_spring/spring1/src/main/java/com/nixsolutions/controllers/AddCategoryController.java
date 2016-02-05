@@ -38,6 +38,5 @@ public class AddCategoryController {
 	}
 		
 		return "AddCategory";
-		//retrieveBooks(model);
 	}
 }

@@ -45,52 +45,21 @@ public class LoansManageController {
 			Model model) {
 		LOG.entry(">>>" + booksIds, selectedBooks, returnedBooks);
 		Client reader = clientService.getClientById(Long.valueOf(curClient));
-
 		// submit a new book to the reader
 		LOG.debug(">>>>>>>>>>>>>books to be added to loan " + selectedBooks);
 		if (selectedBooks != null) {
-			for (String id : selectedBooks) {
-				RentJournal rent = new RentJournal();
-				Book loanedBook = bookService.getBookById(Long.valueOf(id));
-				rent.setBook(loanedBook);
-				rent.setClient(reader);
-				rent.setRentDate(new Date());
-				if (loanedBook.getCount() > 0) {
-					loanedBook.decreaseCount();
-					bookService.updateBook(loanedBook);
-					rentJournalService.createRent(rent);
-				}
-			}
+			rentJournalService.submitBooks(selectedBooks, reader);
 		}
 		// reader returned books - update rent
 		if (returnedBooks != null) {
-			for (String rentId : returnedBooks) {
-				RentJournal rent = rentJournalService.getRentById(Long.valueOf(rentId));
-				Book returnedBook = rent.getBook();
-				rent.setReturnDate(new java.sql.Date(new Date().getTime()));
-				returnedBook.increaseCount();
-				rent.setBook(returnedBook);
-				rentJournalService.updateRent(rent);
-			}
+			rentJournalService.returnedBooks(returnedBooks);
 		}
-
 		reader = clientService.getClientById(reader.getClientId());
 		model.addAttribute("reader", reader);
-		model.addAttribute("toBeloaned", checkBooksInList(booksIds));
+		model.addAttribute("toBeloaned", rentJournalService.checkBooksInList(booksIds));
 
 		return "ManageLoans";
 	}
 
-	private List<Book> checkBooksInList(String[] booksIds) {
-		List<Book> toBeloaned = new ArrayList<>();
-		if (booksIds != null) {
-			for (String bookId : booksIds) {
-				Book book = bookService.getBookById(Long.valueOf(bookId));
-				if (book.getCount() > 0) {
-					toBeloaned.add(book);
-				}
-			}
-		}
-		return LOG.exit(toBeloaned);
-	}
+	
 }

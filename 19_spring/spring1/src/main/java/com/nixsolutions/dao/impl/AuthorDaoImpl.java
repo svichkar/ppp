@@ -17,6 +17,7 @@ import com.nixsolutions.dao.DaoException;
 import com.nixsolutions.entity.Author;
 
 @Repository("authorDao")
+@Transactional
 public class AuthorDaoImpl implements AuthorDao {
 	public static final Logger LOG = LogManager.getLogger();
 	

@@ -28,7 +28,11 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public void createClient(Client client) {
+	public void createClient(String firstName, String lastName, String email) {
+		Client client = new Client();
+		client.setFirstName(firstName);
+		client.setSecondName(lastName);
+		client.setEmail(email);
 		clientDao.createClient(client);
 	}
 

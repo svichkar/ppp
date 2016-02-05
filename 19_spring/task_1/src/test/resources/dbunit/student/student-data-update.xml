@@ -1,7 +1,0 @@
-<dataset>
-    <student student_id="1" first_name="Alex" last_name="Ross" admission_date="2015-03-25" group_id="1" status_id="4" term_id="1"/>
-    <student student_id="2" first_name="Nick" last_name="Dodson" admission_date="2015-07-03" group_id="2" status_id="1" term_id="2"/>
-    <student student_id="3" first_name="Andrew" last_name="Galvan" admission_date="2015-05-10" group_id="3" status_id="1" term_id="1"/>
-    <student student_id="4" first_name="Jordan" last_name="Lynn" admission_date="2015-10-22" group_id="1" status_id="3" term_id="2"/>
-    <student student_id="5" first_name="Marlon" last_name="Bullock" admission_date="2015-03-11" group_id="2" status_id="1" term_id="1"/>
-</dataset>

@@ -1,7 +1,0 @@
-<dataset>
-    <subject subject_id="1" subject_name="Java" term_id="2"/>
-    <subject subject_id="2" subject_name="Mathematics" term_id="2"/>
-    <subject subject_id="3" subject_name="Physics" term_id="2"/>
-    <subject subject_id="4" subject_name="Databases" term_id="1"/>
-    <subject subject_id="5" subject_name="Web technologies" term_id="1"/>
-</dataset>

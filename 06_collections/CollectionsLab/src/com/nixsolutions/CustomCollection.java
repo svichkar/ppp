@@ -9,9 +9,14 @@ import java.util.NoSuchElementException;
 public class CustomCollection<E> implements Collection<E> {
 
 	private E[] arrCollection;
+	private static final int DEFAULT_SIZE = 10;
 
 	public CustomCollection(E[] arrObj) {
 		this.arrCollection = arrObj;
+	}
+
+	public CustomCollection() {
+		arrCollection = (E[]) Array.newInstance(arrCollection.getClass().getComponentType(), DEFAULT_SIZE);
 	}
 
 	@Override

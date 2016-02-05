@@ -92,4 +92,16 @@ public class UserDaoImpl implements UserDao {
         User user = (User) criteria.uniqueResult();
         return user;
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean isUnique(User user) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.or(Restrictions.eq("login", user.getLogin()),
+                Restrictions.eq("email", user.getEmail())));
+
+        return criteria.list().isEmpty() ? true : false;
+    }
 }

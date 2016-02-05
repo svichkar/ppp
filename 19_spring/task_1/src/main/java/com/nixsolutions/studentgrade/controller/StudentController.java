@@ -76,7 +76,7 @@ public class StudentController {
         } else if (group != null && !group.isEmpty()) {
             studentList = studentService.findByGroup(group);
         } else {
-            model.addObject("errorSearch", "Please specify search criteria.");
+            model.addObject("message", "Please specify search criteria.");
         }
 
         model.addObject("students", studentList);
@@ -103,9 +103,10 @@ public class StudentController {
             student.setStatus(status);
             studentService.create(student);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Student cannot be added");
+            model.addAttribute("message", "Student cannot be added");
         }
         model.addAttribute("students", studentService.findAll());
         model.addAttribute("groups", groupService.findAll());
@@ -132,9 +133,10 @@ public class StudentController {
             student.setStatus(status);
             studentService.update(student);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Student cannot be updated");
+            model.addAttribute("message", "Student cannot be updated");
         }
         model.addAttribute("students", studentService.findAll());
         model.addAttribute("groups", groupService.findAll());
@@ -155,9 +157,10 @@ public class StudentController {
             st.setStatus(inactive);
             studentService.update(st);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Student cannot be deleted");
+            model.addAttribute("message", "Student cannot be deleted");
         }
         model.addAttribute("students", studentService.findAll());
         model.addAttribute("groups", groupService.findAll());

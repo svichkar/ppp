@@ -72,4 +72,10 @@ public class UserServiceImpl implements UserService {
 
         return userDao.findByLogin(login);
     }
+
+    @Override
+    public boolean isUnique(User user) {
+
+        return userDao.isUnique(user);
+    }
 }

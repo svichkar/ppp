@@ -6,9 +6,9 @@
 <t:general_template title="Subjects">
 <jsp:attribute name="content_area">
 
-${message}
-${error}
-${errorSearch}
+<div>
+<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
+</div>
 
 <div>
 <table>

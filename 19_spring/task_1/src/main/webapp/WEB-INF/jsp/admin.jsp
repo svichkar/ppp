@@ -6,7 +6,9 @@
 <t:admin_template title="Admin Page">
     <jsp:attribute name="content_area">
 
-${message}
+<div>
+<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
+</div>
 
 <div class="divTable">
 
@@ -31,8 +33,8 @@ ${message}
 <tr>
 <td readonly>${count}</td>
 <td>
-<input type="text" name="id" value="${current.userId}" hidden/>
-<input type="text" name="name" value="${current.firstName}" maxlength="30" pattern="[A-Za-z]{3,30}" required/>
+<input type="text" name="userId" value="${current.userId}" hidden/>
+<input type="text" name="firstName" value="${current.firstName}" maxlength="30" pattern="[A-Za-z]{3,30}" required/>
 </td>
 <td>
 <input type="text" name="lastName" value="${current.lastName}" maxlength="30" pattern="[A-Za-z]{3,30}" required/>
@@ -44,10 +46,10 @@ ${message}
 <input type="text" name="login" value="${current.login}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
 </td>
 <td>
-<input type="text" name="pass" value="${current.userPassword}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
+<input type="text" name="userPassword" value="${current.userPassword}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
 </td>
 <td>
-<select name="role">
+<select name="selectedRole">
 <c:forEach items="${roles}" var="r">
 <c:choose>
     <c:when test="${r.roleId == current.role.roleId}">
@@ -61,8 +63,8 @@ ${message}
 </select>
 </td>
 <td>
-<input type="submit" name="operation" value="update"/>
-<input type="submit" name="operation" value="delete"/>
+<input type="submit" name="update" value="update"/>
+<input type="submit" name="delete" value="delete"/>
 </td>
 </tr>
 </form:form>

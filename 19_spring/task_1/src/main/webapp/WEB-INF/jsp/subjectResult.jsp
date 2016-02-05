@@ -7,9 +7,11 @@
 <t:general_template title="Subjects">
 <jsp:attribute name="content_area">
 
-<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">${errorSearch}</h4></p>
+<div>
+<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
 <p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;">
 Search results. <a href="subject">Back to Subject List</a></h4></p>
+</div>
 
 <div>
 <table>

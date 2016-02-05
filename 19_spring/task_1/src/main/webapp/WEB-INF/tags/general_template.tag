@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@attribute name="title"%>
 <%@attribute name="head_area" fragment="true"%>
 <%@attribute name="content_area" fragment="true"%>
@@ -40,10 +41,9 @@
 <td style="background: transparent; border: none; padding:10 0 0 10; margin: 0;">
 <ul id="menu">
           <li>
-          <form action="${logoutUrl}" method="post">
+          <form:form action="${logoutUrl}" method="post">
             <input type="submit" value="Logout" style="background: transparent;background-color: transparent;border: none;letter-spacing: 0.1em;font-family: sans-serif;font-size: 100%;display: block;float: left;height: 20px;text-decoration: none;font-weight: normal;text-align: center;color: #0C1BE6;">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-          </form>
+          </form:form>
           </li>
 </ul>
 </td>

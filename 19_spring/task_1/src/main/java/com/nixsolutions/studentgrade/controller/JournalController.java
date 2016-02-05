@@ -64,15 +64,16 @@ public class JournalController {
                 if (student.getStudentGroup().getGroupId() == group.getGroupId()) {
                     journalService.create(journal);
                     model.addAttribute("message", "Successes");
+                    model.addAttribute("color", "color:#15DC13");
                 } else {
-                    //group is not valid
+                    model.addAttribute("message", "Group is not valid for entered student. Please check <a href=\"student\">Students List</a>");
                 }
             } else {
-                //error student isn't valid
+                model.addAttribute("message", "Student doesn't exist. Please check <a href=\"student\">Students List</a>");
             }
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Journal record can't be added");
+            model.addAttribute("message", "Journal record can't be added");
         }
         model.addAttribute("journals", journalService.findAll());
         model.addAttribute("groups", groupService.findAll());
@@ -92,9 +93,10 @@ public class JournalController {
             j.setGrade(gradeService.findByName(selectedGrade));
             journalService.update(j);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Journal record cannot be updated");
+            model.addAttribute("message", "Journal record cannot be updated");
         }
         model.addAttribute("journals", journalService.findAll());
         model.addAttribute("groups", groupService.findAll());
@@ -111,9 +113,10 @@ public class JournalController {
             Journal journal = journalService.findById(Long.valueOf(journalId));
             journalService.delete(journal);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Journal record cannot be deleted");
+            model.addAttribute("message", "Journal record cannot be deleted");
         }
         model.addAttribute("journals", journalService.findAll());
         model.addAttribute("groups", groupService.findAll());

@@ -6,7 +6,9 @@
 <t:general_template title="Journals">
 <jsp:attribute name="content_area">
 
- ${error}
+<div>
+<p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
+</div>
 
  <div>
  <table>

@@ -37,9 +37,10 @@ public class TermController {
         try {
             termService.create(term);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Term cannot be added");
+            model.addAttribute("message", "Term cannot be added");
         }
         model.addAttribute("terms", termService.findAll());
         return "term";
@@ -50,9 +51,10 @@ public class TermController {
         try {
             termService.update(term);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Term cannot be updeted");
+            model.addAttribute("message", "Term cannot be updated");
         }
         model.addAttribute("terms", termService.findAll());
         return "term";
@@ -63,9 +65,10 @@ public class TermController {
         try {
             termService.delete(term);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Term cannot be deleted");
+            model.addAttribute("message", "Term cannot be deleted");
         }
         model.addAttribute("terms", termService.findAll());
         return "term";

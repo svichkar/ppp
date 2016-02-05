@@ -24,4 +24,6 @@ public interface UserService {
     public User getUserByLoginAndPassword(String login, String pass);
 
     public User findByLogin(String login);
+
+    public boolean isUnique(User user);
 }

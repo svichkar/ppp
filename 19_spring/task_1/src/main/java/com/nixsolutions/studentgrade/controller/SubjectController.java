@@ -69,7 +69,7 @@ public class SubjectController {
         } else if (term != null && !term.isEmpty()) {
             subjectList = subjectService.findByTermName(term);
         } else {
-            model.addObject("errorSearch", "Please specify search criteria.");
+            model.addObject("message", "Please specify search criteria.");
         }
 
         model.addObject("subjects", subjectList);
@@ -85,9 +85,10 @@ public class SubjectController {
             subject.setTerm(term);
             subjectService.create(subject);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Subject cannot be added");
+            model.addAttribute("message", "Subject cannot be added");
         }
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("terms", termService.findAll());
@@ -102,9 +103,10 @@ public class SubjectController {
             subject.setTerm(term);
             subjectService.update(subject);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
-            model.addAttribute("error", "Subject cannot be updeted");
+            model.addAttribute("message", "Subject cannot be updated");
         }
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("terms", termService.findAll());
@@ -116,10 +118,9 @@ public class SubjectController {
         try {
             subjectService.delete(subject);
             model.addAttribute("message", "Successes");
+            model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
-            LOG.error(e);
-            System.out.println(e);
-            model.addAttribute("error", "Subject cannot be deleted");
+            model.addAttribute("message", "Subject cannot be deleted");
         }
         model.addAttribute("subjects", subjectService.findAll());
         model.addAttribute("terms", termService.findAll());

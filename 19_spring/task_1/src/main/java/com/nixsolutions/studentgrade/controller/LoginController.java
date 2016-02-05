@@ -13,7 +13,6 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String loginPage() {
-
         return "login";
     }
 }

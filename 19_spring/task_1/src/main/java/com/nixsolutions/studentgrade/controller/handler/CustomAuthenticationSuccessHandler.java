@@ -23,7 +23,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         for (GrantedAuthority authorities : auths) {
             if (authorities.getAuthority().equals("admin")) {
                 httpServletResponse.sendRedirect("admin");
-            } else if (authorities.getAuthority().equals("manager")) {
+            } else if (authorities.getAuthority().equals("user")) {
                 httpServletResponse.sendRedirect("home");
             }
         }

@@ -14,9 +14,8 @@
         <intercept-url pattern="/" access="permitAll"></intercept-url>
         <intercept-url pattern="/login" access="permitAll"></intercept-url>
         <intercept-url pattern="/logout" access="permitAll"></intercept-url>
-        <intercept-url pattern="/accessdenied" access="permitAll"></intercept-url>
         <intercept-url pattern="/admin" access="hasAuthority('admin')"></intercept-url>
-        <intercept-url pattern="/**" access="hasAuthority('manager')"></intercept-url>
+        <intercept-url pattern="/**" access="hasAuthority('user')"></intercept-url>
 
         <form-login login-page="/login"
                     authentication-success-handler-ref="customAuthenticationSuccessHandler"

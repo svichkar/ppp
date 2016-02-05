@@ -85,7 +85,4 @@
         <property name="studentDao" ref="studentDao"/>
     </bean>
 
-    <!--bean id="userDetailsService" class="com.nixsolutions.studentgrade.service.impl.UserDetailsServiceImpl">
-        <property name="userService" ref="userService"/>
-    </bean-->
 </beans>

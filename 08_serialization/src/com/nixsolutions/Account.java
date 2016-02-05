@@ -41,14 +41,12 @@ public class Account implements Serializable {
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-        //System.out.println(id + "" + name);
         String result = "";
         result = result.concat(id.toString()).concat(",").concat(name).concat(",").concat(role);
         out.writeObject(result);
     }
 
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-        //System.out.println(in.readObject());
         String[] objects = in.readObject().toString().split(",");
         id = Long.parseLong(objects[0]);
         name = objects[1];

@@ -99,8 +99,8 @@ public class CustomCollection<E> implements Collection<E> {
     public boolean removeAll(Collection c) {
         boolean retFlag = false;
         for (Object o : c) {
-            retFlag = true;
-            remove(o);
+            if (remove(o))
+                retFlag = true;
         }
         return retFlag;
     }

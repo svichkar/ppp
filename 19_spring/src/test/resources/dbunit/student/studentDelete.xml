@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<student_group group_id="1" group_name="KI-2014" />
+	<status status_id="1" status_name="Active" />
+	<status status_id="2" status_name="Academic leave" />
+	<status status_id="3" status_name="Expelled" />
+	<term term_id="1" term_name="Autumn-2014" />
+	<student student_id="1" admission_date="2014-09-01" first_name="John"
+		last_name="Smith" group_id="1" status_id="1" term_id="1" />
+	<student student_id="3" admission_date="2014-09-01" first_name="Kate"
+		last_name="McLain" group_id="1" status_id="3" term_id="1" />
+</dataset>

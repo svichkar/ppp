@@ -12,10 +12,4 @@ public class LoginController {
 	public String signin() {
 		return "Login";
 	}
-	
-	@RequestMapping(value = "/login-failure", method = RequestMethod.GET)
-	public String signinFailure() {
-		return "login_failure";
-	}
-	
 }

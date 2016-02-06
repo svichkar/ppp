@@ -1,0 +1,5 @@
+<dataset>
+    <role role_id="1" role_name="admin"/>
+    <role role_id="2" role_name="manager"/>
+    <role role_id="3" role_name="guest"/>
+</dataset>

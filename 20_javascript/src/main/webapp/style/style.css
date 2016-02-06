@@ -1,0 +1,181 @@
+html{height: 100%;
+}
+
+body
+{ font-family: "lucida sans", arial, sans-serif;
+  padding: 0px;
+  margin: 0px;
+  font-size: .78em;
+  background: whitesmoke;
+  color: #5D5D5D;}
+
+h1, h2, h3, h4, h5, h6
+{ font: normal 179% 'century gothic', arial, sans-serif;
+  color: #43423F;
+  margin: 0 0 15px 0;
+  padding: 15px 0 5px 0;}
+
+h2
+{ font: normal 170% 'century gothic', arial, sans-serif;
+  color: #B60000;}
+
+h3
+{ font: normal 125% 'century gothic', arial, sans-serif;}
+
+h4, h5, h6
+{ margin: 0;
+  padding: 0 0 5px 0;
+  font: normal 120% arial, sans-serif;
+  color: #B60000;}
+
+h5, h6
+{ font: italic 95% arial, sans-serif;
+  color: #888;}
+
+h6
+{ color: #362C20;}
+
+ul
+{ margin: 2px 0px 18px 16px;
+  padding: 0px;}
+
+ul li
+{ list-style-type: square;
+  margin: 0px 0px 6px 0px;
+  padding: 0px;}
+
+ol
+{ margin: 8px 0px 0px 24px;
+  padding: 0px;}
+
+ol li
+{ margin: 0px 0px 11px 0px;
+  padding: 0px;}
+
+#menubar, #site_content, #footer
+{ margin-left: auto;
+  margin-right: auto;}
+
+#menubar
+{ width: 95%;
+  height: 70px;
+}
+
+ul#menu
+{ float: left;
+  margin: 0px;}
+
+ul#menu li
+{ float: left;
+  margin: 5px 0 0 0;
+  padding: 0 0 0 0px;
+  list-style: none;}
+
+ul#menu li a
+{ letter-spacing: 0.1em;
+  font-family: sans-serif;
+  font-size: 100%;
+  display: block;
+  float: left;
+  height: 20px;
+  text-decoration: none;
+  padding: 9px 15px 5px 15px;
+  text-align: center;
+  color: #0C1BE6;;
+  border: none;}
+
+ul#menu li.selected a
+{ height: 20px;
+  padding: 7px 15px 4px 15px;}
+
+ul#menu li.selected
+{ margin: 7px 0 0 0;}
+
+ul#menu li.selected a, ul#menu li.selected a:hover
+{ color: #00C6EF;}
+
+ul#menu li a:hover
+{ color: #00C6EF;}
+
+#site_content
+{ width: 95%;
+  overflow: hidden;
+  margin: 0 auto 0 auto;
+  padding: 20px 20px 20px 20px;
+  background: #F6F6F0;
+  border: 15px solid #FFF;}
+
+#content
+{ text-align: center;
+  width: 100%;
+  padding: 0;}
+
+#footer
+{ width: 916px;
+  font-family: 'trebuchet ms', sans-serif;
+  font-size: 90%;
+  height: 28px;
+  padding: 20px 0 5px 0;
+  text-align: center;
+  background: transparent;
+  color: #0c1be6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;}
+
+#footer p
+{ padding: 0;}
+
+table
+{
+margin-left:auto;
+margin-right:auto;
+}
+
+table tr th, table tr td
+{ background: #3B3B3B;
+  color: #FFF;
+  padding: 7px 4px;
+  text-align: left;}
+
+table tr td
+{ background: #E5E5DB;
+  color: #47433F;
+  border-top: 1px solid #FFF;
+}
+
+input[type="submit"] {
+     width: 100%;
+     padding: 0 0 0 0;
+     margin: 0 0 2 0;
+     font-size: 12;
+     font-weight: bold;
+}
+
+select, input[type="text"], input[type="date"] {
+    background-color: #E5E5DB;
+    width: 100%;
+    padding: 5;
+    border: none;
+    margin: 0px;
+    font-size: 16;
+    box-sizing: border-box;
+}
+
+select[disabled] {
+    background-color: #E5E5DB;
+    width: 100%;
+    padding: 5;
+    border: none;
+    margin: 0px;
+    font-size: 16;
+    box-sizing: border-box;
+}
+
+tr.selected td, tr.selected input[type="text"], tr.selected input[type="date"], tr.selected select {
+background: green;
+}
+
+::-webkit-input-placeholder {font-style: italic;font-size: 12;}
+::-moz-placeholder          {font-style: italic;font-size: 12;}/* Firefox 19+ */
+:-moz-placeholder           {font-style: italic;font-size: 12;}/* Firefox 18- */
+:-ms-input-placeholder      {font-style: italic;font-size: 12;}

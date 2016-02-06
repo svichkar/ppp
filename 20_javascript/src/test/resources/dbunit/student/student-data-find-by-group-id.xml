@@ -1,0 +1,4 @@
+<dataset>
+    <student student_id="2" first_name="Nick" last_name="Dodson" admission_date="2015-07-03" group_id="2" status_id="1" term_id="2"/>
+    <student student_id="5" first_name="Marlon" last_name="Bullock" admission_date="2015-03-11" group_id="2" status_id="1" term_id="1"/>
+</dataset>

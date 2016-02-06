@@ -9,9 +9,10 @@ public class Main {
     public static void main(String[] args) {
         FileCopy fileCopy = new FileCopy();
         try {
-            fileCopy.makeCopyWithJavaIo("D:\\Framework", "D:\\fz");
-            //fileCopy.makeCopyWithJavaNio("D:\\Framework", "D:\\fz");
-            //fileCopy.makeCopyWithApacheCommonsIo("D:\\Framework", "D:\\fz");
+            fileCopy.createDirectories();
+            fileCopy.makeCopyWithJavaIo("testDir", "CopyByIo");
+            fileCopy.makeCopyWithJavaNio(System.getProperty("user.dir") + "\\testDir", System.getProperty("user.dir") + "\\CopyByNio");
+            fileCopy.makeCopyWithApacheCommonsIo("testDir", "CopyByApache");
         } catch (IOException e) {
             e.printStackTrace();
         }

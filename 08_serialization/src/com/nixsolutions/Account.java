@@ -6,6 +6,7 @@ import java.io.*;
  * Created by sobolenko on 2/5/2016.
  */
 public class Account implements Serializable {
+    private static final long serialVersionUID = -738553380000781383L;
     private Long id;
     private String name;
     private String role;

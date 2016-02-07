@@ -17,6 +17,12 @@ public class FileCopy {
     public List<File> result = new ArrayList<File>();
     Random random = new Random();
 
+    /**
+     * recursively get all file names
+     *
+     * @param folder target folder
+     * @return list of paths
+     */
     public List<File> getAllFilesFromDirectoryIO(File folder) {
         try {
             for (File entryFiles : folder.listFiles()) {
@@ -31,16 +37,19 @@ public class FileCopy {
         return result;
     }
 
+    /**
+     * Create 10 random directories according task
+     *
+     * @throws IOException
+     */
     public void createDirectories() throws IOException {
         List<String> directoriesPaths = new ArrayList<String>();
         String workDirectory = System.getProperty("user.dir");
         Path resulPath = null;
         Path resulFileName = null;
         for (int capacity = 0; capacity < 10; capacity++) {
-            //
             String initialPath = generateRandomDirPath("");
             directoriesPaths.add(initialPath);
-            //
             for (int i = 0; i < random.nextInt(1) + 2; i++) {
                 String[] splitPath = initialPath.split("\\u005c");
                 String concatPath = "";
@@ -51,7 +60,7 @@ public class FileCopy {
                 directoriesPaths.add(assemblyPath);
             }
         }
-        for (String str : directoriesPaths) {
+        for (String str : directoriesPaths) {   //creating files with random content in directories
             resulPath = Paths.get(workDirectory + "\\testDir\\" + str);
             resulFileName = Paths.get(resulPath + "\\" + generateRamdomString(3) + "." + generateRamdomString(3));
             Files.createDirectories(resulPath);
@@ -61,9 +70,14 @@ public class FileCopy {
             fos.close();
             fos.flush();
         }
-        //
     }
 
+    /**
+     * generate random paths
+     *
+     * @param point base point (directory) from where paths will be generated
+     * @return string with path
+     */
     public String generateRandomDirPath(String point) {
         String dirName = "";
         String path = point;
@@ -77,6 +91,12 @@ public class FileCopy {
         return point;
     }
 
+    /**
+     * used for generate random file names and content
+     *
+     * @param count length of string
+     * @return string
+     */
     public String generateRamdomString(int count) {
         String result = "";
         for (int i = 0; i < random.nextInt(count) + 2; i++) {
@@ -126,7 +146,7 @@ public class FileCopy {
         File srcFile = new File(srcFolder);
         List<File> allFilesInDir = getAllFilesFromDirectoryIO(srcFile);
         for (File file : allFilesInDir) {
-            destDirectiryOrFile = new File(destFile.toString() + file.getAbsolutePath().replaceAll("\\w:", ""));
+            destDirectiryOrFile = new File(destFile.toString() + file.getPath().replaceAll("\\w:", ""));
             if (!destDirectiryOrFile.getParentFile().exists()) {
                 destDirectiryOrFile.getParentFile().mkdirs();
             }

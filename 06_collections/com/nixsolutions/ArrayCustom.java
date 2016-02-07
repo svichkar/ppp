@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-//TODO: Check reqs for exceptions
-//TODO: check returns work
 /**
  * Array based collection, supports optional methods to clear, add and remove
  * elements; implements the task from the lab 06_collections.

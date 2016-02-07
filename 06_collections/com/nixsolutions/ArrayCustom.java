@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+//TODO: Check reqs for exceptions
+//TODO: check returns work
 /**
  * Array based collection, supports optional methods to clear, add and remove
  * elements; implements the task from the lab 06_collections.
@@ -26,19 +28,19 @@ public class ArrayCustom<E> implements Collection<E> {
         resize(1);
         int i = array.length - 1;
         array[i] = arg;
-        if (array[i].equals(arg)) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> arg) {
         int oldLength = array.length;
-        resize(arg.size());
-        Object[] argArray = arg.toArray();
-        System.arraycopy(argArray, 0, array, oldLength, argArray.length);
-        return argArray.length != 0;
+        if (arg.size() != 0) {
+            resize(arg.size());
+            Object[] argArray = arg.toArray();
+            System.arraycopy(argArray, 0, array, oldLength, argArray.length);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -96,51 +98,88 @@ public class ArrayCustom<E> implements Collection<E> {
 
     /**
      * Removes a single element from the collection by removing the appropriate
-     * element from the array, if the element equals to the object specified.
+     * element from the array.
      * 
      * @param i
-     *            Numerical index of the element in the array to compare and
-     *            remove if equals to the object specified.
+     *            Numerical index of the element in the internal array to
+     *            compare and remove if equals to the object specified.
+     * @return Returns {@code true} if the collection has been changed.
+     */
+    private boolean removeSingleElement(int i) {
+        System.arraycopy(array, i + 1, array, i, array.length - 1 - i);
+        resize(-1);
+        return true;
+    }
+
+    /**
+     * Calls the method to remove a single element from the collection, if the
+     * element equals to the object specified.
+     * 
+     * @param i
+     *            Numerical index of the element in the internal array to
+     *            compare and remove if equals to the object specified.
      * @param o
-     *            Object to compare
-     * @return Returns {@code true} if the collection has been changed
+     *            Object to compare.
+     * @return Returns {@code true} if the collection has been changed.
      */
     private boolean removeIfEquals(int i, Object o) {
         if (array[i].equals(o)) {
-            System.arraycopy(array, i + 1, array, i, array.length - 1 - i);
-            resize(-1);
-            return true;
+            return removeSingleElement(i);
         }
         return false;
     }
 
     @Override
     public boolean remove(Object o) {
-        boolean changed = false;
         for (int i = 0; i < array.length; i++) {
-            changed = removeIfEquals(i, o);
+            if (removeIfEquals(i, o)) {
+                return true;
+            }
         }
-        return changed;
+        return false;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        boolean changed = false;
-        for (Object o : c) {
-            changed = remove(o);
+        int changed = 0;
+        boolean needMoreChecks = true;
+        while (needMoreChecks) {
+            needMoreChecks = false;
+            for (Object o : c) {
+                for (int i = 0; i < array.length; i++) {
+                    if (removeIfEquals(i, o)) {
+                        changed++;
+                        needMoreChecks = true;
+                    }
+                }
+            }
         }
-        return changed;
+        return changed != 0;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        boolean changed = false;
-        for (int i = 0; i < array.length; i++) {
-            for (Object o : c) {
-                changed = removeIfEquals(i, o);
+        int changed = 0;
+        boolean needMoreChecks = true;
+        while (needMoreChecks) {
+            needMoreChecks = false;
+            for (int i = 0; i < array.length; i++) {
+                boolean needsRemoval = false;
+                for (Object o : c) {
+                    if (array[i].equals(o)) {
+                        needsRemoval = false;
+                        break;
+                    }
+                    needsRemoval = true;
+                }
+                if (needsRemoval) {
+                    removeSingleElement(i);
+                    changed++;
+                    needMoreChecks = true;
+                }
             }
         }
-        return changed;
+        return changed != 0;
     }
 
     @Override

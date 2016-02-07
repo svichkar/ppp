@@ -26,6 +26,8 @@
 
 <tbody>
 
+<div style="visibility: hidden; position: absolute" id="mess"></div>
+
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${users}">
 <c:set var="count" value="${count + 1}" scope="page"/>
@@ -73,11 +75,11 @@
 <tr>
 <form:form  action="admin" method="post">
 <td readonly></td>
-<td><input type="text" name="firstName" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
-<td><input type="text" name="lastName" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
-<td><input type="text" name="email" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td>
-<td><input type="text" name="login" required placeholder="login"></input></td>
-<td><input type="text" name="userPassword" required placeholder="password"></input></td>
+<td><input type="text" name="firstName" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
+<td><input type="text" name="lastName" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
+<td><input type="text" name="email" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td>
+<td><input type="text" name="login" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" required placeholder="login"></input></td>
+<td><input type="text" name="userPassword" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" required placeholder="password"></input></td>
 <td>
 <select name="selectedRole" required>
 <option value="" selected disabled></option>

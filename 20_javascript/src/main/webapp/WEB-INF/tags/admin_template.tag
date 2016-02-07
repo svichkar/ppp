@@ -14,7 +14,8 @@
   <meta name="description" content="student grade management website" />
   <link href="<c:url value="/images/favicon.png"/>" rel="shortcut icon" type="shortcut/ico">
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
-  <script src="<c:url value="/javascript/script.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/toggleScript.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
 </head>
 
 <body>

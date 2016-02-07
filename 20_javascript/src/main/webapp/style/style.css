@@ -171,8 +171,10 @@ select[disabled] {
     box-sizing: border-box;
 }
 
+/* JS specific styles: */
+
 tr.selected td, tr.selected input[type="text"], tr.selected input[type="date"], tr.selected select {
-background: green;
+background: #ccd9ff;
 }
 
 ::-webkit-input-placeholder {font-style: italic;font-size: 12;}

@@ -12,7 +12,15 @@ public class Producer implements Runnable {
     //ConcurrentLinkedQueue<Integer> queue;
     BlockingQueue queue;
     Random random = new Random();
+    public boolean ready = false;
 
+    public boolean isReady() {
+        return ready;
+    }
+
+    public BlockingQueue getQueue() {
+        return queue;
+    }
 
     public Producer(BlockingQueue queue) {
         this.queue = queue;
@@ -27,9 +35,10 @@ public class Producer implements Runnable {
                 e.printStackTrace();
             }
         }
+        ready = true;
     }
-    Object produce()
-    {
+
+    Object produce() {
         int integer = random.nextInt(150);
         return integer;
     }

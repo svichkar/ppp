@@ -8,21 +8,26 @@ import java.util.concurrent.*;
 public class Main {
     public static void main(String[] args) {
         BlockingQueue queue = new ArrayBlockingQueue(100);
+        Boolean isStarted=true;
+        Producer prod = new Producer(queue);
+        ConsumerEven even = new ConsumerEven(queue);
+        ConsumerOdd odd = new ConsumerOdd(queue);
         ExecutorService producer = Executors.newSingleThreadExecutor();
         ExecutorService consumer = Executors.newCachedThreadPool();
-        Runnable consumer1 = new Consumer(queue);
-        Runnable consumer2 = new Consumer2(queue);
+        producer.submit(prod);
+        Runnable consumer1 = even;
+        Runnable consumer2 = odd;
         consumer.submit(consumer1);
         consumer.submit(consumer2);
-        producer.submit(new Producer(queue));
 
-        //consumer.shutdown();
-        /*Thread producer = new Thread(new Producer(queue));
-        Thread consumer = new Thread(new Consumer(queue));
-        Thread consumer2 = new Thread(new Consumer2(queue));*/
-        //producer.start();
-        //consumer.start();
-        //consumer2.start();
+        while (isStarted)
+        if(prod.getQueue().size()==0  && prod.ready){
+            even.close();
+            odd.close();
+            producer.shutdown();
+            consumer.shutdown();
+            isStarted = false;
+        }
 
     }
 }

@@ -71,7 +71,6 @@ public class IOCopy {
         OutputStream outStream = null;
         try {
             inStream = new FileInputStream(sourceFile);
-
             outStream = new FileOutputStream(destinationFile);
             byte[] buffer = new byte[1024];
             while ((length = inStream.read(buffer)) > 0) {

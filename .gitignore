@@ -124,3 +124,6 @@ gradle-app.setting
 
 # JAR files
 .jar
+
+# Class files
+.class

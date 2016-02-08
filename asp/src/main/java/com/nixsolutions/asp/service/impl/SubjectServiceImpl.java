@@ -2,6 +2,7 @@ package com.nixsolutions.asp.service.impl;
 
 import java.util.List;
 
+import com.nixsolutions.asp.service.TermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,9 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Autowired
 	private SubjectDao subjectDao;
-	
+	private SubjectService subjectService;
+	private TermService termService;
+
 	@Override
 	public void create(Subject subject) {
 		subjectDao.create(subject);
@@ -48,6 +51,15 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public List<Subject> getSubjectsByTermId(int termId) {
 		return subjectDao.getSubjectsByTermId(termId);
+	}
+
+	@Override
+	public List<Subject> getSubjectsByQuery(String queryType, String query) {
+		if (queryType.equals("subject")) {
+			return subjectService.getBySubjectName(query);
+		} else {
+			return subjectService.getSubjectsByTermId(termService.getByTermAlias(query).getTermId());
+		}
 	}
 
 }

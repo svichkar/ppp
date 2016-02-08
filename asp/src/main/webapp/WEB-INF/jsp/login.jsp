@@ -29,8 +29,7 @@
 					<td><input type='password' name='password' /></td>
 				</tr>
 				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="Submit" /></td>
+					<td colspan='2'><input name="submit" type="submit" class="button" align="center" value="Submit" /></td>
 				</tr>
 			</table>
 

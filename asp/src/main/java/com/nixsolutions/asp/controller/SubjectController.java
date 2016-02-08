@@ -29,11 +29,8 @@ public class SubjectController {
 	@RequestMapping(value = "/subjects", method = RequestMethod.POST)
 	protected String subjectPost(@ModelAttribute("searchType") String searchType,
 			@ModelAttribute("searchQuery") String searchQuery, Model model) {
-		if (searchType.equals("subject")) {
-			model.addAttribute("subjects", subjectService.getBySubjectName(searchQuery));
-		} else {
-			model.addAttribute("subjects", subjectService.getSubjectsByTermId(termService.getByTermAlias(searchQuery).getTermId()));
-		}
+        model.addAttribute("subjects", subjectService.getSubjectsByQuery(searchType, searchQuery));
+		model.addAttribute("radioSearch", searchType);
 		return "subject/subjects";
 	}
 
@@ -62,8 +59,8 @@ public class SubjectController {
 		return "subject/editSubject";
 	}
 
-	@RequestMapping(value = "/save-subject", method = RequestMethod.POST)
-	protected String editSubjectPost(@ModelAttribute("subjectId") String subjectId, 
+	@RequestMapping(value = "/update-subject", method = RequestMethod.POST)
+	protected String updateSubjectPost(@ModelAttribute("subjectId") String subjectId,
 			@ModelAttribute("subject") String subjectName,
 			@ModelAttribute("term") String termAlias, Model model) {
 		Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectId));

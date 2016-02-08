@@ -29,22 +29,22 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/add-new-user", method = RequestMethod.GET)
-	protected ModelAndView addNewUserGet(@RequestParam(value = "error", required = false) String error) {		
+	protected ModelAndView addNewUserGet(@RequestParam(value = "error", required = false) String error) {
 		User user = new User();
 		ModelAndView model = new ModelAndView("admin/addNewUser", "UserModel", user);
 		if (error != null) {
 			model.addObject("error", "User with such username already exists!");
 		}
-		model.addObject("roleList", roleService.getRoleMap());		
+		model.addObject("roleList", roleService.getRoleMap());
 		return model;
 	}
 
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST)
-	protected String createUserPost(@ModelAttribute("UserModel")User user, Model model) {
-		if(userService.checkUser(user.getUserName(), user.getPassword())){
+	protected String createUserPost(@ModelAttribute("UserModel") User user, Model model) {
+		if (userService.checkUser(user.getUserName(), user.getPassword())) {
 			model.addAttribute("error", "error");
 			return "redirect:/admin/add-new-user";
-		}		
+		}
 		userService.create(user);
 		model.addAttribute("users", userService.getAll());
 		return "admin/adminHome";
@@ -59,7 +59,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/update-user", method = RequestMethod.POST)
-	protected String updateUserPost(@ModelAttribute("UserModel")User user, Model model) {
+	protected String updateUserPost(@ModelAttribute("UserModel") User user, Model model) {
 		userService.update(user);
 		model.addAttribute("users", userService.getAll());
 		return "admin/adminHome";
@@ -68,8 +68,6 @@ public class AdminController {
 	@RequestMapping(value = "/delete-user", method = RequestMethod.POST)
 	protected String deleteUserPost(@ModelAttribute("userId") String userId, Model model) {
 		userService.delete(userService.getByUserId(Integer.parseInt(userId)));
-		//model.addAttribute("users", userService.getAll());
-		//return "admin/adminHome";
 		return "redirect:/admin/users";
 	}
 

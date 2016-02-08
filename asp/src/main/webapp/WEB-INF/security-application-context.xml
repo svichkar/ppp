@@ -22,7 +22,7 @@
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
 		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/asp**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/asp/manager**" access="hasRole('ROLE_MANAGER')"  />
 
 		<form-login 
 		login-page="/login" 

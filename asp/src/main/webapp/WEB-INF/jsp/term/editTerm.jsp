@@ -7,7 +7,8 @@
 	<jsp:attribute name="content_area">
 	<h1>Edit Term</h1>
 		<h2>Term:</h2>
-		<form:form action="terms/update-term" method="post" commandName="TermModel">
+		<c:url var="updateUrl" value="/terms/update-term"/>
+		<form:form action="${updateUrl}" method="post" commandName="TermModel">
 			<form:label path="alias">Alias:</form:label><br>
 			<form:input type="text" path="alias" value="${term.alias}" tooltip="Name of term"/><br>
 			<input type="hidden" name="termId" value="${term.termId}"><br>	

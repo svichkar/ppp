@@ -19,4 +19,6 @@ public interface SubjectService {
 	List<Subject> getBySubjectName(String name);
 	
 	List<Subject> getSubjectsByTermId(int termId);
+
+	List<Subject> getSubjectsByQuery(String queryType, String query);
 }

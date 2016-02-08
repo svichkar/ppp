@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * Represents the pen. Usage of the ink per written character is contant.
  * Has a button, representing the enabled / disabled state
  */
-class Pen extends WritingInstrument {
+public class Pen extends WritingInstrument {
   private final BigDecimal PERCENT_PER_CHAR = new BigDecimal("1.15");
 
   @Override

@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * Represents the pencil. Uses more pigment when more characters written.
  * Should be sharpened after the specified amount of characters written.
  */
-class Pencil extends WritingInstrument {
+public class Pencil extends WritingInstrument {
   private final BigDecimal PERCENT_PER_CHAR = new BigDecimal("0.95");
   protected BigDecimal sharpeningRate = new BigDecimal("3");
 

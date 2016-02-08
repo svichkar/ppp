@@ -1,7 +1,7 @@
 package com.nixsolutions;
 
 /** Represents the pencil sharpener. */
-class PencilSharpener {
+public class PencilSharpener {
   /**
    * Sharpens the pen received as a parameter.
    * Sets the prepared flag to true when done.

@@ -3,7 +3,7 @@ package com.nixsolutions;
 import java.math.BigDecimal;
 
 /** Parent class for other classes describing pen, pencil, and felt-tip pen. */
-abstract class WritingInstrument {
+public abstract class WritingInstrument {
   protected String type;
   protected boolean prepared;
   protected boolean canErase;

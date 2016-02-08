@@ -27,13 +27,14 @@ public class Save implements exception.Save {
             if (file.exists()) {
                 throw new FileAlreadyExistsException(arg1);
             } else if (!file.isAbsolute()) {
-                System.out.println("Path is not absolute, trying to save to the launch path.");
+                System.out.println(
+                        "Path is not absolute, trying to save to the launch path.");
                 file.createNewFile();
             }
-                fw = new FileWriter(file);
-                fw.write(arg0);
-                fw.flush();
-                System.out.println("\nFile saved.");
+            fw = new FileWriter(file);
+            fw.write(arg0);
+            fw.flush();
+            System.out.println("\nFile saved.");
         } catch (FileAlreadyExistsException e) {
             System.out.println(
                     "File \"" + arg1 + "\" already exists, so not saving.");
@@ -50,9 +51,10 @@ public class Save implements exception.Save {
             }
         }
     }
-    
+
     /**
      * Scans the string to save to file.
+     * 
      * @return Returns the string entered by user.
      */
     private static String scanString() {
@@ -65,6 +67,7 @@ public class Save implements exception.Save {
 
     /**
      * Scans the absolute path to save the file to.
+     * 
      * @return Returns the path entered by user.
      */
     private static String scanPath() {

@@ -66,4 +66,27 @@ public class Journal {
     public void setGrade(Grade grade) {
         this.grade = grade;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Journal journal = (Journal) o;
+
+        if (!journalId.equals(journal.journalId)) return false;
+        if (!student.equals(journal.student)) return false;
+        if (!subject.equals(journal.subject)) return false;
+        return grade.equals(journal.grade);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = journalId.hashCode();
+        result = 31 * result + student.hashCode();
+        result = 31 * result + subject.hashCode();
+        result = 31 * result + grade.hashCode();
+        return result;
+    }
 }

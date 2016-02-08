@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface RoleDao {
 
-    public void create(Role role);
+    void create(Role role);
 
-    public void update(Role role);
+    void update(Role role);
 
-    public void delete(Role role);
+    void delete(Role role);
 
-    public List<Role> findAll();
+    List<Role> findAll();
 
-    public Role findById(Long id);
+    Role findById(Long id);
 
-    public Role findByName(String role);
+    Role findByName(String role);
 }

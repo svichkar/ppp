@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface StatusDao {
 
-    public void create(Status status);
+    void create(Status status);
 
-    public void update(Status status);
+    void update(Status status);
 
-    public void delete(Status status);
+    void delete(Status status);
 
-    public List<Status> findAll();
+    List<Status> findAll();
 
-    public Status findById(Long id);
+    Status findById(Long id);
 
-    public Status findByName(String status);
+    Status findByName(String status);
 }

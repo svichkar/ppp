@@ -9,27 +9,27 @@ import java.util.List;
  */
 public interface StudentService {
 
-    public void create(Student student);
+    void create(Student student);
 
-    public void update(Student student);
+    void update(Student student);
 
-    public void delete(Student student);
+    void delete(Student student);
 
-    public List<Student> findAll();
+    List<Student> findAll();
 
-    public Student findById(Long id);
+    Student findById(Long id);
 
-    public Student findByNameAndLastName(String name, String lastName);
+    Student findByNameAndLastName(String name, String lastName);
 
-    public List<Student> findByLastName(String lastName);
+    List<Student> findByLastName(String lastName);
 
-    public List<Student> findByGroupId(Long groupId);
+    List<Student> findByGroupId(Long groupId);
 
-    public List<Student> findByLastNameAndGroupId(String lastName, Long groupId);
+    List<Student> findByLastNameAndGroupId(String lastName, Long groupId);
 
-    public List<Student> findByLastNameAndGroup(String lastName, String groupName);
+    List<Student> findByLastNameAndGroup(String lastName, String groupName);
 
-    public List<Student> findByGroup(String groupName);
+    List<Student> findByGroup(String groupName);
 
-    public boolean isExist(String firstName, String lastName);
+    boolean isExist(String firstName, String lastName);
 }

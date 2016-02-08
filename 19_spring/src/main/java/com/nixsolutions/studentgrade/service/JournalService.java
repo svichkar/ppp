@@ -9,17 +9,17 @@ import java.util.List;
  */
 public interface JournalService {
 
-    public void create(Journal journal);
+    void create(Journal journal);
 
-    public void update(Journal journal);
+    void update(Journal journal);
 
-    public void delete(Journal journal);
+    void delete(Journal journal);
 
-    public List<Journal> findAll();
+    List<Journal> findAll();
 
-    public Journal findById(Long id);
+    Journal findById(Long id);
 
-    public List<Journal> findByStudentAndTerm(Long studentId, Long termId);
+    List<Journal> findByStudentAndTerm(Long studentId, Long termId);
 
-    public String getAverageScore(Long studentId, Long termId);
+    String getAverageScore(Long studentId, Long termId);
 }

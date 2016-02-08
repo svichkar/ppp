@@ -6,6 +6,6 @@ package com.nixsolutions;
 public class Main {
     public static void main(String[] args) {
         SaveFile saveFile = new SaveFile();
-        saveFile.save("test", "d:\\s\\TestFile.txt");
+        saveFile.save("test", System.getProperty("user.dir")+"\\TestFile.txt");
     }
 }

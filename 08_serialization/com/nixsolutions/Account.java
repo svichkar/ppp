@@ -60,12 +60,10 @@ public class Account implements Serializable {
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(a);
+            oos.close();
             System.out.println("Completed.");
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            
         }
-
     }
 }

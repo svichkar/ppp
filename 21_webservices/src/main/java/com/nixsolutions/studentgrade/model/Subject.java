@@ -61,4 +61,25 @@ public class Subject implements Serializable {
 
         return result;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Subject subject = (Subject) o;
+
+        if (!subjectId.equals(subject.subjectId)) return false;
+        if (!subjectName.equals(subject.subjectName)) return false;
+        return term.equals(subject.term);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = subjectId.hashCode();
+        result = 31 * result + subjectName.hashCode();
+        result = 31 * result + term.hashCode();
+        return result;
+    }
 }

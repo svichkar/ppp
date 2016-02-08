@@ -36,4 +36,23 @@ public class Term implements Serializable {
     public void setTermName(String termName) {
         this.termName = termName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Term term = (Term) o;
+
+        if (!termId.equals(term.termId)) return false;
+        return termName.equals(term.termName);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = termId.hashCode();
+        result = 31 * result + termName.hashCode();
+        return result;
+    }
 }

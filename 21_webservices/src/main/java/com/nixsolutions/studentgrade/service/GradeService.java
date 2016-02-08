@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface GradeService {
 
-    public void create(Grade grade);
+    void create(Grade grade);
 
-    public void update(Grade grade);
+    void update(Grade grade);
 
-    public void delete(Grade grade);
+    void delete(Grade grade);
 
-    public List<Grade> findAll();
+    List<Grade> findAll();
 
-    public Grade findById(Long id);
+    Grade findById(Long id);
 
-    public Grade findByName(String gradeName);
+    Grade findByName(String gradeName);
 }

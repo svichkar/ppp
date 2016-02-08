@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,20 +56,10 @@ public class SubjectController {
     public ModelAndView showResults(@ModelAttribute("subjectName") String subject,
                                     @ModelAttribute("selectedTerm") String term) {
         ModelAndView model = new ModelAndView();
-        List<Subject> subjectList = new ArrayList<>();
-        Subject sub;
+        List<Subject> subjectList = subjectService.findByNameAndTerm(subject, term);
 
-        if (subject != null && !subject.isEmpty() && term != null && !term.isEmpty()) {
-            sub = subjectService.findByNameAndTerm(subject, term);
-            subjectList.add(sub);
-        } else if (subject != null && !subject.isEmpty()) {
-            sub = subjectService.findByName(subject);
-            subjectList.add(sub);
-        } else if (term != null && !term.isEmpty()) {
-            subjectList = subjectService.findByTermName(term);
-        } else {
-            model.addObject("message", "Please specify search criteria.");
-        }
+        if (subjectList.isEmpty())
+            model.addObject("message", "No data available. Please change search criteria.");
 
         model.addObject("subjects", subjectList);
         model.setViewName("subjectResult");

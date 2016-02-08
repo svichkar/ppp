@@ -1,16 +1,19 @@
 package com.nixsolutions.studentgrade.webservice.rest;
 
-import com.nixsolutions.studentgrade.service.StudentService;
 import com.nixsolutions.studentgrade.model.Student;
+import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("students")
+@Component
+@Path("rest/students")
 public class StudentWebService {
 
     private StudentService studentService;
@@ -26,9 +29,10 @@ public class StudentWebService {
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Response getUserById(@PathParam("studentId") Long studentId, @QueryParam("fmt") String format) {
 
-
         System.out.println(studentId);
         System.out.println(format);
+
+        studentService = (StudentService) new ClassPathXmlApplicationContext("root-context.xml").getBean("studentService");
 
         Student student = studentService.findById(studentId);
 
@@ -38,7 +42,8 @@ public class StudentWebService {
                 // Set the status and Put your entity here.
                 .ok(student)
                 // Add the Content-Type header to tell Jersey which format it should marshall the entity into.
-                .header(HttpHeaders.CONTENT_TYPE, "json".equals(format) ? MediaType.APPLICATION_JSON : MediaType.APPLICATION_XML)
+                .header(HttpHeaders.CONTENT_TYPE, "json".equals(format) ? MediaType.APPLICATION_JSON
+                        : MediaType.APPLICATION_XML)
                 .build();
     }
 

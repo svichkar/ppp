@@ -37,4 +37,23 @@ public class Grade implements Serializable {
     public void setGradeName(String gradeName) {
         this.gradeName = gradeName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Grade grade = (Grade) o;
+
+        if (!gradeId.equals(grade.gradeId)) return false;
+        return gradeName.equals(grade.gradeName);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = gradeId.hashCode();
+        result = 31 * result + gradeName.hashCode();
+        return result;
+    }
 }

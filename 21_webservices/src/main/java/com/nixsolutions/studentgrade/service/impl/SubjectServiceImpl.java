@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,11 +76,34 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public List<Subject> findByTermName(String termName) {
+
         return subjectDao.findByTermName(termName);
     }
 
     @Override
-    public Subject findByNameAndTerm(String subjectName, String termName) {
-        return subjectDao.findByNameAndTerm(subjectName, termName);
+    public List<Subject> findByNameAndTerm(String subjectName, String termName) {
+
+        List<Subject> result = new ArrayList<>();
+
+        if (subjectName != null && !subjectName.isEmpty()) {
+
+            if (termName != null && !termName.isEmpty()) {
+                Subject s = subjectDao.findByNameAndTerm(subjectName, termName);
+                if (s != null)
+                    result.add(s);
+
+            } else {
+
+                result.add(subjectDao.findByName(subjectName));
+            }
+
+        } else {
+            if (termName != null && !termName.isEmpty()) {
+
+                result = subjectDao.findByTermName(termName);
+            }
+        }
+
+        return result;
     }
 }

@@ -69,7 +69,6 @@ public class AdminController {
 
         ModelAndView model = new ModelAndView();
         try {
-
             Role role = userService.findById(user.getUserId()).getRole();
             if (!role.getRoleName().toLowerCase().equals("admin")) {
                 userService.delete(user);

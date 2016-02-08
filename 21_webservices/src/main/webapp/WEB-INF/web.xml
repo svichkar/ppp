@@ -45,7 +45,7 @@
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>com.nixsolutions</param-value>
+            <param-value>com.nixsolutions.studentgrade.webservice</param-value>
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
@@ -53,13 +53,5 @@
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/ws/*</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>jersey-servlet</servlet-name>
-        <servlet-class>
-            com.sun.jersey.spi.spring.container.servlet.SpringServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
 
 </web-app>

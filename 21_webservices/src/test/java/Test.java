@@ -13,9 +13,9 @@ public class Test {
         Client client = ClientBuilder.newClient();
         URI targetUri = UriBuilder.fromUri("http://localhost:8080/web-services").build();
 
-        WebTarget service = client.target(targetUri).path("ws/rest/students").path("getAll");
+        WebTarget service = client.target(targetUri).path("ws/rest/students").path("getStudent/1?fmt=json");
 
-        Invocation.Builder invocationBuilder = service.request(MediaType.TEXT_PLAIN);
+        Invocation.Builder invocationBuilder = service.request(MediaType.APPLICATION_XML);
         Response response = invocationBuilder.get();
 
         System.out.println(response.getStatus());

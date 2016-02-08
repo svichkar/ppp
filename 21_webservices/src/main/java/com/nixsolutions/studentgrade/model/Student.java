@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -12,6 +13,7 @@ import java.sql.Date;
  */
 @Entity
 @Table(name = "student")
+@XmlRootElement
 public class Student implements Serializable {
 
     @Id
@@ -30,6 +32,7 @@ public class Student implements Serializable {
     @Cascade(CascadeType.DETACH)
     private StudentGroup studentGroup;
 
+    //@XmlJavaTypeAdapter(DateAdapter.class)
     @Column(name = "admission_date", nullable = false)
     private Date admissionDate;
 
@@ -114,6 +117,34 @@ public class Student implements Serializable {
                 && this.studentGroup == null)
             result = true;
 
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Student student = (Student) o;
+
+        if (!studentId.equals(student.studentId)) return false;
+        if (!firstName.equals(student.firstName)) return false;
+        if (!lastName.equals(student.lastName)) return false;
+        if (!studentGroup.equals(student.studentGroup)) return false;
+        if (!admissionDate.equals(student.admissionDate)) return false;
+        if (!status.equals(student.status)) return false;
+        return term.equals(student.term);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = studentId.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + studentGroup.hashCode();
+        result = 31 * result + admissionDate.hashCode();
+        result = 31 * result + status.hashCode();
+        result = 31 * result + term.hashCode();
         return result;
     }
 }

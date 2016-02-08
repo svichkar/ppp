@@ -36,4 +36,23 @@ public class StudentGroup implements Serializable {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StudentGroup that = (StudentGroup) o;
+
+        if (!groupId.equals(that.groupId)) return false;
+        return groupName.equals(that.groupName);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = groupId.hashCode();
+        result = 31 * result + groupName.hashCode();
+        return result;
+    }
 }

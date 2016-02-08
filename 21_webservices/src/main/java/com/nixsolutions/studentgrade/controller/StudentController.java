@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,23 +66,15 @@ public class StudentController {
                                     @ModelAttribute("group") String group) {
 
         ModelAndView model = new ModelAndView();
-        List<Student> studentList = new ArrayList<>();
+        List<Student> studentList = studentService.findByLastNameAndGroup(lastName, group);
 
-        if (lastName != null && !lastName.isEmpty() && group != null && !group.isEmpty()) {
-            studentList = studentService.findByLastNameAndGroup(lastName, group);
-        } else if (lastName != null && !lastName.isEmpty()) {
-            studentList = studentService.findByLastName(lastName);
-        } else if (group != null && !group.isEmpty()) {
-            studentList = studentService.findByGroup(group);
-        } else {
-            model.addObject("message", "Please specify search criteria.");
+        if (studentList.isEmpty()) {
+            model.addObject("message", "No data available. Please change search criteria.");
         }
-
         model.addObject("students", studentList);
         model.setViewName("studentResult");
         return model;
     }
-
 
     @RequestMapping(value = "/student", params = "add", method = RequestMethod.POST)
     public String addStudent(@ModelAttribute("student") Student student,

@@ -32,7 +32,7 @@ public class IOCopy {
         if (!destinationDir.exists()) {
             destinationDir.mkdirs();
         }
-        //If the source directory does'nt exist, throw an IllegalArgumentException
+        //If the source directory doesn't exist, throw an IllegalArgumentException
         if (!sourceDir.exists()) {
             throw new IllegalArgumentException("The source directory doesn't exist");
         }
@@ -51,7 +51,7 @@ public class IOCopy {
                 if (f.isDirectory()) {
                     File copyDir = new File(destinationDir, f.getName());
                     copyDir.mkdir();
-                    //Copy the directory by calling the copyPreparation method again
+                    //Copy the directory by calling the prepareForCopying method again
                     prepareForCopying(f, copyDir);
                 } else {
                     //If the source is a file

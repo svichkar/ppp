@@ -7,10 +7,14 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>">
 </head>
 <body>
-	<a href="<c:url value="/logout.do"/>">Logout</a>
+	<c:url var="logoutUrl" value="/logout" />
+	<form action="${logoutUrl}" method="post">
+		<input type="submit" value="Log out" /> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
 	<div id="hmenu">
 		<ul>
-			<li><a href="<c:url value="/login"/>">Home</a></li>
+			<li><a href="<c:url value="/home"/>">Home</a></li>
 			<li><a href="<c:url value="/students/students"/>">Students</a></li>		
 			<li><a href="<c:url value="/studentGroups/student-groups"/>">Student Groups</a></li>		
 			<li><a href="<c:url value="/terms/terms"/>">Terms</a></li>

@@ -32,7 +32,8 @@
 		username-parameter="username"
 		password-parameter="password" 
 		always-use-default-target='true' />
-		<logout logout-success-url="/login?logout" />
+		<logout 
+		logout-success-url="/login?logout" />
 		
 		<csrf />
 	</http>

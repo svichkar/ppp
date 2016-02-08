@@ -45,7 +45,7 @@ public class LoginController {
 		case "administrator":
 			return "redirect:/admin/users";
 		case "manager":
-			return "manager-home";
+			return "manager/managerHome";
 		case "teacher":
 		case "student":
 			model.addAttribute("error", "Sorry, the application is not ready for your operation!");

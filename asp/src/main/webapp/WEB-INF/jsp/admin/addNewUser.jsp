@@ -7,14 +7,17 @@
 	<jsp:attribute name="content_area">
 	<h1>Add User</h1>
 		<h2>User:</h2>
-		<form:form action="create-user" method="post">
+		<c:if test="${not empty error}">
+			<div class="error">${error}</div>
+		</c:if>
+		<form:form action="create-user" method="post" commandName="UserModel">
 			<form:input type="hidden" path="userId"/>
 			<form:label path="userName">Login (email):</form:label><br>
 			<form:input type="text" path="userName"/><br>
 			<form:label path="password">Password:</form:label><br>
 			<form:input type="password" path="password"/><br>
-			<form:label path="confirm">Confirm Password:</form:label><br>
-			<input type="password" name="confirm"/><br>
+			<label for="confirm">Confirm Password:</label><br>
+			<input name="confirm" id="confirm" type="password"/><br>
 			<form:label path="role.roleName">Role:</form:label><br>
 			<form:select path="role.roleName">
   				 <form:option value="NONE" label="--- Select ---"/>

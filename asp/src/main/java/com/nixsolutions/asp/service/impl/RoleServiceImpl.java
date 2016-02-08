@@ -51,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
 	public Map<String, String> getRoleMap(){
 		Map<String, String> referenceData = new HashMap<String, String>();
 		for (Role role : roleDao.getAll()){
-			referenceData.put(role.getRoleName(), role.getRoleName());
+			referenceData.put(String.valueOf(role.getRoleName()), role.getRoleName());
 		}
 		return referenceData;		
 	}

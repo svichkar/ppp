@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.asp.dao.UserDao;
 import com.nixsolutions.asp.entity.User;
+import com.nixsolutions.asp.service.RoleService;
 import com.nixsolutions.asp.service.UserService;
 
 @Service
@@ -15,14 +16,19 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private RoleService roleService;
+	
 	@Override
 	public int create(User user) { 
+		user.setRole(roleService.getByRoleName(user.getRole().getRoleName()));
 		userDao.create(user);
 		return userDao.getByUserName(user.getUserName()).getUserId();
 	}
 
 	@Override
 	public void update(User user) {
+		user.setRole(roleService.getByRoleName(user.getRole().getRoleName()));
 		userDao.update(user);
 	}
 

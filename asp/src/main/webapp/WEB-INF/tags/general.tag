@@ -7,7 +7,11 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>">
 </head>
 <body>
-	<a href="<c:url value="j_spring_security_logout" />" >Logout</a>
+	<c:url var="logoutUrl" value="/logout" />
+	<form action="${logoutUrl}" method="post">
+		<input type="submit" value="Log out" /> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
 	<div id="content">
 		<jsp:invoke fragment="content_area" />
 	</div>

@@ -1,10 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@attribute name="title"%>
 <%@attribute name="head_area" fragment="true"%>
 <%@attribute name="content_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl"/>
+<c:url value="/style/tooltips.css" var="cssUrl2"/>
 <c:url value="/images/header.png" var="logoUrl"/>
 <c:url value="/j_spring_security_logout" var="logoutUrl"/>
 <html>
@@ -14,6 +14,7 @@
   <meta name="description" content="student grade management website" />
   <link href="<c:url value="/images/favicon.png"/>" rel="shortcut icon" type="shortcut/ico">
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
+  <link href="${cssUrl2}" type="text/css" rel="stylesheet"/>
   <script src="<c:url value="/javascript/toggleScript.js"/>" type="text/javascript"></script>
   <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
 </head>

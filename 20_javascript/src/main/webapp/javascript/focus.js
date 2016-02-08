@@ -1,5 +1,5 @@
 var d = document;
-var offsetfromcursorY=15 // y offset of tooltip
+var offsetfromcursorY=-25 // y offset of tooltip
 var ie=d.all && !window.opera;
 var ns6=d.getElementById && !d.all;
 var tipobj,op;
@@ -16,7 +16,7 @@ function tooltip(el,txt) {
 
 function hide_info(el) {
 	d.getElementById('mess').style.visibility='hidden';
-	el.onmousemove='';
+	el.onblur='';
 }
 
 function ietruebody(){
@@ -47,3 +47,4 @@ function appear() {
 		t = setTimeout('appear()', 30);
 	}
 }
+

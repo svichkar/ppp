@@ -9,23 +9,23 @@ import java.util.List;
  */
 public interface SubjectDao {
 
-    public void create(Subject subject);
+    void create(Subject subject);
 
-    public void update(Subject subject);
+    void update(Subject subject);
 
-    public void delete(Subject subject);
+    void delete(Subject subject);
 
-    public List<Subject> findAll();
+    List<Subject> findAll();
 
-    public Subject findById(Long id);
+    Subject findById(Long id);
 
-    public Subject findByName(String subjectName);
+    Subject findByName(String subjectName);
 
-    public Subject findByNameAndTermId(String subjectName, Long termId);
+    Subject findByNameAndTermId(String subjectName, Long termId);
 
-    public List<Subject> findByTermId(Long termId);
+    List<Subject> findByTermId(Long termId);
 
-    public List<Subject> findByTermName(String termName);
+    List<Subject> findByTermName(String termName);
 
-    public Subject findByNameAndTerm(String subjectName, String termName);
+    Subject findByNameAndTerm(String subjectName, String termName);
 }

@@ -36,4 +36,23 @@ public class Status implements Serializable {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Status status = (Status) o;
+
+        if (!statusId.equals(status.statusId)) return false;
+        return statusName.equals(status.statusName);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = statusId.hashCode();
+        result = 31 * result + statusName.hashCode();
+        return result;
+    }
 }

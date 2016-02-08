@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,7 +82,27 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findByLastNameAndGroup(String lastName, String groupName) {
-        return studentDao.findByLastNameAndGroup(lastName, groupName);
+
+        List<Student> result = new ArrayList<>();
+
+        if (lastName != null && !lastName.isEmpty()) {
+
+            if (groupName != null && !groupName.isEmpty()) {
+                result = studentDao.findByLastNameAndGroup(lastName, groupName);
+
+            } else {
+
+                result = studentDao.findByLastName(lastName);
+            }
+
+        } else {
+            if (groupName != null && !groupName.isEmpty()) {
+
+                result = studentDao.findByGroup(groupName);
+            }
+        }
+
+        return result;
     }
 
     @Override

@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface TermDao {
 
-    public void create(Term term);
+    void create(Term term);
 
-    public void update(Term term);
+    void update(Term term);
 
-    public void delete(Term term);
+    void delete(Term term);
 
-    public List<Term> findAll();
+    List<Term> findAll();
 
-    public Term findById(Long id);
+    Term findById(Long id);
 
-    public Term findByName(String termName);
+    Term findByName(String termName);
 }

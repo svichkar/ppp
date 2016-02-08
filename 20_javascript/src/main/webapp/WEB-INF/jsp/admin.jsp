@@ -26,7 +26,11 @@
 
 <tbody>
 
-<div style="visibility: hidden; position: absolute" id="mess"></div>
+<a class="tooltips" id="tip">LINK AT ME
+<span>This is shit!</span>
+</a>
+
+<div style="visibility: hidden; position: absolute;  background: #000000;color: #FFFFFF;border-radius: 6px; border-right: 8px solid #000000;border-top: 8px solid transparent;border-bottom: 8px solid transparent;padding: 10 10 10 10;" id="mess"></div>
 
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${users}">
@@ -75,14 +79,14 @@
 <tr>
 <form:form  action="admin" method="post">
 <td readonly></td>
-<td><input type="text" name="firstName" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" pattern="[A-Za-z]{3,30}" required placeholder="first name"></input></td>
-<td><input type="text" name="lastName" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
-<td><input type="text" name="email" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td>
-<td><input type="text" name="login" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" required placeholder="login"></input></td>
-<td><input type="text" name="userPassword" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" required placeholder="password"></input></td>
+<td><input type="text" name="firstName" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" placeholder="first name"></input></td>
+<td><input type="text" name="lastName" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" placeholder="second name"></input></td>
+<td><input type="text" name="email" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" placeholder="e-mail"></input></td>
+<td><input type="text" name="login" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" placeholder="login"></input></td>
+<td><input type="text" name="userPassword" onfocus="tooltip(this, 'What is it?')" onblur="hide_info(this)" placeholder="password"></input></td>
 <td>
-<select name="selectedRole" required>
-<option value="" selected disabled></option>
+<select name="selectedRole">
+<option value="....." selected disabled></option>
 <c:forEach items="${roles}" var="r">
     <option value="${r.roleName}">${r.roleName}</option>
 </c:forEach>

@@ -35,4 +35,23 @@ public class Role implements Serializable {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (!roleId.equals(role.roleId)) return false;
+        return roleName.equals(role.roleName);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = roleId.hashCode();
+        result = 31 * result + roleName.hashCode();
+        return result;
+    }
 }

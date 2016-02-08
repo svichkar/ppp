@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface StudentGroupService {
 
-    public void create(StudentGroup group);
+    void create(StudentGroup group);
 
-    public void update(StudentGroup group);
+    void update(StudentGroup group);
 
-    public void delete(StudentGroup group);
+    void delete(StudentGroup group);
 
-    public List<StudentGroup> findAll();
+    List<StudentGroup> findAll();
 
-    public StudentGroup findById(Long id);
+    StudentGroup findById(Long id);
 
-    public StudentGroup findByName(String group);
+    StudentGroup findByName(String group);
 }

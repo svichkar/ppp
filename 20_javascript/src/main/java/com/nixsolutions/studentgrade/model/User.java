@@ -34,7 +34,7 @@ public class User implements Serializable {
     private String email;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name  = "role_id")
+    @JoinColumn(name = "role_id")
     @Cascade(CascadeType.DETACH)
     private Role role;
 
@@ -97,4 +97,31 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!userId.equals(user.userId)) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        if (!login.equals(user.login)) return false;
+        if (!userPassword.equals(user.userPassword)) return false;
+        if (!email.equals(user.email)) return false;
+        return role.equals(user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userId.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + login.hashCode();
+        result = 31 * result + userPassword.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + role.hashCode();
+        return result;
+    }
 }

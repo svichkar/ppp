@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 
 /**
@@ -25,20 +26,17 @@ public class CollectionImplementation implements Collection {
 
     @Override
     public boolean addAll(Collection collection) {
-        boolean found = false;
+        boolean added = false;
         int initialSize = size();
         for (Object o : collection) {
-            add(o);
-        }
-        for (Object o : objects) {
-            if (!contains(o)) {
-                found = false;
+            if (!add(o)) {
+                added = false;
                 break;
             } else {
-                found = true;
+                added = true;
             }
         }
-        if (found && (size() == initialSize + collection.size())) {
+        if (added && (size() == initialSize + collection.size())) {
             return true;
         } else {
             return false;
@@ -90,37 +88,78 @@ public class CollectionImplementation implements Collection {
 
     @Override
     public boolean remove(Object obj) {
-
-        Object[] temporary = new Object[size() - 1];
-        int y = 0;
-        for (int i = 0; i < size(); i++) {
-            if (!objects[i].equals(obj)) {
-                temporary[y] = objects[i];
-                y++;
+        int arrayOriginalSize = size();
+        if (!isEmpty()) {
+            if (contains(obj)) {
+                Object[] temporary = new Object[size() - 1];
+                int y = 0;
+                int indexOfElToBeRemoved = 0;
+                //find the index of the first element (there can be several
+                //elements with the same value)
+                for (int i = 0; i < size(); i++) {
+                    if (objects[i].equals(obj)) {
+                        indexOfElToBeRemoved = i;
+                        break;
+                    }
+                }
+                //Create a new array without the removed element
+                for (int i = 0; i < size(); i++) {
+                    if (i != indexOfElToBeRemoved) {
+                        temporary[y] = objects[i];
+                        y++;
+                    }
+                }
+                objects = temporary;
+                if ((arrayOriginalSize - 1) == size()) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
-        objects = temporary;
-        if (!contains(obj)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
     public boolean removeAll(Collection collection) {
-        for (Object o : collection) {
-            remove(o);
+        boolean removed = false;
+        if (!isEmpty()) {
+            for (Object o : collection) {
+                while (contains(o)) {
+                    removed = remove(o);
+                }
+            }
         }
-        return true;
+        return removed;
     }
 
     @Override
     public boolean retainAll(Collection collection) {
-        clear();
-        objects = new Object[0];
-        addAll(collection);
-        return true;
+        boolean removed = false;
+        int originalSize = size();
+        boolean found = true;
+        if (!isEmpty()) {
+            for (int i = 0; i < size(); i++) {
+                for (int y = 0; y < collection.toArray().length; y++) {
+                    if (objects[i].equals(collection.toArray()[y])) {
+                        found = true;
+                        break;
+                    } else {
+                        found = false;
+                    }
+                }
+                if (!found) {
+                    remove(objects[i]);
+                    i--;
+                }
+            }
+            if (originalSize > size()) {
+                removed = true;
+            } else {
+                removed = false;
+            }
+        }
+        return removed;
     }
 
     @Override

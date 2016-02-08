@@ -13,33 +13,30 @@ public class CollectionManipulator {
         //Working with the add() method
         CollectionImplementation implementation = new CollectionImplementation();
         CollectionManipulator manipulator = new CollectionManipulator();
-        implementation.add(1);
-        implementation.add(2);
-        manipulator.displayResult("Working with the add method:", implementation);
-        //Working with the addAll() method
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(3);
-        list.add(4);
+        //Working with the add() method
+        List<String> list = new ArrayList<String>();
+        list.add("William");
+        list.add("Barry");
         implementation.addAll(list);
         manipulator.displayResult("Working with the addAll method:", implementation);
-        //Working with the clear() method
+        // Working with the clear() method
         implementation.clear();
         manipulator.displayResult("Working with the clear() method", implementation);
         //Working with the contains method
         System.out.println("============================");
         System.out.println("Working with the contains method");
         System.out.println("============================");
-        implementation.add(3);
-        System.out.println(implementation.contains(3));
-        System.out.println(implementation.contains(10));
+        implementation.add("Frank");
+        System.out.println(implementation.contains("Frank"));
+        System.out.println(implementation.contains("John"));
         System.out.println("============================");
         System.out.println("Working with the containsAll method");
         //Working with the containsAll method
         implementation.addAll(list);
         System.out.println(implementation.containsAll(list));
-        List<Integer> newList = new ArrayList<Integer>();
-        newList.add(200);
-        newList.add(300);
+        List<String> newList = new ArrayList<String>();
+        newList.add("Hugh");
+        newList.add("Samantha");
         System.out.println(implementation.containsAll(newList));
         //Working with the isEmpty() method
         implementation.clear();
@@ -48,9 +45,9 @@ public class CollectionManipulator {
         System.out.println(implementation.isEmpty());
         System.out.println("============================");
         //Working with the remove() method
-        implementation.add(2);
-        implementation.add(5);
-        implementation.remove(5);
+        implementation.add("Jessica");
+        implementation.add("Brian");
+        implementation.remove("Brian");
         manipulator.displayResult("Working with the remove() method:", implementation);
         //Working with the removeAll() method
         implementation.addAll(list);
@@ -58,14 +55,14 @@ public class CollectionManipulator {
         manipulator.displayResult("Working with the removeAll() method:", implementation);
         //Working with the retainAll() method
         implementation.addAll(list);
+        implementation.add("Jennifer");
         implementation.retainAll(list);
         manipulator.displayResult("Working with the retainAll() method:", implementation);
-        //Working witht the size() method
-        System.out.println("============================");
+        //Working with the size() method
         System.out.println("Working with the size() method:");
         System.out.println(implementation.size());
         System.out.println("============================");
-        //Working witht the Object[] toArray() method
+        //Working with the Object[] toArray() method
         System.out.println("============================");
         System.out.println("Working with the toArray() and iterator() methods:");
         Iterator iterator = implementation.iterator();

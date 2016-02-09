@@ -11,7 +11,7 @@ public class Main {
         ObjectOutputStream objectOutputStream = null;
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
-        File acc = new File("storage.bin");
+        File acc = new File("storage.dat");
 
         try {
             fileOutputStream = new FileOutputStream(acc);

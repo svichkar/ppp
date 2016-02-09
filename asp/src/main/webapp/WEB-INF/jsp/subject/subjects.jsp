@@ -4,10 +4,10 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Subjects">
 	<jsp:attribute name="content_area">
+	<script src="<c:url value="/resources/js/table.js"/>"></script>
 <h1>Subjects</h1>
 <h2>Search</h2>
-<b>Search strategy:</b>
-		<br>
+<b>Search strategy:</b><br>
 <form action="<c:url value="/subjects/subjects"></c:url>" method="post">
   <input type="radio" name="searchType" value="subject" <c:if test="${radioSearch == 'subjects'}">checked</c:if>> Subject Name
   <input type="radio" name="searchType" value="term" <c:if test="${radioSearch == 'term'}">checked</c:if>> Term Name
@@ -29,7 +29,7 @@
 			<td>${subject.name}</td>
 			<td>${subject.term.alias}</td>
 			<td>
-				<form action="<c:url value="/subjects/update-subject"></c:url>" method="get">
+				<form action="<c:url value="/subjects/edit-subject"></c:url>" method="get">
 					<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 					<input type="hidden" name="subjectId" value="${subject.subjectId}">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

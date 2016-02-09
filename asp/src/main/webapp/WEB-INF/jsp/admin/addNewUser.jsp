@@ -5,6 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general title="Add User">
 	<jsp:attribute name="content_area">
+	<script src="<c:url value="/resources/js/tooltip.js"/>"></script>
 	<h1>Add User</h1>
 		<h2>User:</h2>
 		<c:if test="${not empty error}">
@@ -13,13 +14,13 @@
 		<form:form action="create-user" method="post" commandName="UserModel">
 			<form:input type="hidden" path="userId"/>
 			<form:label path="userName">Login (email):</form:label><br>
-			<form:input type="text" path="userName"/><br>
+			<form:input type="text" path="userName" tooltip="User e-mail"/><br>
 			<form:label path="password">Password:</form:label><br>
-			<form:input type="password" path="password"/><br>
+			<form:input type="password" path="password" tooltip="Password"/><br>
 			<label for="confirm">Confirm Password:</label><br>
-			<input name="confirm" id="confirm" type="password"/><br>
+			<input name="confirm" id="confirm" type="password" tooltip="Confirm Password"/><br>
 			<form:label path="role.roleName">Role:</form:label><br>
-			<form:select path="role.roleName">
+			<form:select path="role.roleName" tooltip="User role">
   				 <form:option value="NONE" label="--- Select ---"/>
   				 <form:options items="${roleList}" />
 			</form:select>		

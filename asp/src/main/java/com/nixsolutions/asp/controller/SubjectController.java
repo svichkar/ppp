@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nixsolutions.asp.entity.Subject;
 import com.nixsolutions.asp.service.SubjectService;
@@ -35,46 +36,36 @@ public class SubjectController {
 	}
 
 	@RequestMapping(value = "/add-new-subject", method = RequestMethod.GET)
-	protected String addNewSubjectGet(Model model) {
-		model.addAttribute("terms", termService.getAll());
-		return "subject/addNewSubject";
+	protected ModelAndView addNewSubjectGet() {
+		Subject subject = new Subject();
+		ModelAndView model = new ModelAndView("subject/addNewSubject", "SubjectModel", subject);		
+		model.addObject("termList", termService.getTermMap());
+		return model;		
 	}
 
 	@RequestMapping(value = "/create-subject", method = RequestMethod.POST)
-	protected String addNewSubjectPost(@ModelAttribute("subject") String subjectName,
-			@ModelAttribute("term") String term, Model model) {
-		Subject subject = new Subject();
-		subject.setName(subjectName);
-		subject.setTerm(termService.getByTermAlias(term));
+	protected String addNewSubjectPost(@ModelAttribute("SubjectModel") Subject subject, Model model) {
 		subjectService.create(subject);
-		model.addAttribute("subjects", subjectService.getAll());
-		return "subject/subjects";
+		return "redirect:/subjects/subjects";
 	}
 
 	@RequestMapping(value = "/edit-subject", method = RequestMethod.GET)
-	protected String editSubjectGet(@ModelAttribute("subjectId") String subjectId, Model model) {
+	protected ModelAndView editSubjectGet(@ModelAttribute("subjectId") String subjectId) {
 		Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectId));
-		model.addAttribute("subject", subject);
-		model.addAttribute("terms", termService.getAll());
-		return "subject/editSubject";
+		ModelAndView model = new ModelAndView("subject/editSubject", "SubjectModel", subject);		
+		model.addObject("termList", termService.getTermMap());
+		return model;
 	}
 
 	@RequestMapping(value = "/update-subject", method = RequestMethod.POST)
-	protected String updateSubjectPost(@ModelAttribute("subjectId") String subjectId,
-			@ModelAttribute("subject") String subjectName,
-			@ModelAttribute("term") String termAlias, Model model) {
-		Subject subject = subjectService.getBySubjectId(Integer.parseInt(subjectId));
-		subject.setName(subjectName);
-		subject.setTerm(termService.getByTermAlias(termAlias));
+	protected String updateSubjectPost(@ModelAttribute("SubjectModel") Subject subject, Model model) {		
 		subjectService.update(subject);
-		model.addAttribute("subjects", subjectService.getAll());
-		return "subject/subjects";
+		return "redirect:/subjects/subjects";
 	}
 
 	@RequestMapping(value = "/delete-subject", method = RequestMethod.POST)
 	protected String deleteSubjectPost(@ModelAttribute("subjectId") String subjectId, Model model) {
 		subjectService.delete(subjectService.getBySubjectId(Integer.parseInt(subjectId)));
-		model.addAttribute("subjects", subjectService.getAll());
-		return "subject/subjects";
+		return "redirect:/subjects/subjects";
 	}
 }

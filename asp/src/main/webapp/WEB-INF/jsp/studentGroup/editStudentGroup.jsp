@@ -6,7 +6,7 @@
 	<jsp:attribute name="content_area">
 	<h1>Edit Student Group</h1>
 		<h2>Student Group:</h2>
-		<form action="<c:url value="/studentGroups/editStudentGroup.do"></c:url>" method="post">
+		<form action="<c:url value="/studentGroups/update-student-group"></c:url>" method="post">
 		<b>Name:</b><br>
 		<input tooltip="Name of sudent group" type="text" name="studentGroupName" value="${studentGroup.studentGroupName}"><br>	
 		<input type="hidden" name="studentGroupId" value="${studentGroup.studentGroupId}"><br>	

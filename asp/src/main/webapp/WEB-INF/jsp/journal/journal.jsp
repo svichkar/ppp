@@ -4,6 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Journal">
 <jsp:attribute name="content_area">
+<script src="<c:url value="/resources/js/table.js"/>"></script>
 <h1>Terms</h1>
 <table style="width: 60%" border="1">
 		<tr>

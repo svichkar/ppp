@@ -4,6 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general title="All Users"> 
 	<jsp:attribute name="content_area">
+	<script src="<c:url value="/resources/js/table.js"/>"></script>
 	<h1>All Users</h1>
 	<table border="1">
 		<tr>

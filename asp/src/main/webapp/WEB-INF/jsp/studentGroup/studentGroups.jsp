@@ -4,6 +4,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Student Groups"> 
 <jsp:attribute name="content_area">
+<script src="<c:url value="/resources/js/table.js"/>"></script>
 <h1>Student Groups</h1>
 <table style="width: 40%" border="1">
 		<tr>
@@ -16,12 +17,12 @@
 				<td>${item.studentGroupId}</td>
 				<td>${item.studentGroupName}</td>				
 				<td>
-						<form action="<c:url value="/studentGroups/editStudentGroup.do"></c:url>" method="get">
+						<form action="<c:url value="/studentGroups/edit-student-group"></c:url>" method="get">
 							<input type="hidden" name="studentGroupId" value="${item.studentGroupId}">
 							<input type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
-						<form action="<c:url value="/studentGroups/deleteStudentGroup.do"></c:url>" method="post">
+						<form action="<c:url value="/studentGroups/delete-student-group"></c:url>" method="post">
 							<input type="hidden" name="studentGroupId" value="${item.studentGroupId}"> 
 							<input type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -31,7 +32,7 @@
 		</c:forEach>
 	</table>
 	
-	<form action="<c:url value="/studentGroups/addNewStudentGroup.do"></c:url>" method="get">
+	<form action="<c:url value="/studentGroups/add-new-student-group"></c:url>" method="get">
 	<input type=submit name="create" value="Add new" style="width: 100px;">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>

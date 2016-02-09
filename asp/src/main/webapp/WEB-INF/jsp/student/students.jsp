@@ -4,10 +4,11 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:generalManager title="Students">
 	<jsp:attribute name="content_area">
+	<script src="<c:url value="/resources/js/table.js"/>"></script>
 <h1>Students</h1>
 <h2>Search</h2>
 <h3>Search by student</h3>
-<form action="<c:url value="/students/students.do"></c:url>" method="post">
+<form action="<c:url value="/students/students"></c:url>" method="post">
   First Name:
   <input type="text" name="firstName" value="" tooltip="First Name student for searching">
   Last Name:
@@ -16,7 +17,7 @@
   <input type="submit" value="Search" style="width: 100px;">
  </form>
  <h3>Search by student group</h3>
- <form action="<c:url value="/students/students.do"></c:url>" method="post">
+ <form action="<c:url value="/students/students"></c:url>" method="post">
   Student Group:
   <select name="studentGroup" tooltip="Student Group for searching students">  
   <c:forEach var="group" items="${groups}">
@@ -51,19 +52,19 @@
 				<td>${student.term.alias}</td>
 				<td>${student.status.statusName}</td>
 				<td>
-					<form action="<c:url value="/students/editStudent.do"></c:url>" method="get">
+					<form action="<c:url value="/students/edit-student"></c:url>" method="get">
 						<input type=submit name="edit" value="Edit" style="width: 100%; height: 50%;">
 						<input type="hidden" name="studentId" value="${student.studentId}">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
-					<form action="<c:url value="/students/deleteStudent.do"></c:url>" method="post">							
+					<form action="<c:url value="/students/delete-student"></c:url>" method="post">							
 						<input type=submit name="delete" value="Delete"	style="width: 100%; height: 50%;">
 						<input type="hidden" name="studentId" value="${student.studentId}">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</td>
 				<td>
-                    <form action="<c:url value="/journal/journal.do"></c:url>" method="post">
+                    <form action="<c:url value="/journal/journal"></c:url>" method="post">
                 	    <input type=submit name="edit" value="Grades">
                 		<input type="hidden" name="studentId" value="${student.studentId}">
                 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -72,7 +73,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<form action="<c:url value="/students/addNewStudent.do"></c:url>" method="get">
+	<form action="<c:url value="/students/add-new-student"></c:url>" method="get">
 	<input type=submit name="create" value="Add new" style="width: 100px;">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>

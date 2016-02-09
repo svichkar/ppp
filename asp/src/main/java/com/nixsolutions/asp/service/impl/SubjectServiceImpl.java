@@ -15,16 +15,18 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Autowired
 	private SubjectDao subjectDao;
-	private SubjectService subjectService;
+	@Autowired
 	private TermService termService;
 
 	@Override
 	public void create(Subject subject) {
+		subject.setTerm(termService.getByTermAlias(subject.getTerm().getAlias()));
 		subjectDao.create(subject);
 	}
 
 	@Override
 	public void update(Subject subject) {
+		subject.setTerm(termService.getByTermAlias(subject.getTerm().getAlias()));
 		subjectDao.update(subject);
 	}
 
@@ -56,9 +58,9 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public List<Subject> getSubjectsByQuery(String queryType, String query) {
 		if (queryType.equals("subject")) {
-			return subjectService.getBySubjectName(query);
+			return getBySubjectName(query);
 		} else {
-			return subjectService.getSubjectsByTermId(termService.getByTermAlias(query).getTermId());
+			return getSubjectsByTermId(termService.getByTermAlias(query).getTermId());
 		}
 	}
 

@@ -16,13 +16,18 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.nixsolutions.asp" />
 
-	<http auto-config="true">
-		<intercept-url pattern="/resources**" access="permitAll" />
+	<http auto-config="true">		
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
-		<intercept-url pattern="/home" access="permitAll" />
-		<intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/asp/manager**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/journal/**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/students/**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/studentGroups/**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/subjects/**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/terms/**" access="hasRole('ROLE_MANAGER')"  />
+		<intercept-url pattern="/resources**" access="permitAll" />
+
+		<access-denied-handler error-page="/403" />
 
 		<form-login 
 		login-page="/login" 

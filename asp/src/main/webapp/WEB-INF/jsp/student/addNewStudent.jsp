@@ -6,7 +6,7 @@
 	<jsp:attribute name="content_area">
 	<h1>Add Student</h1>
 		<h2>Student:</h2>
-		<form action="<c:url value="/students/addNewStudent.do"></c:url>" method="post">
+		<form action="<c:url value="/students/add-new-student"></c:url>" method="post">
 		<b>First Name:</b><br>
 		<input type="text" name="firstName" tooltip="First Name of student"><br>
 		<b>Last Name:</b><br>

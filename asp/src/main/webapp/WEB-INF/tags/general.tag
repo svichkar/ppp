@@ -15,5 +15,6 @@
 	<div id="content">
 		<jsp:invoke fragment="content_area" />
 	</div>
+	<div id="myAlt" style="visibility: hidden;"></div>
 </body>
 </html>

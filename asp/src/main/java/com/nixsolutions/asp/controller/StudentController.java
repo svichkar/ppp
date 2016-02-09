@@ -31,7 +31,7 @@ public class StudentController {
 	protected String studentGet(Model model) {
 		model.addAttribute("students", studentService.getAll());
 		model.addAttribute("groups", studentGroupService.getAll());
-		return "student/student";
+		return "student/students";
 	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.POST)
@@ -45,7 +45,7 @@ public class StudentController {
 					studentGroupService.getByStudentGroupName(studentGroupName).getStudentGroupId()));
 		}
 		model.addAttribute("groups", studentGroupService.getAll());
-		return "student/student";
+		return "student/students";
 	}
 
 	@RequestMapping(value = "/add-new-student", method = RequestMethod.GET)
@@ -71,7 +71,7 @@ public class StudentController {
 		student.setStatus(statusService.getByStatusName(statusName));
 		studentService.create(student);
 		model.addAttribute("students", studentService.getAll());
-		return "student/student";
+		return "student/students";
 	}
 
 	@RequestMapping(value = "/edit-student", method = RequestMethod.GET)
@@ -84,7 +84,7 @@ public class StudentController {
 		return "student/editStudent";
 	}
 
-	@RequestMapping(value = "/save-student", method = RequestMethod.POST)
+	@RequestMapping(value = "/update-student", method = RequestMethod.POST)
 	protected String editStudentPost(@ModelAttribute("studentId") String studentId,
 			@ModelAttribute("firstName") String firstName, @ModelAttribute("lastName") String lastName,
 			@ModelAttribute("bday") String dateBirthday, @ModelAttribute("eday") String dateEntry,
@@ -100,14 +100,14 @@ public class StudentController {
 		student.setStatus(statusService.getByStatusName(statusName));
 		studentService.update(student);
 		model.addAttribute("students", studentService.getAll());
-		return "student/student";
+		return "student/students";
 	}
 
 	@RequestMapping(value = "/delete-student", method = RequestMethod.POST)
 	protected String deleteStudentPost(@ModelAttribute("studentId") String studentId, Model model) {
 		studentService.delete(studentService.getByStudentId(Integer.parseInt(studentId)));
 		model.addAttribute("students", studentService.getAll());
-		return "student/student";
+		return "student/students";
 	}
 
 }

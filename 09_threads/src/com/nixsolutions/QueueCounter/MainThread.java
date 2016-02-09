@@ -13,17 +13,19 @@ public class MainThread implements Runnable {
         this.counter = counter;
     }
 
+    public AtomicInteger getCounter() {
+        return counter;
+    }
+
     @Override
     public void run() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; counter.intValue() < 1000; i++) {
             try {
                 Thread.sleep(100);
                 counter.addAndGet(1);
-                System.out.println(counter);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        //Thread.currentThread().interrupt();
     }
 }

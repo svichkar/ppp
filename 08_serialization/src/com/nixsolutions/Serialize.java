@@ -26,6 +26,7 @@ public class Serialize {
         ObjectInputStream oiStream = new ObjectInputStream(fiStream);
         obj = (Account) oiStream.readObject();
         fiStream.close();
+        oiStream.close();
         return obj;
     }
 }

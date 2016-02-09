@@ -8,6 +8,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Created by sobolenko on 2/4/2016.
@@ -146,19 +147,20 @@ public class FileCopy {
         File srcFile = new File(srcFolder);
         List<File> allFilesInDir = getAllFilesFromDirectoryIO(srcFile);
         for (File file : allFilesInDir) {
-            destDirectiryOrFile = new File(destFile.toString() + file.getPath().replaceAll("\\w:", ""));
+            destDirectiryOrFile = new File(destFile.toString() + file.getPath().replace(srcFolder, ""));
             if (!destDirectiryOrFile.getParentFile().exists()) {
                 destDirectiryOrFile.getParentFile().mkdirs();
             }
             if (file.isFile()) {
                 fis = new FileInputStream(file);
                 fos = new FileOutputStream(destDirectiryOrFile);
-                isr = new InputStreamReader(fis, "UTF-8");
-                br = new BufferedReader(isr);
-                String line = "";
-                while ((line = br.readLine()) != null) {
-                    fos.write(line.getBytes());
+                isr = new InputStreamReader(fis);
+                //br = new BufferedReader(isr);
+                Scanner sc = new Scanner(isr);
+                while (sc.hasNext()) {
+                    fos.write(sc.next().getBytes());
                 }
+                String line = "";
                 fos.flush();
                 fos.close();
             }

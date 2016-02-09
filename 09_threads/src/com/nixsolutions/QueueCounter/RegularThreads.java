@@ -9,26 +9,21 @@ public class RegularThreads implements Runnable {
 
     String name;
     AtomicInteger counter;
-    int startCount;
 
-    public RegularThreads(String name, AtomicInteger counter, int startCount) {
+    public RegularThreads(String name, AtomicInteger counter) {
         this.name = name;
         this.counter = counter;
-        this.startCount = startCount;
     }
 
     @Override
     public void run() {
         while (counter.intValue() < 1000) {
-            if (counter.intValue() > startCount) {
-                try {
-                    Thread.sleep(1000);
-                    System.out.println(name + " working...");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                Thread.sleep(1000);
+                System.out.println("Thread " + name + " working...");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-        //Thread.currentThread().interrupt();
     }
 }

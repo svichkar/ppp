@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AddBookController {
     @Autowired
-    AddBookService addBookService;
+    private AddBookService addBookService;
 
     @RequestMapping(value = "/addBook")
     protected String addBook(

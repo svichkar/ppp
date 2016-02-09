@@ -6,18 +6,21 @@ import com.nixsolutions.spring.entity.Role;
 import com.nixsolutions.spring.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by kozlovskij on 2/3/2016.
  */
+
 @Service
+@Transactional
 public class AddUserService {
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
     @Autowired
-    RoleDAO roleDAO;
+    private RoleDAO roleDAO;
 
     public List<Role> roles(){
         return roleDAO.findAll();

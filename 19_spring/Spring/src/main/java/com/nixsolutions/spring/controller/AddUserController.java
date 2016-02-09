@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AddUserController {
     @Autowired
-    AddUserService addUserService;
+    private AddUserService addUserService;
 
     @RequestMapping(value = "/userManagement")
     protected String addUser(

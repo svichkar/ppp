@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AddReaderController {
     @Autowired
-    AddReaderService addReaderService;
+    private AddReaderService addReaderService;
 
     @RequestMapping(value = "/addReader")
     protected String addReader(

@@ -52,4 +52,25 @@ public class Cell implements Serializable{
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        if (cellId != null ? !cellId.equals(cell.cellId) : cell.cellId != null) return false;
+        if (cellName != null ? !cellName.equals(cell.cellName) : cell.cellName != null) return false;
+        return books != null ? books.equals(cell.books) : cell.books == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cellId != null ? cellId.hashCode() : 0;
+        result = 31 * result + (cellName != null ? cellName.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
+        return result;
+    }
 }

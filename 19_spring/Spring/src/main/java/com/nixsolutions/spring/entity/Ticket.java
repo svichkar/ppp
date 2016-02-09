@@ -88,4 +88,31 @@ public class Ticket implements Serializable{
     public void setReturnDate(Timestamp returnDate) {
         this.returnDate = returnDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ticket ticket = (Ticket) o;
+
+        if (ticketId != null ? !ticketId.equals(ticket.ticketId) : ticket.ticketId != null) return false;
+        if (book != null ? !book.equals(ticket.book) : ticket.book != null) return false;
+        if (client != null ? !client.equals(ticket.client) : ticket.client != null) return false;
+        if (rentDate != null ? !rentDate.equals(ticket.rentDate) : ticket.rentDate != null) return false;
+        if (expiredDate != null ? !expiredDate.equals(ticket.expiredDate) : ticket.expiredDate != null) return false;
+        return returnDate != null ? returnDate.equals(ticket.returnDate) : ticket.returnDate == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ticketId != null ? ticketId.hashCode() : 0;
+        result = 31 * result + (book != null ? book.hashCode() : 0);
+        result = 31 * result + (client != null ? client.hashCode() : 0);
+        result = 31 * result + (rentDate != null ? rentDate.hashCode() : 0);
+        result = 31 * result + (expiredDate != null ? expiredDate.hashCode() : 0);
+        result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
+        return result;
+    }
 }

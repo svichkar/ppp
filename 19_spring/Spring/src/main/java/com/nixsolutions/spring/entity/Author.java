@@ -70,4 +70,28 @@ public class Author implements Serializable{
         this.books = books;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        if (authorId != null ? !authorId.equals(author.authorId) : author.authorId != null) return false;
+        if (authorFirstName != null ? !authorFirstName.equals(author.authorFirstName) : author.authorFirstName != null)
+            return false;
+        if (authorLastName != null ? !authorLastName.equals(author.authorLastName) : author.authorLastName != null)
+            return false;
+        return books != null ? books.equals(author.books) : author.books == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = authorId != null ? authorId.hashCode() : 0;
+        result = 31 * result + (authorFirstName != null ? authorFirstName.hashCode() : 0);
+        result = 31 * result + (authorLastName != null ? authorLastName.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
+        return result;
+    }
 }

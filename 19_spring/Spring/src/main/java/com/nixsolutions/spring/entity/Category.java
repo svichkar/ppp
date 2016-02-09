@@ -53,4 +53,25 @@ public class Category implements Serializable {
         this.books = books;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        if (categoryId != null ? !categoryId.equals(category.categoryId) : category.categoryId != null) return false;
+        if (categoryName != null ? !categoryName.equals(category.categoryName) : category.categoryName != null)
+            return false;
+        return books != null ? books.equals(category.books) : category.books == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = categoryId != null ? categoryId.hashCode() : 0;
+        result = 31 * result + (categoryName != null ? categoryName.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
+        return result;
+    }
 }

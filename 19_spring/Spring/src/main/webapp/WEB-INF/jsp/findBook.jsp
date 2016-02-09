@@ -20,6 +20,7 @@
                      </thead>
                      <tbody>
                             <form action="loanManagement" method="post" name="giveBook">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                          <input type="submit" value="Get checked books to client" name="giveBook">
                             <c:forEach var="book" items="${books}">
                                <tr>

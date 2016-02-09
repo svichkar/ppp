@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AddCategoryController {
     @Autowired
-    AddCategoryService addCategoryService;
+    private AddCategoryService addCategoryService;
 
     @RequestMapping(value = "/categoryManagement")
     protected String addUser(

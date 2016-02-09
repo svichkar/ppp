@@ -21,7 +21,7 @@ public class Role implements Serializable {
     private String roleName;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private List<User> users;
 
@@ -50,5 +50,26 @@ public class Role implements Serializable {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (roleId != null ? !roleId.equals(role.roleId) : role.roleId != null) return false;
+        if (roleName != null ? !roleName.equals(role.roleName) : role.roleName != null) return false;
+        return users != null ? users.equals(role.users) : role.users == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = roleId != null ? roleId.hashCode() : 0;
+        result = 31 * result + (roleName != null ? roleName.hashCode() : 0);
+        result = 31 * result + (users != null ? users.hashCode() : 0);
+        return result;
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FindBookController {
     @Autowired
-    FindBookService findBookService;
+    private FindBookService findBookService;
 
     @RequestMapping(value = "/bookManagement")
     protected String findBook(

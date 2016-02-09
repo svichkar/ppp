@@ -4,7 +4,6 @@ import com.nixsolutions.spring.dao.AuthorDAO;
 import com.nixsolutions.spring.entity.Author;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

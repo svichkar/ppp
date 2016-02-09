@@ -89,4 +89,33 @@ public class Client implements Serializable{
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (clientId != null ? !clientId.equals(client.clientId) : client.clientId != null) return false;
+        if (clientFirstName != null ? !clientFirstName.equals(client.clientFirstName) : client.clientFirstName != null)
+            return false;
+        if (clientLastName != null ? !clientLastName.equals(client.clientLastName) : client.clientLastName != null)
+            return false;
+        if (clientPhone != null ? !clientPhone.equals(client.clientPhone) : client.clientPhone != null) return false;
+        if (clientEmail != null ? !clientEmail.equals(client.clientEmail) : client.clientEmail != null) return false;
+        return tickets != null ? tickets.equals(client.tickets) : client.tickets == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = clientId != null ? clientId.hashCode() : 0;
+        result = 31 * result + (clientFirstName != null ? clientFirstName.hashCode() : 0);
+        result = 31 * result + (clientLastName != null ? clientLastName.hashCode() : 0);
+        result = 31 * result + (clientPhone != null ? clientPhone.hashCode() : 0);
+        result = 31 * result + (clientEmail != null ? clientEmail.hashCode() : 0);
+        result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
+        return result;
+    }
 }

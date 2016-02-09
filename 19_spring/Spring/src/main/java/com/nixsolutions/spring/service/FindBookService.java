@@ -4,16 +4,19 @@ import com.nixsolutions.spring.dao.BookDAO;
 import com.nixsolutions.spring.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by kozlovskij on 2/2/2016.
  */
+
 @Service
+@Transactional
 public class FindBookService {
     @Autowired
-    BookDAO bookDAO;
+    private BookDAO bookDAO;
 
     public List<Book> find(String searchCriteria, String searchWord) {
         List<Book> books = null;

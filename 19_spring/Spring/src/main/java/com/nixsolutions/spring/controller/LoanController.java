@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoanController {
     @Autowired
-    LoanService loanService;
+    private LoanService loanService;
 
     @RequestMapping(value = "/loanManagement")
     protected String loanBook(

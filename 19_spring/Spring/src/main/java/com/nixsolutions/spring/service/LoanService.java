@@ -8,6 +8,7 @@ import com.nixsolutions.spring.entity.Client;
 import com.nixsolutions.spring.entity.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -16,14 +17,16 @@ import java.util.List;
 /**
  * Created by kozlovskij on 2/2/2016.
  */
+
 @Service
+@Transactional
 public class LoanService {
     @Autowired
-    ClientDAO clientDAO;
+    private ClientDAO clientDAO;
     @Autowired
-    BookDAO bookDAO;
+    private BookDAO bookDAO;
     @Autowired
-    TicketDAO ticketDAO;
+    private TicketDAO ticketDAO;
 
     public List<Client> clients () {
         return clientDAO.findAll();

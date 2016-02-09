@@ -10,6 +10,7 @@ import com.nixsolutions.spring.entity.Cell;
 import com.nixsolutions.spring.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,16 @@ import java.util.List;
  * Created by kozlovskij on 2/2/2016.
  */
 @Service
+@Transactional
 public class AddBookService {
     @Autowired
-    AuthorDAO authorDAO;
+    private AuthorDAO authorDAO;
     @Autowired
-    CellDAO cellDAO;
+    private CellDAO cellDAO;
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
     @Autowired
-    BookDAO bookDAO;
+    private BookDAO bookDAO;
 
     public List<Author> authors() {
         return authorDAO.findAll();

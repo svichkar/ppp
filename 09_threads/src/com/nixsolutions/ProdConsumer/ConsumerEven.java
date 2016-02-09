@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package com.nixsolutions.ProdConsumer;
 
 import java.util.concurrent.BlockingQueue;
 
@@ -6,7 +6,6 @@ import java.util.concurrent.BlockingQueue;
  * Created by sobolenko on 2/8/2016.
  */
 public class ConsumerEven implements Runnable {
-    //ConcurrentLinkedQueue<Integer> queue;
     BlockingQueue queue;
     public boolean isStart = true;
 
@@ -19,12 +18,10 @@ public class ConsumerEven implements Runnable {
         while (isStart) {
             Integer num = null;
             try {
-                consume(queue.take());
+                consume(queue.peek());
             } catch (NullPointerException ne) {
-                //ne.printStackTrace();
                 try {
-                    //Thread.sleep(1000);
-                    consume(queue.take());
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -37,13 +34,11 @@ public class ConsumerEven implements Runnable {
     void consume(Object x) throws InterruptedException {
         int num = (Integer) x;
         if (num % 2 == 0) {
-            System.out.println("Tread1 " + num);
+            System.out.println("Consumer, number is even: " + queue.take());
         }
-        else queue.put(num);
     }
 
-    public void close()
-    {
-        isStart=false;
+    public void close() {
+        isStart = false;
     }
 }

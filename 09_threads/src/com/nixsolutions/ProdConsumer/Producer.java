@@ -1,15 +1,12 @@
-package com.nixsolutions;
+package com.nixsolutions.ProdConsumer;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by sobolenko on 2/8/2016.
  */
 public class Producer implements Runnable {
-    //ConcurrentLinkedQueue<Integer> queue;
     BlockingQueue queue;
     Random random = new Random();
     public boolean ready = false;
@@ -40,6 +37,7 @@ public class Producer implements Runnable {
 
     Object produce() {
         int integer = random.nextInt(150);
+        System.out.println("add: " + integer);
         return integer;
     }
 }

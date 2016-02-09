@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<author author_id="1" first_name="Stephen" last_name="King" />
+	<author author_id="2" first_name="Michail" last_name="Bulgakov" />
+	<author author_id="3" first_name="Brian" last_name="Vaughan" />
+	<author author_id="4" first_name="Aleksandr" last_name="Belyaev" />
+
+	<category category_id="1" name="Horror" />
+	<category category_id="2" name="Action" />
+	<category category_id="3" name="Comedy" />
+
+	<cell cell_id="1" name="cell A" />
+	<cell cell_id="2" name="cell B" />
+	<cell cell_id="3" name="cell C" />
+
+	<book book_id="1" name="book1" cell_id="1" category_id="1" count="1"/>
+	<book book_id="2" name="book2" cell_id="1" category_id="1" count="1"/>
+	<book book_id="3" name="book3" cell_id="1" category_id="1" count="1"/>
+	<book book_id="4" name="book4" cell_id="1" category_id="1" count="1"/>
+	<book book_id="5" name="book5" cell_id="1" category_id="1" count="1"/>
+	<book book_id="6" name="book6" cell_id="1" category_id="1" count="1"/>
+	<book book_id="7" name="book7" cell_id="1" category_id="1" count="1"/>
+
+	<author_book author_id="1" book_id="1" />
+	<author_book author_id="1" book_id="2" />
+	<author_book author_id="2" book_id="3" />
+	<author_book author_id="3" book_id="4" />
+	
+	<client client_id="1" first_name="Evgeniy" last_name="Fomin" phone="123-41234-532" email="evgeniy@email.com" />
+	<client client_id="2" first_name="Alexandra" last_name="Adusheva" phone="123-4143-522" email="alexandra@email.com" />
+	<client client_id="3" first_name="Yriy" last_name="Golod" phone="123-63434-532" email="yuriy@email.com" />
+	<client client_id="4" first_name="Vitaliy" last_name="Rybkin" phone="123-23434-532" email="vitaliy@email.com" />
+	
+	<rent_journal ticket_id="1" book_id="1" client_id="1" rent_date="2015-12-25" return_date="2016-12-26"/>
+	<rent_journal ticket_id="2" book_id="2" client_id="2" rent_date="2015-11-24" return_date="2016-12-25" />
+	<rent_journal ticket_id="3" book_id="3" client_id="3" rent_date="2015-10-23" return_date="2016-11-25" />
+	<rent_journal ticket_id="4" book_id="4" client_id="4" rent_date="2015-09-22" return_date="2016-10-25" />
+
+</dataset>

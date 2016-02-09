@@ -1,6 +1,7 @@
 package com.nixsolutions;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Created by sobolenko on 2/5/2016.

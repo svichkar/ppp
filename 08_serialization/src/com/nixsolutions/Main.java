@@ -1,10 +1,12 @@
 package com.nixsolutions;
 
+import java.io.IOException;
+
 /**
  * Created by sobolenko on 2/5/2016.
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Account user = new Account((long) 541899, "user1", "admin");
         Serialize serialize = new Serialize();
         System.out.println(user.getId());

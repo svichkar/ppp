@@ -24,5 +24,6 @@ public class MainThread implements Runnable {
                 e.printStackTrace();
             }
         }
+        //Thread.currentThread().interrupt();
     }
 }

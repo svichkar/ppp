@@ -20,6 +20,7 @@ public class Main {
         threadsExecutor.submit(regularThreadA, counter);
         threadsExecutor.submit(regularThreadB, counter);
         threadsExecutor.submit(regularThreadC, counter);
+        threadsExecutor.shutdown();
 
     }
 }

@@ -29,5 +29,6 @@ public class RegularThreads implements Runnable {
                 }
             }
         }
+        //Thread.currentThread().interrupt();
     }
 }

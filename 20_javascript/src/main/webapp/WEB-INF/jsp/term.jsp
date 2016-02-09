@@ -27,13 +27,15 @@
 <form:form  method="post" action="term">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
-<td>
+<td class="tooltips">
 <input type="text" name="termId" value="${current.termId}" hidden/>
-<input type="text" name="termName" maxlength="30" value="${current.termName}" required/>
+<input type="text" name="termName" value="${current.termName}" onfocus="showTip(this, 'term name, e.g. <i>first</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
 <td>
 <input type="submit" name="update" value="update"/>
 <input type="submit" name="delete" value="delete"/>
+<div id="message" style="font-size:10;"></div>
 </td>
 </tr>
 </form:form>
@@ -42,8 +44,9 @@
 <form:form  method="post" action="term">
 <tr>
 <td readOnly></td>
-<td>
-<input type="text" name="termName" maxlength="30" placeholder="enter term name" required/>
+<td class="tooltips">
+<input type="text" name="termName" placeholder="enter term name" onfocus="showTip(this, 'term name, e.g. <i>first</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
 <td>
 <input type="submit" name="add" value="add"/>

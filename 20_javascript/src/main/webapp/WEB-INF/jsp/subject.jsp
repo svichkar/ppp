@@ -25,18 +25,22 @@
 <tr>
 <td readOnly></td>
 <form:form action="subject" method="get">
-<td>
-<input type="text" name="subjectName" placeholder="enter subject name"/>
+<td class="tooltips">
+<input type="text" name="subjectName" placeholder="enter subject name" onfocus="showTip(this, 'subject name, e.g. <i>Physics</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
+
+<td class="tooltips">
 <input type="text" name="operation" value="search" hidden>
-<select name="selectedTerm">
-<option value="" selected disabled></option>
+<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>................</option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td>
 <input type="submit" value="Search">
 </td>
@@ -49,12 +53,15 @@
 <form:form method="post" action="subject">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
-<td>
+
+<td class="tooltips">
 <input type="text" name="subjectId" value="${current.subjectId}" hidden/>
-<input type="text" name="subjectName" value="${current.subjectName}" required/>
+<input type="text" name="subjectName" value="${current.subjectName}" onfocus="showTip(this, 'subject name, e.g. <i>Physics</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedTerm">
+
+<td class="tooltips">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <c:forEach items="${terms}" var="t">
 <c:choose>
     <c:when test="${t.termId == current.term.termId}">
@@ -66,7 +73,9 @@
 </c:choose>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td>
 <input type="submit" name="update" value="update"/>
 <input type="submit" name="delete" value="delete"/>
@@ -78,16 +87,20 @@
 <form:form method="post" action="subject">
 <tr>
 <td readOnly></td>
-<td>
-<input type="text" name="subjectName" placeholder="enter subject name" required/>
+
+<td class="tooltips">
+<input type="text" name="subjectName" placeholder="enter subject name" onfocus="showTip(this, 'subject name, e.g. <i>Physics</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedTerm" required>
-<option value="" selected disabled></option>
+
+<td class="tooltips">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>................</option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
 <td>
 <input type="submit" name="add" value="add"/>

@@ -31,19 +31,25 @@
 <td readOnly></td>
 <td readOnly></td>
 <form:form action="student" method="get">
-<td>
-<input type="text" name="lastName" placeholder="enter last name"/>
+
+<td class="tooltips">
+<input type="text" name="lastName" placeholder="enter last name" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td readOnly></td>
-<td>
+
+<td class="tooltips">
 <input type="text" name="operation" value="search" hidden>
-<select name="group">
+<select name="group" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${groups}" var="g">
     <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td readOnly></td>
 <td readOnly></td>
 <td>
@@ -59,18 +65,25 @@
 <form:form method="post" action="student">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
-<td>
+
+<td class="tooltips">
 <input type="text" name="studentId" value="${current.studentId}" hidden/>
-<input type="text" name="firstName" value="${current.firstName}" required/>
+<input type="text" name="firstName" value="${current.firstName}" onfocus="showTip(this, 'student name, e.g. <i>Ivan</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<input type="text" name="lastName" value="${current.lastName}" required/>
+
+<td class="tooltips">
+<input type="text" name="lastName" value="${current.lastName}" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<input type="date" name="date" value="${current.admissionDate}" style="border: none;font-size: 15;" required/>
+
+<td class="tooltips">
+<input type="date" name="date" value="${current.admissionDate}" style="border: none;font-size: 15;" onfocus="showTip(this, 'pick up date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedGroup">
+
+<td class="tooltips">
+<select name="selectedGroup" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
 <c:forEach items="${groups}" var="g">
 <c:choose>
     <c:when test="${g.groupId == current.studentGroup.groupId}">
@@ -82,9 +95,11 @@
 </c:choose>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedTerm">
+
+<td class="tooltips">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <c:forEach items="${terms}" var="t">
 <c:choose>
     <c:when test="${t.termId == current.term.termId}">
@@ -96,9 +111,11 @@
 </c:choose>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedStatus">
+
+<td class="tooltips">
+<select name="selectedStatus" onfocus="showTip(this, 'pick up status, e.g. <i>active</i>');" onblur="hideTip(this)">
 <c:forEach items="${statusList}" var="status">
 <c:choose>
     <c:when test="${status.statusId == current.status.statusId}">
@@ -110,7 +127,9 @@
 </c:choose>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td>
 <input type="submit" name="update" value="update"/>
 <input type="submit" name="delete" value="delete"/>
@@ -128,39 +147,52 @@
 <form:form method="post" action="student">
 <tr>
 <td readOnly></td>
-<td>
-<input type="text" name="firstName" placeholder="enter first name" required/>
+
+<td class="tooltips">
+<input type="text" name="firstName" placeholder="enter first name" onfocus="showTip(this, 'student name, e.g. <i>Ivan</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<input type="text" name="lastName" placeholder="enter last name" required/>
+
+<td class="tooltips">
+<input type="text" name="lastName" placeholder="enter last name" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<input type="date" name="date" style="background: #E5E5DB;border: none;font-size: 15;" required/>
+
+<td class="tooltips">
+<input type="date" name="date" style="background: #E5E5DB;border: none;font-size: 15;" onfocus="showTip(this, 'pick up date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedGroup" required>
+
+<td class="tooltips">
+<select name="selectedGroup" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${groups}" var="g">
     <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedTerm" required>
+
+<td class="tooltips">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedStatus" required>
+
+<td class="tooltips">
+<select name="selectedStatus" onfocus="showTip(this, 'pick up status, e.g. <i>active</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${statusList}" var="status">
     <option value="${status.statusName}">${status.statusName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td>
 <input type="submit" name="add" value="add"/>
 </td>

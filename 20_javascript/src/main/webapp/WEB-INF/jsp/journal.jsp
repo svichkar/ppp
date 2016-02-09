@@ -44,8 +44,9 @@
 <td>
 <input type="text" name="subjectName" value="${current.subject.subjectName}" readOnly/>
 </td>
-<td>
-    <select name="selectedGrade">
+
+<td class="tooltips">
+    <select name="selectedGrade" onfocus="showTip(this, 'pick up grade, e.g. <i>good</i>');" onblur="hideTip(this)">
     <c:forEach items="${grades}" var="gr">
     <c:choose>
         <c:when test="${gr.gradeId == current.grade.gradeId}">
@@ -58,6 +59,7 @@
     </c:forEach>
     </select>
 </td>
+
  <td>
  <input type="submit" name="update" value="update"/>
  <input type="submit" name="delete" value="delete"/>
@@ -69,36 +71,47 @@
 <form:form method="post" action="journal">
 <tr>
 <td readOnly></td>
-<td>
-<input type="text" name="firstName" placeholder="enter student name" required/>
+
+<td class="tooltips">
+<input type="text" name="firstName" placeholder="enter student name" onfocus="showTip(this, 'student name, e.g. <i>Ivan</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<input type="text" name="lastName" placeholder="enter student last name" required/>
+
+<td class="tooltips">
+<input type="text" name="lastName" placeholder="enter student last name" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedGroup">
+
+<td class="tooltips">
+<select name="selectedGroup" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${groups}" var="g">
 <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedSubject" required>
+
+<td class="tooltips">
+<select name="selectedSubject" onfocus="showTip(this, 'pick up subject, e.g. <i>Physics</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${subjects}" var="s">
 <option value="${s.subjectName}">${s.subjectName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
-<td>
-<select name="selectedGrade" required>
+
+<td class="tooltips">
+<select name="selectedGrade" onfocus="showTip(this, 'pick up grade, e.g. <i>good</i>');" onblur="hideTip(this)">
 <option value="" selected disabled></option>
 <c:forEach items="${grades}" var="gr">
 <option value="${gr.gradeName}">${gr.gradeName}</option>
 </c:forEach>
 </select>
+<div id="message" style="font-size:10;"></div>
 </td>
+
 <td>
 <input type="submit" name="add" value="add"/>
 </td>

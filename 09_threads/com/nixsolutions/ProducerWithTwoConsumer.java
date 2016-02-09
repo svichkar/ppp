@@ -3,7 +3,6 @@ package com.nixsolutions;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Describe task: "Разработать приложение, где producer помещает в очередь 100 случайных чисел,
@@ -14,11 +13,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ProducerWithTwoConsumer {
 
     private static final int CAPACITY = 100;
-    private static AtomicInteger count = new AtomicInteger(0);
     private static BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(CAPACITY);
 
     public static void main(String[] argc) {
         new Thread(new Producer()).start();
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Thread(new Consumer(true)).start();
         new Thread(new Consumer(false)).start();
 
@@ -48,14 +51,12 @@ public class ProducerWithTwoConsumer {
 
         @Override
         public void run() {
-            while (count.get() != CAPACITY) {
+            while (queue.size() != 0) {
                 Integer peek = queue.peek();
                 if ((peek != null) && (peek % 2 == 0) && (even)) {
                     System.out.println("Even consumer processed value: " + queue.poll());
-                    count.addAndGet(1);
                 } else if ((peek != null) && (peek % 2 == 1) && (!even)) {
                     System.out.println("Not even consumer processed value: " + queue.poll());
-                    count.addAndGet(1);
                 }
             }
         }

@@ -7,12 +7,13 @@
 <jsp:attribute name="content_area">
 <h2>Add category</h2>
 <div class = "submit">
-		<form id="addcategory" action="addcategory" method="post">
+		<form id="addcategory" action="addcategory" onsubmit="return validate(this, addCategoryOpt)" method="post">
+			<p>
 			<label for="catname">Category Name</label>
-				<input id="catname" class = "submit" type="text" name="categoryname" placeholder="Category name"
-				data-tooltip="here my advice will be showed" required />
-				
-				<input class = "submit" type=submit value="create category" name="button" data-tooltip="here my advice will be showed">
+				<input id="input" class = "submit" type="text" name="categoryname" placeholder="Category name"  data-tooltip="here my advice will be shown"/>
+			</p>	
+				<input class = "submit" type=submit value="create category" name="button">
+				<!-- <input type="button" onclick="validate(this.form, addCategoryOpt)" value="check"> -->
 			
 		</form>
 	</div>

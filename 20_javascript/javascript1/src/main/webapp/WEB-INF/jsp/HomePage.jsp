@@ -21,7 +21,6 @@
 							<td class="present">${loan.expirationState}</td>
 							</tr>
 						</c:forEach>		
-		</table>
-		
+		</table>		
 		</jsp:attribute>
 </t:general_template>

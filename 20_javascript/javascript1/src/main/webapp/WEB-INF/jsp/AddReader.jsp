@@ -8,24 +8,23 @@
 	<jsp:attribute name="content_area">
 <h2>Add Reader</h2>
 <div class="submit">
-		<form id="addcategory" action="addreader" method="post">
+		<form id="addcategory" action="addreader" onsubmit="return validate(this, addReaderOpt)" method="post">
 				<p>
 				<label for="rfname">Reader First Name</label>
 				<input class="submit" type="text" name="readerfirstname"
-						placeholder="Reader first name" required />
+						placeholder="Reader first name"  data-tooltip="here my advice will be shown"/>
 				</p>
 				<p>
 				<label class="submit" for="rlname">Reader Last Name</label>
 				<input class="submit" type="text" name="readerlastname"
-						placeholder="Reader last name" required />
+						placeholder="Reader last name"  data-tooltip="here my advice will be shown"/>
 				</p>
 				<p>
 				<label for="email">Email</label>
-				<input class="submit" type="text" name="email" placeholder="email"
-						required />
+				<input class="submit" type="text" name="email" placeholder="email" data-tooltip="here my advice will be shown"
+						 />
 				</p>
-				<!-- <input class="submit" type=submit value="add reader" name="button"> -->
-			<input type="button" onclick="validate(this.form, addReaderOpt)" value="check">
+				<input class="submit" type=submit value="add reader" name="button"> 
 		</form>
 	</div>
 		

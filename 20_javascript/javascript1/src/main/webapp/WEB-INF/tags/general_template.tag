@@ -34,7 +34,6 @@
 			<li><a class="active">Hi, <sec:authentication
 						property="name" /> <sec:authentication property="authorities" />!
 			</a></li>
-
 			<li><a href="homepage">Home</a></li>
 			<li><a href="findbook">Find book</a></li>
 			<li><a href="addbook">Add book</a></li>
@@ -57,48 +56,9 @@
 </body>
 
 <script type="text/javascript">
-	//document.addEventListener("DOMContentLoaded", addRowHandlers());
-	document.onclick = function(event) {
-		var target = event.target;
-		var parent = target.parentElement;
-		if (parent.nodeName != "TR")
-			return;
-		if (parent.style.backgroundColor == "") {
-			parent.style.backgroundColor = 'red';
-		} else {
-			parent.style.backgroundColor = "";
-		}
-	};
-	
-	var showingTooltip;
+	document.addEventListener("click", addRowhandlers);
+	document.addEventListener('focus', toolTip,  true);
+	document.addEventListener('blur', removeTip,  true);	
+	</script>
 
-    document.onmouseover = function(e) {
-      var target = e.target;
-
-      var tooltip = target.getAttribute('data-tooltip');
-      if (!tooltip) return;
-
-      var tooltipElem = document.createElement('div');
-      tooltipElem.className = 'tooltip';
-      tooltipElem.innerHTML = tooltip;
-      document.body.appendChild(tooltipElem);
-
-      var coords = target.getBoundingClientRect();
-      var left = coords.right;
-      var top = coords.top;
-      tooltipElem.style.left = left + 'px';
-      tooltipElem.style.top = top + 'px';
-
-      showingTooltip = tooltipElem;
-    };
-    
-    document.onmouseout = function(e) {
-
-        if (showingTooltip) {
-          document.body.removeChild(showingTooltip);
-          showingTooltip = null;
-        }
-
-      };
-</script>
 </html>

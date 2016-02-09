@@ -1,90 +1,86 @@
-//function addRowHandlers() {
-//	var table = document.getElementById("tableId");
-//
-//	var rows = table.getElementsByTagName("tr");
-//	for (i = 0; i < rows.length; i++) {
-//		var currentRow = table.rows[i];
-//		var createClickHandler = function(row) {
-//			return function() {
-//				if (row.style.backgroundColor == "") {
-//					row.style.backgroundColor = 'red';
-//				} else {
-//					row.style.backgroundColor = "";
-//				}
-//			};
-//		};
-//		currentRow.onclick = createClickHandler(currentRow);
-//	}
-//}
 
-//function addRowHandlers(event) {
-//    if (!event.target.hasAttribute('painter')) return;
-//
-//    var painter = event.target;
-//
-//    if (painter.style.backgroundColor == "") {
-//		painter.style.backgroundColor = 'red';
-//	} else {
-//		painter.style.backgroundColor = "";
-//	}
-//  };
+	var showingTooltip;
+	function toolTip(event) {	
+      var target = event.target;
+
+      var tooltip = target.getAttribute('data-tooltip');
+      if (!tooltip) return;
+
+      var tooltipElem = document.createElement('div');
+      tooltipElem.className = 'tooltip';
+      tooltipElem.innerHTML = tooltip;
+      document.body.appendChild(tooltipElem);
+
+      var coords = target.getBoundingClientRect();
+      var left = coords.right;
+      var top = coords.top;
+      tooltipElem.style.left = left + 'px';
+      tooltipElem.style.top = top + 'px';
+
+      showingTooltip = tooltipElem;
+    };
+    
+   function removeTip(event) {
+
+        if (showingTooltip) {
+          document.body.removeChild(showingTooltip);
+          showingTooltip = null;
+        }
+      };
+
+
+//////////////////
+function addRowhandlers(event){
+	var target = event.target;
+	var parent = target.parentElement;
+	if (parent.nodeName != "TR")
+		return;
+	if (parent.style.backgroundColor == "") {
+		parent.style.backgroundColor = 'red';
+	} else {
+		parent.style.backgroundColor = "";
+	}
+}
 
 var REQUIRED = {
 	isValid : function(domElement) {
-		if (!domElement.value) {
-			return false;
-		} else {
-			return true;
-		}
+			return domElement.value;
 	},
 	message : 'the field is required'
 
 }
 var LETTERS_ONLY = {
 	isValid : function(domElement) {
-		if (!(/^[a-zA-Z]+$/.test(domElement.value))) {
-			return false;
-		}
+			return (/^[a-zA-Z]+$/.test(domElement.value));
 	},
-	message : 'domElement has to be consisted only from letters'
+	message : 'has to be consisted only from letters'
 }
 var NUMBERS_ONLY = {
 	isValid : function(domElement) {
-		if (!(/[0-9]+$/.test(domElement.value))) {
-			alert('');
-			return false;
-		} else {
-			return true;
-		}
+			return (/[0-9]+$/.test(domElement.value));
 	},
-	message : "domElement has to be consisted only from numbers"
+	message : "has to be consisted only from numbers"
 }
 var EMAIL = {
 	isValid : function(domElement) {
-		if (!(/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/
-				.test(domElement.value))) {
-			return false;
-		}
+			return (/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/
+			.test(domElement.value));	
 	},
 	message : "An error in E-mail!"
 }
 
 var NOTLESSTHANFOUR = {
 	isValid : function(domElement) {
-		if (domElement.length < 4) {
-			return false;
-		}
+			return (domElement.value.length >= 4);
 	},
-	message : 'the domElement has to be not less than 4 symbols!'
+	message : 'has to be not less than 4 symbols!'
 }
 
 var LATIN_W_ARABIC_N = {
 	isValid : function(domElement) {
-		if (!(/^[a-zA-Z0-9]+$/.test(domElement.value))) {
-			return false;
-		}
+			return (/^[a-zA-Z0-9/\s/]+$/.test(domElement.value));
 	},
-	message : 'domElement has consist from arabic numbers and latin characters!'
+	message : 'has to be consisted from arabic numbers and latin characters!'
 }
 
 // /addreader options
@@ -93,6 +89,28 @@ var addReaderOpt = {
 	readerlastname : [ REQUIRED, LETTERS_ONLY, NOTLESSTHANFOUR ],
 	email : [ REQUIRED, EMAIL ]
 }
+
+///addbook options
+var addBookOpt = {
+		bookname : [ REQUIRED, LATIN_W_ARABIC_N ],
+		authorfirstname : [ REQUIRED, LETTERS_ONLY ],
+		authorlastname : [ REQUIRED, LETTERS_ONLY, NOTLESSTHANFOUR ],
+		selectcategory : [ REQUIRED ],
+		selectcell : [ REQUIRED ],
+		count : [REQUIRED, NUMBERS_ONLY]
+	}
+
+///addbook options
+var addCategoryOpt = {
+		categoryname : [ REQUIRED, LATIN_W_ARABIC_N ],
+	}
+
+///manageuser options
+var addUserOpt = {
+		username : [ REQUIRED, LATIN_W_ARABIC_N, NOTLESSTHANFOUR ],
+		password : [ REQUIRED, LATIN_W_ARABIC_N, NOTLESSTHANFOUR ],
+		selectrole : [ REQUIRED ]
+	}
 
 // /
 function showError(container, errorMessage) {
@@ -127,7 +145,5 @@ function validate(form, options) {
 			}
 		}
 	}
-	if (isValid){
-		form.submit();
-	}
+	return isValid;
 }

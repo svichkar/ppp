@@ -23,5 +23,8 @@
  Invalid login or password. Check and try again.
  </c:if>
  </p>
+ <p>
+ credentials to login: jax / jax
+ </p>
 </body>
 </html>

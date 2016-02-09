@@ -16,13 +16,13 @@
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<form id="update" action="manageusers" method="post">
+				<form id="update" action="manageusers" onsubmit="return validate(this, addUserOpt)" method="post">
 					<td class="users"><input type="text" name="userid" value="${user.userId}"
 						readonly /></td>
 					<td class="users"><input type="text" name="username"
-						value="${user.userName}" /></td>
+						value="${user.userName}" data-tooltip="here my advice will be shown"/></td>
 					<td class="users"><input type="text" name="password"
-						value="${user.userPassword}" /></td>
+						value="${user.userPassword}" data-tooltip="here my advice will be shown"/></td>
 					<c:choose>
 						<c:when test="${user.role.roleId==1}">
 							<td class="users"><input type="text" name="selectrole" value="admin"
@@ -45,22 +45,22 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${user.role.roleId==1}">
-							<td class="users"><input class="users" type=submit value="edit user" name="button"></td>
+							<td class="users"><input type="button" value="edit user" name="button"></td>
 						</c:when>
 						<c:otherwise>
-							<td class="users"><input class="users" type=submit value="edit user" name="button"></td>
+							<td class="users"><input type="button" value="edit user" name="button"></td>
 							<td class="users"><input class="users" type=submit value="delete user" name="button"></td>
 						</c:otherwise>
 					</c:choose>
 				</form>
 			</tr>
 		</c:forEach>
-		<form class="users" id="create" action="manageusers" method="post">
+		<form class="users" id="create" action="manageusers" onsubmit="return validate(this, addUserOpt)" method="post">
 			<tr>
 				<td class="users"></td>
-				<td class="users"><input type="text" name="username" required/></td>
-				<td class="users"><input type="text" name="password" required/></td>
-				<td class="users"><select class="users" name="selectrole" required>
+				<td class="users"><input type="text" name="username" data-tooltip="here my advice will be shown"/></td> <!-- required -->
+				<td class="users"><input type="text" name="password" data-tooltip="here my advice will be shown"/></td>
+				<td class="users"><select class="users" name="selectrole" >
 						<option selected disabled value="">choose</option>
 						<c:forEach var="role" items="${roles}">
 							<option value="${role.name}">${role.name}</option>

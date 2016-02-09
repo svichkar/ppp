@@ -1,4 +1,4 @@
-onload=function(){
+document.onreadystatechange=function(){
 var m, k;
 m=document.getElementsByTagName("input");
 k=m.length;

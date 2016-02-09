@@ -7,8 +7,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
+/**
+ *  Tests serialization of the object of Account class. Asks the user to enter 
+ *  the values for the fields of the object, and the path to a file where to
+ *  save the object. Then performs serialization and deserialization of the
+ *  object and prints the results.
+ */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in)/*.useDelimiter("\\n+")*/;
         Account a = new Account();
         
@@ -32,32 +38,35 @@ public class Main {
             file += ".dat";
         }
 
+        System.out.print("\nSerializing object... ");
+        ObjectOutputStream oos = null;
         try {
-            System.out.print("\nSerializing object... ");
             FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            
+            oos = new ObjectOutputStream(fos);
             oos.writeObject(a);
-            oos.close();
+            oos.flush();
             System.out.println("Completed.");
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            oos.close();
         }
 
+        System.out.print("\nDeserializing object... ");
+        ObjectInputStream ois = null;
         try {
-            System.out.print("\nDeserializing object... ");
             FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            
+            ois = new ObjectInputStream(fis);
             Account b = (Account) ois.readObject();
-            ois.close();
-            
+                        
             System.out.println("Completed. \n\nFields of deserialized object:"
                                + "\nid: " + b.id
                                + "\nname: " + b.name
                                + "\nrole: " + b.role);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            ois.close();
         }
 
     }

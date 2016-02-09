@@ -32,7 +32,7 @@
 
 <td class="tooltips">
 <input type="text" name="operation" value="search" hidden>
-<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <option value="" selected disabled>................</option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>
@@ -61,7 +61,7 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <c:forEach items="${terms}" var="t">
 <c:choose>
     <c:when test="${t.termId == current.term.termId}">
@@ -94,7 +94,7 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <option value="" selected disabled>................</option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>

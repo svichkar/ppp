@@ -25,11 +25,11 @@
  </thead>
  <tbody>
 
- <tr>
- <td colspan="3">
+<tr>
 <form:form method="get" action="${linkDetails}">
+ <td colspan="3" class="tooltips">
  <input type="text" name="studentId" value="${student.studentId}" hidden/>
- <select name="term" style="font-style: italic;">
+ <select name="term" style="font-style: italic;" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
  <option value="" disabled style="font-style: italic;font-size: 12;">select term for details</option>
  <c:forEach items="${terms}" var="t">
  <c:choose>
@@ -42,7 +42,13 @@
  </c:choose>
  </c:forEach>
  </select>
- <input type="submit" name="operation" value="show"/>
+<div id="message" style="font-size:10;"></div>
+</td>
+
+</tr>
+<tr>
+<td colspan="3">
+<input type="submit" name="operation" value="show"/>
 </form:form>
 </td>
 </tr>

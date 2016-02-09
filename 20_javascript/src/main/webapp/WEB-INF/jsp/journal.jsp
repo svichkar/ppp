@@ -46,7 +46,7 @@
 </td>
 
 <td class="tooltips">
-    <select name="selectedGrade" onfocus="showTip(this, 'pick up grade, e.g. <i>good</i>');" onblur="hideTip(this)">
+    <select name="selectedGrade" onfocus="showTip(this, 'pick up a grade, e.g. <i>good</i>');" onblur="hideTip(this)">
     <c:forEach items="${grades}" var="gr">
     <c:choose>
         <c:when test="${gr.gradeId == current.grade.gradeId}">
@@ -58,6 +58,7 @@
     </c:choose>
     </c:forEach>
     </select>
+<div id="message" style="font-size:10;"></div>
 </td>
 
  <td>
@@ -83,8 +84,8 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedGroup" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="selectedGroup" onfocus="showTip(this, 'pick up a group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${groups}" var="g">
 <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
@@ -93,8 +94,8 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedSubject" onfocus="showTip(this, 'pick up subject, e.g. <i>Physics</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="selectedSubject" onfocus="showTip(this, 'pick up a subject, e.g. <i>Physics</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${subjects}" var="s">
 <option value="${s.subjectName}">${s.subjectName}</option>
 </c:forEach>
@@ -103,8 +104,8 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedGrade" onfocus="showTip(this, 'pick up grade, e.g. <i>good</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="selectedGrade" onfocus="showTip(this, 'pick up a grade, e.g. <i>good</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${grades}" var="gr">
 <option value="${gr.gradeName}">${gr.gradeName}</option>
 </c:forEach>

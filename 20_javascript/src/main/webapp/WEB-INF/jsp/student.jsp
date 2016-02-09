@@ -41,8 +41,8 @@
 
 <td class="tooltips">
 <input type="text" name="operation" value="search" hidden>
-<select name="group" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="group" onfocus="showTip(this, 'pick up a group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${groups}" var="g">
     <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
@@ -78,12 +78,12 @@
 </td>
 
 <td class="tooltips">
-<input type="date" name="date" value="${current.admissionDate}" style="border: none;font-size: 15;" onfocus="showTip(this, 'pick up date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
+<input type="date" name="date" value="${current.admissionDate}" style="border: none;font-size: 15;" onfocus="showTip(this, 'pick up a date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
-<select name="selectedGroup" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
+<select name="selectedGroup" onfocus="showTip(this, 'pick up a group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
 <c:forEach items="${groups}" var="g">
 <c:choose>
     <c:when test="${g.groupId == current.studentGroup.groupId}">
@@ -99,7 +99,7 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<select name="selectedTerm" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
 <c:forEach items="${terms}" var="t">
 <c:choose>
     <c:when test="${t.termId == current.term.termId}">
@@ -115,7 +115,7 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedStatus" onfocus="showTip(this, 'pick up status, e.g. <i>active</i>');" onblur="hideTip(this)">
+<select name="selectedStatus" onfocus="showTip(this, 'pick up a status, e.g. <i>active</i>');" onblur="hideTip(this)">
 <c:forEach items="${statusList}" var="status">
 <c:choose>
     <c:when test="${status.statusId == current.status.statusId}">
@@ -159,13 +159,13 @@
 </td>
 
 <td class="tooltips">
-<input type="date" name="date" style="background: #E5E5DB;border: none;font-size: 15;" onfocus="showTip(this, 'pick up date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
+<input type="date" name="date" style="background: #E5E5DB;border: none;font-size: 15;" onfocus="showTip(this, 'pick up a date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
-<select name="selectedGroup" onfocus="showTip(this, 'pick up group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="selectedGroup" onfocus="showTip(this, 'pick up a group, e.g. <i>group 1</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${groups}" var="g">
     <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
@@ -174,8 +174,8 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedTerm" onfocus="showTip(this, 'pick up term, e.g. <i>first</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="selectedTerm" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${terms}" var="t">
     <option value="${t.termName}">${t.termName}</option>
 </c:forEach>
@@ -184,8 +184,8 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedStatus" onfocus="showTip(this, 'pick up status, e.g. <i>active</i>');" onblur="hideTip(this)">
-<option value="" selected disabled></option>
+<select name="selectedStatus" onfocus="showTip(this, 'pick up a status, e.g. <i>active</i>');" onblur="hideTip(this)">
+<option value="" selected disabled>..........</option>
 <c:forEach items="${statusList}" var="status">
     <option value="${status.statusName}">${status.statusName}</option>
 </c:forEach>

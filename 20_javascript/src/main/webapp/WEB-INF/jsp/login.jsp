@@ -17,33 +17,39 @@
 <body>
 
 <div class="login-card">
-    <h1>Student Grade Management</h1><br>
+<h1>Student Grade Management</h1>
 <form:form action="${loginUrl}" method="POST">
-<table>
-<tbody>
-<tr>
-        <td class="tooltips">
-        <input type="text" name="j_username" placeholder="Login" maxlength="50" onfocus="showTip(this, 'user login, e.g. <i>login</i>');" onblur="hideTip(this)"/>
-        <div id="message" style="font-size:10;"></div>
-        </td>
-</tr>
-<tr>
-        <td class="tooltips">
-        <input type="password" name="j_password" placeholder="Password" maxlength="20" onfocus="showTip(this, 'user password, e.g. <i>password</i>');" onblur="hideTip(this)"/>
-        <div id="message" style="font-size:10;"></div>
-        </td>
-</tr>
-<tr>
-<td>
-<input type="submit" name="submit" class="login login-submit" value="Login"/>
-</td>
-</tr>
-</tbody>
+<table style="width: 100%; border-spacing: 0 10px;">
+    <tbody>
+        <tr>
+            <td class="tooltips">
+            <input type="text" name="j_username" placeholder="Login" onfocus="showTip(this, 'user login, e.g. <i>login</i>');" onblur="hideTip(this)"/>
+            <div id="message" style="font-size:12;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="tooltips">
+            <input type="password" name="j_password" placeholder="Password" onfocus="showTip(this, 'user password, e.g. <i>password</i>');" onblur="hideTip(this)"/>
+            <div id="message" style="font-size:12;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <input type="submit" name="submit" class="login login-submit" value="Login"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <c:if test="${not empty param['error']}">
+                <h5>Login or Password is not valid. Please try again.</h5>
+            </c:if>
+            </td>
+        </tr>
+    </tbody>
 </table>
-        <c:if test="${not empty param['error']}">
-           <h5>Login or Password is not valid. Please try again.</h5>
-        </c:if>
+
 </form:form>
 </div>
+
 </body>
 </html>

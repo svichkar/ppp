@@ -54,7 +54,7 @@
 <div id="message" style="font-size:10;"></div>
 </td>
 <td class="tooltips">
-<select name="selectedRole" onfocus="showTip(this, 'pick up user role, e.g. <i>user</i>');" onblur="hideTip(this)">
+<select name="selectedRole" onfocus="showTip(this, 'pick up a user role, e.g. <i>user</i>');" onblur="hideTip(this)">
 <c:forEach items="${roles}" var="r">
 <c:choose>
     <c:when test="${r.roleId == current.role.roleId}">
@@ -109,7 +109,7 @@
 </td>
 
 <td class="tooltips">
-<select name="selectedRole" onfocus="showTip(this, 'pick up user role, e.g. <i>user</i>');" onblur="hideTip(this)">
+<select name="selectedRole" onfocus="showTip(this, 'pick up a user role, e.g. <i>user</i>');" onblur="hideTip(this)">
 <option value="" selected disabled>..........</option>
 <c:forEach items="${roles}" var="r">
     <option value="${r.roleName}">${r.roleName}</option>

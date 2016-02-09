@@ -46,11 +46,10 @@ public class ClientsController {
                                  @RequestParam(value = "first_name") String firstName,
                                  @RequestParam(value = "last_name") String lastName,
                                  @RequestParam(value = "roles") Long roleId,
-                                 @RequestParam(value = "user_id",required = false) Long userId,
-                                 @RequestParam(value = "client_id",required = false) Long clientId,
+                                 @RequestParam(value = "user_id", required = false) Long userId,
+                                 @RequestParam(value = "client_id", required = false) Long clientId,
                                  @RequestParam(value = "submitButton") String submitButton,
                                  Model model) {
-        boolean flag = true;
         User user = new User();
         Client client = new Client();
         Role role = roleService.findById(roleId);
@@ -60,44 +59,28 @@ public class ClientsController {
         user.setRole(role);
         client.setFirstName(firstName);
         client.setLastName(lastName);
-        if ((submitButton.equals("edit")) || (submitButton.equals("add"))) {
-            if (submitButton.equals("edit")) {
-                user.setUserId(userId);
-                userService.update(user);
-            }
-            if (submitButton.equals("add")) {
-                if (!userSet.contains(user)) {
-                    userService.create(user);
-                    userSet = userService.findAll();
-                } else {
-                    flag = false;
-                    model.addAttribute("msg","This login is already in use");
-                    fillPage(model);
-                    return "clients";
-                }
-            }
-            if (submitButton.equals("add") && flag) {
-                for (User u : userSet) {
-                    if (u.getLogin().equals(user.getLogin()) && u.getPassword().equals(user.getPassword()) && u.getRole().getRoleId().equals(user.getRole().getRoleId())) {
-                        client.setUser(u);
-                    }
-                }
-                clientService.create(client);
-                model.addAttribute("msg","New row was created");
-            }
-            if (submitButton.equals("edit")) {
-                user.setUserId(userId);
-                client.setUser(user);
-                client.setClientId(clientId);
-                clientService.update(client);
-                model.addAttribute("msg","Row with client_id = " + client.getClientId() + " was updated");
+        if (submitButton.equals("edit")) {
+            user.setUserId(userId);
+            userService.update(user);
+            client.setUser(user);
+            client.setClientId(clientId);
+            clientService.update(client);
+            model.addAttribute("msg", "Row with client_id = " + client.getClientId() + " was updated");
+        }
+        if (submitButton.equals("add")) {
+            if (clientService.createClientUser(roleId, login, password, firstName, lastName)) {
+                model.addAttribute("msg", "New row was created");
+            } else {
+                model.addAttribute("msg", "This login is already in use");
+                fillPage(model);
+                return "clients";
             }
         }
         if (submitButton.equals("delete")) {
             if (!role.getRoleName().equals("manager")) {
                 Set<Car> carSet = carService.findAll();
-                for (Car car:carSet) {
-                    if(car.getClient().getClientId().equals(clientId)){
+                for (Car car : carSet) {
+                    if (car.getClient().getClientId().equals(clientId)) {
                         carService.delete(car);
                     }
                 }
@@ -105,9 +88,9 @@ public class ClientsController {
                 clientService.delete(client);
                 user.setUserId(userId);
                 userService.delete(user);
-                model.addAttribute("msg","Row with client_id = " + client.getClientId() + " was deleted");
+                model.addAttribute("msg", "Row with client_id = " + client.getClientId() + " was deleted");
             } else {
-                model.addAttribute("msg","You can't delete manager from here." +
+                model.addAttribute("msg", "You can't delete manager from here." +
                         " Please enter database and delete it there");
                 fillPage(model);
                 return "clients";
@@ -117,7 +100,7 @@ public class ClientsController {
         return "clients";
     }
 
-    private void fillPage(Model model){
+    private void fillPage(Model model) {
         model.addAttribute("ucSet", clientService.findClientsUsers());
         model.addAttribute("roleSet", roleService.findAll());
     }

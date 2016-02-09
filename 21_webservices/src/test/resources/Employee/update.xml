@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <employee first_name="Vit" last_name="Ryb" employee_category_id="1"/>
+    <employee first_name="Serg" last_name="Koz" employee_category_id="4"/>
+    <employee first_name="Jax" last_name="Kryzh" employee_category_id="5"/>
+    <employee first_name="Max" last_name="Novikov" employee_category_id="3"/>
+    <employee first_name="Steve" last_name="S" employee_category_id="2"/>
+</dataset>

@@ -13,12 +13,12 @@
             </tr>
             <c:forEach var="employee" items="${employeeSet}" varStatus="status">
                 <tr>
-                    <form action="workers" name="upDel" method="post">
-                        <td><input type="text" name="worker_id" value="<c:out value="${employee.employeeId}"/>"
+                    <form action="workers" name="upDel" method="post" onsubmit="return validateForm(this,optionsForWorkerForm);">
+                        <td><input title="This is worker id. READ ONLY" type="text" name="worker_id" value="<c:out value="${employee.employeeId}"/>"
                                    readonly></td>
-                        <td><input type="text" name="first_name" value="<c:out value="${employee.firstName}"/>"></td>
-                        <td><input type="text" name="last_name" value="<c:out value="${employee.lastName}"/>"></td>
-                        <td><select name="category" required>
+                        <td><input title="This is worker first name" type="text" name="first_name" value="<c:out value="${employee.firstName}"/>"></td>
+                        <td><input title="This is worker last name" type="text" name="last_name" value="<c:out value="${employee.lastName}"/>"></td>
+                        <td><select title="Select category here" name="category" required>
                             <option selected value="<c:out value="${employee.employeeCategory.employeeCategoryId}"/>">
                                 <c:out value="${employee.employeeCategory.employeeCategoryName}"/></option>
                             <c:forEach var="employeeCategory" items="${employeeCategorySet}">
@@ -44,10 +44,10 @@
                             <th>category</th>
                         </tr>
                         <tr>
-                            <form action="workers" name="add" method="post">
-                                <td><input type="text" name="first_name" required/></td>
-                                <td><input type="text" name="last_name" required/></td>
-                                <td><select name="category" required>
+                            <form action="workers" name="add" method="post" onsubmit="return validateForm(this,optionsForWorkerForm);">
+                                <td><input title="This is worker first name" type="text" name="first_name" /></td>
+                                <td><input title="This is worker last name" type="text" name="last_name" /></td>
+                                <td><select title="Select category here" name="category" required>
                                     <c:forEach var="employeeCategory" items="${employeeCategorySet}">
                                         <option value="<c:out value="${employeeCategory.employeeCategoryId}"/>"><c:out
                                                 value="${employeeCategory.employeeCategoryName}"/></option>

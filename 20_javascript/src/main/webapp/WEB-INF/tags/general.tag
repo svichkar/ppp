@@ -12,6 +12,7 @@
     <title>${title}</title>
     <script src="<c:url value="/js/color.js" />"></script>
     <script src="<c:url value="/js/focus.js" />"></script>
+    <script src="<c:url value="/js/validator.js" />"></script>
     <meta name="description" content="website description"/>
     <meta name="keywords" content="website keywords, website keywords"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
@@ -30,6 +31,7 @@
             <p><a href="clients" class="customLink">Clients</a></p>
             <jsp:invoke fragment="sidebar_area"/>
         </sec:authorize>
+        <div id="hint"></div>
     </div>
     <div id="content">
         <form action="<c:url value="/logout"></c:url>" method="get"/>
@@ -37,6 +39,7 @@
         </form>
         <jsp:invoke fragment="content_area"/>
         <jsp:invoke fragment="internal_content_area"/>
+        <div id="errorMsg"></div>
         <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
             ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
         </c:if>

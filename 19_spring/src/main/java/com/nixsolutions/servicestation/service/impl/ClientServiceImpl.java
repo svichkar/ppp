@@ -1,7 +1,11 @@
 package com.nixsolutions.servicestation.service.impl;
 
 import com.nixsolutions.servicestation.dao.ClientDAO;
+import com.nixsolutions.servicestation.dao.RoleDAO;
+import com.nixsolutions.servicestation.dao.UserDAO;
 import com.nixsolutions.servicestation.entity.Client;
+import com.nixsolutions.servicestation.entity.Role;
+import com.nixsolutions.servicestation.entity.User;
 import com.nixsolutions.servicestation.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,10 @@ import java.util.Set;
 public class ClientServiceImpl implements ClientService {
     @Autowired
     ClientDAO clientDAO;
+    @Autowired
+    RoleDAO roleDAO;
+    @Autowired
+    UserDAO userDAO;
 
     public Set<Client> findClientsUsers() {
         Set<Client> clientSet = clientDAO.findClientsUsers();
@@ -48,5 +56,29 @@ public class ClientServiceImpl implements ClientService {
     public Set<Client> findAll() {
         Set<Client> clientSet = clientDAO.findAll();
         return clientSet;
+    }
+
+    public boolean createClientUser(Long roleId, String login, String password, String firstName, String lastName){
+        Role role = roleDAO.findById(roleId);
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setRole(role);
+        Client client = new Client();
+        client.setFirstName(firstName);
+        client.setLastName(lastName);
+        Set<User> userSet = userDAO.findAll();
+        if (!userSet.contains(user)) {
+            userDAO.create(user);
+            client.setUser(user);
+            clientDAO.create(client);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public void updateClientUser(){
+
     }
 }

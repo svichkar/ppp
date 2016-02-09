@@ -14,14 +14,14 @@
                     </tr>
                     <c:forEach var="uc" items="${ucSet}" varStatus="status">
                         <tr>
-                            <form action="clients" name="upDel" method="post">
+                            <form action="clients" name="upDel" method="post" onsubmit="return validateForm(this,optionsForClientForm);">
                                 <input type="hidden" name="client_id" value ="<c:out value="${uc.clientId}"/>">
                                 <input type="hidden" name="user_id" value ="<c:out value="${uc.user.userId}"/>">
-                                <td><input type="text" name="first_name" value ="<c:out value="${uc.firstName}"/>"></td>
-                                <td><input type="text" name="last_name" value ="<c:out value="${uc.lastName}"/>"></td>
-                                <td><input type="text" name="user_login" value ="<c:out value="${uc.user.login}"/>" readonly></td>
-                                <td><input type="text" name="user_password" value ="<c:out value="${uc.user.password}"/>"></td>
-                                <td><select name="roles" required>
+                                <td><input title="This is client first name" type="text" name="first_name" value ="<c:out value="${uc.firstName}"/>"></td>
+                                <td><input title="This is client last name" type="text" name="last_name" value ="<c:out value="${uc.lastName}"/>"></td>
+                                <td><input title="This is client-user login" type="text" name="user_login" value ="<c:out value="${uc.user.login}"/>" readonly></td>
+                                <td><input title="This is client-user password" type="text" name="user_password" value ="<c:out value="${uc.user.password}"/>"></td>
+                                <td><select title="This is client-user role" name="roles" required>
                                         <option selected value="<c:out value="${uc.user.role.roleId}"/>"><c:out value="${uc.user.role.roleName}"/></option>
                                             <c:forEach var="role" items="${roleSet}">
                                                 <c:if test="${role.roleName != uc.user.role.roleName}">
@@ -47,12 +47,12 @@
                                 <th>user_role</th>
                             </tr>
                     <tr>
-                        <form action="clients" name="add" method="post">
-                            <td><input type="text" name="first_name" required/></td>
-                            <td><input type="text" name="last_name" required/></td>
-                            <td><input type="text" name="user_login" required/></td>
-                            <td><input type="text" name="user_password" required/></td>
-                            <td><select name="roles" required>
+                        <form action="clients" name="add" method="post" onsubmit="return validateForm(this,optionsForClientForm);">
+                            <td><input title="This is client first name" type="text" name="first_name" /></td>
+                            <td><input title="This is client last name" type="text" name="last_name" /></td>
+                            <td><input title="This is client-user login" type="text" name="user_login" /></td>
+                            <td><input title="This is client-user password" type="text" name="user_password" /></td>
+                            <td><select title="This is client-user role" name="roles" required>
                                     <c:forEach var="role" items="${roleSet}">
                                         <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                     </c:forEach>

@@ -30,10 +30,12 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
     }
 
     public void update(E entity) {
+        getCurrentSession().clear();
         getCurrentSession().saveOrUpdate(entity);
     }
 
     public void delete(E entity) {
+        getCurrentSession().clear();
         getCurrentSession().delete(entity);
     }
 

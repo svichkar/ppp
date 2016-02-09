@@ -11,8 +11,8 @@ public class DeepCopy {
 
     public static void main(String[] argc) {
         String rootFolder = "rootFolder";
-        String oldAbsolutePath = System.getProperty("user.dir") + "\\" + rootFolder;
-        String newAbsolutePath = System.getProperty("user.dir") + "\\newFolder";
+        String oldAbsolutePath = System.getProperty("user.dir") + File.separator + rootFolder;
+        String newAbsolutePath = System.getProperty("user.dir") + File.separator + "newFolder";
 
         try (Scanner scan = new Scanner(System.in)) {
             while (true) {
@@ -131,16 +131,16 @@ public class DeepCopy {
     }
 
     private static void preparation(String root) throws IOException {
-        File f = new File(System.getProperty("user.dir") + "\\" + root);
+        File f = new File(System.getProperty("user.dir") + File.separator + root);
         f.mkdir();
         String currLocation = f.getAbsolutePath();
 
         for (int i = 0; i < 10; i++) { //number of different folder
             String path = currLocation;
             for (int j = 1; j < i + 4; j++) { //level deep in each folder
-                path += "\\folder" + new String(new char[j]).replace("\0", i + "");
+                path += File.separator + "folder" + new String(new char[j]).replace("\0", i + "");
             }
-            path += "\\" + i + ".txt";
+            path += File.separator + i + ".txt";
             createHierarchy(path);
         }
     }

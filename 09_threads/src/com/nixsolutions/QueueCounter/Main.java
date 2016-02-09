@@ -23,15 +23,15 @@ public class Main {
                 case 100:
                     Thread a = new Thread(regularThreadA);
                     a.start();
-                    counter.addAndGet(1);
+                    //counter.addAndGet(1);
                     break;
                 case 300:
                     new Thread(regularThreadB).start();
-                    counter.addAndGet(1);
+                    //counter.addAndGet(1);
                     break;
                 case 500:
                     new Thread(regularThreadC).start();
-                    counter.addAndGet(1);
+                    //counter.addAndGet(1);
                     break;
             }
         }

@@ -138,6 +138,8 @@ public class FileCopy {
     }
 
     public void makeCopyWithJavaIo(String srcFolder, String destFolder) throws IOException {
+        byte[] buffer = new byte[1024];
+        int length;
         FileInputStream fis = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
@@ -154,13 +156,9 @@ public class FileCopy {
             if (file.isFile()) {
                 fis = new FileInputStream(file);
                 fos = new FileOutputStream(destDirectiryOrFile);
-                isr = new InputStreamReader(fis);
-                //br = new BufferedReader(isr);
-                Scanner sc = new Scanner(isr);
-                while (sc.hasNext()) {
-                    fos.write(sc.next().getBytes());
+                while ((length = fis.read(buffer))>0) {
+                    fos.write(buffer,0,length);
                 }
-                String line = "";
                 fos.flush();
                 fos.close();
             }

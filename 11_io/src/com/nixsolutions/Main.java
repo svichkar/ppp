@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         FileCopy fileCopy = new FileCopy();
         fileCopy.createDirectories();
-        fileCopy.makeCopyWithJavaIo("D:\\sample", "D:\\samplecopy");
-        //fileCopy.makeCopyWithJavaNio(System.getProperty("user.dir") + "\\testDir", System.getProperty("user.dir") + "\\CopyByNio");
-        //fileCopy.makeCopyWithApacheCommonsIo("testDir", "CopyByApache");
+        fileCopy.makeCopyWithJavaIo("testDir", "CopyByIO");
+        fileCopy.makeCopyWithJavaNio(System.getProperty("user.dir") + "\\testDir", System.getProperty("user.dir") + "\\CopyByNio");
+        fileCopy.makeCopyWithApacheCommonsIo("testDir", "CopyByApache");
     }
 }

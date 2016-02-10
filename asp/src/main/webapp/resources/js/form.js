@@ -3,7 +3,59 @@ document.onreadystatechange = function() {
 
 		document.addEventListener('focus', focusOn, true);
 		document.addEventListener('blur', focusOff, true);
+		document.addEventListener('submit', validate, true);
+		
+		var forms = document.querySelectorAll('form');
+		for ( var index in forms) {
+			if (!isNaN(index)) {
+				var element = forms[index];
+				element.addEventListener('submit', submitEventListener, true);
+			}
+		}
 
+		function submitEventListener(e) {
+			resetError(e.target);
+			if (!validate(e.target, eval(e.target.name))) {
+				e.returnValue = false;
+			}
+		}
+		
+		function validate(form, options) {
+			var result = true;
+			for (var field in options) {
+				for (var check in options[field]){
+					var fieldToCheck = form.elements[field];
+					if(!options[field][check].isValid(fieldToCheck)){
+						showError(fieldToCheck, options[field][check].message);
+						if (result)
+							result = false;
+					}
+				}					
+			}
+			return result;
+		}
+
+		function showError(container, errorMessage) {
+			var msgElem = document.createElement('span');
+			msgElem.className = "error";
+			msgElem.innerHTML = errorMessage;
+			insertAfter(msgElem, container);
+		}
+		
+		function insertAfter(elem, refElem) {
+			return refElem.parentNode.insertBefore(elem, refElem.nextSibling);
+		}
+
+		function resetError(container) {
+			var errors = container.querySelectorAll('.error');
+			if (errors.length != 0) {
+				for ( var error in errors) {
+					if (error !== 'length' && error !== 'item')
+						container.removeChild(errors[error]);
+				}
+			}
+		}
+		
 		var REQUIRED = {
 			isValid : function(domElement) {
 				if (!domElement.value) {
@@ -12,7 +64,7 @@ document.onreadystatechange = function() {
 					return true;
 				}
 			},
-			message : "The name field is required. Please enter the name"
+			message : "The name field is required. "
 
 		}
 
@@ -22,7 +74,7 @@ document.onreadystatechange = function() {
 					return false;
 				}
 			},
-			message : 'The field should contain only letter. Numbers are not allowed'
+			message : 'The field should contain only letter. Numbers are not allowed. '
 		}
 
 		var EMAIL = {
@@ -30,7 +82,7 @@ document.onreadystatechange = function() {
 				var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 				return re.test(domElement.value);
 			},
-			message : "The email format is invalid. Please enter the correct email."
+			message : "The email format is invalid. Please enter the correct email. "
 		}
 
 		var DATE = {
@@ -38,7 +90,7 @@ document.onreadystatechange = function() {
 				var re = /([0-2]\d|3[01])\.(0\d|1[012])\.(\d{4})/;
 				return re.test(domElement.value);
 			},
-			message : "Data has incorect form. Please enter data in format YYYY-MM-DD. Example: 1990-02-02"
+			message : "Data has incorect form. Please enter data in format YYYY-MM-DD. Example: 1990-02-02 "
 		}
 
 		var ENTRY_MORE_BIRTHDAY = {
@@ -47,7 +99,7 @@ document.onreadystatechange = function() {
 				var eday = new Date(domElement.value);
 				return eday > bday;
 			},
-			message : "Date Entry is less then Date Birsday."
+			message : "Date Entry is less then Date Birsday. "
 		}
 
 		var CONFIRM_PASWWORD = {
@@ -55,7 +107,7 @@ document.onreadystatechange = function() {
 				var pass = document.getElementById('password').value;
 				return domElement.value == pass;
 			},
-			message : "Passwords do not match."
+			message : "Passwords do not match. "
 		}
 
 		var ROLE = {
@@ -67,39 +119,15 @@ document.onreadystatechange = function() {
 					return true;
 				}
 			},
-			message : "The role field is required. Please choose yser role."
+			message : "The role field is required. Please choose user role. "
 		}
-
-		var optionsForUserForm = {
-			userName : [ REQUIRED, EMAIL ],
-			password : [ REQUIRED ],
-			confirm : [ REQUIRED, CONFIRM_PASWWORD ],
-			'role.roleName' : [ ROLE ]
-		};
 		
-		function validate(form, options) {
-			resetError(form.target);
-		
-		}
-
-		function showError(container, errorMessage) {
-			// container.className = 'error';
-			var msgElem = document.createElement('span');
-			msgElem.className = "error-message";
-			msgElem.innerHTML = errorMessage;
-			insertAfter(msgElem, container);
-		}
-
-		function resetError(container) {
-			var errors = container.querySelectorAll('.error-message');
-			if (errors.length != 0) {
-				for ( var error in errors) {
-					if (error !== 'length' && error !== 'item')
-						container.removeChild(errors[error]);
-					// error.remove();
-				}
-			}
-		}
+		var addUser = {
+				userName : [ REQUIRED, EMAIL ],
+				password : [ REQUIRED ],
+				confirm : [ REQUIRED, CONFIRM_PASWWORD ],
+				'role.roleName' : [ ROLE ]
+			};
 
 		var showingTooltip;
 

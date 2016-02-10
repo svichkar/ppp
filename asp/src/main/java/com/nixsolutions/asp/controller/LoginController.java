@@ -52,10 +52,10 @@ public class LoginController {
 		case "teacher":
 		case "student":
 			model.addAttribute("error", "Sorry, the application is not ready for your operation!");
-			return "redirect:/login";
+			return "login";
 		default:
 			model.addAttribute("error", "Your role is not defined in the system. Please refer to the administrator.!");
-			return "redirect:/login";
+			return "login";
 		}
 	}
 	

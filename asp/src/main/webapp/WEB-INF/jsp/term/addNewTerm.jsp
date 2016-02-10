@@ -16,7 +16,7 @@
 			<form:label path="alias">Alias:</form:label><br>
 			<form:input type="text" path="alias"/><br>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />	
-			<p><input type="submit" value="Save"></p>
+			<p><input type="submit" value="Save" style="width: 100px;"></p>
 		</form:form>		
 	</jsp:attribute>
 </t:generalManager>

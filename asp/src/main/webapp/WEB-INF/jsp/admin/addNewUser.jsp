@@ -5,13 +5,13 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general title="Add User">
 	<jsp:attribute name="content_area">
-	<script src="<c:url value="/resources/js/tooltip.js"/>"></script>
+	<script src="<c:url value="/resources/js/form.js"/>"></script>
 	<h1>Add User</h1>
 		<h2>User:</h2>
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>
 		</c:if>
-		<form:form action="create-user" method="post" commandName="UserModel">
+		<form:form name="addUser" action="create-user" method="post" commandName="UserModel">
 			<form:input type="hidden" path="userId"/>
 			<form:label path="userName">Login (email):</form:label><br>
 			<form:input type="text" path="userName" tooltip="User e-mail"/><br>
@@ -23,8 +23,8 @@
 			<form:select path="role.roleName" tooltip="User role">
   				 <form:option value="NONE" label="--- Select ---"/>
   				 <form:options items="${roleList}" />
-			</form:select>		
-			<input type="submit" value="Save">
+			</form:select><br>	
+			<input type="submit" value="Save" style="width: 150px;"/>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form:form>	
 	</jsp:attribute>

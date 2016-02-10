@@ -17,9 +17,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="text" name="bookName" required></td>
+                        <td><input type="text" title="enter bookName here" name="bookName" required ></td>
                         <td>
-                            <select size="1" name="categoryId" required="">
+                            <select size="1" name="categoryId" required="" title="choose category here">
                                 <option value="" selected disabled>Choose category</option>
                                 <c:forEach var="category" items="${categories}">
                                     <option value="<c:out value="${category.categoryId}"/>"><c:out value="${category.categoryName}"/></option>
@@ -27,7 +27,7 @@
                             </select>
                         </td>
                         <td>
-                            <select size="1" name="cellId" required="">
+                            <select size="1" name="cellId" required="" title="choose cell here">
                                 <option value="" selected disabled>Choose cell</option>
                                 <c:forEach var="cell" items="${cells}">
                                     <option value="<c:out value="${cell.cellId}"/>"><c:out value="${cell.cellName}"/></option>
@@ -35,13 +35,13 @@
                              </select>
                         </td>
                         <td>
-                            <select size="5" multiple name="authorId" required>
+                            <select size="5" multiple name="authorId" required title="choose author(s) here">
                                 <c:forEach var="author" items="${authors}">
                                     <option value="<c:out value="${author.authorId}"/>"><c:out value="${author.authorFullName()}"/></option>
                                  </c:forEach>
                              </select>
                         </td>
-                        <td><input type="text" name="bookQuantity" value="1" pattern="^[ 0-9]+$" required></td>
+                        <td><input type="text" name="bookQuantity" value="1" pattern="^[ 0-9]+$" required title="choose quantity"></td>
                     </tr>
                 </tbody>
              </table>

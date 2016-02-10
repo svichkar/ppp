@@ -8,17 +8,18 @@
                 <table>
                     <tr>
                         <td>Username:</td>
-                        <td><input type="text" name="login" title="not empty"/></td>
+                        <td><input type="text" name="login" title="enter username here"/></td>
                     </tr>
                     <tr>
                         <td>Password:</td>
-                        <td><input type="password" name="password" /></td>
+                        <td><input type="password" name="password" title="enter password here"/></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="right"><input type="submit" value="Login"/></td>
                     </tr>
                 </table>
             </form>
+            <div id="hint"></div>
             <c:if test="${not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
                 ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
             </c:if>

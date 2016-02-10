@@ -21,6 +21,7 @@
                 <input type="submit" value="Logout">
         </form>
         <script type="text/javascript" src="script/clickTable.js"></script>
+        <script type="text/javascript" src="script/tooltip.js"></script>
     <div id="site_content">
         <article id="content">
             <jsp:invoke fragment="content_area" />
@@ -40,6 +41,7 @@
              </aside>
         <div id="message">
             <jsp:invoke fragment="message_area" />
+            <div id="hint"></div>
         </div>
     </div>
 

@@ -15,11 +15,11 @@
                                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                 <td><input type="text" name="userId" value ="<c:out value="${user.userId}"/>" readonly></td>
                                                 <td>
-                                                    <input type="text" name="userLogin" value ="<c:out value="${user.login}"/>" required>
-                                                    <input type="hidden" name="userPassword" value="<c:out value="${user.password}"/>">
+                                                    <input type="text" name="userLogin" value ="<c:out value="${user.login}"/>" required title="enter username here">
+                                                    <input type="hidden" name="userPassword" value="<c:out value="${user.password}"/>" title="enter password here">
                                                 </td>
                                                 <td>
-                                                    <select name="userRole" size="1" required>
+                                                    <select name="userRole" size="1" required title="choose user role here">
                                                         <option selected value="<c:out value="${user.role.roleId}"/>"><c:out value="${user.role.roleName}"/></option>
                                                         <c:forEach var="role" items="${roles}">
                                                             <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
@@ -40,9 +40,9 @@
                     </c:if>
                     <form action="userManagement" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                 User login : <input type="text" name="userLogin">
-                                 User password : <input type="text" name="userPassword">
-                                 User role:  <select name="userRole" size="1" required>
+                                 User login : <input type="text" name="userLogin" title="enter username here">
+                                 User password : <input type="text" name="userPassword" title="enter username here">
+                                 User role:  <select name="userRole" size="1" required title="enter username here">
                                                <c:forEach var="role" items="${roles}">
                                                    <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                                </c:forEach>

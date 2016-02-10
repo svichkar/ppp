@@ -9,7 +9,7 @@
              <p><input type="radio" name="searchCriteria" value="name">By name<p>
              <p><input type="radio" name="searchCriteria" value="author">By author<p>
              <p><input type="radio" name="searchCriteria" value="category">By category<p>
-             <p><input type="text" name="searchWord"></p>
+             <p><input type="text" name="searchWord" title="enter searchWord here"></p>
              <p><input type="submit" value="Search"></p>
         </form>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -26,7 +26,7 @@
                                <tr>
                                    <td>
                                         <c:if test="${empty book.getCurrentOpenTicket()}">
-                                            <input type="checkbox" name="bookId" value="${book.bookId}">
+                                            <input type="checkbox" name="bookId" value="${book.bookId}" title="choose the book">
                                         </c:if>
                                    </td>
                                    <td><c:out value="${book.bookId}"/></td>

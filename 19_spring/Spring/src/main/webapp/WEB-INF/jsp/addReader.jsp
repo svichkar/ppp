@@ -16,10 +16,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="text" name="clientFirstName" required></td>
-                        <td><input type="text" name="clientLastName" required></td>
-                        <td><input type="text" name="clientPhone"></td>
-                        <td><input type="email" name="clientEmail"></td>
+                        <td><input type="text" name="clientFirstName" required title="enter FirestName here"></td>
+                        <td><input type="text" name="clientLastName" required title="enter LastName here"></td>
+                        <td><input type="text" name="clientPhone" title="enter Phone number here"></td>
+                        <td><input type="email" name="clientEmail" title="enter Email here"></td>
                     </tr>
                 </tbody>
              </table>

@@ -15,7 +15,7 @@
                             <input type="hidden" name="giveBook" value="true">
                             <c:forEach var="book" items="${books}">
                                <tr>
-                                   <td><input type="checkbox" name="bookId" value="${book.bookId}"></td>
+                                   <td><input type="checkbox" name="bookId" value="${book.bookId}" title="choose the book"></td>
                                    <td><c:out value="${book.bookId}"/></td>
                                    <td><c:out value="${book.bookName} "/></td>
                                    <td><c:out value="${book.category.categoryName}"/></td>
@@ -32,7 +32,7 @@
                            <tr>
                                 <td>Choose Client</td>
                                 <td colspan="2">
-                                    <select size="1" name="client" required>
+                                    <select size="1" name="client" required title="choose the client">
                                         <option value="" selected disabled>Choose client</option>>
                                         <c:forEach var="client" items="${clients}">
                                             <option value="${client.clientId}"><c:out value="${client.clientFullName()}"/></option>

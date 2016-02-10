@@ -26,3 +26,9 @@ width: 100%;}
 }
 .table {background: white; color: black}
 .table tr.act {background: aqua; color: black}
+#hint {
+    position: absolute;
+    display: none;
+    border: 1px solid black;
+    padding: 5px;
+}

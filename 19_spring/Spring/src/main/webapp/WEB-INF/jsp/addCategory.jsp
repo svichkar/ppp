@@ -5,7 +5,7 @@
     <jsp:attribute name="content_area">
         <form action="categoryManagement" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-             Category name : <input type="text" name="categoryName" required>
+             Category name : <input type="text" name="categoryName" required title="enter categoryName here">
              <input type="submit" value="Add new category">
         </form>
         <c:if test="${not empty categories}">

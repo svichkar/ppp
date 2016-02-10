@@ -21,13 +21,13 @@ import java.util.Set;
 @Transactional
 public class ClientServiceImpl implements ClientService {
     @Autowired
-    ClientDAO clientDAO;
+    private ClientDAO clientDAO;
     @Autowired
-    RoleDAO roleDAO;
+    private RoleDAO roleDAO;
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
     @Autowired
-    CarDAO carDAO;
+    private CarDAO carDAO;
 
     public Set<Client> findClientsUsers() {
         Set<Client> clientSet = clientDAO.findClientsUsers();

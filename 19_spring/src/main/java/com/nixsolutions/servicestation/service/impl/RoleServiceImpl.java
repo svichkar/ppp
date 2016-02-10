@@ -16,7 +16,7 @@ import java.util.Set;
 @Transactional
 public class RoleServiceImpl implements RoleService {
     @Autowired
-    RoleDAO roleDAO;
+    private RoleDAO roleDAO;
 
     @Override
     public void create(Role entity) {

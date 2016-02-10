@@ -20,11 +20,11 @@ import java.util.Set;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
-    EmployeeDAO employeeDAO;
+    private EmployeeDAO employeeDAO;
     @Autowired
-    EmployeeCategoryDAO employeeCategoryDAO;
+    private EmployeeCategoryDAO employeeCategoryDAO;
     @Autowired
-    CarOrderDAO carOrderDAO;
+    private CarOrderDAO carOrderDAO;
 
     @Override
     public void create(Employee entity) {

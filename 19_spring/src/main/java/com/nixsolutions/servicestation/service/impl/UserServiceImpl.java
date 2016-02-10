@@ -24,7 +24,7 @@ import java.util.Set;
 @Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Override
     public User findByLogin(String login) {

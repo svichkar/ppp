@@ -17,7 +17,7 @@ import java.util.Set;
 @Transactional
 public class CarTypeServiceImpl implements CarTypeService {
     @Autowired
-    CarTypeDAO carTypeDAO;
+    private CarTypeDAO carTypeDAO;
 
     @Override
     public void create(CarType entity) {

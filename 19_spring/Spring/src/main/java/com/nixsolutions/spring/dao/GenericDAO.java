@@ -5,15 +5,15 @@ import java.util.List;
 /**
  * Created by kozlovskij on 12/22/2015.
  */
-public interface GenericDAO<E> {
+interface GenericDAO<E> {
 
-    public void create(E entity);
+    void create(E entity);
 
-    public void update(E entity);
+    void update(E entity);
 
-    public void delete(E entity);
+    void delete(E entity);
 
-    public E findByID(Long id);
+    E findByID(Long id);
 
-    public List<E> findAll();
+    List<E> findAll();
 }

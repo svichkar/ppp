@@ -7,6 +7,6 @@ import java.util.List;
 /**
  * Created by kozlovskij on 12/22/2015.
  */
-public interface TicketDAO extends GenericDAO<Ticket> {
-    public List<Ticket> findOverdueTicket();
+interface TicketDAO extends GenericDAO<Ticket> {
+    List<Ticket> findOverdueTicket();
 }

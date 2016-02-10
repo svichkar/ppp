@@ -5,5 +5,5 @@ import com.nixsolutions.spring.entity.Author;
 /**
  * Created by kozlovskij on 12/22/2015.
  */
-interface AuthorDAO extends GenericDAO <Author> {
+public interface AuthorDAO extends GenericDAO <Author> {
 }

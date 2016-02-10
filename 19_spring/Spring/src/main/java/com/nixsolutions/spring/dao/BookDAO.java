@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by kozlovskij on 12/22/2015.
  */
-interface BookDAO extends GenericDAO<Book> {
+public interface BookDAO extends GenericDAO<Book> {
     List<Book> findByName(String bookName);
     List<Book> findByAuthor(String authorName);
     List<Book> findByCategory(String categoryName);

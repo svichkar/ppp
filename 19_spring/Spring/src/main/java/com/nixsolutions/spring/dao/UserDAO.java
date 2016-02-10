@@ -5,6 +5,6 @@ import com.nixsolutions.spring.entity.User;
 /**
  * Created by kozlovskij on 12/28/2015.
  */
-interface UserDAO extends GenericDAO<User> {
+public interface UserDAO extends GenericDAO<User> {
     User findByLogin(String login);
 }

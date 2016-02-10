@@ -1,14 +1,19 @@
 function prepareForms () {
-var allForms = document.querySelectorAll('form');
+var allForms = document.querySelectorAll('form.validatedForm');
     for (var i = 0; i < allForms.length; i++) {
-        allForms[i].addEventListener('submit', validate(allForms[i], options), false)
+        allForms[i].addEventListener('submit', formListener, false)
     }
 };
 
+function formListener(e) {
+    if (!validate(e.target, options)) {
+	    e.returnValue = false;
+	}
+};
+
 function validate (form, options) {
-    alert(form.name + options.valueOf('email'));
        		var flag = true;
-    		for ( var field in options) {
+    		for (var field in options) {
     			var input = form.querySelector('[name="' + field + '"');
     			if (input != null) {
     				for ( var funcIndex in options[field][0].isValid) {
@@ -26,3 +31,8 @@ function validate (form, options) {
     		}
     		return flag;
 };
+
+function insertError(newNode, referenceNode) {
+		referenceNode.parentNode.insertBefore(newNode,
+				referenceNode.nextSibling);
+	}

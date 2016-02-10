@@ -62,7 +62,7 @@
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${students}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form:form method="post" action="student">
+<form:form method="post" action="student" class="validatedForm">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
 
@@ -135,7 +135,7 @@
 <input type="submit" name="delete" value="delete"/>
 </td>
 </form:form>
-<form:form method="get" action="student">
+<form:form method="get" action="student" class="validatedForm">
 <td>
 <input type="text" name="studentId" value="${current.studentId}" hidden/>
 <input type="submit" name="show" value="details"/>
@@ -144,7 +144,7 @@
 </tr>
 </c:forEach>
 
-<form:form method="post" action="student">
+<form:form method="post" action="student" class="validatedForm">
 <tr>
 <td readOnly></td>
 

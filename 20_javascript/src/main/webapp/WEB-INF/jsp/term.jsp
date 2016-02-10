@@ -6,6 +6,8 @@
 <t:general_template title="Terms">
 <jsp:attribute name="content_area">
 
+<script src="<c:url value="/javascript/validator/termOptions.js"/>" type="text/javascript"></script>
+
 <div>
 <p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
 </div>
@@ -24,7 +26,7 @@
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${terms}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form:form  method="post" action="term">
+<form:form  method="post" action="term" class="validatedForm">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
 <td class="tooltips">
@@ -41,7 +43,7 @@
 </form:form>
 </c:forEach>
 
-<form:form  method="post" action="term">
+<form:form  method="post" action="term" class="validatedForm">
 <tr>
 <td readOnly></td>
 <td class="tooltips">

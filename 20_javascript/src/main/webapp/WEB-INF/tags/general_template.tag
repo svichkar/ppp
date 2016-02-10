@@ -17,8 +17,8 @@
   <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
 
   <script src="<c:url value="/javascript/validate.js"/>" type="text/javascript"></script>
-  <script src="<c:url value="/javascript/constantValidator/constant.js"/>" type="text/javascript"></script>
-  <script src="<c:url value="/javascript/constantValidator/studentOptions.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/validator/constant.js"/>" type="text/javascript"></script>
+  <!--script src="<c:url value="/javascript/validator/studentOptions.js"/>" type="text/javascript"></script-->
 
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
   <link href="${cssTooltip}" type="text/css" rel="stylesheet"/>

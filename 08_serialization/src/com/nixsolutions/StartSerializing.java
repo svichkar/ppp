@@ -27,7 +27,6 @@ public class StartSerializing {
             System.out.println("Serialized object: ");
             System.out.println(account.getFullInfo());
             objectOutputStream.writeObject(account);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -54,7 +53,6 @@ public class StartSerializing {
             Account deserializedObject = (Account) objectInputStream.readObject();
             System.out.println("Deserialized object: ");
             System.out.println(deserializedObject.getFullInfo());
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

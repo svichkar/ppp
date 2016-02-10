@@ -11,12 +11,8 @@ public class StartSerializing {
 
     public static void main(String[] args) {
         StartSerializing start = new StartSerializing();
-        try {
-            start.serialize();
-            start.deserialize();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        start.serialize();
+        start.deserialize();
     }
 
     /**

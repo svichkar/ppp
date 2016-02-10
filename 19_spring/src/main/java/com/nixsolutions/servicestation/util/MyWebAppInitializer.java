@@ -15,12 +15,11 @@ import javax.servlet.ServletRegistration;
 /**
  * Created by rybkinrolla on 10.02.2016.
  */
-@Component
+
 public class MyWebAppInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(AppConfig.class);
         ctx.register(SecurityConfig.class);
         servletContext.addListener(new ContextLoaderListener(ctx));
         FilterRegistration.Dynamic securityFilter = servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);

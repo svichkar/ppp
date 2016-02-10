@@ -1,59 +1,69 @@
 package com.nixsolutions;
 
-import java.io.BufferedReader;
+import exception.Save;
+
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Created by PAVALVL on 2/3/2016.
+ * Created by pantiukhin on 2/3/2016.
  */
 public class SaveFile implements Save {
     private File fileName = new File("fileToBeSaved.txt");
+    private String absPath = fileName.getAbsolutePath();
+    private String stringToBeSaved = "String to be saved";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CustomException {
         SaveFile saveFile = new SaveFile();
-        try {
-            saveFile.prepareFileForSaving();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        saveFile.save(saveFile.stringToBeSaved, saveFile.absPath);
     }
 
     /**
      * Implements the save method from the Save interface
      */
-    public void save(String stringToBeSaved, String absolutePath) throws Exception {
-        if (!fileName.exists()) {
-            fileName.createNewFile();
-        } else {
-            throw new Exception("The file with the name " + fileName + " already exists");
+    public void save(String stringToBeSaved, String absolutePath) {
+        try {
+            prepareFileForWriting();
+            writeToFile(stringToBeSaved, absPath);
+        } catch (CustomException ex) {
+            ex.getErrorCause();
+            ex.printStackTrace();
         }
     }
 
     /**
-     * Prepares a file for saving (specifies the path and name
+     * Prepares a file for saving (specifies the path and name)
      */
-    public void prepareFileForSaving() throws Exception {
-        String stringToBeSaved = "String to be saved";
-        fileName = new File("fileToBeCreated.txt");
-        String absPath = fileName.getAbsolutePath();
-        save(stringToBeSaved, absPath);
-        writeToFile(stringToBeSaved, absPath);
+    public void prepareFileForWriting() throws CustomException {
+        if (!fileName.exists()) {
+            try {
+                fileName.createNewFile();
+            } catch (IOException ex) {
+                throw new CustomException("The file " + absPath + " has not been created");
+            }
+        } else {
+            throw new CustomException("The file " + absPath + " already exists");
+        }
     }
 
     /**
      * Writes a string to the new file
      */
-    public void writeToFile(String stringToBeWrittenToFile, String path) throws IOException {
+    public void writeToFile(String stringToBeWrittenToFile, String path) throws CustomException {
         FileWriter writer = null;
         try {
             writer = new FileWriter(path);
             writer.write(stringToBeWrittenToFile);
+        } catch (IOException e) {
+            throw new CustomException("The string " + stringToBeWrittenToFile + " has not been written to the file");
         } finally {
             if (writer != null) {
-                writer.close();
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    throw new CustomException("The writer has not been closed");
+                }
             }
         }
     }

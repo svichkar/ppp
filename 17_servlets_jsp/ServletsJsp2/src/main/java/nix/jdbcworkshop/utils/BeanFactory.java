@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import nix.bean.CarBean;
 import nix.bean.ClientBean;
+import nix.bean.EmployeeBean;
 import nix.bean.WebUserBean;
 import nix.jdbcworkshop.entities.Car;
 import nix.jdbcworkshop.entities.CarType;
 import nix.jdbcworkshop.entities.Client;
+import nix.jdbcworkshop.entities.Employee;
+import nix.jdbcworkshop.entities.EmployeeCategory;
 import nix.jdbcworkshop.entities.WebRole;
 import nix.jdbcworkshop.entities.WebUser;
 
@@ -76,5 +79,27 @@ public class BeanFactory {
             carBeans.add(getCarBean(car));
         }
         return carBeans;
+    }
+
+    public static EmployeeBean getEmployeeBean(Employee employee) {
+        EmployeeCategory employeeCategory = DaoFactoryH2.getEmployeeCategoryDaoH2()
+                .findEmployeeCategoryById(employee.getEmployeeCategoryId());
+        WebUserBean webUserBean = getWebUserBean(DaoFactoryH2.getWebUserDaoH2()
+                .findWebUserById(employee.getWebUserId()));
+        EmployeeBean employeeBean = new EmployeeBean();
+        employeeBean.setEmployeeId(employee.getEmployeeId());
+        employeeBean.setFirstName(employee.getFirstName());
+        employeeBean.setLastName(employee.getLastName());
+        employeeBean.setEmployeeCategory(employeeCategory);
+        employeeBean.setWebUserBean(webUserBean);
+        return employeeBean;
+    }
+
+    public static List<EmployeeBean> getEmployeeBeans(List<Employee> employees) {
+        List<EmployeeBean> employeeBeans = new ArrayList<>();
+        for (Employee employee : employees) {
+            employeeBeans.add(getEmployeeBean(employee));
+        }
+        return employeeBeans;
     }
 }

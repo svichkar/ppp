@@ -153,6 +153,7 @@ public class EmployeeDaoH2 implements EmployeeDao {
                 searchedEmployee.setLastName(searchResults.getString("last_name"));
                 searchedEmployee.setEmployeeCategoryId(
                         searchResults.getShort("employee_category_id"));
+                searchedEmployee.setWebUserId(searchResults.getLong("web_user_id"));
                 results.add(searchedEmployee);
             }
             searchResults.close();

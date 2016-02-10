@@ -3,31 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.jdbcworkshop.entities;
+package nix.bean;
+
+import nix.jdbcworkshop.entities.EmployeeCategory;
+import nix.jdbcworkshop.entities.WebUser;
+
+
 
 /**
  *
  * @author mednorcom
  */
-public class Employee {
+public class EmployeeBean {
 
     private Long employeeId;
     private String firstName;
     private String lastName;
-    private Short employeeCategoryId;
-    private Long webUserId;
+    private EmployeeCategory employeeCategory;
+    private WebUserBean webUserBean;
 
 
-    public Employee() {
-    }
-
-
-    public Employee(Long employeeId, String firstName, String lastName, Short employeeCategoryId, Long webUserId) {
-        this.employeeId = employeeId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.employeeCategoryId = employeeCategoryId;
-        this.webUserId = webUserId;
+    public EmployeeBean() {
     }
     
     
@@ -55,20 +51,24 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Short getEmployeeCategoryId() {
-        return employeeCategoryId;
+    public EmployeeCategory getEmployeeCategory() {
+        return employeeCategory;
     }
 
-    public void setEmployeeCategoryId(Short employeeCategoryId) {
-        this.employeeCategoryId = employeeCategoryId;
+    public void setEmployeeCategory(EmployeeCategory employeeCategory) {
+        this.employeeCategory = employeeCategory;
     }
 
-    public Long getWebUserId() {
-        return webUserId;
+    public WebUserBean getWebUserBean() {
+        return webUserBean;
     }
 
-    public void setWebUserId(Long webUserId) {
-        this.webUserId = webUserId;
+    public void setWebUserBean(WebUserBean webUserBean) {
+        this.webUserBean = webUserBean;
     }
+
+
+
+
 
 }

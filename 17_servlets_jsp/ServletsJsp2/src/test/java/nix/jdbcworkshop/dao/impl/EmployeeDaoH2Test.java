@@ -49,7 +49,7 @@ public class EmployeeDaoH2Test extends AbstractDaoH2Test {
      * Test of create method, of class EmployeeDaoH2.
      */
     public void testCreate() throws Exception {
-        Employee employee = new Employee(null, "Name6", "Sname6", (short) 3);
+        Employee employee = new Employee(null, "Name6", "Sname6", (short) 3, null);
         employeeDaoInstance.create(employee);
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee");
@@ -65,7 +65,7 @@ public class EmployeeDaoH2Test extends AbstractDaoH2Test {
      * Test of update method, of class EmployeeDaoH2.
      */
     public void testUpdate() throws Exception {
-        Employee employee = new Employee(null, "Name6", "Sname6", (short) 3);
+        Employee employee = new Employee(null, "Name6", "Sname6", (short) 3, null);
         employeeDaoInstance.create(employee);
         employee.setEmployeeCategoryId((short) 1);
         employeeDaoInstance.update(employee);
@@ -82,10 +82,10 @@ public class EmployeeDaoH2Test extends AbstractDaoH2Test {
      * Test of delete method, of class EmployeeDaoH2.
      */
     public void testDelete() throws Exception {
-        Employee employee = new Employee(null, "Name6", "Sname6", (short) 3);
+        Employee employee = new Employee(null, "Name6", "Sname6", (short) 3, null);
         employeeDaoInstance.create(employee);
         employeeDaoInstance.delete(employee);
-        employeeDaoInstance.delete(new Employee((long) 5, null, null, null));
+        employeeDaoInstance.delete(new Employee((long) 5, null, null, null, null));
         IDataSet databaseDataSet = getConnection().createDataSet();
         ITable actualTable = databaseDataSet.getTable("employee");
         IDataSet expectedDataSet = new FlatXmlDataSet(getClass().getClassLoader()

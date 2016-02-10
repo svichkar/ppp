@@ -8,7 +8,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Created by sobolenko on 2/4/2016.
@@ -55,15 +54,15 @@ public class FileCopy {
                 String[] splitPath = initialPath.split("\\u005c");
                 String concatPath = "";
                 for (int j = 0; j < random.nextInt(splitPath.length) + 1; j++) {
-                    concatPath += splitPath[j] + "\\";
+                    concatPath += splitPath[j] + File.separator;
                 }
                 String assemblyPath = generateRandomDirPath(concatPath);
                 directoriesPaths.add(assemblyPath);
             }
         }
         for (String str : directoriesPaths) {   //creating files with random content in directories
-            resulPath = Paths.get(workDirectory + "\\testDir\\" + str);
-            resulFileName = Paths.get(resulPath + "\\" + generateRamdomString(3) + "." + generateRamdomString(3));
+            resulPath = Paths.get(workDirectory + File.separator + "testDir" + File.separator + str);
+            resulFileName = Paths.get(resulPath + File.separator + generateRamdomString(3) + "." + generateRamdomString(3));
             Files.createDirectories(resulPath);
             Files.createFile(resulFileName);
             FileOutputStream fos = new FileOutputStream(resulFileName.toFile());
@@ -85,7 +84,7 @@ public class FileCopy {
         for (int i = 0; i < random.nextInt(5) + 3; i++) {
             dirName += (char) (random.nextInt(25) + 97);
         }
-        path += dirName + "\\";
+        path += dirName + File.separator;
         if (path.split("\\u005c").length < random.nextInt(6) + 3) {
             point = generateRandomDirPath(path);
         }
@@ -156,8 +155,8 @@ public class FileCopy {
             if (file.isFile()) {
                 fis = new FileInputStream(file);
                 fos = new FileOutputStream(destDirectiryOrFile);
-                while ((length = fis.read(buffer))>0) {
-                    fos.write(buffer,0,length);
+                while ((length = fis.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
                 }
                 fos.flush();
                 fos.close();

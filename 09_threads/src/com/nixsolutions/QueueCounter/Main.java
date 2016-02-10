@@ -1,7 +1,5 @@
 package com.nixsolutions.QueueCounter;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,35 +9,26 @@ public class Main {
 
     public static void main(String[] args) {
         AtomicInteger counter = new AtomicInteger(0);
-        //ExecutorService threadsExecutor = Executors.newSingleThreadExecutor();
-        MainThread mainThread = new MainThread(counter);
-        RegularThreads regularThreadA = new RegularThreads("A",counter);
-        RegularThreads regularThreadB = new RegularThreads("B",counter);
-        RegularThreads regularThreadC = new RegularThreads("C",counter);
-        new Thread(mainThread).start();
-        Thread a = null;
-        Thread b = null;
-        Thread c = null;
-        while (mainThread.getCounter().intValue() < 1000) {
-            switch (mainThread.getCounter().intValue())
-            {
+        RegularThreads regularThreadA = new RegularThreads("A", counter);
+        RegularThreads regularThreadB = new RegularThreads("B", counter);
+        RegularThreads regularThreadC = new RegularThreads("C", counter);
+
+        for (int i = 0; counter.intValue() < 1000; i++) {
+            try {
+                Thread.sleep(100);
+                counter.addAndGet(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            switch (counter.intValue()) {
                 case 100:
-                    if(a==null) {
-                        a = new Thread(regularThreadA);
-                        a.start();
-                    }
+                    new Thread(regularThreadA).start();
                     break;
                 case 300:
-                    if(b==null) {
-                        b = new Thread(regularThreadB);
-                        b.start();
-                    }
+                    new Thread(regularThreadB).start();
                     break;
                 case 500:
-                    if(c==null) {
-                        c = new Thread(regularThreadC);
-                        c.start();
-                    }
+                    new Thread(regularThreadC).start();
                     break;
             }
         }

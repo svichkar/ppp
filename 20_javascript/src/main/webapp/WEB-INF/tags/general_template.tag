@@ -15,11 +15,16 @@
   <link href="<c:url value="/images/favicon.png"/>" rel="shortcut icon" type="shortcut/ico">
   <script src="<c:url value="/javascript/toggleScript.js"/>" type="text/javascript"></script>
   <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
+
+  <script src="<c:url value="/javascript/validate.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/constantValidator/constant.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/constantValidator/studentOptions.js"/>" type="text/javascript"></script>
+
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
   <link href="${cssTooltip}" type="text/css" rel="stylesheet"/>
 </head>
 
-<body>
+<body onload='prepareForms();'>
 <header>
 <div class="container">
 <a href="<c:url value="/home"/>">

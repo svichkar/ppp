@@ -1,6 +1,3 @@
-
-var tipObject;
-
 function showTip(element, text) {
     var divMessage = element.parentElement.lastElementChild;
     divMessage.style.visibility = "visible";

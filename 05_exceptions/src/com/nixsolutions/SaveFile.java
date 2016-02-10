@@ -14,7 +14,7 @@ public class SaveFile implements Save {
     private String absPath = fileName.getAbsolutePath();
     private String stringToBeSaved = "String to be saved";
 
-    public static void main(String[] args) throws CustomException {
+    public static void main(String[] args) {
         SaveFile saveFile = new SaveFile();
         saveFile.save(saveFile.stringToBeSaved, saveFile.absPath);
     }

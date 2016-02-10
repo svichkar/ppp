@@ -7,28 +7,31 @@ import java.io.*;
  */
 public class StartSerializing {
     private File file = new File("forSerialization.dat");
-    private Account account = new Account();
-    private String forSerialization, deserializedString;
+    private Account account;
 
     public static void main(String[] args) {
         StartSerializing start = new StartSerializing();
-        start.changeFields(12, "Jack Nickolson", "CEO");
-        start.serialize();
-        start.deserialize();
+        try {
+            start.serialize();
+            start.deserialize();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Serializes the Account object as a string concatenating its fields
+     * Serializes the Accountant object as a string concatenating its fields
      */
     public void serialize() {
         ObjectOutputStream objectOutputStream = null;
+        account = new Account(12, "Jack Nickolson", "CEO");
         try {
             FileOutputStream outputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(outputStream);
-            forSerialization = account.getId() + "/" + account.getName() + "/" + account.getRole();
             System.out.println("Serialized object: ");
-            System.out.println(forSerialization);
-            objectOutputStream.writeObject(forSerialization);
+            System.out.println(account.getFullInfo());
+            objectOutputStream.writeObject(account);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -45,16 +48,17 @@ public class StartSerializing {
     }
 
     /**
-     * Deserializes the Account object as a string concatenating its fields
+     * Deserializes the Accountant object as a string concatenating its fields
      */
     public void deserialize() {
         ObjectInputStream objectInputStream = null;
         try {
             FileInputStream inputStream = new FileInputStream(file);
             objectInputStream = new ObjectInputStream(inputStream);
-            deserializedString = (String) objectInputStream.readObject();
+            Account deserializedObject = (Account) objectInputStream.readObject();
             System.out.println("Deserialized object: ");
-            System.out.println(deserializedString);
+            System.out.println(deserializedObject.getFullInfo());
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -70,14 +74,5 @@ public class StartSerializing {
                 }
             }
         }
-    }
-
-    /**
-     * Changes the fields of the Account class
-     */
-    public void changeFields(long id, String name, String role) {
-        account.setId(id);
-        account.setName(name);
-        account.setRole(role);
     }
 }

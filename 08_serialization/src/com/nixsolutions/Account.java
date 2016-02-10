@@ -11,6 +11,12 @@ public class Account implements Serializable {
     private String name;
     private String role;
 
+    public Account(long id, String name, String role) {
+        this.id = id;
+        this.name = name;
+        this.role = role;
+    }
+
     public long getId() {
         return id;
     }
@@ -24,14 +30,18 @@ public class Account implements Serializable {
     }
 
     public void setId(long id) {
-        this.id = id;
+        id = id;
     }
 
     public void setName(String name) {
-        this.name = name;
+        name = name;
     }
 
     public void setRole(String role) {
-        this.role = role;
+        role = role;
+    }
+
+    public String getFullInfo() {
+        return getId() + "/" + getName() + "/" + getRole();
     }
 }

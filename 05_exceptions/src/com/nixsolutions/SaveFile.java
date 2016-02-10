@@ -40,10 +40,10 @@ public class SaveFile implements Save {
             try {
                 fileName.createNewFile();
             } catch (IOException ex) {
-                throw new CustomException("The file " + absPath + " has not been created");
+                throw new CustomException("File " + absPath + " has not been created");
             }
         } else {
-            throw new CustomException("The file " + absPath + " already exists");
+            throw new CustomException("File " + absPath + " already exists");
         }
     }
 
@@ -56,7 +56,7 @@ public class SaveFile implements Save {
             writer = new FileWriter(path);
             writer.write(stringToBeWrittenToFile);
         } catch (IOException e) {
-            throw new CustomException("The string " + stringToBeWrittenToFile + " has not been written to the file");
+            throw new CustomException("String " + stringToBeWrittenToFile + " has not been written to the file");
         } finally {
             if (writer != null) {
                 try {

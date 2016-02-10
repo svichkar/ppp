@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <web_user web_user_login="Name1" web_user_password="Pass1" web_role_id="1"/>
+    <web_user web_user_login="Name2" web_user_password="Pass2" web_role_id="2"/>
+    <web_user web_user_login="Name3" web_user_password="Pass3" web_role_id="1"/>
+    <web_user web_user_login="Name4" web_user_password="Pass4" web_role_id="2"/>
+</dataset>

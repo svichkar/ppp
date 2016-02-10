@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <client first_name="Name1" last_name="Sname1" web_user_id="1"/>
+    <client first_name="Name2" last_name="Sname2" web_user_id="2"/>
+    <client first_name="Name3" last_name="Sname3" web_user_id="3"/>
+    <client first_name="Name4" last_name="Sname4" web_user_id="4"/>
+    <client first_name="Name5" last_name="Sname5"/>
+    <client first_name="Name6" last_name="Sname7"/>
+</dataset>

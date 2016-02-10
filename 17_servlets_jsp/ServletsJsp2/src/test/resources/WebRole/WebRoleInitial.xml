@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <web_role web_role_id="1" web_role_name="user" />
+    <web_role web_role_id="2" web_role_name="admin" />
+</dataset>

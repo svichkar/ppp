@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <car car_type_id="1" serial_id="TEST-001" client_id="1"/>
+    <car car_type_id="2" serial_id="TEST-002" client_id="2"/>
+    <car car_type_id="3" serial_id="TEST-003" client_id="3"/>
+    <car car_type_id="4" serial_id="TEST-004" client_id="4"/>
+    <car car_type_id="5" serial_id="TEST-005" client_id="5"/>
+    <car car_type_id="1" serial_id="TEST-006" client_id="2"/>
+</dataset>

@@ -17,27 +17,31 @@ public class Main {
         RegularThreads regularThreadB = new RegularThreads("B",counter);
         RegularThreads regularThreadC = new RegularThreads("C",counter);
         new Thread(mainThread).start();
+        Thread a = null;
+        Thread b = null;
+        Thread c = null;
         while (mainThread.getCounter().intValue() < 1000) {
             switch (mainThread.getCounter().intValue())
             {
                 case 100:
-                    Thread a = new Thread(regularThreadA);
-                    a.start();
-                    //counter.addAndGet(1);
+                    if(a==null) {
+                        a = new Thread(regularThreadA);
+                        a.start();
+                    }
                     break;
                 case 300:
-                    new Thread(regularThreadB).start();
-                    //counter.addAndGet(1);
+                    if(b==null) {
+                        b = new Thread(regularThreadB);
+                        b.start();
+                    }
                     break;
                 case 500:
-                    new Thread(regularThreadC).start();
-                    //counter.addAndGet(1);
+                    if(c==null) {
+                        c = new Thread(regularThreadC);
+                        c.start();
+                    }
                     break;
             }
         }
-        //threadsExecutor.submit(regularThreadA, counter);
-        //threadsExecutor.submit(regularThreadB, counter);
-        //threadsExecutor.submit(regularThreadC, counter);
-
     }
 }

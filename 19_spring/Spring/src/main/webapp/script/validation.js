@@ -4,9 +4,9 @@ function validateForm(form, options) {
         if (options.hasOwnProperty(option)) {
             var validators = options[option];
             var field = form[option];
-            for (var keyValidator in validators) {
-                if (validators.hasOwnProperty(keyValidator)) {
-                    var validator = validators[keyValidator];
+            for (var validation in validators) {
+                if (validators.hasOwnProperty(validation)) {
+                    var validator = validators[validation];
                     if (!validator.isValid(field)) {
                         var errorMsg = document.getElementById("errorMsg");
                         errorMsg.innerHTML = field.name + validator.message;

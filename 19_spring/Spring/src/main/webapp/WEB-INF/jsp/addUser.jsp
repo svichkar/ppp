@@ -38,7 +38,7 @@
                              </tbody>
                         </table>
                     </c:if>
-                    <form action="userManagement" method="post">
+                    <form action="<c:url value="/userManagement"></c:url>" onsubmit="return validateForm(this,optionsForUserForm);" method="POST"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                  User login : <input type="text" name="userLogin" title="enter username here">
                                  User password : <input type="text" name="userPassword" title="enter username here">

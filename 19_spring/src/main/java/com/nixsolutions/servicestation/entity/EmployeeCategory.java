@@ -51,14 +51,16 @@ public class EmployeeCategory implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        EmployeeCategory employeeCategory = (EmployeeCategory) obj;
-        if (employeeCategoryId.equals(employeeCategory.employeeCategoryId) &&
-                employeeCategoryName.equals(employeeCategory.employeeCategoryName)) {
-            return true;
-        } else {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EmployeeCategory that = (EmployeeCategory) o;
+
+        if (employeeCategoryId != null ? !employeeCategoryId.equals(that.employeeCategoryId) : that.employeeCategoryId != null)
             return false;
-        }
+        return employeeCategoryName.equals(that.employeeCategoryName);
+
     }
 
     @Override

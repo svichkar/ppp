@@ -1,22 +1,14 @@
 
 package com.nixsolutions.servicestation.controllers;
 
-import com.nixsolutions.servicestation.entity.Car;
-import com.nixsolutions.servicestation.entity.Client;
-import com.nixsolutions.servicestation.entity.Role;
-import com.nixsolutions.servicestation.entity.User;
-import com.nixsolutions.servicestation.service.CarService;
 import com.nixsolutions.servicestation.service.ClientService;
 import com.nixsolutions.servicestation.service.RoleService;
-import com.nixsolutions.servicestation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Set;
 
 
 /**
@@ -26,13 +18,9 @@ import java.util.Set;
 @Controller
 public class ClientsController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private ClientService clientService;
     @Autowired
     private RoleService roleService;
-    @Autowired
-    private CarService carService;
 
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
     protected String getClients(Model model) {
@@ -50,22 +38,10 @@ public class ClientsController {
                                  @RequestParam(value = "client_id", required = false) Long clientId,
                                  @RequestParam(value = "submitButton") String submitButton,
                                  Model model) {
-        User user = new User();
-        Client client = new Client();
-        Role role = roleService.findById(roleId);
-        Set<User> userSet = userService.findAll();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setRole(role);
-        client.setFirstName(firstName);
-        client.setLastName(lastName);
+
         if (submitButton.equals("edit")) {
-            user.setUserId(userId);
-            userService.update(user);
-            client.setUser(user);
-            client.setClientId(clientId);
-            clientService.update(client);
-            model.addAttribute("msg", "Row with client_id = " + client.getClientId() + " was updated");
+            clientService.updateClientUser(roleId,login,password,firstName,lastName,userId,clientId);
+            model.addAttribute("msg", "Row with client_id = " + clientId + " was updated");
         }
         if (submitButton.equals("add")) {
             if (clientService.createClientUser(roleId, login, password, firstName, lastName)) {
@@ -77,18 +53,8 @@ public class ClientsController {
             }
         }
         if (submitButton.equals("delete")) {
-            if (!role.getRoleName().equals("manager")) {
-                Set<Car> carSet = carService.findAll();
-                for (Car car : carSet) {
-                    if (car.getClient().getClientId().equals(clientId)) {
-                        carService.delete(car);
-                    }
-                }
-                client.setClientId(clientId);
-                clientService.delete(client);
-                user.setUserId(userId);
-                userService.delete(user);
-                model.addAttribute("msg", "Row with client_id = " + client.getClientId() + " was deleted");
+            if (clientService.deleteClientUser(roleId,userId,clientId)) {
+                model.addAttribute("msg", "Row with client_id = " + clientId + " was deleted");
             } else {
                 model.addAttribute("msg", "You can't delete manager from here." +
                         " Please enter database and delete it there");

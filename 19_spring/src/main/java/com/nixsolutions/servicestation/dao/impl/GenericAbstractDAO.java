@@ -26,6 +26,7 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
     }
 
     public void create(E entity) {
+        getCurrentSession().clear();
         getCurrentSession().save(entity);
     }
 
@@ -40,12 +41,14 @@ public abstract class GenericAbstractDAO<E> implements GenericDAO<E> {
     }
 
     public E findById(Long id) {
+        getCurrentSession().clear();
         E entity;
         entity = (E) getCurrentSession().get(type, id);
         return entity;
     }
 
     public Set<E> findAll() {
+        getCurrentSession().clear();
         Set<E> set;
         set = new HashSet<>(getCurrentSession().createCriteria(type).list());
         return set;

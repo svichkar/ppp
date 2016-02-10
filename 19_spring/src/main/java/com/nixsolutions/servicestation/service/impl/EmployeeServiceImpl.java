@@ -1,7 +1,11 @@
 package com.nixsolutions.servicestation.service.impl;
 
+import com.nixsolutions.servicestation.dao.CarOrderDAO;
+import com.nixsolutions.servicestation.dao.EmployeeCategoryDAO;
 import com.nixsolutions.servicestation.dao.EmployeeDAO;
+import com.nixsolutions.servicestation.entity.CarOrder;
 import com.nixsolutions.servicestation.entity.Employee;
+import com.nixsolutions.servicestation.entity.EmployeeCategory;
 import com.nixsolutions.servicestation.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,10 @@ import java.util.Set;
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     EmployeeDAO employeeDAO;
+    @Autowired
+    EmployeeCategoryDAO employeeCategoryDAO;
+    @Autowired
+    CarOrderDAO carOrderDAO;
 
     @Override
     public void create(Employee entity) {
@@ -43,5 +51,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Set<Employee> findAll() {
         Set<Employee> employeeSet = employeeDAO.findAll();
         return employeeSet;
+    }
+
+    public Employee prepareEmployee(String firstName,String lastName,Long workerId,Long categoryId){
+        Employee employee = new Employee();
+        employee.setEmployeeCategory(employeeCategoryDAO.findById(categoryId));
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        if(null != workerId){
+            employee.setEmployeeId(workerId);
+        }
+        return employee;
+    }
+
+    public Employee reorderEmployee(Long employeeId,Long orderId){
+        Employee employee = employeeDAO.findById(employeeId);
+        CarOrder carOrder = carOrderDAO.findById(orderId);
+        Set<CarOrder> carOrderSet = employee.getCarOrderSet();
+        carOrderSet.add(carOrder);
+        employee.setCarOrderSet(carOrderSet);
+        return employee;
     }
 }

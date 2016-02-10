@@ -38,24 +38,16 @@ public class WorkersController {
                                  @RequestParam(value = "category") Long categoryId,
                                  @RequestParam(value = "submitButton") String submitButton,
                                  Model model) {
-        Employee employee = new Employee();
-        EmployeeCategory employeeCategory = new EmployeeCategory();
-        employeeCategory.setEmployeeCategoryId(categoryId);
-        employee.setEmployeeCategory(employeeCategory);
-        employee.setFirstName(firstName);
-        employee.setLastName(lastName);
         if (submitButton.equals("delete")) {
-            employee.setEmployeeId(workerId);
-            employeeService.delete(employee);
-            model.addAttribute("msg","Row with worker_id = " + employee.getEmployeeId() + " was deleted");
+            employeeService.delete(employeeService.prepareEmployee(firstName,lastName,workerId,categoryId));
+            model.addAttribute("msg","Row with worker_id = " + workerId + " was deleted");
         }
         if (submitButton.equals("edit")) {
-            employee.setEmployeeId(workerId);
-            employeeService.update(employee);
-            model.addAttribute("msg","Row with worker_id = " + employee.getEmployeeId() + " was edited");
+            employeeService.update(employeeService.prepareEmployee(firstName,lastName,workerId,categoryId));
+            model.addAttribute("msg","Row with worker_id = " + workerId + " was edited");
         }
         if (submitButton.equals("add")) {
-            employeeService.create(employee);
+            employeeService.create(employeeService.prepareEmployee(firstName,lastName,workerId,categoryId));
             model.addAttribute("msg","New row was created");
         }
         fillPage(model);

@@ -69,4 +69,19 @@ public class Employee implements Serializable {
         this.employeeCategory = employeeCategory;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        return employeeId.equals(employee.employeeId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return employeeId.hashCode();
+    }
 }

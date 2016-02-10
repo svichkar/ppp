@@ -9,5 +9,10 @@ import java.util.Set;
  */
 public interface ClientService extends GenericService<Client> {
     Set<Client> findClientsUsers();
+
     boolean createClientUser(Long roleId, String login, String password, String firstName, String lastName);
+
+    void updateClientUser(Long roleId, String login, String password, String firstName, String lastName, Long userId,
+                          Long clientId);
+    boolean deleteClientUser(Long roleId, Long userId, Long clientId);
 }

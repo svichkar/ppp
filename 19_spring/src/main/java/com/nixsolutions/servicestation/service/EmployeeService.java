@@ -8,4 +8,6 @@ import com.nixsolutions.servicestation.entity.Employee;
 
 
 public interface EmployeeService extends GenericService<Employee> {
+    Employee prepareEmployee(String firstName,String lastName,Long workerId,Long categoryId);
+    Employee reorderEmployee(Long employeeId,Long orderId);
 }

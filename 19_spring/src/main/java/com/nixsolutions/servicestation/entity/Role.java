@@ -48,14 +48,15 @@ public class Role implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Role role = (Role) obj;
-        if (roleId.equals(role.roleId) &&
-                roleName.equals(role.roleName)) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (roleId != null ? !roleId.equals(role.roleId) : role.roleId != null) return false;
+        return roleName.equals(role.roleName);
+
     }
 
     @Override

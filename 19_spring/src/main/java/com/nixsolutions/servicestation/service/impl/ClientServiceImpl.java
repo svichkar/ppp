@@ -1,5 +1,6 @@
 package com.nixsolutions.servicestation.service.impl;
 
+import com.nixsolutions.servicestation.dao.CarDAO;
 import com.nixsolutions.servicestation.dao.ClientDAO;
 import com.nixsolutions.servicestation.dao.RoleDAO;
 import com.nixsolutions.servicestation.dao.UserDAO;
@@ -25,6 +26,8 @@ public class ClientServiceImpl implements ClientService {
     RoleDAO roleDAO;
     @Autowired
     UserDAO userDAO;
+    @Autowired
+    CarDAO carDAO;
 
     public Set<Client> findClientsUsers() {
         Set<Client> clientSet = clientDAO.findClientsUsers();
@@ -57,7 +60,7 @@ public class ClientServiceImpl implements ClientService {
         Set<Client> clientSet = clientDAO.findAll();
         return clientSet;
     }
-
+    @Override
     public boolean createClientUser(Long roleId, String login, String password, String firstName, String lastName){
         Role role = roleDAO.findById(roleId);
         User user = new User();
@@ -78,7 +81,32 @@ public class ClientServiceImpl implements ClientService {
         }
 
     }
-    public void updateClientUser(){
+    @Override
+    public void updateClientUser(Long roleId, String login, String password, String firstName, String lastName,
+                                 Long userId, Long clientId){
+        Role role = roleDAO.findById(roleId);
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setRole(role);
+        Client client = new Client();
+        client.setFirstName(firstName);
+        client.setLastName(lastName);
+        user.setUserId(userId);
+        userDAO.update(user);
+        client.setUser(user);
+        client.setClientId(clientId);
+        clientDAO.update(client);
+    }
 
+    @Override
+    public boolean deleteClientUser(Long roleId, Long userId, Long clientId) {
+        Role role = roleDAO.findById(roleId);
+        if (!role.getRoleName().equals("manager")) {
+            clientDAO.delete(clientDAO.findById(clientId));
+            return true;
+        } else {
+            return false;
+        }
     }
 }

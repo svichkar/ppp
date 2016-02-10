@@ -7,4 +7,6 @@ import com.nixsolutions.servicestation.entity.CarOrder;
  * Created by rybkinrolla on 29.12.2015.
  */
 public interface CarOrderService extends GenericService<CarOrder> {
+    CarOrder prepareCarOrderForEdit(Long orderIdForEdit,Long statusId);
+    CarOrder prepareCarOrderForAdd(Long orderIdForEdit,Long statusId);
 }

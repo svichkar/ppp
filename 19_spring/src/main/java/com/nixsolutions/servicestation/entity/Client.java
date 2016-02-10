@@ -19,11 +19,11 @@ public class Client implements Serializable{
     private String firstName;
     @Column(name = "last_name", length = 100, nullable = false)
     private String lastName;
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", referencedColumnName = "client_id")
     private Set<Car> carList;
 
@@ -76,21 +76,22 @@ public class Client implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Client client = (Client) obj;
-        if (clientId.equals(client.clientId) &&
-                firstName.equals(client.firstName) &&
-                lastName.equals(client.lastName) &&
-                user.equals(client.user)) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (clientId != null ? !clientId.equals(client.clientId) : client.clientId != null) return false;
+        if (!firstName.equals(client.firstName)) return false;
+        return lastName.equals(client.lastName);
+
     }
 
     @Override
     public int hashCode() {
-        int result = firstName.hashCode();
+        int result = clientId != null ? clientId.hashCode() : 0;
+        result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         return result;
     }

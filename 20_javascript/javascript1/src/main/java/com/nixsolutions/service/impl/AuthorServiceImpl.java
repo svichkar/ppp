@@ -12,7 +12,7 @@ import com.nixsolutions.entity.Author;
 import com.nixsolutions.service.AuthorService;
 
 @Service("authorService")
-@Transactional(propagation= Propagation.REQUIRED, readOnly=false)
+@Transactional
 public class AuthorServiceImpl implements AuthorService{
 
 	@Autowired

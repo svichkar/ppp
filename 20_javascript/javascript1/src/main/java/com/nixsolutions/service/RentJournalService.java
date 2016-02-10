@@ -7,13 +7,13 @@ import com.nixsolutions.entity.Client;
 import com.nixsolutions.entity.RentJournal;
 
 public interface RentJournalService {
-	public List<RentJournal> getAllRents();
-	public RentJournal getRentById(Long rentId);
-	public List<RentJournal> getRentsByClientId(Long clientId);
-	public void createRent(RentJournal rent);
-	public void updateRent(RentJournal rent);
-	public void deleteRent(RentJournal rent);
-	public void returnedBooks(String[] returnedBooks);
-	public void submitBooks(String[] selectedBooks, Client reader);
-	public List<Book> checkBooksInList(String[] booksIds);
+	 List<RentJournal> getAllRents();
+	 RentJournal getRentById(Long rentId);
+	 List<RentJournal> getRentsByClientId(Long clientId);
+	 void createRent(RentJournal rent);
+	 void updateRent(RentJournal rent);
+	 void deleteRent(RentJournal rent);
+	 void returnedBooks(String[] returnedBooks);
+	 void submitBooks(String[] selectedBooks, Client reader);
+	 List<Book> checkBooksInList(String[] booksIds);
 }

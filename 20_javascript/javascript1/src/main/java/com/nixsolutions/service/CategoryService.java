@@ -5,11 +5,11 @@ import java.util.List;
 import com.nixsolutions.entity.Category;
 
 public interface CategoryService {
-	public List<Category> getAllCategories();
-	public Category getCategoryById(Long categoryId);
-	public Category getCategoryByName(String categoryName);
-	public void createCategory(Category category);
-	public void updateCategory(Category category);
-	public void deleteCategory(Category category);
+	 List<Category> getAllCategories();
+	 Category getCategoryById(Long categoryId);
+	 Category getCategoryByName(String categoryName);
+	 void createCategory(Category category);
+	 void updateCategory(Category category);
+	 void deleteCategory(Category category);
 }
 

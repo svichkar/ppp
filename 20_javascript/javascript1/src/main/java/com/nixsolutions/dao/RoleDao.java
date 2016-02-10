@@ -5,10 +5,10 @@ import java.util.List;
 import com.nixsolutions.entity.Role;
 
 public interface RoleDao {
-	public List<Role> getAllRoles();
-	public Role getRoleById(Long roleId);
-	public void createRole(Role role);
-	public void updateRole(Role role);
-	public void deleteRole(Role role);
-	public Role getRoleByName(String name);
+	 List<Role> getAllRoles();
+	 Role getRoleById(Long roleId);
+	 void createRole(Role role);
+	 void updateRole(Role role);
+	 void deleteRole(Role role);
+	 Role getRoleByName(String name);
 }

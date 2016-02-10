@@ -5,11 +5,11 @@ import java.util.List;
 import com.nixsolutions.entity.Client;
 
 public interface ClientService {
-	public List<Client> getAllClients();
-	public Client getClientById(Long clientId);
-	public void createClient(String firstName, String lastName, String email);
-	public void updateClient(Client client);
-	public void deleteClient(Client client);
-	public Client getClientByName(String readerName);
-	public List<Client> getClientsByName(String readerName);
+	 List<Client> getAllClients();
+	 Client getClientById(Long clientId);
+	 void createClient(String firstName, String lastName, String email);
+	 void updateClient(Client client);
+	 void deleteClient(Client client);
+	 Client getClientByName(String readerName);
+	 List<Client> getClientsByName(String readerName);
 }

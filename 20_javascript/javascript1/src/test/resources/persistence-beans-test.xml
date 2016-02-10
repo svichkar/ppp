@@ -13,7 +13,7 @@
 	<context:component-scan base-package="com.nixsolutions" />
 
 	<!-- we will manage transactions with annotations -->
-	<tx:annotation-driven />
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<!-- data source for our database -->
 	<bean id="dataSource"

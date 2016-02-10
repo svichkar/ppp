@@ -5,10 +5,10 @@ import java.util.List;
 import com.nixsolutions.entity.Author;
 
 public interface AuthorService {
-	public List<Author> getAllAuthors();
-	public Author getAuthorByName(String name);
-	public Author getAuthorById(Long authorId);
-	public Author createAuthor(Author author);
-	public void updateAuthor(Author author);
-	public void deleteAuthor(Author author);
+	 List<Author> getAllAuthors();
+	 Author getAuthorByName(String name);
+	 Author getAuthorById(Long authorId);
+	 Author createAuthor(Author author);
+	 void updateAuthor(Author author);
+	 void deleteAuthor(Author author);
 }

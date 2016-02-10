@@ -16,7 +16,6 @@ import com.nixsolutions.dao.CategoryDao;
 import com.nixsolutions.entity.Category;
 
 @Repository("categoryDao")
-@Transactional
 public class CategoryDaoImpl implements CategoryDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired

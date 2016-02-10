@@ -5,11 +5,11 @@ import java.util.List;
 import com.nixsolutions.entity.Cell;
 
 public interface CellService {
-	public List<Cell> getAllCells();
-	public Cell getCellById(Long celltId);
-	public Cell getCellByName(String celltName);
-	public void createCell(Cell cell);
-	public void updateCell(Cell cell);
-	public void deleteCell(Cell cell);
+	 List<Cell> getAllCells();
+	 Cell getCellById(Long celltId);
+	 Cell getCellByName(String celltName);
+	 void createCell(Cell cell);
+	 void updateCell(Cell cell);
+	 void deleteCell(Cell cell);
 }
 

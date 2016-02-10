@@ -45,10 +45,10 @@
 					</c:choose>
 					<c:choose>
 						<c:when test="${user.role.roleId==1}">
-							<td class="users"><input type="button" value="edit user" name="button"></td>
+							<td class="users"><input type="submit" value="edit user" name="button"></td>
 						</c:when>
 						<c:otherwise>
-							<td class="users"><input type="button" value="edit user" name="button"></td>
+							<td class="users"><input type="submit" value="edit user" name="button"></td>
 							<td class="users"><input class="users" type=submit value="delete user" name="button"></td>
 						</c:otherwise>
 					</c:choose>

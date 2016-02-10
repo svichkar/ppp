@@ -6,7 +6,7 @@
 <script src="<c:url value="/script/validation.js" />"></script>
 </head>
     <body>
-        <form action="<c:url value="/j_spring_security_check"></c:url>" onsubmit="return validateForm(this,optionsForLoginForm);" method="post"/>
+        <form action="<c:url value="/j_spring_security_check"></c:url>" onsubmit="return validateForm(this,optionsForLoginForm);" method="POST"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <table>
                     <tr>

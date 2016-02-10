@@ -38,11 +38,6 @@ var lettersValidate = {
         return /^[a-zA-Z\s]+$/.test(elem.value);
     }, message: " must contains letters only"
 }
-var firstLetterUpperValidate = {
-    isValid: function (elem) {
-        return /^[A-Z]$/.test(elem.value[0]);
-    }, message: " first letter must be in upper case"
-}
 
 var lettersAndNumbersValidate = {
     isValid: function (elem) {
@@ -50,10 +45,8 @@ var lettersAndNumbersValidate = {
     }, message: " must contains letters and numbers only"
 }
 
-var optionsForCarForm = {
-    brand: [requiredValidate, lettersValidate, firstLetterUpperValidate],
-    model_name: [requiredValidate, lettersAndNumbersValidate, firstLetterUpperValidate],
-    VIN: [requiredValidate, lettersAndNumbersValidate]
+var optionsForAddCategoryForm = {
+    categoryName: [requiredValidate, lettersValidate]
 };
 
 var optionsForLoginForm = {
@@ -61,14 +54,14 @@ var optionsForLoginForm = {
     password: [requiredValidate, lettersAndNumbersValidate]
 };
 
-var optionsForClientForm = {
-    first_name: [requiredValidate, lettersValidate, firstLetterUpperValidate],
-    last_name: [requiredValidate, lettersValidate, firstLetterUpperValidate],
-    user_login:[requiredValidate, lettersAndNumbersValidate],
-    user_password:[requiredValidate, lettersAndNumbersValidate]
+var optionsForUserForm = {
+    userLogin: [requiredValidate, lettersAndNumbersValidate],
+    userPassword: [requiredValidate, lettersAndNumbersValidate],
 };
 
-var optionsForWorkerForm = {
-    first_name: [requiredValidate, lettersValidate, firstLetterUpperValidate],
-    last_name: [requiredValidate, lettersValidate, firstLetterUpperValidate]
+var optionsForReaderForm = {
+    clientFirstName: [requiredValidate, lettersValidate],
+    clientLastName: [requiredValidate, lettersValidate],
+    clientPhone: [requiredValidate, lettersAndNumbersValidate],
+    clientEmail: [requiredValidate, lettersAndNumbersValidate],
 };

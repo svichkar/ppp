@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <t:template title="Find book">
     <jsp:attribute name="content_area">
-        <form action="categoryManagement" method="post">
+        <form action="<c:url value="/categoryManagement"></c:url>" onsubmit="return validateForm(this,optionsForAddCategoryForm);" method="POST"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
              Category name : <input type="text" name="categoryName" required title="enter categoryName here">
              <input type="submit" value="Add new category">
@@ -28,5 +28,6 @@
         <c:if test="${not empty msg}">
             <p align="center"><c:out value="${msg}"/></p>
         </c:if>
+        <div id="errorMsg"></div>
     </jsp:attribute>
 </t:template>

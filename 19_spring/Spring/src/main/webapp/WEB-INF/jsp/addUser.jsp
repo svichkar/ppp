@@ -11,7 +11,7 @@
                              <tbody>
                                     <c:forEach var="user" items="${users}">
                                        <tr>
-                                            <form action="userManagement" name="editDelete" method="post">
+                                            <form action="<c:url value="/userManagement"></c:url>" onsubmit="return validateForm(this,optionsForUserForm);" method="POST"/>
                                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                 <td><input type="text" name="userId" value ="<c:out value="${user.userId}"/>" readonly></td>
                                                 <td>
@@ -54,5 +54,6 @@
         <c:if test="${not empty msg}">
             <p align="center"><c:out value="${msg}"/></p>
         </c:if>
+        <div id="errorMsg"></div>
     </jsp:attribute>
 </t:template>

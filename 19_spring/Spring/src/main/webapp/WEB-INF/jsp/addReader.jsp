@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <t:template title="Find book">
     <jsp:attribute name="content_area">
-        <form action="addReader" method="post">
+        <form action="<c:url value="/addReader"></c:url>" onsubmit="return validateForm(this,optionsForReaderForm);" method="POST"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <table class="table">
                 <thead>
@@ -47,5 +47,6 @@
         <c:if test="${not empty msg}">
             <p align="center"><c:out value="${msg}"/></p>
         </c:if>
+        <div id="errorMsg"></div>
     </jsp:attribute>
 </t:template>

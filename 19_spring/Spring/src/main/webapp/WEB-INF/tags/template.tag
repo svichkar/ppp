@@ -14,6 +14,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" type="text/css" href="${cssUrl}"/>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <script src="<c:url value="/script/validation.js" />"></script>
   <jsp:invoke fragment="head_area" />
 </head>
 <body>

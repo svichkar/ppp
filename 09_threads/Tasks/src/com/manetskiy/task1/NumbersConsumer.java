@@ -4,7 +4,7 @@ import java.util.concurrent.BlockingQueue;
 
 public class NumbersConsumer implements Runnable {
     private BlockingQueue<Number> queue;
-    boolean even = false;
+    private boolean even = false;
 
     public NumbersConsumer(BlockingQueue<Number> queue, boolean even) {
         this.queue = queue;
@@ -15,6 +15,10 @@ public class NumbersConsumer implements Runnable {
         boolean done = false;
         while (!done) {
             try {
+                /*
+                The end of queue contains "dummy" object which invokes
+                ClassCastException during casting to Integer.
+                 */
                 Integer numbr = (Integer) queue.peek();
                 if (even) {
                     if ((numbr % 2) == 0)
@@ -27,7 +31,7 @@ public class NumbersConsumer implements Runnable {
             } catch (ClassCastException e) {
                 done = true;
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }

@@ -82,8 +82,8 @@
 
 <td class="tooltips">
 <input type="text" name="lastName" placeholder="enter student last name" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
-<div id="message" style="font-size:10;"></div>
 <span name="error" style="visibility:hidden" class="errorValidation"></span>
+<div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">

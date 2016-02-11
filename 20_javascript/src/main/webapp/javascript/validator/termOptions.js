@@ -5,7 +5,7 @@ termName: [
            isValid: function (domElement){
            return notEmptyElement(domElement);
            },
-           message: "Term name is required. Please enter the term"
+           message: "Term name is required"
        }
    ]
 };

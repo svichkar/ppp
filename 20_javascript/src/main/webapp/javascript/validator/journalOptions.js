@@ -5,7 +5,7 @@ firstName: [
            isValid: function (domElement) {
                return notEmptyElement(domElement);
            },
-           message: "The name field is required. Please enter the name"
+           message: "The name is required"
        },
        {
            isValid: function (domElement) {
@@ -20,13 +20,13 @@ lastName: [
               isValid: function (domElement) {
                  return notEmptyElement(domElement);
               },
-              message: "The name field is required. Please enter the name"
+              message: "Last name is required"
           },
           {
               isValid: function (domElement) {
                  return lettersOnly(domElement);
               },
-              message: "The field should contain only letters"
+              message: "Last name should contain only letters"
           }
       ],
 
@@ -35,7 +35,7 @@ selectedGroup: [
               isValid: function (domElement) {
                   return notEmptyElement(domElement);
               },
-              message: "Pick up the group"
+              message: "Group is required"
           }
    ],
 
@@ -44,7 +44,7 @@ selectedSubject: [
               isValid: function (domElement) {
                   return notEmptyElement(domElement);
               },
-              message: "Pick up the subject"
+              message: "Subject is required"
           }
    ],
 
@@ -53,7 +53,7 @@ selectedGrade: [
               isValid: function (domElement) {
                   return notEmptyElement(domElement);
               },
-              message: "Pick up the grade"
+              message: "Grade is required"
           }
    ]
 };

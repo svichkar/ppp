@@ -5,7 +5,7 @@ firstName: [
            isValid: function (domElement) {
                return notEmptyElement(domElement);
            },
-           message: "The name field is required. Please enter the name"
+           message: "The name is required"
        },
        {
            isValid: function (domElement) {
@@ -20,7 +20,7 @@ lastName: [
               isValid: function (domElement) {
                  return notEmptyElement(domElement);
               },
-              message: "The name field is required. Please enter the name"
+              message: "Last name is required"
           },
           {
               isValid: function (domElement) {

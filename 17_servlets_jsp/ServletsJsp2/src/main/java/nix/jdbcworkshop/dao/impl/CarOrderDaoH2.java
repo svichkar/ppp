@@ -37,7 +37,7 @@ public class CarOrderDaoH2 implements CarOrderDao {
                 = ConnectionManagerH2.getConnection()) {
             PreparedStatement newCarOrder = conn.prepareStatement(
                     "INSERT INTO car_order (car_id,car_order_status_id,start_date,end_date)"
-                            + " VALUES (?,?,?,?)");
+                    + " VALUES (?,?,?,?)");
             newCarOrder.setLong(1, carOrder.getCarId());
             newCarOrder.setShort(2, carOrder.getCarOrderStatusId());
             newCarOrder.setTimestamp(3, new Timestamp(carOrder.getStartDate().getTime()));
@@ -69,7 +69,11 @@ public class CarOrderDaoH2 implements CarOrderDao {
             newCarOrder.setLong(1, carOrder.getCarId());
             newCarOrder.setShort(2, carOrder.getCarOrderStatusId());
             newCarOrder.setTimestamp(3, new Timestamp(carOrder.getStartDate().getTime()));
-            newCarOrder.setTimestamp(4, new Timestamp(carOrder.getEndDate().getTime()));
+            if (carOrder.getEndDate() != null) {
+                newCarOrder.setTimestamp(4, new Timestamp(carOrder.getEndDate().getTime()));
+            } else {
+                newCarOrder.setNull(4, Types.TIMESTAMP);
+            }
             newCarOrder.setLong(5, carOrder.getCarOrderId());
             newCarOrder.executeUpdate();
             newCarOrder.close();

@@ -3,36 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.bean;
-
-import nix.jdbcworkshop.entities.EmployeeCategory;
-import nix.jdbcworkshop.entities.WebUser;
-
-
+package nix.jdbcworkshop.bean;
 
 /**
  *
  * @author mednorcom
  */
-public class EmployeeBean {
+public class ClientBean {
 
-    private Long employeeId;
+    private Long clientId;
     private String firstName;
     private String lastName;
-    private EmployeeCategory employeeCategory;
     private WebUserBean webUserBean;
 
-
-    public EmployeeBean() {
-    }
-    
-    
-    public Long getEmployeeId() {
-        return employeeId;
+    public ClientBean() {
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getFirstName() {
@@ -51,14 +43,6 @@ public class EmployeeBean {
         this.lastName = lastName;
     }
 
-    public EmployeeCategory getEmployeeCategory() {
-        return employeeCategory;
-    }
-
-    public void setEmployeeCategory(EmployeeCategory employeeCategory) {
-        this.employeeCategory = employeeCategory;
-    }
-
     public WebUserBean getWebUserBean() {
         return webUserBean;
     }
@@ -66,9 +50,5 @@ public class EmployeeBean {
     public void setWebUserBean(WebUserBean webUserBean) {
         this.webUserBean = webUserBean;
     }
-
-
-
-
 
 }

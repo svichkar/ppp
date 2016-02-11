@@ -3,27 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.servlets;
+package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import nix.jdbcworkshop.entities.WebUser;
-import nix.jdbcworkshop.utils.BeanFactory;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 /**
  *
  * @author mednorcom
  */
-@WebServlet(name = "AdministrationServlet", urlPatterns = {"/administration"})
-public class AdministrationServlet extends HttpServlet {
+@WebServlet(name = "CreateUserServlet", urlPatterns = {"/create-user"})
+public class CreateUserServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -38,13 +35,8 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("webUserBeans",
-                BeanFactory.getWebUserBeans(DaoFactoryH2.getWebUserDaoH2().getWebUserList()));
-        if (request.getParameter("edit") != null) {
-            request.setAttribute("webRoles", DaoFactoryH2.getWebRoleDaoH2().getWebRoleList());
-        }
-        request.getRequestDispatcher("WEB-INF/administration.jsp").include(request, response);
-
+        request.setAttribute("webRoles", DaoFactoryH2.getWebRoleDaoH2().getWebRoleList());
+        request.getRequestDispatcher("WEB-INF/create_user.jsp").include(request, response);
     }
 
     /**
@@ -58,21 +50,13 @@ public class AdministrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        if ("edit".equals(request.getParameter("action"))) {
-            WebUser updatedUser = new WebUser(Long.valueOf(
-                    request.getParameter("user-id")), request.getParameter("new-login"),
-                    request.getParameter("new-password"), Short.valueOf(request
-                    .getParameter("new-role")));
-            DaoFactoryH2.getWebUserDaoH2().update(updatedUser);
-            response.sendRedirect("administration");
-        }
-        if ("delete".equals(request.getParameter("action"))) {
-            DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(Long.valueOf(
-                    request.getParameter("user-id")), null, null, null));
-            response.sendRedirect("administration");
-        }
-        doGet(request, response);
+        WebUser newUser = new WebUser(null,
+                request.getParameter("new-login"),
+                request.getParameter("new-password"),
+                Short.valueOf(request.getParameter("new-role")));
+        DaoFactoryH2.getWebUserDaoH2().create(newUser);
+        response.sendRedirect("administration");
+
     }
 
     /**

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.servlets;
+package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.Client;
+import nix.jdbcworkshop.entities.Employee;
 import nix.jdbcworkshop.entities.WebRole;
 import nix.jdbcworkshop.entities.WebUser;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
@@ -21,8 +21,8 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mednorcom
  */
-@WebServlet(name = "CreateUserServlet", urlPatterns = {"/add-client"})
-public class AddClientServlet extends HttpServlet {
+@WebServlet(name = "AddEmployeeServlet", urlPatterns = {"/add-employee"})
+public class AddEmployeeServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -38,11 +38,14 @@ public class AddClientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         for (WebRole webRole : DaoFactoryH2.getWebRoleDaoH2().getWebRoleList()) {
-            if (webRole.getWebRoleName().equals("user")) {
+            if (webRole.getWebRoleName().equals("employee")) {
                 request.setAttribute("webRole", webRole);
             }
         }
-        request.getRequestDispatcher("WEB-INF/add_client.jsp").include(request, response);
+        request.setAttribute("employeeCategories", DaoFactoryH2.getEmployeeCategoryDaoH2()
+                .getEmployeeCategoryList());
+        request.getRequestDispatcher("WEB-INF/add_employee.jsp")
+                .include(request, response);
     }
 
     /**
@@ -63,12 +66,13 @@ public class AddClientServlet extends HttpServlet {
                 Short.valueOf(request.getParameter("new-role")));
         DaoFactoryH2.getWebUserDaoH2().create(newUser);
 
-        Client newClient = new Client(null,
+        Employee newEmployee = new Employee(null,
                 request.getParameter("new-fname"),
                 request.getParameter("new-lname"),
+                Short.valueOf(request.getParameter("new-employee-category-id")),
                 newUser.getWebUserId());
-        DaoFactoryH2.getClientDaoH2().create(newClient);
-        response.sendRedirect("clients");
+        DaoFactoryH2.getEmployeeDaoH2().create(newEmployee);
+        response.sendRedirect("employees");
 
     }
 

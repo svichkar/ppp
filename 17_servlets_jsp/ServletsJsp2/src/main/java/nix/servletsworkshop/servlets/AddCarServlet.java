@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.servlets;
+package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,8 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.CarType;
-import nix.jdbcworkshop.entities.EmployeeCategory;
+import nix.jdbcworkshop.entities.Car;
+import nix.jdbcworkshop.entities.Client;
+import nix.jdbcworkshop.entities.WebRole;
 import nix.jdbcworkshop.entities.WebUser;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
 import org.apache.logging.log4j.LogManager;
@@ -21,8 +22,8 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mednorcom
  */
-@WebServlet(name = "AddEmployeeCategoryServlet", urlPatterns = {"/add-employee-category"})
-public class AddEmployeeCategoryServlet extends HttpServlet {
+@WebServlet(name = "AddCarServlet", urlPatterns = {"/add-car"})
+public class AddCarServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -37,7 +38,9 @@ public class AddEmployeeCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/add_employee_category.jsp").include(request, response);
+        request.setAttribute("carTypes", DaoFactoryH2.getCarTypeDaoH2().getCarTypeList());
+        request.setAttribute("clients", DaoFactoryH2.getClientDaoH2().getClientList());
+        request.getRequestDispatcher("WEB-INF/add_car.jsp").include(request, response);
     }
 
     /**
@@ -51,10 +54,13 @@ public class AddEmployeeCategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EmployeeCategory newEmployeeCategory = new EmployeeCategory(null,
-                request.getParameter("new-category-name"));
-        DaoFactoryH2.getEmployeeCategoryDaoH2().create(newEmployeeCategory);
-        response.sendRedirect("employee-categories");
+
+        Car newCar = new Car(null,
+                request.getParameter("new-sid"),
+                Long.valueOf(request.getParameter("new-car-model")),
+                Long.valueOf(request.getParameter("new-client")));
+        DaoFactoryH2.getCarDaoH2().create(newCar);
+        response.sendRedirect("cars");
 
     }
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.bean;
+package nix.jdbcworkshop.bean;
 
 import java.io.Serializable;
 import nix.jdbcworkshop.entities.WebRole;

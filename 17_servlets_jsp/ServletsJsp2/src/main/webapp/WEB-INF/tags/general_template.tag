@@ -43,7 +43,7 @@
                             <li class="left-navigation" <c:if test="${title=='Cars'}"> class="selected"</c:if>><a href="/cars">Cars</a></li>
                             <li class="left-navigation" <c:if test="${title=='Clients'}"> class="selected"</c:if>><a href="/clients">Clients</a></li>
                             <li class="left-navigation" <c:if test="${title=='Car Models'}"> class="selected"</c:if>><a href="/car-models">Car Models</a></li>
-                            <li class="left-navigation" <c:if test="${title=='Orders'}"> class="selected"</c:if>><a href="/orders">Orders</a></li>
+                            <li class="left-navigation" <c:if test="${title=='Orders'}"> class="selected"</c:if>><a href="/car-orders">Orders</a></li>
                             <li class="right-navigation" <c:if test="${title=='Employees'}"> class="selected"</c:if>><a href="/employees">Employees</a></li>
                             <li class="right-navigation" <c:if test="${title=='Employee Categories'}"> class="selected"</c:if>><a href="/employee-categories">Employee Categories</a></li>
                             <li class="right-navigation" <c:if test="${title=='Administration'}"> class="selected"</c:if>><a href="/administration">Administration</a></li>

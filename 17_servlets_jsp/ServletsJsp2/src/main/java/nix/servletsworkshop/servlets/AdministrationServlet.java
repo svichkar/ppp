@@ -3,26 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.servlets;
+package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.Employee;
-import nix.jdbcworkshop.entities.WebRole;
 import nix.jdbcworkshop.entities.WebUser;
+import nix.jdbcworkshop.utils.BeanFactory;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 /**
  *
  * @author mednorcom
  */
-@WebServlet(name = "AddEmployeeServlet", urlPatterns = {"/add-employee"})
-public class AddEmployeeServlet extends HttpServlet {
+@WebServlet(name = "AdministrationServlet", urlPatterns = {"/administration"})
+public class AdministrationServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -37,15 +38,13 @@ public class AddEmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        for (WebRole webRole : DaoFactoryH2.getWebRoleDaoH2().getWebRoleList()) {
-            if (webRole.getWebRoleName().equals("employee")) {
-                request.setAttribute("webRole", webRole);
-            }
+        request.setAttribute("webUserBeans",
+                BeanFactory.getWebUserBeans(DaoFactoryH2.getWebUserDaoH2().getWebUserList()));
+        if (request.getParameter("edit") != null) {
+            request.setAttribute("webRoles", DaoFactoryH2.getWebRoleDaoH2().getWebRoleList());
         }
-        request.setAttribute("employeeCategories", DaoFactoryH2.getEmployeeCategoryDaoH2()
-                .getEmployeeCategoryList());
-        request.getRequestDispatcher("WEB-INF/add_employee.jsp")
-                .include(request, response);
+        request.getRequestDispatcher("WEB-INF/administration.jsp").include(request, response);
+
     }
 
     /**
@@ -59,21 +58,21 @@ public class AddEmployeeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        WebUser newUser = new WebUser(null,
-                request.getParameter("new-login"),
-                request.getParameter("new-password"),
-                Short.valueOf(request.getParameter("new-role")));
-        DaoFactoryH2.getWebUserDaoH2().create(newUser);
-
-        Employee newEmployee = new Employee(null,
-                request.getParameter("new-fname"),
-                request.getParameter("new-lname"),
-                Short.valueOf(request.getParameter("new-employee-category-id")),
-                newUser.getWebUserId());
-        DaoFactoryH2.getEmployeeDaoH2().create(newEmployee);
-        response.sendRedirect("employees");
-
+        response.setContentType("text/html;charset=UTF-8");
+        if ("edit".equals(request.getParameter("action"))) {
+            WebUser updatedUser = new WebUser(Long.valueOf(
+                    request.getParameter("user-id")), request.getParameter("new-login"),
+                    request.getParameter("new-password"), Short.valueOf(request
+                    .getParameter("new-role")));
+            DaoFactoryH2.getWebUserDaoH2().update(updatedUser);
+            response.sendRedirect("administration");
+        }
+        if ("delete".equals(request.getParameter("action"))) {
+            DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(Long.valueOf(
+                    request.getParameter("user-id")), null, null, null));
+            response.sendRedirect("administration");
+        }
+        doGet(request, response);
     }
 
     /**

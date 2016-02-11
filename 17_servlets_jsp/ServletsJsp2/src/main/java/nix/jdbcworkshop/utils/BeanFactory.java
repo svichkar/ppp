@@ -7,14 +7,19 @@ package nix.jdbcworkshop.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import nix.bean.CarBean;
-import nix.bean.ClientBean;
-import nix.bean.EmployeeBean;
-import nix.bean.WebUserBean;
+import nix.jdbcworkshop.bean.AssignmentBean;
+import nix.jdbcworkshop.bean.CarBean;
+import nix.jdbcworkshop.bean.CarOrderBean;
+import nix.jdbcworkshop.bean.ClientBean;
+import nix.jdbcworkshop.bean.EmployeeBean;
+import nix.jdbcworkshop.bean.WebUserBean;
 import nix.jdbcworkshop.entities.Car;
+import nix.jdbcworkshop.entities.CarOrder;
+import nix.jdbcworkshop.entities.CarOrderStatus;
 import nix.jdbcworkshop.entities.CarType;
 import nix.jdbcworkshop.entities.Client;
 import nix.jdbcworkshop.entities.Employee;
+import nix.jdbcworkshop.entities.EmployeeCarOrder;
 import nix.jdbcworkshop.entities.EmployeeCategory;
 import nix.jdbcworkshop.entities.WebRole;
 import nix.jdbcworkshop.entities.WebUser;
@@ -44,7 +49,8 @@ public class BeanFactory {
     }
 
     public static ClientBean getClientBean(Client client) {
-        WebUserBean webUserBean = getWebUserBean(DaoFactoryH2.getWebUserDaoH2().findWebUserById(client.getWebUserId()));
+        WebUserBean webUserBean = getWebUserBean(DaoFactoryH2.getWebUserDaoH2()
+                .findWebUserById(client.getWebUserId()));
         ClientBean clientBean = new ClientBean();
         clientBean.setClientId(client.getClientId());
         clientBean.setFirstName(client.getFirstName());
@@ -102,4 +108,48 @@ public class BeanFactory {
         }
         return employeeBeans;
     }
+
+    public static CarOrderBean getCarOrderBean(CarOrder carOrder) {
+        CarOrderStatus carOrderStatus = DaoFactoryH2.getCarOrderStatusDaoH2()
+                .findCarOrderStatusById(carOrder.getCarOrderStatusId());
+        CarBean carBean = getCarBean(DaoFactoryH2.getCarDaoH2()
+                .findCarById(carOrder.getCarId()));
+        CarOrderBean carOrderBean = new CarOrderBean();
+        carOrderBean.setCarOrderId(carOrder.getCarOrderId());
+        carOrderBean.setCarBean(carBean);
+        carOrderBean.setCarOrderStatus(carOrderStatus);
+        carOrderBean.setStartDate(carOrder.getStartDate());
+        carOrderBean.setEndDate(carOrder.getEndDate());
+        return carOrderBean;
+    }
+
+    public static List<CarOrderBean> getCarOrderBeans(List<CarOrder> carOrders) {
+        List<CarOrderBean> carOrderBeans = new ArrayList<>();
+        for (CarOrder carOrder : carOrders) {
+            carOrderBeans.add(getCarOrderBean(carOrder));
+        }
+        return carOrderBeans;
+    }
+
+    public static AssignmentBean getAssignmentBean(EmployeeCarOrder employeeCarOrder) {
+
+        CarOrderBean carOrderBean = BeanFactory.getCarOrderBean(DaoFactoryH2.getCarOrderDaoH2()
+                .findCarOrderById(employeeCarOrder.getCarOrderId()));
+        EmployeeBean employeeBean = BeanFactory.getEmployeeBean(DaoFactoryH2.getEmployeeDaoH2()
+                .findEmployeeById(employeeCarOrder.getEmployeeId()));
+        AssignmentBean assignmentBean = new AssignmentBean();
+        assignmentBean.setCarOrderBean(carOrderBean);
+        assignmentBean.setEmployeeBean(employeeBean);
+        return assignmentBean;
+    }
+
+    public static List<AssignmentBean> getAssignmentBeans(
+            List<EmployeeCarOrder> employeeCarOrders) {
+        List<AssignmentBean> assignmentBeans = new ArrayList<>();
+        for (EmployeeCarOrder employeeCarOrder : employeeCarOrders) {
+            assignmentBeans.add(getAssignmentBean(employeeCarOrder));
+        }
+        return assignmentBeans;
+    }
+
 }

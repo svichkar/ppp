@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.servlets;
+package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,8 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.CarType;
+import nix.jdbcworkshop.entities.Car;
+import nix.jdbcworkshop.entities.Client;
 import nix.jdbcworkshop.entities.WebUser;
+import nix.jdbcworkshop.utils.BeanFactory;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
 import org.apache.logging.log4j.LogManager;
 
@@ -20,8 +22,8 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mednorcom
  */
-@WebServlet(name = "AddCarModelServlet", urlPatterns = {"/add-car-model"})
-public class AddCarModelServlet extends HttpServlet {
+@WebServlet(name = "CarServlet", urlPatterns = {"/cars"})
+public class CarServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -36,7 +38,16 @@ public class AddCarModelServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/add_car_model.jsp").include(request, response);
+        request.setAttribute("carBeans",
+                BeanFactory.getCarBeans(DaoFactoryH2.getCarDaoH2().getCarList()));
+        if (request.getParameter("edit") != null) {
+            request.setAttribute("clientBeans", BeanFactory.getClientBeans(DaoFactoryH2
+                    .getClientDaoH2().getClientList()));
+            request.setAttribute("carTypes", DaoFactoryH2
+                    .getCarTypeDaoH2().getCarTypeList());
+        }
+        request.getRequestDispatcher("WEB-INF/cars.jsp").include(request, response);
+
     }
 
     /**
@@ -50,12 +61,21 @@ public class AddCarModelServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CarType newCarType = new CarType(null,
-                request.getParameter("new-brand"),
-                request.getParameter("new-model"));
-        DaoFactoryH2.getCarTypeDaoH2().create(newCarType);
-        response.sendRedirect("car-models");
-
+        response.setContentType("text/html;charset=UTF-8");
+        if ("edit".equals(request.getParameter("action"))) {
+            Car updatedCar = new Car(Long.valueOf(
+                    request.getParameter("car-id")), request.getParameter("new-sid"),
+                    Long.valueOf(request.getParameter("new-car-type-id")), 
+                    Long.valueOf(request.getParameter("new-client-id")));
+            DaoFactoryH2.getCarDaoH2().update(updatedCar);
+            response.sendRedirect("cars");
+        }
+        if ("delete".equals(request.getParameter("action"))) {
+            DaoFactoryH2.getCarDaoH2().delete(new Car(Long.valueOf(
+                    request.getParameter("car-id")), null, null, null));
+            response.sendRedirect("cars");
+        }
+        doGet(request, response);
     }
 
     /**

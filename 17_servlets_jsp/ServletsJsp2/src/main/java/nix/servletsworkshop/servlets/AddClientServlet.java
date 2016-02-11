@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nix.servlets;
+package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.Car;
 import nix.jdbcworkshop.entities.Client;
 import nix.jdbcworkshop.entities.WebRole;
 import nix.jdbcworkshop.entities.WebUser;
@@ -22,8 +21,8 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mednorcom
  */
-@WebServlet(name = "CreateUserServlet", urlPatterns = {"/add-car"})
-public class AddCarServlet extends HttpServlet {
+@WebServlet(name = "CreateUserServlet", urlPatterns = {"/add-client"})
+public class AddClientServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -38,9 +37,12 @@ public class AddCarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("carTypes", DaoFactoryH2.getCarTypeDaoH2().getCarTypeList());
-        request.setAttribute("clients", DaoFactoryH2.getClientDaoH2().getClientList());
-        request.getRequestDispatcher("WEB-INF/add_car.jsp").include(request, response);
+        for (WebRole webRole : DaoFactoryH2.getWebRoleDaoH2().getWebRoleList()) {
+            if (webRole.getWebRoleName().equals("user")) {
+                request.setAttribute("webRole", webRole);
+            }
+        }
+        request.getRequestDispatcher("WEB-INF/add_client.jsp").include(request, response);
     }
 
     /**
@@ -55,12 +57,18 @@ public class AddCarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Car newCar = new Car(null,
-                request.getParameter("new-sid"),
-                Long.valueOf(request.getParameter("new-car-model")),
-                Long.valueOf(request.getParameter("new-client")));
-        DaoFactoryH2.getCarDaoH2().create(newCar);
-        response.sendRedirect("cars");
+        WebUser newUser = new WebUser(null,
+                request.getParameter("new-login"),
+                request.getParameter("new-password"),
+                Short.valueOf(request.getParameter("new-role")));
+        DaoFactoryH2.getWebUserDaoH2().create(newUser);
+
+        Client newClient = new Client(null,
+                request.getParameter("new-fname"),
+                request.getParameter("new-lname"),
+                newUser.getWebUserId());
+        DaoFactoryH2.getClientDaoH2().create(newClient);
+        response.sendRedirect("clients");
 
     }
 

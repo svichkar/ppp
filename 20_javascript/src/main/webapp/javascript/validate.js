@@ -14,7 +14,7 @@ function validateForm(form, options) {
                         var errorMsg = field.nextElementSibling;
                         errorMsg.innerHTML = validator.message;
                         errorMsg.style.visibility = "visible";
-                        field.focus()
+                        field.focus();
                         return false;
                     }
                 }

@@ -7,13 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.entity.StudentGroup;
 import com.nixsolutions.studentgrade.dao.StudentGroupDAO;
 
 @Repository("groupDao")
-@Transactional
 public class StudentGroupDAOImpl implements StudentGroupDAO {
 
 	@Autowired

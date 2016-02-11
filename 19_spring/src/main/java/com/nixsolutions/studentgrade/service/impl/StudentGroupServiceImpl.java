@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.dao.StudentGroupDAO;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
 import com.nixsolutions.studentgrade.service.StudentGroupService;
 
 @Service
+@Transactional
 public class StudentGroupServiceImpl implements StudentGroupService {
 
 	@Autowired

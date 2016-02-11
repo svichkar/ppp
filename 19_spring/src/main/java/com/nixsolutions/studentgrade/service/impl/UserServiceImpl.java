@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.dao.RoleDAO;
 import com.nixsolutions.studentgrade.dao.UserDAO;
@@ -11,6 +12,7 @@ import com.nixsolutions.studentgrade.entity.User;
 import com.nixsolutions.studentgrade.service.UserService;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired

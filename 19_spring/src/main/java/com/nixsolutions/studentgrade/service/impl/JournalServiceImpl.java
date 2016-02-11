@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.dao.GradeDAO;
 import com.nixsolutions.studentgrade.dao.JournalDAO;
@@ -13,6 +14,7 @@ import com.nixsolutions.studentgrade.entity.Journal;
 import com.nixsolutions.studentgrade.service.JournalService;
 
 @Service
+@Transactional
 public class JournalServiceImpl implements JournalService {
 
 	@Autowired

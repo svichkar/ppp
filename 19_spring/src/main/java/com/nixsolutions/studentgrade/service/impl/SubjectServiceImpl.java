@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.dao.SubjectDAO;
 import com.nixsolutions.studentgrade.dao.TermDAO;
@@ -11,6 +12,7 @@ import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.service.SubjectService;
 
 @Service
+@Transactional
 public class SubjectServiceImpl implements SubjectService {
 
 	@Autowired

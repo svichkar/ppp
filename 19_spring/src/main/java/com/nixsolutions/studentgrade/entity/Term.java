@@ -33,4 +33,37 @@ public class Term implements Serializable {
 		this.termName = termName;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((termId == null) ? 0 : termId.hashCode());
+		result = prime * result + ((termName == null) ? 0 : termName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Term other = (Term) obj;
+		if (termId == null) {
+			if (other.termId != null)
+				return false;
+		} else if (!termId.equals(other.termId))
+			return false;
+		if (termName == null) {
+			if (other.termName != null)
+				return false;
+		} else if (!termName.equals(other.termName))
+			return false;
+		return true;
+	}
+	
+	
+
 }

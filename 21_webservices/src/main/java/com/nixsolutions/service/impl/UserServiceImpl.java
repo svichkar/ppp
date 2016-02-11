@@ -48,14 +48,6 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		return LOG.exit(user);
 	}
 	
-	
-//	@GET
-//    @Path("/{id}")
-//    @Produces("text/plain")
-//	public String getUserBy(@PathParam("id") String userId) {
-//		return "it is working " + userId;
-//	}
-	
 	@Override
 	public void createUser(String roleName, String usr, String pswd) {
 		Role role = roleDao.getRoleByName(roleName);

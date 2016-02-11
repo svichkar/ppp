@@ -19,19 +19,25 @@ import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.entity.User;
 
 @Repository("userDao")
+//@Transactional
 public class UserDaoImpl implements UserDao {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 	@Override
 	public List<User> getAllUsers() {
 		LOG.entry();
 		List<User> users = null;
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 			Criteria criteria = session.createCriteria(User.class)
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			users = criteria.list();
+			session.close();
 		return LOG.exit(users);
 	}
 
@@ -51,11 +57,12 @@ public class UserDaoImpl implements UserDao {
 	public User getUserById(Long userId) {
 		LOG.entry(userId);
 		User user = null;
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 			Criteria criteria = session.createCriteria(User.class)
 					.add(Restrictions.eq("userId", userId))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			user = (User) criteria.uniqueResult();
+			session.close();
 		return LOG.exit(user);
 	}
 

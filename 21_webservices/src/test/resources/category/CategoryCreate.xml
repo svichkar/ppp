@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<category name="Horror" />
+	<category name="Action" />
+	<category name="Comedy" />
+	<category name="Drama" />
+	
+	<author/>	
+	<cell/>
+	<book/>
+	<author_book/>
+	<client/>	
+	<rent_journal/>
+	<user/>
+	<role/>
+</dataset>

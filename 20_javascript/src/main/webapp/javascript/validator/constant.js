@@ -6,6 +6,10 @@ function isLengthValid (domElement) {
     return domElement.value.length > 3;
 };
 
+function notLonger (domElement) {
+    return domElement.value.length < 32;
+};
+
 function lettersOnly (domElement) {
     return /^[a-zA-Z]+$/.test(domElement.value);
 };

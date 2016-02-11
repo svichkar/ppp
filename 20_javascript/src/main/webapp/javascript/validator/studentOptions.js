@@ -3,45 +3,72 @@ var options = {
 firstName: [
        {
            isValid: function (domElement) {
-               return false;
+               return notEmptyElement(domElement);
            },
            message: "The name field is required. Please enter the name"
        },
        {
            isValid: function (domElement) {
-               return false;
+               return lettersOnly(domElement);
            },
-           message: "The field should contain only letter. Numbers are not allowed"
+           message: "Name should contain only letter"
        }
    ],
 
 lastName: [
           {
               isValid: function (domElement) {
-                 return false;
+                 return notEmptyElement(domElement);
               },
               message: "The name field is required. Please enter the name"
           },
           {
               isValid: function (domElement) {
-                 return false;
+                 return lettersOnly(domElement);
               },
-              message: "The field should contain only letter. Numbers are not allowed"
+              message: "Last name should contain only letters"
           }
       ],
 
-email: [
+date: [
           {
               isValid: function (domElement) {
-                  return false;
+                  return notEmptyElement(domElement);
               },
-              message: "The date field is required. Please pick up the date"
+              message: "Date is required"
           },
           {
                isValid: function (domElement) {
-                  return false;
+                  return isDateValid (domElement);
                },
-               message: "The email address is invalid. Please enter the correct email"
+               message: "Date is larger than today"
+          }
+   ],
+
+selectedGroup: [
+          {
+              isValid: function (domElement) {
+                  return notEmptyElement(domElement);
+              },
+              message: "Group is required"
+          }
+   ],
+
+selectedTerm: [
+          {
+              isValid: function (domElement) {
+                  return notEmptyElement(domElement);
+              },
+              message: "Term is required"
+          }
+   ],
+
+selectedStatus: [
+          {
+              isValid: function (domElement) {
+                  return notEmptyElement(domElement);
+              },
+              message: "Status is required"
           }
    ]
 };

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="Students">
+<t:general_template title="Students" opt="javascript/validator/studentOptions.js">
     <jsp:attribute name="content_area">
 
 <div>
@@ -62,23 +62,26 @@
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${students}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form:form method="post" action="student" class="validatedForm">
+<form:form method="post" action="student" class="validatedForm" onsubmit="return validateForm(this, options)">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
 
 <td class="tooltips">
 <input type="text" name="studentId" value="${current.studentId}" hidden/>
 <input type="text" name="firstName" value="${current.firstName}" onfocus="showTip(this, 'student name, e.g. <i>Ivan</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
 <input type="text" name="lastName" value="${current.lastName}" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
 <input type="date" name="date" value="${current.admissionDate}" style="border: none;font-size: 15;" onfocus="showTip(this, 'pick up a date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -95,6 +98,7 @@
 </c:choose>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -111,6 +115,7 @@
 </c:choose>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -127,6 +132,7 @@
 </c:choose>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -135,7 +141,8 @@
 <input type="submit" name="delete" value="delete"/>
 </td>
 </form:form>
-<form:form method="get" action="student" class="validatedForm">
+
+<form:form method="get" action="student">
 <td>
 <input type="text" name="studentId" value="${current.studentId}" hidden/>
 <input type="submit" name="show" value="details"/>
@@ -144,22 +151,25 @@
 </tr>
 </c:forEach>
 
-<form:form method="post" action="student" class="validatedForm">
+<form:form method="post" action="student" onsubmit="return validateForm(this, options)">
 <tr>
 <td readOnly></td>
 
 <td class="tooltips">
 <input type="text" name="firstName" placeholder="enter first name" onfocus="showTip(this, 'student name, e.g. <i>Ivan</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
 <input type="text" name="lastName" placeholder="enter last name" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
 <input type="date" name="date" style="background: #E5E5DB;border: none;font-size: 15;" onfocus="showTip(this, 'pick up a date, e.g. <i>01-FEB-2016</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -170,6 +180,7 @@
     <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -180,6 +191,7 @@
     <option value="${t.termName}">${t.termName}</option>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -190,6 +202,7 @@
     <option value="${status.statusName}">${status.statusName}</option>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 

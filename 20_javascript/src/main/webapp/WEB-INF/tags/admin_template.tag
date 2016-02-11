@@ -13,10 +13,13 @@
   <title>${title}</title>
   <meta name="description" content="student grade management website" />
   <link href="<c:url value="/images/favicon.png"/>" rel="shortcut icon" type="shortcut/ico">
-  <script src="<c:url value="/javascript/toggleScript.js"/>" type="text/javascript"></script>
-  <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
   <link href="${cssTooltip}" type="text/css" rel="stylesheet"/>
+  <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/toggleScript.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/validator/constant.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/validator/userOptions.js"/>" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/validate.js"/>" type="text/javascript"></script>
 </head>
 
 <body>

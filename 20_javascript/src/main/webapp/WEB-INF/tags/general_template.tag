@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@attribute name="title"%>
+<%@attribute name="opt"%>
 <%@attribute name="head_area" fragment="true"%>
 <%@attribute name="content_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl"/>
@@ -15,16 +16,15 @@
   <link href="<c:url value="/images/favicon.png"/>" rel="shortcut icon" type="shortcut/ico">
   <script src="<c:url value="/javascript/toggleScript.js"/>" type="text/javascript"></script>
   <script src="<c:url value="/javascript/focus.js"/>" type="text/javascript"></script>
-
-  <script src="<c:url value="/javascript/validate.js"/>" type="text/javascript"></script>
   <script src="<c:url value="/javascript/validator/constant.js"/>" type="text/javascript"></script>
-  <!--script src="<c:url value="/javascript/validator/studentOptions.js"/>" type="text/javascript"></script-->
+  <script src="${opt}" type="text/javascript"></script>
+  <script src="<c:url value="/javascript/validate.js"/>" type="text/javascript"></script>
 
   <link href="${cssUrl}" type="text/css" rel="stylesheet"/>
   <link href="${cssTooltip}" type="text/css" rel="stylesheet"/>
 </head>
 
-<body onload='prepareForms();'>
+<body>
 <header>
 <div class="container">
 <a href="<c:url value="/home"/>">

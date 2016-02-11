@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
-<t:general_template title="Journals">
+<t:general_template title="Journals" opt="javascript/validator/journalOptions.js">
 <jsp:attribute name="content_area">
 
 <div>
@@ -28,7 +28,7 @@
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${journals}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<form:form  method="post" action="journal">
+<form:form  method="post" action="journal" onsubmit="return validateForm(this, options)">
 <tr onclick="toggleSelected(this)">
 <td>${count}</td>
 <td>
@@ -46,7 +46,7 @@
 </td>
 
 <td class="tooltips">
-    <select name="selectedGrade" onfocus="showTip(this, 'pick up a grade, e.g. <i>good</i>');" onblur="hideTip(this)">
+<select name="selectedGrade" onfocus="showTip(this, 'pick up a grade, e.g. <i>good</i>');" onblur="hideTip(this)">
     <c:forEach items="${grades}" var="gr">
     <c:choose>
         <c:when test="${gr.gradeId == current.grade.gradeId}">
@@ -57,7 +57,8 @@
         </c:otherwise>
     </c:choose>
     </c:forEach>
-    </select>
+</select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -69,18 +70,20 @@
 </form:form>
 </c:forEach>
 
-<form:form method="post" action="journal">
+<form:form method="post" action="journal" onsubmit="return validateForm(this, options)">
 <tr>
 <td readOnly></td>
 
 <td class="tooltips">
 <input type="text" name="firstName" placeholder="enter student name" onfocus="showTip(this, 'student name, e.g. <i>Ivan</i>');" onblur="hideTip(this)"/>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
 <td class="tooltips">
 <input type="text" name="lastName" placeholder="enter student last name" onfocus="showTip(this, 'last name, e.g. <i>Ivanov</i>');" onblur="hideTip(this)"/>
 <div id="message" style="font-size:10;"></div>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 </td>
 
 <td class="tooltips">
@@ -90,6 +93,7 @@
 <option value="${g.groupName}">${g.groupName}</option>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -100,6 +104,7 @@
 <option value="${s.subjectName}">${s.subjectName}</option>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 
@@ -110,6 +115,7 @@
 <option value="${gr.gradeName}">${gr.gradeName}</option>
 </c:forEach>
 </select>
+<span name="error" style="visibility:hidden" class="errorValidation"></span>
 <div id="message" style="font-size:10;"></div>
 </td>
 

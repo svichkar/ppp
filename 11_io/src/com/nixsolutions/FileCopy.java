@@ -8,6 +8,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by sobolenko on 2/4/2016.
@@ -85,8 +86,15 @@ public class FileCopy {
             dirName += (char) (random.nextInt(25) + 97);
         }
         path += dirName + File.separator;
-        if (path.split("\\u005c").length < random.nextInt(6) + 3) {
-            point = generateRandomDirPath(path);
+        try {
+            if (path.split(File.separator).length < random.nextInt(6) + 3) {
+                point = generateRandomDirPath(path);
+            }
+        }catch (PatternSyntaxException pse)
+        {
+            if (path.split("\\u005c").length < random.nextInt(6) + 3) {
+                point = generateRandomDirPath(path);
+            }
         }
         return point;
     }

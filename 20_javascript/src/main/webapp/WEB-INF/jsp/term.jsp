@@ -41,7 +41,7 @@
 </form:form>
 </c:forEach>
 
-<form:form  method="post" action="term" class="validatedForm" onsubmit="validateForm(this, options)">
+<form:form  method="post" action="term" class="validatedForm" onsubmit="return validateForm(this, options)">
 <tr>
 <td readOnly></td>
 <td class="tooltips">

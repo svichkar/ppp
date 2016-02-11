@@ -30,10 +30,12 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.connection.pool_size">20</prop>
+				<prop key="hibernate.connection.autocomit">true</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hbm2ddl.auto">validate</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.hbm2ddl.import_files">dml.sql</prop>
 			</props>
 		</property>
 	</bean>
@@ -45,17 +47,28 @@
 
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/style/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/main" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/logout" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<security:intercept-url pattern="/updateUser" access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/users" access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/update**" access="ROLE_USER" />
-		<security:intercept-url pattern="/journal**" access="ROLE_USER" />
-		<security:intercept-url pattern="/students" access="ROLE_USER" />
-		<security:intercept-url pattern="/terms" access="ROLE_USER" />
-		<security:intercept-url pattern="/subjects" access="ROLE_USER" />
+		<security:intercept-url pattern="/index.jsp"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/style/**"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/main"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/logout"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/updateUser"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/users"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/update**"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/journal**"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/students"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/terms"
+			access="ROLE_USER" />
+		<security:intercept-url pattern="/subjects"
+			access="ROLE_USER" />
 		<security:form-login login-page='/index.jsp'
 			default-target-url="/main"
 			authentication-failure-url="/index.jsp?message=Your login or password is incorrect. Please try again."

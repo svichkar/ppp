@@ -3,8 +3,6 @@ package com.nixsolutions.studentgrade.webservice.rest;
 import com.nixsolutions.studentgrade.model.Student;
 import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -19,7 +17,6 @@ public class StudentWebService {
     private StudentService studentService;
 
     @Autowired
-    @Qualifier("studentsService")
     public void setStudentService(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -32,7 +29,7 @@ public class StudentWebService {
         System.out.println(studentId);
         System.out.println(format);
 
-        studentService = (StudentService) new ClassPathXmlApplicationContext("root-context.xml").getBean("studentService");
+        //studentService = (StudentService) new ClassPathXmlApplicationContext("root-context.xml").getBean("studentService");
 
         Student student = studentService.findById(studentId);
 

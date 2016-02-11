@@ -1,5 +1,6 @@
 package com.nixsolutions;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -9,8 +10,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         FileCopy fileCopy = new FileCopy();
         fileCopy.createDirectories();
-        fileCopy.makeCopyWithJavaIo("testDir", "CopyByIo");
-        fileCopy.makeCopyWithJavaNio(System.getProperty("user.dir") + "\\testDir", System.getProperty("user.dir") + "\\CopyByNio");
+        fileCopy.makeCopyWithJavaIo("testDir", "copyByIo");
+        fileCopy.makeCopyWithJavaNio(System.getProperty("user.dir") + File.separator + "testDir", System.getProperty("user.dir") + File.separator + "CopyByNio");
         fileCopy.makeCopyWithApacheCommonsIo("testDir", "CopyByApache");
     }
 }

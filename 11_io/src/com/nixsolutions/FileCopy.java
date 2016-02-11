@@ -90,8 +90,7 @@ public class FileCopy {
             if (path.split(File.separator).length < random.nextInt(6) + 3) {
                 point = generateRandomDirPath(path);
             }
-        }catch (PatternSyntaxException pse)
-        {
+        } catch (PatternSyntaxException pse) {
             if (path.split("\\u005c").length < random.nextInt(6) + 3) {
                 point = generateRandomDirPath(path);
             }

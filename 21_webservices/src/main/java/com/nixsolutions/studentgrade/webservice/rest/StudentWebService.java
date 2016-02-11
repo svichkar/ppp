@@ -3,14 +3,14 @@ package com.nixsolutions.studentgrade.webservice.rest;
 import com.nixsolutions.studentgrade.model.Student;
 import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Component
+@Service
 @Path("rest/students")
 public class StudentWebService {
 
@@ -28,8 +28,6 @@ public class StudentWebService {
 
         System.out.println(studentId);
         System.out.println(format);
-
-        //studentService = (StudentService) new ClassPathXmlApplicationContext("root-context.xml").getBean("studentService");
 
         Student student = studentService.findById(studentId);
 

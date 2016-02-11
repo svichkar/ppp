@@ -1,10 +1,14 @@
 package com.nixsolutions.studentgrade.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nixsolutions.studentgrade.webservice.provider.SqlDateAdapter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -19,6 +23,7 @@ public class Student implements Serializable {
     @Id
     @Column(name = "student_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlAttribute
     private Long studentId;
 
     @Column(name = "first_name", nullable = false, length = 256)
@@ -32,8 +37,8 @@ public class Student implements Serializable {
     @Cascade(CascadeType.DETACH)
     private StudentGroup studentGroup;
 
-    //@XmlJavaTypeAdapter(DateAdapter.class)
     @Column(name = "admission_date", nullable = false)
+    @XmlJavaTypeAdapter(SqlDateAdapter.class)
     private Date admissionDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -105,6 +110,7 @@ public class Student implements Serializable {
         this.term = term;
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
 
         boolean result = false;
@@ -147,4 +153,5 @@ public class Student implements Serializable {
         result = 31 * result + term.hashCode();
         return result;
     }
+
 }

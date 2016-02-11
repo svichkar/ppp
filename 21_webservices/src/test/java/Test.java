@@ -1,3 +1,5 @@
+import com.nixsolutions.studentgrade.webservice.provider.SqlDateAdapter;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -10,6 +12,9 @@ import java.net.URI;
 public class Test {
 
     public static void main(String[] args) {
+
+        SqlDateAdapter a = new SqlDateAdapter();
+
         Client client = ClientBuilder.newClient();
         URI targetUri = UriBuilder.fromUri("http://localhost:8080/web-services").build();
 

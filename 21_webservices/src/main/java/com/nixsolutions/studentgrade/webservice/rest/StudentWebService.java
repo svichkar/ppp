@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Service
 @Path("rest/students")
@@ -24,15 +25,9 @@ public class StudentWebService {
     @GET
     @Path("/getStudent/{studentId}")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Response getUserById(@PathParam("studentId") Long studentId, @QueryParam("fmt") String format) {
-
-        System.out.println(studentId);
-        System.out.println(format);
+    public Response getStudentById(@PathParam("studentId") Long studentId, @QueryParam("fmt") String format) {
 
         Student student = studentService.findById(studentId);
-
-        System.out.println(student.getStudentId());
-
         return Response
                 // Set the status and Put your entity here.
                 .ok(student)
@@ -42,4 +37,18 @@ public class StudentWebService {
                 .build();
     }
 
+    @GET
+    @Path("/getStudent/all")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public Response getAllStudents(@QueryParam("fmt") String format) {
+
+        List<Student> studentList = studentService.findAll();
+        return Response
+                // Set the status and Put your entity here.
+                .ok(studentList)
+                // Add the Content-Type header to tell Jersey which format it should marshall the entity into.
+                .header(HttpHeaders.CONTENT_TYPE, "json".equals(format) ? MediaType.APPLICATION_JSON
+                        : MediaType.APPLICATION_XML)
+                .build();
+    }
 }

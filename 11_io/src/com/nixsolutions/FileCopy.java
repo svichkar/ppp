@@ -51,8 +51,13 @@ public class FileCopy {
         for (int capacity = 0; capacity < 10; capacity++) {
             String initialPath = generateRandomDirPath("");
             directoriesPaths.add(initialPath);
+            String[] splitPath;
             for (int i = 0; i < random.nextInt(1) + 2; i++) {
-                String[] splitPath = initialPath.split("\\u005c");
+                try {
+                    splitPath = initialPath.split(File.separator);
+                } catch (PatternSyntaxException pse) {
+                    splitPath = initialPath.split("\\u005c");
+                }
                 String concatPath = "";
                 for (int j = 0; j < random.nextInt(splitPath.length) + 1; j++) {
                     concatPath += splitPath[j] + File.separator;

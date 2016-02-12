@@ -11,8 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.Client;
-import nix.jdbcworkshop.entities.WebUser;
+import nix.jdbcworkshop.entities.EmployeeCarOrder;
 import nix.jdbcworkshop.utils.BeanFactory;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
 import org.apache.logging.log4j.LogManager;
@@ -21,8 +20,8 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mednorcom
  */
-@WebServlet(name = "ClientServlet", urlPatterns = {"/clients"})
-public class ClientServlet extends HttpServlet {
+@WebServlet(name = "AddAssignmentServlet", urlPatterns = {"/add-assignment"})
+public class AddAssignmentServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -37,14 +36,13 @@ public class ClientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("clientBeans",
-                BeanFactory.getClientBeans(DaoFactoryH2.getClientDaoH2().getClientList()));
-        if (request.getParameter("edit") != null) {
-            request.setAttribute("webUserBeans", BeanFactory.getWebUserBeans(DaoFactoryH2
-                    .getWebUserDaoH2().getWebUserList()));
-        }
-        request.getRequestDispatcher("WEB-INF/clients.jsp").include(request, response);
-
+        Long carOrderId = Long.valueOf(request.getParameter("car-order-id"));
+        request.setAttribute("carOrderBean",
+                BeanFactory.getCarOrderBean(DaoFactoryH2.getCarOrderDaoH2()
+                        .findCarOrderById(carOrderId)));
+        request.setAttribute("employeeBeans", BeanFactory.getEmployeeBeans(DaoFactoryH2
+                .getEmployeeDaoH2().getEmployeeList()));
+        request.getRequestDispatcher("WEB-INF/add_assignment.jsp").include(request, response);
     }
 
     /**
@@ -58,25 +56,13 @@ public class ClientServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        if ("edit".equals(request.getParameter("action"))) {
-            Client updatedClient = new Client(Long.valueOf(
-                    request.getParameter("client-id")), request.getParameter("new-fname"),
-                    request.getParameter("new-lname"),
-                    Long.valueOf(request.getParameter("new-web-user")));
-            DaoFactoryH2.getClientDaoH2().update(updatedClient);
-            response.sendRedirect("clients");
-        }
-        if ("delete".equals(request.getParameter("action"))) {
 
-            Client client = DaoFactoryH2.getClientDaoH2()
-                    .findClientById(Long.valueOf(request.getParameter("client-id")));
-            DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(client.getWebUserId(),
-                    null, null, Short.MIN_VALUE));
-            DaoFactoryH2.getClientDaoH2().delete(client);
-            response.sendRedirect("clients");
-        }
-        doGet(request, response);
+        EmployeeCarOrder newEmployeeCarOrder = new EmployeeCarOrder(
+                Long.valueOf(request.getParameter("employee-id")),
+                Long.valueOf(request.getParameter("car-order-id")));
+        DaoFactoryH2.getEmployeeCarOrderDaoH2().create(newEmployeeCarOrder);
+        response.sendRedirect("assignments?car-order-id=" + request.getParameter("car-order-id"));
+
     }
 
     /**

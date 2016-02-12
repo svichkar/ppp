@@ -75,9 +75,7 @@ public class EmployeeCarOrderDaoH2 implements EmployeeCarOrderDao {
                 searchedEmployeeCarOrder = new EmployeeCarOrder();
                 searchedEmployeeCarOrder.setCarOrderId(searchResults.getLong("car_order_id"));
                 searchedEmployeeCarOrder.setEmployeeId(searchResults.getLong("employee_id"));
-            } else {
-                throw new SQLException("No results found");
-            }
+            } 
             searchResults.close();
 
         } catch (SQLException | RuntimeException ex) {
@@ -102,9 +100,7 @@ public class EmployeeCarOrderDaoH2 implements EmployeeCarOrderDao {
                 searchedEmployeeCarOrder = new EmployeeCarOrder();
                 searchedEmployeeCarOrder.setCarOrderId(searchResults.getLong("car_order_id"));
                 searchedEmployeeCarOrder.setEmployeeId(searchResults.getLong("employee_id"));
-            } else {
-                throw new SQLException("No results found");
-            }
+            } 
             searchResults.close();
 
         } catch (SQLException | RuntimeException ex) {

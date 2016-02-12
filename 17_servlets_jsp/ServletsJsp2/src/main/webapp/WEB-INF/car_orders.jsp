@@ -70,8 +70,11 @@
                             </c:when>
                             <c:otherwise>
                                 <td>
-                                    <button formaction='car-orders' formmethod='get' name='edit' value='<c:out value="${carOrderBean.carOrderId}"/>' >edit</button>
-                                    <button formaction='car-orders' formmethod='get' name='delete' value='<c:out value="${carOrderBean.carOrderId}"/>' >delete</button>
+                                    <span>
+                                        <button formaction='car-orders' formmethod='get' name='edit' value='<c:out value="${carOrderBean.carOrderId}"/>' >edit</button>
+                                        <button formaction='car-orders' formmethod='get' name='delete' value='<c:out value="${carOrderBean.carOrderId}"/>' >delete</button>
+                                        <button formaction='assignments' formmethod='get' name='car-order-id' value='<c:out value="${carOrderBean.carOrderId}"/>' >assignments</button>
+                                    </span>
                                 </td>
                                 <td><c:out value="${carOrderBean.carOrderId}"/></td>
                                 <td><c:out value="${carOrderBean.carBean.carType.brand}:${carOrderBean.carBean.carType.model}-[${carOrderBean.carBean.serialId}]"/></td> 

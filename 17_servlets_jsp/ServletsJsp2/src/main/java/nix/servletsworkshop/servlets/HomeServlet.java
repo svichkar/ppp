@@ -6,11 +6,17 @@
 package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import nix.jdbcworkshop.bean.CarOrderBean;
+import nix.jdbcworkshop.bean.WebUserBean;
+import nix.jdbcworkshop.utils.BeanFactory;
+import nix.jdbcworkshop.utils.DaoFactoryH2;
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -33,7 +39,33 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/index.jsp").include(request, response);
+        WebUserBean webUserBean = BeanFactory.getWebUserBean(DaoFactoryH2.getWebUserDaoH2()
+                .findWebUserByLogin(request.getSession().getAttribute("name").toString()));
+        if (webUserBean.getRole().getWebRoleName().equals("user")) {
+            List<CarOrderBean> currentCarOrderBeans = new ArrayList<>();
+            for (CarOrderBean carOrderBean : BeanFactory
+                    .getCarOrderBeans(DaoFactoryH2.getCarOrderDaoH2().getCarOrderList())) {
+                if (carOrderBean.getCarBean().getClientBean().getWebUserBean().getWebUserId()
+                        .equals(webUserBean.getWebUserId())) {
+                    currentCarOrderBeans.add(carOrderBean);
+                }
+            }
+            request.setAttribute("carOrderBeans", currentCarOrderBeans);
+        } else if (webUserBean.getRole().getWebRoleName().equals("manager")) {
+            List<CarOrderBean> unassignedCarOrderBeans = new ArrayList<>();
+            for (CarOrderBean carOrderBean : BeanFactory
+                    .getCarOrderBeans(DaoFactoryH2.getCarOrderDaoH2().getCarOrderList())) {
+                if (DaoFactoryH2.getEmployeeCarOrderDaoH2().findEmployeeCarOrderByCarOrderId(carOrderBean.getCarOrderId()) == null) {
+                    unassignedCarOrderBeans.add(carOrderBean);
+                }
+            }
+            request.setAttribute("unassignedCarOrderBeans", unassignedCarOrderBeans);
+
+        } else if (webUserBean.getRole().getWebRoleName().equals("employee")) {
+
+        }
+
+        request.getRequestDispatcher("WEB-INF/home.jsp").include(request, response);
     }
 
     /**

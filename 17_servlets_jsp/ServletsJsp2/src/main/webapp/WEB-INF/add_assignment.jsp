@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Add Assignment">
     <jsp:attribute name="content_area">
@@ -13,17 +14,12 @@
                 <tbody>                
                     <tr>
                         <td>Order: </td>
-                        <td>
-                            <select name="new-car-order-id">
-                                <c:forEach var="carOrderBean" items="${requestScope.carOrderBean}">
-                                    <option value="${carOrderBean.carOrderId}">${carOrderBean.carBean.carType.brand}-${carOrderBean.carBean.carType.model} [${carOrderBean.carBean.serialId}] date: ${carOrderBean.startDate}</option>
-                                </c:forEach>
-                            </select>
-                        </td></tr>
+                        <td><input type="hidden" name="car-order-id" value="${carOrderBean.carOrderId}">id:[${carOrderBean.carOrderId}] ${carOrderBean.carBean.carType.brand}-${carOrderBean.carBean.carType.model} SID:[${carOrderBean.carBean.serialId}] date:&nbsp;<fmt:formatDate type="both"  value="${carOrderBean.startDate}"/></td>
+                    </tr>
                     <tr>
-                        <td>Owner: </td>
+                        <td>Assignee: </td>
                         <td>
-                            <select name="new-employee">
+                            <select name="employee-id">
                                 <c:forEach var="employeeBean" items="${requestScope.employeeBeans}">
                                     <option value="${employeeBean.employeeId}">${employeeBean.firstName} ${employeeBean.lastName} - ${employeeBean.employeeCategory.name}</option>
                                 </c:forEach>

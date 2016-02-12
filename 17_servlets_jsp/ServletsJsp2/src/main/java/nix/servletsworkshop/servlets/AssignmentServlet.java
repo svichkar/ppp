@@ -6,26 +6,25 @@
 package nix.servletsworkshop.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import nix.jdbcworkshop.entities.Client;
-import nix.jdbcworkshop.entities.Employee;
-import nix.jdbcworkshop.entities.WebUser;
+import nix.jdbcworkshop.bean.AssignmentBean;
+import nix.jdbcworkshop.entities.EmployeeCarOrder;
 import nix.jdbcworkshop.utils.BeanFactory;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
 /**
  *
  * @author mednorcom
  */
-@WebServlet(name = "EmployeeServlet", urlPatterns = {"/employees"})
-public class EmployeeServlet extends HttpServlet {
+@WebServlet(name = "AssignmentsServlet", urlPatterns = {"/assignments"})
+public class AssignmentServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 
@@ -40,15 +39,20 @@ public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("employeeBeans",
-                BeanFactory.getEmployeeBeans(DaoFactoryH2.getEmployeeDaoH2().getEmployeeList()));
-        if (request.getParameter("edit") != null) {
-            request.setAttribute("webUserBeans", BeanFactory.getWebUserBeans(DaoFactoryH2
-                    .getWebUserDaoH2().getWebUserList()));
-            request.setAttribute("employeeCategories", DaoFactoryH2
-                    .getEmployeeCategoryDaoH2().getEmployeeCategoryList());
+        Long carOrderId = Long.valueOf(request.getParameter("car-order-id"));
+        request.setAttribute("carOrderBean",
+                BeanFactory.getCarOrderBean(DaoFactoryH2.getCarOrderDaoH2()
+                        .findCarOrderById(carOrderId)));
+
+        List<AssignmentBean> currentOrderAssignmetns = new ArrayList<>();
+        for (AssignmentBean assignmentBean : BeanFactory.getAssignmentBeans(
+                DaoFactoryH2.getEmployeeCarOrderDaoH2().getEmployeeCarOrderList())) {
+            if (assignmentBean.getCarOrderBean().getCarOrderId().equals(carOrderId)) {
+                currentOrderAssignmetns.add(assignmentBean);
+            }
         }
-        request.getRequestDispatcher("WEB-INF/employees.jsp").include(request, response);
+        request.setAttribute("assignmentBeans", currentOrderAssignmetns);
+        request.getRequestDispatcher("WEB-INF/assignments.jsp").include(request, response);
 
     }
 
@@ -64,27 +68,14 @@ public class EmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if ("edit".equals(request.getParameter("action"))) {
-            Employee updatedEmployee = new Employee(Long.valueOf(
-                    request.getParameter("employee-id")), request.getParameter("new-fname"),
-                    request.getParameter("new-lname"),
-                    Short.valueOf(request.getParameter("new-employee-category-id")),
-                    Long.valueOf(request.getParameter("new-web-user")));
-            DaoFactoryH2.getEmployeeDaoH2().update(updatedEmployee);
-            response.sendRedirect("employees");
-        }
         if ("delete".equals(request.getParameter("action"))) {
-            Employee employee
-                    = DaoFactoryH2.getEmployeeDaoH2()
-                    .findEmployeeById(Long.valueOf(request.getParameter("employee-id")));
+            DaoFactoryH2.getEmployeeCarOrderDaoH2().delete(new EmployeeCarOrder(
+                    Long.valueOf(request.getParameter("employee-id")),
+                    Long.valueOf(request.getParameter("car-order-id"))));
 
-            DaoFactoryH2.getWebUserDaoH2().delete(new WebUser(employee.getWebUserId(),
-                    null, null, null));
-
-            DaoFactoryH2.getEmployeeDaoH2().delete(employee);
-            response.sendRedirect("employees");
+            response.sendRedirect("assignments?car-order-id="
+                    + request.getParameter("car-order-id"));
         }
-        doGet(request, response);
     }
 
     /**

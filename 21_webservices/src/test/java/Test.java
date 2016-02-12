@@ -1,17 +1,14 @@
-import com.nixsolutions.studentgrade.model.AllStudentsBean;
-import com.nixsolutions.studentgrade.model.Student;
+import com.nixsolutions.studentgrade.model.User;
 import com.nixsolutions.studentgrade.service.StudentService;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import java.net.URI;
+import javax.xml.bind.SchemaOutputResolver;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.IOException;
 
 @Transactional
 public class Test {
@@ -19,13 +16,14 @@ public class Test {
 
     static StudentService studentService;
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) throws JAXBException, IOException {
 
-        studentService = (StudentService) new ClassPathXmlApplicationContext("root-context.xml").getBean("studentService");
+        /*studentService = (StudentService) new ClassPathXmlApplicationContext("root-context.xml").getBean("studentService");
         Student student = studentService.findById(1L);
         AllStudentsBean list = new AllStudentsBean();
         list.setStudents(studentService.findAll());
         JAXBContext jc = JAXBContext.newInstance(AllStudentsBean.class);
+
         Marshaller marshaller = jc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(list, System.out);
@@ -40,6 +38,24 @@ public class Test {
 
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));
+*/
+        JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+        SchemaOutputResolver sor = new MySchemaOutputResolver();
+        jaxbContext.generateSchema(sor);
+        sor.createOutput("", "user");
+
+
+    }
+
+    public static class MySchemaOutputResolver extends SchemaOutputResolver {
+
+        public Result createOutput(String namespaceURI, String suggestedFileName) throws IOException {
+            File file = new File(suggestedFileName);
+            StreamResult result = new StreamResult(file);
+            result.setSystemId(file.toURI().toURL().toString());
+            return result;
+        }
+
     }
 }
 

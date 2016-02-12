@@ -8,6 +8,7 @@
 
 	<http pattern="/css/**" security="none" />
 	<http pattern="/login" security="none"/>
+	<http pattern="/rest/**" security="none"/>
 	
 	<http use-expressions="true"  auto-config="true">
 	<intercept-url pattern="/WEB-INF/jsp/Login.jsp" access="permitAll" />

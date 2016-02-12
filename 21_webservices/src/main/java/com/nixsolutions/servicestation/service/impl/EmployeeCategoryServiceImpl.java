@@ -16,7 +16,7 @@ import java.util.Set;
 @Transactional
 public class EmployeeCategoryServiceImpl implements EmployeeCategoryService {
     @Autowired
-    EmployeeCategoryDAO employeeCategoryDAO;
+    private EmployeeCategoryDAO employeeCategoryDAO;
 
     @Override
     public void create(EmployeeCategory entity) {

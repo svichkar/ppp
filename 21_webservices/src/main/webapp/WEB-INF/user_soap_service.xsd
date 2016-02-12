@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://localhost:8080/wsSoapSTO/soapws"
+           xmlns:tns="http://localhost:8080/wsSoapSTO/soapws"
+           elementFormDefault="qualified">
+    <xs:complexType name="UserService">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:long"></xs:element>
+            <xs:element name="login" type="xs:string"></xs:element>
+            <xs:element name="password" type="xs:string"></xs:element>
+            <xs:element name="userRole" type="tns:UserRoleService"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UserRoleService">
+        <xs:sequence>
+            <xs:element name="userRoleId" type="xs:long"></xs:element>
+            <xs:element name="userRoleName" type="xs:string"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

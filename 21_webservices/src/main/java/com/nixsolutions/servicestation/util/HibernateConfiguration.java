@@ -4,14 +4,13 @@ package com.nixsolutions.servicestation.util;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -21,9 +20,8 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"com.nixsolutions.util"})
-@PropertySource(value = { "classpath:springhiber.properties" })
-public class HiberUtil {
+@PropertySource("classpath:springhiber.properties")
+public class HibernateConfiguration {
     @Autowired
     private Environment environment;
 
@@ -31,7 +29,7 @@ public class HiberUtil {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.nixsolutions.servicestation.entity" });
+        sessionFactory.setPackagesToScan("com.nixsolutions.servicestation.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

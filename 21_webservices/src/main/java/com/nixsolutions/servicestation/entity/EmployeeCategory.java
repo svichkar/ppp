@@ -19,20 +19,9 @@ public class EmployeeCategory implements Serializable{
     @Column(name = "employee_category_name", length = 100, nullable = false)
     private String employeeCategoryName;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "employee_category_id", referencedColumnName = "employee_category_id")
-    private Set<Employee> employeeList;
-
     public EmployeeCategory() {
     }
 
-    public Set<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(Set<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
 
     public Long getEmployeeCategoryId() {
         return employeeCategoryId;
@@ -51,14 +40,16 @@ public class EmployeeCategory implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        EmployeeCategory employeeCategory = (EmployeeCategory) obj;
-        if (employeeCategoryId.equals(employeeCategory.employeeCategoryId) &&
-                employeeCategoryName.equals(employeeCategory.employeeCategoryName)) {
-            return true;
-        } else {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EmployeeCategory that = (EmployeeCategory) o;
+
+        if (employeeCategoryId != null ? !employeeCategoryId.equals(that.employeeCategoryId) : that.employeeCategoryId != null)
             return false;
-        }
+        return employeeCategoryName.equals(that.employeeCategoryName);
+
     }
 
     @Override

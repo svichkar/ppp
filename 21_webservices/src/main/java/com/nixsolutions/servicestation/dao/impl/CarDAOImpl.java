@@ -2,8 +2,6 @@ package com.nixsolutions.servicestation.dao.impl;
 
 import com.nixsolutions.servicestation.dao.CarDAO;
 import com.nixsolutions.servicestation.entity.Car;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
@@ -18,7 +16,6 @@ import java.util.Set;
 
 @Repository("carDao")
 public class CarDAOImpl extends GenericAbstractDAO<Car> implements CarDAO {
-    public static Logger LOGGER = LogManager.getLogger(CarOrderDAOImpl.class.getName());
 
     public Set<Car> getCarWithoutOrder() {
         Set<Car> carSet;
@@ -26,7 +23,6 @@ public class CarDAOImpl extends GenericAbstractDAO<Car> implements CarDAO {
                 "left join fetch c.carOrder as co " +
                 "where co.carOrderId is null");
         carSet = new HashSet<>(query.list());
-        LOGGER.trace(carSet.size() + " rows in car by getCarWithoutOrder() were found");
         return carSet;
     }
 
@@ -37,7 +33,6 @@ public class CarDAOImpl extends GenericAbstractDAO<Car> implements CarDAO {
         criteria.createAlias("client.user", "user");
         criteria.add(Restrictions.eq("user.login", login));
         carOrderSet = new HashSet<>(criteria.list());
-        LOGGER.trace(carOrderSet.size() + " rows in car_order were found");
         return carOrderSet;
     }
 }

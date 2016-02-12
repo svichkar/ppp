@@ -51,14 +51,16 @@ public class CarOrderStatus implements Serializable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        CarOrderStatus carOrderStatus = (CarOrderStatus) obj;
-        if (carOrderStatusId.equals(carOrderStatus.carOrderStatusId) &&
-                carOrderStatusName.equals(carOrderStatus.carOrderStatusName)) {
-            return true;
-        } else {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarOrderStatus that = (CarOrderStatus) o;
+
+        if (carOrderStatusId != null ? !carOrderStatusId.equals(that.carOrderStatusId) : that.carOrderStatusId != null)
             return false;
-        }
+        return carOrderStatusName.equals(that.carOrderStatusName);
+
     }
 
     @Override

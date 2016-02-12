@@ -1,12 +1,16 @@
 package com.nixsolutions.servicestation.entity;
 
+
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
  */
+@XmlRootElement
 @Entity
 @Table(name = "employee")
 public class Employee implements Serializable {
@@ -22,23 +26,9 @@ public class Employee implements Serializable {
     @JoinColumn(name = "employee_category_id", referencedColumnName = "employee_category_id")
     private EmployeeCategory employeeCategory;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
-            fetch = FetchType.EAGER)
-    @JoinTable(name = "employee_car_order",
-            joinColumns = {@JoinColumn(name = "employee_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "car_order_id", nullable = false)})
-    private Set<CarOrder> carOrderSet;
 
     public Long getEmployeeId() {
         return employeeId;
-    }
-
-    public Set<CarOrder> getCarOrderSet() {
-        return carOrderSet;
-    }
-
-    public void setCarOrderSet(Set<CarOrder> carOrderSet) {
-        this.carOrderSet = carOrderSet;
     }
 
     public void setEmployeeId(Long employeeId) {
@@ -69,4 +59,19 @@ public class Employee implements Serializable {
         this.employeeCategory = employeeCategory;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Employee employee = (Employee) o;
+
+        return employeeId.equals(employee.employeeId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return employeeId.hashCode();
+    }
 }

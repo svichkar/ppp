@@ -66,16 +66,21 @@ public class CarType implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        CarType carType = (CarType) obj;
-        return brand.equals(carType.brand) && modelName.equals(carType.modelName);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarType carType = (CarType) o;
+
+        if (!brand.equals(carType.brand)) return false;
+        return modelName.equals(carType.modelName);
+
     }
 
     @Override
     public int hashCode() {
-        int result = 5;
-        result = 31 * result + (brand != null ? brand.hashCode() : 0);
-        result = 31 * result + (modelName != null ? modelName.hashCode() : 0);
+        int result = brand.hashCode();
+        result = 31 * result + modelName.hashCode();
         return result;
     }
 }

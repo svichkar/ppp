@@ -1,5 +1,5 @@
-INSERT INTO role (role_name) VALUES ('manager');
-INSERT INTO role (role_name) VALUES ('client');
+INSERT INTO role (role_name) VALUES ('ROLE_MANAGER');
+INSERT INTO role (role_name) VALUES ('ROLE_CLIENT');
 
 INSERT INTO user (login, password, role_id) VALUES ('john', 'john',2);
 INSERT INTO user (login, password, role_id) VALUES ('jack', 'jack',2);
@@ -53,9 +53,3 @@ INSERT INTO car_order (car_car_id, car_order_status_id, start_date) VALUES(2, 2,
 INSERT INTO car_order (car_car_id, car_order_status_id, start_date) VALUES(3, 2, CURRENT_TIMESTAMP());
 INSERT INTO car_order (car_car_id, car_order_status_id, start_date) VALUES(4, 3, CURRENT_TIMESTAMP());
 INSERT INTO car_order (car_car_id, car_order_status_id, start_date) VALUES(5, 2, CURRENT_TIMESTAMP());
-
-INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (1,2);
-INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (2,1);
-INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (3,3);
-INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (4,3);
-INSERT INTO employee_car_order (employee_id, car_order_id) VALUES (5,5);

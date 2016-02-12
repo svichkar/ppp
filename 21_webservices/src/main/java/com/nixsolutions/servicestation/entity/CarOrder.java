@@ -25,23 +25,10 @@ public class CarOrder implements Serializable {
     @Column(name = "end_date")
     private Date endDate;
 
-    @ManyToMany(cascade = CascadeType.DETACH,
-            fetch = FetchType.EAGER)
-    @JoinTable(name = "employee_car_order",
-            joinColumns = {@JoinColumn(name = "car_order_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "employee_id", nullable = false)})
-    private Set<Employee> employeeSet;
 
     public CarOrder() {
     }
 
-    public Set<Employee> getEmployeeSet() {
-        return employeeSet;
-    }
-
-    public void setEmployeeSet(Set<Employee> employeeSet) {
-        this.employeeSet = employeeSet;
-    }
 
     public Long getCarOrderId() {
         return carOrderId;

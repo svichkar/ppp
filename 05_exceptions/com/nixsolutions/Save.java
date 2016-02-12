@@ -38,15 +38,17 @@ public class Save implements exception.Save {
         } catch (FileAlreadyExistsException e) {
             System.out.println(
                     "File \"" + arg1 + "\" already exists, so not saving.");
-            save(arg0, scanPath());
+            e.printStackTrace(System.err);
         } catch (IOException e) {
             System.out.println("I/O error occurred, exiting.");
+            e.printStackTrace(System.err);
         } finally {
             if (fw != null) {
                 try {
                     fw.close();
                 } catch (IOException e) {
                     System.out.println("I/O error occurred, exiting.");
+                    e.printStackTrace(System.err);
                 }
             }
         }

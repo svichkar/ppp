@@ -95,6 +95,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>18_jpa_hibernate</finalName>
+        <finalName>Jersey</finalName>
     </build>
 </project>

@@ -6,7 +6,7 @@ function sendAjax() {
     user.roleId = $('#roleId').val();
 
     $.ajax({
-        url: "http://localhost:8080/18_jpa_hibernate/rest/user/create",
+        url: "http://localhost:8080/Jersey/rest/user/create",
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(user),

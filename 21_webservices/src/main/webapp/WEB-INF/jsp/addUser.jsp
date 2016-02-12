@@ -64,7 +64,7 @@
                             <br/>
                             <div>
                                 <span>RoleId</span>
-                                <select id="roleId" name="roleId" size="1" required>
+                                <select id="roleId" name="role" size="1" required>
                                       <c:forEach var="role" items="${roles}">
                                           <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                       </c:forEach>

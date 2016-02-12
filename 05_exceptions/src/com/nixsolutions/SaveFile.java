@@ -2,7 +2,6 @@ package com.nixsolutions;
 
 import exception.Save;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

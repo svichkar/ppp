@@ -1,5 +1,9 @@
 package com.nixsolutions.task2;
 
+/**
+ * Increments the counter from 1 to 1000 every 100ms; if counter equals to
+ * specified constant values, runs a new thread.
+ */
 public class Main {
     private static final int[] MARK = { 100, 300, 500 };
 

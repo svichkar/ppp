@@ -2,6 +2,7 @@ package com.nixsolutions.task1;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+/** Starts threads for the Producer and two Consumer runnables in sequence */
 public class Main {
     public static void main(String[] args) {
         LinkedBlockingQueue<Integer> q = new LinkedBlockingQueue<Integer>();

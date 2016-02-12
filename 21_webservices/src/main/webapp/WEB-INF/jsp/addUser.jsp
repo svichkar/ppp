@@ -39,7 +39,7 @@
                              </tbody>
                         </table>
                     </c:if>
-                    <form action="userManagement" method="post">
+                    <!--<form action="userManagement" method="post">
                                  User login : <input type="text" name="newUserLogin">
                                  User password : <input type="text" name="newUserPassword">
                                  User role:  <select name="newUserRole" size="1" required>
@@ -48,35 +48,34 @@
                                                </c:forEach>
                                              </select>
                                  <input type="submit" value="add" name="add">
-                    </form>
+                    </form>-->
                     <form>
-                    <div class="article" style="margin:10px;">
-                            <div class="input-prepend">
-                                <span class="add-on">Login</span>
-                                <input class="span4" id="userId" name="userId" type="hidden" value=0>
-                                <input class="span4" id="login" name="login" type="text">
+                        <div>
+                            <div>
+                                <span>Login</span>
+                                <input id="userId" name="userId" type="hidden" value=0>
+                                <input id="login" name="login" type="text">
                             </div>
                             <br/>
-                            <div class="input-prepend">
-                                <span class="add-on">Password</span>
-                                <input class="span4" id="password" name="password" type="text">
+                            <div>
+                                <span>Password</span>
+                                <input id="password" name="password" type="text">
                             </div>
                             <br/>
-                            <div class="input-prepend">
-                                <span class="add-on">RoleId</span>
-                                <select class="span2" id="roleId" name="roleId" size="1" required>
+                            <div>
+                                <span>RoleId</span>
+                                <select id="roleId" name="roleId" size="1" required>
                                       <c:forEach var="role" items="${roles}">
                                           <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                       </c:forEach>
                                 </select>
-                                <!--<input class="span2" id="roleId" name="roleId" type="text" >-->
                             </div>
                             <br/>
                             <p>
-                                <button class="btn btn-primary" type="button" onclick="sendAjax()">Add</button>
+                                <button type="button" onclick="sendAjax()">Add</button>
                             </p>
                         </div>
-                        </form>
+                    </form>
     </jsp:attribute>
     <jsp:attribute name="message_area">
         <c:if test="${not empty param.message}">

@@ -70,7 +70,7 @@ public class FourThreads {
         try {
             while (counter <= 1000) {
                 System.out.println("I am thread " + threadNumber + ". I am working now");
-                Thread.sleep(500);
+                Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

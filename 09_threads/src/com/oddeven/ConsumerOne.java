@@ -6,7 +6,7 @@ import java.util.Queue;
 /**
  * Created by pantiukhin on 2/12/2016.
  */
-public class ConsumerOne extends Thread implements Runnable {
+public class ConsumerOne implements Runnable {
     private Queue<Integer> queue;
     int num;
 

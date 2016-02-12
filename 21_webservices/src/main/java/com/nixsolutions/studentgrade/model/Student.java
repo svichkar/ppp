@@ -7,13 +7,10 @@ import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 
 /**
  * Created by svichkar on 12/18/2015.
@@ -52,19 +49,7 @@ public class Student implements Serializable {
     @Cascade(CascadeType.DETACH)
     private Term term;
 
-    private ArrayList<Student> studentList;
-
     public Student() {
-    }
-
-    @XmlElementWrapper(name = "students")
-    @XmlElement(name = "student")
-    public ArrayList<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(ArrayList<Student> studentList) {
-        this.studentList = studentList;
     }
 
     @XmlAttribute

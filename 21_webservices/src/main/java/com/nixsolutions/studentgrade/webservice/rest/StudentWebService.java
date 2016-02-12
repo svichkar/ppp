@@ -4,6 +4,7 @@ import com.nixsolutions.studentgrade.model.Student;
 import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.HttpHeaders;
@@ -13,7 +14,8 @@ import java.util.List;
 
 @Service
 @Path("rest/students")
-public class StudentWebService {
+@Transactional
+public class StudentWebService{
 
     private StudentService studentService;
 
@@ -36,13 +38,15 @@ public class StudentWebService {
                         : MediaType.APPLICATION_XML)
                 .build();
     }
-
+/*
     @GET
-    @Path("/getStudent/all")
+    @Path("/getAllStudents")
     @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
     public Response getAllStudents(@QueryParam("fmt") String format) {
 
-        List<Student> studentList = studentService.findAll();
+        AllStudentsBean studentList = new AllStudentsBean();
+        studentList.setStudents(studentService.findAll());
+
         return Response
                 // Set the status and Put your entity here.
                 .ok(studentList)
@@ -50,5 +54,44 @@ public class StudentWebService {
                 .header(HttpHeaders.CONTENT_TYPE, "json".equals(format) ? MediaType.APPLICATION_JSON
                         : MediaType.APPLICATION_XML)
                 .build();
+    }*/
+
+    @GET
+    @Path("/getAllStudents")
+    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    public List<Student> getAllStudents(@QueryParam("fmt") String format) {
+
+        return studentService.findAll();
+    }
+
+    @DELETE
+    @Path("/deleteStudent/{studentId}")
+    @Produces(MediaType.APPLICATION_XML)
+    public Response deleteStudent(@PathParam("studentId") Long studentId) {
+
+        Student student = studentService.findById(studentId);
+        studentService.delete(student);
+        return Response.status(Response.Status.OK).entity("Success").build();
+    }
+
+    @POST
+    @Path("/createStudent")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response createStudent(Student student) {
+
+        studentService.create(student);
+        Student s = studentService.findByNameAndLastName(student.getFirstName(), student.getLastName());
+        return Response.status(Response.Status.OK).entity(s.getStudentId().toString()).build();
+    }
+
+    @PUT
+    @Path("/updateStudent")
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response updateStudent(Student student) {
+
+        studentService.update(student);
+        return Response.status(Response.Status.OK).entity("Success").build();
     }
 }

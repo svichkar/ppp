@@ -20,13 +20,21 @@ public class FilesHandler {
                 copyIO(src, trgt);
             }
         } else {
-            InputStream in = new FileInputStream(source);
-            OutputStream out = new FileOutputStream(target);
-            int length;
-            byte[] buffer = new byte[256];
-            while ((length = in.read(buffer)) > 0) {
-                out.write(buffer, 0, length);
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = new FileInputStream(source);
+                out = new FileOutputStream(target);
+                int length;
+                byte[] buffer = new byte[256];
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+            }finally {
+                if (in != null) in.close();
+                if (out != null) out.close();
             }
+
         }
     }
 

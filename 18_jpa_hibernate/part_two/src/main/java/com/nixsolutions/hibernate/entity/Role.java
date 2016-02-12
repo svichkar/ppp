@@ -20,10 +20,10 @@ public class Role implements Serializable {
     @Column(name = "name", nullable = false)
     private String roleName;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /*@OneToMany(cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    private List<User> users;
+    private List<User> users;*/
 
     public Role() {
     }
@@ -44,11 +44,11 @@ public class Role implements Serializable {
         this.roleName = roleName;
     }
 
-    public List<User> getUsers() {
+   /* public List<User> getUsers() {
         return users;
     }
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
+    }*/
 }

@@ -9,13 +9,13 @@ public interface UserService {
 
 	void update(User user);
 
-	void delete(User user);
+	void delete(int userId);
 
 	User getByUserId(int userId);
 	
 	User getByUserName(String userName);
 
 	List<User> getAll();
-
-    boolean checkUser(String userName, String password);
+	
+	boolean checkUser(String userName, String password);
 }

@@ -12,7 +12,7 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.nixsolutions.asp" />
-
+	
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
@@ -20,6 +20,5 @@
 	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<mvc:resources mapping="/service/**" location="/service/" />
 
 </beans>

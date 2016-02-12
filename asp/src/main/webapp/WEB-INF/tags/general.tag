@@ -12,6 +12,12 @@
 		<input type="submit" value="Log out" /> 
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
+	<div id="hmenu">
+		<ul>
+			<li><a href="<c:url value="/home"/>">Home</a></li>
+			<li><a href="<c:url value="/admin/add-new-user"/>">Add new user</a></li>	
+		</ul>
+	</div>
 	<div id="content">
 		<jsp:invoke fragment="content_area" />
 	</div>

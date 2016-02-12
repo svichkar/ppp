@@ -46,14 +46,4 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getAll() {
 		return sessionFactory.getCurrentSession().createCriteria(User.class).list();
 	}
-
-	/*public boolean checkUser(String userName, String password) {
-		Criteria c = sessionFactory.getCurrentSession().createCriteria(User.class);
-		c.add(Restrictions.eq("userName", userName)).add(Restrictions.eq("password", password));
-		if (c.uniqueResult() != null) {
-			return true;
-		} else {
-			return false;
-		}
-	}*/
 }

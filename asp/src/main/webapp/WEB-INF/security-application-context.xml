@@ -19,6 +19,7 @@
 	<http auto-config="true">		
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/rest/**" access="permitAll" />
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/journal/**" access="hasRole('ROLE_MANAGER')"  />
 		<intercept-url pattern="/students/**" access="hasRole('ROLE_MANAGER')"  />
@@ -39,8 +40,8 @@
 		always-use-default-target='true' />
 		<logout 
 		logout-success-url="/login?logout" />
+		<csrf disabled="true"/>
 		
-		<csrf />
 	</http>
 
 	<authentication-manager>

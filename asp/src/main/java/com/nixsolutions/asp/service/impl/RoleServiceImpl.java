@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +17,7 @@ import com.nixsolutions.asp.entity.Role;
 import com.nixsolutions.asp.service.RoleService;
 
 @Service
+@Path("role")
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
@@ -47,6 +53,9 @@ public class RoleServiceImpl implements RoleService {
 		return roleDao.getAll();
 	}
 	
+	@GET
+	@Path("/getAll")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Map<String, String> getRoleMap(){
 		Map<String, String> referenceData = new HashMap<String, String>();

@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,14 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nixsolutions.asp.service.UserService;
-
 @Controller
 public class LoginController {
 
-	@Autowired
-	private UserService userService;
-
+	private Client wClient = ClientBuilder.newClient();
+	private static final String SERVICE_URL = "http://localhost:8080/ASP/rest";
+	
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
@@ -43,7 +43,13 @@ public class LoginController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String loginSuccess(HttpServletResponse res, HttpServletRequest req, Model model) throws IOException {
 		User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String role = userService.getByUserName(authUser.getUsername()).getRole().getRoleName();
+		Response resp = wClient.target(SERVICE_URL)
+				.path("/user/getByName")
+				.queryParam("userName", authUser.getUsername())
+				.request()
+				.get();
+		com.nixsolutions.asp.entity.User user = resp.readEntity(com.nixsolutions.asp.entity.User.class);	
+		String role = user.getRole().getRoleName();
 		switch (role.toLowerCase()) {
 		case "administrator":
 			return "redirect:/admin/users";

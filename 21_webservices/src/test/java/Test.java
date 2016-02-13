@@ -42,9 +42,7 @@ public class Test {
         JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
         SchemaOutputResolver sor = new MySchemaOutputResolver();
         jaxbContext.generateSchema(sor);
-        sor.createOutput("", "user");
-
-
+        sor.createOutput("web-services.com", "user");
     }
 
     public static class MySchemaOutputResolver extends SchemaOutputResolver {

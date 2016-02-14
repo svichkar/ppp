@@ -1,7 +1,7 @@
 package com.nixsolutions.studentgrade.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nixsolutions.studentgrade.webservice.provider.SqlDateAdapter;
+import com.nixsolutions.studentgrade.webservice.adapter.SqlDateAdapter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 

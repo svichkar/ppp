@@ -1,4 +1,4 @@
-package com.nixsolutions.studentgrade.webservice.provider;
+package com.nixsolutions.studentgrade.webservice.adapter;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.sql.Date;

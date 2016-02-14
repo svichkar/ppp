@@ -35,34 +35,46 @@ public class Consumer implements Runnable {
 
     public void run() {
         while (finished == false) {
-            tryConsumer(this);
+            try {
+                tryConsumer(this);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static final void tryConsumer(Consumer c) {
+    private static final void tryConsumer(Consumer c)
+            throws InterruptedException {
         synchronized (c.lock) {
             Object o = c.queue.peek();
+
+            /*
+             * Waiting if Producer either not started, or hasn't put a new
+             * number yet.
+             */
             if ((o == null)) {
-                System.out.println(c.name + " is waiting for the update.");
-                try {
-                    c.lock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else if ((o.getClass().equals(Integer.class))
-                       && (((Integer)o & 1) == 0) == c.parity) {
-                try {
-                    System.out.println(c.name
-                                       + " took "
-                                       + c.queue.take()
-                                       + " from the queue.");
-                    c.lock.notifyAll();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            } else if ((o.getClass().equals(String.class))
-                       && (((String)o).equals("FINISHED"))) {
-                System.out.println(c.name + " finished the job and exited.");
+                c.lock.wait();
+            } else
+
+            /*
+             * Checking if the head of the queue is an Integer and is either
+             * even or odd, depending on the parity field of the current
+             * instance of a class.
+             */
+            if ((o.getClass().equals(Integer.class))
+                    && (((Integer) o & 1) == 0) == c.parity) {
+                System.out.println(c.name + ": took " + c.queue.take()
+                        + " from the queue.");
+
+            } else
+
+            /*
+             * Ending the work if it's a String which equals to the value
+             * indicating the Producer has finished its work.
+             */
+            if ((o.getClass().equals(String.class))
+                    && (((String) o).equals("FINISHED"))) {
+                System.out.println(c.name + ": finished the job and exited.");
                 c.finished = true;
             }
         }

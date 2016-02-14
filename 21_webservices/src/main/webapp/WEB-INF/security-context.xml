@@ -8,6 +8,7 @@
 
     <http security="none" pattern="/images/**"/>
     <http security="none" pattern="/style/**"/>
+    <http security="none" pattern="/javascript/**"/>
     <http security="none" pattern="/ws/**"/>
 
     <http auto-config="false" use-expressions="true">
@@ -27,11 +28,6 @@
         />
         <logout logout-success-url="/login" logout-url="/j_spring_security_logout" invalidate-session="true"/>
     </http>
-
-
-        <!--intercept-url pattern="/ws/**" access="permitAll"></intercept-url>
-        <csrf disabled="true"/>
-    </http-->
 
     <beans:import resource="classpath:/root-context.xml"/>
 

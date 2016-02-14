@@ -26,7 +26,7 @@ Search results. <a href="subject">Back to Subject List</a></h4></p>
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${subjects}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<tr>
+<tr onclick="toggleSelected(this)">
 <td>${count}</td>
 <td>
 <input type="text" value="${current.subjectName}" readOnly/>

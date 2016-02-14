@@ -24,11 +24,12 @@
      </tr>
  </thead>
  <tbody>
- <tr>
- <td colspan="3">
+
+<tr>
 <form:form method="get" action="${linkDetails}">
+ <td colspan="3" class="tooltips">
  <input type="text" name="studentId" value="${student.studentId}" hidden/>
- <select name="term" style="font-style: italic;">
+ <select name="term" style="font-style: italic;" onfocus="showTip(this, 'pick up a term, e.g. <i>first</i>');" onblur="hideTip(this)">
  <option value="" disabled style="font-style: italic;font-size: 12;">select term for details</option>
  <c:forEach items="${terms}" var="t">
  <c:choose>
@@ -39,17 +40,23 @@
          <option style="font-style: normal; font-size: 16;" value="${t.termName}">${t.termName}</option>
      </c:otherwise>
  </c:choose>
-
  </c:forEach>
  </select>
- <input type="submit" name="operation" value="show"/>
+<div id="message" style="font-size:10;"></div>
+</td>
+
+</tr>
+<tr>
+<td colspan="3">
+<input type="submit" name="operation" value="show"/>
 </form:form>
 </td>
 </tr>
+
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${journals}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<tr>
+<tr onclick="toggleSelected(this)">
 <td>${count}</td>
 <td>${current.subject.subjectName}</td>
 <td>${current.grade.gradeName}</td>

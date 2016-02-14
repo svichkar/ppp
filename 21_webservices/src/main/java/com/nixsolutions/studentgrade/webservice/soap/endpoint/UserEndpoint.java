@@ -1,8 +1,9 @@
-package com.nixsolutions.studentgrade.webservice.endpoint;
+package com.nixsolutions.studentgrade.webservice.soap.endpoint;
 
 import com.nixsolutions.studentgrade.service.UserService;
 import com.nixsolutions.studentgrade.webservice.soap.CreateUserRequest;
 import com.nixsolutions.studentgrade.webservice.soap.CreateUserResponse;
+import com.nixsolutions.studentgrade.webservice.soap.UpdateUserRequest;
 import com.nixsolutions.studentgrade.webservice.soap.UpdateUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -17,7 +18,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class UserEndpoint {
 
-    private static final String NAMESPACE_URI = "http://localhost:8080/web-services/ws/soap/user";
+    private static final String NAMESPACE_URI = "http://www.user.com";
 
     private UserService userService;
 
@@ -26,7 +27,7 @@ public class UserEndpoint {
         this.userService = userService;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createUser")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createUserRequest")
     @ResponsePayload
     public CreateUserResponse createUser(@RequestPayload CreateUserRequest request) {
 
@@ -36,9 +37,9 @@ public class UserEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateUser")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateUserRequest")
     @ResponsePayload
-    public UpdateUserResponse updateUser(@RequestPayload CreateUserRequest request) {
+    public UpdateUserResponse updateUser(@RequestPayload UpdateUserRequest request) {
 
         userService.update(request.getUser());
         UpdateUserResponse response = new UpdateUserResponse();

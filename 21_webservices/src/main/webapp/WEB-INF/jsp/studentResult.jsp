@@ -4,7 +4,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Students">
-    <jsp:attribute name="content_area">
+
+<jsp:attribute name="content_area">
 <div>
 <p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
 <p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;">
@@ -29,7 +30,7 @@ Search results. <a href="student">Back to Student List</a></h4></p>
 <c:set var="count" value="0" scope="page" />
 <c:forEach var="current" items="${students}">
 <c:set var="count" value="${count + 1}" scope="page"/>
-<tr>
+<tr onclick="toggleSelected(this)">
 <td>${count}</td>
 <td>
 <input type="text" name="name" value="${current.firstName}" readOnly/>
@@ -38,7 +39,7 @@ Search results. <a href="student">Back to Student List</a></h4></p>
 <input type="text" name="lastName" value="${current.lastName}" readOnly/>
 </td>
 <td>
-<input type="date" name="date" value="${current.admissionDate}" style="background: #E5E5DB;border: none;font-size: 15;" readOnly/>
+<input type="date" name="date" value="${current.admissionDate}" style="border: none;font-size: 15;" readOnly/>
 </td>
 <td>
 <input type="text" name="groupName" value="${current.studentGroup.groupName}" readOnly/>

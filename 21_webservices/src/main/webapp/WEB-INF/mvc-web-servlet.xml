@@ -11,11 +11,10 @@
    ">
 
     <mvc:annotation-driven />
-
     <context:component-scan base-package="com.nixsolutions.studentgrade.controller"/>
-
     <mvc:resources location="/style/" mapping="/style/**"/>
     <mvc:resources location="/images/" mapping="/images/**"/>
+    <mvc:resources location="/javascript/" mapping="/javascript/**"/>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
             <value>/WEB-INF/jsp/</value>

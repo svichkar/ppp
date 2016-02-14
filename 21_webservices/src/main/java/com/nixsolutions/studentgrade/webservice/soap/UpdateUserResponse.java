@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
     "user"
 })
-@XmlRootElement(name = "updateUserResponse")
+@XmlRootElement(name = "updateUserResponse", namespace = "http://www.user.com")
 public class UpdateUserResponse {
 
     @XmlElement(required = true)

@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "userId"
 })
-@XmlRootElement(name = "createUserResponse")
+@XmlRootElement(name = "createUserResponse", namespace = "http://www.user.com")
 public class CreateUserResponse {
 
     protected long userId;

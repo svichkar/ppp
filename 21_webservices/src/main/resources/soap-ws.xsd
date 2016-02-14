@@ -1,0 +1,50 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://soap.ws.nixsolutions.com/"
+	xmlns:tns="http://soap.ws.nixsolutions.com/">
+
+	<xs:element name="getUserByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="tns:userIdType"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUserByIdResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tns:user"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="user">
+		<xs:sequence>
+			<xs:element name="userId" type="tns:userIdType"></xs:element>
+			<xs:element name="username" type="xs:string"></xs:element>
+			<xs:element name="password" type="xs:string"></xs:element>
+			<xs:element name="roleId" type="xs:long"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="role">
+		<xs:sequence>
+			<xs:element name="roleId" type="tns:roleIdType"></xs:element>
+			<xs:element name="roleName" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="userIdType">
+		<xs:restriction base="xs:string">
+			<xs:length value="5"></xs:length>
+			<xs:pattern value="[0-9]+"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="roleIdType">
+		<xs:restriction base="xs:string">
+			<xs:length value="5"></xs:length>
+			<xs:pattern value="[0-9]+"></xs:pattern>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

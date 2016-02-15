@@ -1,9 +1,19 @@
 package com.nixsolutions.asp.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 import java.io.Serializable;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "role", propOrder = {
+    "roleId",
+    "roleName"
+})
 public class Role implements Serializable {
 
     /**
@@ -15,6 +25,7 @@ public class Role implements Serializable {
     @Column(name = "role_id")
     private int roleId;
     @Column(name = "role_name", length = 256, nullable = false)
+    @XmlElement(required = true)
     private String roleName;
 
     public Role() {

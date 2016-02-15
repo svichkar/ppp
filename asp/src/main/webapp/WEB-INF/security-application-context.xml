@@ -15,7 +15,9 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.nixsolutions.asp" />
-
+	
+	<http pattern="/soap/**" security="none"/>
+	
 	<http auto-config="true">		
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/login" access="permitAll" />

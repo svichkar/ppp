@@ -14,7 +14,8 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 		/WEB-INF/application-context.xml,
-		/WEB-INF/security-application-context.xml
+		/WEB-INF/security-application-context.xml,
+		/WEB-INF/service-ws-servlet.xml
 		</param-value>
 	</context-param>
 
@@ -68,4 +69,26 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<filter-name>httpMethodFilter</filter-name>
 		<servlet-name>spring-web</servlet-name>
 	</filter-mapping>
+	 <!-- SOAP Spring WS -->
+    <servlet>  
+            <servlet-name>service-ws</servlet-name>  
+            <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>  
+            <init-param>  
+                 <param-name>transformWsdlLocations</param-name>  
+                 <param-value>true</param-value>  
+            </init-param>  
+            <init-param>  
+                 <param-name>contextConfigLocation</param-name>  
+                 <param-value></param-value>  
+            </init-param>  
+            <load-on-startup>1</load-on-startup>  
+       </servlet>  
+       <servlet-mapping>  
+            <servlet-name>service-ws</servlet-name>  
+            <url-pattern>*.wsdl</url-pattern>  
+       </servlet-mapping>  
+       <servlet-mapping>  
+            <servlet-name>service-ws</servlet-name>  
+            <url-pattern>/soap/*</url-pattern>  
+       </servlet-mapping>  
 </web-app>

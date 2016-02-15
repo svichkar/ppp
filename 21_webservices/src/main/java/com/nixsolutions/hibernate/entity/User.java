@@ -25,9 +25,6 @@ public class User implements Serializable{
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private Role role;
 
-    @Transient
-    private Long roleId;
-
     public User() {
     }
 
@@ -61,13 +58,5 @@ public class User implements Serializable{
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
     }
 }

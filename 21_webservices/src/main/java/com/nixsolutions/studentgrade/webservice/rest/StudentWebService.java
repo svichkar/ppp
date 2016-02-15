@@ -1,97 +1,110 @@
 package com.nixsolutions.studentgrade.webservice.rest;
 
+import com.nixsolutions.studentgrade.dao.StudentDao;
 import com.nixsolutions.studentgrade.model.Student;
 import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Path("rest/students")
-@Transactional
-public class StudentWebService{
+@Path("students")
+public class StudentWebService implements StudentService {
 
-    private StudentService studentService;
+    private StudentDao studentDao;
 
     @Autowired
-    public void setStudentService(StudentService studentService) {
-        this.studentService = studentService;
-    }
-
-    @GET
-    @Path("/getStudent/{studentId}")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Response getStudentById(@PathParam("studentId") Long studentId, @QueryParam("fmt") String format) {
-
-        Student student = studentService.findById(studentId);
-        return Response
-                // Set the status and Put your entity here.
-                .ok(student)
-                // Add the Content-Type header to tell Jersey which format it should marshall the entity into.
-                .header(HttpHeaders.CONTENT_TYPE, "json".equals(format) ? MediaType.APPLICATION_JSON
-                        : MediaType.APPLICATION_XML)
-                .build();
-    }
-/*
-    @GET
-    @Path("/getAllStudents")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public Response getAllStudents(@QueryParam("fmt") String format) {
-
-        AllStudentsBean studentList = new AllStudentsBean();
-        studentList.setStudents(studentService.findAll());
-
-        return Response
-                // Set the status and Put your entity here.
-                .ok(studentList)
-                // Add the Content-Type header to tell Jersey which format it should marshall the entity into.
-                .header(HttpHeaders.CONTENT_TYPE, "json".equals(format) ? MediaType.APPLICATION_JSON
-                        : MediaType.APPLICATION_XML)
-                .build();
-    }*/
-
-    @GET
-    @Path("/getAllStudents")
-    @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-    public List<Student> getAllStudents(@QueryParam("fmt") String format) {
-
-        return studentService.findAll();
-    }
-
-    @DELETE
-    @Path("/deleteStudent/{studentId}")
-    @Produces(MediaType.APPLICATION_XML)
-    public Response deleteStudent(@PathParam("studentId") Long studentId) {
-
-        Student student = studentService.findById(studentId);
-        studentService.delete(student);
-        return Response.status(Response.Status.OK).entity("Success").build();
+    @Qualifier("studentDao")
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
     }
 
     @POST
     @Path("/createStudent")
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response createStudent(Student student) {
+    @Override
+    public void create(Student student) {
 
-        studentService.create(student);
-        Student s = studentService.findByNameAndLastName(student.getFirstName(), student.getLastName());
-        return Response.status(Response.Status.OK).entity(s.getStudentId().toString()).build();
+        studentDao.create(student);
     }
 
     @PUT
     @Path("/updateStudent")
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response updateStudent(Student student) {
+    @Override
+    public void update(Student student) {
 
-        studentService.update(student);
-        return Response.status(Response.Status.OK).entity("Success").build();
+        studentDao.update(student);
+    }
+
+    @DELETE
+    @Path("/deleteStudent")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public void delete(Student student) {
+
+        studentDao.delete(student);
+    }
+
+    @GET
+    @Path("/getAllStudents")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public List<Student> findAll() {
+
+        return studentDao.findAll();
+    }
+
+    @GET
+    @Path("/getStudent/{studentId}")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public Student findById(@PathParam("studentId") Long id) {
+
+        return studentDao.findById(id);
+    }
+
+    @GET
+    @Path("/getStudentByNameAndLastName")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public Student findByNameAndLastName(@QueryParam("name") String name, @QueryParam("lastName") String lastName) {
+
+        return studentDao.findByNameAndLastName(name, lastName);
+    }
+
+    @GET
+    @Path("/getStudentByLastNameAndGroup")
+    @Produces(MediaType.APPLICATION_XML)
+    @Override
+    public List<Student> findByLastNameAndGroup(@QueryParam("lastName") String lastName, @QueryParam("groupName") String groupName) {
+
+        List<Student> result = new ArrayList<>();
+
+        if (lastName != null && !lastName.isEmpty()) {
+
+            if (groupName != null && !groupName.isEmpty()) {
+                result = studentDao.findByLastNameAndGroup(lastName, groupName);
+
+            } else {
+
+                result = studentDao.findByLastName(lastName);
+            }
+
+        } else {
+            if (groupName != null && !groupName.isEmpty()) {
+
+                result = studentDao.findByGroup(groupName);
+            }
+        }
+
+        return result;
     }
 }

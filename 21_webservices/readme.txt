@@ -1,4 +1,67 @@
-Playload:
+* REST Jersey playload:
+
+1) create student:
+
+method: POST
+Content-Type: application/xml
+
+http://localhost:8080/web-services/ws/rest/students/createStudent
+
+<student>
+   <admissionDate>2015-03-25</admissionDate>
+   <firstName>Konstantin</firstName>
+   <lastName>Kovalenko</lastName>
+   <status>
+      <statusId>1</statusId>
+      <statusName>active</statusName>
+   </status>
+   <studentGroup>
+      <groupId>1</groupId>
+      <groupName>java 15-1</groupName>
+   </studentGroup>
+   <term>
+      <termId>2</termId>
+      <termName>second</termName>
+   </term>
+</student>
+
+2) update student:
+
+method: PUT
+Content-Type: application/xml
+http://localhost:8080/web-services/ws/rest/students/updateStudent
+
+<student studentId="41">
+   <admissionDate>2015-03-25</admissionDate>
+   <firstName>Koval</firstName>
+   <lastName>OLeg</lastName>
+   <status>
+      <statusId>1</statusId>
+      <statusName>active</statusName>
+   </status>
+   <studentGroup>
+      <groupId>2</groupId>
+      <groupName>java 15-2</groupName>
+   </studentGroup>
+   <term>
+      <termId>1</termId>
+      <termName>first</termName>
+   </term>
+</student>
+
+3) delete student
+
+method: DELETE
+http://localhost:8080/web-services/ws/rest/students/deleteStudent/{id}
+
+4) getStudentByID
+
+method: GET
+http://localhost:8080/web-services/ws/rest/students/getStudent/{id}
+
+
+
+* SOAP Spring WS playload:
 
 1) 'createUser' operation:
 

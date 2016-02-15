@@ -62,24 +62,6 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> findByLastName(String lastName) {
-
-        return studentDao.findByLastName(lastName);
-    }
-
-    @Override
-    public List<Student> findByGroupId(Long groupId) {
-
-        return studentDao.findByGroupId(groupId);
-    }
-
-    @Override
-    public List<Student> findByLastNameAndGroupId(String lastName, Long groupId) {
-
-        return studentDao.findByLastNameAndGroupId(lastName, groupId);
-    }
-
-    @Override
     public List<Student> findByLastNameAndGroup(String lastName, String groupName) {
 
         List<Student> result = new ArrayList<>();
@@ -104,13 +86,4 @@ public class StudentServiceImpl implements StudentService {
         return result;
     }
 
-    @Override
-    public List<Student> findByGroup(String groupName) {
-        return studentDao.findByGroup(groupName);
-    }
-
-    @Override
-    public boolean isExist(String firstName, String lastName) {
-        return studentDao.isExist(firstName, lastName);
-    }
 }

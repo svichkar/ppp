@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by svichkar on 1/29/2016.
  */
 @Repository
+@Transactional
 public class StudentDaoImpl implements StudentDao {
 
     private SessionFactory sessionFactory;
@@ -34,7 +36,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public void update(Student student) {
 
-       sessionFactory.getCurrentSession().saveOrUpdate(student);
+       sessionFactory.getCurrentSession().update(student);
     }
 
     @Override

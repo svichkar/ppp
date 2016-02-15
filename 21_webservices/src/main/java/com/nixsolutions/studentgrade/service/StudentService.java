@@ -21,15 +21,5 @@ public interface StudentService {
 
     Student findByNameAndLastName(String name, String lastName);
 
-    List<Student> findByLastName(String lastName);
-
-    List<Student> findByGroupId(Long groupId);
-
-    List<Student> findByLastNameAndGroupId(String lastName, Long groupId);
-
     List<Student> findByLastNameAndGroup(String lastName, String groupName);
-
-    List<Student> findByGroup(String groupName);
-
-    boolean isExist(String firstName, String lastName);
 }

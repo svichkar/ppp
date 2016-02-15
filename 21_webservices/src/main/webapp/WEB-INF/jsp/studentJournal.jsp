@@ -10,7 +10,7 @@
 <div>
 <p><h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;${color}">${message}</h4></p>
 <p>
-<h3>Detailed grade statistic for <b>${student.firstName} ${student.lastName}</b>. <a href="/student-grades/student">Back to Students List</a></h3>
+<h3>Detailed grade statistic for <b>${student.firstName} ${student.lastName}</b>. <a href="<c:url value="/student"/>">Back to Students List</a></h3>
 </p>
 </div>
 

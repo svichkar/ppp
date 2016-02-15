@@ -43,6 +43,7 @@
      <li><a href="<c:url value="/subject"/>">Subjects</a></li>
      <li><a href="<c:url value="/term"/>">Terms</a></li>
      <li><a href="<c:url value="/journal"/>">Journal</a></li>
+     <li><a href="<c:url value="/onePageApp"/>">Students(one page app)</a></li>
    </ul>
 </td>
 

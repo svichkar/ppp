@@ -17,29 +17,28 @@ public class ConsumerTwo implements Runnable {
     @Override
     public void run() {
         while (true) {
+
             synchronized (queue) {
-                synchronized (queue) {
-                    while (queue.isEmpty())
-                        try {
-                            queue.wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    Iterator iterator = queue.iterator();
-                    if (iterator.hasNext()) {
-                        num = (Integer) iterator.next();
+                while (queue.isEmpty())
+                    try {
+                        queue.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    if ((num % 2) == 0) {
-                        System.out.println("Thread two has removed an even number: " + num);
-                        queue.remove();
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    queue.notifyAll();
+                Iterator iterator = queue.iterator();
+                if (iterator.hasNext()) {
+                    num = (Integer) iterator.next();
                 }
+                if ((num % 2) == 0) {
+                    System.out.println("Thread two has removed an even number: " + num);
+                    queue.remove();
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                queue.notifyAll();
             }
         }
     }

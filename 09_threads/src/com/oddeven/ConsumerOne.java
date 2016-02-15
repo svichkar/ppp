@@ -32,7 +32,7 @@ public class ConsumerOne implements Runnable {
                     System.out.println("Thread one has removed an odd number: " + num);
                     queue.remove();
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

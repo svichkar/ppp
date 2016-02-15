@@ -16,7 +16,7 @@ public class Producer extends Thread implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        for (int i = 0; i < 100; i++) {
             synchronized (queue) {
                 while (!queue.isEmpty()) {
                     try {
@@ -25,13 +25,10 @@ public class Producer extends Thread implements Runnable {
                         e.printStackTrace();
                     }
                 }
-                System.out.println("The queue is empty now");
-                for (int i = 0; i < 100; i++) {
-                    queue.add(random.nextInt());
-                }
-                System.out.println("I am a producer, and I have added 100 elements");
+                queue.add(random.nextInt());
                 queue.notifyAll();
             }
         }
     }
 }
+

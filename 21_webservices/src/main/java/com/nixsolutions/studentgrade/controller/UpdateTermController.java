@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.nixsolutions.studentgrade.service.TermService;
+import com.nixsolutions.studentgrade.entity.Term;
+import com.nixsolutions.studentgrade.webservice.rest.TermServiceWeb;
 
 @Controller
 public class UpdateTermController {
 	@Autowired
-	TermService termService;
+	TermServiceWeb termServiceWeb;
 
 	@RequestMapping(value = "/updateTerm")
 	protected String updateTerm(@RequestParam(value = "update", required = false) String update,	
@@ -21,11 +22,13 @@ public class UpdateTermController {
 			RedirectAttributes redirectAttributes,
 			Model model) {
 		if (update != null) {
-			termService.updateTerm(termId, termName);
+			Term updatedTerm = termServiceWeb.findTermById(termId);
+			updatedTerm.setTermName(termName);
+			termServiceWeb.updateTerm(updatedTerm);
 			redirectAttributes.addAttribute("message", "Updated term with id "+ termId);
 			return "redirect:terms";			
 		}
-		model.addAttribute("updateTerm", termService.findTermById(termId));
+		model.addAttribute("updateTerm", termServiceWeb.findTermById(termId));
 		return "updateTerm";
 	}
 }

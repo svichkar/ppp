@@ -8,11 +8,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.dao.UserDAO;
 import com.nixsolutions.studentgrade.entity.User;
 
 @Repository("userDao")
+@Transactional
 public class UserDAOImpl implements UserDAO {
 
 	@Autowired

@@ -6,13 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nixsolutions.studentgrade.service.TermService;
+import com.nixsolutions.studentgrade.entity.Term;
+import com.nixsolutions.studentgrade.webservice.rest.TermServiceWeb;
 
 @Controller
 public class TermsController {
 
 	@Autowired
-	TermService termService;
+	TermServiceWeb termServiceWeb;
 	
 	@RequestMapping(value = "/terms")
 	protected String terms(@RequestParam(value = "add", required = false) String add,
@@ -27,15 +28,18 @@ public class TermsController {
 		}
 			
 		if (add != null) {
+			Term newTerm = new Term();
+			newTerm.setTermName(termName);
+			termServiceWeb.createTerm(newTerm);
 			model.addAttribute("message", "Added term with id "
-					+ termService.createTerm(termName));
+					+ newTerm.getTermId());
 		}
 		if (delete != null) {
-			termService.deleteTerm(termId);
+			termServiceWeb.deleteTerm(termServiceWeb.findTermById(termId));
 			model.addAttribute("message", "Deleted term with id " + termId);
 		}	
 			
-		model.addAttribute("terms", termService.findAllTerms());
+		model.addAttribute("terms", termServiceWeb.findAllTerms());
 		return "terms";
 	}
 

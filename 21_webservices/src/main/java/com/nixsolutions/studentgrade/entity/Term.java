@@ -3,8 +3,10 @@ package com.nixsolutions.studentgrade.entity;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Term implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id

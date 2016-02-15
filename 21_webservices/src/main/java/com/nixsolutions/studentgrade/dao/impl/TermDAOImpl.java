@@ -7,16 +7,22 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.studentgrade.entity.Term;
 import com.nixsolutions.studentgrade.dao.TermDAO;
 
 @Repository("termDao")
+@Transactional
 public class TermDAOImpl implements TermDAO {
 
 	@Autowired
     SessionFactory sessionFactory;
-
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public void createTerm(Term term) {
 		Session session = sessionFactory.getCurrentSession();

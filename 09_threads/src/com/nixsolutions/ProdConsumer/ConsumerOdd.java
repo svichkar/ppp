@@ -24,9 +24,11 @@ public class ConsumerOdd implements Runnable {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
+                    Thread.interrupted();
                     e.printStackTrace();
                 }
             } catch (InterruptedException e) {
+                Thread.interrupted();
                 e.printStackTrace();
             }
         }

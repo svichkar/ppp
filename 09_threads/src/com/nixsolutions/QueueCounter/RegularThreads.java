@@ -22,7 +22,7 @@ public class RegularThreads implements Runnable {
                 Thread.sleep(1000);
                 System.out.println("Thread " + name + " working...");
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.interrupted();
             }
         }
     }

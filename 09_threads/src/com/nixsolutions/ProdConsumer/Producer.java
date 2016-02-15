@@ -29,6 +29,7 @@ public class Producer implements Runnable {
             try {
                 queue.put(produce());
             } catch (InterruptedException e) {
+                Thread.interrupted();
                 e.printStackTrace();
             }
         }

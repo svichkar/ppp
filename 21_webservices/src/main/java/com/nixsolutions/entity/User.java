@@ -15,14 +15,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 @Entity
-@XmlRootElement
+/*@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "user", propOrder = {
+    "userId",
+    "userName",
+    "userPassword",
+    "role"
+})*/
 public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -34,14 +45,17 @@ public class User implements Serializable, UserDetails {
 	@NotNull
 	@Size(min = 3, max = 10)
 	@Column(name = "USER_NAME")
+	//@XmlElement(required = true)
 	private String userName;
 	@NotNull
 	@Size(min = 1, max = 12)
 	@Column(name = "USER_PASSWORD")
+	//@XmlElement(required = true)
 	private String userPassword;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
+	//@XmlElement(required = true)
 	private Role role;
 
 	public User() {

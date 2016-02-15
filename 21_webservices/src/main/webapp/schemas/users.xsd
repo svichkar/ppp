@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservices.nixsolutions.com/userservice"
-           targetNamespace="http://webservices.nixsolutions.com/userservice" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://webservices.nixsolutions.com/userservice"
+           targetNamespace="http://webservices.nixsolutions.com/userservice" 
+           elementFormDefault="qualified">
 
     <xs:element name="getUserRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
+                <xs:element name="id" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -17,19 +19,52 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    
+        <xs:element name="updateUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="user">
+    <xs:element name="updateUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+      <xs:element name="createUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+     <xs:complexType name="user">
         <xs:sequence>
-            <xs:element name="id" type="xs:int"/>
-            <xs:element name="name" type="xs:string"/>        
+            <xs:element name="userId" type="xs:long"/>
+            <xs:element name="userName" type="xs:string"/>  
+            <xs:element name="userPassword" type="xs:string"/>      
             <xs:element name="role" type="tns:role"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="role">
         <xs:sequence>
-            <xs:element name="id" type="xs:int"/>
+            <xs:element name="roleId" type="xs:long"/>
             <xs:element name="name" type="xs:string"/>        
-        </xs:sequence>
-    </xs:complexType>
+        </xs:sequence> 
+    </xs:complexType> 
 </xs:schema>

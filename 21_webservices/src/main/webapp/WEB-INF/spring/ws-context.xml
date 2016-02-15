@@ -13,18 +13,13 @@
             Our test service bean  
        -->  
        <bean id="UserService" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition" lazy-init="true">  
-      <property name="schemaCollection">  
-        <bean class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">  
-          <property name="inline" value="true" />  
-          <property name="xsds">  
-            <list>  
-              <value>schemas/users.xsd</value>  
-            </list>  
-          </property>  
+      <property name="schema">  
+        <bean class="org.springframework.xml.xsd.SimpleXsdSchema">  
+           <property name="xsd" value="/schemas/users.xsd"/> 
         </bean>  
       </property>  
       <property name="portTypeName" value="UserService"/>  
-      <property name="serviceName" value="UserServices" />  
-      <property name="locationUri" value="/endpoints"/>  
+      <property name="serviceName" value="UserService" />  
+      <property name="locationUri" value="/endpoints"/> 
     </bean>  
   </beans>

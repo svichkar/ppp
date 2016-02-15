@@ -1,17 +1,14 @@
 package com.fourthreads2;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by pantiukhin on 2/11/2016.
  */
 public class FourThreads {
     private static int counter = 1;
-    private ExecutorService executor = Executors.newCachedThreadPool();
-    private static Lock lock = new ReentrantLock();
+    private Thread thrOne = new Thread(new ThreadOne());
+    private Thread thrTwo = new Thread(new ThreadTwo());
+    private Thread thrThree = new Thread(new ThreadThree());
 
     public static void main(String[] args) {
         FourThreads fourThreads = new FourThreads();
@@ -19,22 +16,20 @@ public class FourThreads {
     }
 
     public void go() {
-        while (true) {
-            while (counter <= 1000) {
+        while (counter <= 1000) {
+            try {
+
                 counter++;
                 if (counter == 100) {
-                    executor.execute(new ThreadOne());
+                    thrOne.start();
                 }
                 if (counter == 300) {
-                    executor.execute(new ThreadTwo());
+                    thrTwo.start();
                 }
                 if (counter == 500) {
-                    executor.execute(new ThreadThree());
+                    thrThree.start();
                 }
-            }
-            try {
                 Thread.sleep(100);
-                counter = 1;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -66,15 +61,13 @@ public class FourThreads {
     }
 
     public static void runThread(String threadNumber) {
-        lock.lock();
         try {
             while (counter <= 1000) {
                 System.out.println("I am thread " + threadNumber + ". I am working now");
                 Thread.sleep(1000);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
         }
-        lock.unlock();
     }
 }

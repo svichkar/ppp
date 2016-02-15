@@ -59,6 +59,10 @@ http://localhost:8080/web-services/ws/rest/students/deleteStudent/{id}
 method: GET
 http://localhost:8080/web-services/ws/rest/students/getStudent/{id}
 
+5) getStudentByLastNameAndGroup
+
+method: GET
+http://localhost:8080/web-services/ws/rest/students/getStudentByLastNameAndGroup?groupName={group}&lastName={lastName}
 
 
 * SOAP Spring WS playload:

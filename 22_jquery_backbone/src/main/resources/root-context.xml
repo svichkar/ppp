@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:tcp://localhost/~/sqllab"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--**************** DAOs ***********************-->
+    <bean id="termDao" class="com.nixsolutions.studentgrade.dao.impl.TermDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="userDao" class="com.nixsolutions.studentgrade.dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="roleDao" class="com.nixsolutions.studentgrade.dao.impl.RoleDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="gradeDao" class="com.nixsolutions.studentgrade.dao.impl.GradeDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="statusDao" class="com.nixsolutions.studentgrade.dao.impl.StatusDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="subjectDao" class="com.nixsolutions.studentgrade.dao.impl.SubjectDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="groupDao" class="com.nixsolutions.studentgrade.dao.impl.StudentGroupDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="journalDao" class="com.nixsolutions.studentgrade.dao.impl.JournalDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="studentDao" class="com.nixsolutions.studentgrade.dao.impl.StudentDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--**************** Services ***********************-->
+    <bean id="termService" class="com.nixsolutions.studentgrade.service.impl.TermServiceImpl">
+        <property name="termDao" ref="termDao"/>
+    </bean>
+    <bean id="userService" class="com.nixsolutions.studentgrade.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="roleService" class="com.nixsolutions.studentgrade.service.impl.RoleServiceImpl">
+        <property name="roleDao" ref="roleDao"/>
+    </bean>
+    <bean id="gradeService" class="com.nixsolutions.studentgrade.service.impl.GradeServiceImpl">
+        <property name="gradeDao" ref="gradeDao"/>
+    </bean>
+    <bean id="statusService" class="com.nixsolutions.studentgrade.service.impl.StatusServiceImpl">
+        <property name="statusDao" ref="statusDao"/>
+    </bean>
+    <bean id="subjectService" class="com.nixsolutions.studentgrade.service.impl.SubjectServiceImpl">
+        <property name="subjectDao" ref="subjectDao"/>
+    </bean>
+    <bean id="groupService" class="com.nixsolutions.studentgrade.service.impl.StudentGroupServiceImpl">
+        <property name="groupDao" ref="groupDao"/>
+    </bean>
+    <bean id="journalService" class="com.nixsolutions.studentgrade.service.impl.JournalServiceImpl">
+        <property name="journalDao" ref="journalDao"/>
+    </bean>
+    <bean id="studentService" class="com.nixsolutions.studentgrade.service.impl.StudentServiceImpl">
+        <property name="studentDao" ref="studentDao"/>
+    </bean>
+
+    <context:component-scan base-package="com.nixsolutions.studentgrade.webservice"/>
+
+</beans>

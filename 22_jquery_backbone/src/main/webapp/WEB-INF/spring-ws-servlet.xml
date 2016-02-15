@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sws="http://www.springframework.org/schema/web-services"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+       http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <sws:annotation-driven />
+    <context:component-scan base-package="com.nixsolutions.studentgrade.webservice.soap" />
+    <sws:interceptors>
+        <bean class="org.springframework.ws.soap.server.endpoint.interceptor.PayloadValidatingInterceptor">
+            <property name="schema" value="/WEB-INF/user.xsd"/>
+            <property name="validateRequest" value="true"/>
+            <property name="validateResponse" value="true"/>
+        </bean>
+        <bean class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+    </sws:interceptors>
+
+    <bean class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping"/>
+
+    <sws:dynamic-wsdl id="user" portTypeName="UserPort"
+                      locationUri="http://localhost:8080/web-services/ws/soap/user"
+                      targetNamespace="http://www.user.com">
+        <sws:xsd location="/WEB-INF/user.xsd"/>
+    </sws:dynamic-wsdl>
+</beans>

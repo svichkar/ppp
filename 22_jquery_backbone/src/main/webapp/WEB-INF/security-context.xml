@@ -1,0 +1,46 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd"
+             xmlns:beans="http://www.springframework.org/schema/beans">
+
+    <http security="none" pattern="/images/**"/>
+    <http security="none" pattern="/style/**"/>
+    <http security="none" pattern="/javascript/**"/>
+    <http security="none" pattern="/ws/**"/>
+
+    <http auto-config="false" use-expressions="true">
+
+        <intercept-url pattern="/" access="permitAll"></intercept-url>
+        <intercept-url pattern="/login" access="permitAll"></intercept-url>
+        <intercept-url pattern="/logout" access="permitAll"></intercept-url>
+        <intercept-url pattern="/admin" access="hasAuthority('admin')"></intercept-url>
+        <intercept-url pattern="/**" access="hasAuthority('user')"></intercept-url>
+
+        <form-login login-page="/login"
+                    authentication-success-handler-ref="customAuthenticationSuccessHandler"
+                    username-parameter="j_username"
+                    password-parameter="j_password"
+                    login-processing-url="/j_spring_security_check"
+                    authentication-failure-url="/login?error=true"
+        />
+        <logout logout-success-url="/login" logout-url="/j_spring_security_logout" invalidate-session="true"/>
+    </http>
+
+    <beans:import resource="classpath:/root-context.xml"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsService" class="com.nixsolutions.studentgrade.service.impl.UserDetailsServiceImpl">
+        <beans:property name="userService" ref="userService"/>
+    </beans:bean>
+
+    <beans:bean id="customAuthenticationSuccessHandler"
+                class="com.nixsolutions.studentgrade.controller.handler.CustomAuthenticationSuccessHandler"/>
+
+</beans:beans>

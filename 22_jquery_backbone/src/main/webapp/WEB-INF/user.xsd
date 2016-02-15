@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.user.com"
+           xmlns="http://www.user.com"
+           elementFormDefault="unqualified">
+
+    <xs:element name="createUserRequest" type="createUserRequest"/>
+    <xs:element name="createUserResponse" type="createUserResponse"/>
+
+    <xs:element name="updateUserRequest" type="updateUserRequest"/>
+    <xs:element name="updateUserResponse" type="updateUserResponse"/>
+
+    <xs:complexType name="createUserRequest">
+        <xs:sequence>
+            <xs:element name="user" type="user"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="createUserResponse">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="updateUserRequest">
+        <xs:sequence>
+            <xs:element name="user" type="user"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="updateUserResponse">
+        <xs:sequence>
+            <xs:element name="user" type="user"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="email" type="xs:string" minOccurs="1"/>
+            <xs:element name="firstName" type="xs:string" minOccurs="1"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="1"/>
+            <xs:element name="login" type="xs:string" minOccurs="1"/>
+            <xs:element name="role" type="role" minOccurs="1"/>
+            <xs:element name="userId" type="xs:long" minOccurs="0"/>
+            <xs:element name="userPassword" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="role">
+        <xs:sequence>
+            <xs:element name="roleId" type="xs:long" minOccurs="1"/>
+            <xs:element name="roleName" type="xs:string" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+

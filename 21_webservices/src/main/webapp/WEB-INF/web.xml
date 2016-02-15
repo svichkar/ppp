@@ -12,6 +12,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 		<param-value>
 		/WEB-INF/spring/root-context.xml
 		/WEB-INF/spring/security-context.xml 
+		/WEB-INF/spring/ws-context.xml 
 		</param-value>
 		
 	</context-param>
@@ -59,4 +60,27 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         <servlet-name>Jersey</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+  
+  <!-- SPRING WS -->
+    <servlet>  
+            <servlet-name>webservices</servlet-name>  
+            <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>  
+            <init-param>  
+                 <param-name>transformWsdlLocations</param-name>  
+                 <param-value>true</param-value>  
+            </init-param>  
+            <init-param>  
+                 <param-name>contextConfigLocation</param-name>  
+                 <param-value></param-value>  
+            </init-param>  
+            <load-on-startup>1</load-on-startup>  
+       </servlet>  
+       <servlet-mapping>  
+            <servlet-name>webservices</servlet-name>  
+            <url-pattern>*.wsdl</url-pattern>  
+       </servlet-mapping>  
+       <servlet-mapping>  
+            <servlet-name>webservices</servlet-name>  
+            <url-pattern>/endpoints/*</url-pattern>  
+       </servlet-mapping>  
 </web-app>

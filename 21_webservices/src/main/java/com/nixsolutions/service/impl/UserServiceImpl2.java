@@ -82,11 +82,6 @@ public class UserServiceImpl2 implements UserDetailsService {
 	 @Produces({MediaType.TEXT_HTML})	
 	 @Transactional
 	public void updateUser(User updUser) {
-//		User updUser = userDao.getUserById(Long.parseLong(userId));
-//		Role role = roleDao.getRoleByName(roleName);
-//		updUser.setRole(role);
-//		updUser.setUserName(usr);
-//		updUser.setUserPassword(pswd);
 		userDao.updateUser(updUser);
 	}
 

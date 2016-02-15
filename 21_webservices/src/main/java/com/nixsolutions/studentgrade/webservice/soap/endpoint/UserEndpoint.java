@@ -39,12 +39,12 @@ public class UserEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateUserRequest")
     @ResponsePayload
-    public void updateUser(@RequestPayload UpdateUserRequest request) {
+    public UpdateUserResponse updateUser(@RequestPayload UpdateUserRequest request) {
 
         userService.update(request.getUser());
         UpdateUserResponse response = new UpdateUserResponse();
         response.setUser(userService.findById(request.getUser().getUserId()));
-        //return response;
+        return response;
     }
 }
 

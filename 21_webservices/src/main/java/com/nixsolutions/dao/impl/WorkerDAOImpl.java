@@ -36,7 +36,6 @@ public class WorkerDAOImpl implements WorkerDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-
 	public List<Worker> getAll() {
 		List<Worker> workers = new ArrayList<Worker>();
 		workers.addAll(sessionFactory.getCurrentSession().createCriteria(Worker.class)

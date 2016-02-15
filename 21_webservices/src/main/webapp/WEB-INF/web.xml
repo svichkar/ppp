@@ -41,6 +41,18 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>SoapWs</servlet-name>
+		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>transformWsdlLocations</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>SoapWs</servlet-name>
+		<url-pattern>/soap/*</url-pattern>
+	</servlet-mapping>
 
 </web-app>

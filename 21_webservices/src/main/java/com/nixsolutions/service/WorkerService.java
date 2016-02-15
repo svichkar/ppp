@@ -7,18 +7,18 @@ import com.nixsolutions.entities.Worker;
 
 public interface WorkerService {
 
-	public List<Worker> getAllWorkers();
+	List<Worker> getAllWorkers();
 
-	public Worker getWorkerById(long id);
+	Worker getWorkerById(long id);
 
-	public void addWorker(Worker worker);
+	void addWorker(Worker worker);
 
-	public void updateWorker(Worker worker);
+	void updateWorker(Worker worker);
 
-	public void deleteWorker(Worker worker);
-	
-	public WorkerStatusSpecification getWorkerStatusSpecificationByPK(long workerId);
-	
-	public List<WorkerStatusSpecification> getAllWorkerStatusSpecification();
-	
+	void deleteWorker(Worker worker);
+
+	WorkerStatusSpecification getWorkerStatusSpecificationByPK(long workerId);
+
+	List<WorkerStatusSpecification> getAllWorkerStatusSpecification();
+
 }

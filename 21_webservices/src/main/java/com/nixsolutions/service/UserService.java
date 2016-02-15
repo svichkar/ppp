@@ -7,23 +7,23 @@ import com.nixsolutions.entities.User;
 
 public interface UserService {
 
-	public User getUserById(long id);
+	User getUserById(long id);
 
-	public User getByNameAndPassword(String username, String password);
-	
-	public User getByName(String username);
+	User getByNameAndPassword(String username, String password);
 
-	public List<User> getAllUsers();
+	User getByName(String username);
 
-	public void addUser(User user);
+	List<User> getAllUsers();
 
-	public void deleteUser(User user);
+	void addUser(User user);
 
-	public void updateUser(User user);
+	void deleteUser(User user);
 
-	public UserCustomerRole findByUser(User user);
+	void updateUser(User user);
 
-	public List<UserCustomerRole> getAllUserCustomerRole();
+	UserCustomerRole findByUser(User user);
 
-	public UserCustomerRole findByPK(long userId);
+	List<UserCustomerRole> getAllUserCustomerRole();
+
+	UserCustomerRole findByPK(long userId);
 }

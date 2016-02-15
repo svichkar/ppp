@@ -15,16 +15,15 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for User complex type.
+ * <p>Java class for UserForCreation complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="User">
+ * &lt;complexType name="UserForCreation">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}long"/>
  *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="roleId" type="{http://www.w3.org/2001/XMLSchema}long"/>
@@ -37,36 +36,18 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "User", propOrder = {
-    "userId",
+@XmlType(name = "UserForCreation", propOrder = {
     "username",
     "password",
     "roleId"
 })
-public class User {
+public class UserForCreation {
 
-    protected long userId;
     @XmlElement(required = true)
     protected String username;
     @XmlElement(required = true)
     protected String password;
     protected long roleId;
-
-    /**
-     * Gets the value of the userId property.
-     * 
-     */
-    public long getUserId() {
-        return userId;
-    }
-
-    /**
-     * Sets the value of the userId property.
-     * 
-     */
-    public void setUserId(long value) {
-        this.userId = value;
-    }
 
     /**
      * Gets the value of the username property.

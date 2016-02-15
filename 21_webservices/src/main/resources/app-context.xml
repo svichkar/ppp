@@ -22,8 +22,8 @@
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" />
 	<mvc:annotation-driven />
-	<sws:annotation-driven/>
-	
+	<sws:annotation-driven />
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />

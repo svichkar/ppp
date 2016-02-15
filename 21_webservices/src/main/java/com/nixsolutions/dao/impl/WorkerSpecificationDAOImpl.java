@@ -35,7 +35,6 @@ public class WorkerSpecificationDAOImpl implements WorkerSpecificationDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-
 	public List<WorkerSpecification> getAll() {
 		List<WorkerSpecification> workerSpecifications = new ArrayList<>();
 		workerSpecifications

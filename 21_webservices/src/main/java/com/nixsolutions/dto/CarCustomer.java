@@ -1,6 +1,6 @@
 package com.nixsolutions.dto;
 
-public class CarCustomer extends BaseEntity {
+public class CarCustomer {
 
 	private long carId;
 	private String model;
@@ -23,7 +23,6 @@ public class CarCustomer extends BaseEntity {
 
 	}
 
-	@Override
 	public long getId() {
 		return carId;
 	}

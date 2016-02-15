@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         ReflectClassLoager rcl = new ReflectClassLoager(ClassLoader.getSystemClassLoader());
-        rcl.setPath(System.getProperty("user.dir"));
+        rcl.setPath(System.getProperty ("java.class.path"));
         Class newClass = rcl.findClass("GetCurrentTime");
     }
 }

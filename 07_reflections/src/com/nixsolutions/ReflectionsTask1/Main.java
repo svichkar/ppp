@@ -8,5 +8,6 @@ public class Main {
         UtilClass utilClass = new UtilClass();
         Class cl = Class.forName("com.nixsolutions.ReflectionsTask1.TestClass");
         utilClass.getField(cl.newInstance(), "name");
+        System.out.println(utilClass.getFieldsByGoogleReclect(cl.newInstance(), "count"));
     }
 }

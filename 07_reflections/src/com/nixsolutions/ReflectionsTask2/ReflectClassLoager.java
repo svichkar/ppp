@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package com.nixsolutions.ReflectionsTask2;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,17 +26,18 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
 
     @Override
     protected Class<?> findClass(String className) throws ClassNotFoundException {
+        super.loadClass(className);
         File classFile = new File(directory);
         byte[] bytes = null;
-                FileInputStream fis = null;
+        FileInputStream fis = null;
         try {
-        fis = new FileInputStream(classFile);
-        long fileLength = classFile.length();
-        bytes = new byte[(int) fileLength];
-        int readResult = 0;
-        for (int i = 0; i < fileLength; i++) {
-            readResult = fis.read(bytes);
-        }
+            fis = new FileInputStream(classFile);
+            long fileLength = classFile.length();
+            bytes = new byte[(int) fileLength];
+            int readResult = 0;
+            for (int i = 0; i < fileLength; i++) {
+                readResult = fis.read(bytes);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             throw new ClassNotFoundException();

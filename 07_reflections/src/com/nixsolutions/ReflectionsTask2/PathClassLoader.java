@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package com.nixsolutions.ReflectionsTask2;
 
 /**
  * Created by sobolenko on 2/11/2016.

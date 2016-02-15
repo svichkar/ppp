@@ -12,7 +12,6 @@ public class Main {
         RegularThreads regularThreadA = new RegularThreads("A", counter);
         RegularThreads regularThreadB = new RegularThreads("B", counter);
         RegularThreads regularThreadC = new RegularThreads("C", counter);
-
         for (int i = 0; counter.intValue() < 1000; i++) {
             try {
                 Thread.sleep(100);

@@ -1,5 +1,7 @@
 package com.nixsolutions;
 
+import java.util.ArrayList;
+
 /**
  * Created by sobolenko on 2/1/2016.
  */

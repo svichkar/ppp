@@ -17,7 +17,6 @@ public class ConsumerTwo implements Runnable {
     @Override
     public void run() {
         while (true) {
-
             synchronized (queue) {
                 while (queue.isEmpty())
                     try {

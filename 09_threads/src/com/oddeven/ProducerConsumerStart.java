@@ -9,7 +9,6 @@ import java.util.Queue;
 public class ProducerConsumerStart {
 
     public static void main(String[] args) {
-
         Queue<Integer> queue = new LinkedList<Integer>();
         Thread producer = new Thread(new Producer(queue));
         Thread consumerOne = new Thread(new ConsumerOne(queue));

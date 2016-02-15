@@ -26,6 +26,7 @@ public class Producer extends Thread implements Runnable {
                     }
                 }
                 queue.add(random.nextInt());
+                System.out.println(i);
                 queue.notifyAll();
             }
         }

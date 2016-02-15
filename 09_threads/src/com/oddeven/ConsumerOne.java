@@ -24,22 +24,18 @@ public class ConsumerOne implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Iterator iterator = queue.iterator();
-                    if (iterator.hasNext()) {
-                        num = (Integer) iterator.next();
-                    }
-                    if ((num % 2) != 0) {
-                        System.out.println("Thread one has removed an odd number: " + num);
-                        queue.remove();
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    queue.notifyAll();
                 }
+                Iterator iterator = queue.iterator();
+                if (iterator.hasNext()) {
+                    num = (Integer) iterator.next();
+                }
+                if ((num % 2) != 0) {
+                    System.out.println("Thread one has removed an odd number: " + num);
+                    queue.remove();
+                }
+                queue.notifyAll();
             }
         }
     }
 }
+

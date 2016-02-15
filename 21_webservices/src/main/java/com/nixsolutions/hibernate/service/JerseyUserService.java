@@ -1,8 +1,6 @@
 package com.nixsolutions.hibernate.service;
 
-import com.nixsolutions.hibernate.dao.RoleDAO;
 import com.nixsolutions.hibernate.dao.UserDAO;
-import com.nixsolutions.hibernate.dao.impl.RoleDaoImpl;
 import com.nixsolutions.hibernate.dao.impl.UserDaoImpl;
 import com.nixsolutions.hibernate.entity.User;
 
@@ -19,7 +17,6 @@ import java.util.List;
 @Path("user")
 public class JerseyUserService {
     public UserDAO userDAO = new UserDaoImpl();
-    public RoleDAO roleDAO = new RoleDaoImpl();
 
     @GET
     @Path("/get/{id}")
@@ -40,7 +37,6 @@ public class JerseyUserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createUser (User user){
-        user.setRole(roleDAO.findByID(user.getRoleId()));
         userDAO.create(user);
         return Response.ok(user.getUserId()).build();
     }
@@ -51,7 +47,7 @@ public class JerseyUserService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser (User user){
         userDAO.update(user);
-        return Response.ok().build();
+        return Response.ok(user.getUserId()).build();
     }
 
     @DELETE
@@ -60,6 +56,6 @@ public class JerseyUserService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteUser (User user){
         userDAO.delete(user);
-        return Response.ok().build();
+        return Response.ok(user.getUserId()).build();
     }
 }

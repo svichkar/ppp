@@ -14,23 +14,23 @@
                                     <c:forEach var="user" items="${users}">
                                        <tr>
                                             <form action="userManagement" name="editDelete" method="post">
-                                                <td><input type="text" name="userId" value ="<c:out value="${user.userId}"/>" readonly></td>
+                                                <td><input class="userId" type="text" name="userId" value ="<c:out value="${user.userId}"/>" readonly></td>
                                                 <td>
-                                                    <input type="text" name="userLogin" value ="<c:out value="${user.login}"/>" required>
-                                                    <input type="hidden" name="userPassword" value="<c:out value="${user.password}"/>">
+                                                    <input class="login" type="text" name="userLogin" value ="<c:out value="${user.login}"/>" required>
+                                                    <input class="password" type="hidden" name="userPassword" value="<c:out value="${user.password}"/>">
                                                 </td>
                                                 <td>
-                                                    <select name="userRole" size="1" required>
+                                                    <select class="roleId" name="userRole" size="1" required>
                                                         <option selected value="<c:out value="${user.role.roleId}"/>"><c:out value="${user.role.roleName}"/></option>
                                                         <c:forEach var="role" items="${roles}">
                                                             <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
                                                         </c:forEach>
                                                     </select>
                                                 </td>
-                                                <td><input type="submit" value="edit" name="edit"></td>
+                                                <td><button type="button" onclick="sendAjaxEdit(this)">Edit</button></td>
                                                 <td>
                                                     <c:if test="${sessionScope.currentUserId != user.userId}">
-                                                        <input type="submit" value="delete" name="delete">
+                                                        <button type="button" onclick="sendAjaxDelete(this)">Delete</button>
                                                     </c:if>
                                                 </td>
                                             </form>
@@ -39,16 +39,6 @@
                              </tbody>
                         </table>
                     </c:if>
-                    <!--<form action="userManagement" method="post">
-                                 User login : <input type="text" name="newUserLogin">
-                                 User password : <input type="text" name="newUserPassword">
-                                 User role:  <select name="newUserRole" size="1" required>
-                                               <c:forEach var="role" items="${roles}">
-                                                   <option value="<c:out value="${role.roleId}"/>"><c:out value="${role.roleName}"/></option>
-                                               </c:forEach>
-                                             </select>
-                                 <input type="submit" value="add" name="add">
-                    </form>-->
                     <form>
                         <div>
                             <div>
@@ -72,7 +62,7 @@
                             </div>
                             <br/>
                             <p>
-                                <button type="button" onclick="sendAjax()">Add</button>
+                                <button type="button" onclick="sendAjaxCreate()">Add</button>
                             </p>
                         </div>
                     </form>

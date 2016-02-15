@@ -4,7 +4,7 @@
 	<jsp:attribute name="head_area">
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
-		<table>
+		<table id="main_table">
 		<tr>
 				<th>Username</th>
 				<th>Password</th>
@@ -26,14 +26,7 @@
 			</td>
 			<td><c:out value="${user.password}" /></td>
 			<td>
-				<select name="role_id">
-					<c:forEach var="item" items="${roles}">
-						<option value="${item.roleId}"
-										<c:if test="${item.roleId eq user.role.roleId}">selected</c:if>>
-										<c:out value="${item.rolename}"/>
-						</option>
-					</c:forEach>
-				</select>
+				<c:out value="${user.role.roleName}" />
 			</td>
 			<td>
 			<select name="action">

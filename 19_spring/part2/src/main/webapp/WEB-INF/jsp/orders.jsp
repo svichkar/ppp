@@ -4,7 +4,7 @@
 	<jsp:attribute name="head_area">
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
-	<table>
+	<table id="main_table">
 		<tr>
 				<th>Order id</th>
 				<th>Status</th>
@@ -26,12 +26,12 @@
 		<form action="orderEdit" method="POST">
 		<tr>
 			<td><c:out value="${item.id}" /></td>
-			<td><c:out value="${item.order_status_name}" /></td>
+			<td><c:out value="${item.orderStatusName}" /></td>
 			<td><c:out value="${item.model}" /></td>
 			<td><c:out value="${item.vin}" /></td>
 			<td><c:out value="${item.description}" /></td>
-			<td><c:out value="${item.datetime_start}" /></td>
-			<td><c:out value="${item.datetime_end}" /></td>
+			<td><c:out value="${item.datetimeStart}" /></td>
+			<td><c:out value="${item.datetimeEnd}" /></td>
 			<td>
 			<select name="action">
 				<option name="edit">Edit</option>

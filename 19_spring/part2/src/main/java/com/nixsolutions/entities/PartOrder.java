@@ -22,7 +22,7 @@ public class PartOrder implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "part_order_id")
-	private long part_order_id;
+	private long partOrderId;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", referencedColumnName = "order_id")
 	private OrderInWork order;

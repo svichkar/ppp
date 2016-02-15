@@ -12,6 +12,33 @@ body {
 	height: 80%
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font: normal 179% 'century gothic', arial, sans-serif;
+	color: #43423F;
+	margin: 0 0 15px 0;
+	padding: 15px 0 5px 0;
+}
+
+h2 {
+	font: normal 170% 'century gothic', arial, sans-serif;
+	color: #B60000;
+}
+
+ul {
+	margin: 2px 0px 18px 16px;
+	padding: 0px;
+}
+
+ul li {
+	list-style-type: square;
+	margin: 0px 0px 6px 0px;
+	padding: 0px;
+}
+
+ol {
+	margin: 8px 0px 0px 24px;
+	padding: 0px;
+}
 
 #logo {
 	font-family: 'trebuchet ms', sans-serif;
@@ -55,4 +82,22 @@ table {
 
 table th {
 	border: 1px solid;
+}
+
+#hint {
+	visibility: hidden;
+	position: absolute;
+	font-weight: bold;
+	font-style: italic;
+	color: #428fbd;
+	left: 0;
+	top: 0;
+	border-style: solid;
+	border-color: #000000;
+	border-width: 0px;
+	width: 200px;
+	height: 10px;
+	background-color: #090708;
+	padding: 3px;
+	z-Index: 3
 }

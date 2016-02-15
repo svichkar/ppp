@@ -5,11 +5,11 @@
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
 		<table>
-		<form action="partEdit" method="POST">
+		<form action="partEdit" name="formForValidation" method="POST">
 		<tr>
 			<td>Part name:</td>
 			<td>
-				<input type="text" name="part_name" value="${part.part_name}" />
+				<input type="text" name="part_name" value="${part.partName}" />
 			</td>
 		</tr>
 		<tr>
@@ -34,5 +34,6 @@
 		</tr>
 		</form>
 		</table>
+		<div id="hint" />
 	</jsp:attribute>
 </t:general_template>

@@ -22,13 +22,13 @@ public class User implements Serializable {
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long user_id;
+	private long userId;
 	@Column(name = "username", nullable = false, length = 255)
 	private String username;
 	@Column(name = "password", nullable = false, length = 255)
 	private String password;
 	@Column(name = "session_id", length = 255)
-	private String session_id;
+	private String sessionId;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "role_id", referencedColumnName = "role_id")
 	private Role role;
@@ -43,7 +43,7 @@ public class User implements Serializable {
 	}
 	
 	public long getUserId() {
-		return user_id;
+		return userId;
 	}
 
 	public String getUsername() {
@@ -54,8 +54,8 @@ public class User implements Serializable {
 		return password;
 	}
 	
-	public String getSession_id() {
-		return session_id;
+	public String getSessionId() {
+		return sessionId;
 	}
 
 	public Role getRole() {
@@ -64,7 +64,7 @@ public class User implements Serializable {
 	
 
 	public void setUserId(long value) {
-		this.user_id = value;
+		this.userId = value;
 	}
 
 	public void setUsername(String value) {
@@ -75,9 +75,9 @@ public class User implements Serializable {
 		this.password = value;
 	}
 	
-	public void setSession(String value)
+	public void setSessionId(String value)
 	{
-		this.session_id = value;
+		this.sessionId = value;
 	}
 
 	public void setRole(Role value) {

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.CustomerDAO;
 import com.nixsolutions.dao.UserDAO;
+import com.nixsolutions.dto.UserCustomerRole;
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.User;
-import com.nixsolutions.entities.UserCustomerRole;
 import com.nixsolutions.service.UserService;
 
 @Service
@@ -64,10 +64,10 @@ public class UserServiceImpl implements UserService {
 			Customer customer = customerDao.findByUser(user);
 			userCustomerRole = new UserCustomerRole();
 			userCustomerRole.setCustomerId(customer.getCustomerId());
-			userCustomerRole.setF_name(customer.getF_name());
-			userCustomerRole.setL_name(customer.getL_name());
+			userCustomerRole.setFname(customer.getFname());
+			userCustomerRole.setLname(customer.getLname());
 			userCustomerRole.setUsername(user.getUsername());
-			userCustomerRole.setRole(user.getRole().getRolename());
+			userCustomerRole.setRole(user.getRole().getRoleName());
 			userCustomerRole.setRoleId(user.getRole().getRoleId());
 			userCustomerRole.setRole(user.getPassword());
 		}
@@ -82,10 +82,10 @@ public class UserServiceImpl implements UserService {
 			Customer customer = customerDao.findByUser(user);
 			UserCustomerRole userCustomerRole = new UserCustomerRole();
 			userCustomerRole.setCustomerId(customer.getCustomerId());
-			userCustomerRole.setF_name(customer.getF_name());
-			userCustomerRole.setL_name(customer.getL_name());
+			userCustomerRole.setFname(customer.getFname());
+			userCustomerRole.setLname(customer.getLname());
 			userCustomerRole.setUsername(user.getUsername());
-			userCustomerRole.setRole(user.getRole().getRolename());
+			userCustomerRole.setRole(user.getRole().getRoleName());
 			userCustomerRole.setRoleId(user.getRole().getRoleId());
 			userCustomerRole.setRole(user.getPassword());
 			allUserCustomerRole.add(userCustomerRole);
@@ -101,10 +101,10 @@ public class UserServiceImpl implements UserService {
 			Customer customer = customerDao.findByUser(user);
 			userCustomerRole = new UserCustomerRole();
 			userCustomerRole.setCustomerId(customer.getCustomerId());
-			userCustomerRole.setF_name(customer.getF_name());
-			userCustomerRole.setL_name(customer.getL_name());
+			userCustomerRole.setFname(customer.getFname());
+			userCustomerRole.setLname(customer.getLname());
 			userCustomerRole.setUsername(user.getUsername());
-			userCustomerRole.setRole(user.getRole().getRolename());
+			userCustomerRole.setRole(user.getRole().getRoleName());
 			userCustomerRole.setRoleId(user.getRole().getRoleId());
 			userCustomerRole.setRole(user.getPassword());
 		}

@@ -12,27 +12,27 @@ public class OrderStatus {
 	@Id
 	@Column(name = "order_status_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long order_status_id;
+	private long orderStatusId;
 	@Column(name = "order_status_name", nullable = false, length = 255)
-	private String order_status_name;
+	private String orderStatusName;
 
 	public OrderStatus() {
 
 	}
 
 	public long getOrderStatusId() {
-		return order_status_id;
+		return orderStatusId;
 	}
 
-	public String getOrder_status_name() {
-		return order_status_name;
+	public String getOrderStatusName() {
+		return orderStatusName;
 	}
 
 	public void setOrderStatusId(long value) {
-		order_status_id = value;
+		orderStatusId = value;
 	}
 
-	public void setOrder_status_name(String value) {
-		order_status_name = value;
+	public void setOrderStatusName(String value) {
+		orderStatusName = value;
 	}
 }

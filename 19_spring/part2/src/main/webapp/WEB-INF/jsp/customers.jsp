@@ -4,7 +4,7 @@
 	<jsp:attribute name="head_area">
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
-		<table>
+		<table id="main_table">
 		<tr>
 				<th>Login</th>
 				<th>First name</th>
@@ -26,9 +26,9 @@
 				<c:out value="${item.user.username}" />
 			</td>
 			<td>
-				<c:out value="${item.f_name}" />
+				<c:out value="${item.fname}" />
 			</td>
-			<td><c:out value="${item.l_name}" /></td>
+			<td><c:out value="${item.lname}" /></td>
 			<td><c:out value="${item.phone}" /></td>
 			<td>
 			<select name="action">

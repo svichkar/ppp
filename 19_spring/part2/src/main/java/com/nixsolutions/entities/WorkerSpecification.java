@@ -18,27 +18,27 @@ public class WorkerSpecification implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "spec_id")
-	private long spec_id;
+	private long specId;
 	@Column(name = "spec_name", nullable = false, length = 255)
-	private String spec_name;
+	private String specName;
 
 	public WorkerSpecification() {
 	}
 
 	public long getSpecId() {
-		return spec_id;
+		return specId;
 	}
 
-	public String getSpec_name() {
-		return spec_name;
+	public String getSpecName() {
+		return specName;
 	}
 
 	public void setSpecId(long value) {
-		spec_id = value;
+		specId = value;
 	}
 
-	public void setSpec_name(String value) {
-		spec_name = value;
+	public void setSpecName(String value) {
+		specName = value;
 	}
 
 }

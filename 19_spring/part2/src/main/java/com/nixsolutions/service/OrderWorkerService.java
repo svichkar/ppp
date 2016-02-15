@@ -2,25 +2,25 @@ package com.nixsolutions.service;
 
 import java.util.List;
 
-import com.nixsolutions.entities.AllWorkersInOrder;
+import com.nixsolutions.dto.AllWorkersInOrder;
 import com.nixsolutions.entities.OrderWorker;;
 
 public interface OrderWorkerService {
 
-	public List<OrderWorker> getAllOrderWorker();
-	
-	public List<OrderWorker> getAllOrderWorker(long orderId);
+	List<OrderWorker> getAllOrderWorker();
 
-	public OrderWorker getOrderWorkerByOrderAndWorker(long orderid, long workerid);
-	
-	public List<AllWorkersInOrder> getAllWorkersInOrderById(long orderid);
-	
-	public AllWorkersInOrder getAllWorkersInOrderByOrderAndWorker(long orderId, long worderId);
+	List<OrderWorker> getAllOrderWorker(long orderId);
 
-	public void addOrderWorker(OrderWorker orderWorker);
+	OrderWorker getOrderWorkerByOrderAndWorker(long orderid, long workerid);
 
-	public void updateOrderWorker(OrderWorker orderWorker);
+	List<AllWorkersInOrder> getAllWorkersInOrderById(long orderid);
 
-	public void deleteOrderWorker(OrderWorker orderWorker);
+	AllWorkersInOrder getAllWorkersInOrderByOrderAndWorker(long orderId, long worderId);
+
+	void addOrderWorker(OrderWorker orderWorker);
+
+	void updateOrderWorker(OrderWorker orderWorker);
+
+	void deleteOrderWorker(OrderWorker orderWorker);
 
 }

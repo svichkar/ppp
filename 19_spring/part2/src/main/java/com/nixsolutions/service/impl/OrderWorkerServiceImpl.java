@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.OrderWorkerDAO;
-import com.nixsolutions.entities.AllWorkersInOrder;
+import com.nixsolutions.dto.AllWorkersInOrder;
 import com.nixsolutions.entities.OrderWorker;
 import com.nixsolutions.service.OrderWorkerService;
 
@@ -39,10 +39,10 @@ public class OrderWorkerServiceImpl implements OrderWorkerService {
 		for (OrderWorker orderWorker : orderWorkers) {
 			AllWorkersInOrder allWorkerInOrder = new AllWorkersInOrder();
 			allWorkerInOrder.setCompleted(orderWorker.getCompleted());
-			allWorkerInOrder.setF_name(orderWorker.getWorker().getF_name());
-			allWorkerInOrder.setL_name(orderWorker.getWorker().getL_name());
+			allWorkerInOrder.setFname(orderWorker.getWorker().getFname());
+			allWorkerInOrder.setLname(orderWorker.getWorker().getLname());
 			allWorkerInOrder.setId(orderWorker.getOrderInWork().getOrderInWorkId());
-			allWorkerInOrder.setWorker_id(orderWorker.getWorker().getWorkerId());
+			allWorkerInOrder.setWorkerId(orderWorker.getWorker().getWorkerId());
 			result.add(allWorkerInOrder);
 		}
 		return result;
@@ -55,10 +55,10 @@ public class OrderWorkerServiceImpl implements OrderWorkerService {
 		if (orderWorker != null) {
 			result = new AllWorkersInOrder();
 			result.setCompleted(orderWorker.getCompleted());
-			result.setF_name(orderWorker.getWorker().getF_name());
-			result.setL_name(orderWorker.getWorker().getL_name());
+			result.setFname(orderWorker.getWorker().getFname());
+			result.setLname(orderWorker.getWorker().getLname());
 			result.setId(orderWorker.getOrderInWork().getOrderInWorkId());
-			result.setWorker_id(orderWorker.getWorker().getWorkerId());
+			result.setWorkerId(orderWorker.getWorker().getWorkerId());
 		}
 		return result;
 	}

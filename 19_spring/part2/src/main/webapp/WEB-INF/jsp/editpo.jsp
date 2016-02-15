@@ -5,7 +5,7 @@
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
 		<table>
-		<form action="orderPartEdit" method="POST">
+		<form action="orderPartEdit" name="formForValidation" method="POST">
 		<tr>
 			<td>Order ID:</td>
 			<td>
@@ -18,12 +18,12 @@
 				<c:if test="${action == 'Add'}">
 					<select name="part_id">
 						<c:forEach var="item" items="${parts}">
-							<option value="${item.partId}" <c:if test="${part.part_id eq item.partId}">selected</c:if>><c:out value="${item.part_name}" /></option>
+							<option value="${item.partId}" <c:if test="${part.partId eq item.partId}">selected</c:if>><c:out value="${item.partName}" /></option>
 						</c:forEach>
 					</select>
 				</c:if>
 				<c:if test="${action == 'Edit'}">
-					<c:out value="${part.part_name}" />
+					<c:out value="${part.partName}" />
 				</c:if>
 			</td>
 		</tr>
@@ -44,7 +44,7 @@
 				<input type="hidden" name="action" value="Save">
 				<input type="hidden" name="order_id" value="${order_id}">
 				<c:if test="${action == 'Edit'}">
-					<input type="hidden" name="part_id" value="${part.part_id}">
+					<input type="hidden" name="part_id" value="${part.partId}">
 				</c:if>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="submit" value="Save">
@@ -52,5 +52,6 @@
 		</tr>
 		</form>
 		</table>
+		<div id="hint" />
 </jsp:attribute>
 </t:general_template>

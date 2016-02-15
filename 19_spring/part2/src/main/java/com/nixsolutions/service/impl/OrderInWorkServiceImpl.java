@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.OrderInWorkDAO;
+import com.nixsolutions.dao.OrderWorkerDAO;
+import com.nixsolutions.dao.PartOrderDAO;
+import com.nixsolutions.dto.OrderInWorkCarStatus;
 import com.nixsolutions.entities.OrderInWork;
-import com.nixsolutions.entities.OrderInWorkCarStatus;
+import com.nixsolutions.entities.OrderWorker;
+import com.nixsolutions.entities.PartOrder;
 import com.nixsolutions.service.OrderInWorkService;
 
 @Service
@@ -16,6 +20,12 @@ public class OrderInWorkServiceImpl implements OrderInWorkService {
 
 	@Autowired
 	private OrderInWorkDAO orderInWorkDaoImpl;
+
+	@Autowired
+	private OrderWorkerDAO orderWorkerDaoImpl;
+	
+	@Autowired
+	private PartOrderDAO partOrderDaoImpl;
 
 	@Override
 	public List<OrderInWork> getAllOrderInWork() {
@@ -39,6 +49,13 @@ public class OrderInWorkServiceImpl implements OrderInWorkService {
 
 	@Override
 	public void deleteOrderInWork(OrderInWork orderInWork) {
+		for (OrderWorker orderWorker : orderWorkerDaoImpl.getAll()) {
+			orderWorkerDaoImpl.delete(orderWorker);
+		}
+		for (PartOrder partOrder : partOrderDaoImpl.getAll())
+		{
+			partOrderDaoImpl.delete(partOrder);
+		}
 		orderInWorkDaoImpl.delete(orderInWork);
 	}
 
@@ -48,14 +65,14 @@ public class OrderInWorkServiceImpl implements OrderInWorkService {
 		OrderInWork orderInWork = orderInWorkDaoImpl.findByPK(orderId);
 		if (orderInWork != null) {
 			result = new OrderInWorkCarStatus();
-			result.setCar_id(orderInWork.getCar().getCarId());
+			result.setCarId(orderInWork.getCar().getCarId());
 			result.setId(orderInWork.getOrderInWorkId());
-			result.setDatetime_end(orderInWork.getDatetime_end());
-			result.setDatetime_start(orderInWork.getDatetime_start());
+			result.setDatetimeEnd(orderInWork.getDatetimeEnd());
+			result.setDatetimeStart(orderInWork.getDatetimeStart());
 			result.setDescription(orderInWork.getDescription());
 			result.setModel(orderInWork.getCar().getModel());
-			result.setOrder_status_id(orderInWork.getOrder_status().getOrderStatusId());
-			result.setOrder_status_name(orderInWork.getOrder_status().getOrder_status_name());
+			result.setOrderStatusId(orderInWork.getOrderStatus().getOrderStatusId());
+			result.setOrderStatusName(orderInWork.getOrderStatus().getOrderStatusName());
 			result.setVin(orderInWork.getCar().getVin());
 		}
 
@@ -68,14 +85,14 @@ public class OrderInWorkServiceImpl implements OrderInWorkService {
 		List<OrderInWork> orderInWorks = orderInWorkDaoImpl.getAll();
 		for (OrderInWork orderInWork : orderInWorks) {
 			OrderInWorkCarStatus orderInWorkCarStatus = new OrderInWorkCarStatus();
-			orderInWorkCarStatus.setCar_id(orderInWork.getCar().getCarId());
+			orderInWorkCarStatus.setCarId(orderInWork.getCar().getCarId());
 			orderInWorkCarStatus.setId(orderInWork.getOrderInWorkId());
-			orderInWorkCarStatus.setDatetime_end(orderInWork.getDatetime_end());
-			orderInWorkCarStatus.setDatetime_start(orderInWork.getDatetime_start());
+			orderInWorkCarStatus.setDatetimeEnd(orderInWork.getDatetimeEnd());
+			orderInWorkCarStatus.setDatetimeStart(orderInWork.getDatetimeStart());
 			orderInWorkCarStatus.setDescription(orderInWork.getDescription());
 			orderInWorkCarStatus.setModel(orderInWork.getCar().getModel());
-			orderInWorkCarStatus.setOrder_status_id(orderInWork.getOrder_status().getOrderStatusId());
-			orderInWorkCarStatus.setOrder_status_name(orderInWork.getOrder_status().getOrder_status_name());
+			orderInWorkCarStatus.setOrderStatusId(orderInWork.getOrderStatus().getOrderStatusId());
+			orderInWorkCarStatus.setOrderStatusName(orderInWork.getOrderStatus().getOrderStatusName());
 			orderInWorkCarStatus.setVin(orderInWork.getCar().getVin());
 			result.add(orderInWorkCarStatus);
 		}

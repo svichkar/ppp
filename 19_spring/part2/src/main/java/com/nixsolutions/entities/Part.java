@@ -18,9 +18,9 @@ public class Part {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "part_id")
-	private long part_id;
+	private long partId;
 	@Column(name = "part_name", nullable = false, length = 255)
-	private String part_name;
+	private String partName;
 	@Column(name = "vendor", nullable = false, length = 255)
 	private String vendor;
 	@Column(name="amount", nullable=false)
@@ -34,23 +34,23 @@ public class Part {
 
 	}
 	
-	public Part(String part_name, String vendor, long amount)
+	public Part(String partName, String vendor, long amount)
 	{
-		this.part_name = part_name;
+		this.partName = partName;
 		this.vendor = vendor;
 		this.amount = amount;
 	}
 
 	public long getPartId() {
-		return part_id;
+		return partId;
 	}
 
 	public long getAmount() {
 		return amount;
 	}
 
-	public String getPart_name() {
-		return part_name;
+	public String getPartName() {
+		return partName;
 	}
 
 	public String getVendor() {
@@ -63,15 +63,15 @@ public class Part {
 	}
 
 	public void setPartId(long value) {
-		part_id = value;
+		partId = value;
 	}
 
 	public void setAmount(long value) {
 		amount = value;
 	}
 
-	public void setPart_name(String value) {
-		part_name = value;
+	public void setPartName(String value) {
+		partName = value;
 	}
 
 	public void setVendor(String value) {

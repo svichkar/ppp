@@ -5,7 +5,7 @@
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
 		<table>
-		<form action="userEdit" method="POST">
+		<form action="userEdit" name="formForValidation" method="POST">
 		<tr>
 			<td>Username:</td>
 			<td>
@@ -25,7 +25,7 @@
 					<c:forEach var="item" items="${roles}">
 						<option value="${item.roleId}"
 										<c:if test="${item.roleId eq user.role.roleId}">selected</c:if>>
-										<c:out value="${item.rolename}"/>
+										<c:out value="${item.roleName}"/>
 						</option>
 					</c:forEach>
 				</select>
@@ -41,5 +41,6 @@
 		</tr>
 		</form>
 		</table>
+		<div id="hint" />
 	</jsp:attribute>
 </t:general_template>

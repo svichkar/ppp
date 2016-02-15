@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.PartOrderDAO;
-import com.nixsolutions.entities.AllPartsInOrder;
+import com.nixsolutions.dto.AllPartsInOrder;
 import com.nixsolutions.entities.PartOrder;
 import com.nixsolutions.service.PartOrderService;
 
@@ -55,8 +55,8 @@ public class PartOrderServiceImpl implements PartOrderService {
 			AllPartsInOrder allPartsInOrder = new AllPartsInOrder();
 			allPartsInOrder.setAmount(partOrder.getAmount());
 			allPartsInOrder.setId(orderid);
-			allPartsInOrder.setPart_id(partOrder.getPart().getPartId());
-			allPartsInOrder.setPart_name(partOrder.getPart().getPart_name());
+			allPartsInOrder.setPartId(partOrder.getPart().getPartId());
+			allPartsInOrder.setPartName(partOrder.getPart().getPartName());
 			allPartsInOrder.setVendor(partOrder.getPart().getVendor());
 			result.add(allPartsInOrder);
 		}
@@ -71,8 +71,8 @@ public class PartOrderServiceImpl implements PartOrderService {
 			result = new AllPartsInOrder();
 			result.setAmount(partOrder.getAmount());
 			result.setId(partOrder.getOrder().getOrderInWorkId());
-			result.setPart_id(partOrder.getPart().getPartId());
-			result.setPart_name(partOrder.getPart().getPart_name());
+			result.setPartId(partOrder.getPart().getPartId());
+			result.setPartName(partOrder.getPart().getPartName());
 			result.setVendor(partOrder.getPart().getVendor());
 		}
 		return result;

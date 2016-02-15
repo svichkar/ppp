@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nixsolutions.entities.AllPartsInOrder;
-import com.nixsolutions.entities.AllWorkersInOrder;
+import com.nixsolutions.dto.AllPartsInOrder;
+import com.nixsolutions.dto.AllWorkersInOrder;
 import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.OrderStatus;
@@ -75,7 +75,8 @@ public class OrderPartController {
 				model.addAttribute("part", allOrderPart);
 				model.addAttribute("parts", partServiceImpl.getAllPart());
 				model.addAttribute("action", "Edit");
-				return "/WEB-INF/jsp/editpo.jsp";
+				model.addAttribute("jsForPage", "editpo");
+				return "editpo";
 			} else if (action.equalsIgnoreCase("Delete")) {
 				partOrderServiceImpl.deletePartOrder(orderPart);
 				model.addAttribute("allOrderWorkers", allWorkersInOrder);
@@ -84,7 +85,7 @@ public class OrderPartController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				return "order";
 			} else if (action.equalsIgnoreCase("Save")) {
 				orderPart.setPart(partServiceImpl.getPartById(partId));
 				orderPart.setOrder(orderInWorkServiceImpl.getOrderInWorkById(orderId));
@@ -96,7 +97,7 @@ public class OrderPartController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				return "order";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
@@ -104,7 +105,8 @@ public class OrderPartController {
 				model.addAttribute("action", "Add");
 				model.addAttribute("order_id", orderId);
 				model.addAttribute("parts", partServiceImpl.getAllPart());
-				return "/WEB-INF/jsp/editpo.jsp";
+				model.addAttribute("jsForPage", "editpo");
+				return "editpo";
 			} else if (action.equalsIgnoreCase("Save")) {
 				PartOrder orderpartNew = new PartOrder(orderInWorkServiceImpl.getOrderInWorkById(orderId),
 						partServiceImpl.getPartById(partId), amount);
@@ -115,11 +117,13 @@ public class OrderPartController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				return "order";
 			}
 		}
 
-		return "/navigation";
+		model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+		model.addAttribute("title", "Orders");
+		return "orders";
 
 	}
 

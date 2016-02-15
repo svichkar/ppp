@@ -2,22 +2,22 @@ package com.nixsolutions.service;
 
 import java.util.List;
 
+import com.nixsolutions.dto.OrderInWorkCarStatus;
 import com.nixsolutions.entities.OrderInWork;
-import com.nixsolutions.entities.OrderInWorkCarStatus;
 
 public interface OrderInWorkService {
 
-	public List<OrderInWork> getAllOrderInWork();
+	List<OrderInWork> getAllOrderInWork();
 
-	public OrderInWork getOrderInWorkById(long id);
+	OrderInWork getOrderInWorkById(long id);
 
-	public void addOrderInWork(OrderInWork orderInWork);
+	void addOrderInWork(OrderInWork orderInWork);
 
-	public void updateOrderInWork(OrderInWork orderInWork);
+	void updateOrderInWork(OrderInWork orderInWork);
 
-	public void deleteOrderInWork(OrderInWork orderInWork);
+	void deleteOrderInWork(OrderInWork orderInWork);
 
-	public OrderInWorkCarStatus getOrderInWorkCarStatusByOrderId(long orderId);
-	
-	public List<OrderInWorkCarStatus> getAllOrderInWorkCarStatus();
+	OrderInWorkCarStatus getOrderInWorkCarStatusByOrderId(long orderId);
+
+	List<OrderInWorkCarStatus> getAllOrderInWorkCarStatus();
 }

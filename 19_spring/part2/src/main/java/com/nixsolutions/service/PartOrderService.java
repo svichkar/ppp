@@ -2,25 +2,25 @@ package com.nixsolutions.service;
 
 import java.util.List;
 
-import com.nixsolutions.entities.AllPartsInOrder;
+import com.nixsolutions.dto.AllPartsInOrder;
 import com.nixsolutions.entities.PartOrder;
 
 public interface PartOrderService {
 
-	public PartOrder getPartOrderbyPartAndOrder(long orderId, long partId);
+	PartOrder getPartOrderbyPartAndOrder(long orderId, long partId);
 
-	public List<PartOrder> getAllPartOrderByOrderId(long orderId);
+	List<PartOrder> getAllPartOrderByOrderId(long orderId);
 
-	public List<PartOrder> getAllPartOrder();
+	List<PartOrder> getAllPartOrder();
 
-	public void addPartOrder(PartOrder partOrder);
+	void addPartOrder(PartOrder partOrder);
 
-	public void updatePartOrder(PartOrder partOrder);
+	void updatePartOrder(PartOrder partOrder);
 
-	public void deletePartOrder(PartOrder partOrder);
-	
-	public List<AllPartsInOrder> getAllPartOrders(long orderid);
-	
-	public AllPartsInOrder findByPartAndOrder(long orderid, long partid);
+	void deletePartOrder(PartOrder partOrder);
+
+	List<AllPartsInOrder> getAllPartOrders(long orderId);
+
+	AllPartsInOrder findByPartAndOrder(long orderId, long partId);
 
 }

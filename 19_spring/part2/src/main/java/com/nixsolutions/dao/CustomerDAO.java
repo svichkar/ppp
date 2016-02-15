@@ -5,8 +5,8 @@ import com.nixsolutions.entities.User;
 
 public interface CustomerDAO extends GenericDao<Customer> {
 
-	public Customer findByFullName(String f_name, String l_name);
+	Customer findByFullName(String fName, String lName);
 
-	public Customer findByUser(User user);
+	Customer findByUser(User user);
 
 }

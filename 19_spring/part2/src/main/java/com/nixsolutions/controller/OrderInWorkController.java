@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nixsolutions.entities.AllPartsInOrder;
-import com.nixsolutions.entities.AllWorkersInOrder;
+import com.nixsolutions.dto.AllPartsInOrder;
+import com.nixsolutions.dto.AllWorkersInOrder;
 import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.OrderStatus;
@@ -50,7 +50,8 @@ public class OrderInWorkController {
 			@RequestParam(value = "datetime_end", required = false) String datetime_end,
 			@RequestParam(value = "action") String action, Model model) {
 		Date dateNow = new Date();
-		Timestamp datetimeStart = isStringValidDate(datetime_start) ? Timestamp.valueOf(datetime_start) : new Timestamp(dateNow.getTime());
+		Timestamp datetimeStart = isStringValidDate(datetime_start) ? Timestamp.valueOf(datetime_start)
+				: new Timestamp(dateNow.getTime());
 		Timestamp datetimeEnd = isStringValidDate(datetime_end) ? Timestamp.valueOf(datetime_end) : null;
 		int orderstatusId = NumberUtils.isDigits(order_status_id) ? Integer.parseInt(order_status_id) : 0;
 		int orderId = NumberUtils.isDigits(order_id) ? Integer.parseInt(order_id) : 0;
@@ -75,24 +76,24 @@ public class OrderInWorkController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				model.addAttribute("jsForPage", "order");
+				return "order";
 			} else if (action.equalsIgnoreCase("Delete")) {
-				List<OrderWorker> allAssignedWorkes = orderWorkerServiceImpl.getAllOrderWorker(orderId);
-				if (allAssignedWorkes.size() > 0) {
-					throw new RuntimeException("You cannot delete order that has at least one assigned worker!");
-				}
 				orderInWorkServiceImpl.deleteOrderInWork(selectedOrderInWork);
-				model.addAttribute("destination", "Orders");
-				return "/navigation";
+				model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+				model.addAttribute("title", "Orders");
+				return "orders";
 			} else if (action.equalsIgnoreCase("Save")) {
 				selectedOrderInWork.setCar(carServiceImpl.getCarById(carId));
-				selectedOrderInWork.setOrder_status(orderStatusServiceImpl.getOrderStatusById(orderstatusId));
+				selectedOrderInWork.setOrderStatus(orderStatusServiceImpl.getOrderStatusById(orderstatusId));
 				selectedOrderInWork.setDescription(description);
-				selectedOrderInWork.setDatetime_start(datetimeStart);
-				selectedOrderInWork.setDatetime_end(datetimeEnd);
+				selectedOrderInWork.setDatetimeStart(datetimeStart);
+				selectedOrderInWork.setDatetimeEnd(datetimeEnd);
 				selectedOrderInWork.setDescription(description);
 				orderInWorkServiceImpl.updateOrderInWork(selectedOrderInWork);
-				return "/navigation";
+				model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+				model.addAttribute("title", "Orders");
+				return "orders";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
@@ -100,15 +101,20 @@ public class OrderInWorkController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				model.addAttribute("jsForPage", "order");
+				return "order";
 			} else if (action.equalsIgnoreCase("Save")) {
 				OrderInWork orderinWorkAdded = new OrderInWork(orderStatusServiceImpl.getOrderStatusById(orderstatusId),
 						description, carServiceImpl.getCarById(carId), datetimeStart, datetimeEnd);
 				orderInWorkServiceImpl.addOrderInWork(orderinWorkAdded);
-				return "/navigation";
+				model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+				model.addAttribute("title", "Orders");
+				return "orders";
 			}
 		}
-		return "/navigation";
+		model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+		model.addAttribute("title", "Orders");
+		return "orders";
 
 	}
 

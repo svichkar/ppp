@@ -5,14 +5,14 @@ import java.util.List;
 import com.nixsolutions.entities.WorkerSpecification;
 
 public interface WorkerSpecificationService {
-	public WorkerSpecification getWorkerSpecificationByid(long id);
+	WorkerSpecification getWorkerSpecificationByid(long id);
 
-	public List<WorkerSpecification> getAllWorkerSpecifications();
+	List<WorkerSpecification> getAllWorkerSpecifications();
 
-	public void addWorkerSpecification(WorkerSpecification workerSpecification);
+	void addWorkerSpecification(WorkerSpecification workerSpecification);
 
-	public void updateWorkerSpecification(WorkerSpecification workerSpecification);
+	void updateWorkerSpecification(WorkerSpecification workerSpecification);
 
-	public void deleteWorkerSpecification(WorkerSpecification workerSpecification);
+	void deleteWorkerSpecification(WorkerSpecification workerSpecification);
 
 }

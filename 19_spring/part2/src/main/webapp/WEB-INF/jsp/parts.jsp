@@ -4,7 +4,7 @@
 	<jsp:attribute name="head_area">
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
-		<table>
+		<table id="main_table">
 		<tr>
 				<th>Part name</th>
 				<th>Vendor</th>
@@ -21,7 +21,7 @@
 		<c:forEach var="item" items="${parts}">
 		<form action="partEdit" method="POST">
 		<tr>
-			<td><c:out value="${item.part_name}" /></td>
+			<td><c:out value="${item.partName}" /></td>
 			<td><c:out value="${item.vendor}" /></td>
 			<td><c:out value="${item.amount}" /></td>
 			<td>

@@ -41,43 +41,45 @@ public class WorkerController {
 				model.addAttribute("statuses", statusServiceImpl.getAllStatuses());
 				model.addAttribute("specifications", workerSpecificationServiceImpl.getAllWorkerSpecifications());
 				model.addAttribute("title", "Worker");
-				return "/WEB-INF/jsp/worker.jsp";
+				model.addAttribute("jsForPage", "worker");
+				return "worker";
 			} else if (action.equalsIgnoreCase("Delete")) {
 				workerServiceImpl.deleteWorker(worker);
+				model.addAttribute("workers", workerServiceImpl.getAllWorkerStatusSpecification());
 				model.addAttribute("title", "Workers");
-				model.addAttribute("destination", "Workers");
-				return "/navigation";
+				return "workers";
 			} else if (action.equalsIgnoreCase("Save")) {
-				worker.setF_name(f_name);
-				worker.setL_name(l_name);
+				worker.setFname(f_name);
+				worker.setLname(l_name);
 				worker.setSpec(workerSpecificationServiceImpl.getWorkerSpecificationByid(specId));
 				worker.setStatus(statusServiceImpl.getStatusById(statusId));
 				workerServiceImpl.updateWorker(worker);
+				model.addAttribute("workers", workerServiceImpl.getAllWorkerStatusSpecification());
 				model.addAttribute("title", "Workers");
-				model.addAttribute("destination", "Workers");
-				return "/navigation";
+				return "workers";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
 				model.addAttribute("title", "Add worker");
 				model.addAttribute("statuses", statusServiceImpl.getAllStatuses());
 				model.addAttribute("specifications", workerSpecificationServiceImpl.getAllWorkerSpecifications());
-				return "/WEB-INF/jsp/worker.jsp";
+				model.addAttribute("jsForPage", "worker");
+				return "worker";
 			} else if (action.equalsIgnoreCase("Save")) {
 				Worker worker = new Worker(f_name, l_name,
 						workerSpecificationServiceImpl.getWorkerSpecificationByid(specId),
 						statusServiceImpl.getStatusById(statusId));
 				workerServiceImpl.addWorker(worker);
-				model.addAttribute("destination", "Workers");
+				model.addAttribute("workers", workerServiceImpl.getAllWorkerStatusSpecification());
 				model.addAttribute("title", "Workers");
-				return "/navigation";
+				return "workers";
 			}
 
 		}
 
-		model.addAttribute("destination", "Workers");
+		model.addAttribute("workers", workerServiceImpl.getAllWorkerStatusSpecification());
 		model.addAttribute("title", "Workers");
-		return "/navigation";
+		return "workers";
 
 	}
 }

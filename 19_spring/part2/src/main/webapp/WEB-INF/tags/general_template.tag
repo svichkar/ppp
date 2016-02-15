@@ -4,14 +4,17 @@
 <%@attribute name="content_area" fragment="true"%>
 <%@attribute name="sidebar_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl" />
+<c:url value="/js/highlight_advise.js" var="jsUrl" />
+<c:url value="/js/${jsForPage}.js" var="jsAuxiliry" />
 <html>
 
 <head>
 <title>${title}</title>
 <meta name="description" content="website description" />
 <meta name="keywords" content="website keywords, website keywords" />
-<meta http-equiv="content-type"
-	content="text/html; charset=windows-1252" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="${jsUrl}"></script>
+<script type="text/javascript" src="${jsAuxiliry}"></script>
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
 <jsp:invoke fragment="head_area" />
 </head>
@@ -19,8 +22,9 @@
 <body>
 	<div id="main">
 		<form action="<c:url value="/logout" />" method="POST" class="bye">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<input type="submit" value="Logout" name="signoff">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" /> <input type="submit" value="Logout"
+				name="signoff">
 		</form>
 		<div id="header">
 			<div id="logo">
@@ -31,12 +35,14 @@
 					<table>
 						<tr>
 							<td><input type="submit" name="destination" value="Users"></td>
-							<td><input type="submit" name="destination"	value="Customers"></td>
+							<td><input type="submit" name="destination"
+								value="Customers"></td>
 							<td><input type="submit" name="destination" value="Cars"></td>
 							<td><input type="submit" name="destination" value="Parts"></td>
 							<td><input type="submit" name="destination" value="Workers"></td>
 							<td><input type="submit" name="destination" value="Orders"></td>
-							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 						</tr>
 					</table>
 				</form>

@@ -5,14 +5,14 @@ import com.nixsolutions.entities.Part;
 
 public interface PartService {
 
-	public List<Part> getAllPart();
+	List<Part> getAllPart();
 
-	public Part getPartById(long id);
+	Part getPartById(long id);
 
-	public void addPart(Part part);
+	void addPart(Part part);
 
-	public void updatePart(Part part);
+	void updatePart(Part part);
 
-	public void deletePart(Part part);
+	void deletePart(Part part);
 
 }

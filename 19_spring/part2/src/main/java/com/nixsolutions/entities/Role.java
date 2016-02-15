@@ -18,28 +18,28 @@ public class Role implements Serializable{
 	@Id
 	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long role_id;
+	private long roleId;
 	@Column(name = "rolename", length = 255, nullable = false)
-	private String rolename;
+	private String roleName;
 
 	public Role() {
 
 	}
 
 	public long getRoleId() {
-		return role_id;
+		return roleId;
 	}
 
-	public String getRolename() {
-		return rolename;
+	public String getRoleName() {
+		return roleName;
 	}
 
 	public void setRoleId(long value) {
-		role_id = value;
+		roleId = value;
 	}
 
-	public void setRolename(String value) {
-		rolename = value;
+	public void setRoleName(String value) {
+		roleName = value;
 	}
 
 }

@@ -6,16 +6,15 @@ import com.nixsolutions.entities.Customer;
 
 public interface CustomerService {
 
-	public List<Customer> getAllCustomers();
+	List<Customer> getAllCustomers();
 
-	public Customer getCustomerById(long id);
+	Customer getCustomerById(long id);
 
-	public Customer getCustomerByFullName(String f_name, String l_name);
+	Customer getCustomerByFullName(String fName, String lName);
 
-	public void addCustomer(Customer customer);
+	void addCustomer(Customer customer);
 
-	public void updateCustomer(Customer customer);
+	void updateCustomer(Customer customer);
 
-	public void deleteCustomer(Customer customer);
-
+	void deleteCustomer(Customer customer);
 }

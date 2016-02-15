@@ -1,55 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>Archetype Created Web Application</display-name>
-  <welcome-file-list>
-    <welcome-file>/index.jsp</welcome-file>
-  </welcome-file-list>
-  
-  	<context-param>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Archetype Created Web Application</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:app-context.xml</param-value>
 	</context-param>
-  	  
-    <servlet>
-        <servlet-name>DispatcherSrvt</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value></param-value>
-		</init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DispatcherSrvt</servlet-name>
-        <url-pattern>/navigation</url-pattern>
-        <url-pattern>/login</url-pattern>
-        <url-pattern>/carAdd</url-pattern>
-        <url-pattern>/carEdit</url-pattern>
-        <url-pattern>/partEdit</url-pattern>
-        <url-pattern>/partAdd</url-pattern>
-        <url-pattern>/workerAdd</url-pattern>
-        <url-pattern>/workerEdit</url-pattern>
-        <url-pattern>/customerEdit</url-pattern>
-        <url-pattern>/customerAdd</url-pattern>
-        <url-pattern>/userAdd</url-pattern>
-        <url-pattern>/userEdit</url-pattern>
-        <url-pattern>/orderAdd</url-pattern>
-        <url-pattern>/orderEdit</url-pattern>
-        <url-pattern>/orderPartAdd</url-pattern>
-         <url-pattern>/orderPartEdit</url-pattern>
-         <url-pattern>/orderWorkerAdd</url-pattern>
-         <url-pattern>/orderWorkerEdit</url-pattern>
-         <url-pattern>/error</url-pattern>
-    </servlet-mapping>
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
-	<error-page>
-        <exception-type>java.lang.Throwable</exception-type>
-        <location>/error</location>
-    </error-page>
+
+	<servlet>
+		<servlet-name>DispatcherSrvt</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DispatcherSrvt</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>RestWs</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>com.nixsolutions.ws.rest</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RestWs</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SoapWs</servlet-name>
+		<servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>transformWsdlLocations</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SoapWs</servlet-name>
+		<url-pattern>/soap/*</url-pattern>
+	</servlet-mapping>
+
 </web-app>

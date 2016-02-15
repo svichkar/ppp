@@ -12,28 +12,28 @@ public class Status {
 	@Id
 	@Column(name = "status_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long status_id;
+	private long statusId;
 	@Column(name = "status_name", nullable = false, length = 255)
-	private String status_name;
+	private String statusName;
 
 	public Status() {
 
 	}
 
 	public long getStatusId() {
-		return status_id;
+		return statusId;
 	}
 
-	public String getStatus_name() {
-		return status_name;
+	public String getStatusName() {
+		return statusName;
 	}
 
 	public void setStatusId(long value) {
-		status_id = value;
+		statusId = value;
 	}
 
-	public void setStatus_name(String value) {
-		status_name = value;
+	public void setStatusName(String value) {
+		statusName = value;
 	}
 
 }

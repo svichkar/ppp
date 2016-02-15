@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nixsolutions.entities.AllPartsInOrder;
-import com.nixsolutions.entities.AllWorkersInOrder;
+import com.nixsolutions.dto.AllPartsInOrder;
+import com.nixsolutions.dto.AllWorkersInOrder;
 import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.entities.OrderStatus;
@@ -69,7 +69,8 @@ public class OrderWorkerController {
 				model.addAttribute("workers", workerServiceImpl.getAllWorkers());
 				model.addAttribute("action", "Edit");
 				model.addAttribute("title", "Edit worker in order");
-				return "/WEB-INF/jsp/editwo.jsp";
+				model.addAttribute("jsForPage", "editwo");
+				return "editwo";
 			} else if (action.equalsIgnoreCase("Delete")) {
 				orderWorkerServiceImpl.deleteOrderWorker(orderWorker);
 				model.addAttribute("allOrderWorkers", orderWorkerServiceImpl.getAllWorkersInOrderById(orderId));
@@ -78,7 +79,7 @@ public class OrderWorkerController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				return "order";
 			} else if (action.equalsIgnoreCase("Save")) {
 				orderWorker.setWorker(workerServiceImpl.getWorkerById(workerId));
 				orderWorker.setOrderInWork(orderInWorkServiceImpl.getOrderInWorkById(orderId));
@@ -90,7 +91,7 @@ public class OrderWorkerController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				return "order";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
@@ -98,7 +99,8 @@ public class OrderWorkerController {
 				model.addAttribute("order_id", orderId);
 				model.addAttribute("workers", workerServiceImpl.getAllWorkers());
 				model.addAttribute("title", "Add worker in order");
-				return "/WEB-INF/jsp/editwo.jsp";
+				model.addAttribute("jsForPage", "editwo");
+				return "editwo";
 			} else if (action.equalsIgnoreCase("Save")) {
 				OrderWorker orderworkerNew = new OrderWorker(workerServiceImpl.getWorkerById(workerId),
 						orderInWorkServiceImpl.getOrderInWorkById(orderId), completed);
@@ -109,11 +111,14 @@ public class OrderWorkerController {
 				model.addAttribute("cars", cars);
 				model.addAttribute("allOrderStatuses", allOrderStatus);
 				model.addAttribute("title", "Order");
-				return "/WEB-INF/jsp/order.jsp";
+				return "order";
 			}
 		}
 
-		return "/navigation";
+		model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+		model.addAttribute("title", "Orders");
+		return "orders";
+
 	}
 
 }

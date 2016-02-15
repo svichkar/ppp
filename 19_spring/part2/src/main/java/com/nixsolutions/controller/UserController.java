@@ -13,6 +13,7 @@ import org.apache.commons.lang.math.NumberUtils;
 
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.User;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.CustomerService;
 import com.nixsolutions.service.RoleService;
 import com.nixsolutions.service.UserService;
@@ -46,37 +47,45 @@ public class UserController {
 				model.addAttribute("user", user);
 				model.addAttribute("roles", roleServiceImpl.getAllRoles());
 				model.addAttribute("title", "Edit user");
-				return "/WEB-INF/jsp/user.jsp";
+				model.addAttribute("jsForPage", "user");
+				return "user";
 			} else if (action.equalsIgnoreCase("Delete")) {
 				List<Customer> customers = customerServiceImpl.getAllCustomers();
 				for (Customer customer : customers) {
 					if (customer.getUser() != null && customer.getUser().getUserId() == user.getUserId()) {
-						throw new RuntimeException(
+						throw new CustomException("403",
 								"You cannot remove user that is assigned to at least one customer!!");
 					}
 				}
-				if (!user.getRole().getRolename().equalsIgnoreCase("admin")) {
+				if (!user.getRole().getRoleName().equalsIgnoreCase("admin")) {
 					userServiceImpl.deleteUser(user);
 				}
-				return "/navigation";
+				return "navigation";
 			} else if (action.equalsIgnoreCase("Save")) {
 				user.setUsername(username);
 				user.setPassword(password);
 				user.setRole(roleServiceImpl.findRoleByid(roleId));
 				userServiceImpl.updateUser(user);
-				return "/navigation";
+				model.addAttribute("users", userServiceImpl.getAllUsers());
+				model.addAttribute("title", "Users");
+				return "users";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
 				model.addAttribute("roles", roleServiceImpl.getAllRoles());
 				model.addAttribute("title", "Add user");
-				return "/WEB-INF/jsp/user.jsp";
+				model.addAttribute("jsForPage", "user");
+				return "user";
 			} else if (action.equalsIgnoreCase("Save")) {
 				User userNew = new User(username, password, roleServiceImpl.findRoleByid(roleId));
 				userServiceImpl.addUser(userNew);
-				return "/navigation";
+				model.addAttribute("users", userServiceImpl.getAllUsers());
+				model.addAttribute("title", "Users");
+				return "users";
 			}
 		}
-		return "/navigation";
+		model.addAttribute("users", userServiceImpl.getAllUsers());
+		model.addAttribute("title", "Users");
+		return "users";
 	}
 }

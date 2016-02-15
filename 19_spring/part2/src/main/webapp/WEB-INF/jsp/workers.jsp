@@ -4,7 +4,7 @@
 	<jsp:attribute name="head_area">
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
-		<table>
+		<table id="main_table">
 		<tr>
 				<th>First name</th>
 				<th>Last name</th>
@@ -22,10 +22,10 @@
 		<c:forEach var="item" items="${workers}">
 		<form action="workerEdit" method="POST">
 		<tr>
-			<td><c:out value="${item.f_name}" /></td>
-			<td><c:out value="${item.l_name}" /></td>
-			<td><c:out value="${item.spec_name}" /></td>
-			<td><c:out value="${item.status_name}" /></td>
+			<td><c:out value="${item.fname}" /></td>
+			<td><c:out value="${item.lname}" /></td>
+			<td><c:out value="${item.specName}" /></td>
+			<td><c:out value="${item.statusName}" /></td>
 			<td>
 			<select name="action">
 				<option name="edit">Edit</option>

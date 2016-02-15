@@ -24,11 +24,11 @@ public class Customer implements Serializable {
 	@Id
 	@Column(name = "customer_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long customer_id;
+	private long customerId;
 	@Column(name = "f_name", nullable = false, length = 255)
-	private String f_name;
+	private String fName;
 	@Column(name = "l_name", nullable = false, length = 255)
-	private String l_name;
+	private String lName;
 	@Column(name = "phone", nullable = false, length = 255)
 	private String phone;
 	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
@@ -42,23 +42,23 @@ public class Customer implements Serializable {
 
 	}
 
-	public Customer(String f_name, String l_name, String phone, User user) {
-		this.f_name = f_name;
-		this.l_name = l_name;
+	public Customer(String fName, String lName, String phone, User user) {
+		this.fName = fName;
+		this.lName = lName;
 		this.phone = phone;
 		this.user = user;
 	}
 
 	public long getCustomerId() {
-		return customer_id;
+		return customerId;
 	}
 
-	public String getF_name() {
-		return f_name;
+	public String getFname() {
+		return fName;
 	}
 
-	public String getL_name() {
-		return l_name;
+	public String getLname() {
+		return lName;
 	}
 
 	public String getPhone() {
@@ -74,15 +74,15 @@ public class Customer implements Serializable {
 	}
 
 	public void setCustomerId(long value) {
-		customer_id = value;
+		customerId = value;
 	}
 
-	public void setF_name(String value) {
-		f_name = value;
+	public void setFname(String value) {
+		fName = value;
 	}
 
-	public void setL_name(String value) {
-		l_name = value;
+	public void setLname(String value) {
+		lName = value;
 	}
 
 	public void setPhone(String value) {

@@ -4,6 +4,9 @@
 <%@attribute name="content_area" fragment="true"%>
 <%@attribute name="sidebar_area" fragment="true"%>
 <c:url value="/style/common.css" var="cssUrl" />
+<c:url value="/js/highlight_advise.js" var="jsUrl" />
+<c:url value="/js/login.js" var="jsAuxiliry" />
+
 <html>
 
 <head>
@@ -13,6 +16,8 @@
 <meta http-equiv="content-type"
 	content="text/html; charset=windows-1252" />
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="${jsUrl}"></script>
+<script type="text/javascript" src="${jsAuxiliry}"></script>
 <jsp:invoke fragment="head_area" />
 </head>
 
@@ -33,7 +38,7 @@
 				<jsp:invoke fragment="content_area" />
 			</div>
 		</div>
-		<div id="footer">Nix company reserved</div>
+		<div id="footer">pit stop reserved</div>
 	</div>
 </body>
 </html>

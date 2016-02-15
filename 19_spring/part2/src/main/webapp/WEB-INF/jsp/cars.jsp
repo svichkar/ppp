@@ -4,7 +4,7 @@
 	<jsp:attribute name="head_area">
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
-		<table>
+		<table id="main_table">
 		<tr>
 				<th>Model</th>
 				<th>Vin</th>
@@ -25,7 +25,7 @@
 			<td><c:out value="${item.model}" /></td>
 			<td><c:out value="${item.vin}" /></td>
 			<td><c:out value="${item.description}" /></td>
-			<td><c:out value="${item.f_name} ${item.l_name}" /></td>
+			<td><c:out value="${item.fname} ${item.lname}" /></td>
 			<td>
 			<select name="action">
 				<option name="edit">Edit</option>
@@ -34,7 +34,7 @@
 			</td>
 			<td>
 				<input type="hidden" name="car_id" value="${item.id}">
-				<input type="hidden" name="customer_id" value="${item.customer_id}">
+				<input type="hidden" name="customer_id" value="${item.customerId}">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				<input type="submit" value="Process">
 			</td>

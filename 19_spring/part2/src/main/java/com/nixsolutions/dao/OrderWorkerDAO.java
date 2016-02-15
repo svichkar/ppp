@@ -6,8 +6,8 @@ import com.nixsolutions.entities.OrderWorker;
 
 public interface OrderWorkerDAO extends GenericDao<OrderWorker> {
 
-	public List<OrderWorker> getAllForOrder(long orderid);
+	List<OrderWorker> getAllForOrder(long orderId);
 	
-	public OrderWorker findbyOrderAndWorker(long orderid, long workerid);
+	OrderWorker findbyOrderAndWorker(long orderId, long workerId);
 
 }

@@ -5,17 +5,17 @@
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
 		<table>
-		<form action="workerEdit" method="POST">
+		<form action="workerEdit" name="formForValidation" method="POST">
 		<tr>
 			<td>First name:</td>
 			<td>
-				<input type="text" name="f_name" value="${worker.f_name}" />
+				<input type="text" name="f_name" value="${worker.fname}" />
 			</td>
 		</tr>
 		<tr>
 			<td>Last name:</td>
 			<td>
-				<input type="text" name="l_name" value="${worker.l_name}" />
+				<input type="text" name="l_name" value="${worker.lname}" />
 			</td>
 		</tr>
 		<tr>
@@ -25,7 +25,7 @@
 					<c:forEach var="item" items="${specifications}">
 						<option value="${item.specId}"
 										<c:if test="${item.specId eq worker.spec.specId}">selected</c:if>>
-										<c:out value="${item.spec_name}"/>
+										<c:out value="${item.specName}"/>
 						</option>
 					</c:forEach>
 				</select>
@@ -38,7 +38,7 @@
 					<c:forEach var="item" items="${statuses}">
 						<option value="${item.statusId}"
 										<c:if test="${item.statusId eq worker.status.statusId}">selected</c:if>>
-										<c:out value="${item.status_name}"/>
+										<c:out value="${item.statusName}"/>
 						</option>
 					</c:forEach>
 				</select>
@@ -54,5 +54,6 @@
 		</tr>
 		</form>
 		</table>
+		<div id="hint" />
 	</jsp:attribute>
 </t:general_template>

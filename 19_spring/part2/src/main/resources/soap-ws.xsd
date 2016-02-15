@@ -1,0 +1,86 @@
+<xs:schema elementFormDefault="qualified"
+	targetNamespace="http://soap.ws.nixsolutions.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://soap.ws.nixsolutions.com/">
+
+	<xs:element name="getUserByIdRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUserByIdResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tns:User" minOccurs="0"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tns:UserForCreation"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long" minOccurs="0"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tns:User"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"  minOccurs="0"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long" minOccurs="0"></xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="User">
+		<xs:sequence>
+			<xs:element name="userId" type="xs:long"></xs:element>
+			<xs:element name="username" type="xs:string"></xs:element>
+			<xs:element name="password" type="xs:string"></xs:element>
+			<xs:element name="roleId" type="xs:long"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="UserForCreation">
+		<xs:sequence>
+			<xs:element name="username" type="xs:string"></xs:element>
+			<xs:element name="password" type="xs:string"></xs:element>
+			<xs:element name="roleId" type="xs:long"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

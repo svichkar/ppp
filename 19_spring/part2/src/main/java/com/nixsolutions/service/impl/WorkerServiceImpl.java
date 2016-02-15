@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.WorkerDAO;
+import com.nixsolutions.dto.WorkerStatusSpecification;
 import com.nixsolutions.entities.Worker;
-import com.nixsolutions.entities.WorkerStatusSpecification;
 import com.nixsolutions.service.WorkerService;
 
 @Service
@@ -49,13 +49,13 @@ public class WorkerServiceImpl implements WorkerService {
 		Worker worker = workerDaoImpl.findByPK(workerId);
 		if (worker != null) {
 			workerStatusSpecification = new WorkerStatusSpecification();
-			workerStatusSpecification.setF_name(worker.getF_name());
-			workerStatusSpecification.setL_name(worker.getL_name());
+			workerStatusSpecification.setFname(worker.getFname());
+			workerStatusSpecification.setLname(worker.getLname());
 			workerStatusSpecification.setId(worker.getWorkerId());
-			workerStatusSpecification.setSpec_id(worker.getSpec().getSpecId());
-			workerStatusSpecification.setSpec_name(worker.getSpec().getSpec_name());
-			workerStatusSpecification.setStatus_id(worker.getStatus().getStatusId());
-			workerStatusSpecification.setStatus_name(worker.getStatus().getStatus_name());
+			workerStatusSpecification.setSpecId(worker.getSpec().getSpecId());
+			workerStatusSpecification.setSpecName(worker.getSpec().getSpecName());
+			workerStatusSpecification.setStatusId(worker.getStatus().getStatusId());
+			workerStatusSpecification.setStatusName(worker.getStatus().getStatusName());
 		}
 		return workerStatusSpecification;
 	}
@@ -66,13 +66,13 @@ public class WorkerServiceImpl implements WorkerService {
 		List<Worker> workers = workerDaoImpl.getAll();
 		for (Worker worker : workers) {
 			WorkerStatusSpecification workerStatusSpecification = new WorkerStatusSpecification();
-			workerStatusSpecification.setF_name(worker.getF_name());
-			workerStatusSpecification.setL_name(worker.getL_name());
+			workerStatusSpecification.setFname(worker.getFname());
+			workerStatusSpecification.setLname(worker.getLname());
 			workerStatusSpecification.setId(worker.getWorkerId());
-			workerStatusSpecification.setSpec_id(worker.getSpec().getSpecId());
-			workerStatusSpecification.setSpec_name(worker.getSpec().getSpec_name());
-			workerStatusSpecification.setStatus_id(worker.getStatus().getStatusId());
-			workerStatusSpecification.setStatus_name(worker.getStatus().getStatus_name());
+			workerStatusSpecification.setSpecId(worker.getSpec().getSpecId());
+			workerStatusSpecification.setSpecName(worker.getSpec().getSpecName());
+			workerStatusSpecification.setStatusId(worker.getStatus().getStatusId());
+			workerStatusSpecification.setStatusName(worker.getStatus().getStatusName());
 			workerStatusSpecifications.add(workerStatusSpecification);
 		}
 		return workerStatusSpecifications;

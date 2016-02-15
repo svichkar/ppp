@@ -1,21 +1,31 @@
 package com.nixsolutions.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+import com.nixsolutions.error.CustomException;
+
+@ControllerAdvice
 public class ErrorController {
 
-	@ExceptionHandler(RuntimeException.class)
-	@RequestMapping(value = "/error", method = { RequestMethod.GET, RequestMethod.POST })
-	public String processError(RuntimeException ex, Model model) {
-		//need to implement in other way
-		model.addAttribute("ex", ex.getMessage());
-		model.addAttribute("title", "Oooups! Error!");
-		return "/WEB-INF/jsp/errorpage.jsp";
+	@ExceptionHandler(CustomException.class)
+	public ModelAndView processError(CustomException ex) {
+		ModelAndView model = new ModelAndView("errorpage");
+		model.addObject("ex", ex.getErrMsg());
+		model.addObject("code", ex.getErrCode());
+		model.addObject("title", "Oooups! Error!");
+		return model;
 	}
 
+	@ExceptionHandler(Exception.class)
+	public ModelAndView processError(Exception ex) {
+		ModelAndView model = new ModelAndView("errorpage");
+		model.addObject("ex", ex.getMessage());
+		model.addObject("title", "Oooups! Error!");
+		return model;
+	}
+
+	
 }

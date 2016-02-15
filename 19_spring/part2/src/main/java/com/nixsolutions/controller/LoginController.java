@@ -18,20 +18,31 @@ public class LoginController {
 	private UserService userServiceImpl;
 	@Autowired
 	private OrderInWorkService orderInWorkServiceImpl;
-	
+
+	@RequestMapping(value = { "/", "/welcome", "/index" }, method = RequestMethod.GET)
+	public String hello(Model model) {
+		model.addAttribute("title", "CAR STATION");
+		return "index";
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		com.nixsolutions.entities.User user = userServiceImpl.getByName(authUser.getUsername()); 
-		if (user.getRole().getRolename().equalsIgnoreCase("admin"))
-		{
-			return "/navigation";
+		if (SecurityContextHolder.getContext().getAuthentication().getName() != "anonymousUser") {
+			User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			com.nixsolutions.entities.User user = userServiceImpl.getByName(authUser.getUsername());
+			if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+				model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+				model.addAttribute("title", "Orders");
+				return "orders";
+			} else {
+				model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
+				model.addAttribute("title", "Orders status");
+				return "userpage";
+			}
 		}
 		else
 		{
-			model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
-			model.addAttribute("title", "Orders status");
-			return "/WEB-INF/jsp/userpage.jsp";
+			return "/error";
 		}
 	}
 }

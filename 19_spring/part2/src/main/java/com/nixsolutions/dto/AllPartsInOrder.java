@@ -1,11 +1,11 @@
-package com.nixsolutions.entities;
+package com.nixsolutions.dto;
 
 public class AllPartsInOrder {
 
-	private long order_id;
-	private long part_id;
+	private long orderId;
+	private long partId;
 	private long amount;
-	private String part_name;
+	private String partName;
 	private String vendor;
 
 	public AllPartsInOrder() {
@@ -13,15 +13,15 @@ public class AllPartsInOrder {
 	}
 
 	public long getId() {
-		return order_id;
+		return orderId;
 	}
 
-	public long getPart_id() {
-		return part_id;
+	public long getPartId() {
+		return partId;
 	}
 
-	public String getPart_name() {
-		return part_name;
+	public String getPartName() {
+		return partName;
 	}
 
 	public String getVendor() {
@@ -33,29 +33,29 @@ public class AllPartsInOrder {
 	}
 
 	public void setId(long value) {
-		order_id = value;
+		orderId = value;
 	}
 
-	public void setPart_id(long value) {
-		part_id = value;
+	public void setPartId(long value) {
+		partId = value;
 	}
 
 	public void setAmount(long value) {
 		amount = value;
 	}
 
-	public void setPart_name(String value) {
-		part_name = value;
+	public void setPartName(String value) {
+		partName = value;
 	}
 
 	public void setVendor(String value) {
 		vendor = value;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		AllPartsInOrder value = (AllPartsInOrder) obj;
-		if (value.part_name == this.part_name & value.getId() == this.getId()) {
+		if (value.partName == this.partName & value.getId() == this.getId()) {
 			return true;
 		}
 		return false;
@@ -63,7 +63,8 @@ public class AllPartsInOrder {
 
 	@Override
 	public int hashCode() {
-		return this.getPart_name().hashCode();
+		String resultHash = this.getPartName() + String.valueOf(this.getId());
+		return resultHash.hashCode();
 	}
 
 }

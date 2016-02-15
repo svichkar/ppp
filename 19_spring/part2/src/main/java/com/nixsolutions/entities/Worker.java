@@ -24,11 +24,11 @@ public class Worker implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "worker_id")
-	private long worker_id;
+	private long workerId;
 	@Column(name = "f_name", nullable = false, length = 255)
-	private String f_name;
+	private String fName;
 	@Column(name = "l_name", nullable = false, length = 255)
-	private String l_name;
+	private String lName;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "spec_id", referencedColumnName = "spec_id")
 	private WorkerSpecification spec;
@@ -43,23 +43,23 @@ public class Worker implements Serializable {
 
 	}
 
-	public Worker(String f_name, String l_name, WorkerSpecification spec, Status status) {
-		this.f_name = f_name;
-		this.l_name = l_name;
+	public Worker(String fName, String lName, WorkerSpecification spec, Status status) {
+		this.fName = fName;
+		this.lName = lName;
 		this.spec = spec;
 		this.status = status;
 	}
 
 	public long getWorkerId() {
-		return worker_id;
+		return workerId;
 	}
 
-	public String getF_name() {
-		return f_name;
+	public String getFname() {
+		return fName;
 	}
 
-	public String getL_name() {
-		return l_name;
+	public String getLname() {
+		return lName;
 	}
 
 	public WorkerSpecification getSpec() {
@@ -75,15 +75,15 @@ public class Worker implements Serializable {
 	}
 
 	public void setWorkerId(long value) {
-		worker_id = value;
+		workerId = value;
 	}
 
-	public void setF_name(String value) {
-		f_name = value;
+	public void setFname(String value) {
+		fName = value;
 	}
 
-	public void setL_name(String value) {
-		l_name = value;
+	public void setLname(String value) {
+		lName = value;
 	}
 
 	public void setSpec(WorkerSpecification value) {

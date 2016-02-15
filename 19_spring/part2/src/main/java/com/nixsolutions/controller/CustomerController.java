@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.OrderInWork;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.CustomerService;
 import com.nixsolutions.service.OrderInWorkService;
 import com.nixsolutions.service.UserService;
@@ -45,36 +46,46 @@ public class CustomerController {
 				model.addAttribute("customer", customer);
 				model.addAttribute("users", userServiceImpl.getAllUsers());
 				model.addAttribute("title", "Edit customer");
-				return "/WEB-INF/jsp/customer.jsp";
+				model.addAttribute("jsForPage", "customer");
+				return "customer";
 			} else if (action.equalsIgnoreCase("Delete")) {
 				List<OrderInWork> orderInWorks = orderInWorkServiceImpl.getAllOrderInWork();
 				for (OrderInWork orderInWork : orderInWorks) {
 					if (orderInWork.getCar().getCustomer().getCustomerId() == customer.getCustomerId()) {
-						throw new RuntimeException("You cannot remove customer when his/her car in order!!");
+						throw new CustomException("403", "You cannot remove customer when his/her car in order!!");
 					}
 				}
 				customerServiceImpl.deleteCustomer(customer);
-				return "/navigation";
+				model.addAttribute("customers", customerServiceImpl.getAllCustomers());
+				model.addAttribute("title", "Customers");
+				return "customers";
 			} else if (action.equalsIgnoreCase("Save")) {
-				customer.setF_name(f_name);
-				customer.setL_name(l_name);
+				customer.setFname(f_name);
+				customer.setLname(l_name);
 				customer.setPhone(phone);
 				customer.setUser(userServiceImpl.getUserById(userId));
 				customerServiceImpl.updateCustomer(customer);
-				return "/navigation";
+				model.addAttribute("customers", customerServiceImpl.getAllCustomers());
+				model.addAttribute("title", "Customers");
+				return "customers";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
 				model.addAttribute("title", "Add customer");
 				model.addAttribute("users", userServiceImpl.getAllUsers());
-				return "/WEB-INF/jsp/customer.jsp";
+				model.addAttribute("jsForPage", "customer");
+				return "customer";
 			} else if (action.equalsIgnoreCase("Save")) {
 				Customer customer = new Customer(f_name, l_name, phone, userServiceImpl.getUserById(userId));
 				customerServiceImpl.addCustomer(customer);
-				return "/navigation";
+				model.addAttribute("customers", customerServiceImpl.getAllCustomers());
+				model.addAttribute("title", "Customers");
+				return "customers";
 			}
 		}
-		return "/navigation";
+		model.addAttribute("customers", customerServiceImpl.getAllCustomers());
+		model.addAttribute("title", "Customers");
+		return "customers";
 	}
 
 }

@@ -2,23 +2,25 @@ package com.nixsolutions.service;
 
 import java.util.List;
 
+import com.nixsolutions.dto.CarCustomer;
 import com.nixsolutions.entities.Car;
-import com.nixsolutions.entities.CarCustomer;
 
 public interface CarService {
 
-	public List<Car> getAllCars();
+	List<Car> getAllCars();
 
-	public List<CarCustomer> getAllCarCustomers();
+	List<CarCustomer> getAllCarCustomers();
 
-	public Car getCarById(long id);
+	Car getCarById(long id);
+	
+	Car getCarByVin(String vin);
 
-	public CarCustomer getCarCustomer(long id);
+	CarCustomer getCarCustomer(long id);
 
-	public void addCar(Car car);
+	void addCar(Car car);
 
-	public void updateCar(Car car);
+	void updateCar(Car car);
 
-	public void deleteCar(Car car);
+	void deleteCar(Car car);
 
 }

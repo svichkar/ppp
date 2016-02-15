@@ -5,7 +5,7 @@
 	</jsp:attribute>
 	<jsp:attribute name="content_area">
 		<table>
-		<form action="customerEdit" method="POST">
+		<form action="customerEdit" name="formForValidation" method="POST">
 		<tr>
 			<td>Login:</td>
 			<td>
@@ -22,13 +22,13 @@
 		<tr>
 			<td>First name:</td>
 			<td>
-				<input type="text" name="f_name" value="${customer.f_name}" />
+				<input type="text" name="f_name" value="${customer.fname}" />
 			</td>
 		</tr>
 		<tr>
 			<td>Last name:</td>
 			<td>
-				<input type="text" name="l_name" value="${customer.l_name}" />
+				<input type="text" name="l_name" value="${customer.lname}" />
 			</td>
 		</tr>
 		<tr>
@@ -47,5 +47,6 @@
 		</tr>
 		</form>
 		</table>
+		<div id="hint" />
 	</jsp:attribute>
 </t:general_template>

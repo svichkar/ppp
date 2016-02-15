@@ -1,0 +1,91 @@
+package com.nixsolutions.ws.soap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ws.server.endpoint.annotation.Endpoint;
+import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
+
+import com.nixsolutions.service.RoleService;
+import com.nixsolutions.service.UserService;
+
+@Endpoint
+public class UserEndpoint {
+
+	@Autowired
+	private UserService userServiceImpl;
+
+	@Autowired
+	private RoleService roleServiceImpl;
+
+	@PayloadRoot(namespace = "http://soap.ws.nixsolutions.com/", localPart = "getUserByIdRequest")
+	@ResponsePayload
+	public GetUserByIdResponse getUserById(@RequestPayload GetUserByIdRequest request) {
+		GetUserByIdResponse response = new GetUserByIdResponse();
+		if (request.getId() > 0) {
+			long userId = request.getId();
+			com.nixsolutions.entities.User user = userServiceImpl.getUserById(userId);
+			if (user != null) {
+				User userForWs = new User();
+				userForWs.setPassword(user.getPassword());
+				userForWs.setUsername(user.getUsername());
+				userForWs.setRoleId(user.getRole().getRoleId());
+				userForWs.setUserId(user.getUserId());
+				response.setUser(userForWs);
+			}
+		}
+		return response;
+	}
+
+	@PayloadRoot(namespace = "http://soap.ws.nixsolutions.com/", localPart = "updateUserRequest")
+	@ResponsePayload
+	public UpdateUserResponse updateUser(@RequestPayload UpdateUserRequest request) {
+		UpdateUserResponse response = new UpdateUserResponse();
+		if (request.getUser().getRoleId() > 0) {
+			com.nixsolutions.entities.User user = userServiceImpl.getUserById(request.getUser().getUserId());
+			com.nixsolutions.entities.Role role = roleServiceImpl.findRoleByid(request.getUser().getRoleId());
+			if (user != null && role != null) {
+				user.setPassword(request.getUser().getPassword());
+				user.setUsername(request.getUser().getUsername());
+				user.setUserId(request.getUser().getUserId());
+				user.setRole(role);
+				userServiceImpl.updateUser(user);
+				response.setId(user.getUserId());
+			}
+		}
+		return response;
+	}
+
+	@PayloadRoot(namespace = "http://soap.ws.nixsolutions.com/", localPart = "deleteUserRequest")
+	@ResponsePayload
+	public DeleteUserResponse deleteUser(@RequestPayload DeleteUserRequest request) {
+		DeleteUserResponse response = new DeleteUserResponse();
+		if (request.getId() > 0) {
+			com.nixsolutions.entities.User user = userServiceImpl.getUserById(request.getId());
+			if (user != null) {
+				userServiceImpl.deleteUser(user);
+				response.setId(request.getId());
+			}
+		}
+		return response;
+	}
+
+	@PayloadRoot(namespace = "http://soap.ws.nixsolutions.com/", localPart = "createUserRequest")
+	@ResponsePayload
+	public CreateUserResponse createUser(@RequestPayload CreateUserRequest request) {
+		CreateUserResponse response = new CreateUserResponse();
+		if (request.getUser().getRoleId() > 0) {
+			com.nixsolutions.entities.Role role = roleServiceImpl.findRoleByid(request.getUser().getRoleId());
+			com.nixsolutions.entities.User user = new com.nixsolutions.entities.User();
+			user.setPassword(request.getUser().getPassword());
+			user.setUsername(request.getUser().getUsername());
+			user.setRole(role);
+			userServiceImpl.addUser(user);
+			com.nixsolutions.entities.User userJustCreated = userServiceImpl.getByNameAndPassword(user.getUsername(),
+					user.getPassword());
+			response.setId(userJustCreated.getUserId());
+		}
+		return response;
+	}
+
+}

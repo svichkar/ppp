@@ -24,39 +24,39 @@ public class OrderInWork implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id")
-	private long order_id;
+	private long orderId;
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_status_id", referencedColumnName = "order_status_id")
-	private OrderStatus order_status;
+	private OrderStatus orderStatus;
 	@Column(name = "description", nullable = false, length = 255)
 	private String description;
 	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "car_id", referencedColumnName = "car_id")
 	private Car car;
 	@Column(name = "datetime_start", nullable = false)
-	private Timestamp datetime_start;
+	private Timestamp datetimeStart;
 	@Column(name = "datetime_end")
-	private Timestamp datetime_end;
+	private Timestamp datetimeEnd;
 
 	public OrderInWork() {
 
 	}
 	
 	public OrderInWork(OrderStatus orderStatus, String description, Car car,
-			Timestamp datetime_start, Timestamp datetime_end) {
-		this.order_status = orderStatus;
+			Timestamp datetimeStart, Timestamp datetimeEnd) {
+		this.orderStatus = orderStatus;
 		this.description = description;
 		this.car = car;
-		this.datetime_start = datetime_start;
-		this.datetime_end = datetime_end;
+		this.datetimeStart = datetimeStart;
+		this.datetimeEnd = datetimeEnd;
 	}
 
 	public long getOrderInWorkId() {
-		return order_id;
+		return orderId;
 	}
 
-	public OrderStatus getOrder_status() {
-		return order_status;
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
 	}
 
 	public String getDescription() {
@@ -67,20 +67,20 @@ public class OrderInWork implements Serializable {
 		return car;
 	}
 
-	public Timestamp getDatetime_start() {
-		return datetime_start;
+	public Timestamp getDatetimeStart() {
+		return datetimeStart;
 	}
 
-	public Timestamp getDatetime_end() {
-		return datetime_end;
+	public Timestamp getDatetimeEnd() {
+		return datetimeEnd;
 	}
 
 	public void setOrderInWorkId(long value) {
-		order_id = value;
+		orderId = value;
 	}
 
-	public void setOrder_status(OrderStatus value) {
-		order_status = value;
+	public void setOrderStatus(OrderStatus value) {
+		orderStatus = value;
 	}
 
 	public void setDescription(String value) {
@@ -91,12 +91,12 @@ public class OrderInWork implements Serializable {
 		car = value;
 	}
 
-	public void setDatetime_start(Timestamp value) {
-		datetime_start = value;
+	public void setDatetimeStart(Timestamp value) {
+		datetimeStart = value;
 	}
 
-	public void setDatetime_end(Timestamp value) {
-		datetime_end = value;
+	public void setDatetimeEnd(Timestamp value) {
+		datetimeEnd = value;
 	}
 
 }

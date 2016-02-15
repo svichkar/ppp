@@ -67,23 +67,23 @@ public class CustomerDbTest extends DBTestCase {
 	@Test
 	public void testAddCustomer() throws DataSetException, Exception {
 		Customer customer1 = new Customer();
-		customer1.setF_name("Igor");
-		customer1.setL_name("Petrov");
+		customer1.setFname("Igor");
+		customer1.setLname("Petrov");
 		customer1.setPhone("+295543534543");
 		customerImpl.create(customer1);
 
 		IDataSet ds = getConnection().createDataSet(new String[] { "CUSTOMER" });
 		ITable tActualCar = ds.getTable("CUSTOMER");
 
-		Assert.assertEquals(customer1.getF_name(), tActualCar.getValue(tActualCar.getRowCount() - 1, "f_name"));
-		Assert.assertEquals(customer1.getL_name(), tActualCar.getValue(tActualCar.getRowCount() - 1, "l_name"));
+		Assert.assertEquals(customer1.getFname(), tActualCar.getValue(tActualCar.getRowCount() - 1, "f_name"));
+		Assert.assertEquals(customer1.getLname(), tActualCar.getValue(tActualCar.getRowCount() - 1, "l_name"));
 	}
 
 	@Test
 	public void testUpdateCustomer() throws DataSetException, Exception {
 		Customer customer1 = new Customer();
-		customer1.setF_name("Igor");
-		customer1.setL_name("Petrov");
+		customer1.setFname("Igor");
+		customer1.setLname("Petrov");
 		customer1.setPhone("+295543534543");
 		customerImpl.create(customer1);
 
@@ -95,8 +95,8 @@ public class CustomerDbTest extends DBTestCase {
 		IDataSet datasetCustomer = getConnection().createDataSet(new String[] { "CUSTOMER" });
 		ITable tActualCust = datasetCustomer.getTable("CUSTOMER");
 
-		Assert.assertEquals(customer1.getF_name(), tActualCust.getValue(tActualCust.getRowCount() - 1, "f_name"));
-		Assert.assertEquals(customer1.getL_name(), tActualCust.getValue(tActualCust.getRowCount() - 1, "l_name"));
+		Assert.assertEquals(customer1.getFname(), tActualCust.getValue(tActualCust.getRowCount() - 1, "f_name"));
+		Assert.assertEquals(customer1.getLname(), tActualCust.getValue(tActualCust.getRowCount() - 1, "l_name"));
 		Assert.assertNotEquals(customer1.getPhone(), tActualCust.getValue(tActualCust.getRowCount() - 1, "phone"));
 	}
 	@Test

@@ -1,15 +1,15 @@
-package com.nixsolutions.entities;
+package com.nixsolutions.dto;
 
 public class UserCustomerRole {
 
-	private long user_id;
+	private long userId;
 	private String username;
 	private String password;
-	private String f_name;
-	private String l_name;
+	private String fName;
+	private String lName;
 	private String role;
-	private long customer_id;
-	private long role_id;
+	private long customerId;
+	private long roleId;
 
 	public UserCustomerRole() {
 
@@ -20,19 +20,19 @@ public class UserCustomerRole {
 	}
 
 	public long getUserId() {
-		return user_id;
+		return userId;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public String getF_name() {
-		return f_name;
+	public String getFname() {
+		return fName;
 	}
 
-	public String getL_name() {
-		return l_name;
+	public String getLname() {
+		return lName;
 	}
 
 	public String getRole() {
@@ -40,11 +40,11 @@ public class UserCustomerRole {
 	}
 
 	public long getRoleId() {
-		return role_id;
+		return roleId;
 	}
 
 	public long getCustomerId() {
-		return customer_id;
+		return customerId;
 	}
 
 	public void setUsername(String value) {
@@ -55,27 +55,27 @@ public class UserCustomerRole {
 		this.password = value;
 	}
 
-	public void setF_name(String value) {
-		this.f_name = value;
+	public void setFname(String value) {
+		this.fName = value;
 	}
 
-	public void setL_name(String value) {
-		this.l_name = value;
+	public void setLname(String value) {
+		this.lName = value;
 	}
 
 	public void setRole(String value) {
 		this.role = value;
 	}
 
-	public void setUser_id(long value) {
-		this.user_id = value;
+	public void setUserId(long value) {
+		this.userId = value;
 	}
 
 	public void setRoleId(long value) {
-		this.role_id = value;
+		this.roleId = value;
 	}
 
 	public void setCustomerId(long value) {
-		this.customer_id = value;
+		this.customerId = value;
 	}
 }

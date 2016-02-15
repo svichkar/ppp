@@ -11,7 +11,7 @@
 					<th>Amount</th>
 					<th>Action</th>
 					<th>
-						<form action="orderPartAdd" method="POST">
+						<form action="orderPartAdd"  method="POST">
 							<input type="hidden" name="action" value="Add">
 							<input type="hidden" name="order_id" value="${orderInWork.orderInWorkId}">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -23,7 +23,7 @@
 						<form action="orderPartEdit" method="POST">
 							<tr>
 								<td>
-									<c:out value="${part.part_name}" />
+									<c:out value="${part.partName}" />
 								</td>
 								<td>
 									<c:out value="${part.vendor}" />
@@ -39,7 +39,7 @@
 								</td>
 								<td>
 									<input type="hidden" name="order_id" value="${part.id}"> 
-									<input type="hidden" name="part_id" value="${part.part_id}">
+									<input type="hidden" name="part_id" value="${part.partId}">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<input type="submit" value="Process">
 								</td>
@@ -48,7 +48,7 @@
 					</c:forEach>
 		</table>
 		<table class="second">
-		<form action="orderEdit" method="POST">
+		<form action="orderEdit" name="formForValidation" method="POST">
 		<tr>
 			<td>Order id</td>
 			<td>
@@ -75,7 +75,7 @@
 				<c:forEach var="status" items="${allOrderStatuses}">
 						<option value="${status.orderStatusId}"
 									<c:if test="${status.orderStatusId eq oiw.order_status.orderStatusId}">selected</c:if>>
-										<c:out value="${status.order_status_name}" />
+										<c:out value="${status.orderStatusName}" />
 						</option>
 					</c:forEach>
 				</select>
@@ -90,13 +90,13 @@
 		<tr>
 			<td>Start time:</td>
 			<td>
-				<input type="datetime" name="datetime_start" value="${orderInWork.datetime_start}" />
+				<input type="text" name="datetime_start" value="${orderInWork.datetimeStart}" />
 			</td>
 		</tr>
 		<tr>
 			<td>Stop time:</td>
 			<td>
-				<input type="datetime" name="datetime_end" 	value="${orderInWork.datetime_end}" />
+				<input type="text" name="datetime_end" 	value="${orderInWork.datetimeEnd}" />
 			</td>
 		</tr>
 		<tr>
@@ -127,7 +127,7 @@
 						<form action="orderWorkerEdit" method="POST">
 							<tr>
 								<td>
-									<c:out value="${worker.f_name} ${worker.l_name}" />
+									<c:out value="${worker.fname} ${worker.lname}" />
 								</td>
 								<td>
 									<c:if test="${worker.completed == 'false'}"><c:out value="N" /></c:if>
@@ -140,7 +140,7 @@
 									</select>
 								</td>
 								<td>
-									<input type="hidden" name="worker_id" value="${worker.worker_id}"> 
+									<input type="hidden" name="worker_id" value="${worker.workerId}"> 
 									<input type="hidden" name="order_id" value="${worker.id}">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<input type="submit" value="Process">
@@ -149,5 +149,6 @@
 						</form>
 					</c:forEach>
 		</table>
+		<div id="hint" />
 	</jsp:attribute>
 </t:general_template>

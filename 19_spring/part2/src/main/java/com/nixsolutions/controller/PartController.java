@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nixsolutions.entities.Part;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.PartService;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -35,31 +36,47 @@ public class PartController {
 			if (action.equalsIgnoreCase("Edit")) {
 				model.addAttribute("title", "Edit part");
 				model.addAttribute("part", part);
-				return "/WEB-INF/jsp/part.jsp";
+				model.addAttribute("jsForPage", "part");
+				return "part";
 			} else if (action.equalsIgnoreCase("Delete")) {
 				partServiceImpl.deletePart(part);
-				model.addAttribute("destination", "Parts");
-				return "/navigation";
+				model.addAttribute("parts", partServiceImpl.getAllPart());
+				model.addAttribute("title", "Parts");
+				return "parts";
 			} else if (action.equalsIgnoreCase("Save")) {
+				if (amountParts == 0)
+				{
+					throw new CustomException("403", "Amount cannot be null");
+				}
 				part.setAmount(amountParts);
-				part.setPart_name(part_name);
+				part.setPartName(part_name);
 				part.setVendor(vendor);
 				partServiceImpl.updatePart(part);
-				model.addAttribute("destination", "Parts");
-				return "/navigation";
+				model.addAttribute("parts", partServiceImpl.getAllPart());
+				model.addAttribute("title", "Parts");
+				return "parts";
 			}
 		} else {
 			if (action.equalsIgnoreCase("Add")) {
 				model.addAttribute("title", "Add part");
-				return "/WEB-INF/jsp/part.jsp";
+				model.addAttribute("jsForPage", "part");
+				return "part";
 			} else if (action.equalsIgnoreCase("Save")) {
 				Part part = new Part(part_name, vendor, amountParts);
+				if (amountParts == 0)
+				{
+					throw new CustomException("403", "Amount cannot be null");
+				}
 				partServiceImpl.addPart(part);
-				return "/navigation";
+				model.addAttribute("parts", partServiceImpl.getAllPart());
+				model.addAttribute("title", "Parts");
+				return "parts";
 			}
 
 		}
-		return "/navigation";
+		model.addAttribute("parts", partServiceImpl.getAllPart());
+		model.addAttribute("title", "Parts");
+		return "parts";
 	}
 
 }

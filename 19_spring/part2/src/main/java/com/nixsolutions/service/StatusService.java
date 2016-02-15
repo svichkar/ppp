@@ -6,14 +6,14 @@ import com.nixsolutions.entities.Status;
 
 public interface StatusService {
 
-	public Status getStatusById(long id);
+	Status getStatusById(long id);
 
-	public List<Status> getAllStatuses();
+	List<Status> getAllStatuses();
 
-	public void addStatus(Status status);
+	void addStatus(Status status);
 
-	public void updateStatus(Status status);
+	void updateStatus(Status status);
 
-	public void deleteStatus(Status status);
+	void deleteStatus(Status status);
 
 }

@@ -18,7 +18,6 @@ public class FourThreads {
     public void go() {
         while (counter <= 1000) {
             try {
-
                 counter++;
                 if (counter == 100) {
                     thrOne.start();

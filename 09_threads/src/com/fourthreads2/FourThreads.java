@@ -1,6 +1,5 @@
 package com.fourthreads2;
 
-
 /**
  * Created by pantiukhin on 2/11/2016.
  */
@@ -16,7 +15,7 @@ public class FourThreads {
     }
 
     public void go() {
-        while (counter <= 1000) {
+        while (counter < 1000) {
             try {
                 counter++;
                 if (counter == 100) {
@@ -33,6 +32,7 @@ public class FourThreads {
                 e.printStackTrace();
             }
         }
+        System.out.println(counter);
     }
 
     private static class ThreadOne implements Runnable {
@@ -61,8 +61,8 @@ public class FourThreads {
 
     public static void runThread(String threadNumber) {
         try {
-            while (counter <= 1000) {
-                System.out.println("I am thread " + threadNumber + ". I am working now");
+            while (counter < 1000) {
+                System.out.println("I am thread " + threadNumber + " I am working now");
                 Thread.sleep(1000);
             }
         } catch (InterruptedException ex) {

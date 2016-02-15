@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.OrderInWork;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.CarService;
 import com.nixsolutions.service.CustomerService;
 import com.nixsolutions.service.OrderInWorkService;
-
 
 public class CarController {
 
@@ -54,7 +54,7 @@ public class CarController {
 				List<OrderInWork> allOrderInWork = orderInWorkImpl.getAllOrderInWork();
 				for (OrderInWork orderInWork : allOrderInWork) {
 					if (orderInWork.getCar().getCarId() == car.getCarId()) {
-						throw new Exception("You cannot remove car when it is in order!!");
+						throw new CustomException("403", "You cannot remove car when it is in order!!");
 					}
 				}
 				carServiceImpl.deleteCar(car);

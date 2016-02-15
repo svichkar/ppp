@@ -70,7 +70,6 @@ public class CarServiceImpl implements CarService {
 
 	public void deleteCar(Car car) {
 		carDaoImpl.delete(car);
-
 	}
 
 	@Override

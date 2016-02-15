@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.OrderInWork;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.CustomerService;
 import com.nixsolutions.service.OrderInWorkService;
 import com.nixsolutions.service.UserService;
@@ -51,7 +52,7 @@ public class CustomerController {
 				List<OrderInWork> orderInWorks = orderInWorkServiceImpl.getAllOrderInWork();
 				for (OrderInWork orderInWork : orderInWorks) {
 					if (orderInWork.getCar().getCustomer().getCustomerId() == customer.getCustomerId()) {
-						throw new RuntimeException("You cannot remove customer when his/her car in order!!");
+						throw new CustomException("403", "You cannot remove customer when his/her car in order!!");
 					}
 				}
 				customerServiceImpl.deleteCustomer(customer);

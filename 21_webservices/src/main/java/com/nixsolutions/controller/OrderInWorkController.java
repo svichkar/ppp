@@ -50,7 +50,8 @@ public class OrderInWorkController {
 			@RequestParam(value = "datetime_end", required = false) String datetime_end,
 			@RequestParam(value = "action") String action, Model model) {
 		Date dateNow = new Date();
-		Timestamp datetimeStart = isStringValidDate(datetime_start) ? Timestamp.valueOf(datetime_start) : new Timestamp(dateNow.getTime());
+		Timestamp datetimeStart = isStringValidDate(datetime_start) ? Timestamp.valueOf(datetime_start)
+				: new Timestamp(dateNow.getTime());
 		Timestamp datetimeEnd = isStringValidDate(datetime_end) ? Timestamp.valueOf(datetime_end) : null;
 		int orderstatusId = NumberUtils.isDigits(order_status_id) ? Integer.parseInt(order_status_id) : 0;
 		int orderId = NumberUtils.isDigits(order_id) ? Integer.parseInt(order_id) : 0;
@@ -78,10 +79,6 @@ public class OrderInWorkController {
 				model.addAttribute("jsForPage", "order");
 				return "order";
 			} else if (action.equalsIgnoreCase("Delete")) {
-				List<OrderWorker> allAssignedWorkes = orderWorkerServiceImpl.getAllOrderWorker(orderId);
-				if (allAssignedWorkes.size() > 0) {
-					throw new RuntimeException("You cannot delete order that has at least one assigned worker!");
-				}
 				orderInWorkServiceImpl.deleteOrderInWork(selectedOrderInWork);
 				model.addAttribute("oiwcs", orderInWorkServiceImpl.getAllOrderInWorkCarStatus());
 				model.addAttribute("title", "Orders");

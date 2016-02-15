@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nixsolutions.entities.Part;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.PartService;
 
 import org.apache.commons.lang.math.NumberUtils;
@@ -43,6 +44,10 @@ public class PartController {
 				model.addAttribute("title", "Parts");
 				return "parts";
 			} else if (action.equalsIgnoreCase("Save")) {
+				if (amountParts == 0)
+				{
+					throw new CustomException("403", "Amount cannot be null");
+				}
 				part.setAmount(amountParts);
 				part.setPartName(part_name);
 				part.setVendor(vendor);
@@ -58,6 +63,10 @@ public class PartController {
 				return "part";
 			} else if (action.equalsIgnoreCase("Save")) {
 				Part part = new Part(part_name, vendor, amountParts);
+				if (amountParts == 0)
+				{
+					throw new CustomException("403", "Amount cannot be null");
+				}
 				partServiceImpl.addPart(part);
 				model.addAttribute("parts", partServiceImpl.getAllPart());
 				model.addAttribute("title", "Parts");

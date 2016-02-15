@@ -5,8 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nixsolutions.dao.CarDAO;
 import com.nixsolutions.dao.CustomerDAO;
+import com.nixsolutions.dao.OrderInWorkDAO;
+import com.nixsolutions.entities.Car;
 import com.nixsolutions.entities.Customer;
+import com.nixsolutions.entities.OrderInWork;
 import com.nixsolutions.service.CustomerService;
 
 @Service
@@ -14,6 +18,12 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDAO customerDaoImpl;
+
+	@Autowired
+	private CarDAO carDaoImpl;
+
+	@Autowired
+	private OrderInWorkDAO orderInWorkImpl;
 
 	public List<Customer> getAllCustomers() {
 		return customerDaoImpl.getAll();

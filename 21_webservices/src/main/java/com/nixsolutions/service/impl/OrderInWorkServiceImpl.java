@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nixsolutions.dao.OrderInWorkDAO;
+import com.nixsolutions.dao.OrderWorkerDAO;
+import com.nixsolutions.dao.PartOrderDAO;
 import com.nixsolutions.dto.OrderInWorkCarStatus;
 import com.nixsolutions.entities.OrderInWork;
+import com.nixsolutions.entities.OrderWorker;
+import com.nixsolutions.entities.PartOrder;
 import com.nixsolutions.service.OrderInWorkService;
 
 @Service
@@ -16,6 +20,12 @@ public class OrderInWorkServiceImpl implements OrderInWorkService {
 
 	@Autowired
 	private OrderInWorkDAO orderInWorkDaoImpl;
+
+	@Autowired
+	private OrderWorkerDAO orderWorkerDaoImpl;
+	
+	@Autowired
+	private PartOrderDAO partOrderDaoImpl;
 
 	@Override
 	public List<OrderInWork> getAllOrderInWork() {
@@ -39,6 +49,13 @@ public class OrderInWorkServiceImpl implements OrderInWorkService {
 
 	@Override
 	public void deleteOrderInWork(OrderInWork orderInWork) {
+		for (OrderWorker orderWorker : orderWorkerDaoImpl.getAll()) {
+			orderWorkerDaoImpl.delete(orderWorker);
+		}
+		for (PartOrder partOrder : partOrderDaoImpl.getAll())
+		{
+			partOrderDaoImpl.delete(partOrder);
+		}
 		orderInWorkDaoImpl.delete(orderInWork);
 	}
 

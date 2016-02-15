@@ -42,7 +42,7 @@ public class LoginController {
 		}
 		else
 		{
-			return "index";
+			return "/error";
 		}
 	}
 }

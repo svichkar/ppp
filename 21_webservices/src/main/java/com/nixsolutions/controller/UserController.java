@@ -13,6 +13,7 @@ import org.apache.commons.lang.math.NumberUtils;
 
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.User;
+import com.nixsolutions.error.CustomException;
 import com.nixsolutions.service.CustomerService;
 import com.nixsolutions.service.RoleService;
 import com.nixsolutions.service.UserService;
@@ -52,7 +53,7 @@ public class UserController {
 				List<Customer> customers = customerServiceImpl.getAllCustomers();
 				for (Customer customer : customers) {
 					if (customer.getUser() != null && customer.getUser().getUserId() == user.getUserId()) {
-						throw new RuntimeException(
+						throw new CustomException("403",
 								"You cannot remove user that is assigned to at least one customer!!");
 					}
 				}

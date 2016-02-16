@@ -1,17 +1,14 @@
 package com.nixsolutions.ReflectionsTask1;
 
-import static org.reflections.ReflectionUtils.withAnnotation;
-
 import org.reflections.ReflectionUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static org.reflections.ReflectionUtils.withAnnotation;
 
 /**
  * Created by sobolenko on 2/15/2016.

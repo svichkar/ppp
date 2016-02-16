@@ -9,8 +9,9 @@ import java.util.Arrays;
  */
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
-        ReflectClassLoager rcl = new ReflectClassLoager(ClassLoader.getSystemClassLoader());
-        rcl.setPath(System.getProperty ("java.class.path"));
-        Class newClass = rcl.findClass("GetCurrentTime");
+        ReflectClassLoager rcl = new ReflectClassLoager(Main.class.getClassLoader());
+        rcl.setPath("\\src");
+        Class newClass = rcl.loadClass("GetCurrentTime");
+        //Class newClass = rcl.findClass("D:\\JAVA\\javappp\\04_dates\\target\\classes\\MyCalendar.class");
     }
 }

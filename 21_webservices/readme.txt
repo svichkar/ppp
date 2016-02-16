@@ -1,4 +1,6 @@
-* REST Jersey playload:
+#Check 'soapui' directory for REST and SOAP projects
+
+* REST Jersey playload: *
 
 1) create student:
 
@@ -34,7 +36,7 @@ http://localhost:8080/web-services/ws/rest/students/updateStudent
 <student studentId="41">
    <admissionDate>2015-03-25</admissionDate>
    <firstName>Koval</firstName>
-   <lastName>OLeg</lastName>
+   <lastName>Oleg</lastName>
    <status>
       <statusId>1</statusId>
       <statusName>active</statusName>
@@ -52,7 +54,25 @@ http://localhost:8080/web-services/ws/rest/students/updateStudent
 3) delete student
 
 method: DELETE
-http://localhost:8080/web-services/ws/rest/students/deleteStudent/{id}
+http://localhost:8080/web-services/ws/rest/students/deleteStudent
+
+<student studentId="41">
+   <admissionDate>2015-03-25</admissionDate>
+   <firstName>Koval</firstName>
+   <lastName>Oleg</lastName>
+   <status>
+      <statusId>1</statusId>
+      <statusName>active</statusName>
+   </status>
+   <studentGroup>
+      <groupId>2</groupId>
+      <groupName>java 15-2</groupName>
+   </studentGroup>
+   <term>
+      <termId>1</termId>
+      <termName>first</termName>
+   </term>
+</student>
 
 4) getStudentByID
 
@@ -64,8 +84,14 @@ http://localhost:8080/web-services/ws/rest/students/getStudent/{id}
 method: GET
 http://localhost:8080/web-services/ws/rest/students/getStudentByLastNameAndGroup?groupName={group}&lastName={lastName}
 
+6) getStudentByNameAndLastName
 
-* SOAP Spring WS playload:
+method: GET
+http://localhost:8080/web-services/ws/rest/students/findByNameAndLastName?name={name}&lastName={lastName}
+
+
+
+* SOAP Spring WS playload: *
 
 1) 'createUser' operation:
 

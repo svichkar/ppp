@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="UserServiceSoap" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" id="c9900ed1-8e29-4aef-b113-f64cb5ef7a00" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="UserPortSoap11" type="wsdl" bindingName="{http://www.user.com}UserPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/web-services/ws/soap/user/user.wsdl" id="bd5108d3-8dd8-4cde-970f-b83b5e5fd10d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/web-services/ws/soap/user/user.wsdl"><con:part><con:url>http://localhost:8080/web-services/ws/soap/user/user.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.user.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.user.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.user.com">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.user.com" version="1.0" xmlns="http://www.user.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="createUserRequest" type="createUserRequest"/>
+      <xs:element name="createUserResponse" type="createUserResponse"/>
+      <xs:element name="updateUserRequest" type="updateUserRequest"/>
+      <xs:element name="updateUserResponse" type="updateUserResponse"/>
+      <xs:complexType name="createUserRequest">
+        <xs:sequence>
+          <xs:element name="user" type="user"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="createUserResponse">
+        <xs:sequence>
+          <xs:element name="userId" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="updateUserRequest">
+        <xs:sequence>
+          <xs:element name="user" type="user"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="updateUserResponse">
+        <xs:sequence>
+          <xs:element name="user" type="user"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="user">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="email" type="xs:string"/>
+          <xs:element minOccurs="1" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="1" name="lastName" type="xs:string"/>
+          <xs:element minOccurs="1" name="login" type="xs:string"/>
+          <xs:element minOccurs="1" name="role" type="role"/>
+          <xs:element minOccurs="1" name="userId" type="xs:long"/>
+          <xs:element minOccurs="1" name="userPassword" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="role">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="roleId" type="xs:long"/>
+          <xs:element minOccurs="1" name="roleName" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="createUserResponse">
+    <wsdl:part element="tns:createUserResponse" name="createUserResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUserRequest">
+    <wsdl:part element="tns:createUserRequest" name="createUserRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUserRequest">
+    <wsdl:part element="tns:updateUserRequest" name="updateUserRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUserResponse">
+    <wsdl:part element="tns:updateUserResponse" name="updateUserResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UserPort">
+    <wsdl:operation name="createUser">
+      <wsdl:input message="tns:createUserRequest" name="createUserRequest"></wsdl:input>
+      <wsdl:output message="tns:createUserResponse" name="createUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <wsdl:input message="tns:updateUserRequest" name="updateUserRequest"></wsdl:input>
+      <wsdl:output message="tns:updateUserResponse" name="updateUserResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserPortSoap11" type="tns:UserPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="createUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUser">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateUserRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserPortService">
+    <wsdl:port binding="tns:UserPortSoap11" name="UserPortSoap11">
+      <soap:address location="http://localhost:8080/web-services/ws/soap/user"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/web-services/ws/soap/user</con:endpoint><con:endpoint>ws/soap/user</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="createUser" bindingOperationName="createUser" type="Request-Response" outputName="createUserResponse" inputName="createUserRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a5577b48-9ece-48bc-8e23-356e8c54f8e6"><con:settings/><con:call name="Request 1" outgoingWss="" incomingWss="" id="a27534e1-0197-47f0-9cc1-e9d5d066b4e3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/web-services/ws/soap/user</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://www.user.com" xmlns:sch="http://xml.netbeans.org/schema/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:createUserRequest>
+         <user>
+            <email>newUser@mail.ru</email>
+            <firstName>New</firstName>
+            <lastName>User</lastName>
+            <login>new</login>
+            <role>
+               <roleId>2</roleId>
+               <roleName>user</roleName>
+            </role>
+            <userPassword>new</userPassword>
+         </user>
+      </user:createUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://xml.netbeans.org/schema/UserPort/createUserRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateUser" bindingOperationName="updateUser" type="Request-Response" outputName="updateUserResponse" inputName="updateUserRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="c6034fd9-5c8e-42c2-a7f0-a6a637e1c2c8"><con:settings/><con:call name="Request 1" outgoingWss="" incomingWss="" id="c9cb92ba-da5c-4208-a93a-80565e0f4845"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/web-services/ws/soap/user</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:user="http://www.user.com" xmlns:sch="http://xml.netbeans.org/schema/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <user:updateUserRequest>
+         <user>
+            <email>newUser@mail.ru</email>
+            <firstName>New</firstName>
+            <lastName>User</lastName>
+            <login>new</login>
+            <role>
+               <roleId>1</roleId>
+               <roleName>admin</roleName>
+            </role>
+            <userId>10</userId>
+            <userPassword>new</userPassword>
+         </user>
+      </user:updateUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://xml.netbeans.org/schema/UserPort/updateUserRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

@@ -23,8 +23,6 @@ public class UserServiceEndpoint {
 	private static final String NAMESPACE_URI = "http://webservices.nixsolutions.com/soap";
 	
 	@Autowired
-	UserService userService;
-	@Autowired
 	UserDao userDao;
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getUserRequest")
@@ -33,7 +31,7 @@ public class UserServiceEndpoint {
 		
 		LOG.entry(request.getId());
 		GetUserResponse response = new GetUserResponse();
-		response.setUser(userService.getUserById(request.getId()));		
+		response.setUser(userDao.getUserById(Long.valueOf(request.getId())));		
 		return response;
 	}
 	
@@ -59,11 +57,4 @@ public class UserServiceEndpoint {
 		return response;
 	}
 	
-	public UserService getUserService() {
-		return userService;
-	}
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
 }

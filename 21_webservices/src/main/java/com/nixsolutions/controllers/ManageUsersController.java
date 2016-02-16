@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.nixsolutions.entity.Role;
 import com.nixsolutions.entity.User;
 import com.nixsolutions.service.RoleService;
@@ -21,47 +20,41 @@ import com.nixsolutions.service.UserService;
 @Controller
 @RequestMapping("/manageusers")
 public class ManageUsersController {
-	private static final Logger LOG = LogManager.getLogger();	
+	private static final Logger LOG = LogManager.getLogger();
 	@Autowired
 	UserService userService;
 	@Autowired
 	RoleService roleService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String retrieveUsers(Model model){
+	public String retrieveUsers(Model model) {		
 		List<User> users = userService.getAllUsers();
 		List<Role> allRoles = roleService.getAllRoles();
 
 		model.addAttribute("users", users);
 		model.addAttribute("roles", allRoles);
-		
+
 		return "ManageUsers";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public String searchBooks(
-			@RequestParam("username")String usr,
-			@RequestParam("password")String pswd,
-			@RequestParam("selectrole")String roleName,
-			@RequestParam(value = "userid", required = false)String userId,
-			@ModelAttribute("button")String buttnName,
-			Model model){
+	public String searchBooks(@RequestParam("username") String usr,
+			@RequestParam("password") String pswd,
+			@RequestParam("selectrole") String roleName,
+			@RequestParam(value = "userid", required = false) String userId,
+			@ModelAttribute("button") String buttnName, Model model) {
 		LOG.entry("User name: " + usr + "; pass: " + pswd + "; role: " + roleName + "; usrId: "
 				+ userId + "; button: " + buttnName);
-		
-		if (buttnName.equals("edit user")) {		
+
+		if (buttnName.equals("edit user")) {
 			userService.updateUser(userId, roleName, usr, pswd);
 		}
-
 		if (buttnName.equals("delete user")) {
-			User delUser = userService
-					.getUserById(userId);
-			userService.deleteUser(delUser);
+			userService.deleteUser(userId);
 		}
-
 		if (buttnName.equals("create user")) {
 			userService.createUser(roleName, usr, pswd);
-		}		
+		}
 
 		return "redirect:/manageusers";
 	}

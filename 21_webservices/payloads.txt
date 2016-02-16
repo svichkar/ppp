@@ -1,0 +1,73 @@
+SOAP:
+WSDL endpoint:
+http://localhost:8080/webservices/endpoints/UserService.wsdl
+
+CREATE:
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://webservices.nixsolutions.com/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:createUserRequest>
+         <soap:user>
+            <soap:userId>4</soap:userId>
+            <soap:userName>test</soap:userName>
+            <soap:userPassword>test</soap:userPassword>
+            <soap:role>
+               <soap:roleId>1</soap:roleId>
+               <soap:name>ROLE_ADMIN</soap:name>
+            </soap:role>
+         </soap:user>
+      </soap:createUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+UPDATE:
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://webservices.nixsolutions.com/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:updateUserRequest>
+         <soap:user>
+            <soap:userId>1</soap:userId>
+            <soap:userName>test</soap:userName>
+            <soap:userPassword>test</soap:userPassword>
+            <soap:role>
+               <soap:roleId>2</soap:roleId>
+               <soap:name>ROLE_USER</soap:name>
+            </soap:role>
+         </soap:user>
+      </soap:updateUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+REST:
+CREATE:
+http://localhost:8080/webservices/rest/user/create
+{
+  "userId": 4,
+  "userName": "test1",
+  "userPassword": "test1",
+  "role": {
+    "roleId": 2,
+    "name": "ROLE_USER"
+  }
+}
+
+UPDATE:
+http://localhost:8080/webservices/rest/user/update
+{
+  "userId": 4,
+  "userName": "test2",
+  "userPassword": "test2",
+  "role": {
+    "roleId": 2,
+    "name": "ROLE_USER"
+  }
+}
+
+GET ALL:
+http://localhost:8080/webservices/rest/user/getall
+
+GET BY ID
+http://localhost:8080/webservices/rest/user/get/1
+
+DELETE BY ID
+http://localhost:8080/webservices/rest/user/delete/4

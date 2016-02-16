@@ -25,15 +25,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
-/*@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "user", propOrder = {
     "userId",
     "userName",
     "userPassword",
     "role"
-})*/
+})
+
+@XmlRootElement(name = "user")
 public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
@@ -41,21 +45,22 @@ public class User implements Serializable, UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID", unique = true, nullable = false)
+	@JsonProperty
 	private Long userId;
 	@NotNull
-	@Size(min = 3, max = 10)
+	@Size(min = 3)
 	@Column(name = "USER_NAME")
-	//@XmlElement(required = true)
+	@JsonProperty
 	private String userName;
 	@NotNull
-	@Size(min = 1, max = 12)
+	@Size(min = 3)
 	@Column(name = "USER_PASSWORD")
-	//@XmlElement(required = true)
+	@JsonProperty
 	private String userPassword;
 
 	@ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
-	//@XmlElement(required = true)
+	@JsonProperty
 	private Role role;
 
 	public User() {
@@ -158,13 +163,13 @@ public class User implements Serializable, UserDetails {
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Collection<SimpleGrantedAuthority> getAuthorities() {
 	
-		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(this.getRole().getName()));
 		return authorities;
 	}
-
+	
 	@Override
 	public String getPassword() {
 		return this.userPassword;

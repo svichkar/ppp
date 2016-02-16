@@ -7,3 +7,4 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://webservices.nixsolutions.com/soap", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.nixsolutions.webservices.soap;
+  

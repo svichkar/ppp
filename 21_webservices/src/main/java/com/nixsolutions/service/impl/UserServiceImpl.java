@@ -4,10 +4,14 @@ import java.util.List;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,22 +29,21 @@ import com.nixsolutions.service.UserService;
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService{
 	public static final Logger LOG = LogManager.getLogger();
+	private static final String REST_SERVICE_URL = "http://localhost:8080/webservices/rest/user";
+	private Client client = ClientBuilder.newClient().register(JacksonFeature.class);
+	
 	@Autowired
 	private UserDao userDao;
 	@Autowired
 	RoleDao roleDao;
-	Client client = ClientBuilder.newClient();
-	WebTarget userWebTarget = client.target("http://localhost:8080/webservices/rest/user");
-	
 	
 	@Override
 	public List<User> getAllUsers() {
-		
-		//WebTarget getAllwebTarget = userWebTarget.path("getall");
-		List<User> responseEntity = ClientBuilder.newClient()
-	            .target("http://localhost:8080/webservices").path("rest/user/getall")
-	                        .request().get(List.class);
-		return responseEntity;
+		GenericType<List<User>> userType = new GenericType<List<User>>() {
+		};
+		List<User> users = client.target(REST_SERVICE_URL).path("getall").request().get(userType);
+		LOG.debug("attempt to obtain collection of users: " + users);
+		return users;
 	}
 
 	@Override
@@ -54,24 +57,35 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public void createUser(String roleName, String usr, String pswd) {
 		Role role = roleDao.getRoleByName(roleName);
-		User createUser = new User(usr, pswd, role);
-		userDao.createUser(createUser);
+		User user = new User(usr, pswd, role);
+
+		User userPersisted = client.target(REST_SERVICE_URL).path("create").request()
+				.post(Entity.entity(user, MediaType.APPLICATION_JSON), User.class);
+
+		LOG.debug(">>>>>>>attempt to save user: " + userPersisted.toString());
 	}
 
 	@Override
 	public void updateUser(String userId, String roleName, String usr, String pswd) {
-		User updUser = userDao
-				.getUserById(Long.parseLong(userId));
 		Role role = roleDao.getRoleByName(roleName);
-		updUser.setRole(role);
-		updUser.setUserName(usr);
-		updUser.setUserPassword(pswd);
-		userDao.updateUser(updUser);
+		User user = client.target(REST_SERVICE_URL).path("get/{userId}")
+				.resolveTemplate("userId", userId).request(MediaType.APPLICATION_JSON)
+				.get(User.class);
+		LOG.debug("attempt to obtain user using restTemplate: " + user.toString());
+
+		user.setUserName(usr);
+		user.setUserPassword(pswd);
+		user.setRole(role);
+
+		User userPersisted = client.target(REST_SERVICE_URL).path("update").request()
+				.put(Entity.entity(user, MediaType.APPLICATION_JSON), User.class);
+		LOG.debug(">>>>>>>attempt to update user: " + userPersisted.toString());
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		userDao.deleteUser(user);
+	public void deleteUser(String userId) {
+		client.target(REST_SERVICE_URL).path("delete/{userId}")
+		.resolveTemplate("userId", userId).request().delete();
 	}
 
 	@Override

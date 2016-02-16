@@ -9,6 +9,6 @@ public interface UserService {
 	 User getUserById(String userId);
 	 void createUser(String roleName, String usr, String pswd);
 	 void updateUser(String userId, String roleName, String usr, String pswd);
-	 void deleteUser(User user);
+	 void deleteUser(String userId);
 	 User getUserByNameAndPswd(String name, String pswd);
 }

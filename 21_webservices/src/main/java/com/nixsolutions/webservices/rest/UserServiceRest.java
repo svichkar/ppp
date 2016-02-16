@@ -33,14 +33,13 @@ import com.nixsolutions.service.UserService;
 
 @Path("user")
 @Service("userServiceRest")
-public class UserServiceRest implements UserDetailsService {
+public class UserServiceRest {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
 	private UserDao userDao;
 	@Autowired
 	RoleDao roleDao;
 
-	// @Override
 	@GET
 	@Path("/getall")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -49,19 +48,15 @@ public class UserServiceRest implements UserDetailsService {
 		return userDao.getAllUsers();
 	}
 
-	// @Override
 	@GET
 	@Path("/get/{id}")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON })
 	@Transactional(readOnly = true)
-	public User getUserById(@PathParam("id") String userId) {
+	public User getUserById(@PathParam("id") Long userId) {
 		LOG.entry(userId);
-		User user = userDao.getUserById(Long.valueOf(userId));
-		LOG.debug(user);
+		User user = userDao.getUserById(userId);;
 		return LOG.exit(user);
 	}
-
-	// @Override
 
 	 @POST
 	 @Path("/create")
@@ -69,12 +64,10 @@ public class UserServiceRest implements UserDetailsService {
 	 @Produces({MediaType.APPLICATION_JSON})
 	 @Transactional
 	public Response createUser(User createUser) {
-
 		userDao.createUser(createUser);
 		return Response.ok(createUser).build();
 	}
 
-	// @Override
 	 @PUT
 	 @Path("/update")
 	 @Consumes({MediaType.APPLICATION_JSON})
@@ -85,25 +78,12 @@ public class UserServiceRest implements UserDetailsService {
 		return Response.ok(updUser).build();
 	}
 
-	// @Override
-
 	@DELETE
-	@Path("/delete")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Path("/delete/{id}")
 	@Produces({ MediaType.TEXT_HTML })
 	@Transactional
-	public void deleteUser(User user) {	
+	public void deleteUser(@PathParam("id") Long userId) {	
+		User user = userDao.getUserById(userId);
 		userDao.deleteUser(user);
 	}
-
-	// @Override
-	public User getUserByNameAndPswd(String name, String pswd) {
-		return userDao.getUserByNameAndPswd(name, pswd);
-	}
-
-	// @Override
-	public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-		return userDao.getUserByName(name);
-	}
-
 }

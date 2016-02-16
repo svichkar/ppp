@@ -1,5 +1,7 @@
 package com.nixsolutions.ReflectionsTask2;
 
+import com.thoughtworks.xstream.alias.ClassMapper;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,7 +28,7 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
             folder = Paths.get(dir);
         } else {
             folder = Paths.get(dir);
-            folder = folder.getRoot().relativize(folder);
+            folder = folder.getParent();
         }
         this.directory = folder;
     }
@@ -37,7 +39,12 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
 
     @Override
     protected Class<?> findClass(String className) throws ClassNotFoundException {
-        Class findClass = loadClassFromFile(className);
+        Class findClass = null;
+        try {
+            findClass = loadClassFromFile(className);
+        } catch (IOException e) {
+            throw new ClassNotFoundException(e.getMessage());
+        }
         return findClass;
     }
 
@@ -47,7 +54,7 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
         return loadedClass = super.loadClass(className);
     }*/
 
-    public Class<?> loadClassFromFile(String className) throws ClassNotFoundException {
+    public Class<?> loadClassFromFile(String className) throws ClassNotFoundException, IOException, NullPointerException {
         File pathToFile = null;
         FileInputStream fis = null;
         byte[] bytes = null;
@@ -67,6 +74,9 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
                 directory = wd.resolve(cf.getRoot().relativize(cf)).resolve(cn);
                 pathToFile = directory.toFile();
             }
+            if (!pathToFile.exists()) {
+                throw new FileNotFoundException();
+            }
             fis = new FileInputStream(pathToFile);
             long fileLength = pathToFile.length();
             bytes = new byte[(int) fileLength];
@@ -75,12 +85,15 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
                 readResult = fis.read(bytes);
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw new ClassNotFoundException();
+            throw new ClassNotFoundException(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new ClassNotFoundException();
+            throw new ClassNotFoundException(e.getMessage());
+        } finally {
+            if (fis != null) {
+                fis.close();
+            }
         }
+        System.out.println("Load by file");
         return defineClass(className.replace(".class", ""), bytes, 0, bytes.length);
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.servicestation.nixsolutions.com/wssoap"
+           xmlns="http://www.servicestation.nixsolutions.com/wssoap"
+           elementFormDefault="unqualified">
+
+  <xs:element name="createRequest" type="createRequest"/>
+  <xs:element name="createResponse" type="createResponse"/>
+
+  <xs:element name="updateRequest" type="updateRequest"/>
+  <xs:element name="updateResponse" type="updateResponse"/>
+
+  <xs:complexType name="createRequest">
+    <xs:sequence>
+      <xs:element name="user" type="user"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createResponse">
+    <xs:sequence>
+      <xs:element name="userId" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateRequest">
+    <xs:sequence>
+      <xs:element name="user" type="user"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateResponse">
+    <xs:sequence>
+      <xs:element name="user" type="user"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element name="login" type="xs:string" minOccurs="1"/>
+      <xs:element name="password" type="xs:string" minOccurs="1"/>
+      <xs:element name="role" type="role" minOccurs="1"/>
+      <xs:element name="userId" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="role">
+    <xs:sequence>
+      <xs:element name="roleId" type="xs:long" minOccurs="0"/>
+      <xs:element name="roleName" type="xs:string" minOccurs="1"/>
+      <xs:element name="userList" type="user" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

@@ -3,13 +3,18 @@ package com.nixsolutions.servicestation.entity;
 
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.Set;
 
 /**
  * Created by rybkinrolla on 13.01.2016.
  */
+@XmlAccessorType(XmlAccessType.PROPERTY)
+@XmlType
 @XmlRootElement
 @Entity
 @Table(name = "employee")
@@ -26,6 +31,10 @@ public class Employee implements Serializable {
     @JoinColumn(name = "employee_category_id", referencedColumnName = "employee_category_id")
     private EmployeeCategory employeeCategory;
 
+    public Employee() {
+    }
+    public Employee(int id) {
+    }
 
     public Long getEmployeeId() {
         return employeeId;
@@ -59,19 +68,4 @@ public class Employee implements Serializable {
         this.employeeCategory = employeeCategory;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Employee employee = (Employee) o;
-
-        return employeeId.equals(employee.employeeId);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return employeeId.hashCode();
-    }
 }

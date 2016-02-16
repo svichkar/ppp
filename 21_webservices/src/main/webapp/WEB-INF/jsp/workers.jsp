@@ -11,7 +11,7 @@
                 <th>last_name</th>
                 <th>category</th>
             </tr>
-            <c:forEach var="employee" items="${employeeSet}" varStatus="status">
+            <c:forEach var="employee" items="${employeeSet.employeeSet}" varStatus="status">
                 <tr>
                     <form action="workers" name="upDel" method="post">
                         <td><input type="text" name="worker_id" value="<c:out value="${employee.employeeId}"/>"

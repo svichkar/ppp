@@ -1,6 +1,7 @@
 package com.nixsolutions.servicestation.service;
 
 import com.nixsolutions.servicestation.entity.Employee;
+import com.nixsolutions.servicestation.entity.Employees;
 
 import javax.ws.rs.core.Response;
 import java.util.Set;
@@ -11,14 +12,15 @@ import java.util.Set;
 
 
 public interface EmployeeService {
-    void create(Employee entity);
+    Response create(Employee employee);
 
-    void update(Employee entity);
+    Response update(Employee employee);
 
-    void delete(Long id);
+    Response delete(Long id);
 
     Employee findById(Long id);
 
-    Set<Employee> findAll();
+    Employees findAll();
+
     Employee prepareEmployee(String firstName,String lastName,Long workerId,Long categoryId);
 }

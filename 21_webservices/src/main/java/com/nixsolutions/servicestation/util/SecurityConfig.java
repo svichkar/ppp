@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/homepage").hasAnyRole("MANAGER", "CLIENT")
                 .antMatchers("/cars", "/clients", "/orders", "/workers").hasRole("MANAGER")
                 .antMatchers("/services/*").permitAll()
+                .antMatchers("/wssoap/*").permitAll()
                 .and().formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/j_spring_security_check")
@@ -43,6 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .defaultSuccessUrl("/workers")
                 .and().csrf().disable()
-                .exceptionHandling().accessDeniedPage("/?error=1");
+                .exceptionHandling().accessDeniedPage("/homepage");
     }
 }

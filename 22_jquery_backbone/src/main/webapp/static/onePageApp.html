@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>One Page App</title>
+    <link rel="stylesheet" href="/backbone/style/style.css" type="text/css" media="all">
+    <script src="/backbone/javascript/jquery-2.2.0.js"></script>
+    <script src="/backbone/javascript/underscore.js"></script>
+    <script src="/backbone/javascript/backbone.js"></script>
+
+<script type="text/template" id="students">
+<table>
+<thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Admission Date</th>
+        <th>Group</th>
+        <th>Term</th>
+        <th>Status</th>
+        <th>Commands</th>
+        <th>Details</th>
+    </tr>
+</thead>
+ <tbody>
+<% _.each(students, function(student) { %>
+<tr>
+<td><%= student.studentId %></td>
+<td><%= student.firstName %></td>
+<td><%= student.lastName %></td>
+<td><%= student.admissionDate %></td>
+<td><%= student.studentGroup.groupName %></td>
+<td><%= student.term.termName %></td>
+<td><%= student.status.statusName %></td>
+<td><a href="#editStudent/<%= student.studentId %>">Edit</a> / <a href="#deleteStudent/<%= student.studentId %>">Delete</a></td>
+<td><a href="#details/<%= student.studentId %>">Details</a></td>
+</tr>
+<% }); %>
+</tbody>
+</table>
+</script>
+
+<script type="text/template" id="addStudent">
+
+<form>
+<table>
+<tbody>
+<tr><input type="text" name="firstName"/></tr>
+<tr><input type="text" name="lastName"/></tr>
+<tr><input type="date" name="date"/></tr>
+<tr><select name="selectedGroup">
+<option value="" selected disabled>..........</option>
+</select>
+</tr>
+<tr><select name="selectedTerm">
+<option value="" selected disabled>..........</option>
+</select>
+</tr>
+<tr><select name="selectedStatus">
+<option value="" selected disabled>..........</option>
+</select>
+</tr>
+<tr><input type="submit" name="add" value="add"/></tr>
+</tbody>
+</table>
+</form>
+
+</script>
+
+<script src="/backbone/javascript/backboneModels.js"></script>
+
+</head>
+
+ <body>
+     <h1>One Page App</h1>
+     <br>
+     <div class="container">
+                 <ul class="nav nav-pills nav-stacked">
+                     <li class="students"><a href="#students">Students</a></li>
+                     <li class="addStudent"><a href="#addStudent">Add student</a></li>
+                 </ul>
+      </div>
+      <div class="content"></div>
+ </body>
+ <html>

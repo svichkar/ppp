@@ -2,7 +2,6 @@ package com.nixsolutions.studentgrade.webservice.rest;
 
 import com.nixsolutions.studentgrade.dao.StudentDao;
 import com.nixsolutions.studentgrade.model.Student;
-import com.nixsolutions.studentgrade.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @Service
 @Path("students")
-public class StudentWebService implements StudentService {
+public class StudentWebService {
 
     private StudentDao studentDao;
 
@@ -26,9 +25,8 @@ public class StudentWebService implements StudentService {
 
     @POST
     @Path("/createStudent")
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public void create(Student student) {
 
         studentDao.create(student);
@@ -36,9 +34,8 @@ public class StudentWebService implements StudentService {
 
     @PUT
     @Path("/updateStudent")
-    @Consumes(MediaType.APPLICATION_XML)
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public void update(Student student) {
 
         studentDao.update(student);
@@ -46,8 +43,8 @@ public class StudentWebService implements StudentService {
 
     @DELETE
     @Path("/deleteStudent")
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public void delete(Student student) {
 
         studentDao.delete(student);
@@ -55,8 +52,7 @@ public class StudentWebService implements StudentService {
 
     @GET
     @Path("/getAllStudents")
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Student> findAll() {
 
         return studentDao.findAll();
@@ -64,17 +60,15 @@ public class StudentWebService implements StudentService {
 
     @GET
     @Path("/getStudent/{studentId}")
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
-    public Student findById(@PathParam("studentId") Long id) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Student findById(@PathParam("studentId") Long studentId) {
 
-        return studentDao.findById(id);
+        return studentDao.findById(studentId);
     }
 
     @GET
     @Path("/getStudentByNameAndLastName")
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
+    @Produces(MediaType.APPLICATION_JSON)
     public Student findByNameAndLastName(@QueryParam("name") String name, @QueryParam("lastName") String lastName) {
 
         return studentDao.findByNameAndLastName(name, lastName);
@@ -82,8 +76,7 @@ public class StudentWebService implements StudentService {
 
     @GET
     @Path("/getStudentByLastNameAndGroup")
-    @Produces(MediaType.APPLICATION_XML)
-    @Override
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Student> findByLastNameAndGroup(@QueryParam("lastName") String lastName, @QueryParam("groupName") String groupName) {
 
         List<Student> result = new ArrayList<>();

@@ -1,6 +1,9 @@
 package com.nixsolutions.studentgrade.controller;
 
-import com.nixsolutions.studentgrade.model.*;
+import com.nixsolutions.studentgrade.model.Status;
+import com.nixsolutions.studentgrade.model.Student;
+import com.nixsolutions.studentgrade.model.StudentGroup;
+import com.nixsolutions.studentgrade.model.Term;
 import com.nixsolutions.studentgrade.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,11 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.MediaType;
 import java.sql.Date;
 import java.util.List;
 
@@ -28,10 +26,8 @@ public class StudentController {
 
     private static final Logger LOG = LogManager.getLogger(StudentController.class);
 
-    public static final String URL = "http://localhost:8080/web-services/ws/rest/students";
-    private static Client client;
-    private static WebTarget service;
-
+    @Autowired
+    StudentService studentService;
     @Autowired
     TermService termService;
     @Autowired
@@ -41,21 +37,12 @@ public class StudentController {
     @Autowired
     JournalService journalService;
 
-    StudentController() {
-
-        client = ClientBuilder.newClient();
-        service = client.target(URL);
-    }
-
     @RequestMapping(value = "/student", method = RequestMethod.GET)
     public ModelAndView studentPage() {
 
-        List<Student> list = service.path("getAllStudents").request().get()
-                .readEntity(AllStudentsBean.class).getStudents();
-
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Student Page");
-        model.addObject("students", list);
+        model.addObject("students", studentService.findAll());
         model.addObject("groups", groupService.findAll());
         model.addObject("terms", termService.findAll());
         model.addObject("statusList", statusService.findAll());
@@ -77,12 +64,10 @@ public class StudentController {
     public ModelAndView showResults(@ModelAttribute("lastName") String lastName,
                                     @ModelAttribute("group") String group) {
 
-        List<Student> studentList = service.path("getStudentByLastNameAndGroup").queryParam("lastName", lastName)
-                .queryParam("groupName", group)
-                .request().get().readEntity(AllStudentsBean.class).getStudents();
-
         ModelAndView model = new ModelAndView();
-        if (studentList == null || studentList.isEmpty()) {
+        List<Student> studentList = studentService.findByLastNameAndGroup(lastName, group);
+
+        if (studentList.isEmpty()) {
             model.addObject("message", "No data available. Please change search criteria.");
         }
         model.addObject("students", studentList);
@@ -106,20 +91,14 @@ public class StudentController {
             student.setStudentGroup(group);
             student.setTerm(term);
             student.setStatus(status);
-
-            service.path("createStudent").request().post(Entity.entity(student, MediaType.APPLICATION_XML));
-
+            studentService.create(student);
             model.addAttribute("message", "Successes");
             model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
             model.addAttribute("message", "Student cannot be added");
         }
-
-        List<Student> list = service.path("getAllStudents").request().get()
-                .readEntity(AllStudentsBean.class).getStudents();
-        model.addAttribute("students", list);
-
+        model.addAttribute("students", studentService.findAll());
         model.addAttribute("groups", groupService.findAll());
         model.addAttribute("terms", termService.findAll());
         model.addAttribute("statusList", statusService.findAll());
@@ -142,20 +121,14 @@ public class StudentController {
             student.setStudentGroup(group);
             student.setTerm(term);
             student.setStatus(status);
-
-            service.path("updateStudent").request().put(Entity.entity(student, MediaType.APPLICATION_XML));
-
+            studentService.update(student);
             model.addAttribute("message", "Successes");
             model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
             model.addAttribute("message", "Student cannot be updated");
         }
-
-        List<Student> list = service.path("getAllStudents").request().get()
-                .readEntity(AllStudentsBean.class).getStudents();
-
-        model.addAttribute("students", list);
+        model.addAttribute("students", studentService.findAll());
         model.addAttribute("groups", groupService.findAll());
         model.addAttribute("terms", termService.findAll());
         model.addAttribute("statusList", statusService.findAll());
@@ -167,26 +140,19 @@ public class StudentController {
                                 Model model) {
 
         try {
-            Student st = service.path("getStudent").path(studentId).request().get().readEntity(Student.class);
-
+            Student st = studentService.findById(Long.valueOf(studentId));
             Status inactive = new Status();
             inactive.setStatusId(5L);
             inactive.setStatusName("inactive");
             st.setStatus(inactive);
-
-            service.path("updateStudent").request().put(Entity.entity(st, MediaType.APPLICATION_XML));
-
+            studentService.update(st);
             model.addAttribute("message", "Successes");
             model.addAttribute("color", "color:#15DC13");
         } catch (Exception e) {
             LOG.error(e);
             model.addAttribute("message", "Student cannot be deleted");
         }
-
-        List<Student> list = service.path("getAllStudents").request().get()
-                .readEntity(AllStudentsBean.class).getStudents();
-
-        model.addAttribute("students", list);
+        model.addAttribute("students", studentService.findAll());
         model.addAttribute("groups", groupService.findAll());
         model.addAttribute("terms", termService.findAll());
         model.addAttribute("statusList", statusService.findAll());
@@ -198,9 +164,7 @@ public class StudentController {
                                        @ModelAttribute("student") Student student) {
 
         ModelAndView model = new ModelAndView();
-
-        student = service.path("getStudent").path(studentId).request().get().readEntity(Student.class);
-
+        student = studentService.findById(Long.valueOf(studentId));
         model.addObject("student", student);
         model.setViewName("redirect:student/journal");
         return model;
@@ -210,7 +174,7 @@ public class StudentController {
     public ModelAndView journalDetails(@ModelAttribute("studentId") String studentId) {
 
         ModelAndView model = new ModelAndView();
-        Student student = service.path("getStudent").path(studentId).request().get().readEntity(Student.class);
+        Student student = studentService.findById(Long.valueOf(studentId));
         model.addObject("student", student);
         model.addObject("terms", termService.findAll());
         model.setViewName("studentJournal");
@@ -223,10 +187,8 @@ public class StudentController {
 
         ModelAndView model = new ModelAndView();
         Term t = termService.findByName(term);
-        Student st = service.path("getStudent").path(studentId).request().get().readEntity(Student.class);
-
         model.addObject("selectedTerm", t);
-        model.addObject("student", st);
+        model.addObject("student", studentService.findById(Long.valueOf(studentId)));
         model.addObject("journals", journalService.findByStudentAndTerm(Long.valueOf(studentId), t.getTermId()));
         model.addObject("terms", termService.findAll());
         model.addObject("score", journalService.getAverageScore(Long.valueOf(studentId), t.getTermId()));

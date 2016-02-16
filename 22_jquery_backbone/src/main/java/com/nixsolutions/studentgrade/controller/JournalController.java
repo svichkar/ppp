@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
 /**
  * Created by konstantin on 2/2/2016.
  */
@@ -23,10 +19,6 @@ import javax.ws.rs.client.WebTarget;
 public class JournalController {
 
     private static final Logger LOG = LogManager.getLogger(JournalController.class);
-
-    public static final String URL = "http://localhost:8080/web-services/ws/rest/students";
-    private static Client client;
-    private static WebTarget service;
 
     @Autowired
     JournalService journalService;
@@ -36,14 +28,8 @@ public class JournalController {
     StudentGroupService groupService;
     @Autowired
     SubjectService subjectService;
-    /*@Autowired
-    StudentService studentService;*/
-
-    public JournalController() {
-
-        client = ClientBuilder.newClient();
-        service = client.target(URL);
-    }
+    @Autowired
+    StudentService studentService;
 
     @RequestMapping(value = "/journal", method = RequestMethod.GET)
     public ModelAndView journalPage() {
@@ -70,11 +56,8 @@ public class JournalController {
             StudentGroup group = groupService.findByName(selectedGroup);
             Subject subject = subjectService.findByName(selectedSubject);
             Grade grade = gradeService.findByName(selectedGrade);
-
-            Student student = service.path("getStudentByNameAndLastName").queryParam(firstName, lastName)
-                    .request().get().readEntity(Student.class);
-
-            if (student!= null) {
+            Student student = studentService.findByNameAndLastName(firstName, lastName);
+            if (student!= null && !student.isEmpty()) {
                 journal.setSubject(subject);
                 journal.setGrade(grade);
                 journal.setStudent(student);

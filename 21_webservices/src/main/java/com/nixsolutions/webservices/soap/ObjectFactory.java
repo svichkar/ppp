@@ -6,7 +6,7 @@
 //
 
 
-package com.nixsolutions.webservices.userservice;
+package com.nixsolutions.webservices.soap;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

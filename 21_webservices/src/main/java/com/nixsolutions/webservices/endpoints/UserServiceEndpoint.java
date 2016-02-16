@@ -1,4 +1,4 @@
-package com.nixsolutions.service.endpoints;
+package com.nixsolutions.webservices.endpoints;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,18 +10,17 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.nixsolutions.dao.UserDao;
 import com.nixsolutions.service.UserService;
-import com.nixsolutions.webservices.userservice.CreateUserRequest;
-import com.nixsolutions.webservices.userservice.GetUserRequest;
-import com.nixsolutions.webservices.userservice.GetUserResponse;
-import com.nixsolutions.webservices.userservice.UpdateUserRequest;
-
+import com.nixsolutions.webservices.soap.CreateUserRequest;
+import com.nixsolutions.webservices.soap.GetUserRequest;
+import com.nixsolutions.webservices.soap.GetUserResponse;
+import com.nixsolutions.webservices.soap.UpdateUserRequest;
 import com.nixsolutions.entity.User;
 
 
 @Endpoint
 public class UserServiceEndpoint {
 	public static final Logger LOG = LogManager.getLogger();	
-	private static final String NAMESPACE_URI = "http://webservices.nixsolutions.com/userservice";
+	private static final String NAMESPACE_URI = "http://webservices.nixsolutions.com/soap";
 	
 	@Autowired
 	UserService userService;
@@ -32,9 +31,9 @@ public class UserServiceEndpoint {
 	@ResponsePayload
 	public GetUserResponse getUserById(@RequestPayload GetUserRequest request) {
 		
-		LOG.entry(request.getName());
+		LOG.entry(request.getId());
 		GetUserResponse response = new GetUserResponse();
-		response.setUser(userService.getUserById(request.getName()));		
+		response.setUser(userService.getUserById(request.getId()));		
 		return response;
 	}
 	

@@ -6,7 +6,7 @@
 //
 
 
-package com.nixsolutions.webservices.userservice;
+package com.nixsolutions.webservices.soap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -40,8 +40,8 @@ import com.nixsolutions.entity.User;
 @XmlType(name = "", propOrder = {
     "user"
 })
-@XmlRootElement(name = "updateUserResponse")
-public class UpdateUserResponse {
+@XmlRootElement(name = "updateUserRequest")
+public class UpdateUserRequest {
 
     @XmlElement(required = true)
     protected User user;

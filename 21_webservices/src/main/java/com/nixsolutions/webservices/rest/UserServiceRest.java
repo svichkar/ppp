@@ -1,4 +1,4 @@
-package com.nixsolutions.service.impl;
+package com.nixsolutions.webservices.rest;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,8 @@ import com.nixsolutions.entity.User;
 import com.nixsolutions.service.UserService;
 
 @Path("user")
-public class UserServiceImpl2 implements UserDetailsService {
+@Service("userServiceRest")
+public class UserServiceRest implements UserDetailsService {
 	public static final Logger LOG = LogManager.getLogger();
 	@Autowired
 	private UserDao userDao;
@@ -64,36 +66,34 @@ public class UserServiceImpl2 implements UserDetailsService {
 	 @POST
 	 @Path("/create")
 	 @Consumes({MediaType.APPLICATION_JSON})
-	 @Produces({MediaType.TEXT_HTML})
+	 @Produces({MediaType.APPLICATION_JSON})
 	 @Transactional
-	public void createUser(User createUser) {
-		/*
-		 * Role role = roleDao.getRoleByName(roleName); User createUser = new
-		 * User(usr, pswd, role);
-		 */
+	public Response createUser(User createUser) {
+
 		userDao.createUser(createUser);
-		//return Response.status(200).entity(createUser).build();
+		return Response.ok(createUser).build();
 	}
 
 	// @Override
 	 @PUT
 	 @Path("/update")
 	 @Consumes({MediaType.APPLICATION_JSON})
-	 @Produces({MediaType.TEXT_HTML})	
+	 @Produces({MediaType.APPLICATION_JSON})	
 	 @Transactional
-	public void updateUser(User updUser) {
+	public Response updateUser(User updUser) {
 		userDao.updateUser(updUser);
+		return Response.ok(updUser).build();
 	}
 
 	// @Override
 
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/delete")
+	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({ MediaType.TEXT_HTML })
 	@Transactional
-	public void deleteUser(@PathParam("id") String id) {
-		
-		userDao.deleteUser(userDao.getUserById(Long.valueOf(id)));
+	public void deleteUser(User user) {	
+		userDao.deleteUser(user);
 	}
 
 	// @Override

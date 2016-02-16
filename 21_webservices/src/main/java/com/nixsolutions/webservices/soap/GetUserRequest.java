@@ -6,15 +6,13 @@
 //
 
 
-package com.nixsolutions.webservices.userservice;
+package com.nixsolutions.webservices.soap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-
-import com.nixsolutions.entity.User;
 
 
 /**
@@ -27,7 +25,7 @@ import com.nixsolutions.entity.User;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="user" type="{http://webservices.nixsolutions.com/userservice}user"/>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,36 +36,36 @@ import com.nixsolutions.entity.User;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "user"
+    "id"
 })
-@XmlRootElement(name = "getUserResponse")
-public class GetUserResponse {
+@XmlRootElement(name = "getUserRequest")
+public class GetUserRequest {
 
     @XmlElement(required = true)
-    protected User user;
+    protected String id;
 
     /**
-     * Gets the value of the user property.
+     * Gets the value of the name property.
      * 
      * @return
      *     possible object is
-     *     {@link User }
+     *     {@link String }
      *     
      */
-    public User getUser() {
-        return user;
+    public String getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the user property.
+     * Sets the value of the name property.
      * 
      * @param value
      *     allowed object is
-     *     {@link User }
+     *     {@link String }
      *     
      */
-    public void setUser(User value) {
-        this.user = value;
+    public void setId(String value) {
+        this.id = value;
     }
 
 }

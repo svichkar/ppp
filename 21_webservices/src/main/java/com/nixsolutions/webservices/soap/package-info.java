@@ -5,5 +5,5 @@
 // Generated on: 2016.02.15 at 06:49:33 PM EET 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://webservices.nixsolutions.com/userservice", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.nixsolutions.webservices.userservice;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://webservices.nixsolutions.com/soap", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package com.nixsolutions.webservices.soap;

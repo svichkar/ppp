@@ -2,10 +2,6 @@ package com.nixsolutions.service.impl;
 
 import java.util.List;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +25,10 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	private UserDao userDao;
 	@Autowired
 	RoleDao roleDao;
-	Client client = ClientBuilder.newClient();
-	WebTarget userWebTarget = client.target("http://localhost:8080/webservices/rest/user");
-	
 	
 	@Override
 	public List<User> getAllUsers() {
-		
-		//WebTarget getAllwebTarget = userWebTarget.path("getall");
-		List<User> responseEntity = ClientBuilder.newClient()
-	            .target("http://localhost:8080/webservices").path("rest/user/getall")
-	                        .request().get(List.class);
-		return responseEntity;
+		return userDao.getAllUsers();
 	}
 
 	@Override

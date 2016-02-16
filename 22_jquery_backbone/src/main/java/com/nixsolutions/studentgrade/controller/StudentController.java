@@ -82,7 +82,7 @@ public class StudentController {
                 .request().get().readEntity(AllStudentsBean.class).getStudents();
 
         ModelAndView model = new ModelAndView();
-        if (studentList != null && studentList.isEmpty()) {
+        if (studentList == null || studentList.isEmpty()) {
             model.addObject("message", "No data available. Please change search criteria.");
         }
         model.addObject("students", studentList);

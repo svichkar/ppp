@@ -1,6 +1,7 @@
 package com.nixsolutions.studentgrade.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nixsolutions.studentgrade.webservice.adapter.SqlDateAdapter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -23,6 +24,7 @@ public class Student implements Serializable {
     @Id
     @Column(name = "student_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long studentId;
 
     @Column(name = "first_name", nullable = false, length = 256)
@@ -53,10 +55,12 @@ public class Student implements Serializable {
     }
 
     @XmlAttribute
+    @JsonProperty("id")
     public Long getStudentId() {
         return studentId;
     }
 
+    @JsonProperty("id")
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }

@@ -33,19 +33,19 @@ public class StudentWebService {
     }
 
     @PUT
-    @Path("/updateStudent")
+    @Path("/updateStudent/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void update(Student student) {
+    public void update(Student student, @PathParam("id") Long id) {
 
         studentDao.update(student);
     }
 
     @DELETE
-    @Path("/deleteStudent")
+    @Path("/deleteStudent/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void delete(Student student) {
+    public void delete(Student student, @PathParam("id") Long id) {
 
         studentDao.delete(student);
     }

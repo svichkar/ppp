@@ -14,6 +14,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -26,7 +28,7 @@ import com.nixsolutions.service.CustomerService;
 @Path("car")
 @Controller
 public class CarRestWebService {
-
+	private final static Logger LOG = LogManager.getLogger(CarRestWebService.class);
 	@Autowired
 	private CarService carServiceImpl;
 	@Autowired
@@ -56,7 +58,6 @@ public class CarRestWebService {
 		List<CarCustomer> result = carServiceImpl.getAllCarCustomers();
 		return result;
 	}
-	
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -68,16 +69,27 @@ public class CarRestWebService {
 			Customer customer = customerServiceImpl.getCustomerById(carCustomer.getCustomerId());
 			if (customer != null) {
 				Car car = new Car(carCustomer.getModel(), carCustomer.getVin(), carCustomer.getDescription(), customer);
-				carServiceImpl.addCar(car);
-				resultId = carServiceImpl.getCarByVin(car.getVin()).getCarId();
+				try {
+					carServiceImpl.addCar(car);
+					resultId = carServiceImpl.getCarByVin(car.getVin()).getCarId();
+				} catch (Exception ex) {
+					LOG.error(ex, ex);
+					resultId = 0;
+				}
+
 			} else {
 				Customer customerNew = new Customer(carCustomer.getFname(), carCustomer.getLname(), "", null);
 				customerServiceImpl.addCustomer(customerNew);
 				customerNew = customerServiceImpl.getCustomerByFullName(carCustomer.getFname(), carCustomer.getLname());
 				Car car = new Car(carCustomer.getModel(), carCustomer.getVin(), carCustomer.getDescription(),
 						customerNew);
-				carServiceImpl.addCar(car);
-				resultId = carServiceImpl.getCarByVin(car.getVin()).getCarId();
+				try {
+					carServiceImpl.addCar(car);
+					resultId = carServiceImpl.getCarByVin(car.getVin()).getCarId();
+				} catch (Exception ex) {
+					LOG.error(ex, ex);
+					resultId = 0;
+				}
 			}
 		}
 		if (resultId > 0) {
@@ -101,8 +113,14 @@ public class CarRestWebService {
 				carFound.setDescription(carCustomer.getDescription());
 				carFound.setModel(carCustomer.getModel());
 				carFound.setVin(carCustomer.getVin());
-				carServiceImpl.updateCar(carFound);
-				resultId = carFound.getCarId();
+				try {
+					carServiceImpl.updateCar(carFound);
+					resultId = carFound.getCarId();
+				} catch (Exception ex) {
+					LOG.error(ex, ex);
+					resultId = 0;
+				}
+
 			}
 		}
 		if (resultId > 0) {
@@ -119,13 +137,18 @@ public class CarRestWebService {
 		long resultId = 0;
 		if (NumberUtils.isDigits(carId)) {
 			Car car = carServiceImpl.getCarById(Integer.valueOf(carId));
-			carServiceImpl.deleteCar(car);
-			resultId = car.getCarId();
+			try {
+				carServiceImpl.deleteCar(car);
+				resultId = car.getCarId();
+			} catch (Exception ex) {
+				LOG.error(ex, ex);
+				resultId = 0;
+			}
 		}
 		if (resultId > 0) {
 			return Response.status(200).entity(resultId).build();
 		} else {
-			return Response.status(404).entity(resultId).build();
+			return Response.status(500).entity(resultId).build();
 		}
 	}
 

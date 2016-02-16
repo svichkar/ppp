@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://localhost:8080/21_webservices-0.0.1-SNAPSHOT/ws/soap/user"
+	xmlns:tn="http://localhost:8080/21_webservices-0.0.1-SNAPSHOT/ws/soap/user"
+	elementFormDefault="unqualified">
+
+	<xs:element name="createUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tn:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="userId" type="xs:long" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tn:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tn:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="user">
+		<xs:sequence>
+			<xs:element name="userId" type="xs:long" minOccurs="0" />
+			<xs:element name="login" type="xs:string" minOccurs="1" />
+			<xs:element name="password" type="xs:string" minOccurs="1" />
+			<xs:element name="email" type="xs:string" minOccurs="1" />
+			<xs:element name="role" type="tn:role" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="role">
+		<xs:sequence>
+			<xs:element name="roleId" type="xs:long" minOccurs="1" />
+			<xs:element name="roleName" type="xs:string" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

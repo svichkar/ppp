@@ -18,14 +18,4 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <servlet-name>jersey-serlvet</servlet-name>
     <url-pattern>/services/*</url-pattern>
   </servlet-mapping>
-  <!--<servlet>
-    <servlet-name>spring-ws</servlet-name>
-    <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>spring-ws</servlet-name>
-    <url-pattern>/wssoap/*</url-pattern>
-  </servlet-mapping>-->
-
 </web-app>

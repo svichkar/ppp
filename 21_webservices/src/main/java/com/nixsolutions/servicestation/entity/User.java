@@ -1,6 +1,7 @@
 package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.List;
 

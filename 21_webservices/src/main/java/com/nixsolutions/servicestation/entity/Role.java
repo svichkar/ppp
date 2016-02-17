@@ -1,6 +1,7 @@
 package com.nixsolutions.servicestation.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -16,20 +17,9 @@ public class Role implements Serializable {
     @Column(name = "role_name", length = 100, nullable = false)
     private String roleName;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    private Set<User> userList;
-
     public Role() {
     }
 
-    public Set<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(Set<User> userList) {
-        this.userList = userList;
-    }
 
     public Long getRoleId() {
         return roleId;

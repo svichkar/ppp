@@ -13,6 +13,7 @@ import java.util.Set;
 /**
  * Created by rybkinrolla on 13.01.2016.
  */
+
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType
 @XmlRootElement

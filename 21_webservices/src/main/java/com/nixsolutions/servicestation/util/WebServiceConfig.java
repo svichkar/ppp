@@ -18,23 +18,22 @@ import org.springframework.xml.xsd.XsdSchema;
  */
 @EnableWs
 @Configuration
-@ComponentScan
 public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public ServletRegistrationBean dispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean(servlet, "/wssoap/*");
+        return new ServletRegistrationBean(servlet, "/soap/*");
     }
 
-    @Bean(name = "users")
+    @Bean(name = "userService")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema userSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setServiceName("User");
-        wsdl11Definition.setPortTypeName("User");
-        wsdl11Definition.setLocationUri("/wssoap");
-        wsdl11Definition.setTargetNamespace("http://www.servicestation.nixsolutions.com/wssoap");
+        wsdl11Definition.setServiceName("userService");
+        wsdl11Definition.setPortTypeName("userService");
+        wsdl11Definition.setLocationUri("/soap");
+        wsdl11Definition.setTargetNamespace("http://www.servicestation.nixsolutions.com/soap");
         wsdl11Definition.setSchema(userSchema);
         return wsdl11Definition;
     }

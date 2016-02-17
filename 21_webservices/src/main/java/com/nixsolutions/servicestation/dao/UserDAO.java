@@ -1,5 +1,6 @@
 package com.nixsolutions.servicestation.dao;
 
+
 import com.nixsolutions.servicestation.entity.User;
 
 /**

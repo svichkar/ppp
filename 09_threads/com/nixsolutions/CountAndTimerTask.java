@@ -9,7 +9,7 @@ package com.nixsolutions;
  */
 public class CountAndTimerTask {
 
-    private static int count = 1;
+    private volatile static int count = 1;
     private static final int CAPACITY = 1000;
 
     public static void main(String[] argc) {

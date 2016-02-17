@@ -58,7 +58,7 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
                 className = className.replace('.', File.separatorChar) + ".class";
             }
             File classFile = directory.toFile();
-            if (!classFile.isAbsolute() || System.getenv().get("HOMEDRIVE")==null) {
+            if (!classFile.isAbsolute() || System.getenv().get("HOMEDRIVE") == null) {
                 File workDir = new File(System.getProperty("user.dir"));    //transform path to absolute
                 Path wd = Paths.get(workDir.toURI());
                 Path cf = Paths.get(classFile.toURI());
@@ -85,7 +85,6 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
                 fis.close();
             }
         }
-        System.out.println("Load by file");
         return defineClass(directory.getFileName().toString().replace(".class", ""), bytes, 0, bytes.length);
     }
 }

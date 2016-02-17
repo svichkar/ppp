@@ -19,7 +19,6 @@ public class ConsumerProducer {
     }
 
     private static class Producer implements Runnable {
-
         BlockingQueue<Integer> queue;
 
         public Producer(BlockingQueue queue) {

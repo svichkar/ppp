@@ -27,7 +27,8 @@
 				</tr>
        </table>
        <p/><input type="submit" name="add" value="Add">
-       </form> 
+       </form>
+       <a href="<c:url value="/backboneTerms"/>">Backbone Terms</a> 
        </div>
        <c:if test="${not empty message}">
        <div class="message-info" align="center">

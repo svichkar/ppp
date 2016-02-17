@@ -48,7 +48,6 @@ public class TermServiceWeb {
 	public Response createTerm(Term term) {
 		termDao.createTerm(term);
 		return Response.status(Response.Status.OK).entity(term.getTermId().toString()).build();
-		//return Response.ok().build();
 	}
 
 	@PUT

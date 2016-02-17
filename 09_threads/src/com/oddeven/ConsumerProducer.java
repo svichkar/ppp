@@ -12,7 +12,7 @@ public class ConsumerProducer {
     private static int counter = 0;
 
     public static void main(String[] args) {
-        BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(100,true);
+        BlockingQueue<Integer> queue = new ArrayBlockingQueue<Integer>(100, true);
         new Thread(new Producer(queue), "producer").start();
         new Thread(new Consumer(queue), "consumerOdd").start();
         new Thread(new Consumer(queue), "consumerEven").start();

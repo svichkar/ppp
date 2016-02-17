@@ -41,9 +41,9 @@ public class Role implements Serializable{
 	//@XmlElement(required = true)
 	private String name;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
-	List<User> users;
+	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	//@JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
+	//List<User> users;
 	
 	public Role(){};
 	
@@ -77,7 +77,7 @@ public class Role implements Serializable{
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((roleId == null) ? 0 : roleId.hashCode());
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
+		/*result = prime * result + ((users == null) ? 0 : users.hashCode());*/
 		return result;
 	}
 
@@ -100,11 +100,11 @@ public class Role implements Serializable{
 				return false;
 		} else if (!roleId.equals(other.roleId))
 			return false;
-		if (users == null) {
+		/*if (users == null) {
 			if (other.users != null)
 				return false;
 		} else if (!users.equals(other.users))
-			return false;
+			return false;*/
 		return true;
 	}
 	

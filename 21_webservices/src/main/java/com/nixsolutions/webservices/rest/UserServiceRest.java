@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.nixsolutions.dao.RoleDao;
 import com.nixsolutions.dao.UserDao;
@@ -49,7 +50,7 @@ public class UserServiceRest {
 	}
 
 	@GET
-	@Path("/get/{id}")
+	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Transactional(readOnly = true)
 	public User getUserById(@PathParam("id") Long userId) {
@@ -59,27 +60,28 @@ public class UserServiceRest {
 	}
 
 	 @POST
-	 @Path("/create")
+	 @Path("/")
 	 @Consumes({MediaType.APPLICATION_JSON})
 	 @Produces({MediaType.APPLICATION_JSON})
 	 @Transactional
-	public Response createUser(User createUser) {
+	public Response createUser(@RequestBody User createUser) {
 		userDao.createUser(createUser);
 		return Response.ok(createUser).build();
 	}
 
 	 @PUT
-	 @Path("/update")
+	 @Path("/{id}")
 	 @Consumes({MediaType.APPLICATION_JSON})
 	 @Produces({MediaType.APPLICATION_JSON})	
 	 @Transactional
-	public Response updateUser(User updUser) {
+	public Response updateUser(@RequestBody User updUser) {
+		 LOG.entry(updUser);
 		userDao.updateUser(updUser);
 		return Response.ok(updUser).build();
 	}
 
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	@Produces({ MediaType.TEXT_HTML })
 	@Transactional
 	public void deleteUser(@PathParam("id") Long userId) {	

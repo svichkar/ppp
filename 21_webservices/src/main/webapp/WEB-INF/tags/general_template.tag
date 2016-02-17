@@ -39,6 +39,7 @@
 			<li><a href="addbook">Add book</a></li>
 			<li><a href="addreader">Add reader</a></li>
 			<li><a href="findreader">Loan book</a></li>
+			<li><a href="mngUsrBackbone">Add user (Backbone)</a></li>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li><a href="manageusers">Add user</a></li>
 				<li><a href="addcategory">Add category</a></li>

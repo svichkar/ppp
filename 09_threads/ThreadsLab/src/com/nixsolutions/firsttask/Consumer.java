@@ -19,8 +19,8 @@ public class Consumer implements Runnable {
 	public void run() {
 		try {
 			while (running) {
-				if (queue.peek() != null) {
-					int queueValue = queue.peek();
+				Integer queueValue = queue.peek();
+				if (queueValue != null) {
 					if (queueValue == END_FLAG) {
 						running = false;
 					}

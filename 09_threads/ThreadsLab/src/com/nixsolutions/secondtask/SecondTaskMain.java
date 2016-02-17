@@ -7,9 +7,9 @@ import java.util.concurrent.TimeUnit;
 public class SecondTaskMain {
 
 	public static void main(String[] args) throws InterruptedException {
-		Thread firstThread = new Thread(new CounterThread("Mr. First Thread"));
-		Thread secondThread = new Thread(new CounterThread("Mr. Second Thread"));
-		Thread thirdThread = new Thread(new CounterThread("Mr. Third Thread"));
+		Runnable firstThread = new CounterThread("Mr. First Thread");
+		Runnable secondThread = new CounterThread("Mr. Second Thread");
+		Runnable thirdThread = new CounterThread("Mr. Third Thread");
 		ScheduledExecutorService scheduledService = Executors.newSingleThreadScheduledExecutor();
 		System.out.println("Starting the loop.");
 		for (int i = 1; i <= 1000; i++) {

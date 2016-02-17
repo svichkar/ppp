@@ -1,7 +1,5 @@
 package com.nixsolutions.ReflectionsTask2;
 
-import com.thoughtworks.xstream.alias.ClassMapper;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,12 +46,6 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
         return findClass;
     }
 
-    /*@Override
-    public Class<?> loadClass(String className) throws ClassNotFoundException {
-        Class loadedClass = null;
-        return loadedClass = super.loadClass(className);
-    }*/
-
     public Class<?> loadClassFromFile(String className) throws ClassNotFoundException, IOException, NullPointerException {
         File pathToFile = null;
         FileInputStream fis = null;
@@ -63,11 +55,11 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
         }
         try {
             if (!className.matches(".class")) {
-                className += ".class";
+                className = className.replace('.', File.separatorChar) + ".class";
             }
             File classFile = directory.toFile();
             if (!classFile.isAbsolute()) {
-                File workDir = new File(System.getProperty("user.dir"));
+                File workDir = new File(System.getProperty("user.dir"));    //transform path to absolute
                 Path wd = Paths.get(workDir.toURI());
                 Path cf = Paths.get(classFile.toURI());
                 Path cn = Paths.get(className);
@@ -94,6 +86,6 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
             }
         }
         System.out.println("Load by file");
-        return defineClass(className.replace(".class", ""), bytes, 0, bytes.length);
+        return defineClass(directory.getFileName().toString().replace(".class", ""), bytes, 0, bytes.length);
     }
 }

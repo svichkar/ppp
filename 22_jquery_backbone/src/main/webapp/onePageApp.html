@@ -20,7 +20,6 @@
         <th>Term</th>
         <th>Status</th>
         <th>Commands</th>
-        <th>Details</th>
     </tr>
 </thead>
  <tbody>
@@ -34,7 +33,6 @@
 <td><%= student.term.termName %></td>
 <td><%= student.status.statusName %></td>
 <td><a href="#editStudent/<%= student.id %>">Edit</a> / <a href="#deleteStudent/<%= student.id %>">Delete</a></td>
-<td><a href="#details/<%= student.id %>">Details</a></td>
 </tr>
 <% }); %>
 </tbody>
@@ -43,73 +41,140 @@
 
 <script type="text/template" id="addStudent">
 
-<form>
-<table>
-<tbody>
-<tr><input type="text" name="firstName"/></tr>
-<tr><input type="text" name="lastName"/></tr>
-<tr><input type="date" name="date"/></tr>
-<tr><select name="selectedGroup">
-<option value="" selected disabled>..........</option>
-</select>
-</tr>
-<tr><select name="selectedTerm">
-<option value="" selected disabled>..........</option>
-</select>
-</tr>
-<tr><select name="selectedStatus">
-<option value="" selected disabled>..........</option>
-</select>
-</tr>
-<tr><input type="submit" name="add" value="add"/></tr>
-</tbody>
-</table>
-</form>
+        <table width="50%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Admission Date</th>
+                <th>Group</th>
+                <th>Term</th>
+                <th>Status</th>
+                <th>Commands</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form>
+                <tr>
+                    <td></td>
+                    <td><input required type="text" id="firstName"/></td>
+                    <td><input required type="text" id="lastName"/></td>
+                    <td><input required type="date" id="admissionDate"/></td>
+                    <td>
+                        <select required id="studentGroup" name="studentGroup">
+                            <option value="" selected>--select group--</option>
+                            <% _(groupList).each(function(group) { %>
+                            <option value="<%= group.groupId %>"><%= group.groupName %></option>
+                            <% }); %>
+                        </select>
+                    </td>
+                    <td>
+                        <select required id="term" name="term">
+                            <option value="" selected>--select term--</option>
+                            <% _(termList).each(function(term) { %>
+                            <option value="<%= term.termId %>"><%= term.termName %></option>
+                            <% }); %>
+                        </select>
+                    </td>
+                    <td>
+                        <select required id="status" name="status">
+                            <option value="" selected>--select status--</option>
+                            <% _(statusList).each(function(status) { %>
+                            <option value="<%= status.statusId %>"><%= status.statusName %></option>
+                            <% }); %>
+                        </select>
+                    </td>
+
+                    <td><input id="addSbmt" type="submit" value="add"/></td>
+                </tr>
+             </form>
+            </tbody>
+        </table>
 </script>
 
-    <script type="text/template" id="editStudent">
+<script type="text/template" id="editStudent">
 
-        <form>
-            <table>
-                <tbody>
-                <tr><input type="text" name="firstName"/></tr>
-                <tr><input type="text" name="lastName"/></tr>
-                <tr><input type="date" name="date"/></tr>
-                <tr><select name="selectedGroup">
-                    <option value="" selected disabled>..........</option>
-                </select>
+        <table width="50%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Admission Date</th>
+                <th>Group</th>
+                <th>Term</th>
+                <th>Status</th>
+                <th>Commands</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form>
+                <tr>
+                    <td><input type="text" id="id" value="<%= student.id %>" readonly hidden/></td>
+                    <td><input required type="text" id="firstName" value="<%= student.firstName %>"/></td>
+                    <td><input required type="text" id="lastName" value="<%= student.lastName %>"/></td>
+                    <td><input required type="date" id="admissionDate" value="<%= student.admissionDate %>"/></td>
+                    <td>
+                        <select required id="studentGroup" name="studentGroup">
+                            <% _(groupList).each(function(group) { %>
+                            <%if(student.studentGroup.groupId == group.groupId) {%>
+                            <option selected value="<%= group.groupId %>"><%= group.groupName %></option>
+                            <%} else {%>
+                            <option value="<%= group.groupId %>"><%= group.groupName %></option>
+                            <% }%>
+                            <% }); %>
+                        </select>
+                    </td>
+                    <td>
+                        <select required id="term" name="term">
+                            <% _(termList).each(function(term) { %>
+                            <%if(student.term.termId == term.termId) {%>
+                            <option selected value="<%= term.termId %>"><%= term.termName %></option>
+                            <%} else {%>
+                            <option value="<%= term.termId %>"><%= term.termName %></option>
+                            <% }%>
+                            <% }); %>
+                        </select>
+                    </td>
+                    <td>
+                        <select required id="status" name="status">
+                            <% _(statusList).each(function(status) { %>
+                            <%if(student.status.statusId == status.statusId) {%>
+                            <option selected value="<%= status.statusId %>"><%= status.statusName %></option>
+                            <%} else {%>
+                            <option value="<%= status.statusId %>"><%= status.statusName %></option>
+                            <% }%>
+                            <% }); %>
+                        </select>
+                    </td>
+                    <td><input id="updateSbmt" type="submit" value="edit"/></td>
                 </tr>
-                <tr><select name="selectedTerm">
-                    <option value="" selected disabled>..........</option>
-                </select>
-                </tr>
-                <tr><select name="selectedStatus">
-                    <option value="" selected disabled>..........</option>
-                </select>
-                </tr>
-                <tr><input type="submit" name="add" value="add"/></tr>
-                </tbody>
-            </table>
-        </form>
+            </form>
+            </tbody>
+        </table>
+
     </script>
-
-    <script src="javascript/backbone/backboneModels.js"></script>
-    <script src="javascript/backbone/backboneViews.js"></script>
-    <script src="javascript/backbone/backboneRouters.js"></script>
 
 </head>
 
  <body>
-     <h1>One Page App</h1>
+     <h1 align="center">STUDENT MANAGEMENT APPLICATION (backbone in action)</h1>
      <br>
-     <div class="container">
-                 <ul class="nav nav-pills nav-stacked">
-                     <li class="students"><a href="#students">Students</a></li>
-                     <li class="addStudent"><a href="#addStudent">Add student</a></li>
+     <div class="container" align="center">
+                 <ul class="nav nav-pills nav-stacked"  style="list-style-type:none">
+                     <li class="students"><a href="#students">List of Students</a></li>
+                     <li class="addStudent"><a href="#addStudent">Add New Student</a></li>
                  </ul>
       </div>
+     <br>
+    <div align="center">
+      <div class="content" align="center"></div>
+    </div>
 
-      <div class="content"></div>
+     <script src="javascript/backbone/backboneModels.js"></script>
+     <script src="javascript/backbone/backboneViews.js"></script>
+     <script src="javascript/backbone/backboneRouters.js"></script>
 
  </body>
  <html>

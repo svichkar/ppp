@@ -1,53 +1,28 @@
-window.StudentModel = Backbone.Model.extend({
-    urlRoot:"/backbone/ws/rest/students/getStudent",
-});
-
-window.StudentsCollection = Backbone.Collection.extend({
-     model: StudentModel,
-     url: "/backbone/ws/rest/students/getAllStudents"
-    });
-
-var student = new StudentModel();
-student.set ({id: 5});
-
-var students = new StudentsCollection();
-
-students.fetch({
-              success: function (students) {
-              alert(JSON.stringify(students));
-              }
-});
-
-student.fetch({
-           success: function (student) {
-               alert(JSON.stringify(student));
-           }
-       });
-
-var updated = new StudentModel(
-{
-id: 5,
-firstName: "Marlon",
-lastName: "Bullocks",
-studentGroup: {
-groupId: 3,
-groupName: "java 15-3"
-},
-admissionDate: "2015-01-01",
-status: {
-statusId: 1,
-statusName: "active"
-},
-term: {
-termId: 1,
-termName: "first"
+var StudentModel = Backbone.Model.extend({
+    url: function() {
+    return "/backbone/ws/rest/studentService/student/" + (this.id ? this.id : '');
 }
 });
 
+var StudentsCollection = Backbone.Collection.extend({
+     model: StudentModel,
+     url: "/backbone/ws/rest/studentService/students"
+    });
 
-updated.urlRoot = "/backbone/ws/rest/students/updateStudent";
-updated.save({
-             success: function (updated) {
-             alert(JSON.stringify(updated));
-             }
+var StatusCollection = Backbone.Collection.extend({
+                            url: "/backbone/ws/rest/studentService/status"
 });
+
+var TermCollection = Backbone.Collection.extend({
+                            url: "/backbone/ws/rest/studentService/term"
+});
+
+var GroupCollection = Backbone.Collection.extend({
+                            url: "/backbone/ws/rest/studentService/group"
+});
+
+var student = new StudentModel();
+var students = new StudentsCollection();
+var statusList = new StatusCollection();
+var termList = new TermCollection();
+var groupList = new GroupCollection();

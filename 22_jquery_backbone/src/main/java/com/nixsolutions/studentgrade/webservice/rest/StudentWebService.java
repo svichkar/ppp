@@ -1,7 +1,13 @@
 package com.nixsolutions.studentgrade.webservice.rest;
 
 import com.nixsolutions.studentgrade.dao.StudentDao;
+import com.nixsolutions.studentgrade.model.Status;
 import com.nixsolutions.studentgrade.model.Student;
+import com.nixsolutions.studentgrade.model.StudentGroup;
+import com.nixsolutions.studentgrade.model.Term;
+import com.nixsolutions.studentgrade.service.StatusService;
+import com.nixsolutions.studentgrade.service.StudentGroupService;
+import com.nixsolutions.studentgrade.service.TermService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Path("students")
+@Path("studentService")
 public class StudentWebService {
 
     private StudentDao studentDao;
@@ -22,9 +28,15 @@ public class StudentWebService {
     public void setStudentDao(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
+    @Autowired
+    TermService termService;
+    @Autowired
+    StudentGroupService groupService;
+    @Autowired
+    StatusService statusService;
 
     @POST
-    @Path("/createStudent")
+    @Path("/student")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void create(Student student) {
@@ -33,7 +45,7 @@ public class StudentWebService {
     }
 
     @PUT
-    @Path("/updateStudent/{id}")
+    @Path("/student/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void update(Student student, @PathParam("id") Long id) {
@@ -42,16 +54,15 @@ public class StudentWebService {
     }
 
     @DELETE
-    @Path("/deleteStudent/{id}")
+    @Path("/student/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void delete(Student student, @PathParam("id") Long id) {
+    public void delete(@PathParam("id") Long id) {
 
-        studentDao.delete(student);
+        studentDao.delete(studentDao.findById(id));
     }
 
     @GET
-    @Path("/getAllStudents")
+    @Path("/students")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Student> findAll() {
 
@@ -59,23 +70,23 @@ public class StudentWebService {
     }
 
     @GET
-    @Path("/getStudent/{studentId}")
+    @Path("/student/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Student findById(@PathParam("studentId") Long studentId) {
+    public Student findById(@PathParam("id") Long id) {
 
-        return studentDao.findById(studentId);
+        return studentDao.findById(id);
     }
 
     @GET
-    @Path("/getStudentByNameAndLastName")
+    @Path("/student/{firstName}/{lastName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Student findByNameAndLastName(@QueryParam("name") String name, @QueryParam("lastName") String lastName) {
+    public Student findByNameAndLastName(@QueryParam("firstName") String firstName, @QueryParam("lastName") String lastName) {
 
-        return studentDao.findByNameAndLastName(name, lastName);
+        return studentDao.findByNameAndLastName(firstName, lastName);
     }
 
     @GET
-    @Path("/getStudentByLastNameAndGroup")
+    @Path("/student")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Student> findByLastNameAndGroup(@QueryParam("lastName") String lastName, @QueryParam("groupName") String groupName) {
 
@@ -99,5 +110,30 @@ public class StudentWebService {
         }
 
         return result;
+    }
+
+
+    @GET
+    @Path("/status")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Status> findAllStatus() {
+
+        return statusService.findAll();
+    }
+
+    @GET
+    @Path("/group")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<StudentGroup> findAllGroups() {
+
+        return groupService.findAll();
+    }
+
+    @GET
+    @Path("/term")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Term> findAllTerms() {
+
+        return termService.findAll();
     }
 }

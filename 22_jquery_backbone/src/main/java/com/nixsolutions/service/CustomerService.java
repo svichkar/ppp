@@ -2,6 +2,7 @@ package com.nixsolutions.service;
 
 import java.util.List;
 
+import com.nixsolutions.dto.CustomerDescription;
 import com.nixsolutions.entities.Customer;
 
 public interface CustomerService {
@@ -17,4 +18,8 @@ public interface CustomerService {
 	void updateCustomer(Customer customer);
 
 	void deleteCustomer(Customer customer);
+
+	List<CustomerDescription> getAllCustomerDescriptions();
+
+	CustomerDescription getCustomerDescription(long customerId);
 }

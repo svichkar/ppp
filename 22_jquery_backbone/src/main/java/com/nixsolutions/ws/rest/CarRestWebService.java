@@ -59,11 +59,11 @@ public class CarRestWebService {
 		List<CarCustomer> result = carServiceImpl.getAllCarCustomers();
 		return result;
 	}
-
+	
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/create")
+	@Path("/")
 	public Response addCar(@RequestBody CarCustomer carCustomer) {
 		long resultId = 0;
 		if (carCustomer != null) {
@@ -104,10 +104,11 @@ public class CarRestWebService {
 	@PUT
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/update")
+	@Path("/{id}")
 	public Response updateCar(@RequestBody CarCustomer carCustomer) {
 		long resultId = 0;
 		if (carCustomer != null) {
+			//long parsedCarId = carCustomer.getId() > 0 ? carCustomer.getId() : Long.valueOf(carId);
 			Customer customerFound = customerServiceImpl.getCustomerById(carCustomer.getCustomerId());
 			Car carFound = carServiceImpl.getCarById(carCustomer.getId());
 			if (customerFound != null && carFound != null) {
@@ -133,7 +134,7 @@ public class CarRestWebService {
 
 	@DELETE
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	public Response deleteCar(@PathParam("id") String carId) {
 		long resultId = 0;
 		if (NumberUtils.isDigits(carId)) {

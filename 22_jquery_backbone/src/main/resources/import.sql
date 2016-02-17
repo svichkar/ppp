@@ -12,11 +12,13 @@ INSERT INTO user (username, password, role_id) VALUES ('davidc', '1', 2);
 INSERT INTO user (username, password, role_id) VALUES ('ivans', '1', 2);
 INSERT INTO user (username, password, role_id) VALUES ('davidb', '1', 2);
 ---fill table customer
-INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Hans', 'Bernanrd', '+44080045456', 1);
-INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Dini', 'Omar', '+44080045457', 2);
-INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Ivan', 'Stuart', '+44080045458', 5);
-INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('David', 'Cox', '+44080045458', 4);
-INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('David', 'Box', '+44080045458', 6);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Hans', 'Bernanrd', '4408004545', 1);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Dini', 'Omar', '4408004545', 2);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Ivan', 'Stuart', '4408004545', 5);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('David', 'Cox', '4408004545', 4);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('David', 'Box', '4408004545', 6);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Test', 'Test2', '4408004545',6);
+INSERT INTO customer (f_name,l_name, phone, user_id) VALUES ('Foo', 'Foo1', '4408004545',6);
 --fill table status
 INSERT INTO status (status_name) VALUES ('Vacation');
 INSERT INTO status (status_name) VALUES ('Busy');

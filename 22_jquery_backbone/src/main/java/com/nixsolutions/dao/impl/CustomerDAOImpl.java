@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nixsolutions.dao.CustomerDAO;
+import com.nixsolutions.dto.CustomerDescription;
 import com.nixsolutions.entities.Customer;
 import com.nixsolutions.entities.User;
 

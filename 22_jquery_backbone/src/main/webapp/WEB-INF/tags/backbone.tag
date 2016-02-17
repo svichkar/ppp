@@ -4,12 +4,11 @@
 <%@attribute name="content_area" fragment="true"%>
 <%@attribute name="sidebar_area" fragment="true"%>
 <c:url value="/style/style.css" var="cssUrl" />
-<c:url value="/style/bootstrap.mini.css" var="cssBootstrapUrl" />
-<c:url value="/js/bootstrap.js" var="bootstrap" />
 <c:url value="/js/backbone.js" var="backbone" />
 <c:url value="/js/underscore.js" var="underscore" />
-<c:url value="js/jquery.js" var="jquery" />
-<c:url value="js/my.js" var="my" />
+<c:url value="/js/jquery.js" var="jquery" />
+<c:url value="/js/history.js" var="history" />
+<c:url value="/js/bootstrap.js" var="bootstrap" />
 <html>
 
 <head>
@@ -18,12 +17,11 @@
 <meta name="keywords" content="website keywords, website keywords" />
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" src="${jquery}"></script>
-<script type="text/javascript" src="${bootstrap}"></script>
 <script type="text/javascript" src="${underscore}"></script>
-<script type="text/javascript" src="${my}"></script>
+<script type="text/javascript" src="${history}"></script>
 <script type="text/javascript" src="${backbone}"></script>
+<script type="text/javascript" src="${bootstrap}"></script>
 <link href="${cssUrl}" type="text/css" rel="stylesheet" />
-<link href="${cssBootstrapUrl}" type="text/css" rel="stylesheet" />
 <jsp:invoke fragment="head_area" />
 </head>
 

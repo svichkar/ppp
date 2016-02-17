@@ -1,5 +1,7 @@
 # backbone in action: #
 
+http://svichkar:8080/backbone/login
+
 1) login / password: user / user
 
 2) Navigate to 'Students(one page app)'

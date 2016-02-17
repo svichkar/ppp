@@ -50,9 +50,8 @@ public class ConsumerProducer {
         @Override
         public void run() {
             try {
-
                 while (counter < 100) {
-                    if (!queue.isEmpty()) {
+                    while (!queue.isEmpty()) {
                         if (Thread.currentThread().getName().equals("consumerEven")) {
                             if (queue.element() % 2 == 0) {
                                 System.out.println(Thread.currentThread().getName() + " removed a number: " + queue.take());
@@ -63,7 +62,7 @@ public class ConsumerProducer {
                                 System.out.println(Thread.currentThread().getName() + " removed a number: " + queue.take());
                             }
                         }
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     }
                 }
             } catch (InterruptedException e) {

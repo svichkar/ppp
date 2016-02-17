@@ -63,8 +63,8 @@ public class ConsumerProducer {
                                 System.out.println(Thread.currentThread().getName() + " removed a number: " + queue.take());
                             }
                         }
+                        Thread.sleep(100);
                     }
-                    Thread.sleep(50);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -48,43 +49,24 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
 
     public Class<?> loadClassFromFile(String className) throws ClassNotFoundException, IOException, NullPointerException {
         File pathToFile = null;
-        FileInputStream fis = null;
         byte[] bytes = null;
         if (directory == null) {
             throw new ClassNotFoundException();
         }
-        try {
-            if (!className.matches(".class")) {
-                className = className.replace('.', File.separatorChar) + ".class";
-            }
-            File classFile = directory.toFile();
-            if (!classFile.isAbsolute() || System.getenv().get("HOMEDRIVE") == null) {
-                File workDir = new File(System.getProperty("user.dir"));    //transform path to absolute
-                Path wd = Paths.get(workDir.toURI());
-                Path cf = Paths.get(classFile.toURI());
-                Path cn = Paths.get(className);
-                directory = wd.resolve(cf.getRoot().relativize(cf)).resolve(cn);
-                pathToFile = directory.toFile();
-            }
-            if (!pathToFile.exists()) {
-                throw new FileNotFoundException();
-            }
-            fis = new FileInputStream(pathToFile);
-            long fileLength = pathToFile.length();
-            bytes = new byte[(int) fileLength];
-            int readResult = 0;
-            for (int i = 0; i < fileLength; i++) {
-                readResult = fis.read(bytes);
-            }
-        } catch (FileNotFoundException e) {
-            throw new ClassNotFoundException(e.getMessage());
-        } catch (IOException e) {
-            throw new ClassNotFoundException(e.getMessage());
-        } finally {
-            if (fis != null) {
-                fis.close();
-            }
+        if (!className.matches(".class")) {
+            className = className.replace('.', File.separatorChar) + ".class";
         }
-        return defineClass(directory.getFileName().toString().replace(".class", ""), bytes, 0, bytes.length);
+        pathToFile = directory.resolve(className).toFile();
+        bytes = loadFileFromFs(pathToFile);
+        return defineClass(Paths.get(className).getFileName().toString().replace(".class", ""), bytes, 0, bytes.length);
+    }
+
+    private byte[] loadFileFromFs(File pathToFile) throws IOException {
+        byte[] bytes = null;
+        if (!pathToFile.exists()) {
+            throw new FileNotFoundException();
+        }
+        bytes = Files.readAllBytes(pathToFile.toPath());
+        return bytes;
     }
 }

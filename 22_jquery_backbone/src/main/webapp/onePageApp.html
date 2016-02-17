@@ -26,15 +26,15 @@
  <tbody>
 <% _.each(students, function(student) { %>
 <tr>
-<td><%= student.studentId %></td>
+<td><%= student.id %></td>
 <td><%= student.firstName %></td>
 <td><%= student.lastName %></td>
 <td><%= student.admissionDate %></td>
 <td><%= student.studentGroup.groupName %></td>
 <td><%= student.term.termName %></td>
 <td><%= student.status.statusName %></td>
-<td><a href="#editStudent/<%= student.studentId %>">Edit</a> / <a href="#deleteStudent/<%= student.studentId %>">Delete</a></td>
-<td><a href="#details/<%= student.studentId %>">Details</a></td>
+<td><a href="#editStudent/<%= student.id %>">Edit</a> / <a href="#deleteStudent/<%= student.id %>">Delete</a></td>
+<td><a href="#details/<%= student.id %>">Details</a></td>
 </tr>
 <% }); %>
 </tbody>
@@ -65,10 +65,37 @@
 </tbody>
 </table>
 </form>
-
 </script>
 
-<script src="javascript/backbone/backboneModels.js"></script>
+    <script type="text/template" id="editStudent">
+
+        <form>
+            <table>
+                <tbody>
+                <tr><input type="text" name="firstName"/></tr>
+                <tr><input type="text" name="lastName"/></tr>
+                <tr><input type="date" name="date"/></tr>
+                <tr><select name="selectedGroup">
+                    <option value="" selected disabled>..........</option>
+                </select>
+                </tr>
+                <tr><select name="selectedTerm">
+                    <option value="" selected disabled>..........</option>
+                </select>
+                </tr>
+                <tr><select name="selectedStatus">
+                    <option value="" selected disabled>..........</option>
+                </select>
+                </tr>
+                <tr><input type="submit" name="add" value="add"/></tr>
+                </tbody>
+            </table>
+        </form>
+    </script>
+
+    <script src="javascript/backbone/backboneModels.js"></script>
+    <script src="javascript/backbone/backboneViews.js"></script>
+    <script src="javascript/backbone/backboneRouters.js"></script>
 
 </head>
 
@@ -81,6 +108,8 @@
                      <li class="addStudent"><a href="#addStudent">Add student</a></li>
                  </ul>
       </div>
+
       <div class="content"></div>
+
  </body>
  <html>

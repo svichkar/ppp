@@ -11,20 +11,24 @@ routes: {
 initialize: function () {
              Backbone.history.start();
          },
-         products: function () {
-             new ProductsView();
+
+         students: function () {
+             new StudentsView();
          },
-         addProduct: function () {
-             new AddProductView();
+
+         addStudent: function () {
+             new AddStudentView();
          },
-         editProduct: function (id) {
-             new EditProductView({id: id});
+
+         editStudent: function (id) {
+             new EditStudentView({id: id});
          },
-         deleteProduct: function(id) {
-             var product = new ProductModel;
-             product.set('id', id);
-             product.destroy();
-             window.location.hash = 'products';
+
+         deleteStudent: function(id) {
+             var student = new StudentModel;
+             student.set('id', id);
+             student.destroy();
+             window.location.hash = 'students';
          }
 });
 

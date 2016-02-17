@@ -7,17 +7,16 @@ window.StudentsCollection = Backbone.Collection.extend({
      url: "/backbone/ws/rest/students/getAllStudents"
     });
 
-
 var student = new StudentModel();
 student.set ({id: 5});
 
-var studentList = new StudentsCollection();
+var students = new StudentsCollection();
 
-studentList.fetch({
-                             success: function (studentList) {
-                                 alert(JSON.stringify(studentList));
-                             }
-                         })
+students.fetch({
+              success: function (students) {
+              alert(JSON.stringify(students));
+              }
+});
 
 student.fetch({
            success: function (student) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<category category_id="1" name="Horror" />
+	<category category_id="2" name="Action" />
+	<category category_id="3" name="SciFi" />
+	
+<author/>	
+	<cell/>
+	<book/>
+	<author_book/>
+	<client/>	
+	<rent_journal/>
+	<user/>
+	<role/>
+</dataset>

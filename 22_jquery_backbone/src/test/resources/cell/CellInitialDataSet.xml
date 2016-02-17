@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<cell cell_id="1" name="cell A" />
+	<cell cell_id="2" name="cell B" />
+	<cell cell_id="3" name="cell C" />
+
+<category />
+	<author />
+	<book />
+	<author_book />
+	<client />
+	<rent_journal />
+	<user />
+	<role />
+</dataset>

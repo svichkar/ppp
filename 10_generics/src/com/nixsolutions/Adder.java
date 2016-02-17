@@ -9,21 +9,8 @@ public class Adder {
     Map<String, List<Number>> newMap = new Hashtable<String, List<Number>>();
     List<Number> innerNumber = new ArrayList<Number>();
 
-    public static String generateRandomString() {
-        Random random = new Random();
-        char newChar;
-        String result = "";
-        for (int i = 0; i < (random.nextInt(5) + 3); i++) {
-            newChar = (char) (random.nextInt(95) + 32);
-            if (Character.isLetterOrDigit(newChar)) {
-                result += newChar;
-            }
-        }
-        return result;
-    }
-    public static void main(String[] args)
+    public Map<String, List<Number>> addNumbers(String key, List<Number> value)
     {
-        String keyString = generateRandomString();
-
+        return null;
     }
 }

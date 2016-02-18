@@ -9,4 +9,8 @@ public class TestClass {
     private Object date = "15/02/2016 11.32";
     @Public
     public int count = 5;
+    @Public
+    protected String info = "class";
+    protected String time = "11:50";
+
 }

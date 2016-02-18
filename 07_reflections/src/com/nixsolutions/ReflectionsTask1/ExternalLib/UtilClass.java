@@ -1,5 +1,6 @@
-package com.nixsolutions.ReflectionsTask1;
+package com.nixsolutions.ReflectionsTask1.ExternalLib;
 
+import com.nixsolutions.ReflectionsTask1.Public;
 import org.reflections.ReflectionUtils;
 
 import java.lang.reflect.Field;
@@ -16,20 +17,6 @@ import static org.reflections.ReflectionUtils.withAnnotation;
 public class UtilClass {
 
     public Object getField(Object obj, String fieldName) throws IllegalAccessException {
-        List<Field> fields = Arrays.stream(obj.getClass().getDeclaredFields()).filter(an -> an.getAnnotation(Public.class) != null).collect(Collectors.toList());
-        Object result = null;
-        for (Field fl : fields) {
-            fl.setAccessible(true);
-            if (fl.getName().equals(fieldName)) {
-                result = fl.get(obj);
-                System.out.println(result);
-                return result;
-            }
-        }
-        throw new IllegalAccessException();
-    }
-
-    public Object getFieldsByGoogleReclect(Object obj, String fieldName) throws IllegalAccessException {
         Set<Field> fieldSet = ReflectionUtils.getAllFields(obj.getClass(), withAnnotation(Public.class)).stream().filter(name -> name.getName().equals(fieldName)).collect(Collectors.toSet());
         if (fieldSet.size() == 0) {
             throw new IllegalAccessException();

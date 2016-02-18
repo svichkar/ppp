@@ -9,15 +9,22 @@ public class Main {
     static Random random = new Random();
 
     public static void main(String[] args) {
-        Map<String, List<Number>> newMap = new Hashtable<String, List<Number>>();
+        Map<String, List<? extends Number>> newMap = new Hashtable<String, List<? extends Number>>();
+        Map<String, Double> resultMap = new Hashtable<String, Double>();
         //String keyString = generateRandomString();
         //List<Number> number = generateRandomNumber();
-        for(int i=0;i<10;i++)
-        {
-            newMap.put(generateRandomString(),generateRandomNumber());
+        for (int i = 0; i < 10; i++) {
+            newMap.put(generateRandomString(), generateRandomNumberList());
         }
         Adder adder = new Adder();
-        adder.addNumbers(generateRandomString(),generateRandomNumber());
+        resultMap = adder.addNumbers(newMap);
+        for (Map.Entry<String, List<? extends Number>> entry : newMap.entrySet()) {
+            System.out.println("Key: "+entry.getKey()+"\t Values:\t "+newMap.get(entry.getKey()));
+        }
+        System.out.println("Summa");
+        for (Map.Entry<String, Double> entry : resultMap.entrySet()) {
+            System.out.println("Key: "+entry.getKey()+"\t Values:\t "+resultMap.get(entry.getKey()));
+        }
     }
 
     public static String generateRandomString() {
@@ -33,27 +40,28 @@ public class Main {
         return result;
     }
 
-    public static List<Number> generateRandomNumber() {
-        List<Number> newNumber = new ArrayList<Number>();
-        int sw = random.nextInt(3)+1;
-        switch (sw)
-        {
+    public static List<? extends Number> generateRandomNumberList() {
+        int sw = random.nextInt(3) + 1;
+        switch (sw) {
             case 1:
+                List<Integer> intNumber = new ArrayList<Integer>();
                 for (int i = 0; i < (random.nextInt(7) + 3); i++) {
-                    newNumber.add(random.nextInt(95));
+                    intNumber.add(random.nextInt(95));
                 }
-                break;
+                return intNumber;
             case 2:
+                List<Float> floatNumber = new ArrayList<Float>();
                 for (int i = 0; i < (random.nextInt(7) + 3); i++) {
-                    newNumber.add(random.nextFloat()*10);
+                    floatNumber.add(random.nextFloat() * 10);
                 }
-                break;
+                return floatNumber;
             case 3:
+                List<Long> longNumber = new ArrayList<Long>();
                 for (int i = 0; i < (random.nextInt(7) + 3); i++) {
-                    newNumber.add(random.nextLong());
+                    longNumber.add(random.nextLong());
                 }
-                break;
+                return longNumber;
         }
-        return newNumber;
+        return null;
     }
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Backbone History</title>
+<title>Backbone Terms</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
 <link href="style/style.css" rel="stylesheet" />
 
@@ -24,6 +24,7 @@
                 <tbody>
 				{{ _.each(terms, function(term) { }}
                     <tr>
+						<td>{{= term.termId }}</td>
                         <td>{{= term.termName }}</td>
                         <td><a href="#editTerm/{{= term.termId }}">Edit</a> / <a href="#deleteTerm/{{= term.termId }}">Delete</a></td>
                     </tr>
@@ -32,18 +33,41 @@
             </table>
     </script>
 
+
+
 <script type="text/template" id="addTerm">
-         <div>
+            	<form>
+                	<input type="hidden" id="termId" value="0">
+					<table>
+                	<tr>
+	                    <td><label for="termName">Term Name</label></td> 
+						<td><textarea class="form-control" rows="1" id="termName"></textarea></td>
+    	            </tr>
+					<tr>
+                	<td colspan=2><button type="submit" id="add">Add</button></td>
+					</tr>
+					</table>
+            	</form>
+    	</script>
+
+<script type="text/template" id="editTerm">
+        <div class="" data-example-id="basic-forms">
             <form>
-                <div>
-                    <label for="termName">Term Name</label> <textarea rows="1" id="termName"></textarea>
-                </div>
-                <button type="submit" id="add">Add</button>
+                <input type="hidden" id="termId" value="{{= term.termId }}">
+					<table>
+                	<tr>
+	                    <td><label for="termName">Term Name</label></td> 
+						<td><textarea class="form-control" rows="1" id="termName">{{= term.termName }}</textarea></td>
+    	            </tr>
+					<tr>
+                	<td colspan=2><button type="submit" id="update">Update</button></td>
+					</tr>
+					</table>
             </form>
         </div>
     </script>
 
-<script src="js/history.js"></script>
+<script src="js/backboneTerms.js"></script>
 </head>
 <body>
 	<h1>Backbone Terms</h1>

@@ -35,16 +35,16 @@ public class TermServiceWeb {
 	}
 	
 	@GET
-	@Path("/findById/{id}")
+	@Path("/{termId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Term findTermById(@PathParam("id") Long termId) {
+	public Term findTermById(@PathParam("termId") Long termId) {
 		return termDao.findTermById(termId);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)	
-	@Path("/create")
+	@Path("/")
 	public Response createTerm(Term term) {
 		termDao.createTerm(term);
 		return Response.status(Response.Status.OK).entity(term.getTermId().toString()).build();
@@ -53,7 +53,7 @@ public class TermServiceWeb {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/update")
+	@Path("/{termId}")
 	public Response updateTerm(Term term) {
 		termDao.updateTerm(term);
 		return Response.ok().build();
@@ -62,9 +62,9 @@ public class TermServiceWeb {
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/delete")
-	public Response deleteTerm(Term term) {
-		termDao.deleteTerm(term);
+	@Path("/{termId}")
+	public Response deleteTerm(@PathParam("termId") Long termId) {
+		termDao.deleteTerm(termDao.findTermById(termId));
 		return Response.ok().build();
 	}	
 	

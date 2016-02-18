@@ -35,7 +35,7 @@ public class TermsController {
 					+ newTerm.getTermId());
 		}
 		if (delete != null) {
-			termServiceWeb.deleteTerm(termServiceWeb.findTermById(termId));
+			termServiceWeb.deleteTerm(termId);
 			model.addAttribute("message", "Deleted term with id " + termId);
 		}	
 			

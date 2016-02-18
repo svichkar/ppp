@@ -1,3 +1,4 @@
+
 package com.nixsolutions.servicestation.service.impl;
 
 import com.nixsolutions.servicestation.dao.EmployeeCategoryDAO;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Set;
 
 /**
  * Created by rybkinrolla on 04.01.2016.
@@ -29,47 +29,51 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @POST
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes(MediaType.APPLICATION_XML)
     @Path("/create")
     public Response create(@RequestBody Employee employee) {
-        if (employee != null) {
+        if (employee.getLastName().equals("") && employee.getFirstName().equals("")) {
             employeeDAO.create(employee);
-            return Response.status(200).entity(employee.getEmployeeId()).build();
+            return Response.ok(employee.getEmployeeId()).build();
         } else {
-            return Response.status(500).entity(employee.getEmployeeId()).build();
+            return Response.serverError().entity("Can't create such user").build();
         }
     }
 
     @Override
     @PUT
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes(MediaType.APPLICATION_XML)
     @Path("/update")
     public Response update(@RequestBody Employee employee) {
-        if (employee != null) {
+        if (employee.getLastName().equals("") && employee.getFirstName().equals("")) {
             employeeDAO.update(employee);
-            return Response.status(200).entity(employee.getEmployeeId()).build();
+            return Response.ok(employee.getEmployeeId()).build();
         } else {
-            return Response.status(500).entity(employee.getEmployeeId()).build();
+            return Response.serverError().entity("Can't update such user").build();
         }
     }
 
     @Override
     @DELETE
-    @Consumes({MediaType.APPLICATION_XML})
+    @Consumes(MediaType.APPLICATION_XML)
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        Employee entity = employeeDAO.findById(id);
         if (id != null && id != 0) {
-            employeeDAO.delete(entity);
-            return Response.status(200).entity(entity.getEmployeeId()).build();
+            Employee employee = employeeDAO.findById(id);
+            if(employee != null) {
+                employeeDAO.delete(employee);
+                return Response.ok(employee.getEmployeeId()).build();
+            }else{
+                return Response.status(Response.Status.NOT_FOUND).entity("Worker not found for id: " + id).build();
+            }
         } else {
-            return Response.status(500).entity(entity.getEmployeeId()).build();
+            return Response.serverError().entity("id can't be empty or 0").build();
         }
     }
 
     @Override
     @GET
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_XML)
     @Path("/{id}")
     public Employee findById(@PathParam("id") Long id) {
         return employeeDAO.findById(id);
@@ -77,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @GET
-    @Produces({MediaType.APPLICATION_XML})
+    @Produces(MediaType.APPLICATION_XML)
     @Path("/findAll")
     public Employees findAll() {
         Employees employees = new Employees();

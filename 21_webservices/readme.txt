@@ -69,7 +69,7 @@ PUT http://localhost:8080/services/worker/update
 
 </employee>
 
-GET http://localhost:8080/services/worker/getAll
+GET http://localhost:8080/services/worker/findAll
 GET http://localhost:8080/services/worker/1
 
 POST http://localhost:8080/services/worker/create/

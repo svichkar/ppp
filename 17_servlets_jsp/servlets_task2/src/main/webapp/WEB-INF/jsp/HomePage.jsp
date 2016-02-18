@@ -12,9 +12,7 @@
 			<th class="present">book in loan</th>
 			<th class="present">loan date</th>
 			<th class="present">overdue</th>
-		</tr>
-			
-				
+		</tr>			
 						<c:forEach var="loan" items="${loans}">
 						<tr>
 							<td class="present">${loan.reader}</td>
@@ -22,9 +20,7 @@
 							<td class="present">${loan.loan.rentDate}</td>
 							<td class="present">${loan.expirationState}</td>
 							</tr>
-						</c:forEach>
-
-			
+						</c:forEach>	
 		</table>
 		
 		</jsp:attribute>

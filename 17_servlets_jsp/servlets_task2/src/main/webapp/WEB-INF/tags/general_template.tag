@@ -31,6 +31,8 @@
 			<li><a href="manageusers">Add user</a></li>
 			<li><a href="addcategory">Add category</a></li>
 		</c:if>
+		<li><a href="auth">LogOut</a></li>
+		<!-- <li><form action="logout" method="post"><input type="submit" value="Logout" /></form></li>> -->
 	</ul>
 
 	<div style="margin-left: 25%; padding: 1px 16px; height: 1000px;">

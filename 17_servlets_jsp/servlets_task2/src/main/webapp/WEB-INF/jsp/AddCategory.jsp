@@ -6,15 +6,11 @@
 <t:general_template title="add category">
 	<jsp:attribute name="content_area">
 <h2>Add category</h2>
-
-		<form id="addcategory" action="addcategory" method="post">
-			
+		<form id="addcategory" action="addcategory" method="post">			
 				<input type="text" name="categoryname" placeholder="Category name"
 				required />
-				<input type=submit value="create category" name="button">
-			
+				<input type=submit value="create category" name="button">			
 		</form>
-	
 	<c:if test="${not empty status}">
 		<c:choose>
 		<c:when test="${status == 'true'}">
@@ -24,7 +20,6 @@
 		<br /> <font color="red">category already exists</font>
 		</c:otherwise>
 		</c:choose>
-		</c:if>
-											
+		</c:if>											
 		</jsp:attribute>
 </t:general_template>

@@ -25,6 +25,7 @@ public class AddBookServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
@@ -34,16 +35,15 @@ public class AddBookServlet extends HttpServlet {
 		request.setAttribute("cells", cells);
 		request.setAttribute("categories", categories);
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddBook.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/AddBook.jsp").forward(request, response);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		processAddBook(request, response);
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddBook.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/AddBook.jsp").forward(request, response);
 	}
 
 	private void processAddBook(HttpServletRequest request, HttpServletResponse response) {

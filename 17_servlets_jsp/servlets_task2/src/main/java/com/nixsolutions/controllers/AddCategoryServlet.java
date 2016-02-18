@@ -20,20 +20,20 @@ public class AddCategoryServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp").forward(request, response);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
 		processAddCategory(request, response);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/AddCategory.jsp").forward(request, response);
 	}
 	
 	private void processAddCategory(HttpServletRequest request, HttpServletResponse response){

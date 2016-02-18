@@ -18,20 +18,20 @@ import com.nixsolutions.model.BookBean;
 public class FindBookServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp").forward(request, response);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		processFindBook(request, response);
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/FindBook.jsp").forward(request, response);
 	}
 
 	private void processFindBook(HttpServletRequest request, HttpServletResponse response) {

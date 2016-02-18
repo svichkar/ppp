@@ -26,21 +26,21 @@ public class LoansManageServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(">>> book send to loan from find book: " + request.getParameter("loaned")
 				+ "; vallue of the tobeLoaned" + request.getAttribute("toBeloaned"));
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp").forward(request, response);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
 		processLoans(request, response);
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/ManageLoans.jsp").forward(request, response);
 	}
 	
 	private void processLoans(HttpServletRequest request, HttpServletResponse response){

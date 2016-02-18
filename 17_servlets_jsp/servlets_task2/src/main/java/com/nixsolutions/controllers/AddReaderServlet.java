@@ -19,22 +19,22 @@ public class AddReaderServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddReader.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/AddReader.jsp").forward(request, response);
 	}
 	
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
 
 		processAddreader(request, response);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/AddReader.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/AddReader.jsp").forward(request, response);
 	}
 
 	private void processAddreader(HttpServletRequest request, HttpServletResponse response){

@@ -24,6 +24,7 @@ public class ManageUsersServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		LOG.entry(request.getSession().getAttribute("usrRole"));
@@ -33,10 +34,10 @@ public class ManageUsersServlet extends HttpServlet {
 		request.setAttribute("users", users);
 		request.setAttribute("roles", allRoles);
 
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/ManageUsers.jsp");
-		rd.forward(request, response);
+		request.getRequestDispatcher("WEB-INF/jsp/ManageUsers.jsp").forward(request, response);
 	}
 
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 

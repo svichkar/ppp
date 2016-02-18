@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.nixsolutions</groupId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 
 	<url>http://maven.apache.org</url>
@@ -235,8 +235,8 @@
 
 	</dependencies>
 
-<!--    <build>
-<plugins>
+    <build>
+<!--<plugins>
 <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>jaxb2-maven-plugin</artifactId>
@@ -255,8 +255,10 @@
         <clearOutputDir>false</clearOutputDir>
     </configuration>
 </plugin>
-</plugins>
-</build>   --> 
+</plugins>-->
+
+        <finalName>${artifactId}</finalName>
+</build>    
 
 
 	<artifactId>webservices</artifactId>

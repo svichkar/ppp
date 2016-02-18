@@ -47,7 +47,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 
 <!-- Jersey setup -->
 
-<servlet>
+ <servlet>
         <servlet-name>Jersey</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
@@ -59,7 +59,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <servlet-mapping>
         <servlet-name>Jersey</servlet-name>
         <url-pattern>/rest/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> 
   
   <!-- SPRING WS -->
     <servlet>  

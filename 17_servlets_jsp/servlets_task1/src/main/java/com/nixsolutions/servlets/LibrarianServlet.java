@@ -19,12 +19,11 @@ public class LibrarianServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		LOG.entry(request.getSession().getAttribute("usrRole"));
+		Object usrRole = request.getSession().getAttribute("usrRole");
 		PrintWriter out = response.getWriter();
+		LOG.entry(usrRole);
 		
-		if (request.getSession(false) == null
-				|| request.getSession().getAttribute("usrRole") == null
-				|| !request.getSession().getAttribute("usrRole").equals("regular")) {
+		if (request.getSession(false) == null || !"regular".equals(usrRole)) {
 			out.print("<p style=\"color:red\">you are not authorized to be here</p>");
 		} else {
 			response.setContentType("text/html");
@@ -32,7 +31,9 @@ public class LibrarianServlet extends HttpServlet {
 			usersTable.append("<head><title>Librarian page</title></head>"
 					+ "<body>" + "<h1>Welcome to the Librarian page</h1>"
 					+ "<p> Hi, " + request.getSession().getAttribute("usrName")
-					+ "!</p>" + "</body>");
+					+ "!</p>" 
+					+ "<form action=\"logout\" method=\"post\"><input type=\"submit\" value=\"Logout\" /></form>"
+					+ "</body>");
 			out.print(usersTable.toString());
 		}
 		out.close();

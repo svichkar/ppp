@@ -22,6 +22,7 @@ import com.nixsolutions.entity.User;
 @WebServlet("/auth")
 public class AuthServlet extends HttpServlet {
 	private static final Logger LOG = LogManager.getLogger();
+	private static final Integer ADMIN_ROLE_ID = 1;
 	private H2DaoFactory factory = DaoFactory.getDAOFactory(DaoFactory.H2);
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,13 +35,12 @@ public class AuthServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		if (user != null) {
-			if (user.getRoleId().equals(1)) {
+			session.setAttribute("usrName", usr);
+			if (user.getRoleId().equals(ADMIN_ROLE_ID)) {
 				session.setAttribute("usrRole", "admin");
-				session.setAttribute("usrName", usr);
 				response.sendRedirect("admin");
 			} else {
 				session.setAttribute("usrRole", "regular");
-				session.setAttribute("usrName", usr);
 				response.sendRedirect("librarian");
 			}
 		} else {

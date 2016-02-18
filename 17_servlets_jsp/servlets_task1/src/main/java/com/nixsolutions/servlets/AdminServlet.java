@@ -26,17 +26,13 @@ public class AdminServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		LOG.entry(request.getSession().getAttribute("usrRole"));
 		PrintWriter out = response.getWriter();
 		String adminPage;
-
+		Object usrRole = request.getSession().getAttribute("usrRole");
+		
 		// check for correct role
-		if (request.getSession(false) == null
-				|| request.getSession().getAttribute("usrRole") == null
-				|| !request.getSession().getAttribute("usrRole")
-						.equals("admin")) {
-			out.print(
-					"<p style=\"color:red\">you are not authorized to be here</p>");
+		if (request.getSession(false) == null || !"admin".equals(usrRole)) {
+			out.print("<p style=\"color:red\">you are not authorized to be here</p>");
 			RequestDispatcher rd = request.getRequestDispatcher("index.html");
 			rd.include(request, response);
 		} else {
@@ -48,11 +44,9 @@ public class AdminServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		PrintWriter out = response.getWriter(); 
-		if (request.getSession(false) == null
-				|| request.getSession().getAttribute("usrRole") == null
-				|| !request.getSession().getAttribute("usrRole")
-						.equals("admin")) {
+		PrintWriter out = response.getWriter();
+		Object usrRole = request.getSession().getAttribute("usrRole");
+		if (request.getSession(false) == null || !"admin".equals(usrRole)) {
 			out.print("<p style=\"color:red\">you are not authorized to be here</p>");
 		} else {
 			String usr = request.getParameter("username");
@@ -65,7 +59,7 @@ public class AdminServlet extends HttpServlet {
 					+ roleName + "; usrId: " + userId + "; button: "
 					+ buttnName);
 
-			if (request.getParameter("button").equals("edit user")) {
+			if ("edit user".equals(buttnName)) {
 				User updUser = factory.getUserDao().getUserById(
 						Integer.parseInt(request.getParameter("userid")));
 				updUser.setRoleId(role.getRoleId());
@@ -75,14 +69,14 @@ public class AdminServlet extends HttpServlet {
 				response.sendRedirect("admin");
 			}
 
-			if (request.getParameter("button").equals("delete user")) {
+			if ("delete user".equals(buttnName)) {
 				User delUser = factory.getUserDao().getUserById(
 						Integer.parseInt(request.getParameter("userid")));
 				factory.getUserDao().deleteUser(delUser);
 				response.sendRedirect("admin");
 			}
 
-			if (request.getParameter("button").equals("create user")) {
+			if ("create user".equals(buttnName)) {
 				User createUser = new User(usr, pswd, role.getRoleId());
 				factory.getUserDao().createUser(createUser);
 				response.sendRedirect("admin");
@@ -100,17 +94,25 @@ public class AdminServlet extends HttpServlet {
 		StringBuilder usersTable = new StringBuilder();
 		
 		// Buttons on the page
-		String updateButton = "<td><input type=submit value=\"edit user\" name=\"button\"></td>";
+		String updateButton = "<input type=submit value=\"edit user\" name=\"button\">";
 		String createButton = "<td><input type=submit value=\"create user\" name=\"button\"></td>";
-		String deleteButton = "<td><input type=submit value=\"delete user\" name=\"button\"></td>";
+		String deleteButton = "<input type=submit value=\"delete user\" name=\"button\">";
 		
 		// page structure
 		usersTable.append("<head><title>Admin page</title></head>"
 				+ "<body>" + "<h1>Welcome to the Admin page</h1>"
 				+ "<p> Hi, " + request.getSession().getAttribute("usrName")
-				+ "!</p>" + "<table>" + "<tr>" + "<td>user_id</td>"
-				+ "<td>user_name</td>" + "<td>user_password</td>"
-				+ "<td>user_role</td>" + "<td>action</td>" + "</tr>");
+				+ "!</p>" 
+				+ "<form action=\"logout\" method=\"post\"><input type=\"submit\" value=\"Logout\" /></form>"
+				///>>>>>>>>>>>>>>>>>>Table start
+				+ "<table>" 
+				+ "<tr>" 
+				+ "<th>user_id</th>"
+				+ "<th>user_name</th>" 
+				+ "<th>user_role</th>" 
+				+ "<th>action</th>" 
+				+ "</tr>");
+		///>>>>>>>>>>>>>>>>>>>>>>>>>table body
 		for (User user : users) {
 			Role userRole = factory.getRoleDao().getRoleById(user.getRoleId());
 			usersTable.append("<tr>");
@@ -119,8 +121,8 @@ public class AdminServlet extends HttpServlet {
 							+ user.getUserId() + "\" readonly/></td>");
 			usersTable.append("<td><input type=\"text\" name=\"username\" value=\""
 							+ user.getUserName() + "\"/></td>");
-			usersTable.append("<td><input type=\"text\" name=\"password\" value=\""
-							+ user.getUserPassword() + "\"/></td>");
+			usersTable.append("<input type=\"hidden\" name=\"password\" value=\""
+							+ user.getUserPassword() + "\"/>");
 			if (userRole.getName().equals("admin")) {
 				usersTable.append("<td><input type=\"text\" name=\"selectrole\" "
 							+ "value=\"admin\" readonly/></td>");
@@ -139,16 +141,22 @@ public class AdminServlet extends HttpServlet {
 				usersTable.append("</select></td>");
 			}
 			if (userRole.getName().equals("regular")) {
-				usersTable.append(updateButton + deleteButton);
+				usersTable.append("<td>" + updateButton + deleteButton + "</td>");
 			} else {
-				usersTable.append(updateButton);
+				usersTable.append("<td>" + updateButton  + "</td>");
 			}
+			////>>>>>>>>>>>>>>>Table end
 			usersTable.append("</form></tr>");
 		}
-		usersTable.append("<form id=\"create\" action=\"admin\" method=\"post\">"
-						+ "<tr>" + "<td></td>"
+		usersTable.append("</table>");
+		usersTable.append("<table>" + "<tr>" 
+				+ "<td>user_name</td>" + "<td>user_password</td>"
+				+ "<td>user_role</td>" + "<td>action</td>" + "</tr>"
+				
+				+"<form id=\"create\" action=\"admin\" method=\"post\">"
+						+ "<tr>" 
 						+ "<td><input type=\"text\" name=\"username\" required></td>"
-						+ "<td><input type=\"text\" name=\"password\" required></td>");
+						+ "<td><input type=\"password\" name=\"password\" required></td>");
 		usersTable.append("<td><select name=\"selectrole\" required>");
 		usersTable.append("<option selected disabled value=\"\">choose</option>");
 		for (Role role : allRoles) {

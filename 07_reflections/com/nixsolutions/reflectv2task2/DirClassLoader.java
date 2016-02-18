@@ -3,6 +3,10 @@ package com.nixsolutions.reflectv2task2;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * Loads requested class from the specified directory, which doesn't have to be
+ * in the classpath.
+ */
 public class DirClassLoader extends ClassLoader implements PathClassLoader {
     private String dirPath;
 
@@ -31,6 +35,7 @@ public class DirClassLoader extends ClassLoader implements PathClassLoader {
         try {
             stream = new FileInputStream(fullPath);
             byte[] classData = new byte[stream.available()];
+
             stream.read(classData);
             foundClass = defineClass(name, classData, 0, classData.length);
         } catch (IOException e) {

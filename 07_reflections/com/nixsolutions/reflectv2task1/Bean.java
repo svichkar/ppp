@@ -1,5 +1,6 @@
 package com.nixsolutions.reflectv2task1;
 
+/** Represents the bean. */
 public class Bean {
     @Public public String genus;
     @Public protected String origin;

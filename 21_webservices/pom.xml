@@ -190,7 +190,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!--   <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
 				<version>1.6</version>
@@ -208,6 +208,7 @@
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 </project>

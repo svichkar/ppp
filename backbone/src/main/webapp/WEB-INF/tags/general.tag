@@ -5,10 +5,6 @@
 <head>
 <title>${title}</title>
 <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>">
-<script src="jquery-2.2.0.js"></script>
-<script src="underscore.js"></script>
-<script src="backbone.js"></script>
-<script src="onePage.js"></script>
 </head>
 <body>
 	<c:url var="logoutUrl" value="/logout" />
@@ -19,7 +15,8 @@
 	<div id="hmenu">
 		<ul>
 			<li><a id="home" href="<c:url value="/home"/>">Home</a></li>
-			<li><a id="addNew" href="<c:url value="/admin/add-new-user"/>">Add new user</a></li>	
+			<li><a id="addNew" href="<c:url value="/admin/add-new-user"/>">Add new user</a></li>
+			<li><a id="backbone" href="<c:url value="backbone"/>">Backbone</a></li>	
 		</ul>
 	</div>
 	<div id="content">

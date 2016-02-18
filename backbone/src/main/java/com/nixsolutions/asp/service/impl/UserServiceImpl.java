@@ -21,16 +21,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int create(User user) {
-		if (user.getRole().getRoleId() == 0) {
+		if (user.getRole().getId() == 0) {
 			user.setRole(roleService.getByRoleName(user.getRole().getRoleName()));
 		}
 		userDao.create(user);
-		return userDao.getByUserName(user.getUserName()).getUserId();
+		return userDao.getByUserName(user.getUserName()).getId();
 	}
 
 	@Override
 	public void update(User user) {
-		if (user.getRole().getRoleId() == 0) {
+		if (user.getRole().getId() == 0) {
 			user.setRole(roleService.getByRoleName(user.getRole().getRoleName()));
 		}
 		userDao.update(user);

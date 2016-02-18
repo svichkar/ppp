@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -38,8 +39,11 @@ public class RoleServiceImpl implements RoleService {
 		roleDao.delete(role);
 	}
 
+	@GET
+	@Path("/{roleId}")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public Role getByRoleId(int roleId) {
+	public Role getByRoleId(@PathParam("roleId")int roleId) {
 		return roleDao.getByRoleId(roleId);
 	}
 
@@ -48,6 +52,9 @@ public class RoleServiceImpl implements RoleService {
 		return roleDao.getByRoleName(roleName);
 	}
 
+	@GET
+	@Path("/getAllEntity")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public List<Role> getAll() {		
 		return roleDao.getAll();

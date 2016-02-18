@@ -26,6 +26,11 @@ public class AdminController {
 	
 	private Client wClient = ClientBuilder.newClient();
 	private static final String SERVICE_URL = "http://localhost:8080/backbone/rest";
+	
+	@RequestMapping(value = "/backbone", method = RequestMethod.GET)
+	protected String backboneGet(Model model) {			
+		return "admin/admin";
+	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	protected String userGet(Model model) {		

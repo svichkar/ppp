@@ -15,17 +15,17 @@
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<td>${user.userId}</td>
+				<td>${user.id}</td>
 				<td>${user.userName}</td>
 				<td>${user.role.roleName}</td>
 				<td>
 						<form action="edit-user" method="get">
-							<input type="hidden" name="userId" value="${user.userId}">
+							<input type="hidden" name="userId" value="${user.id}">
 							<input id="edit" type=submit name="edit" value="Edit"	style="width: 100%; height: 50%;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>
 						<form action="delete-user" method="post">
-							<input type="hidden" name="userId" value="${user.userId}"> 
+							<input type="hidden" name="userId" value="${user.id}"> 
 							<input id="selete" type=submit name="delete" value="Delete" style="width: 100%; height: 50%;">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 						</form>

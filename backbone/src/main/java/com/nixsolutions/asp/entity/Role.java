@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "role", propOrder = {
-    "roleId",
+    "id",
     "roleName"
 })
 public class Role implements Serializable {
@@ -23,7 +23,7 @@ public class Role implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
-    private int roleId;
+    private int id;
     @Column(name = "role_name", length = 256, nullable = false)
     @XmlElement(required = true)
     private String roleName;
@@ -31,12 +31,12 @@ public class Role implements Serializable {
     public Role() {
     }
 
-    public int getRoleId() {
-        return roleId;
+    public int getId() {
+        return id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setId(int roleId) {
+        this.id = roleId;
     }
 
     public String getRoleName() {

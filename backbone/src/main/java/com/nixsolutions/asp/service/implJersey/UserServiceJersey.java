@@ -6,7 +6,9 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -30,39 +32,39 @@ public class UserServiceJersey implements UserService {
 	private UserDao userDao;
 
 	@POST
-	@Path("/create")
+	@Path("/")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Override
 	public int create(User user) {
-		if (user.getRole().getRoleId() == 0) {
+		if (user.getRole().getId() == 0) {
 			user.setRole(roleService.getByRoleName(user.getRole().getRoleName()));
 		}
 		userDao.create(user);
-		return userDao.getByUserName(user.getUserName()).getUserId();
+		return userDao.getByUserName(user.getUserName()).getId();
 	}
 
-	@POST
-	@Path("/update")
+	@PUT
+	@Path("/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Override
 	public void update(User user) {
-		if (user.getRole().getRoleId() == 0) {
+		if (user.getRole().getId() == 0) {
 			user.setRole(roleService.getByRoleName(user.getRole().getRoleName()));
 		}
 		userDao.update(user);
 	}
 	
 	@DELETE
-	@Path("/delete")
-	public void delete(@QueryParam("userId") int userId) {		
+	@Path("/{userId}")
+	public void delete(@PathParam("userId") int userId) {		
 		userDao.delete(userDao.getByUserId(userId));
 	}
 
 	@GET
-	@Path("/getById")
+	@Path("/{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
-	public User getByUserId(@QueryParam("userId")int userId) {
+	public User getByUserId(@PathParam("userId")int userId) {
 		return userDao.getByUserId(userId);
 	}
 	

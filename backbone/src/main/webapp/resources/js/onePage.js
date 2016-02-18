@@ -1,13 +1,30 @@
+function setMenu(menuItem) {
+    $('li').removeClass('active');
+    $(menuItem).addClass('active');
+}
 $(function () {
 	var UserModel  = Backbone.Model.extend({
         url: function() {
-            return "/user/" + (this.userId ? this.userId : '');
+            return "/backbone/rest/user/" + (this.id ? this.id : '');
         }
     });
 	var UsersCollection = Backbone.Collection.extend({
         model: UserModel,
-        url: "users"
+        url: "/backbone/rest/user/getAll"
     });
+	
+	var RoleModel = Backbone.Model.extend({
+		url: function(){
+			return "/backbone/rest/role/" + (this.id ? this.id : '');
+		}
+	});
+	
+	var RolesCollection = Backbone.Collection.extend({
+        model: RoleModel,
+        url: "/backbone/rest/role/getAllEntity"
+    });
+	
+	var roles = new RolesCollection();
 	
 	 var users = new UsersCollection();
 	 
@@ -19,7 +36,7 @@ $(function () {
 	        },
 	        render: function () {
 	            setMenu('.users');
-	            products.fetch({async: false});
+	            users.fetch({async: false});
 	            var models = {"users": users.toJSON()};
 	            this.$el.html(this.template(models));
 	        }
@@ -36,14 +53,19 @@ $(function () {
 	        },
 	        render: function () {
 	            setMenu('.addUser');
-	            this.$el.html(this.template({}));
+	            roles.fetch({async: false});
+	            var models = {"roles": roles.toJSON()};
+	            this.$el.html(this.template(models));
 	        },
 	        submitForm: function() {
-	            var product = new ProductModel();
-	            product.set('userName', $('#name').val());
-	            product.set('password', $('#password').val());
-	            product.set('role', $('#role').val());
-	            product.save({async: false});
+	            var user = new UserModel();
+	            var role = new RoleModel();
+	            user.set('userName', $('#userName').val());
+	            user.set('password', $('#password').val());
+	            role.set('id', parseInt($('#role').val()));
+	            role.fetch({async: false});
+	            user.set('role', role);
+	            user.save();
 	            window.location.hash = 'users';
 	        }
 	    });
@@ -55,22 +77,28 @@ $(function () {
 	        },
 	        template: _.template($('#editUser').html()),
 	        initialize: function (options) {
-	            this.user = new ProductModel();
-	            this.user.set('userId', options.userId);
-	            this.user.fetch({async: false});
+	            this.user = new UserModel();
+	            this.roles = new RolesCollection();
+	            this.roles.fetch({async: false});
+	            this.user.set('id', options.userId);
+	            this.user.fetch({async: false});	
 	            this.render();
 	        },
 	        render: function () {
-	            var model = {"product": this.product.toJSON()};
+	            var model = {"user": this.user.toJSON(),
+	            		"roles": this.roles.toJSON()};
 	            this.$el.html(this.template(model));
 	        },
 	        submitForm: function() {
 	            var user = new UserModel();
-	            user.set('userId', $('#userId').val());
+	            var role = new RoleModel();
+	            user.set('id', $('#id').val());
 	            user.set('userName', $('#userName').val());
 	            user.set('password', $('#password').val());
-	            user.set('role', $('#role').val());
-	            user.save({async: false});
+	            role.set('id', $('#role').val());
+	            role.fetch({async: false});
+	            user.set('role', role);
+	            user.save();
 	            window.location.hash = 'users';
 	        }
 	    });
@@ -84,21 +112,21 @@ $(function () {
 	            "deleteUser/:userId": "deleteUser"
 	        },
 	        initialize: function () {
-	            Backbone.onePage.start();
+	            Backbone.history.start();
 	        },
 	        users: function () {
 	            new UsersView();
 	        },
 	        addUser: function () {
-	            new AddProductView();
+	            new AddUserView();
 	        },
 	        editUser: function (userId) {
-	            new EditProductView({userId: userId});
+	            new EditUserView({userId: userId});
 	        },
 	        deleteUser: function(userId) {
 	            var user = new UserModel;
-	            user.set('userId', userId);
-	            user.destroy();
+	            user.set('id', userId);
+	            user.destroy({async: false});
 	            window.location.hash = 'users';
 	        }
 	    });

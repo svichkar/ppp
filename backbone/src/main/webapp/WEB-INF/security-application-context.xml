@@ -17,6 +17,7 @@
 	<context:component-scan base-package="com.nixsolutions.asp" />
 	
 	<http pattern="/soap/**" security="none"/>
+	<http pattern="/rest/**" security="none"/>
 	
 	<http auto-config="true">		
 		<intercept-url pattern="/" access="permitAll" />

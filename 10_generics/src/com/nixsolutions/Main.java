@@ -11,19 +11,23 @@ public class Main {
     public static void main(String[] args) {
         Map<String, List<? extends Number>> newMap = new Hashtable<String, List<? extends Number>>();
         Map<String, Double> resultMap = new Hashtable<String, Double>();
-        //String keyString = generateRandomString();
-        //List<Number> number = generateRandomNumber();
         for (int i = 0; i < 10; i++) {
             newMap.put(generateRandomString(), generateRandomNumberList());
         }
         Adder adder = new Adder();
         resultMap = adder.addNumbers(newMap);
+        FloatToDouble ftd = new FloatToDouble();
+        IntegerToString its = new IntegerToString();
+        System.out.println("Float to Double: "+ftd.get(1.587f));
+        System.out.println("Integer to String: " + its.get(179));
+        System.out.println();
+        System.out.println("Before summing list elements");
         for (Map.Entry<String, List<? extends Number>> entry : newMap.entrySet()) {
-            System.out.println("Key: "+entry.getKey()+"\t Values:\t "+newMap.get(entry.getKey()));
+            System.out.println("Key: " + entry.getKey() + "\t Values:\t " + newMap.get(entry.getKey()));
         }
-        System.out.println("Summa");
+        System.out.println("\n After summing list elements \n");
         for (Map.Entry<String, Double> entry : resultMap.entrySet()) {
-            System.out.println("Key: "+entry.getKey()+"\t Values:\t "+resultMap.get(entry.getKey()));
+            System.out.println("Key: " + entry.getKey() + "\t Values:\t " + resultMap.get(entry.getKey()));
         }
     }
 

@@ -62,7 +62,7 @@ public class AdminController {
 	@RequestMapping(value = "/create-user", method = RequestMethod.POST)
 	protected String createUserPost(@ModelAttribute("UserModel") User user, Model model) {
 		wClient.target(SERVICE_URL)
-		.path("/user/create")
+		.path("/user/")
 		.resolveTemplate("user", user)
 		.request()
 		.post(Entity.entity(user, MediaType.APPLICATION_JSON));
@@ -72,8 +72,7 @@ public class AdminController {
 	@RequestMapping(value = "/edit-user", method = RequestMethod.GET)
 	protected ModelAndView editUserGet(@ModelAttribute("userId") String userId) {
 		Response resp = wClient.target(SERVICE_URL)
-				.path("/user/getById")
-				.queryParam("userId", userId)
+				.path("/user/" + userId)
 				.request()
 				.get();
 		User user = resp.readEntity(User.class);		
@@ -90,18 +89,17 @@ public class AdminController {
 	@RequestMapping(value = "/update-user", method = RequestMethod.POST)
 	protected String updateUserPost(@ModelAttribute("UserModel") User user, Model model) {
 		wClient.target(SERVICE_URL)
-		.path("/user/update")
+		.path("/user/" + user.getId())
 		.resolveTemplate("user", user)
 		.request()
-		.post(Entity.entity(user, MediaType.APPLICATION_JSON));
+		.put(Entity.entity(user, MediaType.APPLICATION_JSON));
 		return "redirect:/admin/users";
 	}
 
 	@RequestMapping(value = "/delete-user", method = RequestMethod.POST)
 	protected String deleteUserPost(@ModelAttribute("userId") String userId, Model model) { 			
 		wClient.target(SERVICE_URL)
-		.path("/user/delete")
-		.queryParam("userId", Integer.parseInt(userId))
+		.path("/user/" + userId)
 		.request()
 		.delete();
 		return "redirect:/admin/users";

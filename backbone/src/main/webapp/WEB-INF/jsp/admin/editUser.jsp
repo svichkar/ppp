@@ -9,7 +9,7 @@
 	<h1>Edit User</h1>
 		<h2>User:</h2>		
 		<form:form name="addUser" action="update-user" method="post" commandName="UserModel">
-			<form:input type="hidden" path="userId" value="${user.id}"/>
+			<form:input type="hidden" path="id" value="${user.id}"/>
 			<form:label path="userName">Login (email):</form:label><br>			
 			<form:input type="text" path="userName" value="${user.userName}" tooltip="User e-mail"/><br>
 			<form:label path="password">Password:</form:label><br>

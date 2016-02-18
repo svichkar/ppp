@@ -10,6 +10,7 @@ package com.nixsolutions.ws.soap;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
+import com.nixsolutions.entities.User;
 import com.nixsolutions.ws.soap.operation.CreateUserRequest;
 import com.nixsolutions.ws.soap.operation.CreateUserResponse;
 import com.nixsolutions.ws.soap.operation.DeleteUserRequest;

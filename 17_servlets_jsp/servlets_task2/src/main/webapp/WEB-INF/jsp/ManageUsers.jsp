@@ -4,29 +4,32 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Manage users">
 	<jsp:attribute name="content_area">
+
 <h2>Manage users</h2>
 	<table class="submit">
 	 <caption>Mange users</caption>
 		<tr>
 			<td class="submit">user_id</td>
 			<td class="submit">user_name</td>
-			<td class="submit">user_password</td>
 			<td class="submit">user_role</td>
 			<td class="submit">action</td>
 		</tr>
 		<c:forEach var="user" items="${users}">
 			<tr>
-				<form id="update" action="manageusers" method="post">
+				<form name="updateForm" id="updateForm" action="manageusers"
+						method="post">
+					
 					<td class="submit"><input type="text" name="userid"
-							value="${user.userId}" readonly /></td>
+						value="${user.userId}" readonly /></td>
 					<td class="submit"><input type="text" name="username"
-							value="${user.userName}" /></td>
-					<td class="submit"><input type="text" name="password"
-							value="${user.userPassword}" /></td>
+						value="${user.userName}" />
+					<input type="hidden" name="password"
+						value="${user.userPassword}" />
+							</td>
 					<c:choose>
 						<c:when test="${user.roleId==1}">
 							<td class="submit"><input type="text" name="selectrole"
-									value="admin" readonly /></td>
+								value="admin" readonly /></td>
 						</c:when>
 						<c:otherwise>
 							<td class="submit"><select class="submit" name="selectrole">
@@ -46,15 +49,16 @@
 					<c:choose>
 						<c:when test="${user.roleId==1}">
 							<td class="submit"><input type=submit value="edit user"
-									name="button"></td>
+								name="button" onclick="changeValue(this)"></td>
 						</c:when>
 						<c:otherwise>
-							<td class="submit"><input type=submit value="edit user"
-									name="button">
-							<input type=submit value="delete user"
-									name="button"></td>
+							<td class="submit"><input type=button value="edit"
+								name="button" id="edit" onclick="changeValue(this)">
+							<input type=button value="delete" name="button" id="delete"
+								onclick="changeValue(this)"></td>
 						</c:otherwise>
 					</c:choose>
+					<input type="hidden" id="choosebttn" name="action" value="double" />
 				</form>
 			</tr>			
 		</c:forEach>
@@ -78,9 +82,18 @@
 						</c:forEach>								
 				</select></td>
 				<td class="submit"><input type=submit value="create user"
-								name="button"><input type="hidden" name="create" value="create" /></td>
+						name="button"><input type="hidden" name="action"
+						value="create" /></td>
 			</tr>
 		</form>
 	</table>
+		<script>
+			function changeValue(o) {
+				var form = o.form;
+				var hidden = form.choosebttn;
+				hidden.value = o.value;
+				form.submit();
+			}
+		</script>
 	</jsp:attribute>
 </t:general_template>

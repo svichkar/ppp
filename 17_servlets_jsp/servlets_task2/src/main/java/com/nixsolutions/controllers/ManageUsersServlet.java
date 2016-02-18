@@ -46,38 +46,31 @@ public class ManageUsersServlet extends HttpServlet {
 
 	private void processUsers(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		PrintWriter out = response.getWriter();
 		String usr = request.getParameter("username");
 		String pswd = request.getParameter("password");
 		String roleName = request.getParameter("selectrole");
-		String userId = request.getParameter("userid");
-		String buttnName = request.getParameter("button");
+		String action = request.getParameter("action");
 		Role role = factory.getRoleDao().getRoleByName(roleName);
-		LOG.debug("User name: " + usr + "; pass: " + pswd + "; role: " + roleName + "; usrId: "
-				+ userId + "; button: " + buttnName);
+		
+		LOG.debug(">>>>>>User name: " + usr + "; pass: " + pswd + "; role: " + roleName + "; action: " + action);
 
-		if (request.getParameter("button").equals("edit user")) {
+		if (action.equals("edit")) {
 			User updUser = factory.getUserDao()
 					.getUserById(Integer.parseInt(request.getParameter("userid")));
 			updUser.setRoleId(role.getRoleId());
 			updUser.setUserName(usr);
 			updUser.setUserPassword(pswd);
 			factory.getUserDao().updateUser(updUser);
-			response.sendRedirect("manageusers");
 		}
-
-		if (request.getParameter("button").equals("delete user")) {
+		if (action.equals("delete")) {
 			User delUser = factory.getUserDao()
 					.getUserById(Integer.parseInt(request.getParameter("userid")));
 			factory.getUserDao().deleteUser(delUser);
-			response.sendRedirect("manageusers");
 		}
-
-		if (request.getParameter("button").equals("create user")) {
+		if (action.equals("create")) {
 			User createUser = new User(usr, pswd, role.getRoleId());
 			factory.getUserDao().createUser(createUser);
-			response.sendRedirect("manageusers");
 		}
-		out.close();
+		response.sendRedirect("manageusers");
 	}
 }

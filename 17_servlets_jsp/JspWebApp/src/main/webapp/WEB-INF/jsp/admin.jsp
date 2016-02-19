@@ -43,7 +43,7 @@ ${message}
 <input type="text" name="login" value="${current.login}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
 </td>
 <td>
-<input type="text" name="pass" value="${current.userPassword}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
+<input type="password" name="pass" value="${current.userPassword}" maxlength="20" pattern="[^?-??-???]{3,20}" required/>
 </td>
 <td>
 <select name="role">
@@ -74,7 +74,7 @@ ${message}
 <td><input type="text" name="lastName" pattern="[A-Za-z]{3,30}" required placeholder="second name"></input></td>
 <td><input type="text" name="email" pattern="\S+@[a-z]+.[a-z]+" required placeholder="e-mail"></input></td>
 <td><input type="text" name="login" required placeholder="login"></input></td>
-<td><input type="text" name="pass" required placeholder="password"></input></td>
+<td><input type="password" name="pass" required placeholder="password"></input></td>
 <td>
 <select name="role" required>
 <option value="" selected disabled></option>

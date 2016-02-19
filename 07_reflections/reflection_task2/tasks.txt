@@ -1,0 +1,9 @@
+2. Существует интерфейс:
+public interface PathClassLoader {
+    void setPath(String dir);
+
+    String getPath();
+}
+
+Создать наследника класса ClassLoader имплементирующего PathClassLoader, который сможет загружать классы не только из classpath, но и из сторонней директории, имя которой передается через функции интерфейса PathClassLoader.
+

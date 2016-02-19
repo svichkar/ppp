@@ -43,7 +43,7 @@ public class UserServiceRest {
 
 	@GET
 	@Path("/getall")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
 	public List<User> getAllUsers() {
 		return userDao.getAllUsers();
@@ -51,7 +51,7 @@ public class UserServiceRest {
 
 	@GET
 	@Path("/{id}")
-	@Produces({ MediaType.APPLICATION_JSON })
+	@Produces(MediaType.APPLICATION_JSON)
 	@Transactional(readOnly = true)
 	public User getUserById(@PathParam("id") Long userId) {
 		LOG.entry(userId);
@@ -61,8 +61,8 @@ public class UserServiceRest {
 
 	 @POST
 	 @Path("/")
-	 @Consumes({MediaType.APPLICATION_JSON})
-	 @Produces({MediaType.APPLICATION_JSON})
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.APPLICATION_JSON)
 	 @Transactional
 	public Response createUser(@RequestBody User createUser) {
 		userDao.createUser(createUser);
@@ -71,8 +71,8 @@ public class UserServiceRest {
 
 	 @PUT
 	 @Path("/{id}")
-	 @Consumes({MediaType.APPLICATION_JSON})
-	 @Produces({MediaType.APPLICATION_JSON})	
+	 @Consumes(MediaType.APPLICATION_JSON)
+	 @Produces(MediaType.APPLICATION_JSON)	
 	 @Transactional
 	public Response updateUser(@RequestBody User updUser) {
 		 LOG.entry(updUser);
@@ -82,7 +82,7 @@ public class UserServiceRest {
 
 	@DELETE
 	@Path("/{id}")
-	@Produces({ MediaType.TEXT_HTML })
+	@Produces(MediaType.TEXT_HTML)
 	@Transactional
 	public void deleteUser(@PathParam("id") Long userId) {	
 		User user = userDao.getUserById(userId);

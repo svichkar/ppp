@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public User getUserById(String userId) {
 		LOG.entry(userId);
-		User user = userDao.getUserById(Long.valueOf(userId));
+		User user = client.target(REST_SERVICE_URL).path("{userId}")
+				.resolveTemplate("userId", userId).request(MediaType.APPLICATION_JSON)
+				.get(User.class);
 		LOG.debug(user);
 		return LOG.exit(user);
 	}
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		Role role = roleDao.getRoleByName(roleName);
 		User user = new User(usr, pswd, role);
 
-		User userPersisted = client.target(REST_SERVICE_URL).path("create").request()
+		User userPersisted = client.target(REST_SERVICE_URL).request()
 				.post(Entity.entity(user, MediaType.APPLICATION_JSON), User.class);
 
 		LOG.debug(">>>>>>>attempt to save user: " + userPersisted.toString());
@@ -68,7 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	@Override
 	public void updateUser(String userId, String roleName, String usr, String pswd) {
 		Role role = roleDao.getRoleByName(roleName);
-		User user = client.target(REST_SERVICE_URL).path("get/{userId}")
+		User user = client.target(REST_SERVICE_URL).path("{userId}")
 				.resolveTemplate("userId", userId).request(MediaType.APPLICATION_JSON)
 				.get(User.class);
 		LOG.debug("attempt to obtain user using restTemplate: " + user.toString());
@@ -77,14 +79,16 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 		user.setUserPassword(pswd);
 		user.setRole(role);
 
-		User userPersisted = client.target(REST_SERVICE_URL).path("update").request()
+		User userPersisted = client.target(REST_SERVICE_URL).path("{userId}")
+				.resolveTemplate("userId", userId)
+				.request()
 				.put(Entity.entity(user, MediaType.APPLICATION_JSON), User.class);
 		LOG.debug(">>>>>>>attempt to update user: " + userPersisted.toString());
 	}
 
 	@Override
 	public void deleteUser(String userId) {
-		client.target(REST_SERVICE_URL).path("delete/{userId}")
+		client.target(REST_SERVICE_URL).path("{userId}")
 		.resolveTemplate("userId", userId).request().delete();
 	}
 

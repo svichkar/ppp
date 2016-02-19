@@ -9,7 +9,6 @@ public class Grade {
     private String gradeName;
 
     public Grade() {
-
     }
 
     public Grade(String gradeName) {

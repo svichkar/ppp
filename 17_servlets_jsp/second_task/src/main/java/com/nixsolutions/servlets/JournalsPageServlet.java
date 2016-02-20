@@ -18,8 +18,10 @@ import com.nixsolutions.studentgrade.dao.JournalDAO;
 import com.nixsolutions.studentgrade.dao.StudentDAO;
 import com.nixsolutions.studentgrade.dao.StudentGroupDAO;
 import com.nixsolutions.studentgrade.dao.SubjectDAO;
+import com.nixsolutions.studentgrade.entity.Grade;
 import com.nixsolutions.studentgrade.entity.Journal;
 import com.nixsolutions.studentgrade.entity.Student;
+import com.nixsolutions.studentgrade.entity.Subject;
 
 @WebServlet("/journals")
 public class JournalsPageServlet extends HttpServlet {
@@ -43,40 +45,28 @@ public class JournalsPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			List<JournalBean> displayJournal = new ArrayList<>();
-			List<Journal> journalList = journalDao.findAllJournals();
-			for (Journal j : journalList) {
-				JournalBean journal = new JournalBean();
-				StudentBean student = new StudentBean();
-				Student st = studentDao.findStudentById(j.getStudentId());
-				student.setStudent(st);
-				student.setGroup(groupDao.findStudentGroupById(st.getGroupId()));
-				journal.setJournal(j);
-				journal.setStudent(student);
-				journal.setSubject(subjectDao.findSubjectById(j.getSubjectId()));
-				journal.setGrade(gradeDao.findGradeById(j.getGradeId()));
-				displayJournal.add(journal);
-			}
-			List<StudentBean> displayStudentList = new ArrayList<>();
-			List<Student> studentList = studentDao.findAllStudents();
-			for (Student t : studentList) {
-				StudentBean student = new StudentBean();
-				student.setStudent(t);
-				student.setGroup(groupDao.findStudentGroupById(t.getGroupId()));
-				displayStudentList.add(student);
-			}
-
-			request.setAttribute("journals", displayJournal);
-			request.setAttribute("students", displayStudentList);
-			request.setAttribute("subjects", subjectDao.findAllSubjects());
-			request.setAttribute("grades", gradeDao.findAllGrades());
-			request.getRequestDispatcher("/WEB-INF/jsp/journals.jsp").forward(request, response);
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
+		List<JournalBean> displayJournal = new ArrayList<>();
+		List<Journal> journalList = journalDao.findAllJournals();
+		for (Journal j : journalList) {
+			Student st = studentDao.findStudentById(j.getStudentId());
+			Subject subject = subjectDao.findSubjectById(j.getSubjectId());
+			Grade grade = gradeDao.findGradeById(j.getGradeId());
+			StudentBean student = new StudentBean(st, groupDao.findStudentGroupById(st.getGroupId()));
+			JournalBean journal = new JournalBean(j, student, subject, grade);
+			displayJournal.add(journal);
 		}
+		List<StudentBean> displayStudentList = new ArrayList<>();
+		List<Student> studentList = studentDao.findAllStudents();
+		for (Student t : studentList) {
+			StudentBean student = new StudentBean(t, groupDao.findStudentGroupById(t.getGroupId()));
+			displayStudentList.add(student);
+		}
+
+		request.setAttribute("journals", displayJournal);
+		request.setAttribute("students", displayStudentList);
+		request.setAttribute("subjects", subjectDao.findAllSubjects());
+		request.setAttribute("grades", gradeDao.findAllGrades());
+		request.getRequestDispatcher("/WEB-INF/jsp/journals.jsp").forward(request, response);
 	}
 
 	@Override

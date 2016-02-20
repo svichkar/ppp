@@ -42,31 +42,23 @@ public class UpdateJournalPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			if (request.getParameter("journal_id") != null) {
-				Long journalId = Long.valueOf(request.getParameter("journal_id"));
-				Journal updateJournal = journalDao.findJournalById(journalId);
-				List<StudentBean> displayStudentList = new ArrayList<>();
-				List<Student> studentList = studentDao.findAllStudents();
-				for (Student t : studentList) {
-					StudentBean student = new StudentBean();
-					student.setStudent(t);
-					student.setGroup(groupDao.findStudentGroupById(t.getGroupId()));
-					displayStudentList.add(student);
-				}
+		if (request.getParameter("journal_id") != null) {
+			Long journalId = Long.valueOf(request.getParameter("journal_id"));
+			Journal updateJournal = journalDao.findJournalById(journalId);
+			List<StudentBean> displayStudentList = new ArrayList<>();
+			List<Student> studentList = studentDao.findAllStudents();
+			for (Student t : studentList) {
+				StudentBean student = new StudentBean(t, groupDao.findStudentGroupById(t.getGroupId()));
+				displayStudentList.add(student);
+			}
 
-				request.setAttribute("updateJournal", updateJournal);
-				request.setAttribute("students", displayStudentList);
-				request.setAttribute("subjects", subjectDao.findAllSubjects());
-				request.setAttribute("grades", gradeDao.findAllGrades());
-				request.getRequestDispatcher("/WEB-INF/jsp/updateJournal.jsp").forward(request, response);
-			} else
-				response.sendRedirect("journals?message=Please select journal record for update");
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
-		}
+			request.setAttribute("updateJournal", updateJournal);
+			request.setAttribute("students", displayStudentList);
+			request.setAttribute("subjects", subjectDao.findAllSubjects());
+			request.setAttribute("grades", gradeDao.findAllGrades());
+			request.getRequestDispatcher("/WEB-INF/jsp/updateJournal.jsp").forward(request, response);
+		} else
+			response.sendRedirect("journals?message=Please select journal record for update");
 	}
 
 	@Override

@@ -14,6 +14,7 @@ import com.nixsolutions.studentgrade.bean.UserBean;
 import com.nixsolutions.studentgrade.dao.DAOFactory;
 import com.nixsolutions.studentgrade.dao.RoleDAO;
 import com.nixsolutions.studentgrade.dao.UserDAO;
+import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
 
 @WebServlet("/users")
@@ -32,22 +33,16 @@ public class UsersPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("admin".equals(role)) {
 			List<UserBean> displayUserList = new ArrayList<>();
 			List<User> userList = userDao.findAllUsers();
 			for (User t : userList) {
-				UserBean user = new UserBean();
-				user.setUser(t);
-				user.setRole(roleDao.findRoleById(t.getRoleId()));
+				Role userRole = roleDao.findRoleById(t.getRoleId());
+				UserBean user = new UserBean(t, userRole);
 				displayUserList.add(user);
 			}
 			request.setAttribute("users", displayUserList);
 			request.setAttribute("roles", roleDao.findAllRoles());
 			request.getRequestDispatcher("/WEB-INF/jsp/users.jsp").forward(request, response);
-		} else {
-			response.sendRedirect("index.jsp?message=Your are not an admin. Please login as admin to continue work.");
-		}
 	}
 
 	@Override
@@ -67,17 +62,10 @@ public class UsersPageServlet extends HttpServlet {
 		}
 		if (request.getParameter("add") != null) {
 			Long userId = Long.valueOf(userDao.findAllUsers().size() + 1);
-			List<User> userList = userDao.findAllUsers();
-			List<String> loginList = new ArrayList<>();
-			for (User u : userList)
-				loginList.add(u.getLogin());
-			List<String> emailList = new ArrayList<>();
-			for (User u : userList)
-				emailList.add(u.getEmail());
-			if (loginList.contains(request.getParameter("newLogin"))) {
+			if (userDao.findUserByLogin(request.getParameter("newLogin")) != null) {
 				response.sendRedirect("users?message=Login already exists");
 			} else {
-				if (emailList.contains(request.getParameter("newEmail"))) {
+				if (userDao.findUserByEmail(request.getParameter("newEmail")) != null) {
 					response.sendRedirect("users?message=Email already exists");
 				} else {
 					User newUser = new User(userId, request.getParameter("newLogin"),

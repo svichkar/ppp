@@ -17,7 +17,10 @@ import com.nixsolutions.studentgrade.dao.StatusDAO;
 import com.nixsolutions.studentgrade.dao.StudentDAO;
 import com.nixsolutions.studentgrade.dao.StudentGroupDAO;
 import com.nixsolutions.studentgrade.dao.TermDAO;
+import com.nixsolutions.studentgrade.entity.Status;
 import com.nixsolutions.studentgrade.entity.Student;
+import com.nixsolutions.studentgrade.entity.StudentGroup;
+import com.nixsolutions.studentgrade.entity.Term;
 
 @WebServlet("/students")
 public class StudentsPageServlet extends HttpServlet {
@@ -28,6 +31,9 @@ public class StudentsPageServlet extends HttpServlet {
 	private static StudentGroupDAO groupDao;
 	private static StatusDAO statusDao;
 	private static TermDAO termDao;
+	private static StudentGroup group;
+	private static Status status;
+	private static Term term;
 
 	@Override
 	public void init() throws ServletException {
@@ -39,27 +45,20 @@ public class StudentsPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			List<StudentBean> displayStudentList = new ArrayList<>();
-			List<Student> studentList = studentDao.findAllStudents();
-			for (Student t : studentList) {
-				StudentBean student = new StudentBean();
-				student.setStudent(t);
-				student.setGroup(groupDao.findStudentGroupById(t.getGroupId()));
-				student.setStatus(statusDao.findStatusById(t.getStatusId()));
-				student.setTerm(termDao.findTermById(t.getTermId()));
-				displayStudentList.add(student);
-			}
-			request.setAttribute("students", displayStudentList);
-			request.setAttribute("groups", groupDao.findAllStudentGroups());
-			request.setAttribute("statuses", statusDao.findAllStatuses());
-			request.setAttribute("terms", termDao.findAllTerms());
-			request.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(request, response);
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
+		List<StudentBean> displayStudentList = new ArrayList<>();
+		List<Student> studentList = studentDao.findAllStudents();
+		for (Student t : studentList) {
+			group = groupDao.findStudentGroupById(t.getGroupId());
+			status = statusDao.findStatusById(t.getStatusId());
+			term = termDao.findTermById(t.getTermId());
+			StudentBean student = new StudentBean(t, group, status, term);
+			displayStudentList.add(student);
 		}
+		request.setAttribute("students", displayStudentList);
+		request.setAttribute("groups", groupDao.findAllStudentGroups());
+		request.setAttribute("statuses", statusDao.findAllStatuses());
+		request.setAttribute("terms", termDao.findAllTerms());
+		request.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(request, response);
 	}
 
 	@Override
@@ -107,6 +106,8 @@ public class StudentsPageServlet extends HttpServlet {
 				request.setAttribute("students", searchStudentResult);
 			}
 			request.setAttribute("groups", groupDao.findAllStudentGroups());
+			request.setAttribute("statuses", statusDao.findAllStatuses());
+			request.setAttribute("terms", termDao.findAllTerms());
 			request.getRequestDispatcher("/WEB-INF/jsp/students.jsp").forward(request, response);
 		}
 	}
@@ -114,11 +115,10 @@ public class StudentsPageServlet extends HttpServlet {
 	private List<StudentBean> displayStudentList(List<Student> studentList) {
 		List<StudentBean> displayStudentList = new ArrayList<>();
 		for (Student t : studentList) {
-			StudentBean student = new StudentBean();
-			student.setStudent(t);
-			student.setGroup(groupDao.findStudentGroupById(t.getGroupId()));
-			student.setStatus(statusDao.findStatusById(t.getStatusId()));
-			student.setTerm(termDao.findTermById(t.getTermId()));
+			group = groupDao.findStudentGroupById(t.getGroupId());
+			status = statusDao.findStatusById(t.getStatusId());
+			term = termDao.findTermById(t.getTermId());
+			StudentBean student = new StudentBean(t, group, status, term);
 			displayStudentList.add(student);
 		}
 		return displayStudentList;

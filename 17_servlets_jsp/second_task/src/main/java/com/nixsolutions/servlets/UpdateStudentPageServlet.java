@@ -36,22 +36,16 @@ public class UpdateStudentPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			if (request.getParameter("student_id") != null) {
-				Long studentId = Long.valueOf(request.getParameter("student_id"));
-				Student updateStudent = studentDao.findStudentById(studentId);
-				request.setAttribute("updateStudent", updateStudent);
-				request.setAttribute("groups", groupDao.findAllStudentGroups());
-				request.setAttribute("statuses", statusDao.findAllStatuses());
-				request.setAttribute("terms", termDao.findAllTerms());
-				request.getRequestDispatcher("/WEB-INF/jsp/updateStudent.jsp").forward(request, response);
-			} else
-				response.sendRedirect("students?message=Please select student for update");
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
-		}
+		if (request.getParameter("student_id") != null) {
+			Long studentId = Long.valueOf(request.getParameter("student_id"));
+			Student updateStudent = studentDao.findStudentById(studentId);
+			request.setAttribute("updateStudent", updateStudent);
+			request.setAttribute("groups", groupDao.findAllStudentGroups());
+			request.setAttribute("statuses", statusDao.findAllStatuses());
+			request.setAttribute("terms", termDao.findAllTerms());
+			request.getRequestDispatcher("/WEB-INF/jsp/updateStudent.jsp").forward(request, response);
+		} else
+			response.sendRedirect("students?message=Please select student for update");
 	}
 
 	@Override

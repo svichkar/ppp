@@ -6,58 +6,52 @@ import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.entity.Term;
 
 public class JournalBean {
-	private Journal journal;
-	private Term term;
-    private Subject subject;
-    private Grade grade;
-    private Grade gpa;
-    private StudentBean student;
-    
-    public Journal getJournal() {
-        return journal;
-    }
+	private Long journalId;
+	private String studentNameInGroup;
+	private String subjectName;
+	private String gradeName;
+	private String termName;
+	private String gpaGradeName;
 
-    public void setJournal(Journal journal) {
-        this.journal = journal;
-    }
-    
-    public Term getTerm() {
-        return term;
-    }
+	public JournalBean() {
+	}
 
-    public void setTerm(Term term) {
-        this.term = term;
-    }
-   
-    public Subject getSubject() {
-        return subject;
-    }
+	public JournalBean(Journal journal, StudentBean student, Subject subject, Grade grade) {
+		journalId = journal.getJournalId();
+		studentNameInGroup = student.getStudentNameInGroup();
+		subjectName = subject.getSubjectName();
+		gradeName = grade.getGradeName();
+	}
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
+	public JournalBean(Term term, Subject subject, Grade grade, Grade gpa) {
+		termName = term.getTermName();
+		subjectName = subject.getSubjectName();
+		gradeName = grade.getGradeName();
+		gpaGradeName = gpa.getGradeName();
+	}
 
-    public Grade getGrade() {
-        return grade;
-    }
+	public Long getJournalId() {
+		return journalId;
+	}
 
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
-    
-    public Grade getGpa() {
-        return gpa;
-    }
+	public String getStudentNameInGroup() {
+		return studentNameInGroup;
+	}
 
-    public void setGpa(Grade gpa) {
-        this.gpa = gpa;
-    }
-    
-    public StudentBean getStudent() {
-        return student;
-    }
+	public String getSubjectName() {
+		return subjectName;
+	}
 
-    public void setStudent(StudentBean student) {
-        this.student = student;
-    }
+	public String getGradeName() {
+		return gradeName;
+	}
+
+	public String getTermName() {
+		return termName;
+	}
+
+	public String getGpaGradeName() {
+		return gpaGradeName;
+	}
+
 }

@@ -29,20 +29,14 @@ public class UpdateSubjectPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			if (request.getParameter("subject_id") != null) {
-				Long subjectId = Long.valueOf(request.getParameter("subject_id"));
-				Subject updateSubject = subjectDao.findSubjectById(subjectId);
-				request.setAttribute("updateSubject", updateSubject);
-				request.setAttribute("terms", termDao.findAllTerms());
-				request.getRequestDispatcher("/WEB-INF/jsp/updateSubject.jsp").forward(request, response);
-			} else
-				response.sendRedirect("subjects?message=Please select subject for update");
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
-		}
+		if (request.getParameter("subject_id") != null) {
+			Long subjectId = Long.valueOf(request.getParameter("subject_id"));
+			Subject updateSubject = subjectDao.findSubjectById(subjectId);
+			request.setAttribute("updateSubject", updateSubject);
+			request.setAttribute("terms", termDao.findAllTerms());
+			request.getRequestDispatcher("/WEB-INF/jsp/updateSubject.jsp").forward(request, response);
+		} else
+			response.sendRedirect("subjects?message=Please select subject for update");
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@attribute name="title"%>
+<%@attribute name="activePage"%>
 <%@attribute name="head_area" fragment="true"%>
 <%@attribute name="content_area" fragment="true"%>
 <%@attribute name="message_area" fragment="true"%>
@@ -15,6 +16,14 @@
 <jsp:invoke fragment="head_area" />
 </head>
 <body>
+	<div id="menubar">
+		<ul>
+			<li><a class="${activePage == 'Users' ? 'active' : ''}" href="<c:url value="/users"/>">Users</a></li>
+			<ul style="float: right; list-style-type: none;">
+				<li><a href="<c:url value="/logout"/>">Logout</a></li>
+			</ul>
+		</ul>
+	</div>
 	<div id="content">
 		<jsp:invoke fragment="content_area" />
 	</div>

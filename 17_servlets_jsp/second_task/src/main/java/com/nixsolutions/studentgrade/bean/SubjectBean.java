@@ -4,22 +4,31 @@ import com.nixsolutions.studentgrade.entity.Subject;
 import com.nixsolutions.studentgrade.entity.Term;
 
 public class SubjectBean {
-	private Subject subject;
-    private Term term;
+	private Long subjectId;
+	private String subjectName;
+	private String termName;
 
-    public Subject getSubject() {
-        return subject;
-    }
+	public SubjectBean() {
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
-    }
+	}
 
-    public Term getTerm() {
-        return term;
-    }
+	public SubjectBean(Subject subject, Term term) {
+		subjectId = subject.getSubjectId();
+		subjectName = subject.getSubjectName();
+		termName = term.getTermName();
 
-    public void setTerm(Term term) {
-        this.term = term;
-    }
+	}
+
+	public Long getSubjectId() {
+		return subjectId;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public String getTermName() {
+		return termName;
+	}
+
 }

@@ -29,8 +29,6 @@ public class UpdateUserPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("admin".equals(role)) {
 			if (request.getParameter("user_id") != null) {
 				Long userId = Long.valueOf(request.getParameter("user_id"));
 				User updateUser = userDao.findUserById(userId);
@@ -39,9 +37,6 @@ public class UpdateUserPageServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/updateUser.jsp").forward(request, response);
 			} else
 				response.sendRedirect("users?message=Please select user for update");
-		} else {
-			response.sendRedirect("index.jsp?message=Your are not an admin. Please login as admin to continue work.");
-		}
 	}
 
 	@Override

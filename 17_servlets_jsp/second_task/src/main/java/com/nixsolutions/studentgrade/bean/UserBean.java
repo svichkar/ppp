@@ -4,22 +4,41 @@ import com.nixsolutions.studentgrade.entity.User;
 import com.nixsolutions.studentgrade.entity.Role;
 
 public class UserBean {
-	private User user;
-	private Role role;
+	private Long userId;
+	private String login;
+	private String email;
+	private String password;
+	private String roleName;
 
-	public User getUser() {
-		return user;
+	public UserBean() {
+
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public UserBean(User user, Role role) {
+		userId = user.getUserId();
+		login = user.getLogin();
+		email = user.getEmail();
+		password = user.getPassword();
+		roleName = role.getRoleName();
 	}
 
-	public Role getRole() {
-		return role;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public String getLogin() {
+		return login;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getRoleName() {
+		return roleName;
 	}
 }

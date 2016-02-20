@@ -1,6 +1,5 @@
 package com.nixsolutions.studentgrade.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,9 +16,8 @@ public class ConnectionManager {
 
 	public static Connection getConnection() {
 		if (cp == null) {
-			try (FileInputStream fis = new FileInputStream(
-					ConnectionManager.class.getClassLoader().getResource("jdbc.properties").getFile())) {
-				properties.load(fis);
+			try {
+				properties.load(ConnectionManager.class.getClassLoader().getResource("jdbc.properties").openStream());
 			} catch (IOException ex) {
 				LOG.error(ex.getMessage());
 			}

@@ -20,8 +20,13 @@ import com.nixsolutions.studentgrade.dao.StudentDAO;
 import com.nixsolutions.studentgrade.dao.StudentGroupDAO;
 import com.nixsolutions.studentgrade.dao.SubjectDAO;
 import com.nixsolutions.studentgrade.dao.TermDAO;
+import com.nixsolutions.studentgrade.entity.Grade;
 import com.nixsolutions.studentgrade.entity.Journal;
+import com.nixsolutions.studentgrade.entity.Status;
 import com.nixsolutions.studentgrade.entity.Student;
+import com.nixsolutions.studentgrade.entity.StudentGroup;
+import com.nixsolutions.studentgrade.entity.Subject;
+import com.nixsolutions.studentgrade.entity.Term;
 
 @WebServlet("/journal")
 public class JournalPageServlet extends HttpServlet {
@@ -49,22 +54,15 @@ public class JournalPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			if (request.getParameter("student_id") != null) {
-				Long studentId = Long.valueOf(request.getParameter("student_id"));
-				Student student = studentDao.findStudentById(studentId);
-				StudentBean viewStudent = this.getViewStudent(student);
-				request.setAttribute("student", viewStudent);
-				request.setAttribute("terms", termDao.findTermsByStudentId(studentId));
-				request.getRequestDispatcher("/WEB-INF/jsp/journal.jsp").forward(request, response);
-			} else
-				response.sendRedirect("students?message=Please select student to view journal");
-
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
-		}
+		if (request.getParameter("student_id") != null) {
+			Long studentId = Long.valueOf(request.getParameter("student_id"));
+			Student student = studentDao.findStudentById(studentId);
+			StudentBean viewStudent = this.getViewStudent(student);
+			request.setAttribute("student", viewStudent);
+			request.setAttribute("terms", termDao.findTermsByStudentId(studentId));
+			request.getRequestDispatcher("/WEB-INF/jsp/journal.jsp").forward(request, response);
+		} else
+			response.sendRedirect("students?message=Please select student to view journal");
 	}
 
 	@Override
@@ -79,11 +77,11 @@ public class JournalPageServlet extends HttpServlet {
 				List<JournalBean> displayJournal = new ArrayList<>();
 				List<Journal> journalList = journalDao.findJournalsByStudentIdAndTermId(studentId, termId);
 				for (Journal j : journalList) {
-					JournalBean journal = new JournalBean();
-					journal.setTerm(termDao.findTermById(termId));
-					journal.setSubject(subjectDao.findSubjectById(j.getSubjectId()));
-					journal.setGrade(gradeDao.findGradeById(j.getGradeId()));
-					journal.setGpa(journalDao.findGPAByStudentIdAndTermId(studentId, termId));
+					Term term = termDao.findTermById(termId);
+					Subject subject = subjectDao.findSubjectById(j.getSubjectId());
+					Grade grade = gradeDao.findGradeById(j.getGradeId());
+					Grade gpa = journalDao.findGPAByStudentIdAndTermId(studentId, termId);
+					JournalBean journal = new JournalBean(term, subject, grade, gpa);
 					displayJournal.add(journal);
 				}
 				request.setAttribute("journals", displayJournal);
@@ -97,10 +95,10 @@ public class JournalPageServlet extends HttpServlet {
 
 	private StudentBean getViewStudent(Student student) {
 		StudentBean viewStudent = new StudentBean();
-		viewStudent.setStudent(student);
-		viewStudent.setGroup(groupDao.findStudentGroupById(student.getGroupId()));
-		viewStudent.setStatus(statusDao.findStatusById(student.getStatusId()));
-		viewStudent.setTerm(termDao.findTermById(student.getTermId()));
+		StudentGroup group = groupDao.findStudentGroupById(student.getGroupId());
+		Status status = statusDao.findStatusById(student.getStatusId());
+		Term term = termDao.findTermById(student.getTermId());
+		viewStudent = new StudentBean(student, group, status, term);
 		return viewStudent;
 	}
 

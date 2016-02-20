@@ -26,14 +26,8 @@ public class TermsPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			request.setAttribute("terms", termDao.findAllTerms());
-			request.getRequestDispatcher("/WEB-INF/jsp/terms.jsp").forward(request, response);
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
-		}
+		request.setAttribute("terms", termDao.findAllTerms());
+		request.getRequestDispatcher("/WEB-INF/jsp/terms.jsp").forward(request, response);
 	}
 
 	@Override

@@ -93,6 +93,22 @@ public class UserDAOImpl implements UserDAO {
 			return null;
 		}
 	}
+	
+	@Override
+	public User findUserByEmail(String email) {
+		try (Connection conn = ConnectionManager.getConnection()) {
+			try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM user WHERE lower(email) = ?")) {
+				ps.setString(1, email.toLowerCase());
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				return new User(rs.getLong("user_id"), rs.getString("login"), rs.getString("password"),
+						rs.getString("email"), rs.getLong("role_id"));
+			}
+		} catch (SQLException e) {
+			LOG.error(e);
+			return null;
+		}
+	}
 
 	@Override
 	public List<User> findAllUsers() {

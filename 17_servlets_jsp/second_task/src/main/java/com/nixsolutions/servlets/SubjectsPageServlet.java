@@ -15,6 +15,7 @@ import com.nixsolutions.studentgrade.dao.DAOFactory;
 import com.nixsolutions.studentgrade.dao.SubjectDAO;
 import com.nixsolutions.studentgrade.dao.TermDAO;
 import com.nixsolutions.studentgrade.entity.Subject;
+import com.nixsolutions.studentgrade.entity.Term;
 
 @WebServlet("/subjects")
 public class SubjectsPageServlet extends HttpServlet {
@@ -23,6 +24,7 @@ public class SubjectsPageServlet extends HttpServlet {
 
 	private static SubjectDAO subjectDao;
 	private static TermDAO termDao;
+	private static Term term;
 
 	@Override
 	public void init() throws ServletException {
@@ -32,23 +34,16 @@ public class SubjectsPageServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String role = String.valueOf(request.getSession().getAttribute("role"));
-		if ("manager".equals(role)) {
-			List<SubjectBean> displaySubjectList = new ArrayList<>();
-			List<Subject> subjectList = subjectDao.findAllSubjects();
-			for (Subject t : subjectList) {
-				SubjectBean subject = new SubjectBean();
-				subject.setSubject(t);
-				subject.setTerm(termDao.findTermById(t.getTermId()));
-				displaySubjectList.add(subject);
-			}
-			request.setAttribute("subjects", displaySubjectList);
-			request.setAttribute("terms", termDao.findAllTerms());
-			request.getRequestDispatcher("/WEB-INF/jsp/subjects.jsp").forward(request, response);
-		} else {
-			response.sendRedirect(
-					"index.jsp?message=Your are not a manager. Please login as manager to continue work.");
+		List<SubjectBean> displaySubjectList = new ArrayList<>();
+		List<Subject> subjectList = subjectDao.findAllSubjects();
+		for (Subject t : subjectList) {
+			term = termDao.findTermById(t.getTermId());
+			SubjectBean subject = new SubjectBean(t, term);
+			displaySubjectList.add(subject);
 		}
+		request.setAttribute("subjects", displaySubjectList);
+		request.setAttribute("terms", termDao.findAllTerms());
+		request.getRequestDispatcher("/WEB-INF/jsp/subjects.jsp").forward(request, response);
 	}
 
 	@Override
@@ -100,9 +95,8 @@ public class SubjectsPageServlet extends HttpServlet {
 	private List<SubjectBean> displaySubjectList(List<Subject> subjectList) {
 		List<SubjectBean> displaySubjectList = new ArrayList<>();
 		for (Subject t : subjectList) {
-			SubjectBean subject = new SubjectBean();
-			subject.setSubject(t);
-			subject.setTerm(termDao.findTermById(t.getTermId()));
+			term = termDao.findTermById(t.getTermId());
+			SubjectBean subject = new SubjectBean(t, term);
 			displaySubjectList.add(subject);
 		}
 		return displaySubjectList;

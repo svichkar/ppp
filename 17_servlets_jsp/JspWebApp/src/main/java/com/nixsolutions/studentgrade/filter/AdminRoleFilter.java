@@ -28,7 +28,6 @@ public class AdminRoleFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         HttpSession session = request.getSession(false);
         Boolean isAdmin = null;
         if (session != null) {

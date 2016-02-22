@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style/login-style.css">
 </head>
 <body>
-${error}
+<h5><c:out value="${message.messageText}"/></h5>
 <div class="login-card">
     <h1>Student Grade Management</h1><br>
     <form method="post" action="login">

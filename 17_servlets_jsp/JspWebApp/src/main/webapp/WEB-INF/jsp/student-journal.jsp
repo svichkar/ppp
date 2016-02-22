@@ -4,10 +4,23 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Student Grade Details">
 <jsp:attribute name="content_area">
-
 ${pageTitle}
-${message}
-
+<c:choose>
+    <c:when test="${message.messageType eq 'ERROR'}">
+       <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:when>
+    <c:otherwise>
+        <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:otherwise>
+</c:choose>
  <div>
  <table>
  <thead>
@@ -33,7 +46,6 @@ ${message}
          <option style="font-style: normal; font-size: 16;" value="${t.termName}">${t.termName}</option>
      </c:otherwise>
  </c:choose>
-
  </c:forEach>
  </select>
  <input type="submit" name="operation" value="show"/>
@@ -49,12 +61,10 @@ ${message}
 <td>${current.grade}</td>
 </c:forEach>
 </tr>
-
 <tr>
 <td  colspan="2"><b>AVERAGE SCORE:</b></td>
 <td><b>${score}</b></td>
 </tr>
-
 </tbody>
 </table>
 </div>

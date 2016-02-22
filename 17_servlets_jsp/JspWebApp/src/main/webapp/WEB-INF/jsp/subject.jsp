@@ -5,9 +5,22 @@
 <t:general_template title="Subjects">
 <jsp:attribute name="content_area">
 
-${message}
-${error}
-${errorSearch}
+<c:choose>
+    <c:when test="${message.messageType eq 'ERROR'}">
+       <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:when>
+    <c:otherwise>
+        <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:otherwise>
+</c:choose>
 
 <div>
 <table>
@@ -32,7 +45,7 @@ ${errorSearch}
 <select name="selectedTerm">
 <option value="" selected disabled></option>
 <c:forEach items="${terms}" var="t">
-    <option value="${t.termName}">${t.termName}</option>
+    <option value="<c:out value="${t.termName}"/>"><c:out value="${t.termName}"/></option>
 </c:forEach>
 </select>
 </td>
@@ -49,18 +62,18 @@ ${errorSearch}
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="subjectId" value="${current.id}" hidden/>
-<input type="text" name="subjectName" value="${current.name}" required/>
+<input type="text" name="subjectId" value="<c:out value="${current.id}"/>" hidden/>
+<input type="text" name="subjectName" value="<c:out value="${current.name}"/>" required/>
 </td>
 <td>
 <select name="selectedTerm">
 <c:forEach items="${terms}" var="t">
 <c:choose>
     <c:when test="${t.termId == current.termId}">
-       <option value="${t.termName}" selected>${t.termName}</option>
+       <option value="<c:out value="${t.termName}"/>" selected><c:out value="${t.termName}"/></option>
     </c:when>
     <c:otherwise>
-        <option value="${t.termName}">${t.termName}</option>
+        <option value="<c:out value="${t.termName}"/>"><c:out value="${t.termName}"/></option>
     </c:otherwise>
 </c:choose>
 </c:forEach>
@@ -84,7 +97,7 @@ ${errorSearch}
 <select name="selectedTerm" required>
 <option value="" selected disabled></option>
 <c:forEach items="${terms}" var="t">
-    <option value="${t.termName}">${t.termName}</option>
+    <option value="<c:out value="${t.termName}"/>"><c:out value="${t.termName}"/></option>
 </c:forEach>
 </select>
 </td>

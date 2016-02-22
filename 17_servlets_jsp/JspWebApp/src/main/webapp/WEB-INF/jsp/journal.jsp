@@ -5,7 +5,22 @@
 <t:general_template title="Journals">
 <jsp:attribute name="content_area">
 
- ${error}
+<c:choose>
+    <c:when test="${message.messageType eq 'ERROR'}">
+       <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:when>
+    <c:otherwise>
+        <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:otherwise>
+</c:choose>
 
  <div>
  <table>
@@ -29,27 +44,27 @@
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="id" value="${current.id}" hidden/>
-<input type="text" name="name" value="${current.name}" readOnly/>
+<input type="text" name="id" value="<c:out value="${current.id}"/>" hidden/>
+<input type="text" name="name" value="<c:out value="${current.name}"/>" readOnly/>
 </td>
 <td>
-<input type="text" name="lastName" value="${current.lastName}" readOnly/>
+<input type="text" name="lastName" value="<c:out value="${current.lastName}"/>" readOnly/>
 </td>
 <td>
-<input type="text" name="group" value="${current.group}" readOnly/>
+<input type="text" name="group" value="<c:out value="${current.group}"/>" readOnly/>
  </td>
 <td>
-<input type="text" name="subject" value="${current.subject}" readOnly/>
+<input type="text" name="subject" value="<c:out value="${current.subject}"/>" readOnly/>
 </td>
 <td>
     <select name="grade">
     <c:forEach items="${grades}" var="gr">
     <c:choose>
         <c:when test="${gr.gradeId == current.gradeId}">
-           <option value="${gr.gradeName}" selected>${gr.gradeName}</option>
+           <option value="<c:out value="${gr.gradeName}"/>" selected><c:out value="${gr.gradeName}"/></option>
         </c:when>
         <c:otherwise>
-            <option value="${gr.gradeName}">${gr.gradeName}</option>
+            <option value="<c:out value="${gr.gradeName}"/>"><c:out value="${gr.gradeName}"/></option>
         </c:otherwise>
     </c:choose>
     </c:forEach>

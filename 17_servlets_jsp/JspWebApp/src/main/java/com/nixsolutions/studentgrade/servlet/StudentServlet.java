@@ -5,6 +5,8 @@ import com.nixsolutions.studentgrade.bean.StudentBean;
 import com.nixsolutions.studentgrade.dao.*;
 import com.nixsolutions.studentgrade.entity.Student;
 import com.nixsolutions.studentgrade.entity.StudentGroup;
+import com.nixsolutions.studentgrade.servlet.message.Message;
+import com.nixsolutions.studentgrade.servlet.message.MessageType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,8 +29,8 @@ public class StudentServlet extends HttpServlet {
         StudentGroupDao groupDao = daoFactory.getStudentGroupDao();
         StatusDao statusDao = daoFactory.getStatusDao();
         StudentDao dao = daoFactory.getStudentDao();
-
         List<StudentBean> list = new ArrayList<>();
+        Message m = new Message();
 
         if (request.getParameter("operation") != null && request.getParameter("operation").equals("search")) {
 
@@ -56,8 +58,9 @@ public class StudentServlet extends HttpServlet {
                                     termDao.findById(st.getTermId()).getTermName()
                             ));
                         }
-                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"student\">Back to Student List</a></h4></p>");
+                        m.setMessageType(MessageType.SUCCESS);
+                        m.setMessageText("Search results. <a href=\"student\">Back to Student List</a>");
+                        request.setAttribute("message", m);
                     }
                 } else {
 
@@ -76,8 +79,9 @@ public class StudentServlet extends HttpServlet {
                                     termDao.findById(st.getTermId()).getTermName()
                             ));
                         }
-                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"student\">Back to Student List</a></h4></p>");
+                        m.setMessageType(MessageType.SUCCESS);
+                        m.setMessageText("Search results. <a href=\"student\">Back to Student List</a>");
+                        request.setAttribute("message", m);
                     }
                 }
 
@@ -98,16 +102,17 @@ public class StudentServlet extends HttpServlet {
                                     termDao.findById(st.getTermId()).getTermName()
                             ));
                         }
-                        request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:bold;text-align:center;color: black;\">" +
-                                "Search results. <a href=\"student\">Back to Student List</a></h4></p>");
+                        m.setMessageType(MessageType.SUCCESS);
+                        m.setMessageText("Search results. <a href=\"student\">Back to Student List</a>");
+                        request.setAttribute("message", m);
                     }
                 } else {
-                    request.setAttribute("errorSearch", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Please change search criteria</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Please change search criteria.");
+                    request.setAttribute("message", m);
                 }
             }
         } else {
-
             List<Student> studentList = dao.findAll();
             if (studentList != null && studentList.isEmpty() == false) {
 
@@ -128,14 +133,14 @@ public class StudentServlet extends HttpServlet {
         }
 
         if (list != null && list.isEmpty() == false) {
-
             request.setAttribute("students", list);
             request.setAttribute("terms", termDao.findAll());
             request.setAttribute("groups", groupDao.findAll());
             request.setAttribute("statusList", statusDao.findAll());
         } else {
-            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                    "No data available. <a href=\"student\">Back to Student List</a></h4></p>");
+            m.setMessageType(MessageType.ERROR);
+            m.setMessageText("No data available. <a href=\"student\">Back to Student List</a></h4></p>");
+            request.setAttribute("message", m);
         }
         request.getRequestDispatcher("/WEB-INF/jsp/student.jsp").forward(request, response);
     }
@@ -152,23 +157,19 @@ public class StudentServlet extends HttpServlet {
         String status = request.getParameter("status");
         String term = request.getParameter("term");
         String operation = request.getParameter("operation");
-
         DaoFactory daoFactory = new DaoFactory();
         TermDao termDao = daoFactory.getTermDao();
         StudentGroupDao groupDao = daoFactory.getStudentGroupDao();
         StatusDao statusDao = daoFactory.getStatusDao();
         StudentDao dao = daoFactory.getStudentDao();
-
+        Message m = new Message();
         switch (operation) {
-
             case "add": {
-
                 boolean isUnique = true;
                 for (Student st : dao.findAll()) {
                     if (st.getFirstName().equals(name) && st.getLastName().equals(lastName))
                         isUnique = false;
                 }
-
                 if (isUnique) {
                     dao.create(new Student(name,
                             lastName,
@@ -176,19 +177,17 @@ public class StudentServlet extends HttpServlet {
                             Date.valueOf(addedDate),
                             statusDao.findByName(status).getStatusId(),
                             termDao.findByName(term).getTermId()));
-
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
+                    request.setAttribute("message", m);
                 } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Student already exists</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Student already exists");
+                    request.setAttribute("message", m);
                 }
                 break;
             }
-
             case "update": {
-
                 Student student = new Student();
                 student.setStudentId(Long.valueOf(id));
                 student.setFirstName(name);
@@ -197,7 +196,6 @@ public class StudentServlet extends HttpServlet {
                 student.setGroupId(groupDao.findByName(group).getGroupId());
                 student.setStatusId(statusDao.findByName(status).getStatusId());
                 student.setTermId(termDao.findByName(term).getTermId());
-
                 boolean isUnique = true;
                 for (Student s : dao.findAll()) {
                     if (s.getLastName().equals(lastName)
@@ -208,37 +206,35 @@ public class StudentServlet extends HttpServlet {
                             && s.getTermId().equals(termDao.findByName(term).getTermId()))
                         isUnique = false;
                 }
-
                 if (isUnique) {
                     dao.update(student);
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
+                    request.setAttribute("message", m);
                 } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Student already exists</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Student already exists");
+                    request.setAttribute("message", m);
                 }
                 break;
             }
-
             case "delete": {
                 Student del = new Student();
                 del.setStudentId(Long.valueOf(id));
 
                 if (dao.delete(del)) {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
+                    request.setAttribute("message", m);
                 } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Student cannot be delete</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Student cannot be deleted");
+                    request.setAttribute("message", m);
                 }
                 break;
             }
         }
-
         List<StudentBean> list = new ArrayList<>();
-
         List<Student> studentList = dao.findAll();
         if (studentList != null && studentList.isEmpty() == false) {
 
@@ -256,7 +252,6 @@ public class StudentServlet extends HttpServlet {
                 ));
             }
         }
-
         if (list != null && list.isEmpty() == false) {
 
             request.setAttribute("students", list);
@@ -264,8 +259,9 @@ public class StudentServlet extends HttpServlet {
             request.setAttribute("groups", groupDao.findAll());
             request.setAttribute("statusList", statusDao.findAll());
         } else {
-            request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                    "No data available. <a href=\"student\">Back to Student List</a></h4></p>");
+            m.setMessageType(MessageType.ERROR);
+            m.setMessageText("No data available. <a href=\"student\">Back to Student List</a>");
+            request.setAttribute("message", m);
         }
         request.getRequestDispatcher("/WEB-INF/jsp/student.jsp").forward(request, response);
     }

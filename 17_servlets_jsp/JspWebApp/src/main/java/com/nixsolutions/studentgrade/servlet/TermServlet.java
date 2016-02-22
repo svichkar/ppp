@@ -2,6 +2,8 @@ package com.nixsolutions.studentgrade.servlet;
 
 import com.nixsolutions.studentgrade.dao.DaoFactory;
 import com.nixsolutions.studentgrade.entity.Term;
+import com.nixsolutions.studentgrade.servlet.message.Message;
+import com.nixsolutions.studentgrade.servlet.message.MessageType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,77 +30,67 @@ public class TermServlet extends HttpServlet {
 
         DaoFactory daoFactory = new DaoFactory();
         List<Term> terms = daoFactory.getTermDao().findAll();
-
+        Message m = new Message();
         String termId = request.getParameter("termId");
         String termName = request.getParameter("termName");
         String operation = request.getParameter("operation");
-
         switch (operation) {
-
             case "add":{
                 boolean isUnique = true;
                 for (Term t : terms) {
                     if (termName.equals(t.getTermName()))
                         isUnique = false;
                 }
-
                 if(isUnique) {
                     daoFactory.getTermDao().create(new Term(termName));
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
+                    request.setAttribute("message", m);
                 } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Specified Term already exists</h4></p>");
-
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Specified Term already exists");
+                    request.setAttribute("message", m);
                 }
-
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());
                 request.getRequestDispatcher("/WEB-INF/jsp/term.jsp").forward(request, response);
                 break;
             }
-
             case "update": {
                 Term term = new Term();
                 term.setTermId(Long.valueOf(termId));
                 term.setTermName(termName);
-
                 boolean isUnique = true;
                 for (Term t : terms) {
                     if (termName.equals(t.getTermName()))
                         isUnique = false;
                 }
-
                 if(isUnique) {
                     daoFactory.getTermDao().update(term);
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
+                    request.setAttribute("message", m);
                 } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Term already exists</h4></p>");
-
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Term already exists");
+                    request.setAttribute("message", m);
                 }
-
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());
                 request.getRequestDispatcher("/WEB-INF/jsp/term.jsp").forward(request, response);
                 break;
             }
-
             case "delete" : {
                 Term term = new Term();
                 term.setTermId(Long.valueOf(termId));
                 term.setTermName(termName);
-
                 if (daoFactory.getTermDao().delete(term)) {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
+                    request.setAttribute("message", m);
                 } else {
-                    request.setAttribute("error", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "Term cannot be delete</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("Term cannot be delete");
+                    request.setAttribute("message", m);
                 }
-
                 request.setAttribute("terms", daoFactory.getTermDao().findAll());
                 request.getRequestDispatcher("/WEB-INF/jsp/term.jsp").forward(request, response);
                 break;

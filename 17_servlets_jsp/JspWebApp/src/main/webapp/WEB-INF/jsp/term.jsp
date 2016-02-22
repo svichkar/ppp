@@ -4,7 +4,24 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <t:general_template title="Terms">
 <jsp:attribute name="content_area">
-${error}
+
+<c:choose>
+    <c:when test="${message.messageType eq 'ERROR'}">
+       <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:when>
+    <c:otherwise>
+        <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:otherwise>
+</c:choose>
+
 <div>
 <table>
 <thead>
@@ -23,8 +40,8 @@ ${error}
 <tr>
 <td>${count}</td>
 <td>
-<input type="text" name="termId" value="${current.termId}" hidden/>
-<input type="text" name="termName" maxlength="30" value="${current.termName}" required/>
+<input type="text" name="termId" value="<c:out value="${current.termId}"/>" hidden/>
+<input type="text" name="termName" maxlength="30" value="<c:out value="${current.termName}"/>" required/>
 </td>
 <td>
 <input type="submit" name="operation" value="update"/>

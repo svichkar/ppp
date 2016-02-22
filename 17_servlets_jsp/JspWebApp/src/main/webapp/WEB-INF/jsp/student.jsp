@@ -5,9 +5,22 @@
 <t:general_template title="Students">
     <jsp:attribute name="content_area">
 
-${message}
-${error}
-${errorSearch}
+<c:choose>
+    <c:when test="${message.messageType eq 'ERROR'}">
+       <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:when>
+    <c:otherwise>
+        <p>
+           <h4 style="font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;">
+           ${message.messageText}
+           </h4>
+       </p>
+    </c:otherwise>
+</c:choose>
 
 <div>
 <table>

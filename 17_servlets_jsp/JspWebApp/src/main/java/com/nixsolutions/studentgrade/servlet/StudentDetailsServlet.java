@@ -5,6 +5,8 @@ import com.nixsolutions.studentgrade.dao.*;
 import com.nixsolutions.studentgrade.entity.Journal;
 import com.nixsolutions.studentgrade.entity.Student;
 import com.nixsolutions.studentgrade.entity.Term;
+import com.nixsolutions.studentgrade.servlet.message.Message;
+import com.nixsolutions.studentgrade.servlet.message.MessageType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,13 +45,15 @@ public class StudentDetailsServlet extends HttpServlet {
                     "<a href=\"/student-grades/student\">Back to Students List</a></h3></p>",
                     student.getFirstName(), student.getLastName()));
         }
-        switch (operation) {
 
+        Message m = new Message();
+        switch (operation) {
             case "details": {
                 getServletContext().log(request.getParameter("id"));
                 request.setAttribute("id", request.getParameter("id"));
-                request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                        "Please specify term for student grade details</h4></p>");
+                m.setMessageType(MessageType.ERROR);
+                m.setMessageText("Please specify term for student grade details");
+                request.setAttribute("message", m);
                 break;
             }
 
@@ -86,8 +90,9 @@ public class StudentDetailsServlet extends HttpServlet {
                     request.setAttribute("journals", list);
                     getServletContext().log("journal is not empty");
                 } else {
-                    request.setAttribute("message", "<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "No data available. Please change search criteria</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("No data available. Please change search criteria");
+                    request.setAttribute("message", m);
                 }
                 request.setAttribute("id", studentId);
                 break;

@@ -5,6 +5,8 @@ import com.nixsolutions.studentgrade.dao.RoleDao;
 import com.nixsolutions.studentgrade.dao.UserDao;
 import com.nixsolutions.studentgrade.entity.Role;
 import com.nixsolutions.studentgrade.entity.User;
+import com.nixsolutions.studentgrade.servlet.message.Message;
+import com.nixsolutions.studentgrade.servlet.message.MessageType;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +27,6 @@ import java.util.List;
         loadOnStartup = 0)
 public class AdminServlet extends HttpServlet {
 
-    private String pageHtml;
     private HttpSession session;
 
     @Override
@@ -70,12 +71,9 @@ public class AdminServlet extends HttpServlet {
         user.setEmail(request.getParameter("email"));
         user.setRoleId(role.getRoleId());
 
-        String message = "";
-
+        Message m = new Message();
         switch (request.getParameter("operation")) {
-
             case "add": {
-
                 boolean isUnique = true;
                 for (User u : userDao.findAll()) {
 
@@ -83,15 +81,13 @@ public class AdminServlet extends HttpServlet {
                         isUnique = false;
                     }
                 }
-
                 if (isUnique) {
                     userDao.create(user);
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
                 } else {
-
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "User with specified login OR e-mail already exists</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("User with specified login OR e-mail already exists");
                 }
             }
             break;
@@ -99,41 +95,36 @@ public class AdminServlet extends HttpServlet {
             case "update": {
                 if (pageOwner.equals(user.getLogin()) == false) {
                     userDao.update(user);
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
                 } else {
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "User can't be updated by himself</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("User can't be updated by himself");
                 }
             }
             break;
 
             case "delete": {
-
                 if (pageOwner.equals(user.getLogin()) == false
-                        && !role.getRoleName().equals("admin")) {
+                        && !"admin".equals(role.getRoleName())) {
                     userDao.delete(user);
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;color: #15DC13;\">" +
-                            "Success</h4></p>");
-
+                    m.setMessageType(MessageType.SUCCESS);
+                    m.setMessageText("Success");
                 } else {
-                    message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                            "User can't be deleted by himself</h4></p>");
-
-                    if (role.getRoleName().equals("admin")) {
-                        message = String.format("<p><h4 style=\"font-family:'Courier New', Courier, monospace;font-weight:100;text-align:center;\">" +
-                                "User with <b>admin</b> rights can't be deleted</h4></p>");
+                    m.setMessageType(MessageType.ERROR);
+                    m.setMessageText("User can't be deleted by himself");
+                    if ("admin".equals(role.getRoleName())) {
+                        m.setMessageType(MessageType.ERROR);
+                        m.setMessageText("User with admin rights can't be deleted");
                     }
                 }
             }
             break;
         }
-
-        request.setAttribute("message", message);
+        request.setAttribute("message", m);
         request.setAttribute("pageOwner", user);
         request.setAttribute("roles", roleDao.findAll());
         request.setAttribute("users", userDao.findAll());
-
         request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp").forward(request, response);
     }
 }

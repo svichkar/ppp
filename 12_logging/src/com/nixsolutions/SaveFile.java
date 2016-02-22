@@ -28,6 +28,7 @@ public class SaveFile implements Save {
                 fwriter = new FileWriter(outputFile);
                 LOG.info("create new FileWriter for file '" + outputFile + "'");
                 fwriter.write(data);
+                LOG.entry(fwriter);
                 LOG.info("write data to file:\n " + data);
             } else {
                 LOG.warn(outputFile + " exists");

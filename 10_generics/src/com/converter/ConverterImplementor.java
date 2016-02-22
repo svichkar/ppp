@@ -7,7 +7,6 @@ public class ConverterImplementor<I, T> implements Converter<I, T> {
     @Override
     public T get(I i) {
         T d = null;
-        String finalString;
         if (i.getClass().equals(Float.class)) {
             d = (T) Double.valueOf((Float) i);
         }

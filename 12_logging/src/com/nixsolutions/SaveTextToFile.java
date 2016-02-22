@@ -28,7 +28,6 @@ public class SaveTextToFile implements Save {
         LOG.entry(textToSave, absolutePathToFile);
         if(textToSave == null)
             LOG.throwing(new CustomRTException("Input text String is null!"));
-            //throw new CustomRTException("Input text String is null!");
         if(absolutePathToFile == null)
             LOG.throwing(new CustomRTException("Path input object is null!"));
         File fileToWrite = new File(absolutePathToFile);

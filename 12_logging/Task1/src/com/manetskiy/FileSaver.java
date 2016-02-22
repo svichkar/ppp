@@ -4,6 +4,7 @@ import exception.Save;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,6 +18,7 @@ public class FileSaver implements Save {
     private static final Logger logger = LogManager.getLogger();
 
     public void save(String inputText, String filePath) {
+        logger.entry(filePath);
         logger.debug("Creating new file object.");
         File file = new File(filePath);
         logger.debug("File object has been created.");
@@ -34,7 +36,7 @@ public class FileSaver implements Save {
                     Files.createDirectories(path.getParent());
                     Files.createFile(path);
                 } catch (IOException e) {
-                    logger.error("Failed to create file from file object.");
+                    logger.catching(e);
                     throw new RuntimeException(e);
                 }
                 try (FileWriter writer = new FileWriter(file)) {
@@ -42,13 +44,14 @@ public class FileSaver implements Save {
                     writer.write(inputText);
                     logger.debug("Data has been written successfully.");
                 } catch (IOException e) {
-                    logger.error("Failed to write data into the file.");
+                    logger.catching(e);
                     throw new RuntimeException(e);
                 }
             }
         } else {
-            logger.error("Path is relative.");
+            logger.error("File path is not absolute");
             throw new RuntimeException("File path is not absolute");
         }
+        logger.exit();
     }
 }

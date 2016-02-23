@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+<File name="file" fileName="app.log">
+<PatternLayout>
+<Pattern>%d %p %c{1.} [%t] %m %ex%n</Pattern>
+</PatternLayout>
+</File>
+    </appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="file"/>
+        </Root>
+        <Logger name="com.nixsolutions.SaveFile" level="TRACE" additivity="true">
+            <AppenderRef ref="Console"/>
+        </Logger>
+         
+    </Loggers>
+</configuration>

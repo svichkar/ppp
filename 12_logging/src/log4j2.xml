@@ -16,7 +16,6 @@
         </Root>
         <Logger name="com.nixsolutions.SaveFile" level="TRACE" additivity="true">
             <AppenderRef ref="Console"/>
-        </Logger>
-         
+        </Logger>     
     </Loggers>
 </configuration>

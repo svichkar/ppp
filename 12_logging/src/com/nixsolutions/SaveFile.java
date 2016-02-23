@@ -20,10 +20,6 @@ public class SaveFile implements Save {
 
     public static void main(String[] args) {
         logger.entry();
-//        logger.debug("Debugging");
-//        logger.trace("Tracing");
-//        logger.warn("Warning");
-//        logger.error("Error");
         SaveFile saveFile = new SaveFile();
         saveFile.save(saveFile.stringToBeSaved, saveFile.absPath);
         logger.exit();

@@ -13,9 +13,10 @@ public class StringBuilderTest {
     private String functionName;
 
     @BeforeClass
-    public static void executeBeforeAllTests(){
+    public static void executeBeforeAllTests() {
         System.out.println("Testing the StringBuilder functions");
     }
+
     @Before
     public void executeBeforeEachTest() {
         //Given
@@ -80,8 +81,9 @@ public class StringBuilderTest {
     public void executeAfterEachTest() {
         System.out.println("Finished testing the " + functionName + " function");
     }
+
     @AfterClass
-    public static void executeAfterAllTests(){
+    public static void executeAfterAllTests() {
         System.out.println("Finished testing the StringBuilder functions");
     }
 }

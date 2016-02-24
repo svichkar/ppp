@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package main.java.com.nixsolutions;
 
 import java.io.IOException;
 

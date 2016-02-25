@@ -5,10 +5,7 @@ package com.converter;
  */
 public class ConverterImplementor {
     public static void main(String[] args) {
-        Integer[] integers = new Integer[5];
-        for (int i = 0; i < integers.length; i++) {
-            integers[i] = i;
-        }
+        Integer[] integers = {1, 2, 3, 4, 5};
         FloatDoubleConverter<Float, Double> fdconverter = new FloatDoubleConverter<>();
         IntegerArrayStringConverter<Integer[], String> iasconverter = new IntegerArrayStringConverter<>();
         System.out.println(fdconverter.get(new Float(45f)));

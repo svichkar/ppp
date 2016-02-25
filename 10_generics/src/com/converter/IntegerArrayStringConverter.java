@@ -1,6 +1,5 @@
 package com.converter;
 
-
 /**
  * Created by val on 2/21/2016.
  */

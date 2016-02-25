@@ -1,6 +1,7 @@
 package com.nixsolutions.ReflectionsTask2;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -12,6 +13,9 @@ public class Main {
         rcl.setPath("/home/lexx/java/07_reflections/src");
         Class newClass = rcl.loadClass("com.GetCurrentTime");
         System.out.println(newClass.getName());
-        System.out.println(Arrays.toString(newClass.getDeclaredMethods()));
+        for(Method mt: newClass.getDeclaredMethods())
+        {
+            System.out.println(mt.getName());
+        }
     }
 }

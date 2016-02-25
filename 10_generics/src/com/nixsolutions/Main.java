@@ -19,7 +19,7 @@ public class Main {
         FloatToDouble ftd = new FloatToDouble();
         IntegerToString its = new IntegerToString();
         System.out.println("Float to Double: "+ftd.get(1.587f));
-        System.out.println("Integer to String: " + its.get(179));
+        System.out.println("Integer to String: " + its.get(new Integer[]{179,158,55,1}));
         System.out.println();
         System.out.println("Before summing list elements");
         for (Map.Entry<String, List<? extends Number>> entry : newMap.entrySet()) {

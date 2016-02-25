@@ -57,7 +57,7 @@ public class ReflectClassLoager extends ClassLoader implements PathClassLoader {
         }
         pathToFile = directory.resolve(className).toFile();
         bytes = loadFileFromFs(pathToFile);
-        return defineClass(Paths.get(className).getFileName().toString().replace(".class", ""), bytes, 0, bytes.length);
+        return defineClass(null, bytes, 0, bytes.length);
     }
 
     private byte[] loadFileFromFs(File pathToFile) throws IOException {

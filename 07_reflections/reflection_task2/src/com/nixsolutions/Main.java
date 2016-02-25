@@ -18,5 +18,12 @@ public class Main {
         Class cl = testLoader.findClass("ExampleClass");
         //print out class name that we get on previous step
         System.out.println(cl.getName());
+
+        //load class in package com.nixsolutions by next path
+        testLoader.setPath("E:\\JavaPPP\\temp\\05_exceptions\\out\\production\\05_exceptions\\");
+
+        Class c2 = testLoader.findClass("com.nixsolutions.CustomRTException");
+
+        System.out.println(c2.getName());
     }
 }

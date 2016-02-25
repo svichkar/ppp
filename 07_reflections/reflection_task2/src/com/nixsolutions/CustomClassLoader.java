@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystem;
+import java.io.File;
+
 
 /**
  * @author Mikhail Sirotkin
@@ -40,7 +43,10 @@ public class CustomClassLoader extends ClassLoader implements PathClassLoader {
     @Override
     public Class<?> findClass(String className) throws ClassNotFoundException {
         try {
-            String wholePath = getPath() + className + ".class";
+            String wholePath;
+            if(className.contains("."))
+                wholePath = getPath() + className.replace(".", File.separator) + ".class";
+            else wholePath = getPath() + className + ".class";
             byte b[] = fetchClassFromFileStream(wholePath);
             return defineClass(className, b, 0, b.length);
         } catch (FileNotFoundException ex) {

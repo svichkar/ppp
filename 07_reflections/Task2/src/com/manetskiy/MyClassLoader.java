@@ -1,5 +1,6 @@
 package com.manetskiy;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,6 +15,10 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
         setPath(dir);
     }
 
+    public MyClassLoader() {
+        super();
+    }
+
     public void setPath(String dir) {
         this.dir = dir;
     }
@@ -25,9 +30,10 @@ public class MyClassLoader extends ClassLoader implements PathClassLoader {
     public Class<?> findClass(String name) throws ClassNotFoundException {
         Class<?> toReturn = null;
         try {
-            Path fullPath = Paths.get(getPath() + "\\" + name.replace(".", "\\") + ".class");
+            String s = File.separator;
+            Path fullPath = Paths.get(getPath() + s + name.replace(".", s) + ".class");
             byte[] bytes = loadClassData(fullPath);
-            toReturn = defineClass(name, bytes, 0, bytes.length);
+            toReturn = defineClass(null, bytes, 0, bytes.length);
         } catch (IOException ex) {
             ex.printStackTrace();
         }

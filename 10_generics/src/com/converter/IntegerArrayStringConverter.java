@@ -1,18 +1,23 @@
 package com.converter;
 
+import java.util.Iterator;
+
 /**
  * Created by val on 2/21/2016.
  */
 
-public class IntegerArrayStringConverter extends ConverterImplementor {
+public class IntegerArrayStringConverter<I, T> implements Converter<I, T> {
+    private StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) {
-        Integer[] integers = new Integer[5];
-        for (int i = 0; i < integers.length; i++) {
-            integers[i] = i;
+    @Override
+    public T get(I i) {
+        T s = (T) "";
+        I[] arr = (I[]) i;
+        for (int y = 0; y < arr.length; y++) {
+            sb.append(arr[y].toString() + " ");
+            s = (T) sb.toString();
         }
-        ConverterImplementor<Integer[], String> implementor = new ConverterImplementor<>();
-        System.out.println(implementor.get(integers));
+        return s;
     }
 }
 

@@ -3,21 +3,15 @@ package com.converter;
 /**
  * Created by pantiukhin on 2/22/2016.
  */
-public class ConverterImplementor<I, T> implements Converter<I, T> {
-    @Override
-    public T get(I i) {
-        T d = null;
-        if (i.getClass().equals(Float.class)) {
-            d = (T) Double.valueOf((Float) i);
+public class ConverterImplementor {
+    public static void main(String[] args) {
+        Integer[] integers = new Integer[5];
+        for (int i = 0; i < integers.length; i++) {
+            integers[i] = i;
         }
-        if (i.getClass().equals(Integer[].class)) {
-            Integer[] arr = (Integer[]) i;
-            String s = "";
-            for (int y = 0; y < arr.length; y++) {
-                s += (T) String.valueOf(arr[y]) + " ";
-            }
-            d = (T) s;
-        }
-        return d;
+        FloatDoubleConverter<Float, Double> fdconverter = new FloatDoubleConverter<>();
+        IntegerArrayStringConverter<Integer[], String> iasconverter = new IntegerArrayStringConverter<>();
+        System.out.println(fdconverter.get(new Float(45f)));
+        System.out.println(iasconverter.get(integers));
     }
 }

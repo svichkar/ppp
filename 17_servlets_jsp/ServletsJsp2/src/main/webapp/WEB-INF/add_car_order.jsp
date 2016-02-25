@@ -43,7 +43,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" name="status" value="create">
+                            <button type="submit" name="status" value="create">create</button>
                         </td>
                     </tr>
                 </tbody>

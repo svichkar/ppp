@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import nix.jdbcworkshop.bean.AssignmentBean;
 import nix.jdbcworkshop.bean.CarOrderBean;
 import nix.jdbcworkshop.bean.WebUserBean;
 import nix.jdbcworkshop.utils.BeanFactory;
@@ -55,16 +56,27 @@ public class HomeServlet extends HttpServlet {
             List<CarOrderBean> unassignedCarOrderBeans = new ArrayList<>();
             for (CarOrderBean carOrderBean : BeanFactory
                     .getCarOrderBeans(DaoFactoryH2.getCarOrderDaoH2().getCarOrderList())) {
-                if (DaoFactoryH2.getEmployeeCarOrderDaoH2().findEmployeeCarOrderByCarOrderId(carOrderBean.getCarOrderId()) == null) {
+                if (DaoFactoryH2.getEmployeeCarOrderDaoH2()
+                        .findEmployeeCarOrderByCarOrderId(carOrderBean.getCarOrderId()) == null
+                        && !(carOrderBean.getCarOrderStatus().getName().equals("done"))) {
                     unassignedCarOrderBeans.add(carOrderBean);
                 }
             }
-            request.setAttribute("unassignedCarOrderBeans", unassignedCarOrderBeans);
+            request.setAttribute("carOrderBeans", unassignedCarOrderBeans);
 
         } else if (webUserBean.getRole().getWebRoleName().equals("employee")) {
-
+            List<CarOrderBean> currentCarOrderBeans = new ArrayList<>();
+            for (AssignmentBean assignment : BeanFactory.getAssignmentBeans(DaoFactoryH2
+                    .getEmployeeCarOrderDaoH2().getEmployeeCarOrderList())) {
+                if (assignment.getEmployeeBean().getWebUserBean().getWebUserId()
+                        .equals(webUserBean.getWebUserId()) && !(assignment.getCarOrderBean()
+                        .getCarOrderStatus().getName().equals("done"))) {
+                    currentCarOrderBeans.add(assignment.getCarOrderBean());
+                }
+            }
+            request.setAttribute("сarOrderBeans", currentCarOrderBeans);
         }
-
+        request.setAttribute("webUserBean", webUserBean);
         request.getRequestDispatcher("WEB-INF/home.jsp").include(request, response);
     }
 

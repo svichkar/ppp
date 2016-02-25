@@ -12,7 +12,7 @@
             <table>
                 <tbody>
                     <tr><td>Category Name: </td><td><input type="text" size="40" name="new-category-name"></td></tr>                  
-                    <tr><td colspan="2"><input type="submit" name="status" value="create"></td></tr>
+                    <tr><td colspan="2"><button type="submit" name="status" value="create">create</button></td></tr>
                 </tbody>
             </table>
         </form>

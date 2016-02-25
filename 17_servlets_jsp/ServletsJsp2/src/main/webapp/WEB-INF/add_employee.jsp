@@ -28,7 +28,9 @@
                         <td><input type="hidden" name="new-role" value="${requestScope.webRole.webRoleId}">Role: </td>
                         <td>employee</td>
                     </tr>
-                    <tr><td colspan="2"><input type="submit" name="status" value="create"></td></tr>
+                    <tr>
+                        <td colspan="2"><button type="submit" name="status" value="create">create</button></td>
+                    </tr>
                 </tbody></table>
         </form>
     </jsp:attribute>

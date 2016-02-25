@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import nix.jdbcworkshop.entities.CarOrder;
+import nix.jdbcworkshop.entities.CarOrderStatus;
 import nix.jdbcworkshop.entities.EmployeeCarOrder;
 import nix.jdbcworkshop.utils.BeanFactory;
 import nix.jdbcworkshop.utils.DaoFactoryH2;
@@ -61,6 +63,20 @@ public class AddAssignmentServlet extends HttpServlet {
                 Long.valueOf(request.getParameter("employee-id")),
                 Long.valueOf(request.getParameter("car-order-id")));
         DaoFactoryH2.getEmployeeCarOrderDaoH2().create(newEmployeeCarOrder);
+
+        Short inProgressStatusId = null;
+        for (CarOrderStatus orderStatus : DaoFactoryH2.getCarOrderStatusDaoH2()
+                .getCarOrderStatusList()) {
+            if (orderStatus.getName().equals("in progress")) {
+                inProgressStatusId = orderStatus.getCarOrderStatusId();
+            }
+        }
+        CarOrder inProgressOrder = DaoFactoryH2.getCarOrderDaoH2().findCarOrderById(Long.valueOf(request
+                .getParameter("car-order-id")));
+        inProgressOrder.setCarOrderStatusId(inProgressStatusId);
+        inProgressOrder.setEndDate(null);
+        DaoFactoryH2.getCarOrderDaoH2().update(inProgressOrder);
+
         response.sendRedirect("assignments?car-order-id=" + request.getParameter("car-order-id"));
 
     }

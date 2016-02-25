@@ -21,7 +21,7 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author mednorcom
  */
-@WebServlet(name = "CreateUserServlet", urlPatterns = {"/add-client"})
+@WebServlet(name = "AddClientServlet", urlPatterns = {"/add-client"})
 public class AddClientServlet extends HttpServlet {
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();

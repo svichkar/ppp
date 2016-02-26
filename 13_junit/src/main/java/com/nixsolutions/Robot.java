@@ -49,9 +49,14 @@ public class Robot {
         direction += 90;
     }
 
-    public ByteArrayOutputStream getTrace() throws IOException {
+    protected ByteArrayOutputStream getTrace() throws IOException {
         trace.reset();
         trace.write((Xcoordinate + "," + Ycoordinate + "," + direction + "\n").getBytes());
         return trace;
+    }
+
+    public String getCurrentPosition()
+    {
+        return Xcoordinate + "," + Ycoordinate + "," + direction;
     }
 }

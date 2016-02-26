@@ -31,15 +31,15 @@ public class HashSetTest {
     }
 
     @Test
-    public void shouldAddElement() {
+    public void shouldAddElements() {
         //given
         //when
         boolean addOne = hs.add(1);
         boolean addTwo = hs.add(2);
         int size = hs.size();
         //then
-        Assert.assertEquals(true, addOne);
-        Assert.assertEquals(true, addTwo);
+        Assert.assertTrue(addOne);
+        Assert.assertTrue(addTwo);
         Assert.assertEquals(2, size);
     }
 
@@ -62,7 +62,7 @@ public class HashSetTest {
         //when
         boolean isContainsOne = hs.contains(1);
         //then
-        Assert.assertEquals(true, isContainsOne);
+        Assert.assertTrue(isContainsOne);
     }
 
     @Test
@@ -74,17 +74,17 @@ public class HashSetTest {
         boolean isContainsThird = hs.contains(3);
         boolean isContainsNull = hs.contains(null);
         //then
-        Assert.assertEquals(false, isContainsThird);
-        Assert.assertEquals(false, isContainsNull);
+        Assert.assertFalse(isContainsThird);
+        Assert.assertFalse(isContainsNull);
     }
 
     @Test
-    public void shouldThatInitHashSetIsEmpty() {
+    public void shouldEmptyHashSetReturnTrueInIsEmpty() {
         //given
         //when
         boolean isEmpty = hs.isEmpty();
         //then
-        Assert.assertEquals(true, isEmpty);
+        Assert.assertTrue(isEmpty);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class HashSetTest {
         //when
         boolean ret = hs.remove(1);
         //then
-        Assert.assertEquals(true, ret);
+        Assert.assertTrue(ret);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class HashSetTest {
         //when
         boolean ret = hs.remove(2);
         //then
-        Assert.assertEquals(false, ret);
+        Assert.assertFalse(ret);
     }
 
     @Test

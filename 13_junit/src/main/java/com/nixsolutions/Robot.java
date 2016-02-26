@@ -31,6 +31,10 @@ public class Robot {
         }
     }
 
+    public Coordinate getCurCoordinate() {
+        return curCoordinate;
+    }
+
     public void turnLeft() {
         changeIndex(1);
     }
@@ -59,4 +63,5 @@ public class Robot {
             this.index += i;
         }
     }
+
 }

@@ -3,29 +3,35 @@ package com.nixsolutions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Program {
 
     private static final Logger LOG = LogManager.getLogger(Program.class);
-    private Robot robot;
     private ByteArrayOutputStream bw;
+    private FileOutputStream fileOutputStream;
+    private Robot robot;
 
-    public Program() {
+    public Program(Robot robot, FileOutputStream fileOutputStream) {
+        this.robot = robot;
+        this.fileOutputStream = fileOutputStream;
         bw = new ByteArrayOutputStream();
-        robot = new Robot(bw);
+        robot.setBr(bw);
     }
 
-    public void executeCommand(String command, File file) {
+    public void executeCommand(String command) {
         if (isCorrectLine(command)) {
             moveRobot(command);
-            writeToFile(file);
+            writeToFile();
         }
     }
 
-    public void moveRobot(String way) {
+    private void moveRobot(String way) {
         for (String c : way.split("")) {
             switch (c) {
                 case "l": {
@@ -47,13 +53,19 @@ public class Program {
         }
     }
 
-    public void writeToFile(File file) {
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            fos.write(bw.toByteArray());
-        } catch (FileNotFoundException e) {
-            LOG.catching(e);
+    private void writeToFile() {
+        try {
+            fileOutputStream.write(bw.toByteArray());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.catching(e);
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    LOG.warn("Exception in the finally block");
+                }
+            }
         }
     }
 

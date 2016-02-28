@@ -31,6 +31,10 @@ public class Robot {
         }
     }
 
+    public void setBr(ByteArrayOutputStream br) {
+        this.br = br;
+    }
+
     public Coordinate getCurCoordinate() {
         return curCoordinate;
     }

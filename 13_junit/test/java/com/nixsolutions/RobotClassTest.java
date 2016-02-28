@@ -39,11 +39,14 @@ public class RobotClassTest {
 
     @Test
     public void fileValidateTest() throws IOException {
+        //given
         Program newProgram = new Program();
         Path trace = Paths.get(folder.newFolder().toURI());
         Path finalPath = trace.resolve("Trace.dat");
-        Robot myRobot = new Robot(new ByteArrayOutputStream());
+        Robot myRobot = new Robot(new ByteArrayOutputStream(),newProgram);
+        //when
         newProgram.sendCommands("frfflf", finalPath.toFile(),myRobot);
+        //than
         assertEquals(sample,Files.readAllLines(finalPath));
     }
 }

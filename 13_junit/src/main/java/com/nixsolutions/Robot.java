@@ -12,9 +12,10 @@ public class Robot {
     private int Ycoordinate = 0;
     private int direction = 90;
     ByteArrayOutputStream trace;
+    Program myProgram;
 
-    public Robot(ByteArrayOutputStream trace)
-    {
+    public Robot(ByteArrayOutputStream trace, Program myProgram) {
+        this.myProgram = myProgram;
         this.trace = trace;
     }
 
@@ -49,14 +50,17 @@ public class Robot {
         direction += 90;
     }
 
-    protected ByteArrayOutputStream getTrace() throws IOException {
+    public ByteArrayOutputStream getTrace() throws IOException {
         trace.reset();
         trace.write((Xcoordinate + "," + Ycoordinate + "," + direction + "\n").getBytes());
         return trace;
     }
 
-    public String getCurrentPosition()
-    {
+    public void writeToFileCommand() throws IOException {
+        myProgram.writeToFile();
+    }
+
+    public String getCurrentPosition() {
         return Xcoordinate + "," + Ycoordinate + "," + direction;
     }
 }

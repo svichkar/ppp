@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Program newProgram = new Program();
         File trace = new File("Trace.dat");
-        Robot myRobot = new Robot(new ByteArrayOutputStream());
+        Robot myRobot = new Robot(new ByteArrayOutputStream(),newProgram);
         newProgram.sendCommands("frfflf", trace, myRobot);
     }
 }

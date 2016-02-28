@@ -5,13 +5,22 @@ import java.io.*;
 public class Robot {
     private int x = 0;
     private int y = 0;
-    private Direction currentDirection = Direction.EAST;
-    OutputStream out = null;
+    private Direction currentDirection;
+    private OutputStream outputStream = null;
 
-    public Robot(OutputStream out) {
-        this.out = out;
+    public Robot() {
+        currentDirection = Direction.EAST;
     }
 
+    public void setOutputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
+
+    public OutputStream getOutputStream() {
+        return outputStream;
+    }
+
+    //Inner class for calculating direction.
     private enum Direction {
         NORTH(1), EAST(2), SOUTH(3), WEST(4);
 
@@ -30,6 +39,12 @@ public class Robot {
         }
     }
 
+    /**
+     * Moves one step forward.
+     * Logs its trace to OutputStream if it is provided.
+     *
+     * @throws IOException
+     */
     public void stepForward() throws IOException {
         if (currentDirection == Direction.EAST)
             x++;
@@ -40,12 +55,16 @@ public class Robot {
         if (currentDirection == Direction.SOUTH)
             y--;
         try {
-            out.write(currentPosition().getBytes());
+            if (outputStream != null)
+                outputStream.write(currentPosition().getBytes());
         } catch (IOException ex) {
             throw new IOException();
         }
     }
 
+    /**
+     * Turns right by 90 degrees.
+     */
     public void turnRight() {
         if (currentDirection != Direction.WEST) {
             currentDirection = currentDirection.right();
@@ -54,6 +73,9 @@ public class Robot {
         }
     }
 
+    /**
+     * Turns left by 90 degrees.
+     */
     public void turnLeft() {
         if (currentDirection != Direction.NORTH) {
             currentDirection = currentDirection.left();
@@ -62,7 +84,12 @@ public class Robot {
         }
     }
 
-    private String currentPosition() {
+    /**
+     * Generates info about current position and direction.
+     *
+     * @return String with position and direction.
+     */
+    protected String currentPosition() {
         return "X: " + x + " Y: " + y + " Direction: " + currentDirection.toString() + "\n";
     }
 }

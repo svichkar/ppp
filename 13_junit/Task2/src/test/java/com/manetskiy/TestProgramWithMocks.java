@@ -5,8 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-import static org.mockito.BDDMockito.*;
-import static org.junit.Assert.*;
 
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -15,19 +13,23 @@ import java.io.*;
 @RunWith(MockitoJUnitRunner.class)
 public class TestProgramWithMocks {
 
-    @Mock private Robot robot;
-    @Mock private File file;
-    @Mock private ByteArrayOutputStream toRobot;
-    @Mock private FileOutputStream toFile;
-    @InjectMocks private Program program;
+    @Mock
+    private FileOutputStream out;
+    @Mock
+    private Robot robot;
+    @InjectMocks
+    private Program program;
 
 
     @Test
-    public void shouldLaunchCommands() throws IOException {
+    public void shouldExecuteCommands() throws IOException {
         //given
-        assertEquals("Hello", program.hello());
         //when
+        program.executeCommand("lfrfQrrflf");
+        //then
+        verify(robot, times(4)).stepForward();
+        verify(robot, times(3)).turnRight();
+        verify(robot, times(2)).turnLeft();
 
-        //program.executeCommand("f");
     }
 }

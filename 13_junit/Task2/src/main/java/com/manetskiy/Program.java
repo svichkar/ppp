@@ -3,19 +3,18 @@ package com.manetskiy;
 import java.io.*;
 
 public class Program {
-    private File file;
-    private ByteArrayOutputStream toRobot = new ByteArrayOutputStream();
-    private OutputStream toFile = null;
-    private Robot robot = new Robot(toRobot);
+    private FileOutputStream out = null;
+    private Robot robot;
 
-    public Program(File file) {
-        this.file = file;
+    public Program(FileOutputStream out, Robot robot) {
+        this.out = out;
+        this.robot = robot;
+        robot.setOutputStream(out);
     }
 
-    public void executeCommand(String command) throws IOException {
+    protected void executeCommand(String command) throws IOException {
         char[] commands = command.toCharArray();
         try {
-            startLogging();
             for (int i = 0; i < commands.length; i++) {
                 char ch = commands[i];
                 switch (ch) {
@@ -29,23 +28,15 @@ public class Program {
                         robot.turnLeft();
                         break;
                     default:
-                        toRobot.write(("No action. Unknown command - " + ch + "\n").getBytes());
+                        out.write(("No action. Unknown command - " + ch + "\n").getBytes());
                         break;
                 }
             }
-            logCommand();
+        } catch (IOException ex) {
+            throw new IOException(ex);
         } finally {
-            if (toFile != null)
-                toFile.close();
+            if (out != null)
+                out.close();
         }
-    }
-
-    public void logCommand() throws IOException {
-        toRobot.writeTo(toFile);
-    }
-
-    private void startLogging() throws IOException {
-        toFile = new FileOutputStream(file);
-
     }
 }

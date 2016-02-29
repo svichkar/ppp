@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package java.com.nixsolutions;
 
 import java.io.FileWriter;
 import java.io.IOException;

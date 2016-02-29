@@ -1,6 +1,7 @@
 package com.nixsolutions;
 
-import main.java.com.nixsolutions.Robot;
+
+import java.com.nixsolutions.Robot;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

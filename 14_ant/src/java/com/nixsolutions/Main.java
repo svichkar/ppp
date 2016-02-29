@@ -1,4 +1,4 @@
-package com.nixsolutions;
+package java.com.nixsolutions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

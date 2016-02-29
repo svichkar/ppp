@@ -1,7 +1,5 @@
 package com.nixsolutions;
 
-import main.java.com.nixsolutions.Program;
-import main.java.com.nixsolutions.Robot;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,8 +11,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.mockito.BDDMockito.*;
-
+import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.given;
 /**
  * Created by sobolenko on 2/26/2016.
  */

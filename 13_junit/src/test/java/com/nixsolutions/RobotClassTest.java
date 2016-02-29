@@ -1,7 +1,5 @@
 package com.nixsolutions;
 
-import main.java.com.nixsolutions.Program;
-import main.java.com.nixsolutions.Robot;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

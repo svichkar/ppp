@@ -1,45 +1,69 @@
 package com.nixsolutions;
 
-//import java.awt.Point;
-import java.io.File;
-import java.io.FileNotFoundException;
-//import java.io.FileWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-/*
- * Реализовать класс Robot, умеющий выполнять команды turnLeft, turnRight, stepForward. Начальные координаты 0,0, смотрит в направлении
- *  оси X; команда шаг вперед изменяет координаты в соответствии с направлением и записывает их в файл. Реализовать класс Program, 
- *  выполняющий цепочку команд над роботом, заданным кодом (lffrflfrrfff).
+// TODO: Auto-generated Javadoc
+/*Реализовать класс Robot, умеющий выполнять команды turnLeft, turnRight, stepForward. Начальные координаты 0,0, смотрит в
+направлении оси X; команда шаг вперед изменяет координаты в соответствии с направлением и записывает их в поток. 
+Реализовать класс Program, выполняющий цепочку команд над роботом, заданным кодом (lffrflfrrfff) и генерирующий файл
+с маршрутом робота.
 */
 
+/**
+ * The Class Robot
+ */
 public class Robot {
-	private int x = 0;
+	
+	/** The value for axis x */
+	public int x = 0;
+	
+	/** The value for axis y */
 	private int y = 0;
+	
+	/** The angle */
 	private int angle = 0;
-	//private FileWriter fileWriter;
-	File file = new File("DataPoints.txt");
+	
+	/** The movements points. */
+	ByteArrayOutputStream movementsPoints;
 
-		
-	public void turnLeft(){
-		if(this.angle == 360)
-		{
+	/**
+	 * Instantiates a new robot.
+	 *
+	 * @param movementsPoints the movements points
+	 */
+	public Robot(ByteArrayOutputStream movementsPoints) {
+		this.movementsPoints = movementsPoints;
+	}
+
+	/**
+	 * Turn left
+	 */
+	public void turnLeft() {
+		if (this.angle == 360) {
 			this.angle = 0;
 		}
-		angle = angle+90;
+		angle = angle + 90;
 	}
-	
-	public void turnRight(){
-		if(this.angle == 0)
-		{
+
+	/**
+	 * Turn right
+	 */
+	public void turnRight() {
+		if (this.angle == 0) {
 			this.angle = 360;
 		}
-		angle = angle-90;
-		
+		angle = angle - 90;
+
 	}
-	
-	public void stepForward() throws IOException{
-		switch(angle){
+
+	/**
+	 * Step forward
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public void stepForward() throws IOException {
+		switch (angle) {
 		case 0:
 			x = x + 1;
 			break;
@@ -56,20 +80,38 @@ public class Robot {
 			x = x + 1;
 			break;
 		}
-		writePointsToFile();
-		
-	}
-	
-	public void writePointsToFile() throws IOException, FileNotFoundException {
-		PrintWriter out = new PrintWriter(file);
-		out.println("X: "+x+" and Y: "+y);
-		out.close();
-	}
-	
+		writeToStream();
 
-		
 	}
 
-	
+	/**
+	 * Write to stream.
+	 *
+	 * @return the byte array output stream
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public ByteArrayOutputStream writeToStream() throws IOException {
+		movementsPoints.reset();
+		movementsPoints.write(("X: " + x + " and Y: " + y + " ||| ").getBytes());
+		return movementsPoints;
+	}
 
+	/**
+	 * Gets the current point x.
+	 *
+	 * @return the int
+	 */
+	public int GetCurrentPointX() {
+		return x;
+	}
 
+	/**
+	 * Gets the current point y.
+	 *
+	 * @return the int
+	 */
+	public int GetCurrentPointY() {
+		return y;
+	}
+
+}

@@ -74,7 +74,6 @@ public class HashSetTest {
 		hashSetExample.add(FIRST_STRING_DATA);
 		// then
 		Assert.assertTrue(hashSetExample.size() == 1);
-		Assert.assertFalse(hashSetExample.size() == 2);
 	}
 
 	@Test
@@ -110,7 +109,7 @@ public class HashSetTest {
 		// when
 		hashSetExample.clear();
 		// then
-		Assert.assertTrue(hashSetExample.size() == 0);
+		Assert.assertTrue(hashSetExample.isEmpty());
 	}
 
 }

@@ -1,0 +1,52 @@
+<project name="14_ant" default="init" basedir=".">
+	<description>compile and wrap up project</description>
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="test" location="test"/>
+	<property name="classes" location="classes"/>
+	<property name="lib" location="lib"/>
+	<property name="dist" location="dist"/>
+
+	<!--for successful compile block-->
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+
+	<!--Path to additional JAR files-->
+	<path id="master-classpath">
+  		<fileset dir="${lib}">
+    		<include name="*.jar"/>
+  		</fileset>
+	</path>
+
+
+	<!--Tasks -->
+	<target name="init" description="create temp folder">
+		<!-- Create the time stamp -->
+		<mkdir dir="${classes}"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile src and test files">
+		<javac srcdir="${src}" destdir="${classes}"> 
+			<classpath refid="master-classpath"/>
+		</javac>
+		<javac srcdir="${test}" destdir="${classes}">
+			<classpath refid="master-classpath"/>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile" description="generate the distribution">
+		<!--Create the distribution directory -->
+		<mkdir dir="${dist}"/>
+
+		<!-- Put class without *Test.class in ${build} into the 14_ant.jar file -->
+		<jar jarfile="${dist}/14_ant.jar" basedir="${classes}" includes="**/*.class" excludes="**/*Test.class"/>
+	</target>
+
+
+	<target name="clean" description="clean up">
+		<!-- remove temp folders-->
+		<delete dir="${classes}"/>
+		<delete dir="${dist}"/>
+	</target>
+</project>

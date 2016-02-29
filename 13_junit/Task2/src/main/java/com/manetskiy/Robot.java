@@ -2,6 +2,10 @@ package com.manetskiy;
 
 import java.io.*;
 
+
+/**
+ * Simple robot that can move in 2D dimension and define its current position and direction.
+ */
 public class Robot {
     private int x = 0;
     private int y = 0;
@@ -41,7 +45,7 @@ public class Robot {
 
     /**
      * Moves one step forward.
-     * Logs its trace to OutputStream if it is provided.
+     * Logs its trace to <code>out</code> if it is provided.
      *
      * @throws IOException
      */
@@ -90,6 +94,6 @@ public class Robot {
      * @return String with position and direction.
      */
     protected String currentPosition() {
-        return "X: " + x + " Y: " + y + " Direction: " + currentDirection.toString() + "\n";
+        return "X: " + x + "; Y: " + y + "; Direction: " + currentDirection.toString() + "\n";
     }
 }

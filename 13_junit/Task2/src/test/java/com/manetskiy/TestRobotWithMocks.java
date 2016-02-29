@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
@@ -16,10 +17,11 @@ public class TestRobotWithMocks {
     @Mock
     OutputStream out;
 
-    @InjectMocks private Robot robot;
+    @InjectMocks
+    private Robot robot;
 
     @Test
-    public void shouldWriteItsLocationWhenDoesStepForward() throws IOException{
+    public void shouldWriteItsLocationWhenDoesStepForward() throws IOException {
         //given
         robot.setOutputStream(out);
         //when

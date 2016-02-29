@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.BDDMockito.verify;
 import static org.mockito.Mockito.times;
 
 import java.io.FileOutputStream;

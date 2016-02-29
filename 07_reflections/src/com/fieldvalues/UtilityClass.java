@@ -7,7 +7,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * Created by pantiukhin on 2/17/2016. Reflections
+ * Created by pantiukhin on 2/17/2016. 
  */
 public class UtilityClass {
     public Object getPublicValue(Object inputObject, String fieldName) throws NoSuchFieldException, IllegalAccessException {

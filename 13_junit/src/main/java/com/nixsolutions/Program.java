@@ -1,6 +1,5 @@
 package main.java.com.nixsolutions;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -9,13 +8,12 @@ import java.io.IOException;
  */
 public class Program {
     FileWriter fout;
-    File traceFile;
     Robot myRobot;
     private String[] commands;
 
-    public void sendCommands(String commands, File traceFile, Robot robot) throws IOException {
+    public void sendCommands(String commands, FileWriter fout, Robot robot) throws IOException {
         this.commands = commands.split("", commands.length());
-        this.traceFile = traceFile;
+        this.fout = fout;
         this.myRobot = robot;
         executeCommand();
     }
@@ -34,9 +32,7 @@ public class Program {
                         myRobot.stepForward();
                         break;
                 }
-                //Files.write(traceFile.toPath(),myRobot.getTrace().toByteArray());
-                //fout.write(myRobot.getTrace().toString());
-                myRobot.writeToFileCommand();
+                writeToFile();
             }
 
         } catch (IOException e) {
@@ -48,11 +44,8 @@ public class Program {
         fout.close();
     }
 
-    public void writeToFile() throws IOException {
+    private void writeToFile() throws IOException {
         try {
-            if (fout == null) {
-                fout = new FileWriter(traceFile);
-            }
             fout.write(myRobot.getTrace().toString());
         } catch (IOException e) {
             fout.flush();

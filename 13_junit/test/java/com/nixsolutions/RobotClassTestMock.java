@@ -26,12 +26,15 @@ public class RobotClassTestMock {
 
     @Test
     public void isMovementCorrect() throws IOException, NoSuchFieldException, IllegalAccessException {
+        //given
         String sample = "2,-1,90";
+        //when
         myRobot.stepForward();
         myRobot.stepForward();
         myRobot.turnRight();
         myRobot.stepForward();
         myRobot.turnLeft();
+        //then
         assertEquals(sample, myRobot.getCurrentPosition());
     }
 }

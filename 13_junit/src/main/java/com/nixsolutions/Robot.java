@@ -2,7 +2,6 @@ package main.java.com.nixsolutions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Created by sobolenko on 12/21/2015.
@@ -54,10 +53,6 @@ public class Robot {
         trace.reset();
         trace.write((Xcoordinate + "," + Ycoordinate + "," + direction + "\n").getBytes());
         return trace;
-    }
-
-    public void writeToFileCommand() throws IOException {
-        myProgram.writeToFile();
     }
 
     public String getCurrentPosition() {

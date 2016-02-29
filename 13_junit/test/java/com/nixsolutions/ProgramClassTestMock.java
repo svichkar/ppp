@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.ByteArrayOutputStream;
@@ -14,12 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static org.mockito.BDDMockito.doNothing;
-import static org.mockito.BDDMockito.times;
-import static org.mockito.BDDMockito.verify;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyByte;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.BDDMockito.*;
 
 /**
  * Created by sobolenko on 2/26/2016.
@@ -37,16 +31,15 @@ public class ProgramClassTestMock {
     Program myProgram;
 
     @Test
-    public void isMovementCorrect() throws IOException, NoSuchFieldException, IllegalAccessException {
+    public void isMetodsCall() throws IOException, NoSuchFieldException, IllegalAccessException {
         //given
         File trace = new File("Trace.dat");
         //when
-        Mockito.when(myRobot.getTrace()).thenReturn(new ByteArrayOutputStream());
-        Mockito.doNothing().when(myRobot).writeToFileCommand();
-        myProgram.sendCommands("frfflf", trace, myRobot);
+        when(myRobot.getTrace()).thenReturn(new ByteArrayOutputStream());
+        myProgram.sendCommands("lffrflfrrfff", fout, myRobot);
         //then
-        verify(myRobot, times(4)).stepForward();
-        verify(myRobot, times(1)).turnLeft();
-        verify(myRobot, times(1)).turnRight();
+        verify(myRobot, times(7)).stepForward();
+        verify(myRobot, times(2)).turnLeft();
+        verify(myRobot, times(3)).turnRight();
     }
 }

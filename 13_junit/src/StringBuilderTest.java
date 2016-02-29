@@ -1,8 +1,5 @@
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -10,12 +7,6 @@ import org.junit.Test;
  */
 public class StringBuilderTest {
     private StringBuilder sb;
-    private String functionName;
-
-    @BeforeClass
-    public static void executeBeforeAllTests() {
-        System.out.println("Testing the StringBuilder functions");
-    }
 
     @Before
     public void executeBeforeEachTest() {
@@ -24,17 +15,24 @@ public class StringBuilderTest {
     }
 
     @Test
-    public void testAppend() {
-        functionName = "append()";
+    public void shouldAddStringToString() {
         //When
-        sb.append("a");
+        sb.append(", world");
         //Then
-        Assert.assertEquals("helloa", sb.toString());
+        Assert.assertEquals("hello, world", sb.toString());
     }
 
     @Test
-    public void testDeleteCharAt() {
-        functionName = "deleteCharAt()";
+    public void shouldCancatenateVariousDataTypesInOneString() {
+        //When
+        sb.append('a' + " ").append(new Integer(12) + " ").append(new Double(12.0) + " ");
+        sb.append(new Long(1L) + " ").append(3 + " ").append(23f);
+        //Then
+        Assert.assertEquals("helloa 12 12.0 1 3 23.0", sb.toString());
+    }
+
+    @Test
+    public void shouldDeleteCharacterAtGivenIndex() {
         //When
         sb.deleteCharAt(0);
         //Then
@@ -42,8 +40,7 @@ public class StringBuilderTest {
     }
 
     @Test
-    public void testInsert() {
-        functionName = "insert()";
+    public void shouldInsertCharacterAtGivenIndex() {
         //When
         sb.insert(1, 'W');
         //Then
@@ -51,8 +48,7 @@ public class StringBuilderTest {
     }
 
     @Test
-    public void testSubstring() {
-        functionName = "substring()";
+    public void shouldReturnSubstringFromString() {
         //When
         String substr = sb.substring(0, 3);
         //Then
@@ -60,8 +56,7 @@ public class StringBuilderTest {
     }
 
     @Test
-    public void testReplace() {
-        functionName = "replace()";
+    public void shouldReplaceCharactersInString() {
         //When
         sb.replace(0, 2, "ye");
         //Then
@@ -69,21 +64,10 @@ public class StringBuilderTest {
     }
 
     @Test
-    public void testReverse() {
-        functionName = "reverse()";
+    public void shouldReverseCharactersInString() {
         //When
         sb.reverse();
         //Then
         Assert.assertEquals("olleh", sb.toString());
-    }
-
-    @After
-    public void executeAfterEachTest() {
-        System.out.println("Finished testing the " + functionName + " function");
-    }
-
-    @AfterClass
-    public static void executeAfterAllTests() {
-        System.out.println("Finished testing the StringBuilder functions");
     }
 }

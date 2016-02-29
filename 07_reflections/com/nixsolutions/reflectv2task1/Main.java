@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println("org.apache.commons.lang3.reflect:\n");
         printPublicValues(new PublicValuesThirdParty(), bean);
-        
+
         System.out.println("Finished, exiting.");
     }
 
@@ -43,10 +43,8 @@ public class Main {
             try {
                 value = pv.getPublicValue(object, name).toString();
                 System.out.println(name + ": " + value);
-            } catch (IllegalArgumentException | NoSuchFieldException
+            } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException
                     | SecurityException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }

@@ -1,5 +1,6 @@
 package com.nixsolutions.reflectv2task2;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -12,10 +13,10 @@ public class DirClassLoader extends ClassLoader implements PathClassLoader {
 
     @Override
     public void setPath(String dir) {
-        if (dir.endsWith("/")) {
+        if (dir.endsWith(File.separator)) {
             dirPath = dir;
         } else {
-            dirPath = dir + "/";
+            dirPath = dir + File.separator;
         }
     }
 
@@ -26,7 +27,7 @@ public class DirClassLoader extends ClassLoader implements PathClassLoader {
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
-        String classNamePath = (name.replace(".", "/")) + ".class";
+        String classNamePath = (name.replace(".", File.separator)) + ".class";
         String fullPath = dirPath + classNamePath;
 
         FileInputStream stream = null;

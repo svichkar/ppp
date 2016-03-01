@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MockLab" default="main" basedir=".">
+	<description>Laba 14 Ant</description>
+	<!-- Define property file and properties -->
+	<property file="project.properties"/>
+	<property name="src.dir" location="src/main/java"/>
+	<property name="build.dir" location="bin"/>
+	<property name="lib.dir" location="lib"/>
+	<property name="test.dir" location="src/test/java"/>
+	<property name="jar.name" value="${ant.project.name}.jar"/>
+	<property name="jar.loc" value="jar"/>
+	<property name="jar.out" value="${jar.loc}/${jar.name}"/>
+	<property name="junit.out" value="report"/>
+	<property name="haltonfailure" value="no"/>
+	<property name="printsummary" value="no"/>
+	<!-- Define classpath including jars and the classes after compiling-->
+	<path id="main.class.path">
+		<pathelement location="${build.dir}" />
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<!-- Define check properties target -->
+	<target name="check" description="Check properties are set">
+		<fail message="Some path properties are not set.">
+			<condition>
+				<or>
+					<equals arg1="${build.dir}" arg2=""/>
+					<equals arg1="${jar.loc}" arg2=""/>
+					<equals arg1="${junit.out}" arg2=""/>
+					<not>
+						<isset property="build.dir"/>
+					</not>
+					<not>
+						<isset property="jar.loc"/>
+					</not>
+					<not>
+						<isset property="junit.out"/>
+					</not>
+				</or>
+			</condition>
+		</fail>
+	</target>
+	<!-- Define clean temp files target -->
+	<target name="clean" description="Delete all generated files" depends="check">
+		<echo message="Cleaning temporary files started."/>
+		<delete dir="${jar.loc}"/>
+		<delete dir="${build.dir}" />			
+		<delete dir="${junit.out}"/>
+		<echo message="Cleaning temporary files finished."/>
+	</target>
+	<!-- Define initialization target -->
+	<target name="init" description="Create temporary files" depends="check">
+		<echo message="Creating necessary files started."/>
+		<mkdir dir="${build.dir}"/>		
+		<mkdir dir="${junit.out}"/>
+		<mkdir dir="${jar.loc}"/>
+		<echo message="Creating files finished."/>
+	</target>
+	<!-- Define compile all target -->
+	<target name="compile" description="Compile the project" depends="clean,init">
+		<echo message="Compiling ${ant.project.name} started."/>
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${build.dir}">
+			<classpath refid="main.class.path" />
+		</javac>
+		<javac includeantruntime="false" srcdir="${test.dir}" destdir="${build.dir}">
+			<classpath refid="main.class.path" />
+		</javac>		
+		<echo message="Compiling finished."/>
+	</target>	
+	<!-- Define test run target -->
+	<target name="test" description="Run project tests" depends="compile">	
+		<echo message="Running tests for ${ant.project.name} started."/>	
+		<tstamp>
+			<format property="time.stamp" pattern="yyyy-MM-dd_HH:mm:ss"/>
+		</tstamp>	
+		<junit printsummary="${printsummary}" haltonfailure="${haltonfailure}">
+			<classpath refid="main.class.path" />  
+			<formatter type="xml"/>
+			<batchtest fork="yes" todir="${junit.out}">
+				<fileset dir="${test.dir}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+		</junit>		 
+		<junitreport todir="${junit.out}">
+			<fileset dir="${junit.out}">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report todir="${junit.out}" format="frames"/>
+		</junitreport>			
+		<echo message="Running tests finished at ${time.stamp}."/>
+	</target>
+	<!-- Define distribution target -->
+	<target name="dist" description="JARs the project" depends="compile">
+		<echo message="Packaging ${ant.project.name} into a JAR started."/>
+		<jar destfile="${jar.out}" basedir="${build.dir}" excludes="**/*Test*"/>	
+		<echo message="Packaging into JAR finished."/>
+	</target>
+	<!-- Define default main target -->
+	<target name="main" depends="dist,test"/>
+</project>

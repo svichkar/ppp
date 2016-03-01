@@ -19,9 +19,9 @@ public class ProgramMockTest {
 	private Program programTestObj;
 
 	@Test
-	public void shouldIgnoreUnallowableSymbolsInPath() {
+	public void shouldCallCorrespondingMethodsIgnoringUnallowableSymbols() {
 		// given
-		String robotPath = "qllwlfrerf";
+		String robotPath = "qlLwlfr666ekkrFuuyRr4rffflLLl1";
 		// when
 		programTestObj.makeRobotMove(robotPath);
 		// then
@@ -30,6 +30,8 @@ public class ProgramMockTest {
 		order.verify(robotMockObj).stepForward();
 		order.verify(robotMockObj, times(2)).turnRight();
 		order.verify(robotMockObj).stepForward();
+		order.verify(robotMockObj, times(3)).turnRight();
+		order.verify(robotMockObj, times(3)).stepForward();
+		order.verify(robotMockObj, times(4)).turnLeft();
 	}
-
 }

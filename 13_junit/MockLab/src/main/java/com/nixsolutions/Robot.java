@@ -20,10 +20,6 @@ public class Robot implements IRobot {
 		coords = new Point(0, 0);
 		currentPosition = FacePosition.RIGHT;
 	}
-	
-	public Point getCoords() {
-		return coords;
-	}
 
 	public void setCoords(Point coords) {
 		this.coords = coords;
@@ -36,7 +32,7 @@ public class Robot implements IRobot {
 	public void setCurrentPosition(FacePosition position) {
 		this.currentPosition = position;
 	}
-	
+
 	public enum FacePosition {
 		UP(4), LEFT(3), DOWN(2), RIGHT(1);
 		private final int position;
@@ -109,7 +105,9 @@ public class Robot implements IRobot {
 		String location = "Position " + currentPosition.toString() + "; Coordinates [" + coords.x + ";" + coords.y + "]"
 				+ "\n";
 		try {
-			outStream.write(location.getBytes());
+			if (outStream != null) {
+				outStream.write(location.getBytes());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

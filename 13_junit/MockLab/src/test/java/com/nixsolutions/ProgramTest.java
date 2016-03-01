@@ -9,19 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class ProgramTest {
-
-	private Program programTestObj;
-
-	@Before
-	public void setUpBeforeTests() {
-		programTestObj = new Program();
-	}
 
 	@Rule
 	public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -29,6 +21,7 @@ public class ProgramTest {
 	@Test
 	public void shouldMoveAccordingToThePath() throws IOException {
 		// given
+		Program programTestObj = new Program();
 		File tempFile = tempFolder.newFile("tempFile.txt");
 		List<String> listActual = new ArrayList<>();
 		List<String> listExpected = new ArrayList<>();
@@ -38,7 +31,7 @@ public class ProgramTest {
 		listExpected.add("Position UP; Coordinates [1;3]");
 		listExpected.add("Position DOWN; Coordinates [1;2]");
 		listExpected.add("Position DOWN; Coordinates [1;1]");
-		listExpected.add("Position DOWN; Coordinates [1;0]");				
+		listExpected.add("Position DOWN; Coordinates [1;0]");
 		// when
 		programTestObj.makeRobotMove("lffrflfrrfff", tempFile);
 		try (BufferedReader lineReader = new BufferedReader(new FileReader(tempFile.getPath()))) {

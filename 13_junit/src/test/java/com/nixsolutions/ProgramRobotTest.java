@@ -18,7 +18,7 @@ public class ProgramRobotTest {
     public void shouldGenerateFileWithPathOfRobot() throws IOException {
         // given
         File file = folder.newFile();
-        Program program = new Program(file);
+        Program program = new Program();
         String commands = "lffrflfrrfff";
         String expectedResult = "0,0,E" + "\n"
                 + "0,0,N" + "\n"
@@ -34,7 +34,7 @@ public class ProgramRobotTest {
                 + "1,1,S" + "\n"
                 + "1,0,S" + "\n";
         // when
-        program.manipulateRobot(commands);
+        program.recordExecutionOfNewRobot(commands, file);
         // then
         assertEquals(expectedResult, readFile(file));
     }

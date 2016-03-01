@@ -1,4 +1,4 @@
-package java.com.nixsolutions;
+package com.nixsolutions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

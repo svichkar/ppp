@@ -1,12 +1,12 @@
 package com.nixsolutions;
 
-import java.com.nixsolutions.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by sobolenko on 2/25/2016.
  */
-public class RobotClassTest {
+public class RobotProgramMutualWorkTest {
 
     List<String> sample = new ArrayList<>();
 
@@ -46,12 +46,12 @@ public class RobotClassTest {
     @Test
     public void isOutputFileValid() throws IOException {
         //given
-        Program newProgram = new Program();
         Path trace = Paths.get(folder.newFolder().toURI()).resolve("Trace.dat");
-        FileWriter fout = new FileWriter(trace.toFile());
-        Robot myRobot = new Robot(new ByteArrayOutputStream(), newProgram);
+        FileOutputStream fout = new FileOutputStream(trace.toFile());
+        Robot myRobot = new Robot(fout);
+        Program newProgram = new Program(fout, myRobot);
         //when
-        newProgram.sendCommands("lffrflfrrfff", fout, myRobot);
+        newProgram.executeCommand("lffrflfrrfff");
         //then
         assertEquals(sample, Files.readAllLines(trace));
     }

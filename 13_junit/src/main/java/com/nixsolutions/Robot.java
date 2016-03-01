@@ -1,7 +1,9 @@
 package com.nixsolutions;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by sobolenko on 12/21/2015.
@@ -10,11 +12,9 @@ public class Robot {
     private int Xcoordinate = 0;
     private int Ycoordinate = 0;
     private int direction = 90;
-    ByteArrayOutputStream trace;
-    Program myProgram;
+    OutputStream trace;
 
-    public Robot(ByteArrayOutputStream trace, Program myProgram) {
-        this.myProgram = myProgram;
+     public Robot(OutputStream trace) {
         this.trace = trace;
     }
 
@@ -49,13 +49,8 @@ public class Robot {
         direction += 90;
     }
 
-    public ByteArrayOutputStream getTrace() throws IOException {
-        trace.reset();
+    public OutputStream getTrace() throws IOException {
         trace.write((Xcoordinate + "," + Ycoordinate + "," + direction + "\n").getBytes());
         return trace;
-    }
-
-    public String getCurrentPosition() {
-        return Xcoordinate + "," + Ycoordinate + "," + direction;
     }
 }

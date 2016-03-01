@@ -2,8 +2,6 @@ package com.nixsolutions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.ByteArrayOutputStream;
@@ -17,15 +15,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class RobotClassTestMock {
 
-    @Mock
-    ByteArrayOutputStream trace;
-
-    @InjectMocks
-    Robot myRobot;
-
     @Test
     public void isMovementCorrect() throws IOException, NoSuchFieldException, IllegalAccessException {
         //given
+        Robot myRobot = new Robot(new ByteArrayOutputStream());
         String sample = "2,-1,90";
         //when
         myRobot.stepForward();
@@ -34,6 +27,24 @@ public class RobotClassTestMock {
         myRobot.stepForward();
         myRobot.turnLeft();
         //then
-        assertEquals(sample, myRobot.getCurrentPosition());
+        assertEquals(sample, myRobot.getTrace().toString().replace("\n", ""));
+    }
+
+    @Test
+    public void isRotate360Correct() throws IOException, NoSuchFieldException, IllegalAccessException {
+        //given
+        Robot myRobot = new Robot(new ByteArrayOutputStream());
+        String sample = "0,0,90";
+        //when
+        myRobot.turnRight();
+        myRobot.turnRight();
+        myRobot.turnRight();
+        myRobot.turnRight();
+        myRobot.turnLeft();
+        myRobot.turnLeft();
+        myRobot.turnLeft();
+        myRobot.turnLeft();
+        //then
+        assertEquals(sample, myRobot.getTrace().toString().replace("\n", ""));
     }
 }

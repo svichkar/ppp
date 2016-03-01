@@ -1,52 +1,89 @@
 <project name="14_ant" default="init" basedir=".">
 	<description>compile and wrap up project</description>
-	<!-- set global properties for this build -->
+	<!-- set global properties -->
+	<property file="config/project.properties"/>
 	<property name="src" location="src"/>
 	<property name="test" location="test"/>
 	<property name="classes" location="classes"/>
 	<property name="lib" location="lib"/>
 	<property name="dist" location="dist"/>
+	<property name="reports" location="reports"/>
+	<property name="config" location="config"/>
 
-	<!--for successful compile block-->
+	<!-- Preparetion -->
+	<!--Historically, Ant always included its own runtime in the classpath 
+	made available to the javac task. So any libraries included with Ant, 
+	and any libraries available to ant, are automatically in your build's 
+	classpath whether you like it or not.
+	It was decided that this probably wasn't what most people wanted. 
+	So now there's an option for it.-->
 	<presetdef name="javac">
-		<javac includeantruntime="false" />
+		<javac includeantruntime="false"/>
 	</presetdef>
-
-	<!--Path to additional JAR files-->
-	<path id="master-classpath">
+	<!--Path to JAR files-->
+	<path id="lib.class.path">
   		<fileset dir="${lib}">
     		<include name="*.jar"/>
   		</fileset>
 	</path>
-
+	<path id="project.class.path">
+		<pathelement path="${lib}"/>
+		<pathelement path="${classes}"/>
+		<pathelement path="${config}"/>
+	</path>
 
 	<!--Tasks -->
 	<target name="init" description="create temp folder">
-		<!-- Create the time stamp -->
+		<echo>task "init" started</echo>
 		<mkdir dir="${classes}"/>
+		<echo>task "init" completed</echo> 
 	</target>
 
 	<target name="compile" depends="init" description="compile src and test files">
+		<echo>task "compile" started</echo>
 		<javac srcdir="${src}" destdir="${classes}"> 
-			<classpath refid="master-classpath"/>
+			<classpath refid="lib.class.path"/>
 		</javac>
 		<javac srcdir="${test}" destdir="${classes}">
-			<classpath refid="master-classpath"/>
+			<classpath refid="lib.class.path"/>
 		</javac>
+		<echo>task "compile" completed</echo> 
 	</target>
 
 	<target name="dist" depends="compile" description="generate the distribution">
+		<echo>task "dist" started</echo>
 		<!--Create the distribution directory -->
 		<mkdir dir="${dist}"/>
-
 		<!-- Put class without *Test.class in ${build} into the 14_ant.jar file -->
 		<jar jarfile="${dist}/14_ant.jar" basedir="${classes}" includes="**/*.class" excludes="**/*Test.class"/>
+		<echo>task "dist" completed</echo> 
 	</target>
 
+	<target name="test" depends="compile" description="run JUnit tests">
+		<echo>task "test" started</echo>
+		<!-- create folder for result-->
+		<mkdir dir="${reports}"/>
+		<!--run Junit tests -->
+		<junit printsummary="yes" haltonfailure="no" logfailedtests="yes">
+			<!--for correct work log4j jars-->
+			<classpath refid="lib.class.path"/>
+			<classpath refid="project.class.path"/>
+			<formatter type="plain" usefile="true"/>
+			<batchtest todir="${reports}">
+				<fileset dir="${classes}">
+      				<include name="**/*Test.class"/>
+   				</fileset>
+   			</batchtest>
+		</junit>
+		<echo>task "test" completed</echo> 
+	</target>
 
 	<target name="clean" description="clean up">
+		<echo>task "clean" started</echo>
 		<!-- remove temp folders-->
 		<delete dir="${classes}"/>
 		<delete dir="${dist}"/>
+		<delete dir="${reports}"/>
+		<echo>task "clean" completed</echo> 
 	</target>
 </project>

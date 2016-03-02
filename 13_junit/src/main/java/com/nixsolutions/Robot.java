@@ -1,7 +1,5 @@
 package com.nixsolutions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -14,7 +12,7 @@ public class Robot {
     private int direction = 90;
     OutputStream trace;
 
-     public Robot(OutputStream trace) {
+    public Robot(OutputStream trace) {
         this.trace = trace;
     }
 

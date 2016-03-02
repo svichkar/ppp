@@ -10,7 +10,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by sobolenko on 2/26/2016.
@@ -25,7 +26,7 @@ public class ProgramClassTestMock {
     Program myProgram;
 
     @Test
-    public void isMetodsCall() throws IOException, NoSuchFieldException, IllegalAccessException {
+    public void isMetodsCallInOrder() throws IOException, NoSuchFieldException, IllegalAccessException {
         //given
         //when
         myProgram.executeCommand("lffrflfrrfff");
@@ -39,8 +40,27 @@ public class ProgramClassTestMock {
         orderedExecution.verify(myRobot).stepForward();
         orderedExecution.verify(myRobot).stepForward();
         orderedExecution.verify(myRobot).stepForward();
+    }
+
+    @Test
+    public void isMetodsCallTimes() throws IOException, NoSuchFieldException, IllegalAccessException {
+        //given
+        //when
+        myProgram.executeCommand("lffrflfrrfff");
+        //then
         verify(myRobot, times(7)).stepForward();
         verify(myRobot, times(2)).turnLeft();
         verify(myRobot, times(3)).turnRight();
+    }
+
+    @Test
+    public void isIncorrectCommandNotWork() throws IOException, NoSuchFieldException, IllegalAccessException {
+        //given
+        //when
+        myProgram.executeCommand("get4");
+        //then
+        verify(myRobot, times(0)).stepForward();
+        verify(myRobot, times(0)).turnLeft();
+        verify(myRobot, times(0)).turnRight();
     }
 }

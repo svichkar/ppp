@@ -19,13 +19,14 @@ public class RobotClassTestMock {
     public void isMovementCorrect() throws IOException, NoSuchFieldException, IllegalAccessException {
         //given
         Robot myRobot = new Robot(new ByteArrayOutputStream());
-        String sample = "2,-1,90";
+        String sample = "3,-1,90";
         //when
         myRobot.stepForward();
         myRobot.stepForward();
         myRobot.turnRight();
         myRobot.stepForward();
         myRobot.turnLeft();
+        myRobot.stepForward();
         //then
         assertEquals(sample, myRobot.getTrace().toString().replace("\n", ""));
     }
@@ -44,6 +45,24 @@ public class RobotClassTestMock {
         myRobot.turnLeft();
         myRobot.turnLeft();
         myRobot.turnLeft();
+        //then
+        assertEquals(sample, myRobot.getTrace().toString().replace("\n", ""));
+    }
+
+    @Test
+    public void isReturnToStartCorrect() throws IOException, NoSuchFieldException, IllegalAccessException {
+        //given
+        Robot myRobot = new Robot(new ByteArrayOutputStream());
+        String sample = "0,0,270";
+        //when
+        myRobot.stepForward();
+        myRobot.turnLeft();
+        myRobot.stepForward();
+        myRobot.turnLeft();
+        myRobot.stepForward();
+        myRobot.turnLeft();
+        myRobot.stepForward();
+        myRobot.turnRight();
         //then
         assertEquals(sample, myRobot.getTrace().toString().replace("\n", ""));
     }

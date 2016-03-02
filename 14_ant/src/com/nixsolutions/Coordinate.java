@@ -41,6 +41,11 @@ public class Coordinate {
         this.y = y;
     }
 
+    public void moveXY(Coordinate coord) {
+        this.x += coord.getX();
+        this.y += coord.getY();
+    }
+
     @Override
     public String toString() {
         return "Coordinate{" +

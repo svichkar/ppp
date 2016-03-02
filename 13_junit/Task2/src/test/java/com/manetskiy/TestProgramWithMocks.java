@@ -23,14 +23,74 @@ public class TestProgramWithMocks {
 
 
     @Test
-    public void shouldExecuteCommands() throws IOException {
+    public void shouldTurnRobotLeft() throws IOException {
         //given
         //when
-        program.executeCommand("lfrfQrrflf");
+        program.executeCommand("l");
         //then
-        verify(robot, times(4)).stepForward();
-        verify(robot, times(3)).turnRight();
-        verify(robot, times(2)).turnLeft();
+        verify(robot, times(1)).turnLeft();
+    }
 
+    @Test
+    public void shouldTurnRobotRight() throws IOException {
+        //given
+        //when
+        program.executeCommand("r");
+        //then
+        verify(robot, times(1)).turnRight();
+
+    }
+
+    @Test
+    public void shouldMoveRobotForward() throws IOException {
+        //given
+        //when
+        program.executeCommand("f");
+        //then
+        verify(robot, times(1)).stepForward();
+
+    }
+
+    @Test
+    public void shouldMoveRobotAccordingToChainOfCommands() throws IOException {
+        //given
+        //when
+        program.executeCommand("rflrfrflr");
+        //then
+        verify(robot, times(3)).stepForward();
+        verify(robot, times(2)).turnLeft();
+        verify(robot, times(4)).turnRight();
+    }
+
+    @Test
+    public void shouldNotMoveRobotIfCommandListIsInvalid() throws IOException {
+        //given
+        //when
+        program.executeCommand("z~!@#$%^&*()950qAnb?\\w");
+        //then
+        verify(robot, never()).stepForward();
+        verify(robot, never()).turnLeft();
+        verify(robot, never()).turnRight();
+    }
+
+    @Test
+    public void invalidCommandShouldNotInterruptRobot() throws IOException {
+        //given
+        //when
+        program.executeCommand("fylr");
+        verify(robot, times(1)).stepForward();
+        verify(robot, times(1)).turnLeft();
+        verify(robot, times(1)).turnRight();
+    }
+
+    @Test
+    public void shouldIgnoreUppercaseCommands() throws IOException {
+        //given
+        //when
+        program.executeCommand("FLFR");
+        //then
+        verify(robot, never()).stepForward();
+        verify(robot, never()).turnLeft();
+        verify(robot, never()).turnRight();
     }
 }

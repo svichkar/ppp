@@ -17,8 +17,7 @@ public class ProgramAndRobotWithoutMocksTest {
         //given
         File outputFile = folder.newFile("route.txt");
         FileOutputStream fos = new FileOutputStream(outputFile);
-        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-        Robot robot = new Robot(byteArray);
+        Robot robot = new Robot();
         Program program = new Program(robot, fos);
         String etalonEndCoord = "Coordinate{x=1.0, y=0.0}";
 
@@ -30,6 +29,8 @@ public class ProgramAndRobotWithoutMocksTest {
             while ((newLine = br.readLine()) != null) {
                 lastLine = newLine;
             }
+        } finally {
+            fos.close();
         }
 
         //then

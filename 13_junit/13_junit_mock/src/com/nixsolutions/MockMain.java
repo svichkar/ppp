@@ -1,6 +1,5 @@
 package com.nixsolutions;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 
@@ -20,7 +19,7 @@ public class MockMain {
 		File file = new File("PointsMovement.txt");
 		FileWriter fileWriter = new FileWriter(file);
 		System.out.println("Starting movements of robot...");
-		Robot robot = new Robot(new ByteArrayOutputStream());
+		Robot robot = new Robot();
 		program.execute(robot, "lffrflfrrfff", fileWriter);
 		System.out.println("Robot has finished his movements!");
 	}

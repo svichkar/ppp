@@ -36,13 +36,15 @@ public class ProgramMockTest {
 	@Test
 	public void shouldBeExecuteAllCommandsStepForwardOfRobot() throws Exception {
 		// given
-		String command = "lffrflfrrfff";
+		String command = "frlfrlfrll";
 
 		// when
-		when(mockRobot.writeToStream()).thenReturn(new ByteArrayOutputStream());
+		when(mockRobot.stepForward()).thenReturn(new ByteArrayOutputStream());
 		program.execute(mockRobot, command, mockfileWriter);
 
 		// then
-		verify(mockRobot, times(7)).stepForward();
+		verify(mockRobot, times(3)).stepForward();
+		verify(mockRobot, times(4)).turnLeft();;
+		verify(mockRobot, times(3)).turnRight();
 	}
 }

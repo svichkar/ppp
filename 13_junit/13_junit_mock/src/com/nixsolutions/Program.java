@@ -1,6 +1,6 @@
 package com.nixsolutions;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,23 +11,24 @@ public class Program {
 
 	/** The robot. */
 	private Robot robot;
-	
+
 	/** The commands. */
 	private String commands;
-	
+
 	/** The file writer. */
-	FileWriter fileWriter;
-	
-	/** The file. */
-	File file;
+	private FileWriter fileWriter;
 
 	/**
 	 * Execute.
 	 *
-	 * @param robot the robot
-	 * @param commands the commands movements of Robot
-	 * @param fileWriter the file writer
-	 * @throws Exception the exception
+	 * @param robot
+	 *            the robot
+	 * @param commands
+	 *            the commands movements of Robot
+	 * @param fileWriter
+	 *            the file writer
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void execute(Robot robot, String commands, FileWriter fileWriter) throws Exception {
 		this.robot = robot;
@@ -39,8 +40,10 @@ public class Program {
 	/**
 	 * Launch robot about needed commands.
 	 *
-	 * @param commands the commands
-	 * @throws Exception the exception
+	 * @param commands
+	 *            the commands
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void launchRobot(String commands) throws Exception {
 		for (char separateCommand : commands.toCharArray()) {
@@ -52,8 +55,7 @@ public class Program {
 				robot.turnRight();
 				break;
 			case 'f':
-				robot.stepForward();
-				writePointsToFile();
+				writePointsToFile(robot.stepForward());
 				break;
 
 			default:
@@ -66,11 +68,12 @@ public class Program {
 	/**
 	 * Write points to file.
 	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	private void writePointsToFile() throws IOException {
+	private void writePointsToFile(ByteArrayOutputStream byteArrayOutputStream) throws IOException {
 		try {
-			fileWriter.write(robot.writeToStream().toString());
+			fileWriter.write(byteArrayOutputStream.toString());
 			fileWriter.flush();
 		} catch (IOException e) {
 			fileWriter.close();

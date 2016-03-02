@@ -11,33 +11,24 @@ import java.io.IOException;
 */
 
 /**
- * The Class Robot
+ * The Class Robot.
  */
 public class Robot {
-	
-	/** The value for axis x */
+
+	/** The value for axis x. */
 	public int x = 0;
-	
-	/** The value for axis y */
+
+	/** The value for axis y. */
 	private int y = 0;
-	
-	/** The angle */
+
+	/** The angle. */
 	private int angle = 0;
-	
+
 	/** The movements points. */
-	ByteArrayOutputStream movementsPoints;
+	ByteArrayOutputStream movementsPoints = new ByteArrayOutputStream();
 
 	/**
-	 * Instantiates a new robot.
-	 *
-	 * @param movementsPoints the movements points
-	 */
-	public Robot(ByteArrayOutputStream movementsPoints) {
-		this.movementsPoints = movementsPoints;
-	}
-
-	/**
-	 * Turn left
+	 * Turn left.
 	 */
 	public void turnLeft() {
 		if (this.angle == 360) {
@@ -47,7 +38,7 @@ public class Robot {
 	}
 
 	/**
-	 * Turn right
+	 * Turn right.
 	 */
 	public void turnRight() {
 		if (this.angle == 0) {
@@ -58,11 +49,12 @@ public class Robot {
 	}
 
 	/**
-	 * Step forward
+	 * Step forward.
 	 *
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	public void stepForward() throws IOException {
+	public ByteArrayOutputStream stepForward() throws IOException {
 		switch (angle) {
 		case 0:
 			x = x + 1;
@@ -76,11 +68,8 @@ public class Robot {
 		case 270:
 			y = y - 1;
 			break;
-		case 360:
-			x = x + 1;
-			break;
 		}
-		writeToStream();
+		return writeToStream();
 
 	}
 
@@ -88,12 +77,15 @@ public class Robot {
 	 * Write to stream.
 	 *
 	 * @return the byte array output stream
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	public ByteArrayOutputStream writeToStream() throws IOException {
+
+	private ByteArrayOutputStream writeToStream() throws IOException {
 		movementsPoints.reset();
 		movementsPoints.write(("X: " + x + " and Y: " + y + " ||| ").getBytes());
 		return movementsPoints;
+
 	}
 
 	/**
@@ -112,6 +104,18 @@ public class Robot {
 	 */
 	public int GetCurrentPointY() {
 		return y;
+	}
+
+	/**
+	 * Gets the current angle.
+	 *
+	 * @return the int
+	 */
+	public int GetCurrentAngle() {
+		if (angle == 360) {
+			angle = 0;
+		}
+		return angle;
 	}
 
 }

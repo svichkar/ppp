@@ -24,16 +24,18 @@ public class TemporaryFolderTest {
 	/**
 	 * Should be correct datain file.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Test
-	public void shouldBeCorrectDatainFile() throws Exception {
+	public void shouldBeCorrectDataInFile() throws Exception {
 		// given
 		String expectedData = "[X: 0 and Y: 1 ||| X: 0 and Y: 2 ||| X: 1 and Y: 2 ||| X: 1 and Y: 3 ||| X: 1 and Y: 2 ||| X: 1 and Y: 1 ||| X: 1 and Y: 0 ||| ]";
 		Program program = new Program();
 		Path path = Paths.get(folder.newFolder().toURI()).resolve("PointsMovement.txt");
 		FileWriter fileWriter = new FileWriter(path.toFile());
-		Robot robot = new Robot(new ByteArrayOutputStream());
+		// Robot robot = new Robot(new ByteArrayOutputStream());
+		Robot robot = new Robot();
 		program.execute(robot, "lffrflfrrfff", fileWriter);
 		// when
 		String actualData = Files.readAllLines(path).toString();

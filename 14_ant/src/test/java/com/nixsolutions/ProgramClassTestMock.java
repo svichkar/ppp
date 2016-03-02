@@ -28,6 +28,12 @@ public class ProgramClassTestMock {
     @InjectMocks
     Program myProgram;
 
+    /**
+     * check, that methods calls correctly
+     * @throws IOException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     @Test
     public void isMetodsCall() throws IOException, NoSuchFieldException, IllegalAccessException {
         //given

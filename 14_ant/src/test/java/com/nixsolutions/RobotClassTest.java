@@ -42,6 +42,10 @@ public class RobotClassTest {
         sample.add("1,0,180");
     }
 
+    /**
+     * check file with robot track
+     * @throws IOException
+     */
     @Test
     public void isOutputFileValid() throws IOException {
         //given

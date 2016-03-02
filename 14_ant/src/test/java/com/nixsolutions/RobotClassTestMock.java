@@ -23,6 +23,12 @@ public class RobotClassTestMock {
     @InjectMocks
     Robot myRobot;
 
+    /**
+     * check robot movement
+     * @throws IOException
+     * @throws NoSuchFieldException
+     * @throws IllegalAccessException
+     */
     @Test
     public void isMovementCorrect() throws IOException, NoSuchFieldException, IllegalAccessException {
         //given

@@ -1,0 +1,99 @@
+<project name="MyProject" default="zip">
+
+    <target name="init" description="initialize" depends="clean">
+        <property name="build.dir" value="out"/>
+        <property name="classes.dir" value="out/com/nixsolutions"/>
+        <property name="test.reports" value="out/reports"/>
+        <property name="source.out.dir" value="${user.dir}/out/com/nixsolutions"/>
+        <property name="src.dir" value="${user.dir}/src/main/java"/>
+        <property name="test.src.dir" value="${user.dir}/src/test/java"/>
+        <property name="doc.dir" value="${user.dir}/out/doc"/>
+        <property name="user.name" value="sobolenko"/>
+        <property name="version" value="${java.version}"/>
+        <property name="TODAY" value="02.03.2016"/>
+        <echo>Start making dirs</echo>
+        <mkdir dir="out"/>
+        <mkdir dir="${user.dir}/lib"/>
+        <mkdir dir="${test.reports}"/>
+        <mkdir dir="out/doc"/>
+        <echo>Finished making dirs</echo>
+        <path id="lib.classpath">
+            <fileset dir="${user.dir}/lib">
+                <include name="**/*.jar"/>
+                <exclude name="MyProject.jar"/>
+            </fileset>
+        </path>
+
+        <path id="sources.classpath">
+            <fileset dir="${source.out.dir}">
+                <include name="**/*.class"/>
+            </fileset>
+        </path>
+    </target>
+
+    <target name="compile" description="app compile" depends="init">
+        <echo>Start compile classes</echo>
+        <javac srcdir="${src.dir}" destdir="out">
+            <classpath refid="lib.classpath"/>
+        </javac>
+        <javac srcdir="${test.src.dir}" destdir="out">
+            <classpath refid="lib.classpath"/>
+            <classpath refid="sources.classpath"/>
+        </javac>
+        <echo>Compilation done</echo>
+    </target>
+
+    <target name="dist" description="compress to jar" depends="compile">
+        <echo>Create Jar file</echo>
+        <jar jarfile="${user.dir}/lib/MyProject.jar">
+            <fileset dir="${user.dir}/out">
+                <exclude name="**/*Test*.class"/>
+            </fileset>
+        </jar>
+        <echo>Jar created</echo>
+    </target>
+
+    <target name="test" description="tests start" depends="dist">
+        <echo>Tests start</echo>
+        <junit printsummary="yes" haltonfailure="yes" logfailedtests="yes">
+            <classpath refid="lib.classpath"/>
+            <classpath location="out"/>
+            <batchtest fork="yes" todir="${test.reports}">
+                <fileset dir="out">
+                    <include name="**/*Test*.class"/>
+                </fileset>
+                <formatter type="xml"/>
+                <formatter type="plain"/>
+            </batchtest>
+        </junit>
+        <echo>Tests done.</echo>
+    </target>
+
+    <target name="clean" description="clean all">
+        <echo>Start cleaning</echo>
+        <delete dir="out"/>
+        <echo>Cleaning done</echo>
+    </target>
+
+    <target name="docs" description="generate documentation" depends="test">
+        <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"/>
+    </target>
+
+    <target name="manifest" description="create manifest" depends="docs">
+        <manifest file="MANIFEST.MF">
+            <attribute name="Create_by" value="${user.name}"/>
+            <section name="common">
+                <attribute name="Specification-Title" value="Ant build system use"/>
+                <attribute name="Specification-Version" value="${version}"/>
+                <attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+                <attribute name="Implementation-Vendor" value="JavaPPP"/>
+            </section>
+        </manifest>
+    </target>
+
+    <target name="zip" description="zip create" depends="docs">
+        <zip destfile="${build.dir}/Classes.zip"
+             basedir="${src.dir}"/>
+    </target>
+
+</project>

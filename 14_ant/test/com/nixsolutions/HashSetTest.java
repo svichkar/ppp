@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 public class HashSetTest {
 
-    private HashSet hs = new HashSet();
+    private HashSet<Integer> hs = new HashSet<>();
 
     @Test
     public void shouldAddNullElement() {

@@ -17,66 +17,17 @@ import java.util.Locale;
 
 public class WorkWithData {
 
-	public static String lengthEachMonthsAtDesiredYear(int neededYear) {
-		String[][] lengthEachMonths = new String[2][12];
+	public static void lengthEachMonthsAtDesiredYear(int neededYear) {
 		int dayOfMonth = 0;
-		int month = 0;
-		String monthName = "";
-		String monthNameCollectWithDayOfMonth = "";
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, neededYear);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		for (int i = 0; i < 12; i++) {
 			calendar.set(Calendar.MONTH, i);
-			month = calendar.get(Calendar.MONTH);
 			dayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-			switch (month) {
-			case 0:
-				monthName = "January";
-				break;
-			case 1:
-				monthName = "February";
-				break;
-			case 2:
-				monthName = "March";
-				break;
-			case 3:
-				monthName = "April";
-				break;
-			case 4:
-				monthName = "May";
-				break;
-			case 5:
-				monthName = "June";
-				break;
-			case 6:
-				monthName = "July";
-				break;
-			case 7:
-				monthName = "August";
-				break;
-			case 8:
-				monthName = "September";
-				break;
-			case 9:
-				monthName = "October";
-				break;
-			case 10:
-				monthName = "November";
-				break;
-			case 11:
-				monthName = "December";
-				break;
-
-			}
-			lengthEachMonths[0][i] = monthName;
-			lengthEachMonths[1][i] = Integer.toString(dayOfMonth);
-
+			String monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
+		System.out.println(String.format("%s: %s", monthName, dayOfMonth));
 		}
-		for (int j = 0; j < 12; j++) {
-			monthNameCollectWithDayOfMonth += lengthEachMonths[0][j] + " - " + lengthEachMonths[1][j] + "; ";
-		}
-
-		return monthNameCollectWithDayOfMonth;
 	}
 
 	public static void dateForAllMondays(int year, int month) {
@@ -134,23 +85,24 @@ public class WorkWithData {
 
 			System.out.print(
 					"Please choose version of Java for working with dates. Please press button 7 or 8. To exit, press e.");
-			String versionJava = reader.readLine();
-			if (versionJava.equals("7")) {
+			String versionJavaInput = reader.readLine();
+			int versionJava = Integer.parseInt(versionJavaInput);
+			if (versionJava==7) {
 				// Java 7
 				System.out.println("You choose Java 7 version.");
 				Date date = new Date();
 				DateFormat dateFormat = DateFormat.getDateInstance();
 
 				dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.FULL, Locale.CANADA);
-				System.out.println("Lokal CANADA time is " + dateFormat.format(date));
+				System.out.println("Local CANADA time is " + dateFormat.format(date));
 				dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.FULL, Locale.GERMAN);
-				System.out.println("Lokal GERMANY time is " + dateFormat.format(date));
+				System.out.println("Local GERMANY time is " + dateFormat.format(date));
 				dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.FULL, pakistanLocale);
-				System.out.println("Lokal PAKISTAN time is " + dateFormat.format(date));
+				System.out.println("Local PAKISTAN time is " + dateFormat.format(date));
 				dateFormat = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM, vietnamLocale);
-				System.out.println("Lokal VIETNAM time is " + dateFormat.format(date));
+				System.out.println("Local VIETNAM time is " + dateFormat.format(date));
 				System.out.println();
-			} else if (versionJava.equals("8")) {
+			} else if (versionJava==8) {
 				// Date-Time API Java 8
 				System.out.println("You choose Java 8 version.");
 				LocalDate currentLocalDate = LocalDate.now();
@@ -164,11 +116,11 @@ public class WorkWithData {
 				String localTimeCanada = currentLocalDate.format(germanFormatter.withLocale(Locale.GERMAN));
 				String localTimePakistan = currentLocalDate.format(pakistanFormatter.withLocale(pakistanLocale));
 				String localTimeVietnam = currentLocalDate.format(VietnamFormatter.withLocale(vietnamLocale));
-				System.out.println("Lokal Germany time is " + localTimeGerman);
-				System.out.println("Lokal Canada time is " + localTimeCanada);
-				System.out.println("Lokal Pakistan time is " + localTimePakistan);
-				System.out.println("Lokal Vietnam time is " + localTimeVietnam);
-			} else if (versionJava.toUpperCase().equals("E")) {
+				System.out.println("Local Germany time is " + localTimeGerman);
+				System.out.println("Local Canada time is " + localTimeCanada);
+				System.out.println("Local Pakistan time is " + localTimePakistan);
+				System.out.println("Local Vietnam time is " + localTimeVietnam);
+			} else if (versionJavaInput.toUpperCase().equals("E")) {
 				System.out.println("");
 				System.out.print("Thanks. Bye.");
 				break;
@@ -183,8 +135,7 @@ public class WorkWithData {
 
 	public static void main(String[] args) throws IOException, ParseException {
 		//1
-		//String result = lengthEachMonthsAtDesiredYear(11-11-2015);
-		//System.out.println(result);
+		lengthEachMonthsAtDesiredYear(2015);
 		
 		//2
 		//dateForAllMondays(2015, 11);
